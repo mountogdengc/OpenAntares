@@ -61,6 +61,60 @@ internal sealed class EntryReader
         return text;
     }
 
+    /// <summary>Reads a field that must be present and is either a non-empty string or <c>null</c>.</summary>
+    public string? RequiredNullableString(string field)
+    {
+        if (!TryGet(field, out JsonElement value))
+        {
+            return null;
+        }
+
+        if (value.ValueKind == JsonValueKind.Null)
+        {
+            return null;
+        }
+
+        if (value.ValueKind != JsonValueKind.String || value.GetString() is not { Length: > 0 } text)
+        {
+            Error(field, $"Expected a non-empty string or null, found {Describe(value)}.");
+            return null;
+        }
+
+        return text;
+    }
+
+    public bool RequiredBool(string field)
+    {
+        if (!TryGet(field, out JsonElement value))
+        {
+            return false;
+        }
+
+        if (value.ValueKind is not (JsonValueKind.True or JsonValueKind.False))
+        {
+            Error(field, $"Expected true or false, found {Describe(value)}.");
+            return false;
+        }
+
+        return value.GetBoolean();
+    }
+
+    public ulong RequiredUInt64(string field)
+    {
+        if (!TryGet(field, out JsonElement value))
+        {
+            return 0;
+        }
+
+        if (value.ValueKind != JsonValueKind.Number || !value.TryGetUInt64(out ulong number))
+        {
+            Error(field, $"Expected a whole number from 0 to {ulong.MaxValue}, found {Describe(value)}.");
+            return 0;
+        }
+
+        return number;
+    }
+
     public long RequiredLong(string field, long min, long max)
     {
         if (!TryGet(field, out JsonElement value))
