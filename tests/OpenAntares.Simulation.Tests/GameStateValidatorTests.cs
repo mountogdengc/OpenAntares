@@ -61,6 +61,10 @@ public class GameStateValidatorTests
         { "outside the allocated range", s => s.NextEntityId = 3 },
         { "used by more than one entity", s => s.Planets[0].Id = new PlanetId(1) },
         { "Rules version 0 is not supported", s => s.RulesVersion = 0 },
+        { "planet:2: star star:60 does not exist", s => s.Planets[0].StarId = new StarId(60) },
+        { "planet:2: orbit 0 is below 1", s => s.Planets[0].Orbit = 0 },
+        { "star:4: name is empty", s => s.Stars[0].Name = "" },
+        { "star:4 has more than one planet in orbit 1", s => { s.Planets.Add(new PlanetState { Id = new PlanetId(s.AllocateId()), StarId = HomeStar, Orbit = 1, PlanetTypeId = "forge_world" }); } },
         { "increment must be odd", s => s.Random.Increment = 2 },
     };
 

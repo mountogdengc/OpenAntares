@@ -12,14 +12,16 @@ public class ContentLoaderTests
     private const string BaseRules = """
         {
           "rules": { "support_per_population": 100, "base_growth": 10, "max_surplus_growth": 40, "base_colony_capacity": 10 },
-          "starting_colony": { "planet_type": "home", "population": 2, "workforce": { "support": 1, "production": 1, "research": 0 } }
+          "starting_colony": { "planet_type": "home", "population": 2, "workforce": { "support": 1, "production": 1, "research": 0 } },
+          "galaxy": { "min_star_distance": 10, "min_planets_per_star": 1, "max_planets_per_star": 2, "star_names": ["A", "B"] },
+          "galaxy_sizes": [{ "id": "tiny", "name": "Tiny", "star_count": 2, "width": 100, "height": 100 }]
         }
         """;
 
     private const string BaseWorld = """
         {
           "planet_types": [
-            { "id": "home", "name": "Home", "support_per_worker": 300, "production_per_worker": 200, "research_per_worker": 200 }
+            { "id": "home", "name": "Home", "support_per_worker": 300, "production_per_worker": 200, "research_per_worker": 200, "generation_weight": 1 }
           ],
           "technologies": [
             { "id": "t1", "name": "T1", "cost": 100, "prerequisites": [] }
@@ -104,6 +106,13 @@ public class ContentLoaderTests
         { "rules.json", "\"base_growth\": 10,", "", "rules.json", null, "rules.base_growth", "Required field is missing" },
         { "world.json", "\"support_per_worker\": 300", "\"support_per_worker\": 0", "rules.json", null, "starting_colony.planet_type", "positive support_per_worker" },
         { "world.json", "\"production_per_worker\": 200", "\"production_per_worker\": 9223372036854775807", "(content)", null, null, "largest reachable production" },
+        { "world.json", "\"generation_weight\": 1", "\"generation_weight\": 0", "(content)", null, "generation_weight", "positive generation_weight" },
+        { "world.json", "\"generation_weight\": 1", "\"generation_weight\": -2", "world.json", "home", "generation_weight", "outside the allowed range" },
+        { "rules.json", "\"star_count\": 2", "\"star_count\": 3", "rules.json", "tiny", "star_count", "Needs 3 star names" },
+        { "rules.json", "\"max_planets_per_star\": 2", "\"max_planets_per_star\": 0", "rules.json", null, "galaxy.max_planets_per_star", "outside the allowed range" },
+        { "rules.json", "\"min_planets_per_star\": 1", "\"min_planets_per_star\": 3", "rules.json", null, "galaxy.max_planets_per_star", "less than min_planets_per_star" },
+        { "rules.json", "\"star_names\": [\"A\", \"B\"]", "\"star_names\": [\"A\", \"A\"]", "rules.json", null, "galaxy.star_names[1]", "more than once" },
+        { "rules.json", "\"width\": 100", "\"width\": 0", "rules.json", "tiny", "width", "outside the allowed range" },
     };
 
     [Theory]
@@ -154,6 +163,7 @@ public class ContentLoaderTests
         ContentLoadResult missing = ContentLoader.Load(new[] { new ContentSource("world.json", BaseWorld) });
         Assert.Contains(missing.Errors, e => e.Field == "rules" && e.Message.Contains("No file defines"));
         Assert.Contains(missing.Errors, e => e.Field == "starting_colony" && e.Message.Contains("No file defines"));
+        Assert.Contains(missing.Errors, e => e.Field == "galaxy" && e.Message.Contains("No file defines"));
 
         ContentLoadResult twice = ContentLoader.Load(new[]
         {
@@ -218,7 +228,7 @@ public class ContentLoaderTests
 
     private static string Serialize(ContentSet content) => JsonSerializer.Serialize(content);
 
-    private static string CoreContentDirectory()
+    internal static string CoreContentDirectory()
     {
         DirectoryInfo? directory = new(AppContext.BaseDirectory);
         while (directory is not null && !File.Exists(Path.Combine(directory.FullName, "OpenAntares.sln")))
