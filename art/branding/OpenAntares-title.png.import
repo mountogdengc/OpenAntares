@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbxy2csqxk4di"
-path="res://.godot/imported/OpenAntares-title.png-c66ac2f0cfbd4c311c50ba94c8b016f7.ctex"
+path="res://.godot/imported/OpenAntares-title.png-50fed19d59e074b4d9ce7d6caaa487b2.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://art/branding/OpenAntares-title.png"
-dest_files=["res://.godot/imported/OpenAntares-title.png-c66ac2f0cfbd4c311c50ba94c8b016f7.ctex"]
+dest_files=["res://.godot/imported/OpenAntares-title.png-50fed19d59e074b4d9ce7d6caaa487b2.ctex"]
 
 [params]
 
