@@ -20,7 +20,8 @@ C# web export isn't supported. That's accepted, because the web isn't a target.
 ```text
 OpenAntares.sln
 project.godot, OpenAntares.csproj    Godot project (root). Presentation layer only.
-game/                                Godot scenes and presentation C# scripts
+game/                                Presentation C# code, Main.tscn entry scene
+game/theme/openantares_theme.tres    The single UI theme (all visual styling)
 content/core/                        Base-game JSON content (techs, buildings, planet types, ...)
 src/OpenAntares.Simulation/          Game rules and state. Plain .NET class library, NO Godot reference.
 tests/OpenAntares.Simulation.Tests/  xUnit tests for the simulation library
@@ -60,6 +61,17 @@ The same state, commands, and seed must produce the same result on every machine
 - **Never rely on `GetHashCode()`.** .NET randomizes string hashes per process, so never use hash codes for anything saved, compared across runs, or order-dependent.
 - **Use invariant culture.** Parse and format numbers with `CultureInfo.InvariantCulture`, so content and saves behave the same in every locale.
 - **Process turns in explicit, documented phases.** Don't use events, signals, or frame callbacks to drive the simulation.
+
+### Build the interface in code, style it with one theme
+
+- **UI is built in C#,** not in scene files. Create controls in code and compose screens from reusable C# component classes (e.g. a resource readout with a breakdown tooltip). Most 4X screens are generated from changing game data anyway.
+- **Scene files are minimal.** `game/Main.tscn` is the entry point: a root node with a script that builds everything else. Only add another `.tscn` if the user asks for hands-on editor control of a specific screen, and keep it a thin shell that code fills in.
+- **All styling lives in `game/theme/openantares_theme.tres`,** which is applied at the root so every control inherits it. That covers fonts, colours, `StyleBox`es, margins, and button states. The user restyles the game in Godot's theme editor, so code must not override it:
+  - No hard-coded colours, fonts, font sizes, or styleboxes in C# (`AddThemeColorOverride` and similar are off-limits for styling).
+  - For variants such as a header label, a warning text, or a positive/negative value, define a **theme type variation** in the theme file and set `ThemeTypeVariation` in code.
+  - Name variations clearly and consistently, because they're the vocabulary the user sees in the theme editor.
+- **Layout uses containers and anchors,** not absolute pixel positions, so screens adapt to different resolutions and aspect ratios.
+- The theme file is shared with the user's editing. Read it fresh before changing it, and make minimal edits so their tweaks aren't lost.
 
 ### Put content in data files
 
