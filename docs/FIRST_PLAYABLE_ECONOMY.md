@@ -142,7 +142,7 @@ The simulation accepts these intents, tagged with issuing empire and expected tu
 - Set or clear the issuing empire's research target.
 - Mark the issuing empire ready, or withdraw readiness, for the current turn.
 
-Readiness is an ordinary command, not a session shortcut. The turn resolves once every human-controlled empire is ready; in the first playable that is the single starting empire, so marking ready resolves the turn immediately. Accepting a planning command from an empire clears that empire's readiness. Readiness is planning state and is saved. This keeps the command path free of a global player without defining multiplayer submission rules, timeouts, or AI turn order.
+Readiness is an ordinary command, not a session shortcut. The turn resolves once every human-controlled empire is ready; in the first playable that is the single starting empire, so marking ready resolves the turn immediately. A planning command that changes workforce or a target clears that empire's readiness. Repeating an unchanged valid choice preserves readiness and is a no-op. Readiness is planning state and is saved. Every new game and successfully resolved turn starts with all human-controlled empires unready. This keeps the command path free of a global player without defining multiplayer submission rules, timeouts, or AI turn order.
 
 Validate ownership, IDs, expected turn, nonnegative counts, workforce sum, prerequisites, and not-already-completed targets before mutation. A repeat command setting the same valid choice is a no-op. Rejected commands return a structured reason and leave all state unchanged. Unknown projects, negative reserves, duplicate completed IDs, invalid content references, and stale turn commands are errors.
 
@@ -158,9 +158,9 @@ Resolve from a validated immutable snapshot in these phases:
 2. Calculate support, net outputs, and growth inputs for every colony in stable ID order.
 3. Resolve growth using snapshot capacity and assign new workers to support.
 4. Add production and empire research contributions; resolve at most one project per colony and one technology per empire. Eligibility uses snapshot prerequisites.
-5. Validate the candidate state, increase the turn number once, and publish the candidate with a structured report.
+5. Clear all human-empire readiness flags, validate the candidate state, increase the turn number once, and publish the candidate with a structured report.
 
-If any phase fails, retain the preceding state and turn number. Do not publish a partially advanced turn. The initial planning period is turn 0; its first resolution produces turn 1. Reports identify this transition and the entities affected.
+If any phase fails, retain the preceding state and turn number. The readiness command that triggers resolution and the resolution itself are one atomic operation: on failure, retain the state and readiness flags from before that command. Do not publish a partially advanced turn or leave the triggering empire newly ready after a failed resolution. The initial planning period is turn 0; its first resolution produces turn 1. Reports identify this transition and the entities affected.
 
 Forecast and resolution use the same pure economic calculation. A forecast returns net outputs, growth, expected population and assignments, completions, reserve remainders, and limiting factors without modifying state or consuming randomness. Presentation supplies labels and formatting.
 
@@ -170,14 +170,17 @@ Every reported quantity (support produced and required, net production, net rese
 
 | Field | Meaning |
 | --- | --- |
-| Kind | A stable string such as `workers`, `building`, `shortage`, `growth_base`, `growth_surplus`, `cap`, `cost_paid`, or `rounding`. |
+| Kind | A stable string such as `workers`, `building`, `shortage`, `growth_base`, `growth_surplus`, `cap`, or `cost_paid`. |
 | Source ID | The planet type, building, or technology ID responsible, or empty for rule-level lines. |
 | Count | Optional multiplier, such as the number of assigned workers. |
 | Amount | Signed stored integer contribution, in the quantity's units. |
+| Division details | Optional integer numerator, positive divisor, quotient, and remainder supplied by the simulation where a calculation floors a division. These explain fractional loss without contributing another amount. |
 
-Lines sum exactly to the reported total. Caps and floors appear as their own negative lines, so unused support above the growth cap and amounts lost to flooring are visible rather than implied. Lines are ordered by phase and then by source ID. Presentation maps kinds and IDs to localized text; it never recomputes amounts.
+Line amounts sum exactly to the reported total. Caps appear as negative contributions in that quantity's units. Floors are explained by division details rather than a separate fractional amount that cannot be represented in the stored unit. The remainder satisfies `numerator = quotient * divisor + remainder`, with `0 <= remainder < divisor`; it describes a loss of `remainder / divisor` of one stored unit. Lines are ordered by phase and then by source ID. Presentation maps kinds and IDs to localized text and formats the supplied details; it never recomputes contributions.
 
-For the shortage example below, net production is reported as `workers` (3 × 200 = 600) followed by `shortage` (−86), totaling 514. The `shortage` line includes its rounding; a separate `rounding` line appears only where a rule floors a value that has no other deduction.
+For the shortage example below, net production is reported as `workers` (3 × 200 = 600) followed by `shortage` (−86), totaling 514. The shortage deduction includes rounding, with division details `360000 / 700`, quotient 514, remainder 200. Do not subtract the remainder again.
+
+For a fully supported colony with support surplus 305, growth lines are `growth_base` (+10) and `growth_surplus` (+30), totaling 40. The surplus line carries numerator 305, divisor 10, quotient 30, and remainder 5. This makes the half-hundredth of workforce growth lost to flooring explainable without violating integer contributions. If the uncapped surplus bonus exceeds 40, a separate `cap` line removes the excess growth. Unused support is reported separately in support units next to the workforce controls; it is not subtracted from growth in incompatible units.
 
 ## Worked turns
 
@@ -234,9 +237,9 @@ The UI may display 5.14 production and 3.42 research. Those are formatting choic
 
 Save complete planning state, including reserves, growth fractions, target IDs, completed content, deterministic ID allocation state, and PRNG state. Embed the effective content definitions and rule parameters used by this prototype. Version the rules implementation separately: embedded values cannot reproduce a formula that has changed in code.
 
-Load only supported schema and rules versions, validate the embedded content and entity relationships, and rebuild derived views. World invariants include: population at least one and at most capacity; workforce counts summing to population; growth progress between 0 and 99, and exactly 0 when population equals capacity; nonnegative reserves; each colony's planet type defined in content; and no target already completed or known. Unsupported versions receive a clear compatibility error; migration is not implicit. A failed load preserves the current session. Writes must not replace a valid save with a partial file.
+Load only supported schema and rules versions, validate the embedded content and entity relationships, and rebuild derived views. World invariants include: population at least one and at most capacity; workforce counts summing to population; growth progress between 0 and 99, and exactly 0 when population equals capacity; nonnegative reserves; each colony's planet type defined in content; and no target already completed or known. Readiness references existing human-controlled empires. The prototype requires at least one human-controlled empire, and a published planning state cannot have all human empires ready because that transition resolves atomically. Loading restores readiness without advancing a turn; a save violating this invariant is rejected. Unsupported versions receive a clear compatibility error; migration is not implicit. A failed load preserves the current session. Writes must not replace a valid save with a partial file.
 
-Reports include output breakdowns, shortage deductions, growth and capacity limits, new workforce assignments, completions, and reserve accounting. Warn when a cleared target needs another choice, but avoid repeating a modal warning every turn for intentional banking. The interface should expose gross output, deduction, net contribution, starting reserve, cost paid, and ending reserve from these same results.
+Reports include output breakdowns, shortage deductions, growth and capacity limits, new workforce assignments, completions, and reserve accounting. Report a completion and its cleared target once, with a link to choose another target. Thereafter show banking status while no target is selected; do not issue a warning or recurring modal prompt under the unlimited reserve policy. Warn only about consequences that cost output or progress, such as shortages. The interface should expose gross output, deduction, net contribution, starting reserve, cost paid, and ending reserve from these same results.
 
 ## Verification and playtest acceptance
 
@@ -252,8 +255,12 @@ The implementation must reproduce every worked example. Also verify:
 - Forecast values equal resolved values when planning state is unchanged.
 - Empire aggregation never credits another empire's research, even in a synthetic multi-empire fixture.
 - Breakdown lines sum to every reported total, in forecasts and resolved reports alike.
+- Division details satisfy the quotient/remainder identity, including surplus 305 and shortage rounding; metadata never causes a second deduction.
 - A colony on a non-home planet type in a synthetic fixture uses that type's per-worker rates.
-- A planning command clears readiness, and the turn does not resolve until every human empire is ready.
+- A changed planning choice clears readiness; an unchanged choice or rejected command preserves it.
+- The turn resolves only when every human empire is ready, resets readiness for the next turn, and never advances merely because a save is loaded.
+- Failed resolution rolls back the triggering readiness command along with the candidate turn.
+- A cleared target produces one completion report followed by banking status, without recurring warnings.
 
 For a first playtest, verify that the player can explain the growth-versus-output tradeoff, redirect progress without confusion, recognize when a building starts helping, and continue after reload. Observe whether generic banking, flat bonuses, or eventual access to all four buildings turns play into a routine sequence. Adjust fixture values or reconsider reserve policy using those observations; do not add advanced systems to obscure the result.
 
