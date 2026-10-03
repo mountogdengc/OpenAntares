@@ -5,6 +5,8 @@
     <ImplicitUsings>disable</ImplicitUsings>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RootNamespace>OpenAntares.Simulation</RootNamespace>
+    <!-- Overflow is an explicit error in the simulation, never a silent wraparound. -->
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <ItemGroup>
     <!-- Determinism guard: see BannedSymbols.txt. -->
