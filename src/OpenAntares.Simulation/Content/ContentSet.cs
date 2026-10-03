@@ -1,4 +1,5 @@
 using System.Collections.Immutable;
+using OpenAntares.Simulation.State;
 
 namespace OpenAntares.Simulation.Content;
 
@@ -8,6 +9,7 @@ namespace OpenAntares.Simulation.Content;
 /// </summary>
 public sealed record ContentSet(
     RulesParameters Rules,
+    StartingColonyDefinition StartingColony,
     ImmutableSortedDictionary<string, PlanetTypeDefinition> PlanetTypes,
     ImmutableSortedDictionary<string, BuildingDefinition> Buildings,
     ImmutableSortedDictionary<string, TechnologyDefinition> Technologies);
@@ -18,6 +20,12 @@ public sealed record RulesParameters(
     int BaseGrowth,
     int MaxSurplusGrowth,
     int BaseColonyCapacity);
+
+/// <summary>The colony each empire starts the game with.</summary>
+public sealed record StartingColonyDefinition(
+    string PlanetTypeId,
+    int Population,
+    Workforce Workforce);
 
 /// <summary>A planet type. Per-worker rates are stored hundredths.</summary>
 public sealed record PlanetTypeDefinition(
