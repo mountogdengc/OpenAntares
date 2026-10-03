@@ -10,13 +10,18 @@ namespace OpenAntares.Simulation.Content;
 
 /// <summary>
 /// Loads and validates content from JSON. Every file is an object whose optional sections are
-/// <c>rules</c>, <c>starting_colony</c>, <c>planet_types</c>, <c>buildings</c>, and
-/// <c>technologies</c>, so content can be split across files however is convenient. Files are read
+/// <c>rules</c>, <c>starting_colony</c>, <c>galaxy</c>, <c>galaxy_sizes</c>, <c>planet_types</c>,
+/// <c>buildings</c>, and <c>technologies</c>, so content can be split across files however is convenient. Files are read
 /// in ordinal name order. All problems are reported together with their file, entry ID, and field.
 /// </summary>
 public static class ContentLoader
 {
     private const string AllFiles = "(content)";
+
+    // Generous limits that keep generation arithmetic far from overflow.
+    private const int MaxStars = 1000;
+    private const int MaxPlanetsPerStar = 50;
+    private const int MaxCoordinate = 1_000_000;
 
     private static readonly JsonDocumentOptions JsonOptions = new()
     {
@@ -54,6 +59,8 @@ public static class ContentLoader
         private readonly List<ContentError> _errors = new();
         private (RulesParameters Value, string File)? _rules;
         private (StartingColonyDefinition Value, string File)? _startingColony;
+        private (GalaxyRules Value, string File)? _galaxy;
+        private readonly SortedDictionary<string, (GalaxySizeDefinition Value, string File)> _galaxySizes = new(StringComparer.Ordinal);
         private readonly SortedDictionary<string, (PlanetTypeDefinition Value, string File)> _planetTypes = new(StringComparer.Ordinal);
         private readonly SortedDictionary<string, (BuildingDefinition Value, string File)> _buildings = new(StringComparer.Ordinal);
         private readonly SortedDictionary<string, (TechnologyDefinition Value, string File)> _technologies = new(StringComparer.Ordinal);
@@ -90,6 +97,12 @@ public static class ContentLoader
                         case "starting_colony":
                             SetOnce(ref _startingColony, ReadStartingColony(section.Value, file), file, "starting_colony");
                             break;
+                        case "galaxy":
+                            SetOnce(ref _galaxy, ReadGalaxy(section.Value, file), file, "galaxy");
+                            break;
+                        case "galaxy_sizes":
+                            ReadEntries(section.Value, file, section.Name, ReadGalaxySize, _galaxySizes);
+                            break;
                         case "planet_types":
                             ReadEntries(section.Value, file, section.Name, ReadPlanetType, _planetTypes);
                             break;
@@ -101,7 +114,7 @@ public static class ContentLoader
                             break;
                         default:
                             _errors.Add(new ContentError(file, null, section.Name,
-                                "Unknown section. Expected rules, starting_colony, planet_types, buildings, or technologies."));
+                                "Unknown section. Expected rules, starting_colony, galaxy, galaxy_sizes, planet_types, buildings, or technologies."));
                             break;
                     }
                 }
@@ -120,7 +133,13 @@ public static class ContentLoader
                 _errors.Add(new ContentError(AllFiles, null, "starting_colony", "No file defines the starting_colony section."));
             }
 
+            if (_galaxy is null)
+            {
+                _errors.Add(new ContentError(AllFiles, null, "galaxy", "No file defines the galaxy section."));
+            }
+
             CheckPrerequisiteReferences();
+            CheckGeneration();
             CheckTechnologyCycles();
             if (_rules is { } rules && _startingColony is { } start)
             {
@@ -136,6 +155,8 @@ public static class ContentLoader
             var content = new ContentSet(
                 _rules!.Value.Value,
                 _startingColony!.Value.Value,
+                _galaxy!.Value.Value,
+                _galaxySizes.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 _planetTypes.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 _buildings.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 _technologies.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal));
@@ -195,7 +216,37 @@ public static class ContentLoader
             reader.RequiredString("name"),
             reader.RequiredLong("support_per_worker", 0, long.MaxValue),
             reader.RequiredLong("production_per_worker", 0, long.MaxValue),
-            reader.RequiredLong("research_per_worker", 0, long.MaxValue));
+            reader.RequiredLong("research_per_worker", 0, long.MaxValue),
+            reader.RequiredInt("generation_weight", 0, int.MaxValue));
+
+        private GalaxyRules? ReadGalaxy(JsonElement element, string file)
+        {
+            if (EntryReader.Create(element, file, null, "galaxy", _errors) is not { } reader)
+            {
+                return null;
+            }
+
+            var galaxy = new GalaxyRules(
+                MinStarDistance: reader.RequiredInt("min_star_distance", 0, MaxCoordinate),
+                MinPlanetsPerStar: reader.RequiredInt("min_planets_per_star", 1, MaxPlanetsPerStar),
+                MaxPlanetsPerStar: reader.RequiredInt("max_planets_per_star", 1, MaxPlanetsPerStar),
+                StarNames: reader.RequiredStringArray("star_names"));
+            reader.RejectUnknownFields();
+
+            if (galaxy.MaxPlanetsPerStar < galaxy.MinPlanetsPerStar)
+            {
+                reader.Error("max_planets_per_star", "Must not be less than min_planets_per_star.");
+            }
+
+            return galaxy;
+        }
+
+        private GalaxySizeDefinition ReadGalaxySize(EntryReader reader, string id) => new(
+            id,
+            reader.RequiredString("name"),
+            reader.RequiredInt("star_count", 1, MaxStars),
+            reader.RequiredInt("width", 1, MaxCoordinate),
+            reader.RequiredInt("height", 1, MaxCoordinate));
 
         private BuildingDefinition ReadBuilding(EntryReader reader, string id)
         {
@@ -379,6 +430,38 @@ public static class ContentLoader
 
                 path.RemoveAt(path.Count - 1);
                 state[id] = true;
+            }
+        }
+
+        private void CheckGeneration()
+        {
+            long totalWeight = _planetTypes.Values.Sum(p => (long)p.Value.GenerationWeight);
+            if (_planetTypes.Count > 0 && totalWeight == 0)
+            {
+                _errors.Add(new ContentError(AllFiles, null, "generation_weight", "At least one planet type needs a positive generation_weight."));
+            }
+            else if (totalWeight > int.MaxValue)
+            {
+                _errors.Add(new ContentError(AllFiles, null, "generation_weight", "Planet type generation weights must sum to at most 2147483647."));
+            }
+
+            if (_galaxy is not { } galaxy)
+            {
+                return;
+            }
+
+            if (_galaxySizes.Count == 0)
+            {
+                _errors.Add(new ContentError(galaxy.File, null, "galaxy_sizes", "At least one galaxy size must be defined."));
+            }
+
+            foreach (var (id, (size, file)) in _galaxySizes)
+            {
+                if (size.StarCount > galaxy.Value.StarNames.Length)
+                {
+                    _errors.Add(new ContentError(file, id, "star_count",
+                        $"Needs {size.StarCount} star names, but galaxy.star_names lists {galaxy.Value.StarNames.Length}."));
+                }
             }
         }
 

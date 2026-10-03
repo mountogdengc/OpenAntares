@@ -12,15 +12,26 @@ internal static class Fixtures
     public static readonly EmpireId Empire = new(1);
     public static readonly PlanetId HomePlanet = new(2);
     public static readonly ColonyId HomeColony = new(3);
+    public static readonly StarId HomeStar = new(4);
 
     public static ContentSet PrototypeContent() => new(
         new RulesParameters(SupportPerPopulation: 100, BaseGrowth: 10, MaxSurplusGrowth: 40, BaseColonyCapacity: 10),
         new StartingColonyDefinition("verdant_world", Population: 6, new Workforce(2, 2, 2)),
+        new GalaxyRules(MinStarDistance: 120, MinPlanetsPerStar: 1, MaxPlanetsPerStar: 4, StarNames: ImmutableArray.Create(
+            "Aldrane", "Ambrel", "Bessaro", "Calloran", "Corvane", "Dellith",
+            "Dunmere", "Esmorra", "Evandry", "Faldis", "Gethra", "Hollin",
+            "Ismere", "Javeth", "Kestra", "Lorvan", "Mirrin", "Nesh",
+            "Oberra", "Pallis", "Quillon", "Rhoven", "Savett", "Tarrow",
+            "Ulvane", "Vessar", "Wardel", "Xandre", "Yollis", "Zerith")),
+        GalaxySizes: Sorted(
+            new GalaxySizeDefinition("small", "Small", 12, 1000, 700),
+            new GalaxySizeDefinition("medium", "Medium", 16, 1200, 840),
+            new GalaxySizeDefinition("large", "Large", 20, 1400, 980)),
         PlanetTypes: Sorted(
-            new PlanetTypeDefinition("verdant_world", "Verdant World", 300, 200, 200),
-            new PlanetTypeDefinition("forge_world", "Forge World", 200, 300, 200),
-            new PlanetTypeDefinition("crystal_world", "Crystal World", 200, 200, 300),
-            new PlanetTypeDefinition("barren_rock", "Barren Rock", 100, 200, 100)),
+            new PlanetTypeDefinition("verdant_world", "Verdant World", 300, 200, 200, 2),
+            new PlanetTypeDefinition("forge_world", "Forge World", 200, 300, 200, 2),
+            new PlanetTypeDefinition("crystal_world", "Crystal World", 200, 200, 300, 2),
+            new PlanetTypeDefinition("barren_rock", "Barren Rock", 100, 200, 100, 3)),
         Buildings: Sorted(
             Building("fabrication_hall", "Fabrication Hall", 1200, null, EffectKinds.Production, 100),
             Building("cultivation_hub", "Cultivation Hub", 1000, "cultivation_methods", EffectKinds.Support, 200),
@@ -31,14 +42,18 @@ internal static class Fixtures
             Technology("measurement_methods", "Measurement Methods", 1200),
             Technology("habitat_methods", "Habitat Methods", 1600)));
 
-    /// <summary>Turn 0: one human empire with one colony of population 6 on a verdant world, assigned 2/2/2.</summary>
+    /// <summary>
+    /// Turn 0: one human empire with one colony of population 6 on a verdant world, assigned 2/2/2,
+    /// in a one-star galaxy. Built by hand so economy tests don't depend on generation.
+    /// </summary>
     public static GameState StartingState() => new()
     {
         Turn = 0,
-        NextEntityId = 4,
+        NextEntityId = 5,
         Random = Pcg32.FromSeed(12345, 1),
         Empires = { new EmpireState { Id = Empire, Controller = ControllerKind.Human } },
-        Planets = { new PlanetState { Id = HomePlanet, PlanetTypeId = "verdant_world" } },
+        Stars = { new StarState { Id = HomeStar, Name = "Aldrane", X = 100, Y = 100 } },
+        Planets = { new PlanetState { Id = HomePlanet, StarId = HomeStar, Orbit = 1, PlanetTypeId = "verdant_world" } },
         Colonies =
         {
             new ColonyState
@@ -52,14 +67,14 @@ internal static class Fixtures
         },
     };
 
-    /// <summary>Adds an empire with its own colony and returns its ID.</summary>
+    /// <summary>Adds an empire with its own colony on a new planet around the home star and returns its ID.</summary>
     public static EmpireId AddEmpire(GameState state, ControllerKind controller)
     {
         var empire = new EmpireId(state.AllocateId());
         var planet = new PlanetId(state.AllocateId());
         var colony = new ColonyId(state.AllocateId());
         state.Empires.Add(new EmpireState { Id = empire, Controller = controller });
-        state.Planets.Add(new PlanetState { Id = planet, PlanetTypeId = "forge_world" });
+        state.Planets.Add(new PlanetState { Id = planet, StarId = HomeStar, Orbit = state.Planets.Count + 1, PlanetTypeId = "forge_world" });
         state.Colonies.Add(new ColonyState
         {
             Id = colony,
