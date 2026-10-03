@@ -15,6 +15,7 @@ internal static class Fixtures
 
     public static ContentSet PrototypeContent() => new(
         new RulesParameters(SupportPerPopulation: 100, BaseGrowth: 10, MaxSurplusGrowth: 40, BaseColonyCapacity: 10),
+        new StartingColonyDefinition("verdant_world", Population: 6, new Workforce(2, 2, 2)),
         PlanetTypes: Sorted(
             new PlanetTypeDefinition("verdant_world", "Verdant World", 300, 200, 200),
             new PlanetTypeDefinition("forge_world", "Forge World", 200, 300, 200),

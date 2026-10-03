@@ -1,0 +1,22 @@
+{
+  "technologies": [
+    {
+      "id": "cultivation_methods",
+      "name": "Cultivation Methods",
+      "cost": 1200,
+      "prerequisites": []
+    },
+    {
+      "id": "measurement_methods",
+      "name": "Measurement Methods",
+      "cost": 1200,
+      "prerequisites": []
+    },
+    {
+      "id": "habitat_methods",
+      "name": "Habitat Methods",
+      "cost": 1600,
+      "prerequisites": []
+    }
+  ]
+}
