@@ -218,7 +218,7 @@ public class EconomyTests
     [Fact]
     public void SurplusGrowthFloorIsExplainedByDivisionDetails()
     {
-        ContentSet content = WithPlanetType(new PlanetTypeDefinition("test_world", "Test World", 405, 0, 0));
+        ContentSet content = WithPlanetType(new PlanetTypeDefinition("test_world", "Test World", 405, 0, 0, 0));
         GameState state = StartingState();
         state.Planets[0].PlanetTypeId = "test_world";
         Colony(state).Population = 1;

@@ -1,0 +1,19 @@
+{
+  "galaxy": {
+    "min_star_distance": 120,
+    "min_planets_per_star": 1,
+    "max_planets_per_star": 4,
+    "star_names": [
+      "Aldrane", "Ambrel", "Bessaro", "Calloran", "Corvane", "Dellith",
+      "Dunmere", "Esmorra", "Evandry", "Faldis", "Gethra", "Hollin",
+      "Ismere", "Javeth", "Kestra", "Lorvan", "Mirrin", "Nesh",
+      "Oberra", "Pallis", "Quillon", "Rhoven", "Savett", "Tarrow",
+      "Ulvane", "Vessar", "Wardel", "Xandre", "Yollis", "Zerith"
+    ]
+  },
+  "galaxy_sizes": [
+    { "id": "small", "name": "Small", "star_count": 12, "width": 1000, "height": 700 },
+    { "id": "medium", "name": "Medium", "star_count": 16, "width": 1200, "height": 840 },
+    { "id": "large", "name": "Large", "star_count": 20, "width": 1400, "height": 980 }
+  ]
+}

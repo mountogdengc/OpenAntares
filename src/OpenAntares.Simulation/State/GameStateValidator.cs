@@ -41,11 +41,13 @@ public static class GameStateValidator
     private static void ValidateIds(GameState state, List<string> errors)
     {
         CheckSortedUnique("Empires", state.Empires.Select(e => e.Id.Value).ToList(), errors);
+        CheckSortedUnique("Stars", state.Stars.Select(s => s.Id.Value).ToList(), errors);
         CheckSortedUnique("Planets", state.Planets.Select(p => p.Id.Value).ToList(), errors);
         CheckSortedUnique("Colonies", state.Colonies.Select(c => c.Id.Value).ToList(), errors);
 
         // All entity kinds share one ID counter, so an ID is never reused across kinds.
         var allIds = state.Empires.Select(e => e.Id.Value)
+            .Concat(state.Stars.Select(s => s.Id.Value))
             .Concat(state.Planets.Select(p => p.Id.Value))
             .Concat(state.Colonies.Select(c => c.Id.Value))
             .ToList();
@@ -102,8 +104,28 @@ public static class GameStateValidator
 
     private static void ValidatePlanets(ContentSet content, GameState state, List<string> errors)
     {
+        foreach (StarState star in state.Stars.Where(s => s.Name.Length == 0))
+        {
+            errors.Add($"{star.Id}: name is empty.");
+        }
+
+        foreach (var group in state.Planets.GroupBy(p => (p.StarId, p.Orbit)).Where(g => g.Count() > 1).OrderBy(g => g.Key.StarId).ThenBy(g => g.Key.Orbit))
+        {
+            errors.Add($"{group.Key.StarId} has more than one planet in orbit {group.Key.Orbit}.");
+        }
+
         foreach (PlanetState planet in state.Planets)
         {
+            if (state.FindStar(planet.StarId) is null)
+            {
+                errors.Add($"{planet.Id}: star {planet.StarId} does not exist.");
+            }
+
+            if (planet.Orbit < 1)
+            {
+                errors.Add($"{planet.Id}: orbit {planet.Orbit} is below 1.");
+            }
+
             if (!content.PlanetTypes.ContainsKey(planet.PlanetTypeId))
             {
                 errors.Add($"{planet.Id}: planet type '{planet.PlanetTypeId}' is not defined.");

@@ -9,6 +9,13 @@ public readonly record struct EmpireId(int Value) : IComparable<EmpireId>
     public override string ToString() => $"empire:{Value}";
 }
 
+/// <summary>Stable identifier of a star system.</summary>
+public readonly record struct StarId(int Value) : IComparable<StarId>
+{
+    public int CompareTo(StarId other) => Value.CompareTo(other.Value);
+    public override string ToString() => $"star:{Value}";
+}
+
 /// <summary>Stable identifier of a planet.</summary>
 public readonly record struct PlanetId(int Value) : IComparable<PlanetId>
 {

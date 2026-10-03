@@ -22,6 +22,7 @@ public sealed class GameState
     public Pcg32 Random { get; set; } = Pcg32.FromSeed(0, 0);
 
     public List<EmpireState> Empires { get; set; } = new();
+    public List<StarState> Stars { get; set; } = new();
     public List<PlanetState> Planets { get; set; } = new();
     public List<ColonyState> Colonies { get; set; } = new();
 
@@ -29,6 +30,7 @@ public sealed class GameState
     public int AllocateId() => NextEntityId++;
 
     public EmpireState? FindEmpire(EmpireId id) => Empires.FirstOrDefault(e => e.Id == id);
+    public StarState? FindStar(StarId id) => Stars.FirstOrDefault(s => s.Id == id);
     public PlanetState? FindPlanet(PlanetId id) => Planets.FirstOrDefault(p => p.Id == id);
     public ColonyState? FindColony(ColonyId id) => Colonies.FirstOrDefault(c => c.Id == id);
 
@@ -39,6 +41,7 @@ public sealed class GameState
         NextEntityId = NextEntityId,
         Random = Random.Clone(),
         Empires = Empires.Select(e => e.Clone()).ToList(),
+        Stars = Stars.Select(s => s.Clone()).ToList(),
         Planets = Planets.Select(p => p.Clone()).ToList(),
         Colonies = Colonies.Select(c => c.Clone()).ToList(),
     };
@@ -78,14 +81,29 @@ public sealed class EmpireState
     };
 }
 
+/// <summary>A star system on the galaxy map. Coordinates are whole map units.</summary>
+public sealed class StarState
+{
+    public StarId Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public int X { get; set; }
+    public int Y { get; set; }
+
+    public StarState Clone() => new() { Id = Id, Name = Name, X = X, Y = Y };
+}
+
 public sealed class PlanetState
 {
     public PlanetId Id { get; set; }
+    public StarId StarId { get; set; }
+
+    /// <summary>Position in the star system, counting outward from 1.</summary>
+    public int Orbit { get; set; }
 
     /// <summary>Content ID of the planet type.</summary>
     public string PlanetTypeId { get; set; } = string.Empty;
 
-    public PlanetState Clone() => new() { Id = Id, PlanetTypeId = PlanetTypeId };
+    public PlanetState Clone() => new() { Id = Id, StarId = StarId, Orbit = Orbit, PlanetTypeId = PlanetTypeId };
 }
 
 public sealed class ColonyState

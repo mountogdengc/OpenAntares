@@ -203,11 +203,26 @@ public static class SaveGame
 
         writer.WriteEndArray();
 
+        writer.WriteStartArray("stars");
+        foreach (StarState star in state.Stars)
+        {
+            writer.WriteStartObject();
+            writer.WriteNumber("id", star.Id.Value);
+            writer.WriteString("name", star.Name);
+            writer.WriteNumber("x", star.X);
+            writer.WriteNumber("y", star.Y);
+            writer.WriteEndObject();
+        }
+
+        writer.WriteEndArray();
+
         writer.WriteStartArray("planets");
         foreach (PlanetState planet in state.Planets)
         {
             writer.WriteStartObject();
             writer.WriteNumber("id", planet.Id.Value);
+            writer.WriteNumber("star", planet.StarId.Value);
+            writer.WriteNumber("orbit", planet.Orbit);
             writer.WriteString("planet_type", planet.PlanetTypeId);
             writer.WriteEndObject();
         }
@@ -276,9 +291,19 @@ public static class SaveGame
             state.Empires.Add(empire);
         });
 
+        ReadItems(reader, "stars", item => state.Stars.Add(new StarState
+        {
+            Id = new StarId(item.RequiredInt("id", 1, int.MaxValue)),
+            Name = item.RequiredString("name"),
+            X = item.RequiredInt("x", int.MinValue, int.MaxValue),
+            Y = item.RequiredInt("y", int.MinValue, int.MaxValue),
+        }));
+
         ReadItems(reader, "planets", item => state.Planets.Add(new PlanetState
         {
             Id = new PlanetId(item.RequiredInt("id", 1, int.MaxValue)),
+            StarId = new StarId(item.RequiredInt("star", 1, int.MaxValue)),
+            Orbit = item.RequiredInt("orbit", 1, int.MaxValue),
             PlanetTypeId = item.RequiredString("planet_type"),
         }));
 
