@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Godot;
+using OpenAntares.Game.Components;
 using OpenAntares.Game.Screens;
 using OpenAntares.Simulation;
 using OpenAntares.Simulation.Content;
@@ -24,6 +25,7 @@ public partial class Main : Control
 {
     private ContentSet? _content;
     private Control? _screen;
+    private readonly LoadGameDialog _loadDialog = new();
 
     public override void _Ready()
     {
@@ -41,6 +43,8 @@ public partial class Main : Control
         }
 
         _content = loaded.Content;
+        AddChild(_loadDialog);
+        _loadDialog.Loaded += game => ShowGame(new GameSession(game.Content, game.State));
         NewGameScreen newGame = ShowNewGame();
         _ = RunDevelopmentOptions(newGame);
     }
@@ -49,6 +53,7 @@ public partial class Main : Control
     {
         var screen = new NewGameScreen(_content!);
         screen.StartRequested += settings => StartGame(screen, settings);
+        screen.LoadRequested += _loadDialog.Open;
         SetScreen(screen);
         return screen;
     }
@@ -62,9 +67,16 @@ public partial class Main : Control
             return;
         }
 
-        var session = new GameSession(_content!, result.State);
-        EmpireId viewer = result.State.Empires.First(e => e.Controller == ControllerKind.Human).Id;
-        SetScreen(new GameScreen(session, viewer));
+        ShowGame(new GameSession(_content!, result.State));
+    }
+
+    /// <summary>Shows a game, new or loaded, to its first human empire.</summary>
+    private void ShowGame(GameSession session)
+    {
+        EmpireId viewer = session.State.Empires.First(e => e.Controller == ControllerKind.Human).Id;
+        var screen = new GameScreen(session, viewer);
+        screen.LoadRequested += _loadDialog.Open;
+        SetScreen(screen);
     }
 
     private void SetScreen(Control screen)
