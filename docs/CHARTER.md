@@ -182,6 +182,16 @@ This improves:
 - AI evaluation
 - reproducibility of bugs
 
+### Multiplayer-Ready Architecture
+
+Core simulation and turn resolution should not assume a single human player.
+
+Player commands, AI commands, and remote-player commands should pass through the same validation and turn-processing systems.
+
+Network transport should remain separate from game rules.
+
+This keeps multiplayer possible later without restructuring the simulation, and it ensures AI empires play by the same rules as human players.
+
 ### Testable Systems
 
 Core simulation systems should support automated tests independently of the UI.
