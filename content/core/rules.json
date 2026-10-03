@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "support_per_population": 100,
+    "base_growth": 10,
+    "max_surplus_growth": 40,
+    "base_colony_capacity": 10
+  },
+  "starting_colony": {
+    "planet_type": "verdant_world",
+    "population": 6,
+    "workforce": { "support": 2, "production": 2, "research": 2 }
+  }
+}
