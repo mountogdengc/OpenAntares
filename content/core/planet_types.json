@@ -1,0 +1,32 @@
+{
+  "planet_types": [
+    {
+      "id": "verdant_world",
+      "name": "Verdant World",
+      "support_per_worker": 300,
+      "production_per_worker": 200,
+      "research_per_worker": 200
+    },
+    {
+      "id": "forge_world",
+      "name": "Forge World",
+      "support_per_worker": 200,
+      "production_per_worker": 300,
+      "research_per_worker": 200
+    },
+    {
+      "id": "crystal_world",
+      "name": "Crystal World",
+      "support_per_worker": 200,
+      "production_per_worker": 200,
+      "research_per_worker": 300
+    },
+    {
+      "id": "barren_rock",
+      "name": "Barren Rock",
+      "support_per_worker": 100,
+      "production_per_worker": 200,
+      "research_per_worker": 100
+    }
+  ]
+}

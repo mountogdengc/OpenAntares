@@ -1,0 +1,32 @@
+{
+  "buildings": [
+    {
+      "id": "fabrication_hall",
+      "name": "Fabrication Hall",
+      "cost": 1200,
+      "prerequisites": [],
+      "effects": [{ "kind": "production", "amount": 100 }]
+    },
+    {
+      "id": "cultivation_hub",
+      "name": "Cultivation Hub",
+      "cost": 1000,
+      "prerequisites": ["cultivation_methods"],
+      "effects": [{ "kind": "support", "amount": 200 }]
+    },
+    {
+      "id": "analysis_lab",
+      "name": "Analysis Lab",
+      "cost": 1200,
+      "prerequisites": ["measurement_methods"],
+      "effects": [{ "kind": "research", "amount": 100 }]
+    },
+    {
+      "id": "habitat_extension",
+      "name": "Habitat Extension",
+      "cost": 1600,
+      "prerequisites": ["habitat_methods"],
+      "effects": [{ "kind": "capacity", "amount": 2 }]
+    }
+  ]
+}
