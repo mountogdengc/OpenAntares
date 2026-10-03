@@ -1,0 +1,24 @@
+T:System.Random;Not stable across .NET versions. Use the simulation's seeded PRNG.
+M:System.Guid.NewGuid;Not deterministic. Allocate stable IDs from game state.
+P:System.DateTime.Now;Wall-clock time breaks determinism.
+P:System.DateTime.UtcNow;Wall-clock time breaks determinism.
+P:System.DateTime.Today;Wall-clock time breaks determinism.
+P:System.DateTimeOffset.Now;Wall-clock time breaks determinism.
+P:System.DateTimeOffset.UtcNow;Wall-clock time breaks determinism.
+T:System.Diagnostics.Stopwatch;Timing must not affect simulation outcomes.
+M:System.Math.Sqrt(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Sin(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Cos(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Tan(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Asin(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Acos(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Atan(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Exp(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Log(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Log10(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Cbrt(System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Pow(System.Double,System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Math.Atan2(System.Double,System.Double);Floating-point results can differ across CPUs. Use integer or fixed-point helpers.
+T:System.MathF;Floating-point maths can differ across CPUs. Use integer or fixed-point helpers.
+M:System.Object.GetHashCode;Hash codes are randomized per process. Never use them for ordering or saved data.
+M:System.String.GetHashCode;String hashes are randomized per process.
