@@ -22,6 +22,8 @@ public partial class GameScreen : VBoxContainer
     private readonly GalaxyMap _map = new();
     private readonly StarPanel _starPanel = new();
     private readonly ColonyPanel _colonyPanel = new();
+    private readonly Button _endTurn = new();
+    private readonly TurnReportDialog _report = new();
 
     /// <param name="viewer">The empire this screen is shown to. Presentation-only; the simulation has no "current player".</param>
     public GameScreen(GameSession session, EmpireId viewer)
@@ -49,6 +51,12 @@ public partial class GameScreen : VBoxContainer
         _message.TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis;
         _message.MouseFilter = MouseFilterEnum.Stop;
         topRow.AddChild(_message);
+        _endTurn.Pressed += EndTurn;
+        topRow.AddChild(_endTurn);
+
+        AddChild(_report);
+        _report.ChooseProjectRequested += star => _map.Select(star);
+        _report.ChooseResearchRequested += _researchBar.OpenPicker;
 
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
         AddChild(body);
@@ -87,6 +95,21 @@ public partial class GameScreen : VBoxContainer
 
         // Rebuild after the triggering control's signal has finished.
         Callable.From(Refresh).CallDeferred();
+
+        if (outcome.Report is { } report)
+        {
+            _report.ShowReport(_session.Content, _session.State, report, _viewer);
+        }
+    }
+
+    /// <summary>
+    /// Marks the viewer's empire ready, which resolves the turn once every human empire is ready.
+    /// Pressing again while waiting withdraws readiness.
+    /// </summary>
+    private void EndTurn()
+    {
+        bool ready = _session.State.FindEmpire(_viewer)!.Ready;
+        Execute(new SetReadyCommand(_viewer, _session.State.Turn, !ready));
     }
 
     private void Refresh()
@@ -94,6 +117,8 @@ public partial class GameScreen : VBoxContainer
         GameState state = _session.State;
         TurnEconomy forecast = _session.Forecast();
         _turnLabel.Text = $"Turn {state.Turn}";
+        bool waiting = state.FindEmpire(_viewer)!.Ready;
+        _endTurn.Text = waiting ? "Waiting for others (cancel)" : "End Turn";
         _researchBar.ShowEmpire(_session.Content, state, _viewer, forecast);
 
         if (_map.Selected is not { } selected)

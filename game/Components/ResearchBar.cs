@@ -34,6 +34,13 @@ public partial class ResearchBar : HBoxContainer
         };
     }
 
+    /// <summary>Opens the target list, e.g. after a technology completes.</summary>
+    public void OpenPicker()
+    {
+        _picker.GrabFocus();
+        _picker.ShowPopup();
+    }
+
     public void ShowEmpire(ContentSet content, GameState state, EmpireId empireId, TurnEconomy forecast)
     {
         _empire = empireId;
