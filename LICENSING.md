@@ -14,9 +14,9 @@ Game content data files (technologies, buildings, species traits, and other defi
 
 An asset or file that uses a different license must say so, either in a note next to the file or in the list below.
 
-Third-party components keep their own licenses:
+Third-party components keep their own licenses. There are currently none in the repository.
 
-- `icon.svg` is the Godot Engine logo, which comes with the default Godot project template. It is by Andrea Calabró and licensed under CC BY 4.0. It is a placeholder and will be replaced with an original icon.
+The OpenAntares logo and title art in `art/branding/` are original assets under CC0 1.0, like the other game assets.
 
 ## Contributing
 

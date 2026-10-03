@@ -22,6 +22,7 @@ OpenAntares.sln
 project.godot, OpenAntares.csproj    Godot project (root). Presentation layer only.
 game/                                Presentation C# code, Main.tscn entry scene
 game/theme/openantares_theme.tres    The single UI theme (all visual styling)
+art/                                 Original assets (CC0); art/branding/ holds logo and title art
 content/core/                        Base-game JSON content (techs, buildings, planet types, ...)
 src/OpenAntares.Simulation/          Game rules and state. Plain .NET class library, NO Godot reference.
 tests/OpenAntares.Simulation.Tests/  xUnit tests for the simulation library
@@ -102,4 +103,4 @@ The same state, commands, and seed must produce the same result on every machine
 - Code is MIT. Original assets are CC0. Docs are CC BY 4.0. Content JSON counts as code (MIT). See [LICENSING.md](LICENSING.md).
 - Never add copyrighted assets, names, or text from commercial games. Don't copy a legacy game's interface or mechanics feature-for-feature.
 - Any third-party file must keep its license, and that license must be recorded in LICENSING.md.
-- `icon.svg` is the placeholder Godot logo (CC BY 4.0). Replace it, don't build on it.
+- Branding (logo `art/branding/icon.png`, title art `art/branding/OpenAntares-title.png`) lives in `art/branding/`. `icon.png` is the project icon.
