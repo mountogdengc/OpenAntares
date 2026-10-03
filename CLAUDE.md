@@ -1,8 +1,36 @@
 # OpenAntares
 
-Open-source, turn-based space 4X game built in Godot 4.7 (GL Compatibility renderer, Jolt physics). The setting, code, art, and systems are all original.
+Open-source, turn-based space 4X game built in Godot 4.7 (.NET build, GL Compatibility renderer, Jolt physics). The setting, code, art, and systems are all original. Targets: Windows, Linux, macOS.
 
 [docs/CHARTER.md](docs/CHARTER.md) is the source of truth for scope and design intent. Read it before starting a new system. If a request conflicts with the charter, point that out instead of silently following either one.
+
+## Technology stack
+
+| Concern | Choice |
+| --- | --- |
+| Language | **C# everywhere.** No GDScript, because a cross-language boundary loses typing and adds friction. |
+| Engine | Godot 4.7 **.NET build** (the standard build can't run C#) |
+| Content data | **JSON** files, editable without any programming tools |
+| Tests | **xUnit**, run with `dotnet test`, no Godot needed |
+
+C# web export isn't supported. That's accepted, because the web isn't a target.
+
+## Project layout
+
+```text
+OpenAntares.sln
+project.godot, OpenAntares.csproj    Godot project (root). Presentation layer only.
+game/                                Godot scenes and presentation C# scripts
+content/core/                        Base-game JSON content (techs, buildings, planet types, ...)
+src/OpenAntares.Simulation/          Game rules and state. Plain .NET class library, NO Godot reference.
+tests/OpenAntares.Simulation.Tests/  xUnit tests for the simulation library
+docs/                                Charter and design docs
+```
+
+- The Godot project references the simulation library through `<ProjectReference>`. The simulation library must never reference GodotSharp. That is how the simulation/presentation split is enforced.
+- Godot's root `.csproj` compiles every `.cs` file under the project folder by default. Exclude `src/**` and `tests/**` from it (`<Compile Remove=... />`) so they aren't compiled twice.
+- Put a `.gdignore` file in `src/` and `tests/` so the Godot editor doesn't scan or import them (including their `bin/`/`obj/` folders).
+- The simulation library and tests target the same .NET version as Godot's generated `.csproj`.
 
 ## Architecture rules
 
@@ -11,9 +39,9 @@ These come from the charter's Technical Principles. Treat them as hard constrain
 ### Keep the simulation separate from presentation
 
 - Layering: **Simulation → Game State → Presentation**. Dependencies only point that way.
-- Simulation code must not reference scenes, `Node`s, UI controls, input, or rendering. Write it as plain classes (`RefCounted`/`Resource`-style objects or plain data) that run headless.
+- Simulation code lives in `src/OpenAntares.Simulation/` and must not use Godot types: no `Node`s, scenes, `Vector2`, `GD.*`, input, or rendering. It runs headless under plain .NET.
 - Presentation reads game state and sends commands. It never changes game state directly.
-- Game state is plain, serializable data: no `Node` references, no callables, no engine handles. Refer to entities by stable IDs, not object references.
+- Game state is plain, serializable data: no engine objects, delegates, or object references between entities. Refer to entities by stable IDs.
 
 ### Route every action through commands
 
@@ -24,17 +52,22 @@ These come from the charter's Technical Principles. Treat them as hard constrain
 
 ### Make turn processing deterministic
 
-- The same state, commands, and seed must produce the same result.
-- Inside the simulation, use only seeded RNG stored in or derived from game state. Never use global `randf()`/`randi()`/`randomize()`, wall-clock time, frame time, or anything else that varies by machine or run.
-- Iterate in a defined order (sorted by ID, or insertion order you control). Never let the outcome depend on hash order, object instance IDs, or timing.
-- Process turns in explicit, documented phases. Don't use signals or frame callbacks to drive the simulation.
+The same state, commands, and seed must produce the same result on every machine (Windows/Linux/macOS, x64 and ARM).
+
+- **Use whole-number maths in the simulation.** Game state and rule calculations use integers or fixed-point values (e.g. store 125.0 as `1250` tenths). No `float`/`double` in simulation state or in any calculation that affects outcomes, because floating-point results can differ slightly across CPUs and would break cross-platform multiplayer and replays. Avoid trig and `Math.Sqrt` in rules. Use integer alternatives or lookup tables. Presentation may use floats freely.
+- **Use the project's own seeded PRNG.** It's a small, fixed algorithm implemented in the simulation library, with its state stored in game state. Never use `System.Random` (its algorithm isn't guaranteed stable across .NET versions), Godot's `GD.Randf()`/`RandomNumberGenerator`, `Guid.NewGuid()`, or wall-clock or frame time.
+- **Iterate in a defined order.** `Dictionary`/`HashSet` enumeration order isn't guaranteed. Sort by ID, or use ordered collections, whenever order can affect the outcome.
+- **Never rely on `GetHashCode()`.** .NET randomizes string hashes per process, so never use hash codes for anything saved, compared across runs, or order-dependent.
+- **Use invariant culture.** Parse and format numbers with `CultureInfo.InvariantCulture`, so content and saves behave the same in every locale.
+- **Process turns in explicit, documented phases.** Don't use events, signals, or frame callbacks to drive the simulation.
 
 ### Put content in data files
 
-- Technologies, buildings, weapons, ship components, species traits, governments, events, planet types, and similar content belong in data files, not hard-coded.
-- Ordinary mods (new content, balance changes) must be possible without editing engine or simulation code.
+- Technologies, buildings, weapons, ship components, species traits, governments, events, planet types, and similar content belong in JSON under `content/`, not in code.
+- Ordinary mods (new content, balance changes) must be possible without editing or recompiling code.
 - Keep logic in code only where a rule genuinely needs it. Prefer generic, data-parameterized mechanics over special cases keyed to one specific item.
 - Reference content by string IDs from the data, not by enums baked into code.
+- Validate content at load time and report clear errors (file, entry ID, field) instead of failing later.
 
 ### Explain the numbers
 
@@ -42,9 +75,9 @@ These come from the charter's Technical Principles. Treat them as hard constrain
 
 ### Test the game logic
 
-- Core simulation systems need automated tests that run without UI: resource calculations, population growth, production, research progression, movement, combat math, and tech prerequisites.
-- Add or update tests with every simulation change. Determinism makes exact-result tests possible, so use them.
-- No test framework has been chosen yet. Raise the choice the first time tests are needed instead of picking one silently.
+- Core simulation systems need xUnit tests in `tests/OpenAntares.Simulation.Tests/`: resource calculations, population growth, production, research progression, movement, combat math, and tech prerequisites.
+- Add or update tests with every simulation change, and run `dotnet test` before committing. Determinism makes exact-result tests possible, so use them.
+- Include determinism tests: running the same seed and commands twice must produce identical state.
 
 ## Scope discipline
 
@@ -54,16 +87,7 @@ These come from the charter's Technical Principles. Treat them as hard constrain
 
 ## Content and licensing
 
-- Code is MIT. Original assets are CC0. Docs are CC BY 4.0. See [LICENSING.md](LICENSING.md).
+- Code is MIT. Original assets are CC0. Docs are CC BY 4.0. Content JSON counts as code (MIT). See [LICENSING.md](LICENSING.md).
 - Never add copyrighted assets, names, or text from commercial games. Don't copy a legacy game's interface or mechanics feature-for-feature.
 - Any third-party file must keep its license, and that license must be recorded in LICENSING.md.
 - `icon.svg` is the placeholder Godot logo (CC BY 4.0). Replace it, don't build on it.
-
-## Open decisions
-
-These haven't been settled yet. Ask instead of assuming:
-
-- scripting language (GDScript vs. C#)
-- data file format for content (JSON, Godot resources, etc.)
-- test framework
-- project folder layout
