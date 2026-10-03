@@ -12,12 +12,16 @@ config_version=5
 
 config/name="OpenAntares"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://art/branding/icon.png"
 
 [display]
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+
+[dotnet]
+
+project/assembly_name="OpenAntares"
 
 [physics]
 
