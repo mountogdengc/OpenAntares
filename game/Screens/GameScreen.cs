@@ -24,6 +24,10 @@ public partial class GameScreen : VBoxContainer
     private readonly ColonyPanel _colonyPanel = new();
     private readonly Button _endTurn = new();
     private readonly TurnReportDialog _report = new();
+    private readonly SaveGameDialog _saveDialog = new();
+
+    /// <summary>Raised when the player wants to load a saved game. The current game is untouched unless a load succeeds.</summary>
+    public event System.Action? LoadRequested;
 
     /// <param name="viewer">The empire this screen is shown to. Presentation-only; the simulation has no "current player".</param>
     public GameScreen(GameSession session, EmpireId viewer)
@@ -51,8 +55,17 @@ public partial class GameScreen : VBoxContainer
         _message.TextOverrunBehavior = TextServer.OverrunBehavior.TrimEllipsis;
         _message.MouseFilter = MouseFilterEnum.Stop;
         topRow.AddChild(_message);
+        var saveButton = new Button { Text = "Save" };
+        saveButton.Pressed += () => _saveDialog.Open(_session, SuggestedSaveName());
+        topRow.AddChild(saveButton);
+        var loadButton = new Button { Text = "Load" };
+        loadButton.Pressed += () => LoadRequested?.Invoke();
+        topRow.AddChild(loadButton);
         _endTurn.Pressed += EndTurn;
         topRow.AddChild(_endTurn);
+
+        AddChild(_saveDialog);
+        _saveDialog.Saved += name => ShowMessage($"Saved as \"{name}\".", isWarning: false);
 
         AddChild(_report);
         _report.ChooseProjectRequested += star => _map.Select(star);
@@ -90,8 +103,7 @@ public partial class GameScreen : VBoxContainer
     private void Execute(Command command)
     {
         CommandOutcome outcome = _session.Execute(command);
-        _message.Text = outcome.Rejection?.Message ?? string.Empty;
-        _message.TooltipText = _message.Text;
+        ShowMessage(outcome.Rejection?.Message ?? string.Empty, isWarning: true);
 
         // Rebuild after the triggering control's signal has finished.
         Callable.From(Refresh).CallDeferred();
@@ -137,6 +149,19 @@ public partial class GameScreen : VBoxContainer
         {
             _colonyPanel.ShowColony(_session.Content, state, colony.Id, forecast);
         }
+    }
+
+    private void ShowMessage(string text, bool isWarning)
+    {
+        _message.Text = text;
+        _message.TooltipText = text;
+        _message.ThemeTypeVariation = isWarning ? "WarningLabel" : "SubtleLabel";
+    }
+
+    private string SuggestedSaveName()
+    {
+        string star = HomeStar() is { } home ? _session.State.FindStar(home)!.Name : "Game";
+        return $"{star} turn {_session.State.Turn}";
     }
 
     /// <summary>The star of the viewer's first colony.</summary>

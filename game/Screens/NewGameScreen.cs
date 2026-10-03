@@ -26,6 +26,9 @@ public partial class NewGameScreen : CenterContainer
     /// <summary>Raised when the player starts a game with valid settings.</summary>
     public event Action<NewGameSettings>? StartRequested;
 
+    /// <summary>Raised when the player wants to load a saved game instead.</summary>
+    public event Action? LoadRequested;
+
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
@@ -79,6 +82,10 @@ public partial class NewGameScreen : CenterContainer
         var startButton = new Button { Text = "Start" };
         startButton.Pressed += Start;
         column.AddChild(startButton);
+
+        var loadButton = new Button { Text = "Load Game" };
+        loadButton.Pressed += () => LoadRequested?.Invoke();
+        column.AddChild(loadButton);
 
         RandomizeSeed();
         startButton.GrabFocus();
