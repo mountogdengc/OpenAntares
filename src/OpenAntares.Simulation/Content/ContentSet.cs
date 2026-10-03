@@ -10,6 +10,8 @@ namespace OpenAntares.Simulation.Content;
 public sealed record ContentSet(
     RulesParameters Rules,
     StartingColonyDefinition StartingColony,
+    GalaxyRules Galaxy,
+    ImmutableSortedDictionary<string, GalaxySizeDefinition> GalaxySizes,
     ImmutableSortedDictionary<string, PlanetTypeDefinition> PlanetTypes,
     ImmutableSortedDictionary<string, BuildingDefinition> Buildings,
     ImmutableSortedDictionary<string, TechnologyDefinition> Technologies);
@@ -27,13 +29,32 @@ public sealed record StartingColonyDefinition(
     int Population,
     Workforce Workforce);
 
-/// <summary>A planet type. Per-worker rates are stored hundredths.</summary>
+/// <summary>Parameters for generating a new galaxy. Coordinates are whole map units.</summary>
+public sealed record GalaxyRules(
+    int MinStarDistance,
+    int MinPlanetsPerStar,
+    int MaxPlanetsPerStar,
+    ImmutableArray<string> StarNames);
+
+/// <summary>A galaxy size the new-game screen offers.</summary>
+public sealed record GalaxySizeDefinition(
+    string Id,
+    string Name,
+    int StarCount,
+    int Width,
+    int Height);
+
+/// <summary>
+/// A planet type. Per-worker rates are stored hundredths. <see cref="GenerationWeight"/> is the
+/// relative chance of the type appearing in a generated galaxy; zero means it is never generated.
+/// </summary>
 public sealed record PlanetTypeDefinition(
     string Id,
     string Name,
     long SupportPerWorker,
     long ProductionPerWorker,
-    long ResearchPerWorker);
+    long ResearchPerWorker,
+    int GenerationWeight);
 
 /// <summary>A building that a colony can construct once.</summary>
 public sealed record BuildingDefinition(

@@ -31,6 +31,28 @@ public static class ContentWriter
         writer.WriteEndObject();
         writer.WriteEndObject();
 
+        GalaxyRules galaxy = content.Galaxy;
+        writer.WriteStartObject("galaxy");
+        writer.WriteNumber("min_star_distance", galaxy.MinStarDistance);
+        writer.WriteNumber("min_planets_per_star", galaxy.MinPlanetsPerStar);
+        writer.WriteNumber("max_planets_per_star", galaxy.MaxPlanetsPerStar);
+        WriteStrings(writer, "star_names", galaxy.StarNames);
+        writer.WriteEndObject();
+
+        writer.WriteStartArray("galaxy_sizes");
+        foreach (GalaxySizeDefinition size in content.GalaxySizes.Values)
+        {
+            writer.WriteStartObject();
+            writer.WriteString("id", size.Id);
+            writer.WriteString("name", size.Name);
+            writer.WriteNumber("star_count", size.StarCount);
+            writer.WriteNumber("width", size.Width);
+            writer.WriteNumber("height", size.Height);
+            writer.WriteEndObject();
+        }
+
+        writer.WriteEndArray();
+
         writer.WriteStartArray("planet_types");
         foreach (PlanetTypeDefinition planetType in content.PlanetTypes.Values)
         {
@@ -40,6 +62,7 @@ public static class ContentWriter
             writer.WriteNumber("support_per_worker", planetType.SupportPerWorker);
             writer.WriteNumber("production_per_worker", planetType.ProductionPerWorker);
             writer.WriteNumber("research_per_worker", planetType.ResearchPerWorker);
+            writer.WriteNumber("generation_weight", planetType.GenerationWeight);
             writer.WriteEndObject();
         }
 
