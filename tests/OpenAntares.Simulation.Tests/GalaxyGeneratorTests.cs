@@ -137,13 +137,56 @@ public class GalaxyGeneratorTests
     [Fact]
     public void PlanetTypesWithZeroWeightAreNeverGenerated()
     {
-        var neverBarren = _content.PlanetTypes["barren_rock"] with { GenerationWeight = 0 };
+        var barren = _content.PlanetTypes["barren_rock"];
+        var neverBarren = barren with
+        {
+            GenerationWeight = 0,
+            RegionGenerationWeights = barren.RegionGenerationWeights
+                .SetItem(GalaxyRegions.Core, 0)
+                .SetItem(GalaxyRegions.Arm, 0)
+                .SetItem(GalaxyRegions.Rim, 0),
+        };
         ContentSet content = _content with { PlanetTypes = _content.PlanetTypes.SetItem(neverBarren.Id, neverBarren) };
 
         for (ulong seed = 0; seed < 20; seed++)
         {
             GameState state = GalaxyGenerator.CreateNewGame(content, new NewGameSettings("large", seed)).State!;
             Assert.DoesNotContain(state.Planets, p => p.PlanetTypeId == "barren_rock");
+        }
+    }
+
+    [Fact]
+    public void RimExclusionChangesPlanetMixWithoutChangingStartingPlanet()
+    {
+        var barren = _content.PlanetTypes["barren_rock"];
+        barren = barren with { RegionGenerationWeights = barren.RegionGenerationWeights.SetItem(GalaxyRegions.Rim, 0) };
+        ContentSet content = _content with { PlanetTypes = _content.PlanetTypes.SetItem(barren.Id, barren) };
+
+        for (ulong seed = 0; seed < 100; seed++)
+        {
+            GameState state = GalaxyGenerator.CreateNewGame(content, new NewGameSettings("large", seed)).State!;
+            Assert.DoesNotContain(state.Planets, planet =>
+                state.FindStar(planet.StarId)!.RegionId == GalaxyRegions.Rim
+                && planet.PlanetTypeId == barren.Id);
+            Assert.Equal(content.StartingColony.PlanetTypeId,
+                state.FindPlanet(state.Colonies.Single().PlanetId)!.PlanetTypeId);
+        }
+    }
+
+    [Fact]
+    public void BaseWeightsStillGenerateWhenRegionalOverridesAreAbsent()
+    {
+        var types = _content.PlanetTypes;
+        foreach (PlanetTypeDefinition type in types.Values)
+        {
+            types = types.SetItem(type.Id, type with { RegionGenerationWeights = type.RegionGenerationWeights.Clear() });
+        }
+        ContentSet content = _content with { PlanetTypes = types };
+
+        foreach (string sizeId in content.GalaxySizes.Keys)
+        {
+            NewGameResult result = GalaxyGenerator.CreateNewGame(content, new NewGameSettings(sizeId, 19));
+            Assert.True(result.Succeeded, result.Error);
         }
     }
 
