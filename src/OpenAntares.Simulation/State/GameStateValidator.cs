@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OpenAntares.Simulation.Content;
+using OpenAntares.Simulation.Galaxy;
 
 namespace OpenAntares.Simulation.State;
 
@@ -31,11 +32,56 @@ public static class GameStateValidator
         }
 
         ValidateIds(state, errors);
+        ValidateGalaxy(state, errors);
         ValidateEmpires(content, state, errors);
         ValidatePlanets(content, state, errors);
         ValidateColonies(content, state, errors);
 
         return errors;
+    }
+
+    private static void ValidateGalaxy(GameState state, List<string> errors)
+    {
+        bool any = state.GalaxySeed.HasValue || state.GalaxyShapeId is not null
+            || state.GalaxyWidth.HasValue || state.GalaxyHeight.HasValue;
+        bool all = state.GalaxySeed.HasValue && state.GalaxyShapeId is not null
+            && state.GalaxyWidth.HasValue && state.GalaxyHeight.HasValue;
+        if (any && !all)
+        {
+            errors.Add("Galaxy metadata must include seed, shape, width, and height together.");
+            return;
+        }
+
+        if (!any)
+        {
+            foreach (StarState star in state.Stars.Where(s => s.RegionId is not null))
+            {
+                errors.Add($"{star.Id}: legacy galaxy cannot have region '{star.RegionId}'.");
+            }
+            return;
+        }
+
+        if (state.GalaxyShapeId != "spiral")
+        {
+            errors.Add($"Galaxy shape '{state.GalaxyShapeId}' is not supported.");
+        }
+        if (state.GalaxyWidth <= 0 || state.GalaxyHeight <= 0)
+        {
+            errors.Add("Galaxy width and height must be positive.");
+            return;
+        }
+
+        foreach (StarState star in state.Stars)
+        {
+            if (star.RegionId is null || !GalaxyRegions.IsKnown(star.RegionId))
+            {
+                errors.Add($"{star.Id}: region '{star.RegionId}' is not defined.");
+            }
+            if (star.X < 0 || star.X >= state.GalaxyWidth || star.Y < 0 || star.Y >= state.GalaxyHeight)
+            {
+                errors.Add($"{star.Id}: coordinates ({star.X}, {star.Y}) are outside the galaxy bounds.");
+            }
+        }
     }
 
     private static void ValidateIds(GameState state, List<string> errors)

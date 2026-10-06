@@ -2,6 +2,7 @@ using System.Linq;
 using Godot;
 using OpenAntares.Simulation;
 using OpenAntares.Simulation.Content;
+using OpenAntares.Simulation.Galaxy;
 using OpenAntares.Simulation.State;
 
 namespace OpenAntares.Game.Components;
@@ -24,6 +25,11 @@ public partial class StarPanel : VBoxContainer
         }
 
         AddChild(new Label { Text = star.Name, ThemeTypeVariation = "HeaderLabel" });
+
+        if (star.RegionId is { } regionId && content.RegionDefinitions.TryGetValue(regionId, out GalaxyRegionDefinition? region))
+        {
+            AddChild(Wrapped($"{region.Name} — {region.Description}", "SubtleLabel"));
+        }
 
         var planets = state.Planets.Where(p => p.StarId == starId).OrderBy(p => p.Orbit).ToList();
         AddChild(new Label

@@ -21,6 +21,12 @@ public sealed class GameState
 
     public Pcg32 Random { get; set; } = Pcg32.FromSeed(0, 0);
 
+    /// <summary>Absent for galaxies loaded from version-1 saves.</summary>
+    public ulong? GalaxySeed { get; set; }
+    public string? GalaxyShapeId { get; set; }
+    public int? GalaxyWidth { get; set; }
+    public int? GalaxyHeight { get; set; }
+
     public List<EmpireState> Empires { get; set; } = new();
     public List<StarState> Stars { get; set; } = new();
     public List<PlanetState> Planets { get; set; } = new();
@@ -40,6 +46,10 @@ public sealed class GameState
         Turn = Turn,
         NextEntityId = NextEntityId,
         Random = Random.Clone(),
+        GalaxySeed = GalaxySeed,
+        GalaxyShapeId = GalaxyShapeId,
+        GalaxyWidth = GalaxyWidth,
+        GalaxyHeight = GalaxyHeight,
         Empires = Empires.Select(e => e.Clone()).ToList(),
         Stars = Stars.Select(s => s.Clone()).ToList(),
         Planets = Planets.Select(p => p.Clone()).ToList(),
@@ -88,8 +98,9 @@ public sealed class StarState
     public string Name { get; set; } = string.Empty;
     public int X { get; set; }
     public int Y { get; set; }
+    public string? RegionId { get; set; }
 
-    public StarState Clone() => new() { Id = Id, Name = Name, X = X, Y = Y };
+    public StarState Clone() => new() { Id = Id, Name = Name, X = X, Y = Y, RegionId = RegionId };
 }
 
 public sealed class PlanetState

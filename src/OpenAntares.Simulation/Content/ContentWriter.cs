@@ -1,4 +1,5 @@
 using System.Text.Json;
+using OpenAntares.Simulation.Galaxy;
 
 namespace OpenAntares.Simulation.Content;
 
@@ -37,6 +38,15 @@ public static class ContentWriter
         writer.WriteNumber("min_planets_per_star", galaxy.MinPlanetsPerStar);
         writer.WriteNumber("max_planets_per_star", galaxy.MaxPlanetsPerStar);
         WriteStrings(writer, "star_names", galaxy.StarNames);
+        writer.WriteStartObject("regions");
+        foreach (GalaxyRegionDefinition region in galaxy.RegionDefinitions.Values)
+        {
+            writer.WriteStartObject(region.Id);
+            writer.WriteString("name", region.Name);
+            writer.WriteString("description", region.Description);
+            writer.WriteEndObject();
+        }
+        writer.WriteEndObject();
         writer.WriteEndObject();
 
         writer.WriteStartArray("galaxy_sizes");
@@ -63,6 +73,15 @@ public static class ContentWriter
             writer.WriteNumber("production_per_worker", planetType.ProductionPerWorker);
             writer.WriteNumber("research_per_worker", planetType.ResearchPerWorker);
             writer.WriteNumber("generation_weight", planetType.GenerationWeight);
+            if (planetType.RegionGenerationWeights.Count > 0)
+            {
+                writer.WriteStartObject("region_generation_weights");
+                foreach (var (regionId, weight) in planetType.RegionGenerationWeights)
+                {
+                    writer.WriteNumber(regionId, weight);
+                }
+                writer.WriteEndObject();
+            }
             writer.WriteEndObject();
         }
 
