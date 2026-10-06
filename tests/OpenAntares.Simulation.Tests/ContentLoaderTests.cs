@@ -52,6 +52,65 @@ public class ContentLoaderTests
     }
 
     [Fact]
+    public void RegionalWeightsOverrideOrFallBackToBaseWeight()
+    {
+        string world = ReplaceOnce(BaseWorld, "\"generation_weight\": 1",
+            "\"generation_weight\": 1, \"region_generation_weights\": { \"rim\": 5 }");
+
+        ContentLoadResult result = Load(BaseRules, world);
+
+        Assert.True(result.Succeeded, string.Join("\n", result.Errors));
+        Assert.Equal(1, result.Content!.PlanetTypes["home"].WeightForRegion("arm"));
+        Assert.Equal(5, result.Content.PlanetTypes["home"].WeightForRegion("rim"));
+    }
+
+    [Fact]
+    public void UnknownRegionOverrideIsRejected()
+    {
+        string world = ReplaceOnce(BaseWorld, "\"generation_weight\": 1",
+            "\"generation_weight\": 1, \"region_generation_weights\": { \"unknown\": 2 }");
+
+        ContentLoadResult result = Load(BaseRules, world);
+
+        Assert.Contains(result.Errors, error => error.Field == "region_generation_weights.unknown");
+    }
+
+    [Fact]
+    public void RegionWithNoEligiblePlanetTypeIsRejected()
+    {
+        string world = ReplaceOnce(BaseWorld, "\"generation_weight\": 1",
+            "\"generation_weight\": 1, \"region_generation_weights\": { \"rim\": 0 }");
+
+        ContentLoadResult result = Load(BaseRules, world);
+
+        Assert.Contains(result.Errors, error => error.Field == "region_generation_weights.rim");
+    }
+
+    [Fact]
+    public void RegionDefinitionsAndWeightsSurviveContentRoundTrip()
+    {
+        string rules = ReplaceOnce(BaseRules, "\"min_star_distance\": 10",
+            "\"regions\": { \"rim\": { \"name\": \"Outer Reach\", \"description\": \"Sparse frontier\" } }, \"min_star_distance\": 10");
+        string world = ReplaceOnce(BaseWorld, "\"generation_weight\": 1",
+            "\"generation_weight\": 1, \"region_generation_weights\": { \"rim\": 5 }");
+        ContentSet content = Load(rules, world).Content!;
+        using var stream = new MemoryStream();
+        using (var writer = new Utf8JsonWriter(stream))
+        {
+            ContentWriter.Write(writer, content);
+        }
+
+        ContentLoadResult loaded = ContentLoader.Load(new[]
+        {
+            new ContentSource("roundtrip.json", System.Text.Encoding.UTF8.GetString(stream.ToArray())),
+        });
+
+        Assert.True(loaded.Succeeded, string.Join("\n", loaded.Errors));
+        Assert.Equal("Outer Reach", loaded.Content!.RegionDefinitions["rim"].Name);
+        Assert.Equal(5, loaded.Content.PlanetTypes["home"].WeightForRegion("rim"));
+    }
+
+    [Fact]
     public void CommentsAndTrailingCommasAreAllowed()
     {
         string world = BaseWorld.Replace("\"cost\": 100, \"prerequisites\": [] }", "\"cost\": 100, \"prerequisites\": [], } // first tech");

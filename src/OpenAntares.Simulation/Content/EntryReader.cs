@@ -153,6 +153,24 @@ internal sealed class EntryReader
         return Nested(value, field);
     }
 
+    /// <summary>Reads an optional object while still reporting malformed values and tracking unknown fields.</summary>
+    public JsonElement? OptionalObjectElement(string field)
+    {
+        _readFields.Add(field);
+        if (!_object.TryGetProperty(field, out JsonElement value))
+        {
+            return null;
+        }
+
+        if (value.ValueKind != JsonValueKind.Object)
+        {
+            Error(field, $"Expected an object, found {Describe(value)}.");
+            return null;
+        }
+
+        return value;
+    }
+
     /// <summary>Creates a reader for a nested object that reports errors under this entry.</summary>
     public EntryReader? Nested(JsonElement element, string field) =>
         Create(element, _file, _entryId, Path(field), _errors);

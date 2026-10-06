@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using OpenAntares.Simulation.State;
+using OpenAntares.Simulation.Galaxy;
 
 namespace OpenAntares.Simulation.Content;
 
@@ -14,7 +15,10 @@ public sealed record ContentSet(
     ImmutableSortedDictionary<string, GalaxySizeDefinition> GalaxySizes,
     ImmutableSortedDictionary<string, PlanetTypeDefinition> PlanetTypes,
     ImmutableSortedDictionary<string, BuildingDefinition> Buildings,
-    ImmutableSortedDictionary<string, TechnologyDefinition> Technologies);
+    ImmutableSortedDictionary<string, TechnologyDefinition> Technologies)
+{
+    public ImmutableSortedDictionary<string, GalaxyRegionDefinition> RegionDefinitions => Galaxy.RegionDefinitions;
+}
 
 /// <summary>Numeric rule parameters. Economic quantities are stored hundredths.</summary>
 public sealed record RulesParameters(
@@ -34,7 +38,10 @@ public sealed record GalaxyRules(
     int MinStarDistance,
     int MinPlanetsPerStar,
     int MaxPlanetsPerStar,
-    ImmutableArray<string> StarNames);
+    ImmutableArray<string> StarNames)
+{
+    public ImmutableSortedDictionary<string, GalaxyRegionDefinition> RegionDefinitions { get; init; } = GalaxyRegions.DefaultDefinitions;
+}
 
 /// <summary>A galaxy size the new-game screen offers.</summary>
 public sealed record GalaxySizeDefinition(
@@ -54,7 +61,14 @@ public sealed record PlanetTypeDefinition(
     long SupportPerWorker,
     long ProductionPerWorker,
     long ResearchPerWorker,
-    int GenerationWeight);
+    int GenerationWeight)
+{
+    public ImmutableSortedDictionary<string, int> RegionGenerationWeights { get; init; } =
+        ImmutableSortedDictionary<string, int>.Empty.WithComparers(System.StringComparer.Ordinal);
+
+    public int WeightForRegion(string regionId) =>
+        RegionGenerationWeights.TryGetValue(regionId, out int weight) ? weight : GenerationWeight;
+}
 
 /// <summary>A building that a colony can construct once.</summary>
 public sealed record BuildingDefinition(
