@@ -8,3 +8,6 @@ obj/
 .vs/
 *.user
 TestResults/
+
+# Local research material
+/docs/research/
