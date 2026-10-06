@@ -73,10 +73,17 @@ public static class GalaxyGenerator
         }
 
         // Planets: a random count per star, each type picked by generation weight.
-        List<PlanetTypeDefinition> weightedTypes = content.PlanetTypes.Values.Where(p => p.GenerationWeight > 0).ToList();
-        int totalWeight = weightedTypes.Sum(p => p.GenerationWeight);
+        var coreTypes = WeightedTypes(content, GalaxyRegions.Core);
+        var armTypes = WeightedTypes(content, GalaxyRegions.Arm);
+        var rimTypes = WeightedTypes(content, GalaxyRegions.Rim);
         foreach (StarState star in state.Stars)
         {
+            var (weightedTypes, totalWeight) = star.RegionId switch
+            {
+                GalaxyRegions.Core => coreTypes,
+                GalaxyRegions.Rim => rimTypes,
+                _ => armTypes,
+            };
             int planetCount = random.NextInt(galaxy.MinPlanetsPerStar, galaxy.MaxPlanetsPerStar);
             for (int orbit = 1; orbit <= planetCount; orbit++)
             {
@@ -162,20 +169,31 @@ public static class GalaxyGenerator
         return names[..count];
     }
 
-    private static PlanetTypeDefinition PickWeighted(Pcg32 random, List<PlanetTypeDefinition> types, int totalWeight)
+    private static (List<(PlanetTypeDefinition Type, int Weight)> Types, int Total) WeightedTypes(
+        ContentSet content, string regionId)
+    {
+        List<(PlanetTypeDefinition Type, int Weight)> types = content.PlanetTypes.Values
+            .Select(type => (Type: type, Weight: type.WeightForRegion(regionId)))
+            .Where(entry => entry.Weight > 0)
+            .ToList();
+        return (types, types.Sum(entry => entry.Weight));
+    }
+
+    private static PlanetTypeDefinition PickWeighted(
+        Pcg32 random, List<(PlanetTypeDefinition Type, int Weight)> types, int totalWeight)
     {
         int roll = random.NextInt(totalWeight);
-        foreach (PlanetTypeDefinition type in types)
+        foreach (var (type, weight) in types)
         {
-            if (roll < type.GenerationWeight)
+            if (roll < weight)
             {
                 return type;
             }
 
-            roll -= type.GenerationWeight;
+            roll -= weight;
         }
 
-        return types[^1];
+        return types[^1].Type;
     }
 
     private static long DistanceSquared(int x1, int y1, int x2, int y2)
