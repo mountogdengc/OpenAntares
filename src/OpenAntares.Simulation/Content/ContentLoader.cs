@@ -4,6 +4,7 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
+using OpenAntares.Simulation.Galaxy;
 using OpenAntares.Simulation.State;
 
 namespace OpenAntares.Simulation.Content;
@@ -211,13 +212,41 @@ public static class ContentLoader
             return new StartingColonyDefinition(planetType, population, workforce);
         }
 
-        private PlanetTypeDefinition ReadPlanetType(EntryReader reader, string id) => new(
-            id,
-            reader.RequiredString("name"),
-            reader.RequiredLong("support_per_worker", 0, long.MaxValue),
-            reader.RequiredLong("production_per_worker", 0, long.MaxValue),
-            reader.RequiredLong("research_per_worker", 0, long.MaxValue),
-            reader.RequiredInt("generation_weight", 0, int.MaxValue));
+        private PlanetTypeDefinition ReadPlanetType(EntryReader reader, string id)
+        {
+            string name = reader.RequiredString("name");
+            long support = reader.RequiredLong("support_per_worker", 0, long.MaxValue);
+            long production = reader.RequiredLong("production_per_worker", 0, long.MaxValue);
+            long research = reader.RequiredLong("research_per_worker", 0, long.MaxValue);
+            int weight = reader.RequiredInt("generation_weight", 0, int.MaxValue);
+            var regionWeights = ImmutableSortedDictionary.CreateBuilder<string, int>(StringComparer.Ordinal);
+            if (reader.OptionalObjectElement("region_generation_weights") is { } overrides)
+            {
+                foreach (JsonProperty entry in overrides.EnumerateObject())
+                {
+                    if (!GalaxyRegions.IsKnown(entry.Name))
+                    {
+                        reader.Error($"region_generation_weights.{entry.Name}", "Unknown galaxy region.");
+                        continue;
+                    }
+
+                    if (regionWeights.ContainsKey(entry.Name))
+                    {
+                        reader.Error($"region_generation_weights.{entry.Name}", "Region is given more than once.");
+                        continue;
+                    }
+
+                    int parsed = (int)EntryReader.ReadWholeNumber(entry.Value, entry.Name, 0, int.MaxValue,
+                        (_, message) => reader.Error($"region_generation_weights.{entry.Name}", message));
+                    regionWeights.Add(entry.Name, parsed);
+                }
+            }
+
+            return new PlanetTypeDefinition(id, name, support, production, research, weight)
+            {
+                RegionGenerationWeights = regionWeights.ToImmutable(),
+            };
+        }
 
         private GalaxyRules? ReadGalaxy(JsonElement element, string file)
         {
@@ -231,6 +260,35 @@ public static class ContentLoader
                 MinPlanetsPerStar: reader.RequiredInt("min_planets_per_star", 1, MaxPlanetsPerStar),
                 MaxPlanetsPerStar: reader.RequiredInt("max_planets_per_star", 1, MaxPlanetsPerStar),
                 StarNames: reader.RequiredStringArray("star_names"));
+            var regions = GalaxyRegions.DefaultDefinitions.ToBuilder();
+            if (reader.OptionalObjectElement("regions") is { } definitions)
+            {
+                var seen = new HashSet<string>(StringComparer.Ordinal);
+                foreach (JsonProperty entry in definitions.EnumerateObject())
+                {
+                    if (!GalaxyRegions.IsKnown(entry.Name))
+                    {
+                        reader.Error($"regions.{entry.Name}", "Unknown galaxy region.");
+                        continue;
+                    }
+
+                    if (!seen.Add(entry.Name))
+                    {
+                        reader.Error($"regions.{entry.Name}", "Region is given more than once.");
+                        continue;
+                    }
+
+                    if (reader.Nested(entry.Value, $"regions.{entry.Name}") is { } region)
+                    {
+                        string name = region.RequiredString("name");
+                        string description = region.RequiredString("description");
+                        region.RejectUnknownFields();
+                        regions[entry.Name] = new GalaxyRegionDefinition(entry.Name, name, description);
+                    }
+                }
+            }
+
+            galaxy = galaxy with { RegionDefinitions = regions.ToImmutable() };
             reader.RejectUnknownFields();
 
             if (galaxy.MaxPlanetsPerStar < galaxy.MinPlanetsPerStar)
@@ -443,6 +501,21 @@ public static class ContentLoader
             else if (totalWeight > int.MaxValue)
             {
                 _errors.Add(new ContentError(AllFiles, null, "generation_weight", "Planet type generation weights must sum to at most 2147483647."));
+            }
+
+            foreach (string regionId in GalaxyRegions.Ids)
+            {
+                long regionTotal = _planetTypes.Values.Sum(p => (long)p.Value.WeightForRegion(regionId));
+                if (_planetTypes.Count > 0 && regionTotal == 0)
+                {
+                    _errors.Add(new ContentError(AllFiles, null, $"region_generation_weights.{regionId}",
+                        $"At least one planet type needs a positive weight in {regionId}."));
+                }
+                else if (regionTotal > int.MaxValue)
+                {
+                    _errors.Add(new ContentError(AllFiles, null, $"region_generation_weights.{regionId}",
+                        $"Planet type weights in {regionId} must sum to at most {int.MaxValue}."));
+                }
             }
 
             if (_galaxy is not { } galaxy)

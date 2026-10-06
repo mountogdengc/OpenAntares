@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.Json;
 using OpenAntares.Simulation.Commands;
 using OpenAntares.Simulation.Content;
+using OpenAntares.Simulation.Galaxy;
 using OpenAntares.Simulation.Saves;
 using OpenAntares.Simulation.State;
 using Xunit;
@@ -28,6 +29,56 @@ public class SaveGameTests : IDisposable
 
         Assert.Equal(Snapshot(state), Snapshot(loaded.State));
         Assert.Equal(JsonSerializer.Serialize(_content), JsonSerializer.Serialize(loaded.Content));
+    }
+
+    [Fact]
+    public void SpiralMetadataAndRegionSurviveRoundTrip()
+    {
+        GameState state = StartingState();
+        state.GalaxySeed = 42;
+        state.GalaxyShapeId = "spiral";
+        state.GalaxyWidth = 1000;
+        state.GalaxyHeight = 700;
+        state.Stars[0].RegionId = GalaxyRegions.Arm;
+
+        LoadedGame loaded = Load(SaveGame.Serialize(_content, state));
+
+        Assert.Equal((ulong)42, loaded.State.GalaxySeed);
+        Assert.Equal("spiral", loaded.State.GalaxyShapeId);
+        Assert.Equal(1000, loaded.State.GalaxyWidth);
+        Assert.Equal(700, loaded.State.GalaxyHeight);
+        Assert.Equal(GalaxyRegions.Arm, loaded.State.Stars[0].RegionId);
+    }
+
+    [Fact]
+    public void VersionOneFixtureKeepsItsOriginalLayoutAndPlanets()
+    {
+        string repoRoot = Path.GetFullPath(Path.Combine(ContentLoaderTests.CoreContentDirectory(), "..", ".."));
+        string fixture = File.ReadAllText(Path.Combine(repoRoot, "tests", "OpenAntares.Simulation.Tests", "Fixtures", "legacy-v1-save.json"));
+
+        LoadedGame legacy = Load(fixture);
+
+        Assert.Null(legacy.State.GalaxySeed);
+        Assert.Equal(12, legacy.State.Stars.Count);
+        Assert.Equal((985, 414), (legacy.State.Stars[0].X, legacy.State.Stars[0].Y));
+        Assert.All(legacy.State.Stars, star => Assert.Null(star.RegionId));
+        LoadedGame resaved = Load(SaveGame.Serialize(legacy.Content, legacy.State));
+        Assert.Equal(2, JsonDocument.Parse(SaveGame.Serialize(legacy.Content, legacy.State)).RootElement.GetProperty("schema_version").GetInt32());
+        Assert.Equal(Snapshot(legacy.State), Snapshot(resaved.State));
+    }
+
+    [Fact]
+    public void PartialSpiralMetadataAndUnknownRegionAreInvalid()
+    {
+        GameState state = StartingState();
+        state.GalaxySeed = 42;
+        Assert.Contains(GameStateValidator.Validate(_content, state), error => error.Contains("galaxy metadata", StringComparison.OrdinalIgnoreCase));
+
+        state.GalaxyShapeId = "spiral";
+        state.GalaxyWidth = 1000;
+        state.GalaxyHeight = 700;
+        state.Stars[0].RegionId = "unknown";
+        Assert.Contains(GameStateValidator.Validate(_content, state), error => error.Contains("region"));
     }
 
     [Fact]
@@ -103,7 +154,7 @@ public class SaveGameTests : IDisposable
     {
         // find (last occurrence, so state fields win over embedded content), replace, expected error fragment
         { "\"format\": \"openantares-save\"", "\"format\": \"something-else\"", "not an OpenAntares save" },
-        { "\"schema_version\": 1", "\"schema_version\": 2", "schema version 2; this build reads version 1" },
+        { "\"schema_version\": 2", "\"schema_version\": 3", "unsupported schema version 3" },
         { "\"rules_version\": 1", "\"rules_version\": 7", "rules version 7; this build implements version 1" },
         { "\"turn\": 2,", "", "field 'state.turn': Required field is missing" },
         { "\"controller\": \"human\"", "\"controller\": \"robot\"", "field 'state.empires[0].controller': Unknown controller 'robot'" },

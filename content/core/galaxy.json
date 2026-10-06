@@ -3,6 +3,11 @@
     "min_star_distance": 120,
     "min_planets_per_star": 1,
     "max_planets_per_star": 4,
+    "regions": {
+      "core": { "name": "Core", "description": "The dense galactic center." },
+      "arm": { "name": "Arm", "description": "The star-rich spiral arms." },
+      "rim": { "name": "Rim", "description": "The sparse outer galaxy." }
+    },
     "star_names": [
       "Aldrane", "Ambrel", "Bessaro", "Calloran", "Corvane", "Dellith",
       "Dunmere", "Esmorra", "Evandry", "Faldis", "Gethra", "Hollin",
