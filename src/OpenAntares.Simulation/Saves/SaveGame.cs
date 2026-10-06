@@ -23,12 +23,12 @@ public sealed record SaveLoadResult(LoadedGame? Game, IReadOnlyList<string> Erro
 /// Reads and writes saves. A save holds the complete planning state (including PRNG and ID
 /// allocation state) and embeds the effective content, so it continues identically even if the
 /// content files change. The rules implementation is versioned separately, because formulas in code
-/// cannot be embedded. Unsupported versions are rejected; there is no implicit migration.
+/// cannot be embedded. Schema 1 is read explicitly as a legacy layout; unsupported versions are rejected.
 /// </summary>
 public static class SaveGame
 {
     public const string FormatName = "openantares-save";
-    public const int SchemaVersion = 1;
+    public const int SchemaVersion = 2;
 
     private const string SaveLocation = "save";
 
@@ -138,9 +138,9 @@ public static class SaveGame
                 return Fail($"This is not an OpenAntares save (format '{format}').");
             }
 
-            if (schema != SchemaVersion)
+            if (schema is not (1 or SchemaVersion))
             {
-                return Fail($"The save uses schema version {schema}; this build reads version {SchemaVersion}. Saves are not migrated automatically.");
+                return Fail($"The save uses unsupported schema version {schema}.");
             }
 
             if (rulesVersion != Rules.CurrentVersion)
@@ -158,7 +158,8 @@ public static class SaveGame
                 content = loaded.Content;
             }
 
-            GameState? state = root.RequiredObject("state") is { } stateReader ? ReadState(stateReader, (int)rulesVersion) : null;
+            GameState? state = root.RequiredObject("state") is { } stateReader
+                ? ReadState(stateReader, (int)rulesVersion, (int)schema) : null;
             root.RejectUnknownFields();
 
             if (errors.Count > 0 || content is null || state is null)
@@ -187,6 +188,13 @@ public static class SaveGame
         writer.WriteNumber("state", state.Random.State);
         writer.WriteNumber("increment", state.Random.Increment);
         writer.WriteEndObject();
+        if (state.GalaxySeed is { } seed) writer.WriteNumber("galaxy_seed", seed);
+        else writer.WriteNull("galaxy_seed");
+        WriteNullableString(writer, "galaxy_shape", state.GalaxyShapeId);
+        if (state.GalaxyWidth is { } width) writer.WriteNumber("galaxy_width", width);
+        else writer.WriteNull("galaxy_width");
+        if (state.GalaxyHeight is { } height) writer.WriteNumber("galaxy_height", height);
+        else writer.WriteNull("galaxy_height");
 
         writer.WriteStartArray("empires");
         foreach (EmpireState empire in state.Empires)
@@ -211,6 +219,7 @@ public static class SaveGame
             writer.WriteString("name", star.Name);
             writer.WriteNumber("x", star.X);
             writer.WriteNumber("y", star.Y);
+            WriteNullableString(writer, "region", star.RegionId);
             writer.WriteEndObject();
         }
 
@@ -253,7 +262,7 @@ public static class SaveGame
         writer.WriteEndObject();
     }
 
-    private static GameState? ReadState(EntryReader reader, int rulesVersion)
+    private static GameState? ReadState(EntryReader reader, int rulesVersion, int schemaVersion)
     {
         var state = new GameState
         {
@@ -266,6 +275,14 @@ public static class SaveGame
         {
             state.Random = new Pcg32 { State = random.RequiredUInt64("state"), Increment = random.RequiredUInt64("increment") };
             random.RejectUnknownFields();
+        }
+
+        if (schemaVersion >= 2)
+        {
+            state.GalaxySeed = reader.RequiredNullableUInt64("galaxy_seed");
+            state.GalaxyShapeId = reader.RequiredNullableString("galaxy_shape");
+            state.GalaxyWidth = reader.RequiredNullableInt("galaxy_width", 1, int.MaxValue);
+            state.GalaxyHeight = reader.RequiredNullableInt("galaxy_height", 1, int.MaxValue);
         }
 
         ReadItems(reader, "empires", item =>
@@ -297,6 +314,7 @@ public static class SaveGame
             Name = item.RequiredString("name"),
             X = item.RequiredInt("x", int.MinValue, int.MaxValue),
             Y = item.RequiredInt("y", int.MinValue, int.MaxValue),
+            RegionId = schemaVersion >= 2 ? item.RequiredNullableString("region") : null,
         }));
 
         ReadItems(reader, "planets", item => state.Planets.Add(new PlanetState

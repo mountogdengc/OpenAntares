@@ -91,7 +91,7 @@ public partial class GameScreen : VBoxContainer
         sideColumn.AddChild(_colonyPanel);
         _colonyPanel.CommandIssued += Execute;
 
-        _map.ShowGalaxy(_session.State.Stars, HomeStar() is { } home ? new[] { home } : System.Array.Empty<StarId>());
+        _map.ShowGalaxy(_session.State, HomeStar() is { } home ? new[] { home } : System.Array.Empty<StarId>());
         if (HomeStar() is { } start)
         {
             _map.Select(start);
