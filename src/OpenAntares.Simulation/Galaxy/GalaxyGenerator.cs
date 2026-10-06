@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using OpenAntares.Simulation.Content;
@@ -35,7 +36,15 @@ public static class GalaxyGenerator
             return Fail($"Galaxy size '{settings.GalaxySizeId}' is not defined.");
         }
 
-        var state = new GameState { Turn = 0, Random = Pcg32.FromSeed(settings.Seed, RandomStream) };
+        var state = new GameState
+        {
+            Turn = 0,
+            Random = Pcg32.FromSeed(settings.Seed, RandomStream),
+            GalaxySeed = settings.Seed,
+            GalaxyShapeId = "spiral",
+            GalaxyWidth = size.Width,
+            GalaxyHeight = size.Height,
+        };
         Pcg32 random = state.Random;
         GalaxyRules galaxy = content.Galaxy;
 
@@ -43,7 +52,7 @@ public static class GalaxyGenerator
         state.Empires.Add(empire);
 
         // Stars: random positions kept at least the minimum distance apart.
-        List<(int X, int Y)>? positions = PlaceStars(random, size, galaxy.MinStarDistance);
+        List<(int X, int Y, string RegionId)>? positions = PlaceStars(random, settings.Seed, size, galaxy.MinStarDistance);
         if (positions is null)
         {
             return Fail($"Could not place {size.StarCount} stars at least {galaxy.MinStarDistance} apart on a "
@@ -59,6 +68,7 @@ public static class GalaxyGenerator
                 Name = names[i],
                 X = positions[i].X,
                 Y = positions[i].Y,
+                RegionId = positions[i].RegionId,
             });
         }
 
@@ -102,27 +112,38 @@ public static class GalaxyGenerator
             : new NewGameResult(state, null);
     }
 
-    private static List<(int X, int Y)>? PlaceStars(Pcg32 random, GalaxySizeDefinition size, int minDistance)
+    private static List<(int X, int Y, string RegionId)>? PlaceStars(
+        Pcg32 random, ulong seed, GalaxySizeDefinition size, int minDistance)
     {
         long minDistanceSquared = (long)minDistance * minDistance;
-        var positions = new List<(int X, int Y)>(size.StarCount);
-        for (int star = 0; star < size.StarCount; star++)
+        var positions = new List<(int X, int Y, string RegionId)>(size.StarCount);
+        int quota = size.StarCount >= 3 ? Math.Max(1, (3 * size.StarCount + 10) / 20) : 0;
+        int rotation = SpiralShape.Rotation(seed);
+        foreach (var (regionId, count) in new[]
         {
-            bool placed = false;
-            for (int attempt = 0; attempt < PlacementAttemptsPerStar && !placed; attempt++)
+            (GalaxyRegions.Core, quota),
+            (GalaxyRegions.Arm, size.StarCount - 2 * quota),
+            (GalaxyRegions.Rim, quota),
+        })
+        {
+            for (int star = 0; star < count; star++)
             {
-                int x = random.NextInt(size.Width);
-                int y = random.NextInt(size.Height);
-                if (positions.All(p => DistanceSquared(p.X, p.Y, x, y) >= minDistanceSquared))
+                bool placed = false;
+                for (int attempt = 0; attempt < PlacementAttemptsPerStar && !placed; attempt++)
                 {
-                    positions.Add((x, y));
-                    placed = true;
+                    var sample = SpiralShape.Sample(random, regionId, rotation);
+                    var (x, y) = SpiralShape.ToMap(sample.X, sample.Y, size.Width, size.Height);
+                    if (positions.All(p => DistanceSquared(p.X, p.Y, x, y) >= minDistanceSquared))
+                    {
+                        positions.Add((x, y, regionId));
+                        placed = true;
+                    }
                 }
-            }
 
-            if (!placed)
-            {
-                return null;
+                if (!placed)
+                {
+                    return null;
+                }
             }
         }
 
