@@ -115,6 +115,37 @@ internal sealed class EntryReader
         return number;
     }
 
+    public ulong? RequiredNullableUInt64(string field)
+    {
+        if (!TryGet(field, out JsonElement value))
+        {
+            return null;
+        }
+        if (value.ValueKind == JsonValueKind.Null)
+        {
+            return null;
+        }
+        if (value.ValueKind == JsonValueKind.Number && value.TryGetUInt64(out ulong number))
+        {
+            return number;
+        }
+        Error(field, $"Expected a nonnegative whole number or null, found {Describe(value)}.");
+        return null;
+    }
+
+    public int? RequiredNullableInt(string field, int min, int max)
+    {
+        if (!TryGet(field, out JsonElement value))
+        {
+            return null;
+        }
+        if (value.ValueKind == JsonValueKind.Null)
+        {
+            return null;
+        }
+        return (int)ReadWholeNumber(value, Path(field), min, max);
+    }
+
     public long RequiredLong(string field, long min, long max)
     {
         if (!TryGet(field, out JsonElement value))
