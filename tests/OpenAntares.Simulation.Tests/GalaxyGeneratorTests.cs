@@ -135,6 +135,26 @@ public class GalaxyGeneratorTests
     }
 
     [Fact]
+    public void BackgroundStarsAreStableAndDoNotAdvanceSimulationRandom()
+    {
+        GameState state = Generate("small", 42);
+        string before = Snapshot(state);
+
+        var first = GalaxyBackgroundPoints.Generate(42, state.GalaxyWidth!.Value, state.GalaxyHeight!.Value);
+        var second = GalaxyBackgroundPoints.Generate(42, state.GalaxyWidth.Value, state.GalaxyHeight!.Value);
+
+        Assert.Equal(1200, first.Count);
+        Assert.Equal(first, second);
+        Assert.All(first, point =>
+        {
+            Assert.InRange(point.X, 0, state.GalaxyWidth.Value - 1);
+            Assert.InRange(point.Y, 0, state.GalaxyHeight.Value - 1);
+        });
+        Assert.Equal(before, Snapshot(state));
+        Assert.NotEqual(first, GalaxyBackgroundPoints.Generate(43, state.GalaxyWidth.Value, state.GalaxyHeight.Value));
+    }
+
+    [Fact]
     public void PlanetTypesWithZeroWeightAreNeverGenerated()
     {
         var barren = _content.PlanetTypes["barren_rock"];

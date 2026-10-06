@@ -14,6 +14,12 @@ public static class SpiralShape
     public static (int X, int Y) Sample(Pcg32 random, string regionId) => Sample(random, regionId, 0);
 
     public static (int X, int Y) Sample(Pcg32 random, string regionId, int rotation)
+        => SampleWithArmScatter(random, regionId, rotation, 70);
+
+    public static (int X, int Y) SampleBackground(Pcg32 random, string regionId, int rotation)
+        => SampleWithArmScatter(random, regionId, rotation, 10);
+
+    private static (int X, int Y) SampleWithArmScatter(Pcg32 random, string regionId, int rotation, int armScatter)
     {
         int radius;
         int angle;
@@ -28,9 +34,9 @@ public static class SpiralShape
             case GalaxyRegions.Arm:
                 radius = random.NextInt(120, 465);
                 int phase = random.NextInt(3) switch { 0 => 0, 1 => 21, _ => 43 };
-                angle = phase + radius * 96 / 465 + random.NextInt(-2, 2);
-                scatterX = random.NextInt(-28, 28);
-                scatterY = random.NextInt(-28, 28);
+                angle = phase + radius * 20 / 465 + random.NextInt(-1, 1);
+                scatterX = random.NextInt(-armScatter, armScatter);
+                scatterY = random.NextInt(-armScatter, armScatter);
                 break;
             case GalaxyRegions.Rim:
                 radius = random.NextInt(380, 495);
