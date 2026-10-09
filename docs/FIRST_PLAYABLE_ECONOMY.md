@@ -1,10 +1,10 @@
 # First Playable Economy and Turn Specification
 
-**Status: Proposed design for review. No implementation is claimed.**
+**Status: Implemented for the first playable milestone; balance and usability await playtest review.**
 
 This specification settles the economy and turn questions raised by the [design guide](DESIGN_GUIDE.md). It defines a small, deterministic colony loop with visible allocation tradeoffs, conserved production and research, and reproducible completion timing. The [charter](CHARTER.md) remains authoritative for scope, and [CLAUDE.md](../CLAUDE.md) supplies implementation constraints.
 
-The design targets one starting colony, workforce allocation, one construction project, one empire research target, turn advancement, and save/load. It does not introduce transport, currency, maintenance, queues, AI, diplomacy, or combat. The formulas and content values below are proposed prototype rules, not findings from the research or final balance.
+The design targets one starting colony, workforce allocation, one construction project, one empire research target, turn advancement, and save/load. It does not introduce transport, currency, maintenance, queues, AI, diplomacy, or combat. The formulas and content values below describe prototype rules, not findings from the research or final balance.
 
 ## Choices and rationale
 
@@ -266,6 +266,6 @@ For a first playtest, verify that the player can explain the growth-versus-outpu
 
 ## Boundaries and next handoff
 
-This specification is ready for review as a concrete proposal. Approval should settle the shortage policy, generic reserves, snapshot timing, planet rates, readiness, breakdown lines, and prototype content together before an implementation plan is written.
+The one-colony economy and turn loop described here is implemented. The next review is a playtest of growth-versus-output choices, progress switching, completion timing, explanations, and save/load continuation. Use its findings to decide whether prototype values or reserve policy need revision.
 
-Galaxy generation, home-world selection, and initial empire visibility still need their own specification. They must supply a valid starting colony on a `verdant_world` using the fixture above, place the other planet types for inspection, and use empire-specific inspection queries. The economy component can be tested headlessly before those presentation and generation systems are connected.
+Galaxy generation and home-world selection are implemented. The current map exposes all generated systems for inspection; empire-specific knowledge and visibility need a focused design with exploration and expansion. Keep the existing `verdant_world` starting fixture and headless economy tests when that design is added.

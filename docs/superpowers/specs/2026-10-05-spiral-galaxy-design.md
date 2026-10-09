@@ -1,6 +1,6 @@
 # Spiral Galaxy Generation for OpenAntares
 
-**Status:** Design for review
+**Status:** Implemented in PR #22; visual playtest review remains open
 **Date:** 2026-10-05
 
 ## Purpose

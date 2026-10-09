@@ -1,5 +1,7 @@
 # Spiral Galaxy Implementation Plan
 
+**Status:** Implemented in PR #22. The unchecked steps below are the original execution plan, not a completion log; Godot visual playtest review remains open.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Generate a visibly spiral galaxy whose core, arm, and rim systems have different planet mixes, while preserving deterministic play and older saves.

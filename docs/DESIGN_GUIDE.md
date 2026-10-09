@@ -1,6 +1,6 @@
 # OpenAntares Design Guide
 
-**Status: Working draft for review.**
+**Status: Living design guide. The first playable loop is implemented; playtest review and later-system decisions remain open.**
 
 This guide translates the [project charter](CHARTER.md) and the research in [docs/research](research/) into practical guidance for designing OpenAntares. It is for contributors deciding how a system should behave, what the player should see, and how to judge whether a feature improves the game.
 
@@ -62,7 +62,7 @@ Describe suitability through contributing factors rather than a single unexplain
 
 **Established:** inspection is specific to an empire. **Proposed:** distinguish an unknown value from a known zero, and label stale observations when the exploration model begins retaining them. A world without known threats is not necessarily a world confirmed safe.
 
-The first milestone does not need moving scouts. **Open:** its initial visible area and how much of the generated galaxy is inspectable. Choose a clearly described prototype visibility policy; retain the empire-specific query boundary so later exploration can replace the policy without rewriting screens.
+The first milestone does not need moving scouts. **Current prototype policy:** the map shows every generated star and permits inspection of every planet. An empire-specific knowledge and visibility model remains open for the exploration design; it must govern lists, previews, and inspection as well as map rendering.
 
 ## Colony economy and workforce
 
@@ -181,8 +181,8 @@ Verify the first playable with calculation and boundary tests, command rejection
 
 Playtests should ask players to explain an allocation choice and a turn result without reading source code. Observe unnecessary screen switching, repeated clicks, unclear shortages, and whether project choices converge on one routine sequence. Record those findings before adding content to mask a weak loop.
 
-## Next design decisions
+## Next validation and design decisions
 
-The [first playable economy and turn specification](FIRST_PLAYABLE_ECONOMY.md) proposes support and growth, planet output rates, production switching and overflow, research reserves, breakdown lines, readiness, and completion timing together, with worked turns and expected state. Review these interacting choices before implementation.
+The [first playable economy and turn specification](FIRST_PLAYABLE_ECONOMY.md) and [spiral galaxy design](superpowers/specs/2026-10-05-spiral-galaxy-design.md) have implementations. Playtest the complete loop, including allocation forecasts, turn reports, galaxy readability, and save/load continuation. Record where choices or results are unclear before changing balance or adding content.
 
-Galaxy generation and the initial visibility policy need a focused specification alongside that work. Save compatibility follows once state and ruleset representation are concrete. Broader systems remain directional until the colony loop demonstrates both understandable results and worthwhile choices.
+The next focused design decision is exploration and expansion: empire-specific knowledge, travel, and founding another colony. The current all-visible inspection policy is a prototype; new visibility rules must preserve the command, determinism, and save boundaries already in place. Broader systems remain directional until the colony loop demonstrates understandable results and worthwhile choices in play.
