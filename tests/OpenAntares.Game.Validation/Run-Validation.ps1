@@ -1,6 +1,7 @@
 param(
     [Parameter(Mandatory = $true)][string]$Godot,
-    [string]$OutputDirectory = 'reports/first-playable-2026-10-22'
+    [string]$OutputDirectory = 'reports/first-playable-2026-10-22',
+    [ValidateSet('Legacy','Expansion')][string]$Scenario = 'Legacy'
 )
 $ErrorActionPreference = 'Stop'
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
@@ -19,7 +20,8 @@ try {
     try {
         & dotnet build OpenAntares.csproj --no-restore --nologo --disable-build-servers "-p:CustomAfterMicrosoftCommonTargets=$targetsPath"
         if ($LASTEXITCODE -ne 0) { throw 'Validation build failed.' }
-        & $godotPath --path $repoRoot --quit-after 7200 --scene res://tests/OpenAntares.Game.Validation/GraphicalValidation.tscn --log-file (Join-Path $outputPath 'godot.log') -- "--validation-output=$outputPath"
+        $scene = if ($Scenario -eq 'Expansion') { 'res://tests/OpenAntares.Game.Validation/ExpansionGraphicalValidation.tscn' } else { 'res://tests/OpenAntares.Game.Validation/GraphicalValidation.tscn' }
+        & $godotPath --path $repoRoot --quit-after 7200 --scene $scene --log-file (Join-Path $outputPath 'godot.log') -- "--validation-output=$outputPath"
         if ($LASTEXITCODE -ne 0) { throw "Graphical validation failed with exit $LASTEXITCODE." }
         if (-not (Test-Path -LiteralPath (Join-Path $outputPath 'results.json'))) { throw 'No validation results were written.' }
     }

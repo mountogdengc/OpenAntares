@@ -23,10 +23,10 @@ namespace OpenAntares.GameValidation;
 /// </summary>
 public partial class GraphicalValidation : Node
 {
-    private readonly List<object> _results = new();
-    private readonly List<string> _savePaths = new();
-    private readonly string _runId = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fff", System.Globalization.CultureInfo.InvariantCulture);
-    private string _output = string.Empty;
+    protected readonly List<object> _results = new();
+    protected readonly List<string> _savePaths = new();
+    protected readonly string _runId = DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fff", System.Globalization.CultureInfo.InvariantCulture);
+    protected string _output = string.Empty;
 
     public override async void _Ready()
     {
@@ -67,7 +67,7 @@ public partial class GraphicalValidation : Node
         }
     }
 
-    private async Task CheckLoop(string size)
+    protected async Task CheckLoop(string size)
     {
         GetTree().Root.Size = new Vector2I(1920, 1080);
         var main = GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();
@@ -78,7 +78,15 @@ public partial class GraphicalValidation : Node
         Press(Button(setup, "Start"));
         await Frames();
         GameScreen screen = One<GameScreen>(main);
+        var legacyContent = ContentFiles.LoadCore().Content!;
+        legacyContent = legacyContent with { Expansion=null, Vessels=System.Collections.Immutable.ImmutableSortedDictionary<string,VesselDefinition>.Empty };
+        var legacyState = GalaxyGenerator.CreateNewGame(legacyContent,new NewGameSettings(size,42,Rules.LegacyVersion)).State!;
+        string legacyFixtureName=$"qa-{_runId}-{size}-legacy-loop";
+        string legacyFixturePath=SaveFiles.PathFor(legacyFixtureName);
+        SaveGame.WriteFile(legacyFixturePath,legacyContent,legacyState);_savePaths.Add(legacyFixturePath);
+        screen=await LoadThroughDialog(main,legacyFixtureName);
         GameSession session = Session(screen);
+        Check(session.State.RulesVersion==Rules.LegacyVersion,$"{size}: old-loop fixture is legacy rules 1");
         int expectedCount = size == "small" ? 12 : size == "medium" ? 16 : 20;
         Check(session.State.Stars.Count == expectedCount, $"{size}: exact selectable system count {expectedCount}");
         Check(session.State.Colonies.Single().Population == 6, $"{size}: starting population");
@@ -177,14 +185,14 @@ public partial class GraphicalValidation : Node
         await Frames();
     }
 
-    private async Task CheckProjectPopup(ContentSet content, GameState fixture, string size, Vector2I dimensions, bool otherSelected, bool embedded = false)
+    protected async Task CheckProjectPopup(ContentSet content, GameState fixture, string size, Vector2I dimensions, bool otherSelected, bool embedded = false)
     {
         GetTree().Root.Size = dimensions;
         var session = new GameSession(content, fixture.Clone());
         var screen = new GameScreen(session, session.State.Empires.Single().Id);
         AddChild(screen);
         await Frames();
-        ScrollContainer scroll = One<ScrollContainer>(screen);
+        ScrollContainer scroll = Descendants<ScrollContainer>(screen).Single(s => s.GetWindow()==screen.GetWindow());
         // Canvas scaling preserves logical height at small window sizes. Explicitly force
         // the formerly failing focus-scroll path without changing production layout code.
         scroll.CustomMinimumSize = new Vector2(0, 240);
@@ -254,7 +262,7 @@ public partial class GraphicalValidation : Node
         Check(map.Selected == home, $"{size}: background point cannot be selected");
     }
 
-    private async Task<string> SaveThroughDialog(GameScreen screen, string suffix)
+    protected async Task<string> SaveThroughDialog(GameScreen screen, string suffix)
     {
         string name = $"qa-{_runId}-{suffix}";
         string path = SaveFiles.PathFor(name);
@@ -272,7 +280,7 @@ public partial class GraphicalValidation : Node
         return name;
     }
 
-    private async Task<GameScreen> LoadThroughDialog(Control main, string name)
+    protected async Task<GameScreen> LoadThroughDialog(Control main, string name)
     {
         GameScreen previous = One<GameScreen>(main);
         Press(Button(previous, "Load"));
@@ -287,7 +295,7 @@ public partial class GraphicalValidation : Node
         return One<GameScreen>(main);
     }
 
-    private async Task CheckInvalidAndLegacyLoad(Control main, GameScreen current)
+    protected async Task CheckInvalidAndLegacyLoad(Control main, GameScreen current)
     {
         string invalidName = $"qa-{_runId}-invalid";
         string invalidPath = SaveFiles.PathFor(invalidName);
@@ -315,7 +323,7 @@ public partial class GraphicalValidation : Node
         One<TurnReportDialog>(loaded).Hide();
     }
 
-    private async Task EndTurn(GameScreen screen)
+    protected async Task EndTurn(GameScreen screen)
     {
         int before = Session(screen).State.Turn;
         Press(Button(screen, "End Turn"));
@@ -323,44 +331,44 @@ public partial class GraphicalValidation : Node
         Check(Session(screen).State.Turn == before + 1 && One<TurnReportDialog>(screen).Visible, "End Turn advances once and opens report");
     }
 
-    private async Task Capture(string name)
+    protected async Task Capture(string name)
     {
         await ToSignal(RenderingServer.Singleton, RenderingServer.SignalName.FramePostDraw);
         Error error = GetViewport().GetTexture().GetImage().SavePng(Path.Combine(_output, name + ".png"));
         Check(error == Error.Ok, $"Screenshot saved: {name}");
     }
 
-    private async Task Frames(int count = 4)
+    protected async Task Frames(int count = 4)
     {
         for (int i = 0; i < count; i++) await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
 
-    private void Check(bool condition, string name)
+    protected void Check(bool condition, string name)
     {
         _results.Add(new { name, passed = condition });
         if (!condition) throw new InvalidOperationException(name);
         GD.Print("PASS: " + name);
     }
 
-    private static IEnumerable<T> Descendants<T>(Node node) where T : Node => node.GetChildren().SelectMany(child =>
+    protected static IEnumerable<T> Descendants<T>(Node node) where T : Node => node.GetChildren().SelectMany(child =>
         (child is T match ? new[] { match } : Array.Empty<T>()).Concat(Descendants<T>(child)));
-    private static T One<T>(Node node) where T : Node => Descendants<T>(node).Single();
-    private static Button Button(Node node, string text) => Descendants<Button>(node).Single(b => b.Text == text && b.IsVisibleInTree() && b.GetWindow().Visible);
-    private static Button Step(Node node, string tooltip) => Descendants<Button>(node).Single(b => b.TooltipText == tooltip);
-    private static void Press(Button button)
+    protected static T One<T>(Node node) where T : Node => Descendants<T>(node).Single();
+    protected static Button Button(Node node, string text) => Descendants<Button>(node).Single(b => b.Text == text && b.IsVisibleInTree() && b.GetWindow().Visible);
+    protected static Button Step(Node node, string tooltip) => Descendants<Button>(node).Single(b => b.TooltipText == tooltip);
+    protected static void Press(Button button)
     {
         if (button.Disabled) throw new InvalidOperationException("Cannot press disabled button: " + button.Text);
         button.EmitSignal(Godot.Button.SignalName.Pressed);
     }
-    private static void Select(OptionButton picker, string id)
+    protected static void Select(OptionButton picker, string id)
     {
         int index = Enumerable.Range(0, picker.ItemCount).Single(i => picker.GetItemMetadata(i).AsString() == id);
         if (picker.IsItemDisabled(index)) throw new InvalidOperationException("Cannot select disabled option: " + id);
         picker.Select(index);
         picker.EmitSignal(OptionButton.SignalName.ItemSelected, index);
     }
-    private static GameSession Session(GameScreen screen) => (GameSession)typeof(GameScreen).GetField("_session", BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(screen)!;
-    private static string Snapshot(GameSession session) => SaveGame.Serialize(session.Content, session.State);
-    private static string MapBounds(GameScreen screen) => string.Join(",", new[] { "_minX", "_minY", "_maxX", "_maxY" }
+    protected static GameSession Session(GameScreen screen) => (GameSession)typeof(GameScreen).GetField("_session", BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(screen)!;
+    protected static string Snapshot(GameSession session) => SaveGame.Serialize(session.Content, session.State);
+    protected static string MapBounds(GameScreen screen) => string.Join(",", new[] { "_minX", "_minY", "_maxX", "_maxY" }
         .Select(name => typeof(GalaxyMap).GetField(name, BindingFlags.NonPublic | BindingFlags.Instance)!.GetValue(One<GalaxyMap>(screen))));
 }

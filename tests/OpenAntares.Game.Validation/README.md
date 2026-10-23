@@ -1,6 +1,6 @@
 # Godot runtime validation
 
-This opt-in harness tests the existing First Playable presentation inside graphical Godot. It is excluded from ordinary compilation by the root project's `tests/**` exclusion and is added only through `Validation.targets` during this runner.
+This opt-in harness tests the legacy colony loop and the approved expansion loop inside graphical Godot. It is excluded from ordinary compilation by the root project's `tests/**` exclusion and is added only through `Validation.targets` during this runner.
 
 From the repository root, with restored dependencies and a Godot 4.7.2 **.NET console executable**:
 
@@ -8,11 +8,11 @@ From the repository root, with restored dependencies and a Godot 4.7.2 **.NET co
 ./tests/OpenAntares.Game.Validation/Run-Validation.ps1 -Godot 'PATH/TO/Godot_v4.7.2-stable_mono_win64_console.exe' -OutputDirectory reports/my-unique-validation-run
 ```
 
-The output directory must be inside the repository and must not already contain `results.json`. The runner builds the opt-in class, runs its scene, and rebuilds the normal solution in `finally`, removing the class from the ordinary game assembly. If the runner is forcibly terminated, rebuild `OpenAntares.sln -t:Rebuild` before normal play.
+The output directory must be inside the repository and must not already contain `results.json`. The runner builds the opt-in classes, runs the chosen scene, and rebuilds the normal solution in `finally`, removing the class from the ordinary game assembly. If the runner is forcibly terminated, rebuild `OpenAntares.sln -t:Rebuild` before normal play.
 
 ## Coverage and evidence
 
-- Starts each of Small/Medium/Large through the real New Game screen's Start handler with seed 42.
+- Boots the real New Game screen, then loads a labelled generated rules-1 fixture through the real Load dialog for each legacy Small/Medium/Large loop. New-game expansion defaults are independently covered by the expansion scenario.
 - Checks selectable counts, every system's map/inspector handler, and rejection of a background point.
 - Exercises workforce buttons/visible shortage feedback, production/research selectors, End Turn, completions and population growth.
 - Uses real Save/Load dialog confirmation handlers for pre/post-completion saves, compares full serialized content/state and restored map bounds, and checks continued play.
@@ -23,6 +23,20 @@ The output directory must be inside the repository and must not already contain 
 
 `results.json` records assertions, popup geometry, requested/actual window mode, method, and retained QA save paths. `godot.log` records execution. Parent viewport PNGs omit native child windows; supplementary visual fixtures disable `ForceNative` only on their test popup, assert actual embedding, and capture the parent viewport. Ordinary native geometry checks run before that fixture change. Native popup texture readback was unavailable on the tested GL driver, so do not describe an embedded image as a native-window capture. Inspect images as well as numeric results.
 
-This harness dispatches control signals and the map's GUI handler in-process. It does **not** prove Windows pointer/keyboard delivery, accessibility exposure, general usability, or player understanding. It reads the session/map internals for assertions without modifying production state; actions flow through the existing control handlers. The root entry scene, game source, rules, content and project settings remain unchanged.
+This harness dispatches control signals and the map's GUI handler in-process. It does **not** prove Windows pointer/keyboard delivery, accessibility exposure, general usability, or player understanding. It reads the session/map internals for assertions without modifying production state; actions flow through the existing control handlers. The harness does not mutate live authoritative state; the separately labelled synthetic fixture is authored before session creation and validated. The approved implementation changes game source/content, while the harness remains excluded from normal play.
 
 Saves use unique `qa-<UTC timestamp>-...` names in the game's normal `user://saves`. Existing saves are never overwritten. QA files are intentionally retained and listed in the results; no automatic deletion occurs. The invalid-save fixture will appear in the Load list and is expected to show a parse error. Use a fresh output folder for each run and preserve failed evidence.
+
+## Expansion scenario
+
+Pass `-Scenario Expansion` (the default remains `Legacy` for existing invocations):
+
+```powershell
+./tests/OpenAntares.Game.Validation/Run-Validation.ps1 -Godot 'PATH/TO/Godot_v4.7.2-stable_mono_win64_console.exe' -Scenario Expansion -OutputDirectory reports/my-unique-expansion-run
+```
+
+Small/Medium/Large seed-42 campaigns each start through New Game, queue scout travel and settler production, save/reload pending movement and transit, repair source workforce after embarkation, travel/found explicitly, manage independent colony projects/research, resize, save pending founding and continue after a two-colony reload. Forecasts and actual published outcomes are compared. No economy outcomes are injected.
+
+A separately labelled synthetic fixture covers two owned colonies plus an empty world in the same system, exact selection/founding, and visible-text/action/tooltip invariance under changed hidden planets, foreign ownership and units. Both retained genuine schema-1/2 saves load and continue through the real dialogs with the legacy banner and expansion controls hidden. The synthetic observations are produced by the same public observation updater as ordinary generation/resolution.
+
+The final implementation evidence is indexed in [the expansion validation report](../../reports/EXPANSION_VALIDATION_2026-10-22.md). Automated signal dispatch and screenshots do not establish physical input, small-window comfort, player understanding or exported packaging. All QA saves and failed runs remain retained.
