@@ -75,6 +75,42 @@ public class ExpansionSaveTests
         j["state"]!["vessels"] = "bad"; Assert.False(SaveGame.Deserialize(j.ToJsonString()).Succeeded);
     }
     [Theory]
+    [InlineData("missing-colony")]
+    [InlineData("wrong-planet")]
+    public void HistoricalObservationRejectsImpossibleColonyReference(string change)
+    {
+        var state = HistoricalColonyObservation();
+        var j = JsonNode.Parse(SaveGame.Serialize(ExpansionFixtures.Content(), state))!;
+        j["state"]!["empires"]![0]!["surveys"]![1]!["planets"]![0]!["colony"] = change == "missing-colony" ? 2147483646 : Fixtures.HomeColony.Value;
+        var loaded = SaveGame.Deserialize(j.ToJsonString());
+        Assert.False(loaded.Succeeded);
+        Assert.Null(loaded.Game);
+    }
+    [Fact]
+    public void HistoricalObservationPreservesStaleOwnershipForExistingColony()
+    {
+        var state = HistoricalColonyObservation();
+        // Historical ownership may differ from truth; colony identity and planet must still exist.
+        state.Empires[0].Surveys[1].Planets[0] = state.Empires[0].Surveys[1].Planets[0] with { OwnerId = Fixtures.Empire };
+        var loaded = SaveGame.Deserialize(SaveGame.Serialize(ExpansionFixtures.Content(), state));
+        Assert.True(loaded.Succeeded, string.Join("\n", loaded.Errors));
+        Assert.Equal(Fixtures.Empire, loaded.Game!.State.Empires[0].Surveys[1].Planets[0].OwnerId);
+        Assert.Equal(new EmpireId(8), loaded.Game.State.FindColony(new(9))!.EmpireId);
+    }
+    private static GameState HistoricalColonyObservation()
+    {
+        var state = ExpansionFixtures.AtHome();
+        state.Empires.Add(new EmpireState { Id = new(8), Controller = ControllerKind.Ai });
+        state.Colonies.Add(new ColonyState { Id = new(9), EmpireId = new(8), PlanetId = new(7), Population = 2, Workforce = new(2, 0, 0) });
+        state.NextEntityId = 10;
+        state.Vessels[0].StationaryStarId = new(6);
+        OpenAntares.Simulation.Knowledge.ObservationUpdater.Refresh(state, 0);
+        state.Vessels[0].StationaryStarId = Fixtures.HomeStar;
+        state.Turn = 1;
+        OpenAntares.Simulation.Knowledge.ObservationUpdater.Refresh(state, 1);
+        return state;
+    }
+    [Theory]
     [InlineData("empty")]
     [InlineData("stale")]
     [InlineData("wrong-owner")]

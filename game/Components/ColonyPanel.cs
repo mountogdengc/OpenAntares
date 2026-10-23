@@ -90,7 +90,11 @@ public partial class ColonyPanel : VBoxContainer
         {
             var role = content.Vessels[roleId]; AddChild(Wrapped($"Settler: requires population {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers; transfers {role.EmbarkPopulation} population on completion. Delays construction of a building.", "SubtleLabel"));
         }
-        if (production.BlockedReasonCode is not null) AddChild(Wrapped("Awaiting embarkation: requires population 4 and 2 support workers. Production is retained.", "WarningLabel"));
+        if (production.BlockedReasonCode is not null && colony.ProjectId is { } blockedRoleId)
+        {
+            var role = content.Vessels[blockedRoleId];
+            AddChild(Wrapped($"Awaiting embarkation: requires population {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers. Production is retained.", "WarningLabel"));
+        }
         if (economy.EmbarkOutcome is { } embark)
         {
             AddChild(Wrapped($"After embarkation: population {embark.PopulationAfter}, support {embark.WorkforceAfter.Support}, production {embark.WorkforceAfter.Production}, research {embark.WorkforceAfter.Research}. Next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));

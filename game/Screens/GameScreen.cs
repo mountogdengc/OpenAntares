@@ -79,7 +79,7 @@ public partial class GameScreen : VBoxContainer
         _report.ChooseProjectRequested += ChooseProject;
         _report.StarRequested += star => _map.Select(star);
         _report.ColonyRequested += SelectColony;
-        _report.VesselRequested += vessel => { _selectedVessel = vessel; Callable.From(Refresh).CallDeferred(); };
+        _report.VesselRequested += vessel => { _selectedVessel = vessel; _courseDestination = null; Callable.From(Refresh).CallDeferred(); };
         _report.ChooseResearchRequested += _researchBar.OpenPicker;
 
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
@@ -87,7 +87,7 @@ public partial class GameScreen : VBoxContainer
 
         _map.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         _map.SizeFlagsVertical = SizeFlags.ExpandFill;
-        _map.StarSelected += _ => Refresh();
+        _map.StarSelected += star => { _courseDestination = star; Refresh(); };
         body.AddChild(_map);
 
         var side = new PanelContainer { CustomMinimumSize = new Vector2(380, 0) };
@@ -178,7 +178,7 @@ public partial class GameScreen : VBoxContainer
         _colonies.ShowColonies(view, _selectedColony);
         if (colony is null) _colonyPanel.Clear(); else _colonyPanel.ShowColony(_session.Content, colony);
         if (!view.Vessels.Any(v => v.Id == _selectedVessel)) _selectedVessel = view.Vessels.Length > 0 ? view.Vessels[0].Id : null;
-        _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination ?? selected, _selectedPlanet);
+        _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination, _selectedPlanet);
     }
 
     private void SelectColony(ColonyId id)

@@ -32,7 +32,7 @@ public partial class VesselPanel : VBoxContainer
             AddChild(new Button { Text = "Set course", Disabled = true, TooltipText = "Travel is committed until arrival." }); return;
         }
         var at = view.Stars.First(s => s.Chart.Id == vessel.StationaryStarId).Chart; AddChild(Text($"Stationed at {at.Name}"));
-        var targets = view.Stars.Where(s => s.Chart.Id != at.Id).ToArray(); var target = targets.FirstOrDefault(s => s.Chart.Id == (vessel.PendingMove ?? destination)) ?? targets.FirstOrDefault();
+        var targets = view.Stars.Where(s => s.Chart.Id != at.Id).ToArray(); var target = targets.FirstOrDefault(s => s.Chart.Id == destination) ?? targets.FirstOrDefault(s => s.Chart.Id == vessel.PendingMove) ?? targets.FirstOrDefault();
         var destinations = new OptionButton { SizeFlagsHorizontal = SizeFlags.ExpandFill, Name = "DestinationPicker" }; AddChild(destinations);
         foreach (var star in targets) { destinations.AddItem(star.Chart.Name); destinations.SetItemMetadata(destinations.ItemCount - 1, star.Chart.Id.Value); if (star == target) destinations.Select(destinations.ItemCount - 1); }
         destinations.ItemSelected += index => DestinationSelected?.Invoke(new(destinations.GetItemMetadata((int)index).AsInt32()));
@@ -48,7 +48,7 @@ public partial class VesselPanel : VBoxContainer
         {
             var planet = view.Stars.Where(s => s.Planets.HasValue).SelectMany(s => s.Planets!.Value.Select(p => (Star: s, Planet: p))).FirstOrDefault(p => p.Planet.Id == selectedPlanet);
             string reason = planet.Planet is null ? "Select a surveyed planet." : planet.Star.Chart.Id != at.Id ? "Travel to this system first." : !planet.Star.Current ? "A current observation is required." : planet.Planet.OwnerId.HasValue ? "This planet is already colonized." : !planet.Planet.Colonizable ? "This world cannot support a settlement." : view.Vessels.Any(v => v.Id != vessel.Id && v.PendingFounding == selectedPlanet) ? "Another settler has reserved this world." : string.Empty;
-            AddChild(Text("Founding transfers the cargo into population 2, all in support. Output begins in the following economic snapshot."));
+            AddChild(Text($"Founding transfers the cargo into population {vessel.CarriedPopulation}, all in support. Output begins in the following economic snapshot."));
             if (reason.Length > 0) AddChild(Text(reason));
             var found = new Button { Text = "Found colony", Disabled = reason.Length > 0, TooltipText = reason.Length > 0 ? reason : "Queues founding for the next End Turn." }; AddChild(found); found.Pressed += () => CommandIssued?.Invoke(new SetFoundingOrderCommand(view.Viewer, view.Turn, vessel.Id, selectedPlanet));
         }

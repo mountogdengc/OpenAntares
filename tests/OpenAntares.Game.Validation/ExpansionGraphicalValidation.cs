@@ -27,7 +27,7 @@ public partial class ExpansionGraphicalValidation : GraphicalValidation
             _output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output=",StringComparison.Ordinal))[20..];Directory.CreateDirectory(_output);
             Check(DisplayServer.GetName()!="headless","Graphical display required");Check(GetTree().Root.Size==new Vector2I(1920,1080),"Default window 1920x1080");
             foreach(string size in new[]{"small","medium","large"})await GeneratedLoop(size);
-            await SyntheticViews();await LegacyFixtures();
+            await SyntheticViews();await NondefaultContentInstructions();await LegacyFixtures();
         }
         catch(Exception ex){error=ex.ToString();GD.PrintErr(error);}
         finally
@@ -52,6 +52,18 @@ public partial class ExpansionGraphicalValidation : GraphicalValidation
         One<GalaxyMap>(screen).Select(home.Chart.Id);await Frames();Select(Descendants<OptionButton>(One<ColonyPanel>(screen)).Single(),"vessel|settler");await Frames();Check(session.State.Colonies[0].ProjectKind=="vessel",$"{size}: settler selection uses typed production");
         One<GalaxyMap>(screen).Select(target.Chart.Id);await Frames();await Reach(Button(One<VesselPanel>(screen),"Set course"));Press(Button(One<VesselPanel>(screen),"Set course"));await Frames();Check(session.State.Vessels[0].PendingMove==target.Chart.Id,$"{size}: pending scout route");
         string pending=await SaveThroughDialog(screen,$"{size}-pending-move");screen=await LoadThroughDialog(main,pending);session=Session(screen);Check(session.State.Vessels[0].PendingMove==target.Chart.Id,$"{size}: saved pending move retained");
+        var replacement=view.Stars.First(s=>s.Chart.Id!=home.Chart.Id&&s.Chart.Id!=target.Chart.Id).Chart;
+        OptionButton Destination()=>Descendants<OptionButton>(One<VesselPanel>(screen)).Single(p=>p.Name=="DestinationPicker");
+        Check(Destination().GetSelectedMetadata().AsInt32()==target.Chart.Id.Value,$"{size}: reload initially previews queued route");
+        SelectInt(Destination(),replacement.Id.Value);await Frames();
+        Check(Destination().GetSelectedMetadata().AsInt32()==replacement.Id.Value,$"{size}: destination picker retains replacement preview");
+        int replacementTurns=TravelCalculator.Duration(home.Chart.X,home.Chart.Y,replacement.X,replacement.Y,300);
+        Check(Descendants<Label>(One<VesselPanel>(screen)).Any(l=>l.Text.Contains($"travel {replacementTurns} turn(s).",StringComparison.Ordinal)),$"{size}: replacement travel preview uses selected destination");
+        Check(session.State.Vessels[0].PendingMove==target.Chart.Id,$"{size}: preview alone preserves queued route");
+        Press(Button(One<VesselPanel>(screen),"Set course"));await Frames();Check(session.State.Vessels[0].PendingMove==replacement.Id,$"{size}: Set course replaces queued route");
+        string replaced=await SaveThroughDialog(screen,$"{size}-replaced-move");screen=await LoadThroughDialog(main,replaced);session=Session(screen);
+        Check(Destination().GetSelectedMetadata().AsInt32()==replacement.Id.Value,$"{size}: replaced route remains selected after reload");
+        SelectInt(Destination(),target.Chart.Id.Value);await Frames();Press(Button(One<VesselPanel>(screen),"Set course"));await Frames();Check(session.State.Vessels[0].PendingMove==target.Chart.Id,$"{size}: queued route can be replaced again after reload");
         await EndTurn(screen);One<TurnReportDialog>(screen).Hide();Check(session.State.Vessels[0].Transit is not null,$"{size}: launch advances first transit step");Check(Descendants<Button>(One<VesselPanel>(screen)).Any(b=>b.Text=="Set course"&&b.Disabled),$"{size}: transit controls disabled");
         string transit=await SaveThroughDialog(screen,$"{size}-transit");screen=await LoadThroughDialog(main,transit);session=Session(screen);
         while(session.State.Turn<6)
@@ -107,6 +119,18 @@ public partial class ExpansionGraphicalValidation : GraphicalValidation
         }
         var a=SyntheticFixture();var b=a.Clone();b.Planets.Single(p=>p.Id==new PlanetId(11)).PlanetTypeId="crystal_world";b.Empires.Add(new EmpireState{Id=new(12),Controller=ControllerKind.Ai});b.Planets.Add(new PlanetState{Id=new(13),StarId=new(10),Orbit=2,PlanetTypeId="barren_rock"});b.Colonies.Add(new ColonyState{Id=new(14),EmpireId=new(12),PlanetId=new(11),Population=2,Workforce=new(2,0,0)});b.Vessels.Add(new VesselState{Id=new(15),EmpireId=new(12),RoleId="settler",CarriedPopulation=2,StationaryStarId=new(10),PendingMove=new(2)});b.NextEntityId=16;ObservationUpdater.Refresh(b,0);
         Check(GameStateValidator.Validate(content,b).Count==0,"Changed hidden synthetic truth remains valid");Check(await HiddenTree(a)==await HiddenTree(b),"Hidden world counts/types/ownership/cargo/orders do not alter visible UI text actions or tooltips");
+    }
+    private async Task NondefaultContentInstructions()
+    {
+        var original=ContentFiles.LoadCore().Content!;
+        var content=original with { Vessels=original.Vessels.SetItem("settler",original.Vessels["settler"] with { EmbarkPopulation=3,MinimumSourcePopulation=5 }) };
+        var state=SyntheticFixture();state.Vessels.Single(v=>v.RoleId=="settler").CarriedPopulation=3;state.Colonies[0].ProjectKind="vessel";state.Colonies[0].ProjectId="settler";state.Colonies[0].ProductionReserve=2400;
+        Check(GameStateValidator.Validate(content,state).Count==0,"Nondefault embedded-content fixture is valid");
+        var screen=new GameScreen(new GameSession(content,state),new(1));AddChild(screen);await Frames();
+        Check(Descendants<Label>(One<ColonyPanel>(screen)).Any(l=>l.Text=="Awaiting embarkation: requires population 5 and 3 support workers. Production is retained."),"Blocked embarkation instructions use embedded minimum and cargo");
+        SelectInt(Descendants<OptionButton>(One<VesselPanel>(screen)).Single(p=>p.Name=="VesselPicker"),8);await Frames();
+        Check(Descendants<Label>(One<VesselPanel>(screen)).Any(l=>l.Text.StartsWith("Founding transfers the cargo into population 3, all in support.",StringComparison.Ordinal)),"Founding preview uses actual owned cargo");
+        await Capture("nondefault-content-instructions");RemoveChild(screen);screen.QueueFree();await Frames();
     }
     private async Task LegacyFixtures()
     {
