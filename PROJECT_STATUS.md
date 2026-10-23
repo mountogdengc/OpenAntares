@@ -6,20 +6,20 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space 4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Expansion integrated on main; local verification complete |
+| Current phase | Species mechanics draft awaiting owner review; expansion integrated |
 | Project health | Integrated local automated acceptance passes; human/release acceptance remain open |
-| Active milestone | M2-I - Exploration, travel and colonization |
+| Active milestone | M3-D - Species mechanics and creative review |
 | Current version | Not Released; new games rules 2, writer schema 3, legacy rules 1 supported |
 | Last updated | 2026-10-23, America/Denver |
-| Implementation readiness | Nine tasks, independent review/corrections and owner-authorized local integration complete |
+| Implementation readiness | Expansion complete; species draft only, no species gameplay approval or implementation plan |
 
 ## 2. Current state
 
 **Last completed work:** Implemented per-empire surveys/permitted views, deterministic committed travel, repeatable scout/settler production, conserved embarkation, explicit founding, two-colony controls and schema-3 persistence with genuine schema-1/2 legacy continuation. Preserved the existing engine boundary, economy and source baseline. New Game now starts rules 2 with one scout.
 
-**Current work:** Integrated-main handoff after all nine tasks, independent review/corrections and owner-authorized integration. [Integration verification](reports/EXPANSION_INTEGRATION_2026-10-23.md) records lock repair, preservation and fresh combined checks. [The implementation plan](docs/superpowers/plans/2026-10-22-exploration-and-colonization.md) is approved for Native execution; do not request its approval or reopen ADR-006. [Validation evidence](reports/EXPANSION_VALIDATION_2026-10-22.md) records fresh results and failed attempts.
+**Current work:** Species [candidate specification](docs/superpowers/specs/2026-10-23-species-mechanics-design.md) written under [ADR-007](docs/DECISIONS/ADR-007-species-design-and-creative-review.md). The owner permits creative amendments as proposals; existing roster/research edits remain untouched. Independent builder check found nothing important missing; numeric examples are arithmetic checks, not engine/balance evidence. Integrated expansion remains complete after all nine tasks and independent review/corrections. [Integration verification](reports/EXPANSION_INTEGRATION_2026-10-23.md) records lock repair, preservation and fresh combined checks. [The implementation plan](docs/superpowers/plans/2026-10-22-exploration-and-colonization.md) is approved for Native execution; do not request its approval or reopen ADR-006. [Validation evidence](reports/EXPANSION_VALIDATION_2026-10-22.md) records fresh results and failed attempts.
 
-**Next action:** Open the primary main checkout in Godot .NET and inspect the completed expansion loop. Preserve the two uncommitted owner prose edits and recovery copies. Additional features and remote publication remain separate scope.
+**Next action:** Owner review of the full species draft: creative/unit amendments, numbers/roles, Sulan habitat preparation, Wenth maturity/capacity and new-campaign/version policy. After approval, write a separate implementation plan. Do not start gameplay implementation.
 
 ## 3. Milestone progress
 
@@ -31,14 +31,16 @@
 | M2-D | Expansion design | Verified | Owner-approved ADR-006, exact specification and builder check |
 | M2-P | Expansion implementation plan | Verified | Owner approved plan and Native execution |
 | M2-I | Expansion implementation | Verified | Approved automated Windows criteria and independent review findings addressed; human/platform/release limits remain open |
-| M3 | Species and later strategic systems | Deferred | No newly inferred scope |
+| M3-D | Species mechanics design | In Progress | Review draft and creative proposals; no gameplay approval |
+| M3-P / M3-I | Species implementation plan / gameplay | Not Started | Requires approved design, then reviewed plan |
+| M-Later | Remaining strategic systems | Deferred | REQ-017, no inferred scope |
 | M-Delivery | Cross-platform/release validation | Not Started | Windows-only local evidence |
 
 ## 4. Decisions and open questions
 
-ADR-001..004 preserve existing architecture, deterministic commands/economy, JSON/compatibility and spiral scope. ADR-005 retains the deferred participant session. ADR-006 approves the full expansion specification and schema-3/rules-1/2 campaign separation. The owner subsequently approved the concrete plan and Native execution. No gameplay design choice is reopened here.
+ADR-001..004 preserve existing architecture, deterministic commands/economy, JSON/compatibility and spiral scope. ADR-005 retains the deferred participant session. ADR-006 approves the full expansion specification and schema-3/rules-1/2 campaign separation. The owner subsequently approved the expansion plan/Native execution and integration. ADR-007 now authorizes a species draft and proposed creative revisions; it does not accept those gameplay choices.
 
-Open: full physical-input/readability acceptance, later platform/package policy and species numeric rules. The participant session does not block this authorized milestone.
+Open: owner review of species creative/numeric/habitat/version proposals, full physical-input/readability acceptance and later platform/package policy. The participant session does not block this authorized milestone.
 
 ## 5. Blockers and risks
 
@@ -58,14 +60,14 @@ Counts derive from the 17 parent rows in [SPECIFICATIONS.md](docs/SPECIFICATIONS
 | Status | Count |
 | --- | ---: |
 | Not Started | 0 |
-| In Progress | 0 |
+| In Progress | 1 |
 | Implemented, Unverified | 3 |
 | Verified | 11 |
 | Blocked | 0 |
-| Deferred | 3 |
+| Deferred | 2 |
 | Total | 17 |
 
-Fresh Windows results on integrated main: **281 simulation tests passed**, 0 failed/skipped; normal build/rebuild exit 0, 0 warnings/errors; **275 expansion runtime assertions** and **466 legacy runtime assertions** passed, plus 27 geometry observations, with zero final engine diagnostics. Ten final expansion and sixteen legacy PNGs retained. Both genuine legacy formats render/continue; pending move/transit/founding and two-colony reload continuation pass. Normal restore used its default NuGet audit; cache use is not a clean-machine claim.
+Latest executed Windows gameplay baseline (integration, before species drafting): **281 simulation tests passed**, 0 failed/skipped; normal build/rebuild exit 0, 0 warnings/errors; **275 expansion runtime assertions** and **466 legacy runtime assertions** passed, plus 27 geometry observations, with zero final engine diagnostics. Ten final expansion and sixteen legacy PNGs retained. Both genuine legacy formats render/continue; pending move/transit/founding and two-colony reload continuation pass. Normal restore used its default NuGet audit; cache use is not a clean-machine claim.
 
 See [integration verification](reports/EXPANSION_INTEGRATION_2026-10-23.md) for fresh main commands, TRX and preservation; [the implementation report](reports/EXPANSION_VALIDATION_2026-10-22.md) retains earlier failed runs, QA saves, methods and limits. Earlier 195/463 results remain historical baseline evidence, not today's counts. No human comprehension, physical OS input, cross-platform or release acceptance is asserted.
 
@@ -89,12 +91,12 @@ Read current Git and the integration report before resuming. Main now contains e
 
 ## 8. Immediate next steps
 
-1. Open `F:/Projects-PCGames/OpenAntares/project.godot` in Godot .NET and inspect the completed expansion loop.
-2. Preserve the owner species/faction edits as uncommitted work, along with recovery stash/snapshot, all worktrees and QA evidence.
-3. Continue later feature work only within separately reviewed scope; the deferred human session and platform/release gaps remain open.
+1. Review the complete species draft and accept/amend its four review groups; all new mechanics remain proposed.
+2. After approval, reconcile affected specifications and write the separate implementation plan.
+3. Preserve owner prose edits, recovery copies and current gameplay baseline; no species code/content or broad later systems are authorized now.
 
 ## 9. Agent handoff
 
 The owner approved Native execution; implementer tasks are not delegated. One final independent review is authorized by that workflow. Do not recruit a participant, ask to approve settled choices, add AI/combat/species, or automatically merge/push/clean. Preserve C#/Godot separation, integer/PCG32 determinism, typed IDs, JSON content and schema/rules compatibility.
 
-**Last session result:** Approved expansion functionality and retained acceptance harness implemented in isolation. Fresh 281/275/466 passes recorded. All three independent review findings were corrected with RED-to-GREEN checks and the full suite passed; no deferred Minor findings. Owner-authorized integration is complete with fresh 281/275/466 passes; normal index repaired and existing edits preserved. Human acceptance and release remain open. See [review and dispositions](reports/EXPANSION_REVIEW_2026-10-23.md).
+**Last session result:** Species-mechanics review draft added with explicit creative amendments, numeric examples, state/content/save/knowledge contracts and ten proposed acceptance criteria. Two owner prose files and all gameplay code/content remain unchanged. Independent builder check found nothing important missing; 23 proposed arithmetic fixtures pass. [Draft review evidence](reports/SPECIES_DESIGN_REVIEW_2026-10-23.md). Prior integrated expansion passes remain 281 simulation / 275 expansion / 466 legacy (+27 observations), not newly rerun during drafting. Human/release acceptance remains open; species gameplay is unapproved.

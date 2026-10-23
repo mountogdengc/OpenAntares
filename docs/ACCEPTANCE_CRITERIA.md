@@ -107,7 +107,7 @@ The adoption ran the complete suite, including the named checks below, and retai
 
 ## Deferred design-readiness gates
 
-AC-015 records the approved expansion and its executed child criteria. AC-016/017 remain future design-readiness gates, not delivered gameplay claims.
+AC-015 records approved expansion and executed child criteria. AC-016 is now an active draft-review gate; AC-017 remains Deferred. Neither claims later gameplay delivered.
 
 ### AC-015 / REQ-015: Exploration/colonization specification gate
 
@@ -115,7 +115,7 @@ Design review was satisfied by ADR-006; the owner also approved the separate pla
 
 ### AC-016 / REQ-016: Species specification gate
 
-Given the accepted four-species roster, specify numeric mechanics, content schemas, setup/save interactions, settlement constraints and exact examples without rewriting the accepted identities. Expected: approved testable rules distinct from prose, with regression protection for the unchanged base fixture. Method: design/owner review; deferred. Species selection/modifiers are not currently implemented.
+Given the roster and the owner's [revised creative authority](DECISIONS/ADR-007-species-design-and-creative-review.md), review the [candidate species specification](superpowers/specs/2026-10-23-species-mechanics-design.md). Explicitly accept/amend creative/unit changes, numeric profiles and roles, Sulan preparation, Wenth maturity/capacity and compatibility/default policies. SPC-AC-001..010 define future exact/failure/interaction evidence. Expected: owner-approved testable rules with unchanged old-campaign fixtures, followed by a separate implementation plan. Current status: In Progress for draft review only; builder check/arithmetic are not approval or functionality. Species selection/modifiers are not implemented.
 
 ### AC-017 / REQ-017: Later strategic milestone gate
 

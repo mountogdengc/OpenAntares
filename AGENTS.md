@@ -13,6 +13,8 @@ Explicit owner instructions take precedence. Existing authoritative designs gove
 
 The 2026-10-22 request and continuation authorize adoption, reconciliation, documentation, verification and retained regression checks. The owner deferred the unavailable uncoached playtest (ADR-005) and then approved the full exploration/colonization specification (ADR-006). **Do not block progression on recruiting a participant or closing First Playable, or reopen the approved design choices.** The owner approved the separate implementation plan and Native execution. Its nine tasks and independent review/corrections are complete. On 2026-10-23 the owner explicitly authorized lock repair and local integration: main now contains the expansion, the normal index works, and two separate owner prose edits remain uncommitted. Read current status; do not repeat completed implementation. Full First Playable acceptance stays open. Do not import OpenJRPG-specific requirements or ADR numbering from the workflow PDF.
 
+Current continuation: species-mechanics drafting and proposed creative revisions are authorized for review (ADR-007). Original owner roster/research edits remain untouched. Species rules, new content/state and implementation are not approved; use the draft review gate in PROJECT_STATUS before further work.
+
 ## Engineering constraints
 
 - C# throughout; Godot .NET presentation, plain .NET simulation, JSON content, xUnit tests.

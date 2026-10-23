@@ -23,7 +23,7 @@ Status vocabulary: Not Started / In Progress / Implemented, Unverified / Verifie
 | REQ-013 | Portability and cross-machine determinism | Essential / delivery | Implemented, Unverified | AC-013 |
 | REQ-014 | Understandable, meaningful First Playable choices | Essential / First Playable acceptance | Deferred | AC-014 |
 | REQ-015 | Exploration, travel, and a second colony | Implemented expansion / local automated acceptance | Verified | AC-015 |
-| REQ-016 | Distinct playable species | Future / version 1.0 | Deferred | AC-016 |
+| REQ-016 | Distinct playable species | Species specification review / M3-D | In Progress | AC-016 |
 | REQ-017 | Remaining complete strategic game | Future / version 1.0 | Deferred | AC-017 |
 
 ## Functional contracts
@@ -92,7 +92,7 @@ Implemented under the owner-approved [specification](superpowers/specs/2026-10-2
 
 ### REQ-016: Distinct playable species
 
-Preserve the four-species accepted creative roster and its local appearance edits. Numeric traits, starting conditions, species JSON/schema, setup/customization, balancing, and settlement effects are unspecified. Do not alter the `verdant_world` fixture based on prose. Depends on focused species/expansion designs. Source: [SPECIES_ROSTER.md](SPECIES_ROSTER.md). AC-016 is a specification gate; no functionality is claimed.
+The roster is the starting point; the owner permits proposed creative changes under [ADR-007](DECISIONS/ADR-007-species-design-and-creative-review.md). The [species mechanics draft](superpowers/specs/2026-10-23-species-mechanics-design.md) proposes economy/starting profiles, habitats, conserved species-specific founding, JSON/state/view contracts, compatibility and SPC-AC-001..010. It is In Progress for owner review, not approved or implemented. Preserve the two existing owner prose edits; do not change the old `verdant_world`/economy fixture or gameplay content during drafting. Species customization and final balance remain outside this slice. AC-016 is the review gate; implementation needs approval and a separate plan.
 
 ### REQ-017: Remaining strategic game
 

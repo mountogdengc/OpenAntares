@@ -98,3 +98,7 @@ The [expansion implementation plan](../docs/superpowers/plans/2026-10-22-explora
 ## Native expansion implementation - 2026-10-23
 
 The owner approved the concrete plan and Native execution. The isolated feature branch now implements the approved expansion loop; fresh final results are 281 simulation tests, 275 expansion runtime assertions and 466 retained legacy runtime assertions, all passing. Normal rebuilds have zero warnings/errors and final engine logs contain no diagnostics. Commands, environment, exact traceability, failed attempts, QA paths, review/integration state and limitations are in [EXPANSION_VALIDATION_2026-10-22.md](EXPANSION_VALIDATION_2026-10-22.md). Original baseline claims above remain historical. ADR-005 human acceptance remains Deferred; no automatic integration or release occurred.
+
+## Species design draft - 2026-10-23
+
+The owner authorized a [species-mechanics draft](../docs/superpowers/specs/2026-10-23-species-mechanics-design.md), then permitted creative revisions as proposals (ADR-007). No gameplay/code/content changes or new application build/test results are claimed. [Design review evidence](SPECIES_DESIGN_REVIEW_2026-10-23.md) records the independent builder check and 23 passing independent arithmetic fixtures; these are not engine tests or final balance evidence. REQ-016 is In Progress for owner review, with implementation gated on approval and a separate plan. Prior integrated 281/275/466 passes remain historical results for unchanged source.
