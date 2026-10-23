@@ -31,6 +31,8 @@ public static class GalaxyGenerator
 
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
+        if (!Rules.IsSupported(settings.RulesVersion)) return Fail("Unsupported rules version.");
+        if (settings.RulesVersion == Rules.ExpansionVersion && content.Expansion is null) return Fail("Expansion games require expansion content.");
         if (!content.GalaxySizes.TryGetValue(settings.GalaxySizeId, out GalaxySizeDefinition? size))
         {
             return Fail($"Galaxy size '{settings.GalaxySizeId}' is not defined.");
@@ -38,6 +40,7 @@ public static class GalaxyGenerator
 
         var state = new GameState
         {
+            RulesVersion = settings.RulesVersion,
             Turn = 0,
             Random = Pcg32.FromSeed(settings.Seed, RandomStream),
             GalaxySeed = settings.Seed,
@@ -112,6 +115,12 @@ public static class GalaxyGenerator
             Population = start.Population,
             Workforce = start.Workforce,
         });
+
+        if (settings.RulesVersion == Rules.ExpansionVersion)
+        {
+            state.Vessels.Add(new VesselState { Id = new(state.AllocateId()), EmpireId = empire.Id, RoleId = content.Expansion!.StartingVesselId, StationaryStarId = home.Id });
+            Knowledge.ObservationUpdater.Refresh(state, 0);
+        }
 
         IReadOnlyList<string> errors = GameStateValidator.Validate(content, state);
         return errors.Count > 0

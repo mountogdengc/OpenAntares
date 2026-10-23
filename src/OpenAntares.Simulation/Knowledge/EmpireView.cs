@@ -1,0 +1,13 @@
+using System.Collections.Immutable;
+using OpenAntares.Simulation.Economy;
+using OpenAntares.Simulation.State;
+namespace OpenAntares.Simulation.Knowledge;
+public sealed record ChartedStar(StarId Id,string Name,int X,int Y,string? RegionId);
+public sealed record GalaxyMapView(ImmutableArray<ChartedStar> Stars,ulong? Seed,string? ShapeId,int? Width,int? Height,ImmutableArray<StarId> HomeMarkers);
+public sealed record KnownPlanetView(PlanetId Id,int Orbit,string PlanetTypeId,long SupportPerWorker,long ProductionPerWorker,long ResearchPerWorker,bool Colonizable,ColonyId? ColonyId,EmpireId? OwnerId);
+public sealed record StarView(ChartedStar Chart,ImmutableArray<KnownPlanetView>? Planets,int? LastObservedTurn,bool Current);
+public sealed record OwnedColonyView(ColonyId Id,PlanetId PlanetId,StarId StarId,EmpireId EmpireId,int Population,Workforce Workforce,int GrowthProgress,long ProductionReserve,string? ProjectId,string ProjectKind,ImmutableArray<string> CompletedBuildingIds,ColonyEconomy Economy);
+public sealed record OwnedVesselView(VesselId Id,EmpireId EmpireId,string RoleId,StarId? StationaryStarId,TransitState? Transit,StarId? PendingMove,PlanetId? PendingFounding,int CarriedPopulation);
+public sealed record OwnResearchView(EmpireId Id,long Reserve,string? TargetId,ImmutableArray<string> KnownTechnologyIds,EmpireEconomy Economy);
+public sealed record ForeignVesselView(VesselId Id,EmpireId EmpireId,string RoleId,StarId StarId);
+public sealed record EmpireView(int Turn,EmpireId Viewer,int RulesVersion,GalaxyMapView Galaxy,ImmutableArray<StarView> Stars,ImmutableArray<OwnedColonyView> Colonies,ImmutableArray<OwnedVesselView> Vessels,ImmutableArray<ForeignVesselView> ForeignVessels,OwnResearchView Research);

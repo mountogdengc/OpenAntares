@@ -30,6 +30,8 @@ public sealed class GameSession
     }
 
     /// <summary>What resolving the turn now would do, with breakdowns. Changes nothing.</summary>
+    public Knowledge.EmpireView View(EmpireId viewer) => Knowledge.EmpireViewProjector.Project(Content, State, viewer);
+
     public TurnEconomy Forecast() => EconomyCalculator.Calculate(Content, State);
 
     public void Save(string path) => SaveGame.WriteFile(path, Content, State);
