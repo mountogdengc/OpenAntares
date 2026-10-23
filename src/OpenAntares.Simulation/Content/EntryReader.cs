@@ -164,6 +164,17 @@ internal sealed class EntryReader
 
     public int RequiredInt(string field, int min, int max) => (int)RequiredLong(field, min, max);
 
+    public string OptionalString(string field, string fallback)
+    {
+        _readFields.Add(field);
+        return _object.TryGetProperty(field, out _) ? RequiredString(field) : fallback;
+    }
+    public JsonElement? OptionalArray(string field)
+    {
+        _readFields.Add(field);
+        return _object.TryGetProperty(field, out _) ? RequiredArray(field) : null;
+    }
+
     public JsonElement? RequiredArray(string field)
     {
         if (!TryGet(field, out JsonElement value))
@@ -180,6 +191,11 @@ internal sealed class EntryReader
         return value;
     }
 
+    public EntryReader? RequiredNullableObject(string field)
+    {
+        if (!TryGet(field, out JsonElement value) || value.ValueKind == JsonValueKind.Null) return null;
+        return Nested(value, field);
+    }
     public EntryReader? RequiredObject(string field)
     {
         if (!TryGet(field, out JsonElement value))

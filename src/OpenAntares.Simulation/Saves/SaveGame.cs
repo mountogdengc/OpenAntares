@@ -28,7 +28,7 @@ public sealed record SaveLoadResult(LoadedGame? Game, IReadOnlyList<string> Erro
 public static class SaveGame
 {
     public const string FormatName = "openantares-save";
-    public const int SchemaVersion = 2;
+    public const int SchemaVersion = 3;
 
     private const string SaveLocation = "save";
 
@@ -138,14 +138,14 @@ public static class SaveGame
                 return Fail($"This is not an OpenAntares save (format '{format}').");
             }
 
-            if (schema is not (1 or SchemaVersion))
+            if (schema is not (1 or 2 or SchemaVersion))
             {
                 return Fail($"The save uses unsupported schema version {schema}.");
             }
 
-            if (rulesVersion != Rules.CurrentVersion)
+            if (!Rules.IsSupported((int)rulesVersion) || (schema < 3 && rulesVersion != Rules.LegacyVersion))
             {
-                return Fail($"The save uses rules version {rulesVersion}; this build implements version {Rules.CurrentVersion}. Saves are not migrated automatically.");
+                return Fail($"The save uses rules version {rulesVersion}; this build implements version 1 and 2 with explicit schema compatibility. Saves are not migrated automatically.");
             }
 
             // Embedded content goes through the same loader and validation as content files.
@@ -206,6 +206,7 @@ public static class SaveGame
             WriteNullableString(writer, "research_target", empire.ResearchTargetId);
             WriteStrings(writer, "known_technologies", empire.KnownTechnologyIds);
             writer.WriteBoolean("ready", empire.Ready);
+            ExpansionSaveData.WriteSurveys(writer, empire);
             writer.WriteEndObject();
         }
 
@@ -254,11 +255,13 @@ public static class SaveGame
             writer.WriteNumber("growth_progress", colony.GrowthProgress);
             writer.WriteNumber("production_reserve", colony.ProductionReserve);
             WriteNullableString(writer, "project", colony.ProjectId);
+            writer.WriteString("project_kind", colony.ProjectKind);
             WriteStrings(writer, "completed_buildings", colony.CompletedBuildingIds);
             writer.WriteEndObject();
         }
 
         writer.WriteEndArray();
+        ExpansionSaveData.WriteVessels(writer, state);
         writer.WriteEndObject();
     }
 
@@ -305,6 +308,7 @@ public static class SaveGame
                 item.Error("controller", $"Unknown controller '{controller}'. Expected human or ai.");
             }
 
+            if (schemaVersion >= 3) ExpansionSaveData.ReadSurveys(item, empire, rulesVersion == Rules.ExpansionVersion);
             state.Empires.Add(empire);
         });
 
@@ -336,6 +340,7 @@ public static class SaveGame
                 GrowthProgress = item.RequiredInt("growth_progress", 0, int.MaxValue),
                 ProductionReserve = item.RequiredLong("production_reserve", 0, long.MaxValue),
                 ProjectId = item.RequiredNullableString("project"),
+                ProjectKind = schemaVersion < 3 ? ProductionKinds.Building : rulesVersion == Rules.ExpansionVersion ? item.RequiredString("project_kind") : item.OptionalString("project_kind", ProductionKinds.Building),
                 CompletedBuildingIds = item.RequiredStringArray("completed_buildings").ToList(),
             };
             if (item.RequiredObject("workforce") is { } workforce)
@@ -350,6 +355,7 @@ public static class SaveGame
             state.Colonies.Add(colony);
         });
 
+        if (schemaVersion >= 3) ExpansionSaveData.ReadVessels(reader, state, rulesVersion == Rules.ExpansionVersion);
         reader.RejectUnknownFields();
         return state;
     }
