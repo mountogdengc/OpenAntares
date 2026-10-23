@@ -17,7 +17,7 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M1-I | Establish an integrated accepted baseline | M1 evidence; inspect all current diffs and untracked evidence, separate UI/test evidence from unrelated species/research edits, review intended commits/branch | Build/tests and relevant graphical regression on combined intended result; record final SHA and remaining edits | Not Started; no merge/reset/commit during adoption |
 | M2-D | Reviewed exploration/travel/second-colony design; REQ-015 | Design entry authorized by ADR-005; knowledge/visibility, movement/founding/timing, contrasting examples, legacy policy, multi-colony UI | EXP-AC criteria and builder check complete; owner approved full specification in ADR-006 | Verified for design scope only |
 | M2-P | Review the separate expansion implementation plan | Approved M2-D; nine dependency-ordered tasks, exact interfaces/fixtures, regression and runtime evidence | Owner approved plan and Native execution | Verified |
-| M2-I | Implement the reviewed expansion milestone | M2-P handoff; isolated checkout/preserved baseline, state/content/commands, persistence compatibility, simulation, UI | New exact-result/failure tests, legacy continuation, graphical multi-colony scenarios | Implemented, Unverified; final independent review pending |
+| M2-I | Implement the reviewed expansion milestone | M2-P handoff; isolated checkout/preserved baseline, state/content/commands, persistence compatibility, simulation, UI | New exact-result/failure tests, legacy continuation, graphical multi-colony scenarios | Verified for executed local automated criteria; independent review/corrections complete |
 | M3 | Species mechanics and remaining strategic systems; REQ-016/017 | Focused approved specs; preserve accepted creative roster and charter scope | AC-016/017 planning gates, then system-specific tests | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -25,7 +25,7 @@ M1-I can be prepared alongside validation, but do not call it an accepted baseli
 
 ## Next concrete action
 
-Finish the final independent branch review of the implemented expansion and its [executed evidence](../reports/EXPANSION_VALIDATION_2026-10-22.md), then hand over the playable isolated feature checkout. The owner already approved both design and Native execution. Do not ask again or re-block on the deferred uncoached session. No merge/push/cleanup is implied; reconcile the documented index/integration state deliberately.
+Review the completed playable isolated feature checkout and its [executed evidence](../reports/EXPANSION_VALIDATION_2026-10-22.md). All three [independent review findings](../reports/EXPANSION_REVIEW_2026-10-23.md) were addressed in one regression-first pass. The owner already approved both design and Native execution. Do not ask again or re-block on the deferred uncoached session. No merge/push/cleanup is implied; reconcile the documented index/integration state deliberately.
 
 ## Risks and autonomy
 

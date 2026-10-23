@@ -22,7 +22,7 @@ Status vocabulary: Not Started / In Progress / Implemented, Unverified / Verifie
 | REQ-012 | Repeatable simulation and visual-stream isolation | Essential / First Playable | Verified | AC-012 |
 | REQ-013 | Portability and cross-machine determinism | Essential / delivery | Implemented, Unverified | AC-013 |
 | REQ-014 | Understandable, meaningful First Playable choices | Essential / First Playable acceptance | Deferred | AC-014 |
-| REQ-015 | Exploration, travel, and a second colony | Implemented expansion / final branch review | Implemented, Unverified | AC-015 |
+| REQ-015 | Exploration, travel, and a second colony | Implemented expansion / local automated acceptance | Verified | AC-015 |
 | REQ-016 | Distinct playable species | Future / version 1.0 | Deferred | AC-016 |
 | REQ-017 | Remaining complete strategic game | Future / version 1.0 | Deferred | AC-017 |
 
@@ -30,7 +30,7 @@ Status vocabulary: Not Started / In Progress / Implemented, Unverified / Verifie
 
 ### REQ-001: Seeded new-game generation
 
-Inputs: validated content, supported size ID, unsigned 64-bit seed. Output: turn 0, one human empire, one owned colony on the starting planet type. Core sizes produce exactly 12/16/20 systems in 1000x700/1200x840/1400x980 bounds; current minimum separation is 120, with 1-4 planets per star. The integer spiral gives every system a core/arm/rim region with documented quotas. Region weights affect planet types; the home type remains content-defined. Unknown sizes and impossible spacing return generation errors rather than partial galaxies. Dependencies: REQ-002/003/012. Sources: `content/core/galaxy.json`, `rules.json`, [spiral design](superpowers/specs/2026-10-05-spiral-galaxy-design.md). AC-001.
+Inputs: validated content, supported size ID, unsigned 64-bit seed. Output: turn 0, one human empire, one owned colony on the starting planet type. Core sizes produce exactly 12/16/20 systems in 1000x700/1200x840/1400x980 bounds; current minimum separation is 120, with 1-4 planets per star. Rules-2 new games also receive one content-defined scout and a home-only survey. The integer spiral gives every system a core/arm/rim region with documented quotas. Region weights affect planet types; the home type remains content-defined. Unknown sizes and impossible spacing return generation errors rather than partial galaxies. Dependencies: REQ-002/003/012. Sources: `content/core/galaxy.json`, `rules.json`, [spiral design](superpowers/specs/2026-10-05-spiral-galaxy-design.md). AC-001.
 
 ### REQ-002: Validated data-defined content
 
@@ -62,11 +62,11 @@ Every human empire marks ready through commands; all ready triggers resolution. 
 
 ### REQ-009: Save integrity and continuation
 
-Inputs: valid planning state and effective content; UI save name maps to `user://saves`. Schema 2 embeds content, rule version, RNG, IDs, choices/readiness, reserves, completions, and galaxy metadata. Read schema 1 without regenerating positions or assigning invented regions; reject unsupported schema/rules, corrupt content/state, and invalid references. Writes use flushed temporary replacement; failed writes preserve prior destination and failed loads preserve session. Continuation matches uninterrupted play. Dependencies: REQ-002/003/008/012. Sources: [economy](FIRST_PLAYABLE_ECONOMY.md), [spiral compatibility](superpowers/specs/2026-10-05-spiral-galaxy-design.md), `Saves/SaveGame.cs`. AC-009; graphical dialogs additionally AC-011.
+Inputs: valid planning state and effective content; UI save name maps to `user://saves`. Schema 3 embeds content, rule version, RNG, IDs, choices/readiness, reserves, completions, galaxy metadata and rules-2 vessels/surveys. Read schema 1/2 as rules-1 campaigns without regenerating positions, assigning invented regions or injecting current expansion content; reject unsupported schema/rules, corrupt content/state, and invalid references. Writes use flushed temporary replacement; failed writes preserve prior destination and failed loads preserve session. Continuation matches uninterrupted play. Dependencies: REQ-002/003/008/012. Sources: [economy](FIRST_PLAYABLE_ECONOMY.md), [spiral compatibility](superpowers/specs/2026-10-05-spiral-galaxy-design.md), `Saves/SaveGame.cs`. AC-009; graphical dialogs additionally AC-011.
 
 ### REQ-010: Galaxy map and inspection
 
-Input: published state, selected system, viewer empire. Show selectable named systems/home marker and known prototype planet types/output rates, plus region labels. All systems are currently inspectable. Background points are visual/unselectable; saved dimensions preserve framing, legacy saves fit existing positions, resize changes only presentation. Use shared theme and container layout. Dependencies: REQ-001/003/009. Sources: [spiral design](superpowers/specs/2026-10-05-spiral-galaxy-design.md), `GalaxyMap`, `StarPanel`. AC-010. The 2026-10-22 continuation verifies the runtime handler/layout/resize subset; complete physical-input and small-window readability acceptance remain open.
+Input: published state, selected system, viewer empire. Show selectable named systems/home marker and known prototype planet types/output rates, plus region labels. Legacy rules 1 permits all-system inspection; expansion rules 2 exposes the public star chart with planet information only from permitted current or last-seen observations. Background points are visual/unselectable; saved dimensions preserve framing, legacy saves fit existing positions, resize changes only presentation. Use shared theme and container layout. Dependencies: REQ-001/003/009. Sources: [spiral design](superpowers/specs/2026-10-05-spiral-galaxy-design.md), `GalaxyMap`, `StarPanel`. AC-010. The 2026-10-22 continuation verifies the runtime handler/layout/resize subset; complete physical-input and small-window readability acceptance remain open.
 
 ### REQ-011: Interactive loop and explanations
 
@@ -88,7 +88,7 @@ An uncoached player unfamiliar with source should complete the loop, explain exp
 
 ### REQ-015: Exploration, travel, second colony
 
-Implemented under the owner-approved [specification](superpowers/specs/2026-10-22-exploration-and-colonization-design.md), ADR-006 and Native [implementation plan](superpowers/plans/2026-10-22-exploration-and-colonization.md). EXP-001..007 and EXP-AC-001..008 cover per-empire observations, deterministic travel, vessel production/embarkation, explicit founding, multi-colony UI and legacy continuation. Fresh Windows simulation and graphical control acceptance passes are mapped in [the expansion report](../reports/EXPANSION_VALIDATION_2026-10-22.md). Final independent branch review is pending; integration and full human/platform acceptance remain separate. ADR-005's uncoached session stays Deferred.
+Implemented under the owner-approved [specification](superpowers/specs/2026-10-22-exploration-and-colonization-design.md), ADR-006 and Native [implementation plan](superpowers/plans/2026-10-22-exploration-and-colonization.md). EXP-001..007 and EXP-AC-001..008 cover per-empire observations, deterministic travel, vessel production/embarkation, explicit founding, multi-colony UI and legacy continuation. Fresh Windows simulation and graphical control acceptance passes are mapped in [the expansion report](../reports/EXPANSION_VALIDATION_2026-10-22.md). All independent review findings are addressed in [the correction report](../reports/EXPANSION_REVIEW_2026-10-23.md); integration and full human/platform acceptance remain separate. ADR-005's uncoached session stays Deferred.
 
 ### REQ-016: Distinct playable species
 

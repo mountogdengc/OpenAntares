@@ -20,3 +20,5 @@ The reviewer checked legacy fixture provenance/continuation, all-ready validatio
 - Future conquest/destruction semantics remain out of scope. The bounded identity fix does not compare remembered ownership with current ownership; later strategic systems require an explicit compatibility policy.
 
 No findings remain deferred as Minor after effect-based re-grading. All three corrections were reviewed by the implementer and verified through RED-to-GREEN regressions plus a green full suite. This is not a second independent review or approval to merge, push or remove evidence/worktrees.
+
+Correction checkpoint: `2d989d632ec2a176efc36aea9c7a5cd3b454a627`. Documentation handoff follows that commit.

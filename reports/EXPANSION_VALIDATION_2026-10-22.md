@@ -1,6 +1,6 @@
 # Expansion implementation validation
 
-Session started 2026-10-22; final handoff 2026-10-23, America/Denver. Native execution of the owner-approved exploration/colonization plan. Scope: local Windows implementation and automated/in-process graphical acceptance; no release or full human acceptance claim. Final independent branch review is pending and will be appended here.
+Session started 2026-10-22; final handoff 2026-10-23, America/Denver. Native execution of the owner-approved exploration/colonization plan. Scope: local Windows implementation and automated/in-process graphical acceptance; no release or full human acceptance claim. Independent branch review and one regression-first correction pass are complete; see [the review record](EXPANSION_REVIEW_2026-10-23.md).
 
 ## Snapshot and environment
 
@@ -17,9 +17,9 @@ All commands run in the implementation checkout. Normal dependency restore was r
 | --- | --- | --- |
 | `dotnet restore OpenAntares.sln --nologo` | 0 | [Restore log](expansion-baseline-restore.log) |
 | `dotnet build OpenAntares.sln --no-restore --nologo --disable-build-servers` | 0; zero warnings/errors | [Baseline log](expansion-baseline-build.log); runtime runners rebuild the final normal solution in `finally` |
-| `dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --logger 'trx;LogFileName=expansion-final.trx' --results-directory reports/test-results` | 0; 278 passed, 0 failed/skipped | [TRX](test-results/expansion-final.trx), [log](expansion-final-tests.log) |
-| `./tests/OpenAntares.Game.Validation/Run-Validation.ps1 -Godot '<installed Godot .NET console executable>' -Scenario Expansion -OutputDirectory reports/expansion-2026-10-22-run4` | 0; 238 assertions, zero failures/engine diagnostics | [Results](expansion-2026-10-22-run4/results.json), [engine log](expansion-2026-10-22-run4/godot.log), 9 PNGs, 14 retained QA saves |
-| Same runner with `-Scenario Legacy -OutputDirectory reports/expansion-legacy-2026-10-22-run1` | 0; 466 assertions + 27 geometry observations; zero failures/engine diagnostics | [Results](expansion-legacy-2026-10-22-run1/results.json), [engine log](expansion-legacy-2026-10-22-run1/godot.log), 16 PNGs, 11 retained QA saves |
+| `dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo --logger 'trx;LogFileName=expansion-review-final.trx' --results-directory reports/test-results` | 0; 281 passed, 0 failed/skipped | [TRX](test-results/expansion-review-final.trx), [log](expansion-review-final-tests.log) |
+| `./tests/OpenAntares.Game.Validation/Run-Validation.ps1 -Godot '<installed Godot .NET console executable>' -Scenario Expansion -OutputDirectory reports/expansion-review-green-2026-10-23` | 0; 275 assertions, zero failures/engine diagnostics | [Results](expansion-review-green-2026-10-23/results.json), [engine log](expansion-review-green-2026-10-23/godot.log), 10 PNGs, 17 retained QA saves |
+| Same runner with `-Scenario Legacy -OutputDirectory reports/expansion-review-legacy-2026-10-23` | 0; 466 assertions + 27 geometry observations; zero failures/engine diagnostics | [Results](expansion-review-legacy-2026-10-23/results.json), [engine log](expansion-review-legacy-2026-10-23/godot.log), 16 PNGs, 11 retained QA saves |
 
 The executable is `F:/Projects-PCGames/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe`. The runner builds both test classes only through `CustomAfterMicrosoftCommonTargets`/Validation.targets, selects the requested scene, then rebuilds ordinary assemblies. Both final normal rebuilds exited 0 with zero warnings/errors. The ordinary game assembly is separately checked for absence of validation class names.
 
@@ -28,13 +28,13 @@ The executable is `F:/Projects-PCGames/Godot_v4.7.2-stable_mono_win64/Godot_v4.7
 | Criterion | Named tests / graphical evidence | Result |
 | --- | --- | --- |
 | EXP-AC-001 | KnowledgeTests.HiddenWorldChangesDoNotChangeEmpireView; LastSeenOwnershipAndForeignSightingsHaveDifferentLifetimes; KnowledgeReportTests; malformed-current-observation save cases; generated home-only views and synthetic hidden-truth UI invariance | Verified within executed Windows scope |
-| EXP-AC-002 | MovementTests.TravelDuration, RouteArrivesAtExactPublishedTurn, SaveDuringTransitMatchesUninterruptedArrival; ExpansionCommandTests owner/turn/cancel/no-op/transit rejection; all three generated scout/settler trips | Verified |
-| EXP-AC-003 | VesselProductionTests transfer, blocked banking, reassignment, repeat selection, kind collision and reserve checks; generated settler production/source warning/workforce repair | Verified |
+| EXP-AC-002 | MovementTests.TravelDuration, RouteArrivesAtExactPublishedTurn, SaveDuringTransitMatchesUninterruptedArrival; ExpansionCommandTests owner/turn/cancel/no-op/transit rejection; all three generated scout/settler trips and queued-route replacement/preview before and after reload | Verified |
+| EXP-AC-003 | VesselProductionTests transfer, blocked banking, reassignment, repeat selection, kind collision and reserve checks; generated settler production/source warning/workforce repair; valid nondefault embedded role requirements/founding preview | Verified |
 | EXP-AC-004 | ColonizationTests exact founding, same-empire reservation, cross-empire ID conflict, invalid orders, same-system worlds and pending-founding reload; generated two-colony creation | Verified |
 | EXP-AC-005 | BirthCannotUnlockEmbarkThisTurn; CapacityTimingAndIdOverflowAreAtomic; ArrivalRequiresAnotherPlanningOrderBeforeFounding; PendingFoundingSaveAndAllocationOverflowPreserveIntent; unchanged command rollback suite | Verified |
 | EXP-AC-006 | Generated Small/Medium/Large seed-42 loops through real New Game, selectors, map handlers, workforce buttons, End Turn and Save/Load confirmation handlers; synthetic same-system exact selection; resize at 800x600/1152x648/1600x900/1920x1080 | Verified for control wiring, state and layout checks; physical input/comprehension remain separate |
-| EXP-AC-007 | ExpansionSaveTests supported pairs (1,1)/(2,1)/(3,1)/(3,2), genuine old-save continuation, extension round trips/rejections; original failed-write/load suite; both old fixtures load/continue graphically with banner and no expansion actions | Verified |
-| EXP-AC-008 | Original 195 test contracts retained with schema/default-mode adaptations; full suite now 278; legacy runtime 466 assertions preserves picker/focus/resize/save regressions | Verified within executed scope |
+| EXP-AC-007 | ExpansionSaveTests supported pairs (1,1)/(2,1)/(3,1)/(3,2), genuine old-save continuation, extension round trips/rejections including impossible historical colony identity/planet, preserved stale ownership; original failed-write/load suite; both old fixtures load/continue graphically with banner and no expansion actions | Verified |
+| EXP-AC-008 | Original 195 test contracts retained with schema/default-mode adaptations; full suite now 281; legacy runtime 466 assertions preserves picker/focus/resize/save regressions | Verified within executed scope |
 
 The legacy-v2 fixture was captured before serialization changes from the retained small/pre QA save, turn 2, original SHA-256 `8E8AE7D8D83D352BA3B8B62B675E633FE23884E569ED500713F3B62E8893DDDA`. Neither legacy fixture is produced by the new writer. Tests load their original embedded content/layout, resave as schema 3/rules 1 and compare continuation over four turns; no scout or current core content is injected.
 
@@ -57,3 +57,9 @@ ADR-005's uncoached session remains Deferred. No player understanding, final bal
 The primary `F:/Projects-PCGames/OpenAntares` remains on main with its original code/configuration and unrelated creative edits. No merge, reset, stash, push, branch deletion or worktree cleanup occurred. All implementation is isolated on the named feature branch.
 
 A default worktree Git index lock stalled a local checkpoint. A plan-local alternate index preserves reviewed staging and allowed the commits to proceed without deleting the inaccessible lock or changing the original checkout. The normal worktree index may therefore show stale staged/unstaged differences; it must be reconciled before integration. The committed branch and on-disk code are separately compared using that alternate index. This is an integration limitation, not a gameplay test pass. Do not infer cleanup authorization.
+
+## Final independent review and corrections - 2026-10-23
+
+The [review record](EXPANSION_REVIEW_2026-10-23.md) preserves the frozen review range, three findings, effect-based grading, declined boundaries and RED-to-GREEN evidence. Corrected queued-route replacement, embedded-content population instructions and invalid historical colony references in one pass. Final fresh evidence supersedes the earlier 278/238 runs: 281 simulation tests, 275 expansion assertions and the unchanged 466 legacy assertions plus 27 geometry observations. The final expansion run retains 10 PNGs and 17 QA saves; final legacy run retains 16 PNGs and 11 QA saves. Separate failed route/content runs and malformed-save logs remain retained. No deferred Minor findings remain.
+
+Final commands: the exact runner commands/table above exited 0; ordinary full rebuilds in both runners exited 0 with zero warnings/errors. The complete simulation command above exited 0. [Expansion runner log](expansion-review-green-runner.log), [legacy runner log](expansion-review-legacy-runner.log). The in-process screenshot for nondefault content was inspected; requirements now display population 5/support 3 for that labelled fixture. No final balance or human-input acceptance is inferred.

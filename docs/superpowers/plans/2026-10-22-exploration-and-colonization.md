@@ -10,7 +10,7 @@
 
 **Spec:** [Approved exploration and colonization design](../specs/2026-10-22-exploration-and-colonization-design.md), approved in [ADR-006](../../DECISIONS/ADR-006-approved-expansion-milestone.md). ADR-005's human-playtest deferral remains in force.
 
-**Status:** Owner-approved for Native execution, 2026-10-22. Setup baseline passed: normal restore, build with zero warnings/errors, 195 simulation tests. Tasks 1–9 are complete; current fresh results are 278 simulation tests, 238 expansion and 466 legacy runtime assertions. Final independent review is pending.
+**Status:** Owner-approved for Native execution, 2026-10-22. Setup baseline passed: normal restore, build with zero warnings/errors, 195 simulation tests. Tasks 1–9 are complete; current fresh results are 281 simulation tests, 275 expansion and 466 legacy runtime assertions. One independent review and regression-first correction pass is complete; [review evidence](../../../reports/EXPANSION_REVIEW_2026-10-23.md).
 
 ## Global Constraints
 

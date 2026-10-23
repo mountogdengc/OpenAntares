@@ -72,3 +72,9 @@ Final: fixed queued-route replacement — GeneratedLoop destination preview/Set 
 Final: fixed nondefault-content requirements/founding instructions — NondefaultContentInstructions RED→GREEN; suite 281/281, expansion 275/275, legacy 466/466 + 27 observations.
 Final: fixed impossible historical colony references — HistoricalObservationRejectsImpossibleColonyReference RED→GREEN (2 cases), stale ownership preservation GREEN; suite 281/281.
 Final: no deferred Minor findings after effect-based re-grading. Final normal rebuilds 0 warnings/errors; no final engine diagnostics.
+
+Final correction checkpoint: 2d989d632ec2a176efc36aea9c7a5cd3b454a627.
+Final: Ruling: retain the local feature branch/worktree rather than offer automatic integration or cleanup — owner scope preserves the dirty primary and excludes those operations — cost if wrong: integration remains a separate owner action.
+Final handoff: all nine tasks, independent review and one regression-first correction pass complete; 281 simulation / 275 expansion / 466 legacy + 27 observations pass. Human acceptance and integration/release remain open.
+
+Final documentation verification: 42 Markdown files / 252 local links / 17 requirements, zero errors; counts 11 Verified, 3 Implemented, Unverified, 3 Deferred. Protected primary hashes unchanged; ordinary assembly excludes test classes. Local branch retained; default index reconciliation remains pending.
