@@ -80,6 +80,7 @@ See [the full report](reports/EXPANSION_VALIDATION_2026-10-22.md) for commands, 
 | Primary | `F:/Projects-PCGames/OpenAntares`, main at `6ab206d`, original dirty source/configuration/creative edits retained |
 | Older detached worktree | Spiral-galaxy at `acf5f06`, ancestor; no pending merge inferred |
 | Integration | No merge/push/reset/stash/deletion; default feature index reconciliation pending |
+| Retained generated files | 45 untracked Godot PNG import metadata files under historical reports; preserved, no cleanup |
 | Remote inventory | Prior read-only inspection; no new fetch/open-PR claim |
 
 Read the plan ledger/evidence and Git afresh before resuming. The primary checkout does not contain expansion source until deliberate integration. A stale default index is not proof the feature branch lacks committed code; inspect commit-to-commit and on-disk differences using the recorded plan-local index.
