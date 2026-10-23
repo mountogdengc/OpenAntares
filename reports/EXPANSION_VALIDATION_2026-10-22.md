@@ -1,5 +1,7 @@
 # Expansion implementation validation
 
+**Latest integration, 2026-10-23:** [Main integration verification](EXPANSION_INTEGRATION_2026-10-23.md): index repaired, expansion integrated locally, existing edits preserved, fresh 281 simulation / 275 expansion / 466 legacy passes (+27 geometry observations). Earlier integration/index limits below describe the pre-integration state. Human/release limits remain open.
+
 Session started 2026-10-22; final handoff 2026-10-23, America/Denver. Native execution of the owner-approved exploration/colonization plan. Scope: local Windows implementation and automated/in-process graphical acceptance; no release or full human acceptance claim. Independent branch review and one regression-first correction pass are complete; see [the review record](EXPANSION_REVIEW_2026-10-23.md).
 
 ## Snapshot and environment

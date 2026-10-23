@@ -11,7 +11,7 @@ Explicit owner instructions take precedence. Existing authoritative designs gove
 
 ## Current scope
 
-The 2026-10-22 request and continuation authorize adoption, reconciliation, documentation, verification and retained regression checks. The owner deferred the unavailable uncoached playtest (ADR-005) and then approved the full exploration/colonization specification (ADR-006). **Do not block progression on recruiting a participant or closing First Playable, or reopen the approved design choices.** The owner approved the separate implementation plan and Native execution. Proceed through its nine tasks in the isolated implementation worktree, with a final independent review. Full First Playable acceptance stays open. Do not import OpenJRPG-specific requirements or ADR numbering from the workflow PDF.
+The 2026-10-22 request and continuation authorize adoption, reconciliation, documentation, verification and retained regression checks. The owner deferred the unavailable uncoached playtest (ADR-005) and then approved the full exploration/colonization specification (ADR-006). **Do not block progression on recruiting a participant or closing First Playable, or reopen the approved design choices.** The owner approved the separate implementation plan and Native execution. Its nine tasks and independent review/corrections are complete. On 2026-10-23 the owner explicitly authorized lock repair and local integration: main now contains the expansion, the normal index works, and two separate owner prose edits remain uncommitted. Read current status; do not repeat completed implementation. Full First Playable acceptance stays open. Do not import OpenJRPG-specific requirements or ADR numbering from the workflow PDF.
 
 ## Engineering constraints
 
@@ -26,9 +26,9 @@ The 2026-10-22 request and continuation authorize adoption, reconciliation, docu
 
 ## Branches, worktrees, and integration
 
-- Inventory existing changes before editing. Preserve unrelated user edits and evidence; do not reset, stash, overwrite, clean, or delete them.
+- Inventory existing changes before editing. Preserve unrelated user edits and evidence. The authorized integration retained an exact recovery snapshot/stash and restored the two prose edits; do not blindly reapply that stash or discard changes.
 - Inspect existing worktrees before creating another. A clean worktree at an ancestor of `main` is not an outstanding feature merge.
-- Do not merge, push, delete branches/worktrees, or rewrite history as part of adoption. The dirty primary checkout is intentionally retained for this documentation pass.
+- The earlier adoption scope excluded integration; subsequent explicit owner authorization completed local integration. Do not infer remote push, branch/worktree deletion or history-rewrite authorization from that integration.
 - For later authorized code work, choose an appropriate branch/worktree without moving or discarding the owner's uncommitted changes. Review the final diff and validate the combined result before integration.
 - Do not log credentials, read unrelated secrets, change production systems, or perform irreversible external actions without authorization.
 
