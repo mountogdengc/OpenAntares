@@ -107,7 +107,7 @@ The adoption ran the complete suite, including the named checks below, and retai
 
 ## Deferred design-readiness gates
 
-AC-015 records approved expansion and executed child criteria. AC-016 is now an active draft-review gate; AC-017 remains Deferred. Neither claims later gameplay delivered.
+AC-015 records approved expansion and executed child criteria. AC-016 has an approved design and an active implementation-plan review gate; AC-017 remains Deferred. Neither claims later gameplay delivered.
 
 ### AC-015 / REQ-015: Exploration/colonization specification gate
 
@@ -115,7 +115,7 @@ Design review was satisfied by ADR-006; the owner also approved the separate pla
 
 ### AC-016 / REQ-016: Species specification gate
 
-Given the roster and the owner's [revised creative authority](DECISIONS/ADR-007-species-design-and-creative-review.md), review the [candidate species specification](superpowers/specs/2026-10-23-species-mechanics-design.md). Explicitly accept/amend creative/unit changes, numeric profiles and roles, Sulan preparation, Wenth maturity/capacity and compatibility/default policies. SPC-AC-001..010 define future exact/failure/interaction evidence. Expected: owner-approved testable rules with unchanged old-campaign fixtures, followed by a separate implementation plan. Current status: In Progress for draft review only; builder check/arithmetic are not approval or functionality. Species selection/modifiers are not implemented.
+The owner approved the complete [species specification](superpowers/specs/2026-10-23-species-mechanics-design.md), including creative/unit amendments, exact profiles/roles, Sulan investment, Wenth maturity/capacity and compatibility/default policy; [ADR-008](DECISIONS/ADR-008-approved-species-mechanics.md) satisfies SPC-AC-010. The separate [implementation plan](superpowers/plans/2026-10-23-species-mechanics.md) maps every SPC-AC-001..009 future exact/failure/interaction criterion to tasks and awaits owner review. REQ-016 remains In Progress because species functionality is unimplemented; arithmetic, design approval and plan self-review are not engine/balance/human acceptance. Old-campaign fixtures and owner edits remain unchanged.
 
 ### AC-017 / REQ-017: Later strategic milestone gate
 

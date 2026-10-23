@@ -23,7 +23,7 @@ Status vocabulary: Not Started / In Progress / Implemented, Unverified / Verifie
 | REQ-013 | Portability and cross-machine determinism | Essential / delivery | Implemented, Unverified | AC-013 |
 | REQ-014 | Understandable, meaningful First Playable choices | Essential / First Playable acceptance | Deferred | AC-014 |
 | REQ-015 | Exploration, travel, and a second colony | Implemented expansion / local automated acceptance | Verified | AC-015 |
-| REQ-016 | Distinct playable species | Species specification review / M3-D | In Progress | AC-016 |
+| REQ-016 | Distinct playable species | Approved species design / plan review M3-P | In Progress | AC-016 |
 | REQ-017 | Remaining complete strategic game | Future / version 1.0 | Deferred | AC-017 |
 
 ## Functional contracts
@@ -92,7 +92,7 @@ Implemented under the owner-approved [specification](superpowers/specs/2026-10-2
 
 ### REQ-016: Distinct playable species
 
-The roster is the starting point; the owner permits proposed creative changes under [ADR-007](DECISIONS/ADR-007-species-design-and-creative-review.md). The [species mechanics draft](superpowers/specs/2026-10-23-species-mechanics-design.md) proposes economy/starting profiles, habitats, conserved species-specific founding, JSON/state/view contracts, compatibility and SPC-AC-001..010. It is In Progress for owner review, not approved or implemented. Preserve the two existing owner prose edits; do not change the old `verdant_world`/economy fixture or gameplay content during drafting. Species customization and final balance remain outside this slice. AC-016 is the review gate; implementation needs approval and a separate plan.
+The roster supplied the starting point; creative amendments were permitted under ADR-007 and the complete [species mechanics specification](superpowers/specs/2026-10-23-species-mechanics-design.md) is now approved in [ADR-008](DECISIONS/ADR-008-approved-species-mechanics.md). It defines exact profiles, habitats, conserved founding, JSON/state/view contracts, compatibility and SPC-AC-001..010. Design review SPC-AC-010 is satisfied; functionality remains In Progress and unimplemented. The [ten-task plan](superpowers/plans/2026-10-23-species-mechanics.md) awaits owner review before execution with the prior Native preference. Preserve owner prose edits and old-campaign fixtures. Species customization, final balance and human acceptance remain outside this slice.
 
 ### REQ-017: Remaining strategic game
 

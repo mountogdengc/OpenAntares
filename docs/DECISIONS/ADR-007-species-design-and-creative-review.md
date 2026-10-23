@@ -15,3 +15,7 @@ The [candidate specification](../superpowers/specs/2026-10-23-species-mechanics-
 ## Consequences
 
 REQ-016 becomes In Progress for specification review only. REQ-017 remains Deferred. Existing rules-1/2 contracts, integrated expansion and legacy campaign behavior are unchanged. The unavailable uncoached session remains Deferred; its absence is not converted into human acceptance.
+
+## Subsequent approval
+
+[ADR-008](ADR-008-approved-species-mechanics.md) records the owner's subsequent acceptance of the complete design and request for implementation planning. The limitations above describe what ADR-007 alone authorized; they do not undo that later approval.

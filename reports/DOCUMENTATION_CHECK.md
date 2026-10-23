@@ -75,3 +75,9 @@ ADR-007 records owner authorization to draft species rules and propose creative 
 ## Classic space-opera clarification - 2026-10-23
 
 The owner clarified the accepted creative tone: a Master of Orion II love letter, welcoming humanoid animals/monsters and fanciful biology while respecting real peoples/cultures/religions. Charter, design guide, concept, ADR-007 and species draft record that direction; the draft no longer requires a cohort/reproductive justification. Proposed numerical mechanics, source/content, owner prose edits and the review-before-implementation gate are unchanged.
+
+## Approved species design and implementation planning - 2026-10-23
+
+The owner approved the complete species design with the classic Master of Orion II direction; [ADR-008](../docs/DECISIONS/ADR-008-approved-species-mechanics.md) records that subsequent approval. The [ten-task implementation plan](../docs/superpowers/plans/2026-10-23-species-mechanics.md) is written/self-reviewed and awaits plan review. M3-D is complete for design; M3-P is In Progress, M3-I Not Started, and REQ-016 remains In Progress. Requirement totals remain 11 Verified, 3 Implemented, Unverified, 1 In Progress and 2 Deferred (17 total).
+
+[Planning review](SPECIES_PLAN_REVIEW_2026-10-23.md) records coverage, precise contracts and corrections. The fresh [documentation/preservation audit](species-plan-documentation-check-2026-10-23.json) checks links, stable IDs/counts, eight ADRs, ten unchecked task groups, unchanged gameplay source/content/tests and exact owner roster/research hashes. No application build/test result or species functionality is claimed from planning. Original baseline and prior draft reports remain dated history; human/release acceptance is unchanged. The prior Native preference persists; no new execution or integration is inferred.

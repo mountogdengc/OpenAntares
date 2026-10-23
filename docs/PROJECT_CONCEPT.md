@@ -19,12 +19,12 @@ The supplied OpenJRPG workflow is a reusable process reference. Its RPG systems,
 | Classification | Established scope |
 | --- | --- |
 | Essential now | The charter's eleven First Playable actions: new game, galaxy generation/map, star/planet inspection, one colony, workforce, production, research, end turn, visible advancement, save/reload |
-| Active milestone | M3-D species-mechanics draft for owner review; creative revisions permitted as proposals under ADR-007. Expansion is integrated; human playtest remains deferred under ADR-005 |
+| Active milestone | M3-P species implementation-plan review; full design approved in ADR-008 with classic space-opera direction. Expansion is integrated; human playtest remains deferred under ADR-005 |
 | Later version 1.0 | Multiple civilizations, AI, fleets/ships/design, strategic warfare, diplomacy, events, setup options, victory/defeat, broader technology and development |
 | Optional | Tactical combat only if it does not impede completing the strategic game |
 | Excluded initially | Real-time strategy, MMO/persistent online world, proprietary backend dependence, mandatory online single-player, copied commercial assets or interfaces |
 
-[SPECIES_ROSTER.md](SPECIES_ROSTER.md) records accepted creative direction for Peldra, Harl, Sulan, and Wenth, explicitly without implemented species mechanics or numerical modifiers. Its current local edits are preserved. The owner subsequently permits creative amendments as proposals: [species draft](superpowers/specs/2026-10-23-species-mechanics-design.md), [scope decision](DECISIONS/ADR-007-species-design-and-creative-review.md). Neither the draft nor this authorization approves species mechanics.
+[SPECIES_ROSTER.md](SPECIES_ROSTER.md) records the original Peldra, Harl, Sulan and Wenth creative starting point; current owner edits remain preserved. The owner permitted creative changes under ADR-007 and subsequently approved the full [species mechanics](superpowers/specs/2026-10-23-species-mechanics-design.md) in [ADR-008](DECISIONS/ADR-008-approved-species-mechanics.md). That rules-3 amendment governs future mechanics without rewriting historical roster text. The [implementation plan](superpowers/plans/2026-10-23-species-mechanics.md) awaits review; no species functionality is implemented.
 
 ## Constraints and success
 

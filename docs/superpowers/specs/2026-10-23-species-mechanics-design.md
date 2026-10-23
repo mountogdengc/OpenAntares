@@ -1,10 +1,10 @@
 # Playable species: economy, habitats and founding
 
-**Status: Draft for owner review, 2026-10-23. No gameplay approval or implementation is claimed.**
+**Status: Owner-approved design, 2026-10-23; implementation not started.**
 
-REQ-016 / proposed milestone M3-D. The owner authorized a species-mechanics draft and clarified that creative decisions may change when needed. This authorizes proposals, not promotion of these rules to accepted design. The original [roster](../../SPECIES_ROSTER.md), including the owner's uncommitted appearance edits, remains unchanged. Every number and creative amendment below is a recommendation for review.
+REQ-016 / completed design milestone M3-D. The owner approved the full design and requested the separate implementation plan with the classic Master of Orion II direction. [ADR-008](../../DECISIONS/ADR-008-approved-species-mechanics.md) records this approval; [the plan](../plans/2026-10-23-species-mechanics.md) awaits its own review. The original [roster](../../SPECIES_ROSTER.md), including the owner's uncommitted appearance edits, remains unchanged. The numbers and creative amendments below are accepted rules for the bounded species slice, not implemented functionality.
 
-Sources: [charter](../../CHARTER.md), [engineering constraints](../../../CLAUDE.md), [design guide](../../DESIGN_GUIDE.md), [economy contract](../../FIRST_PLAYABLE_ECONOMY.md), [expansion contract](2026-10-22-exploration-and-colonization-design.md) and [integrated baseline](../../../reports/EXPANSION_INTEGRATION_2026-10-23.md). Existing approved behavior governs rules-1/2 campaigns. This proposal applies only to a future rules-3 campaign after approval and a separate implementation plan.
+Sources: [charter](../../CHARTER.md), [engineering constraints](../../../CLAUDE.md), [design guide](../../DESIGN_GUIDE.md), [economy contract](../../FIRST_PLAYABLE_ECONOMY.md), [expansion contract](2026-10-22-exploration-and-colonization-design.md) and [integrated baseline](../../../reports/EXPANSION_INTEGRATION_2026-10-23.md). Existing approved behavior governs rules-1/2 campaigns. This approved extension applies to rules-3 campaigns after implementation of the separately reviewed plan.
 
 ## 1. Intent and scope
 
@@ -20,9 +20,9 @@ Success: at least two sensible allocations or expansion choices differ by specie
 
 ## 2. Approach and creative amendments
 
-Considered (A) small statistical bonuses, insufficiently distinct; (B) full life-cycle/climate/organism simulations, too broad; (C) bounded asymmetry in the current colony/founding loop, recommended here.
+Considered (A) small statistical bonuses, insufficiently distinct; (B) full life-cycle/climate/organism simulations, too broad; (C) bounded asymmetry in the current colony/founding loop, selected by the owner.
 
-| Topic | Starting roster | Proposed disposition |
+| Topic | Starting roster | Approved disposition |
 | --- | --- | --- |
 | Names/bodies | Peldra, Harl, shark-like Sulan, single-organism Wenth; animal-inspired silhouettes welcome | Keep. No appearance reversal or new species is needed |
 | Population scale | Each unit is one person for three species | Keep a familiar population statistic; its literal headcount is unspecified. Use lobes as Wenth flavor. No mandatory cohort model or reproductive explanation is needed |
@@ -32,11 +32,11 @@ Considered (A) small statistical bonuses, insufficiently distinct; (B) full life
 | Wenth | Smaller parent/daughter after fission, low coordination ceiling | Keep; require a mature body at current capacity before seed completion. Each colony is an autonomous body, the empire a kinship rather than one galaxy-wide biological mind |
 | Culture | Separable from biology | Keep estates, schools, harbor houses and seed kinship as descriptive labels, without culture modifiers/customization |
 
-All amendments await review. Approval would authorize reconciling the roster/economy/expansion specifications during later planned implementation. Do not rewrite the roster now to suggest historical approval.
+The owner approved these amendments on 2026-10-23. Reconcile affected economy/expansion contracts through explicit rules-3 amendments during planned implementation; preserve the owner's local roster edits and historical text. Approval is recorded in ADR-008 rather than silently rewriting the roster.
 
 ## SPC-001. Setup and identity
 
-Future New Game exposes four species with their actual tradeoffs, starting allocation, effective rates, growth and settlement options. Recommend Harl as the visibly preselected first-game choice; any species remains selectable. This is an author recommendation, not an owner decision.
+Future New Game exposes four species with their actual tradeoffs, starting allocation, effective rates, growth and settlement options. Harl is the approved visibly preselected first-game choice; any species remains selectable.
 
 Rules 3 requires an explicit valid species_id on each empire, fixed throughout that campaign. Missing/unknown IDs reject before publication. Loaded rules-1/2 games get no invented species. Colonies and vessels derive biology from immutable owner identity; no second population pool or cargo-species field is needed while capture/trade/mixed populations do not exist.
 
@@ -91,7 +91,7 @@ Capacity investment and new small colonies let Harl use recovery speed. Surplus 
 
 ## SPC-003. Production and conserved founding cargo
 
-Keep one project per colony, the existing reserve and typed production command. All species can build scout (8 production points, speed 300, cargo 0). Recommended founding roles all use speed 200:
+Keep one project per colony, the existing reserve and typed production command. All species can build scout (8 production points, speed 300, cargo 0). Approved founding roles all use speed 200:
 
 | Species | Role ID / display | Cost (displayed points) | Cargo | Minimum snapshot population | Full snapshot capacity? | Founded habitat |
 | --- | --- | ---: | ---: | ---: | --- | --- |
@@ -121,7 +121,7 @@ Rules-3 planets gain a static environment ID independent of economic planet type
 
 Peldra, Harl and Wenth can use all three environments when ordinary colonizable/support/capacity checks pass. Their normal expeditions include baseline habitation support; this slice adds no further restrictions for them. Sulan native colonies require Shelf Sea. A Harbor Expedition can found a sealed colony on any otherwise colonizable environment, including Shelf Sea if the player spends the kit there. It carries an enclosed harbor; it does not change the physical environment or benefit other colonies. The native/sealed capacity difference is specified below; no upkeep, orbital preparation order or separate building project is added.
 
-Sulan home has native habitat and unchanged ordinary worker/support/growth rules, but base capacity 12. A sealed colony uses those rates/growth rules with base capacity 8. Habitat Extension adds 2 to either (14 native, 10 sealed). This proposed capacity advantage/restriction revises the roster's ordinary home so the species offers more than penalties. The extra 12 production points are an up-front opportunity cost, equal to one current Fabrication Hall. From the unchanged 2/2/2 Sulan opening with zero reserve, the native expedition takes 6 resolutions and harbor expedition 9 if conditions/assignments stay fixed. Both transfer 2 existing support workers and can require later reassignment.
+Sulan home has native habitat and unchanged ordinary worker/support/growth rules, but base capacity 12. A sealed colony uses those rates/growth rules with base capacity 8. Habitat Extension adds 2 to either (14 native, 10 sealed). This approved capacity advantage/restriction revises the roster's ordinary home so the species offers more than penalties. The extra 12 production points are an up-front opportunity cost, equal to one current Fabrication Hall. From the unchanged 2/2/2 Sulan opening with zero reserve, the native expedition takes 6 resolutions and harbor expedition 9 if conditions/assignments stay fixed. Both transfer 2 existing support workers and can require later reassignment.
 
 ### Deterministic generation
 
@@ -160,13 +160,13 @@ Without buildings/projects and with default assignments, reach population 6 at p
 
 Founding makes daughter population 3 at 3/0/0, zero progress/reserves/buildings and no founding-turn economy. Parent 3 + cargo/daughter 3 conserves 6; fission creates no units, later ordinary growth can. Daughter begins at capacity 6 and inherits empire technology, not parent buildings/reserves/progress. It must mature before making a seed. No shared capacity or telepathic workforce transfer exists.
 
-Completed Habitat Extension makes the parent capacity 8; seed completion then requires 8. Cargo remains 3, leaving parent 5 and daughter/cargo 3, not an equal half. Parent retains its capacity building; daughter still has base 6. Raising developed potential can therefore delay the next fission. This policy needs owner review with the other numbers.
+Completed Habitat Extension makes the parent capacity 8; seed completion then requires 8. Cargo remains 3, leaving parent 5 and daughter/cargo 3, not an equal half. Parent retains its capacity building; daughter still has base 6. Raising developed potential can therefore delay the next fission. The owner approved this policy with the other numbers in ADR-008.
 
 Preserve phases: snapshot economics/eligibility; growth; production/research completions and cargo transfer; movement for snapshot vessels; founding for snapshot intents; readiness reset and turn increment; observations refreshed with that new turn; final validation/atomic publication. Newly completed vessels do not launch/found and newly founded colonies have no economy that resolution. Founding conflicts retain empire/vessel-ID order, losing cargo is kept and failed intent cleared. New resolution conditions consume no RNG.
 
 ## SPC-006. Data, validation and persistence
 
-Behavioral fields below define the proposed contract. Internal C# names/factoring are later builder choices. No Godot types enter simulation. Ordinary content uses JSON, not species-ID switch statements. Original global numeric rules remain authoritative for old campaigns.
+Behavioral fields below define the approved contract. Internal C# names/factoring are later builder choices. No Godot types enter simulation. Ordinary content uses JSON, not species-ID switch statements. Original global numeric rules remain authoritative for old campaigns.
 
 ### Content
 
@@ -184,7 +184,7 @@ Rules 3 adds empire species_id, planet/planet-observation environment_id and col
 
 Validate empire species, role availability, physical environments and complete current observations; colony mode against owner biology; workforce/population/growth/capacity/cargo/orders and existing relationships. Historical ownership may be stale; colony identity/planet and static environment remain valid. Never reinterpret a valid rules-1/2 game through these requirements.
 
-### Proposed version policy
+### Approved version policy
 
 New games use rules 3; writer uses schema 4. Supported (schema,rules): (1,1), (2,1), (3,1), (3,2), (4,1), (4,2), (4,3). Reject all other combinations clearly. Schema-4/rules-1/2 retains old state/content shape and absent new metadata, without injecting definitions, rescaling populations or sampling environments. Schema-4/rules 3 requires all new fields.
 
@@ -198,7 +198,7 @@ New-game UI offers rules 3 after implementation. Old modes remain accessible thr
 
 Use existing C# controls, containers/anchors and shared theme. No product scene or portrait dependency is required. Exact card/picker arrangement is left to the builder; these behaviors are not:
 
-- Before Start, display species/culture flavor, population-unit meaning, opening allocation/capacity, support, worker contributions and settlement choices. Distinguish flavor/rules and make the proposed Harl default visible.
+- Before Start, display species/culture flavor, population-unit meaning, opening allocation/capacity, support, worker contributions and settlement choices. Distinguish flavor/rules and make the approved Harl default visible.
 - Colony forecasts name species as a calculation source, showing gross/shortage-adjusted output, growth/base/surplus/capacity terms, blocked embark conditions and actual post-transfer population/support. Wenth uses lobes, others population. Speaking-limbs are never leaders or stored population.
 - Surveyed inspection shows environment and viewer-adjusted rates/eligibility through simulation-supplied permitted previews; underlying planet rates remain inspectable. Unknown planets stay absent. Do not calculate species multipliers in presentation.
 - Production lists only allowed roles and their exact cost/cargo/minimum/full-capacity conditions. No hard-coded population-4/support-2 or founding-population-2 text. Wenth maturity/capacity and Sulan native-versus-harbor suitability are explicit.
@@ -207,7 +207,7 @@ Use existing C# controls, containers/anchors and shared theme. No product scene 
 
 ## SPC-008. Acceptance and review gates
 
-These are proposed future procedures, not executed species functionality. Preserve the original 281 test contracts and 275/466 graphical scenarios under their corresponding rules/content. Counts will grow. Independent arithmetic checks of this draft are not engine tests or balance evidence.
+These are approved future procedures, not executed species functionality. Preserve the original 281 test contracts and 275/466 graphical scenarios under their corresponding rules/content. Counts will grow. Independent arithmetic checks of this draft are not engine tests or balance evidence.
 
 | ID | Required future evidence |
 | --- | --- |
@@ -222,11 +222,11 @@ These are proposed future procedures, not executed species functionality. Preser
 | SPC-AC-009 | Graphical new-game-to-second-colony-to-reload for all species; native/sealed Sulan, Harl one-unit colony, Wenth seed; retained exact selection/routes/reports/workforce/pickers/window sizes; no engine diagnostics |
 | SPC-AC-010 | Explicit owner acceptance/amendment of creative/unit changes, numbers, Sulan investment, Wenth maturity/capacity and version/new-campaign policy before implementation planning; no invented human/balance pass |
 
-### Owner review checklist
+### Accepted owner review checklist
 
 1. Accept/amend retained names/bodies and familiar population labels, viable Peldra start and positive Harl recovery identity.
 2. Accept/amend the numeric profile/role tables, especially full-capacity Wenth fission and capacity-extension interaction.
 3. Accept/amend coarse surveyed environments and Sulan's native/sealed tradeoff (24/36 production points, 12/8 base capacity), without terraforming.
 4. Accept/amend Harl as visible New Game default and schema-4/rules-3 new-campaign separation, without converting old campaigns.
 
-A written draft and consistent arithmetic do not approve anything above. After owner review, record accepted/amended choices and reconcile affected specifications, then write a separate dependency-ordered implementation plan. During this draft task do not edit gameplay code/core JSON, add assets/dependencies, or implement migration.
+The owner accepted all four groups above on 2026-10-23 and requested the separate dependency-ordered implementation plan. SPC-AC-010 is satisfied for design review through ADR-008; SPC-AC-001..009 remain unexecuted. Arithmetic and builder checks are not engine/balance evidence. The implementation plan is written for review; no gameplay code/core JSON, assets/dependencies or migration has been implemented.

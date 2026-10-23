@@ -6,20 +6,20 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space 4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Species mechanics draft awaiting owner review; expansion integrated |
+| Current phase | Species design approved; implementation plan awaiting review; expansion integrated |
 | Project health | Integrated local automated acceptance passes; human/release acceptance remain open |
-| Active milestone | M3-D - Species mechanics and creative review |
+| Active milestone | M3-P - Species implementation plan review |
 | Current version | Not Released; new games rules 2, writer schema 3, legacy rules 1 supported |
 | Last updated | 2026-10-23, America/Denver |
-| Implementation readiness | Expansion complete; species draft only, no species gameplay approval or implementation plan |
+| Implementation readiness | Expansion complete; species design approved in ADR-008; ten-task plan written, awaiting review before execution |
 
 ## 2. Current state
 
 **Last completed work:** Implemented per-empire surveys/permitted views, deterministic committed travel, repeatable scout/settler production, conserved embarkation, explicit founding, two-colony controls and schema-3 persistence with genuine schema-1/2 legacy continuation. Preserved the existing engine boundary, economy and source baseline. New Game now starts rules 2 with one scout.
 
-**Current work:** Species [candidate specification](docs/superpowers/specs/2026-10-23-species-mechanics-design.md) written under [ADR-007](docs/DECISIONS/ADR-007-species-design-and-creative-review.md). The owner permits creative amendments as proposals and clarified a classic Master of Orion II love-letter tone: fanciful humanoid animals/monsters are welcome, with respect for real peoples and beliefs. The draft drops its forced cohort/reproductive justification; numbers remain proposed and existing roster/research edits remain untouched. Independent builder check found nothing important missing; numeric examples are arithmetic checks, not engine/balance evidence. Integrated expansion remains complete after all nine tasks and independent review/corrections. [Integration verification](reports/EXPANSION_INTEGRATION_2026-10-23.md) records lock repair, preservation and fresh combined checks. [The implementation plan](docs/superpowers/plans/2026-10-22-exploration-and-colonization.md) is approved for Native execution; do not request its approval or reopen ADR-006. [Validation evidence](reports/EXPANSION_VALIDATION_2026-10-22.md) records fresh results and failed attempts.
+**Current work:** Owner-approved [species design](docs/superpowers/specs/2026-10-23-species-mechanics-design.md) recorded in [ADR-008](docs/DECISIONS/ADR-008-approved-species-mechanics.md). The [ten-task implementation plan](docs/superpowers/plans/2026-10-23-species-mechanics.md) is written/self-reviewed, with exact interfaces, compatibility fixtures, economy/founding tests, permitted UI and retained regressions. It preserves the classic Master of Orion II direction: colorful aliens and fanciful biology, with respect for real peoples and beliefs. Gameplay implementation has not started. Existing roster/research edits are untouched. Integrated expansion remains complete with historical [integration evidence](reports/EXPANSION_INTEGRATION_2026-10-23.md).
 
-**Next action:** Owner review of the full species draft under the clarified classic space-opera brief: species identities, numbers/roles, Sulan habitat preparation, Wenth maturity/capacity and new-campaign/version policy. After approval, write a separate implementation plan. Do not start gameplay implementation.
+**Next action:** Owner review of the new species implementation plan; no repeat species-design approval or execution-method selection is needed. Native remains the prior preference. Begin implementation only after this plan review, preserving old campaigns and the existing owner changes.
 
 ## 3. Milestone progress
 
@@ -31,16 +31,17 @@
 | M2-D | Expansion design | Verified | Owner-approved ADR-006, exact specification and builder check |
 | M2-P | Expansion implementation plan | Verified | Owner approved plan and Native execution |
 | M2-I | Expansion implementation | Verified | Approved automated Windows criteria and independent review findings addressed; human/platform/release limits remain open |
-| M3-D | Species mechanics design | In Progress | Review draft and creative proposals; no gameplay approval |
-| M3-P / M3-I | Species implementation plan / gameplay | Not Started | Requires approved design, then reviewed plan |
+| M3-D | Species mechanics design | Verified | Owner approved full design/classic direction; ADR-008, SPC-AC-010 |
+| M3-P | Species implementation plan | In Progress | Ten tasks written/self-reviewed; awaiting owner review |
+| M3-I | Species gameplay implementation | Not Started | Begins only after new plan review; Native preference preserved |
 | M-Later | Remaining strategic systems | Deferred | REQ-017, no inferred scope |
 | M-Delivery | Cross-platform/release validation | Not Started | Windows-only local evidence |
 
 ## 4. Decisions and open questions
 
-ADR-001..004 preserve existing architecture, deterministic commands/economy, JSON/compatibility and spiral scope. ADR-005 retains the deferred participant session. ADR-006 approves the full expansion specification and schema-3/rules-1/2 campaign separation. The owner subsequently approved the expansion plan/Native execution and integration. ADR-007 now authorizes a species draft and proposed creative revisions; it does not accept those gameplay choices.
+ADR-001..004 preserve existing architecture, deterministic commands/economy, JSON/compatibility and spiral scope. ADR-005 retains the deferred participant session. ADR-006 approves the full expansion specification and schema-3/rules-1/2 campaign separation. The owner subsequently approved the expansion plan/Native execution and integration. ADR-007 authorized drafting; ADR-008 now records approval of the complete species design and request for separate implementation planning.
 
-Open: owner review of species creative/numeric/habitat/version proposals, full physical-input/readability acceptance and later platform/package policy. The participant session does not block this authorized milestone.
+Open: review of the new species implementation plan, full physical-input/readability acceptance and later platform/package policy. The participant session does not block this authorized milestone.
 
 ## 5. Blockers and risks
 
@@ -91,12 +92,12 @@ Read current Git and the integration report before resuming. Main now contains e
 
 ## 8. Immediate next steps
 
-1. Review the complete species draft and accept/amend its four review groups; all new mechanics remain proposed.
-2. After approval, reconcile affected specifications and write the separate implementation plan.
-3. Preserve owner prose edits, recovery copies and current gameplay baseline; no species code/content or broad later systems are authorized now.
+1. Review the [ten-task species implementation plan](docs/superpowers/plans/2026-10-23-species-mechanics.md) against the approved specification.
+2. After plan review, use the preserved Native execution preference and establish an isolated execution baseline.
+3. Preserve owner prose edits, recovery copies and current gameplay baseline; no species implementation steps have been executed during planning.
 
 ## 9. Agent handoff
 
 The owner approved Native execution; implementer tasks are not delegated. One final independent review is authorized by that workflow. Do not recruit a participant, ask to approve settled choices, add AI/combat/species, or automatically merge/push/clean. Preserve C#/Godot separation, integer/PCG32 determinism, typed IDs, JSON content and schema/rules compatibility.
 
-**Last session result:** Species-mechanics review draft added with explicit creative amendments, numeric examples, state/content/save/knowledge contracts and ten proposed acceptance criteria. Two owner prose files and all gameplay code/content remain unchanged. Independent builder check found nothing important missing; 23 proposed arithmetic fixtures pass. [Draft review evidence](reports/SPECIES_DESIGN_REVIEW_2026-10-23.md). Prior integrated expansion passes remain 281 simulation / 275 expansion / 466 legacy (+27 observations), not newly rerun during drafting. Human/release acceptance remains open; species gameplay is unapproved.
+**Last session result:** Recorded species-design approval and wrote/self-reviewed the ten-task implementation plan, including genuine rules-2 compatibility capture before writer changes, all approved profiles/habitats/maturity, a delayed rules-3 default switch, UI explanations and full retained regressions. [Planning review](reports/SPECIES_PLAN_REVIEW_2026-10-23.md). All execution steps are unchecked; product source/content/tests and both owner prose files remain unchanged. No gameplay build/test rerun or new species functionality is claimed; prior 281/275/466 (+27) results remain historical. Human/release acceptance stays open.

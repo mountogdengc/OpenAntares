@@ -28,3 +28,7 @@ The [arithmetic record](species-design-arithmetic-2026-10-23.json) checks openin
 The documentation/preservation audit checks local links, stable requirement/acceptance IDs, seven ADRs, eight species contract sections, ten proposed acceptance rows, status totals and exact original owner-file hashes. Gameplay/core content changes and an implementation plan are absent. Human acceptance remains Deferred, and review outcomes are pending.
 
 Final audit: 46 Markdown files / 285 local links / 17 requirements / seven ADRs / eight species sections / ten future acceptance rows, zero errors. All 23 design-arithmetic checks pass; source/content/test diff is empty and both owner-file hashes match. Machine record: reports/species-design-documentation-check-2026-10-23.json.
+
+## Subsequent owner approval and planning
+
+The owner subsequently approved the complete design and requested its implementation plan with the classic Master of Orion II direction. [ADR-008](../docs/DECISIONS/ADR-008-approved-species-mechanics.md) records that decision; historical draft/no-approval statements above describe the earlier stage. The [ten-task plan](../docs/superpowers/plans/2026-10-23-species-mechanics.md) awaits plan review. Its [self-review](SPECIES_PLAN_REVIEW_2026-10-23.md) is a planning check; no gameplay implementation or fresh application tests are claimed.

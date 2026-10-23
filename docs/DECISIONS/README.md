@@ -1,6 +1,6 @@
 # Established decision index
 
-Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/015 was found. ADR-001 through ADR-004 recover existing OpenAntares choices; their date is the recovery date, not a claimed original approval date. ADR-005 through ADR-007 record subsequent explicit owner decisions; ADR-007 authorizes a draft, not its gameplay proposals.
+Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/015 was found. ADR-001 through ADR-004 recover existing OpenAntares choices; their date is the recovery date, not a claimed original approval date. ADR-005 through ADR-008 record subsequent explicit owner decisions. ADR-007 authorized drafting; ADR-008 subsequently approves the complete species design and requests a separate implementation plan.
 
 | ID | Established decision | Source/status |
 | --- | --- | --- |
@@ -11,6 +11,7 @@ Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/0
 | [ADR-005](ADR-005-defer-uncoached-playtest-for-design.md) | Defer the unavailable uncoached playtest and proceed to expansion design | Explicit owner instruction 2026-10-22; design-entry gate exception, no implementation approval |
 | [ADR-006](ADR-006-approved-expansion-milestone.md) | Approve the exploration/travel/second-colony specification and its compatibility policy | Explicit owner approval 2026-10-22; proceed to separate implementation planning |
 
-| [ADR-007](ADR-007-species-design-and-creative-review.md) | Authorize species draft and creative amendments for owner review | Explicit owner direction 2026-10-23; no species gameplay approval |
+| [ADR-007](ADR-007-species-design-and-creative-review.md) | Authorize species draft and creative amendments for owner review | Historical drafting authority, superseded for design approval by ADR-008 |
+| [ADR-008](ADR-008-approved-species-mechanics.md) | Approve classic space-opera species mechanics and request implementation planning | Explicit owner approval 2026-10-23; new plan awaits review, implementation unstarted |
 
 The charter remains authoritative for scope; original specs retain exact behavior. Alternative evaluations are recorded only where sources contain them. New consequential decisions need their own record and actual approval status; do not reclassify research or a proposed design-guide paragraph as accepted.
