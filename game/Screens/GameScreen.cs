@@ -68,7 +68,7 @@ public partial class GameScreen : VBoxContainer
         _saveDialog.Saved += name => ShowMessage($"Saved as \"{name}\".", isWarning: false);
 
         AddChild(_report);
-        _report.ChooseProjectRequested += star => _map.Select(star);
+        _report.ChooseProjectRequested += ChooseProject;
         _report.ChooseResearchRequested += _researchBar.OpenPicker;
 
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
@@ -83,7 +83,11 @@ public partial class GameScreen : VBoxContainer
         body.AddChild(side);
         var sidePadding = new MarginContainer { ThemeTypeVariation = "PanelPadding" };
         side.AddChild(sidePadding);
-        var scroll = new ScrollContainer { HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled };
+        var scroll = new ScrollContainer
+        {
+            HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled,
+            FollowFocus = true,
+        };
         sidePadding.AddChild(scroll);
         var sideColumn = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         scroll.AddChild(sideColumn);
@@ -98,6 +102,15 @@ public partial class GameScreen : VBoxContainer
         }
 
         Refresh();
+    }
+
+    private async void ChooseProject(StarId star)
+    {
+        _map.Select(star);
+        // Selection rebuilds the colony panel. Let containers lay out its controls before
+        // focusing the picker so the scroll container reveals it and the popup aligns with it.
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        _colonyPanel.OpenProjectPicker();
     }
 
     private void Execute(Command command)

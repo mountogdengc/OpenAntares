@@ -16,6 +16,8 @@ namespace OpenAntares.Game.Components;
 /// </summary>
 public partial class ColonyPanel : VBoxContainer
 {
+    private OptionButton? _projectPicker;
+
     /// <summary>Raised when the player changes something. The screen executes it and refreshes.</summary>
     public event Action<Command>? CommandIssued;
 
@@ -77,7 +79,8 @@ public partial class ColonyPanel : VBoxContainer
         // Construction.
         AddChild(new HSeparator());
         AddChild(new Label { Text = "Construction", ThemeTypeVariation = "HeaderLabel" });
-        AddChild(ProjectPicker(content, colony, empire, state.Turn));
+        _projectPicker = ProjectPicker(content, colony, empire, state.Turn);
+        AddChild(_projectPicker);
 
         ReserveOutcome production = economy.Production;
         string status = production.TargetId is null
@@ -91,8 +94,28 @@ public partial class ColonyPanel : VBoxContainer
         }
     }
 
+    /// <summary>Opens the construction list, e.g. after a building completes.</summary>
+    public async void OpenProjectPicker()
+    {
+        OptionButton? picker = _projectPicker;
+        if (picker is null)
+        {
+            return;
+        }
+
+        picker.GrabFocus();
+        // FollowFocus scrolls the panel during layout. Position the popup only after
+        // that scroll finishes, otherwise it stays at the control's old position.
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        if (GodotObject.IsInstanceValid(picker) && picker == _projectPicker && picker.IsVisibleInTree())
+        {
+            picker.ShowPopup();
+        }
+    }
+
     public void Clear()
     {
+        _projectPicker = null;
         foreach (Node child in GetChildren())
         {
             RemoveChild(child);

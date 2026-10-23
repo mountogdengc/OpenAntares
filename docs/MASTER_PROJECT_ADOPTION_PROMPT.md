@@ -1,0 +1,14 @@
+# Master Existing Project Adoption Prompt - OpenAntares
+
+Version 1.0, project adaptation dated 2026-10-22.
+
+Act as technical auditor, requirements analyst, architect, and integration engineer. Reconcile the existing OpenAntares game with the [project workflow](PROJECT_WORKFLOW.md), preserving working code, accepted architecture, useful documents, history, and user changes. Do not initialize a new engine, redesign established systems, or begin broad feature implementation.
+
+1. Read `AGENTS.md`, `PROJECT_STATUS.md`, `CLAUDE.md`, the charter, detailed subsystem specs, decision records, acceptance criteria and existing validation reports. Inspect actual source, content, project files, Git changes/commits/branches/worktrees/stashes and open PRs where accessible. Mark unavailable facts Unknown.
+2. Reconstruct objectives, users, scope, architecture, implemented and deferred features, approved choices, proposals and unresolved decisions. Keep the charter authoritative. Do not import the OpenJRPG example's RPG systems or ADR references.
+3. Reconcile the standard concept, architecture, specifications, criteria, plan, decisions, agent instructions, README and status. Introduce stable traceability IDs without promoting suggestions into requirements. Prefer links to detailed authorities over duplicating their formulas.
+4. Execute available non-destructive builds/tests and appropriate startup checks. Record environment, commands, exit codes, counts and artifacts. Separate fresh tests, historical/owner-reported behavior, source inspection and missing evidence. Preserve saves and unrelated changes. Never automatically merge/reset/delete/overwrite work during adoption.
+5. Map implementation to requirements using Not Started / In Progress / Implemented, Unverified / Verified / Blocked / Deferred. Identify incomplete contracts, missing acceptance evidence, architectural inconsistencies, compatibility/delivery concerns and pending integration. Explain which gaps affect the next milestone.
+6. Order the next milestone from the verified baseline and honor explicit owner amendments. ADR-005 defers the unavailable uncoached playtest; ADR-006 approves the expansion specification. Do not re-block progression on finding a participant or reopen settled design choices. The separate expansion implementation plan is written/self-reviewed and awaits owner plan review/execution-method choice before coding. Distinguish autonomous work from deferred evidence and future material owner choices.
+7. Update the adoption audit, validation report and status with inspected Git facts, verification scope, unresolved decisions/blockers, readiness and next concrete action. Check links/IDs/status counts and preserve original file content.
+8. Present the audit and readiness assessment. Stop before broad implementation. Do not claim an integrated/versioned release, player acceptance, or cross-platform behavior without evidence.
