@@ -12,11 +12,11 @@ namespace OpenAntares.Simulation.State;
 /// </summary>
 public static class GameStateValidator
 {
-    public static IReadOnlyList<string> Validate(ContentSet content, GameState state)
+    public static IReadOnlyList<string> Validate(ContentSet content, GameState state, bool allowAllHumansReady = false)
     {
         var errors = new List<string>();
 
-        if (state.RulesVersion != Rules.CurrentVersion)
+        if (!Rules.IsSupported(state.RulesVersion))
         {
             errors.Add($"Rules version {state.RulesVersion} is not supported (expected {Rules.CurrentVersion}).");
         }
@@ -33,10 +33,11 @@ public static class GameStateValidator
 
         ValidateIds(state, errors);
         ValidateGalaxy(state, errors);
-        ValidateEmpires(content, state, errors);
+        ValidateEmpires(content, state, errors, allowAllHumansReady);
         ValidatePlanets(content, state, errors);
         ValidateColonies(content, state, errors);
 
+        ExpansionStateValidator.Validate(content, state, errors);
         return errors;
     }
 
@@ -89,6 +90,7 @@ public static class GameStateValidator
         CheckSortedUnique("Empires", state.Empires.Select(e => e.Id.Value).ToList(), errors);
         CheckSortedUnique("Stars", state.Stars.Select(s => s.Id.Value).ToList(), errors);
         CheckSortedUnique("Planets", state.Planets.Select(p => p.Id.Value).ToList(), errors);
+        CheckSortedUnique("Vessels", state.Vessels.Select(v => v.Id.Value).ToList(), errors);
         CheckSortedUnique("Colonies", state.Colonies.Select(c => c.Id.Value).ToList(), errors);
 
         // All entity kinds share one ID counter, so an ID is never reused across kinds.
@@ -96,6 +98,7 @@ public static class GameStateValidator
             .Concat(state.Stars.Select(s => s.Id.Value))
             .Concat(state.Planets.Select(p => p.Id.Value))
             .Concat(state.Colonies.Select(c => c.Id.Value))
+            .Concat(state.Vessels.Select(v => v.Id.Value))
             .ToList();
         foreach (int duplicate in allIds.GroupBy(id => id).Where(g => g.Count() > 1).Select(g => g.Key).OrderBy(id => id))
         {
@@ -108,14 +111,14 @@ public static class GameStateValidator
         }
     }
 
-    private static void ValidateEmpires(ContentSet content, GameState state, List<string> errors)
+    private static void ValidateEmpires(ContentSet content, GameState state, List<string> errors, bool allowAllHumansReady)
     {
         var humans = state.Empires.Where(e => e.Controller == ControllerKind.Human).ToList();
         if (humans.Count == 0)
         {
             errors.Add("The game must have at least one human-controlled empire.");
         }
-        else if (humans.All(e => e.Ready))
+        else if (!allowAllHumansReady && humans.All(e => e.Ready))
         {
             errors.Add("Every human-controlled empire is ready, but the turn has not resolved.");
         }
@@ -229,7 +232,8 @@ public static class GameStateValidator
 
             if (colony.ProjectId is { } project)
             {
-                if (!content.Buildings.ContainsKey(project))
+                if (colony.ProjectKind == ProductionKinds.Vessel && state.RulesVersion == Rules.ExpansionVersion && content.Vessels.ContainsKey(project)) { }
+                else if (colony.ProjectKind != ProductionKinds.Building || !content.Buildings.ContainsKey(project))
                 {
                     errors.Add($"{name}: project '{project}' is not defined.");
                 }

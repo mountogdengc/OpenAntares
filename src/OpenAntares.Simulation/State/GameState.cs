@@ -11,7 +11,7 @@ namespace OpenAntares.Simulation.State;
 public sealed class GameState
 {
     /// <summary>The rules implementation version that produced this state.</summary>
-    public int RulesVersion { get; set; } = Rules.CurrentVersion;
+    public int RulesVersion { get; set; } = Rules.LegacyVersion;
 
     /// <summary>Turn number. The initial planning period is turn 0.</summary>
     public int Turn { get; set; }
@@ -31,6 +31,9 @@ public sealed class GameState
     public List<StarState> Stars { get; set; } = new();
     public List<PlanetState> Planets { get; set; } = new();
     public List<ColonyState> Colonies { get; set; } = new();
+
+    public List<VesselState> Vessels { get; set; } = new();
+    public VesselState? FindVessel(VesselId id) => Vessels.FirstOrDefault(v => v.Id == id);
 
     /// <summary>Reserves a fresh entity ID.</summary>
     public int AllocateId() => NextEntityId++;
@@ -53,6 +56,7 @@ public sealed class GameState
         Empires = Empires.Select(e => e.Clone()).ToList(),
         Stars = Stars.Select(s => s.Clone()).ToList(),
         Planets = Planets.Select(p => p.Clone()).ToList(),
+        Vessels = Vessels.Select(v => v.Clone()).ToList(),
         Colonies = Colonies.Select(c => c.Clone()).ToList(),
     };
 }
@@ -80,6 +84,8 @@ public sealed class EmpireState
     /// <summary>Whether this empire has finished planning the current turn.</summary>
     public bool Ready { get; set; }
 
+    public List<SystemObservation> Surveys { get; set; } = new();
+
     public EmpireState Clone() => new()
     {
         Id = Id,
@@ -88,6 +94,7 @@ public sealed class EmpireState
         ResearchTargetId = ResearchTargetId,
         KnownTechnologyIds = new List<string>(KnownTechnologyIds),
         Ready = Ready,
+        Surveys = Surveys.Select(s => s.Clone()).ToList(),
     };
 }
 
@@ -136,6 +143,7 @@ public sealed class ColonyState
 
     /// <summary>Content ID of the selected building project, if any.</summary>
     public string? ProjectId { get; set; }
+    public string ProjectKind { get; set; } = ProductionKinds.Building;
 
     /// <summary>Completed building IDs, sorted ordinally.</summary>
     public List<string> CompletedBuildingIds { get; set; } = new();
@@ -150,6 +158,7 @@ public sealed class ColonyState
         GrowthProgress = GrowthProgress,
         ProductionReserve = ProductionReserve,
         ProjectId = ProjectId,
+        ProjectKind = ProjectKind,
         CompletedBuildingIds = new List<string>(CompletedBuildingIds),
     };
 }

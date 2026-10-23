@@ -29,3 +29,9 @@ public readonly record struct ColonyId(int Value) : IComparable<ColonyId>
     public int CompareTo(ColonyId other) => Value.CompareTo(other.Value);
     public override string ToString() => $"colony:{Value}";
 }
+
+public readonly record struct VesselId(int Value) : IComparable<VesselId>
+{
+    public int CompareTo(VesselId other) => Value.CompareTo(other.Value);
+    public override string ToString() => $"vessel:{Value}";
+}

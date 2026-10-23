@@ -83,6 +83,12 @@ internal sealed class EntryReader
         return text;
     }
 
+    public bool OptionalBool(string field, bool fallback = false)
+    {
+        _readFields.Add(field);
+        return _object.TryGetProperty(field, out _) ? RequiredBool(field) : fallback;
+    }
+
     public bool RequiredBool(string field)
     {
         if (!TryGet(field, out JsonElement value))

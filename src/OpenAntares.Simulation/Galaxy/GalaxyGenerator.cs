@@ -8,7 +8,7 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Galaxy;
 
 /// <summary>Choices made on the new-game screen.</summary>
-public sealed record NewGameSettings(string GalaxySizeId, ulong Seed);
+public sealed record NewGameSettings(string GalaxySizeId, ulong Seed, int RulesVersion = Rules.CurrentVersion);
 
 /// <summary>The outcome of creating a new game. <see cref="State"/> is set only on success.</summary>
 public sealed record NewGameResult(GameState? State, string? Error)

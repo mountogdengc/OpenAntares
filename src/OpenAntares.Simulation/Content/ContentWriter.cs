@@ -69,6 +69,7 @@ public static class ContentWriter
             writer.WriteStartObject();
             writer.WriteString("id", planetType.Id);
             writer.WriteString("name", planetType.Name);
+            writer.WriteBoolean("colonizable", planetType.Colonizable);
             writer.WriteNumber("support_per_worker", planetType.SupportPerWorker);
             writer.WriteNumber("production_per_worker", planetType.ProductionPerWorker);
             writer.WriteNumber("research_per_worker", planetType.ResearchPerWorker);
@@ -123,6 +124,19 @@ public static class ContentWriter
 
         writer.WriteEndArray();
 
+        if (content.Expansion is { } expansion)
+        {
+            writer.WriteStartObject("expansion"); writer.WriteString("starting_vessel", expansion.StartingVesselId); writer.WriteEndObject();
+            writer.WriteStartArray("vessels");
+            foreach (VesselDefinition vessel in content.Vessels.Values)
+            {
+                writer.WriteStartObject(); writer.WriteString("id", vessel.Id); writer.WriteString("name", vessel.Name);
+                writer.WriteNumber("cost", vessel.Cost); writer.WriteNumber("speed", vessel.Speed);
+                writer.WriteNumber("embark_population", vessel.EmbarkPopulation); writer.WriteNumber("minimum_source_population", vessel.MinimumSourcePopulation);
+                writer.WriteBoolean("can_found_colony", vessel.CanFoundColony); writer.WriteEndObject();
+            }
+            writer.WriteEndArray();
+        }
         writer.WriteEndObject();
     }
 

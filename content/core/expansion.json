@@ -1,0 +1,25 @@
+{
+  "vessels": [
+    {
+      "id": "scout",
+      "name": "Scout",
+      "cost": 800,
+      "speed": 300,
+      "embark_population": 0,
+      "minimum_source_population": 0,
+      "can_found_colony": false
+    },
+    {
+      "id": "settler",
+      "name": "Settler",
+      "cost": 2400,
+      "speed": 200,
+      "embark_population": 2,
+      "minimum_source_population": 4,
+      "can_found_colony": true
+    }
+  ],
+  "expansion": {
+    "starting_vessel": "scout"
+  }
+}

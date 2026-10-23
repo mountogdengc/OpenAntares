@@ -7,7 +7,12 @@
       "production_per_worker": 200,
       "research_per_worker": 200,
       "generation_weight": 2,
-      "region_generation_weights": { "core": 1, "arm": 3, "rim": 1 }
+      "region_generation_weights": {
+        "core": 1,
+        "arm": 3,
+        "rim": 1
+      },
+      "colonizable": true
     },
     {
       "id": "forge_world",
@@ -16,7 +21,12 @@
       "production_per_worker": 300,
       "research_per_worker": 200,
       "generation_weight": 2,
-      "region_generation_weights": { "core": 3, "arm": 2, "rim": 4 }
+      "region_generation_weights": {
+        "core": 3,
+        "arm": 2,
+        "rim": 4
+      },
+      "colonizable": true
     },
     {
       "id": "crystal_world",
@@ -25,7 +35,12 @@
       "production_per_worker": 200,
       "research_per_worker": 300,
       "generation_weight": 2,
-      "region_generation_weights": { "core": 3, "arm": 2, "rim": 2 }
+      "region_generation_weights": {
+        "core": 3,
+        "arm": 2,
+        "rim": 2
+      },
+      "colonizable": true
     },
     {
       "id": "barren_rock",
@@ -34,7 +49,12 @@
       "production_per_worker": 200,
       "research_per_worker": 100,
       "generation_weight": 3,
-      "region_generation_weights": { "core": 1, "arm": 2, "rim": 3 }
+      "region_generation_weights": {
+        "core": 1,
+        "arm": 2,
+        "rim": 3
+      },
+      "colonizable": true
     }
   ]
 }

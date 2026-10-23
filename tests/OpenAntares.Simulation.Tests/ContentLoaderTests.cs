@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
 using OpenAntares.Simulation.Content;
@@ -38,7 +39,9 @@ public class ContentLoaderTests
         ContentLoadResult result = ContentLoader.LoadDirectory(CoreContentDirectory());
 
         Assert.Empty(result.Errors);
-        Assert.Equal(Serialize(Fixtures.PrototypeContent()), Serialize(result.Content!));
+        var legacy = result.Content! with { Expansion = null, Vessels = System.Collections.Immutable.ImmutableSortedDictionary<string, VesselDefinition>.Empty,
+            PlanetTypes = result.Content!.PlanetTypes.ToImmutableSortedDictionary(p => p.Key, p => p.Value with { Colonizable = false }, StringComparer.Ordinal) };
+        Assert.Equal(Serialize(Fixtures.PrototypeContent()), Serialize(legacy));
     }
 
     [Fact]

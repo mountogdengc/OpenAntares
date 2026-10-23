@@ -58,7 +58,7 @@ These are bounded implementation details of the approved design, not new gamepla
 
 **Interfaces:** Produce the contracts above; `GameState.FindVessel(VesselId)`; `NewGameSettings(string GalaxySizeId, ulong Seed, int RulesVersion = Rules.CurrentVersion)` (generation stays legacy by default until Task 7). `ExpansionFixtures.Content()` returns base fixture plus exact expansion definitions; `ExpansionFixtures.AtHome()` returns a valid rules-2 state: empire 1, home planet 2/colony 3/star 4 at (0,0), scout 5, remote star 6 at (300,0), forge planet 7, NextEntityId 8, home surveyed at turn 0. Keep existing `Fixtures.StartingState()`/`PrototypeContent()` as legacy fixtures.
 
-- [ ] **RED:** Write named tests with these assertions; compile/run and confirm they fail for missing expansion members or behavior, not a broken test setup:
+- [x] **RED:** Write named tests with these assertions; compile/run and confirm they fail for missing expansion members or behavior, not a broken test setup:
 
 ```csharp
 // ExpansionContentTests.CoreDefinitionsMatchApprovedFixtures
@@ -69,9 +69,9 @@ Assert.False(scout.CanFoundColony); Assert.True(settler.CanFoundColony);
 ```
 
 Also test missing/partial expansion sections, unknown starting role, zero/negative speed/cost, invalid embark/minimum-population relationships, nonpositive-support colonizable worlds, duplicate role IDs, unsupported rules, ID collisions, invalid transit/order/cargo, deep clone isolation and published all-ready rejection. Names/locations remain in loader errors. Expansion-only aggregate output bounds use the maximum legal planet/colony count and Int128; do not newly reject old rules-1 content on expansion bounds.
-- [ ] **GREEN:** Implement schema sections `vessels` and singleton `expansion` together, optional when both absent. JSON role fields use snake_case of the definition fields; `expansion.starting_vessel` is `scout`. Set the four current planet types `colonizable: true`. Preserve existing content values and legacy empty-extension round trips. In legacy-focused galaxy tests, pass `Rules.LegacyVersion` explicitly rather than deleting their assertions.
-- [ ] **Verify:** `dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --filter "FullyQualifiedName~ExpansionContentTests|FullyQualifiedName~ExpansionStateTests|FullyQualifiedName~ContentLoaderTests|FullyQualifiedName~GameStateValidatorTests" --nologo`; expected all selected tests pass. Run full simulation suite before committing.
-- [ ] **Checkpoint:** Review and commit only this task's changes plus its genuine legacy-v2 fixture provenance; no generated build output or unrelated edits.
+- [x] **GREEN:** Implement schema sections `vessels` and singleton `expansion` together, optional when both absent. JSON role fields use snake_case of the definition fields; `expansion.starting_vessel` is `scout`. Set the four current planet types `colonizable: true`. Preserve existing content values and legacy empty-extension round trips. In legacy-focused galaxy tests, pass `Rules.LegacyVersion` explicitly rather than deleting their assertions.
+- [x] **Verify:** `dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --filter "FullyQualifiedName~ExpansionContentTests|FullyQualifiedName~ExpansionStateTests|FullyQualifiedName~ContentLoaderTests|FullyQualifiedName~GameStateValidatorTests" --nologo`; expected all selected tests pass. Run full simulation suite before committing.
+- [x] **Checkpoint:** Review and commit only this task's changes plus its genuine legacy-v2 fixture provenance; no generated build output or unrelated edits.
 
 ## Task 2: Explicit schema/rules compatibility and extension persistence
 

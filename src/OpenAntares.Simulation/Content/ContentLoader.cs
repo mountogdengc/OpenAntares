@@ -58,6 +58,8 @@ public static class ContentLoader
     private sealed class Builder
     {
         private readonly List<ContentError> _errors = new();
+        private (ExpansionDefinition Value, string File)? _expansion;
+        private readonly SortedDictionary<string, (VesselDefinition Value, string File)> _vessels = new(StringComparer.Ordinal);
         private (RulesParameters Value, string File)? _rules;
         private (StartingColonyDefinition Value, string File)? _startingColony;
         private (GalaxyRules Value, string File)? _galaxy;
@@ -92,6 +94,12 @@ public static class ContentLoader
                 {
                     switch (section.Name)
                     {
+                        case "vessels":
+                            ReadEntries(section.Value, file, section.Name, ReadVessel, _vessels);
+                            break;
+                        case "expansion":
+                            SetOnce(ref _expansion, ReadExpansion(section.Value, file), file, "expansion");
+                            break;
                         case "rules":
                             SetOnce(ref _rules, ReadRules(section.Value, file), file, "rules");
                             break;
@@ -139,6 +147,7 @@ public static class ContentLoader
                 _errors.Add(new ContentError(AllFiles, null, "galaxy", "No file defines the galaxy section."));
             }
 
+            CheckExpansion();
             CheckPrerequisiteReferences();
             CheckGeneration();
             CheckTechnologyCycles();
@@ -160,8 +169,36 @@ public static class ContentLoader
                 _galaxySizes.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 _planetTypes.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 _buildings.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
-                _technologies.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal));
+                _technologies.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal))
+            {
+                Vessels = _vessels.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
+                Expansion = _expansion?.Value
+            };
             return new ContentLoadResult(content, Array.Empty<ContentError>());
+        }
+
+        private ExpansionDefinition? ReadExpansion(JsonElement element, string file)
+        {
+            if (EntryReader.Create(element, file, null, "expansion", _errors) is not { } reader) return null;
+            var value = new ExpansionDefinition(reader.RequiredString("starting_vessel"));
+            reader.RejectUnknownFields(); return value;
+        }
+        private VesselDefinition ReadVessel(EntryReader reader, string id) => new(id,
+            reader.RequiredString("name"), reader.RequiredLong("cost", 1, long.MaxValue),
+            reader.RequiredInt("speed", 1, int.MaxValue), reader.RequiredInt("embark_population", 0, int.MaxValue),
+            reader.RequiredInt("minimum_source_population", 0, int.MaxValue), reader.RequiredBool("can_found_colony"));
+        private void CheckExpansion()
+        {
+            if ((_expansion is null) != (_vessels.Count == 0))
+                _errors.Add(new ContentError(AllFiles, null, "expansion", "Vessels and expansion must be defined together."));
+            if (_expansion is { } x && (!_vessels.TryGetValue(x.Value.StartingVesselId, out var start) || start.Value.CanFoundColony || start.Value.EmbarkPopulation != 0))
+                _errors.Add(new ContentError(x.File, null, "expansion.starting_vessel", "Starting vessel must be a defined scout with no population cargo."));
+            foreach (var (v, file) in _vessels.Values)
+                if (v.CanFoundColony ? v.EmbarkPopulation < 1 || v.MinimumSourcePopulation <= v.EmbarkPopulation : v.EmbarkPopulation != 0 || v.MinimumSourcePopulation != 0)
+                    _errors.Add(new ContentError(file, v.Id, "embark_population", "Founding cargo must be positive and leave source population; scouts carry none."));
+            foreach (var (p, file) in _planetTypes.Values)
+                if (p.Colonizable && p.SupportPerWorker <= 0)
+                    _errors.Add(new ContentError(file, p.Id, "support_per_worker", "Colonizable worlds require positive support."));
         }
 
         // --- Sections ---
@@ -214,6 +251,7 @@ public static class ContentLoader
 
         private PlanetTypeDefinition ReadPlanetType(EntryReader reader, string id)
         {
+            bool colonizable = reader.OptionalBool("colonizable");
             string name = reader.RequiredString("name");
             long support = reader.RequiredLong("support_per_worker", 0, long.MaxValue);
             long production = reader.RequiredLong("production_per_worker", 0, long.MaxValue);
@@ -245,6 +283,7 @@ public static class ContentLoader
             return new PlanetTypeDefinition(id, name, support, production, research, weight)
             {
                 RegionGenerationWeights = regionWeights.ToImmutable(),
+                Colonizable = colonizable,
             };
         }
 
@@ -583,7 +622,13 @@ public static class ContentLoader
             Check("support required", maxCapacity * rules.SupportPerPopulation);
             Check("support", maxCapacity * MaxRate(p => p.SupportPerWorker) + Sum(EffectKinds.Support));
             Check("production", maxCapacity * MaxRate(p => p.ProductionPerWorker) + Sum(EffectKinds.Production));
-            Check("research", maxCapacity * MaxRate(p => p.ResearchPerWorker) + Sum(EffectKinds.Research));
+            Int128 researchBound = maxCapacity * MaxRate(p => p.ResearchPerWorker) + Sum(EffectKinds.Research);
+            Check("research", researchBound);
+            if (_expansion is not null && _galaxy is { } galaxy)
+            {
+                Int128 colonies = (Int128)(_galaxySizes.Count == 0 ? 0 : _galaxySizes.Values.Max(s => s.Value.StarCount)) * galaxy.Value.MaxPlanetsPerStar;
+                Check("empire research across all possible colonies", researchBound * colonies);
+            }
 
             void Check(string quantity, Int128 bound)
             {
