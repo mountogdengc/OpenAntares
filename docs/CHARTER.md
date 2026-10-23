@@ -6,6 +6,8 @@
 
 The goal is not to recreate a specific legacy title feature-for-feature. The goal is to build a modern, extensible 4X game that captures the appeal of exploration, empire management, technological development, fleet design, diplomacy, and tactical decision-making without inheriting unnecessary technical or design limitations from older games.
 
+**Creative brief, clarified by the owner 2026-10-23:** OpenAntares is intended as a love letter to Master of Orion II and classic space 4X. Its aliens may be colorful, larger-than-life space-opera archetypes: humanoid animals, Earth-monster-like beings and other fanciful designs are welcome. Memorable appearance, personality and enjoyable play may take priority over biological or evolutionary plausibility. Respect real peoples, cultures, religions and ethnic groups; avoid demeaning real-world caricatures. This creative brief does not require a contemporary representational checklist or a scientific explanation for every alien trait.
+
 ## Core Player Fantasy
 
 The player leads a spacefaring civilization from its early interstellar expansion into a major galactic power.

@@ -18,6 +18,12 @@ Three labels distinguish established direction from new choices:
 
 Examples illustrate intent and do not establish content names, numerical balance, or implemented features. System specs should record formulas, timing, limits, edge cases, and accepted deviations from this guide. Research notes preserve evidence; they do not independently authorize features.
 
+## Classic space-opera creative brief
+
+**Established by owner clarification, 2026-10-23:** OpenAntares is intended as a love letter to Master of Orion II and classic space 4X. Its aliens may be colorful, larger-than-life space-opera archetypes: humanoid animals, Earth-monster-like beings and other fanciful designs are welcome. Memorable appearance, personality and enjoyable play may take priority over biological or evolutionary plausibility. Respect real peoples, cultures, religions and ethnic groups; avoid demeaning real-world caricatures. This creative brief does not require a contemporary representational checklist or a scientific explanation for every alien trait.
+
+Use precise mechanics and clear explanations while allowing playful fiction. Familiar alien silhouettes and broad archetypes can carry a species; neither detailed biology nor an elaborate cultural justification is a prerequisite.
+
 ## The experience we are designing
 
 **Established:** players should have several defensible choices, understand their consequences, and develop an empire with its own character. Complexity should arise from interacting systems. Routine maintenance should remain manageable as the empire grows.

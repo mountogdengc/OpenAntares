@@ -71,3 +71,7 @@ Fresh integration audit: 43 Markdown files, 264 local links, 17 unique requireme
 ## Species mechanics draft review - 2026-10-23
 
 ADR-007 records owner authorization to draft species rules and propose creative revisions, not acceptance of those rules. The candidate contains eight SPC contracts and ten future acceptance rows. A fresh independent builder check of the final candidate returned nothing important left; 23 independent arithmetic fixtures pass. New/current documentation audit: 46 Markdown files, 285 local links, seven ADRs, 17 unique requirements, zero errors. Counts: 11 Verified, 3 Implemented, Unverified, 1 In Progress, 2 Deferred. Exact owner roster/research hashes are unchanged and Git confirms no product source/content/test changes. No application test rerun or species gameplay implementation is claimed. Machine results: reports/species-design-documentation-check-2026-10-23.json and reports/species-design-arithmetic-2026-10-23.json. Full owner review precedes the separate implementation plan.
+
+## Classic space-opera clarification - 2026-10-23
+
+The owner clarified the accepted creative tone: a Master of Orion II love letter, welcoming humanoid animals/monsters and fanciful biology while respecting real peoples/cultures/religions. Charter, design guide, concept, ADR-007 and species draft record that direction; the draft no longer requires a cohort/reproductive justification. Proposed numerical mechanics, source/content, owner prose edits and the review-before-implementation gate are unchanged.

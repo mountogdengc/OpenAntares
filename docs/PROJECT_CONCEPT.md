@@ -10,6 +10,7 @@ Reconciled 2026-10-22 from [CHARTER.md](CHARTER.md). This is an adoption summary
 - **Users:** Desktop strategy players; later content creators and contributors. No narrower audience or commercial plan is established.
 - **Platforms:** Windows, Linux, macOS. Web is excluded by existing project guidance.
 - **Loop:** Explore, expand, develop, research, negotiate, build, compete, adapt.
+- **Creative tone:** A love letter to Master of Orion II and classic space opera. Colorful humanoid animals/monsters and fanciful biology are welcome; designs respect real peoples, cultures and religions.
 
 The supplied OpenJRPG workflow is a reusable process reference. Its RPG systems, authoring tools, package policies, and ADR-014/015 are not OpenAntares decisions. No engine rename, rewrite, or new framework is needed for this adoption.
 

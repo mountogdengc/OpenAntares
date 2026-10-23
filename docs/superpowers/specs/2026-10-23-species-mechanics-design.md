@@ -8,6 +8,8 @@ Sources: [charter](../../CHARTER.md), [engineering constraints](../../../CLAUDE.
 
 ## 1. Intent and scope
 
+The owner's creative brief is a love letter to Master of Orion II and classic space 4X: colorful humanoid animals, monsters and broad alien archetypes are welcome even with fanciful biology. Prioritize memorable personality and enjoyable play while respecting real peoples, cultures, religions and ethnic groups. Scientific plausibility and a contemporary representational checklist are not creative requirements.
+
 Make species choice change labor allocation, home development and preparation of the next settlement. Each species must have a viable opening and a visible opportunity cost. Use the existing scout/discovery/production/travel/founding/two-colony/save loop.
 
 Scope: four selectable species, species-aware economic forecasts and settlement eligibility, one small surveyed environment classification, and persistence. Preserve C#/Godot separation, JSON content, stable IDs, integer/fixed-point rules, PCG32, ordered iteration, snapshot phases, atomic publication and embedded saves. Ordinary resource conservation, committed travel and existing building/technology effects and costs remain unless explicitly extended below.
@@ -23,7 +25,7 @@ Considered (A) small statistical bonuses, insufficiently distinct; (B) full life
 | Topic | Starting roster | Proposed disposition |
 | --- | --- | --- |
 | Names/bodies | Peldra, Harl, shark-like Sulan, single-organism Wenth; animal-inspired silhouettes welcome | Keep. No appearance reversal or new species is needed |
-| Population scale | Each unit is one person for three species | Amend to a productive cohort for Peldra/Harl/Sulan, a functional lobe for Wenth. A one-unit colony is not one lone reproducing person; a turn is not a biological year |
+| Population scale | Each unit is one person for three species | Keep a familiar population statistic; its literal headcount is unspecified. Use lobes as Wenth flavor. No mandatory cohort model or reproductive explanation is needed |
 | Peldra opening | Ordinary 2/2/2 is underfed | Keep high support needs but begin at healthy 4/1/1. Learning should not require fixing a knowingly broken default |
 | Harl | Avoid surplus because population fills the cap | Reframe as rapid recovery and inexpensive small founding parties. Growth offers opportunities and capacity/investment tradeoffs. Keep short lives/school archives as culture, without death or memory-loss rules |
 | Sulan | Detailed water/shelf/salinity and a project making a sea | Replace with surveyed categories and a costlier harbor-equipped settler. It makes a colony-scale enclosed habitat, not a planet-wide ocean. Native shelves hold 12 units; sealed habitats 8, making depth versus reach a choice |
@@ -93,10 +95,10 @@ Keep one project per colony, the existing reserve and typed production command. 
 
 | Species | Role ID / display | Cost (displayed points) | Cargo | Minimum snapshot population | Full snapshot capacity? | Founded habitat |
 | --- | --- | ---: | ---: | ---: | --- | --- |
-| Peldra | peldra_settler / Estate Expedition | 32 | 2 cohorts | 4 | No | Native |
-| Harl | harl_settler / Settlement Launch | 16 | 1 cohort | 3 | No | Native |
-| Sulan | settler / Shelf Expedition | 24 | 2 cohorts | 4 | No | Native; Shelf Sea only |
-| Sulan | harbor_settler / Harbor Expedition | 36 | 2 cohorts | 4 | No | Sealed |
+| Peldra | peldra_settler / Estate Expedition | 32 | 2 population units | 4 | No | Native |
+| Harl | harl_settler / Settlement Launch | 16 | 1 population unit | 3 | No | Native |
+| Sulan | settler / Shelf Expedition | 24 | 2 population units | 4 | No | Native; Shelf Sea only |
+| Sulan | harbor_settler / Harbor Expedition | 36 | 2 population units | 4 | No | Sealed |
 | Wenth | daughter_seed / Daughter Seed | 24 | 3 lobes | 6 | Yes | Native |
 
 Store costs as 3200/1600/2400/3600/2400. Only owned species' allowed roles are selectable. Disallowed role commands reject project_not_available_for_species without changing target/reserves/readiness. Preserve the old settler content ID for embedded legacy definitions; add no namespace scheme.
@@ -197,7 +199,7 @@ New-game UI offers rules 3 after implementation. Old modes remain accessible thr
 Use existing C# controls, containers/anchors and shared theme. No product scene or portrait dependency is required. Exact card/picker arrangement is left to the builder; these behaviors are not:
 
 - Before Start, display species/culture flavor, population-unit meaning, opening allocation/capacity, support, worker contributions and settlement choices. Distinguish flavor/rules and make the proposed Harl default visible.
-- Colony forecasts name species as a calculation source, showing gross/shortage-adjusted output, growth/base/surplus/capacity terms, blocked embark conditions and actual post-transfer population/support. Wenth uses lobes, others population/cohorts. Speaking-limbs are never leaders or stored population.
+- Colony forecasts name species as a calculation source, showing gross/shortage-adjusted output, growth/base/surplus/capacity terms, blocked embark conditions and actual post-transfer population/support. Wenth uses lobes, others population. Speaking-limbs are never leaders or stored population.
 - Surveyed inspection shows environment and viewer-adjusted rates/eligibility through simulation-supplied permitted previews; underlying planet rates remain inspectable. Unknown planets stay absent. Do not calculate species multipliers in presentation.
 - Production lists only allowed roles and their exact cost/cargo/minimum/full-capacity conditions. No hard-coded population-4/support-2 or founding-population-2 text. Wenth maturity/capacity and Sulan native-versus-harbor suitability are explicit.
 - Retain queued-route replacement, exact selected planet/colony IDs, explicit founding, cancel/no-op/error preservation, report navigation, Save/Load and resize/focus/scroll behavior. No mid-campaign species switch.
@@ -222,7 +224,7 @@ These are proposed future procedures, not executed species functionality. Preser
 
 ### Owner review checklist
 
-1. Accept/amend retained names/bodies plus cohort abstraction, viable Peldra start and positive Harl recovery identity.
+1. Accept/amend retained names/bodies and familiar population labels, viable Peldra start and positive Harl recovery identity.
 2. Accept/amend the numeric profile/role tables, especially full-capacity Wenth fission and capacity-extension interaction.
 3. Accept/amend coarse surveyed environments and Sulan's native/sealed tradeoff (24/36 production points, 12/8 base capacity), without terraforming.
 4. Accept/amend Harl as visible New Game default and schema-4/rules-3 new-campaign separation, without converting old campaigns.

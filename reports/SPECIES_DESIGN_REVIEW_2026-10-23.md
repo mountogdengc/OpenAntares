@@ -8,7 +8,7 @@ A fresh independent strategy-game/simulation builder read the candidate and rele
 
 ## Author recommendations for owner review
 
-- Keep the four names/bodies, including shark-like Sulan and a single-organism Wenth; treat ordinary population units as productive cohorts, Wenth units as lobes.
+- Keep the four names/bodies, including shark-like Sulan and a single-organism Wenth; use a familiar population statistic with unspecified literal headcount, and lobes as Wenth flavor; no mandatory cohort model or reproductive explanation.
 - Start Peldra supported at 4/1/1, with expensive support, 3x worker output and slow growth.
 - Make Harl rapid recovery/small expeditions useful; do not simulate mortality or archive loss.
 - Give Sulan native capacity 12 versus sealed 8, with 24/36-point expeditions and coarse surveyed habitats, replacing a full terraforming requirement.
@@ -16,6 +16,10 @@ A fresh independent strategy-game/simulation builder read the candidate and rele
 - Recommend visible Harl default and new-campaign rules 3/schema 4 while retaining rules-1/2 saves unchanged.
 
 All are proposals. Full owner acceptance/amendment must precede a separate implementation plan; neither the builder result nor arithmetic grants that approval.
+
+## Owner creative clarification
+
+After the initial draft, the owner explicitly set a classic Master of Orion II love-letter tone: humanoid animals and Earth-monster-like aliens are welcome without biological plausibility requirements, while respecting real peoples, cultures, religions and ethnic groups. Charter, guide and candidate now state that direction. The draft's forced cohort justification was removed; numeric profiles/formulas, scope and save policies are unchanged and remain proposals. This clarification does not approve gameplay implementation.
 
 ## Verification scope
 
