@@ -5,7 +5,7 @@ using OpenAntares.Simulation;
 using OpenAntares.Simulation.Commands;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Economy;
-using OpenAntares.Simulation.State;
+using OpenAntares.Simulation.Knowledge;
 
 namespace OpenAntares.Game.Components;
 
@@ -41,28 +41,27 @@ public partial class ResearchBar : HBoxContainer
         _picker.ShowPopup();
     }
 
-    public void ShowEmpire(ContentSet content, GameState state, EmpireId empireId, TurnEconomy forecast)
+    public void ShowEmpire(ContentSet content, OwnResearchView empire)
     {
-        _empire = empireId;
-        _turn = state.Turn;
-        EmpireState empire = state.FindEmpire(empireId)!;
-        EmpireEconomy economy = forecast.Empire(empireId);
+        _empire = empire.Id;
+        _turn = empire.Turn;
+        EmpireEconomy economy = empire.Economy;
 
         _picker.Clear();
         _picker.AddItem("No target");
         _picker.SetItemMetadata(0, string.Empty);
         var unknown = content.Technologies.Values.Where(t => !empire.KnownTechnologyIds.Contains(t.Id)).ToList();
-        foreach (TechnologyDefinition technology in unknown.Where(t => Rules.PrerequisitesKnown(empire, t.PrerequisiteTechnologyIds)))
+        foreach (TechnologyDefinition technology in unknown.Where(t => t.PrerequisiteTechnologyIds.All(id => empire.KnownTechnologyIds.Contains(id))))
         {
             _picker.AddItem($"{technology.Name} ({Format.Points(technology.Cost)})");
             _picker.SetItemMetadata(_picker.ItemCount - 1, technology.Id);
-            if (technology.Id == empire.ResearchTargetId)
+            if (technology.Id == empire.TargetId)
             {
                 _picker.Select(_picker.ItemCount - 1);
             }
         }
 
-        foreach (TechnologyDefinition technology in unknown.Where(t => !Rules.PrerequisitesKnown(empire, t.PrerequisiteTechnologyIds)))
+        foreach (TechnologyDefinition technology in unknown.Where(t => !t.PrerequisiteTechnologyIds.All(id => empire.KnownTechnologyIds.Contains(id))))
         {
             string needs = string.Join(", ", technology.PrerequisiteTechnologyIds
                 .Where(id => !empire.KnownTechnologyIds.Contains(id))
@@ -73,7 +72,7 @@ public partial class ResearchBar : HBoxContainer
         }
 
         _output.Text = $"{Format.Points(economy.NetResearch.Total)} per turn";
-        _output.TooltipText = BreakdownText.Describe(economy.NetResearch, content, "Research per turn", id => ColonyName(state, id));
+        _output.TooltipText = BreakdownText.Describe(economy.NetResearch, content, "Research per turn", id => empire.ColonyNames.TryGetValue(id, out string? name) ? name : id);
 
         ReserveOutcome research = economy.Research;
         _progress.Text = research.TargetId is null
@@ -81,12 +80,4 @@ public partial class ResearchBar : HBoxContainer
             : $"{BreakdownText.Progress(research)}, {BreakdownText.Estimate(research.Estimate)}";
     }
 
-    /// <summary>Names a colony by its star and orbit, from the ID text used in breakdown lines.</summary>
-    private static string ColonyName(GameState state, string colonyIdText)
-    {
-        ColonyState? colony = state.Colonies.FirstOrDefault(c => c.Id.ToString() == colonyIdText);
-        PlanetState? planet = colony is null ? null : state.FindPlanet(colony.PlanetId);
-        StarState? star = planet is null ? null : state.FindStar(planet.StarId);
-        return star is null ? colonyIdText : $"{star.Name} {planet!.Orbit}";
-    }
 }

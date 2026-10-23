@@ -39,8 +39,12 @@ public class ContentLoaderTests
         ContentLoadResult result = ContentLoader.LoadDirectory(CoreContentDirectory());
 
         Assert.Empty(result.Errors);
-        var legacy = result.Content! with { Expansion = null, Vessels = System.Collections.Immutable.ImmutableSortedDictionary<string, VesselDefinition>.Empty,
-            PlanetTypes = result.Content!.PlanetTypes.ToImmutableSortedDictionary(p => p.Key, p => p.Value with { Colonizable = false }, StringComparer.Ordinal) };
+        var legacy = result.Content! with
+        {
+            Expansion = null,
+            Vessels = System.Collections.Immutable.ImmutableSortedDictionary<string, VesselDefinition>.Empty,
+            PlanetTypes = result.Content!.PlanetTypes.ToImmutableSortedDictionary(p => p.Key, p => p.Value with { Colonizable = false }, StringComparer.Ordinal)
+        };
         Assert.Equal(Serialize(Fixtures.PrototypeContent()), Serialize(legacy));
     }
 

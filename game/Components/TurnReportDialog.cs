@@ -4,6 +4,7 @@ using Godot;
 using OpenAntares.Simulation;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Economy;
+using OpenAntares.Simulation.Knowledge;
 using OpenAntares.Simulation.State;
 using OpenAntares.Simulation.Turns;
 
@@ -19,20 +20,26 @@ public partial class TurnReportDialog : AcceptDialog
     private readonly VBoxContainer _body = new();
 
     /// <summary>Raised when the player wants to choose a colony's next project (the colony's star).</summary>
-    public event Action<StarId>? ChooseProjectRequested;
+    public event Action<ColonyId>? ChooseProjectRequested;
 
     /// <summary>Raised when the player wants to choose the next research target.</summary>
     public event Action? ChooseResearchRequested;
+    public event Action<StarId>? StarRequested;
+    public event Action<ColonyId>? ColonyRequested;
+    public event Action<VesselId>? VesselRequested;
 
     public override void _Ready()
     {
         OkButtonText = "Continue";
         var padding = new MarginContainer { ThemeTypeVariation = "PanelPadding" };
-        padding.AddChild(_body);
+        var scroll = new ScrollContainer { CustomMinimumSize = new Vector2(520, 360), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled };
+        scroll.AddChild(_body);
+        _body.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
+        padding.AddChild(scroll);
         AddChild(padding);
     }
 
-    public void ShowReport(ContentSet content, GameState state, TurnReport report, EmpireId viewer)
+    public void ShowReport(ContentSet content, EmpireTurnReportView report)
     {
         foreach (Node child in _body.GetChildren())
         {
@@ -43,12 +50,12 @@ public partial class TurnReportDialog : AcceptDialog
         Title = "Turn report";
         _body.AddChild(new Label { Text = $"Turn {report.FromTurn} results", ThemeTypeVariation = "HeaderLabel" });
 
-        foreach (ColonyEconomy colony in report.Economy.Colonies.Where(c => c.Empire == viewer))
+        foreach (ColonyReportView colony in report.Colonies)
         {
-            AddColony(content, state, colony);
+            AddColony(content, colony);
         }
 
-        EmpireEconomy empire = report.Economy.Empire(viewer);
+        EmpireEconomy empire = report.Research;
         _body.AddChild(new HSeparator());
         _body.AddChild(new Label { Text = "Research" });
         _body.AddChild(Subtle(ReserveSummary(empire.Research)));
@@ -64,30 +71,42 @@ public partial class TurnReportDialog : AcceptDialog
             _body.AddChild(choose);
         }
 
-        PopupCentered(new Vector2I(460, 0));
+        foreach (var e in report.Events)
+        {
+            string location = e.Star is { } star && report.StarNames.TryGetValue(star, out var name) ? name : "system";
+            string message = e.Kind switch { "arrived" => $"Vessel arrived at {location}.", "discovered" => $"Surveyed the planets of {location}.", "vessel_completed" => $"Expedition completed at {location}.", "colony_founded" => $"Colony founded at {location}.", "founding_failed" => $"Another expedition settled {location} first. Your settler and cargo were retained.", _ => "Expedition updated." };
+            _body.AddChild(Wrapped(message, "SubtleLabel"));
+            var view = new Button { Text = e.Colony.HasValue && e.Kind == "colony_founded" ? "View colony" : e.Vessel.HasValue && e.Kind == "vessel_completed" ? "View vessel" : "View system" };
+            view.Pressed += () => { Hide(); if (e.Colony is { } colony && e.Kind == "colony_founded") ColonyRequested?.Invoke(colony); else if (e.Vessel is { } vessel && e.Kind == "vessel_completed") VesselRequested?.Invoke(vessel); else if (e.Star is { } destination) StarRequested?.Invoke(destination); }; _body.AddChild(view);
+        }
+        PopupCentered(new Vector2I(580, 440));
     }
 
-    private void AddColony(ContentSet content, GameState state, ColonyEconomy colony)
+    private void AddColony(ContentSet content, ColonyReportView view)
     {
-        PlanetState? planet = state.FindColony(colony.Colony) is { } current ? state.FindPlanet(current.PlanetId) : null;
-        StarState? star = planet is null ? null : state.FindStar(planet.StarId);
-
+        ColonyEconomy colony = view.Economy;
         _body.AddChild(new HSeparator());
-        _body.AddChild(new Label { Text = star is null ? "Colony" : $"Colony at {star.Name} {planet!.Orbit}" });
+        _body.AddChild(new Label { Text = $"Colony at {view.Name}" });
         _body.AddChild(Subtle("Production: " + ReserveSummary(colony.Production)));
 
-        if (colony.Production.CompletedId is { } building && star is not null)
+        if (colony.Production.CompletedId is { } building)
         {
-            _body.AddChild(new Label { Text = $"Completed {content.Buildings[building].Name}." });
+            _body.AddChild(new Label { Text = $"Completed {(colony.Production.TargetKind == ProductionKinds.Vessel ? content.Vessels[building].Name : content.Buildings[building].Name)}." });
             var choose = new Button { Text = "Choose next project" };
             choose.Pressed += () =>
             {
                 Hide();
-                ChooseProjectRequested?.Invoke(star.Id);
+                ChooseProjectRequested?.Invoke(view.Id);
             };
             _body.AddChild(choose);
         }
 
+        if (colony.EmbarkOutcome is { } embark)
+        {
+            _body.AddChild(Wrapped($"Embarked workers: source population now {embark.PopulationAfter}; next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));
+            if (embark.ReassignmentNeeded) _body.AddChild(Wrapped("Reassign workers before the next End Turn.", "WarningLabel"));
+        }
+        if (colony.Production.BlockedReasonCode is not null) _body.AddChild(Wrapped("Awaiting embarkation; production remains banked.", "WarningLabel"));
         GrowthOutcome growth = colony.Growth;
         if (growth.Births > 0)
         {

@@ -5,6 +5,7 @@ using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.State;
 
 namespace OpenAntares.Simulation.Tests;
+
 internal static class ExpansionFixtures
 {
     public static ContentSet Content() => Fixtures.PrototypeContent() with

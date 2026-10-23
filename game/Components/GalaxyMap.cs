@@ -4,7 +4,7 @@ using System.Linq;
 using Godot;
 using OpenAntares.Simulation;
 using OpenAntares.Simulation.Galaxy;
-using OpenAntares.Simulation.State;
+using OpenAntares.Simulation.Knowledge;
 
 namespace OpenAntares.Game.Components;
 
@@ -16,8 +16,9 @@ public partial class GalaxyMap : Control
 {
     private const string ThemeType = "GalaxyMap";
 
-    private IReadOnlyList<StarState> _stars = Array.Empty<StarState>();
+    private IReadOnlyList<ChartedStar> _stars = Array.Empty<ChartedStar>();
     private IReadOnlyList<(int X, int Y)> _backgroundPoints = Array.Empty<(int X, int Y)>();
+    private System.Collections.Immutable.ImmutableArray<MapVesselMarker> _units;
     private HashSet<StarId> _homeStars = new();
     private StarId? _selected;
     private int _minX;
@@ -36,12 +37,13 @@ public partial class GalaxyMap : Control
         MouseFilter = MouseFilterEnum.Stop;
     }
 
-    public void ShowGalaxy(GameState state, IEnumerable<StarId> homeStars)
+    public void ShowGalaxy(GalaxyMapView state)
     {
         _stars = state.Stars;
-        _homeStars = homeStars.ToHashSet();
-        if (state.GalaxySeed is { } seed && state.GalaxyShapeId == "spiral"
-            && state.GalaxyWidth is { } width && state.GalaxyHeight is { } height)
+        _units = state.Units;
+        _homeStars = state.HomeMarkers.ToHashSet();
+        if (state.Seed is { } seed && state.ShapeId == "spiral"
+            && state.Width is { } width && state.Height is { } height)
         {
             _minX = 0;
             _minY = 0;
@@ -103,7 +105,12 @@ public partial class GalaxyMap : Control
             DrawCircle(ToScreen(point.X, point.Y, transform), backgroundStarRadius, backgroundStarColor);
         }
 
-        foreach (StarState star in _stars)
+        foreach (var unit in _units.Where(v => v.Owned && v.Origin.HasValue && v.Destination.HasValue))
+        {
+            var origin = _stars.First(s => s.Id == unit.Origin); var destination = _stars.First(s => s.Id == unit.Destination);
+            DrawLine(ToScreen(origin.X, origin.Y, transform), ToScreen(destination.X, destination.Y, transform), selectionColor, 1, true);
+        }
+        foreach (ChartedStar star in _stars)
         {
             Vector2 position = ToScreen(star.X, star.Y, transform);
             bool home = _homeStars.Contains(star.Id);
@@ -114,7 +121,9 @@ public partial class GalaxyMap : Control
                 DrawArc(position, selectionRadius, 0, Mathf.Tau, 48, selectionColor, 2, antialiased: true);
             }
 
-            DrawString(font, position + new Vector2(-LabelWidth / 2, labelOffset), star.Name,
+            int units = _units.Count(v => v.Station == star.Id);
+            string label = units > 0 ? $"{star.Name} [{units}]" : star.Name;
+            DrawString(font, position + new Vector2(-LabelWidth / 2, labelOffset), label,
                 HorizontalAlignment.Center, LabelWidth, fontSize, labelColor);
         }
     }
@@ -128,7 +137,7 @@ public partial class GalaxyMap : Control
 
         float pickRadius = GetThemeConstant("selection_radius", ThemeType) * 1.5f;
         MapTransform transform = BuildTransform();
-        StarState? nearest = _stars
+        ChartedStar? nearest = _stars
             .Select(star => (star, distance: ToScreen(star.X, star.Y, transform).DistanceTo(click.Position)))
             .Where(candidate => candidate.distance <= pickRadius)
             .OrderBy(candidate => candidate.distance)

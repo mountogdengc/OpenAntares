@@ -122,7 +122,7 @@ public class GalaxyGeneratorTests
         var cramped = new GalaxySizeDefinition("three_cramped", "Cramped", 3, 100, 100);
         ContentSet content = _content with { GalaxySizes = _content.GalaxySizes.Add(cramped.Id, cramped) };
 
-        NewGameResult result = GalaxyGenerator.CreateNewGame(content, new NewGameSettings(cramped.Id, 5));
+        NewGameResult result = GalaxyGenerator.CreateNewGame(content, new NewGameSettings(cramped.Id, 5, Rules.LegacyVersion));
 
         Assert.False(result.Succeeded);
         Assert.Contains("Could not place 3 stars", result.Error);
@@ -170,7 +170,7 @@ public class GalaxyGeneratorTests
 
         for (ulong seed = 0; seed < 20; seed++)
         {
-            GameState state = GalaxyGenerator.CreateNewGame(content, new NewGameSettings("large", seed)).State!;
+            GameState state = GalaxyGenerator.CreateNewGame(content, new NewGameSettings("large", seed, Rules.LegacyVersion)).State!;
             Assert.DoesNotContain(state.Planets, p => p.PlanetTypeId == "barren_rock");
         }
     }
@@ -184,7 +184,7 @@ public class GalaxyGeneratorTests
 
         for (ulong seed = 0; seed < 100; seed++)
         {
-            GameState state = GalaxyGenerator.CreateNewGame(content, new NewGameSettings("large", seed)).State!;
+            GameState state = GalaxyGenerator.CreateNewGame(content, new NewGameSettings("large", seed, Rules.LegacyVersion)).State!;
             Assert.DoesNotContain(state.Planets, planet =>
                 state.FindStar(planet.StarId)!.RegionId == GalaxyRegions.Rim
                 && planet.PlanetTypeId == barren.Id);
@@ -205,7 +205,7 @@ public class GalaxyGeneratorTests
 
         foreach (string sizeId in content.GalaxySizes.Keys)
         {
-            NewGameResult result = GalaxyGenerator.CreateNewGame(content, new NewGameSettings(sizeId, 19));
+            NewGameResult result = GalaxyGenerator.CreateNewGame(content, new NewGameSettings(sizeId, 19, Rules.LegacyVersion));
             Assert.True(result.Succeeded, result.Error);
         }
     }
@@ -224,7 +224,7 @@ public class GalaxyGeneratorTests
     [Fact]
     public void UnknownGalaxySizeIsReported()
     {
-        NewGameResult result = GalaxyGenerator.CreateNewGame(_content, new NewGameSettings("gigantic", 1));
+        NewGameResult result = GalaxyGenerator.CreateNewGame(_content, new NewGameSettings("gigantic", 1, Rules.LegacyVersion));
 
         Assert.False(result.Succeeded);
         Assert.Contains("'gigantic' is not defined", result.Error);
@@ -236,7 +236,7 @@ public class GalaxyGeneratorTests
         var cramped = new GalaxySizeDefinition("cramped", "Cramped", 12, 100, 100);
         ContentSet content = _content with { GalaxySizes = _content.GalaxySizes.Add(cramped.Id, cramped) };
 
-        NewGameResult result = GalaxyGenerator.CreateNewGame(content, new NewGameSettings("cramped", 1));
+        NewGameResult result = GalaxyGenerator.CreateNewGame(content, new NewGameSettings("cramped", 1, Rules.LegacyVersion));
 
         Assert.False(result.Succeeded);
         Assert.Contains("Could not place 12 stars at least 120 apart", result.Error);
@@ -265,14 +265,14 @@ public class GalaxyGeneratorTests
 
         foreach (string sizeId in core.GalaxySizes.Keys)
         {
-            NewGameResult result = GalaxyGenerator.CreateNewGame(core, new NewGameSettings(sizeId, 99));
+            NewGameResult result = GalaxyGenerator.CreateNewGame(core, new NewGameSettings(sizeId, 99, Rules.LegacyVersion));
             Assert.True(result.Succeeded, result.Error);
         }
     }
 
     private GameState Generate(string sizeId, ulong seed)
     {
-        NewGameResult result = GalaxyGenerator.CreateNewGame(_content, new NewGameSettings(sizeId, seed));
+        NewGameResult result = GalaxyGenerator.CreateNewGame(_content, new NewGameSettings(sizeId, seed, Rules.LegacyVersion));
         Assert.True(result.Succeeded, result.Error);
         return result.State!;
     }

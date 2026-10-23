@@ -11,7 +11,7 @@ public static class Rules
     /// <summary>Version of the rules implementation. Saves record it, because formulas in code can't be embedded.</summary>
     public const int LegacyVersion = 1;
     public const int ExpansionVersion = 2;
-    public const int CurrentVersion = LegacyVersion;
+    public const int CurrentVersion = ExpansionVersion;
     public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion;
 
     /// <summary>A colony's population capacity: the base capacity plus completed capacity buildings.</summary>

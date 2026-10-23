@@ -5,6 +5,7 @@ using OpenAntares.Simulation;
 using OpenAntares.Simulation.Commands;
 using OpenAntares.Simulation.Economy;
 using OpenAntares.Simulation.State;
+using OpenAntares.Simulation.Knowledge;
 
 namespace OpenAntares.Game.Screens;
 
@@ -23,6 +24,13 @@ public partial class GameScreen : VBoxContainer
     private readonly StarPanel _starPanel = new();
     private readonly ColonyPanel _colonyPanel = new();
     private readonly Button _endTurn = new();
+    private readonly ColonyList _colonies = new();
+    private readonly VesselPanel _vessels = new();
+    private ColonyId? _selectedColony;
+    private PlanetId? _selectedPlanet;
+    private VesselId? _selectedVessel;
+    private StarId? _courseDestination;
+    private EmpireView View => _session.View(_viewer);
     private readonly TurnReportDialog _report = new();
     private readonly SaveGameDialog _saveDialog = new();
 
@@ -69,6 +77,9 @@ public partial class GameScreen : VBoxContainer
 
         AddChild(_report);
         _report.ChooseProjectRequested += ChooseProject;
+        _report.StarRequested += star => _map.Select(star);
+        _report.ColonyRequested += SelectColony;
+        _report.VesselRequested += vessel => { _selectedVessel = vessel; Callable.From(Refresh).CallDeferred(); };
         _report.ChooseResearchRequested += _researchBar.OpenPicker;
 
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
@@ -91,11 +102,18 @@ public partial class GameScreen : VBoxContainer
         sidePadding.AddChild(scroll);
         var sideColumn = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         scroll.AddChild(sideColumn);
+        sideColumn.AddChild(_colonies);
+        _colonies.ColonySelected += SelectColony;
         sideColumn.AddChild(_starPanel);
+        _starPanel.PlanetSelected += planet => { _selectedPlanet = planet; _selectedColony = View.Colonies.FirstOrDefault(c => c.PlanetId == planet)?.Id; Callable.From(Refresh).CallDeferred(); };
         sideColumn.AddChild(_colonyPanel);
         _colonyPanel.CommandIssued += Execute;
+        sideColumn.AddChild(_vessels);
+        _vessels.CommandIssued += Execute;
+        _vessels.VesselSelected += vessel => { _selectedVessel = vessel; _courseDestination = null; Callable.From(Refresh).CallDeferred(); };
+        _vessels.DestinationSelected += star => { _courseDestination = star; _map.Select(star); };
 
-        _map.ShowGalaxy(_session.State, HomeStar() is { } home ? new[] { home } : System.Array.Empty<StarId>());
+        _map.ShowGalaxy(View.Galaxy);
         if (HomeStar() is { } start)
         {
             _map.Select(start);
@@ -104,9 +122,9 @@ public partial class GameScreen : VBoxContainer
         Refresh();
     }
 
-    private async void ChooseProject(StarId star)
+    private async void ChooseProject(ColonyId colony)
     {
-        _map.Select(star);
+        SelectColony(colony);
         // Selection rebuilds the colony panel. Let containers lay out its controls before
         // focusing the picker so the scroll container reveals it and the popup aligns with it.
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -123,7 +141,7 @@ public partial class GameScreen : VBoxContainer
 
         if (outcome.Report is { } report)
         {
-            _report.ShowReport(_session.Content, _session.State, report, _viewer);
+            _report.ShowReport(_session.Content, EmpireViewProjector.ProjectReport(_session.Content, _session.State, report, _viewer));
         }
     }
 
@@ -133,35 +151,40 @@ public partial class GameScreen : VBoxContainer
     /// </summary>
     private void EndTurn()
     {
-        bool ready = _session.State.FindEmpire(_viewer)!.Ready;
-        Execute(new SetReadyCommand(_viewer, _session.State.Turn, !ready));
+        var view = View;
+        Execute(new SetReadyCommand(_viewer, view.Turn, !view.Research.Ready));
     }
 
     private void Refresh()
     {
-        GameState state = _session.State;
-        TurnEconomy forecast = _session.Forecast();
-        _turnLabel.Text = $"Turn {state.Turn}";
-        bool waiting = state.FindEmpire(_viewer)!.Ready;
-        _endTurn.Text = waiting ? "Waiting for others (cancel)" : "End Turn";
-        _researchBar.ShowEmpire(_session.Content, state, _viewer, forecast);
+        var view = View;
+        _turnLabel.Text = $"Turn {view.Turn}";
+        _endTurn.Text = view.Research.Ready ? "Waiting for others (cancel)" : "End Turn";
+        _researchBar.ShowEmpire(_session.Content, view.Research);
+        _map.ShowGalaxy(view.Galaxy);
+        if (view.RulesVersion == Rules.LegacyVersion) ShowMessage("Legacy colony game - start a new game for exploration", false);
+        if (_map.Selected is not { } selected) return;
+        var star = view.Stars.Single(s => s.Chart.Id == selected);
+        if (star.Planets is { } planets && !planets.Any(p => p.Id == _selectedPlanet))
+        {
+            var preferred = view.Colonies.FirstOrDefault(c => c.Id == _selectedColony && c.StarId == selected) ?? view.Colonies.FirstOrDefault(c => c.StarId == selected);
+            _selectedPlanet = preferred?.PlanetId ?? (planets.Length > 0 ? planets[0].Id : null);
+        }
+        if (star.Planets is null) _selectedPlanet = null;
+        var colony = view.Colonies.FirstOrDefault(c => c.PlanetId == _selectedPlanet && c.StarId == selected);
+        _selectedColony = colony?.Id;
+        if (colony is not null) _selectedPlanet = colony.PlanetId;
+        _starPanel.ShowStar(_session.Content, star);
+        _colonies.ShowColonies(view, _selectedColony);
+        if (colony is null) _colonyPanel.Clear(); else _colonyPanel.ShowColony(_session.Content, colony);
+        if (!view.Vessels.Any(v => v.Id == _selectedVessel)) _selectedVessel = view.Vessels.Length > 0 ? view.Vessels[0].Id : null;
+        _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination ?? selected, _selectedPlanet);
+    }
 
-        if (_map.Selected is not { } selected)
-        {
-            return;
-        }
-
-        _starPanel.ShowStar(_session.Content, state, selected, _viewer);
-        ColonyState? colony = state.Colonies.FirstOrDefault(c =>
-            c.EmpireId == _viewer && state.FindPlanet(c.PlanetId)?.StarId == selected);
-        if (colony is null)
-        {
-            _colonyPanel.Clear();
-        }
-        else
-        {
-            _colonyPanel.ShowColony(_session.Content, state, colony.Id, forecast);
-        }
+    private void SelectColony(ColonyId id)
+    {
+        var colony = View.Colonies.FirstOrDefault(c => c.Id == id); if (colony is null) return;
+        _selectedColony = id; _selectedPlanet = colony.PlanetId; _map.Select(colony.StarId);
     }
 
     private void ShowMessage(string text, bool isWarning)
@@ -173,15 +196,14 @@ public partial class GameScreen : VBoxContainer
 
     private string SuggestedSaveName()
     {
-        string star = HomeStar() is { } home ? _session.State.FindStar(home)!.Name : "Game";
-        return $"{star} turn {_session.State.Turn}";
+        var view = View;
+        string star = HomeStar() is { } home ? view.Stars.Single(s => s.Chart.Id == home).Chart.Name : "Game";
+        return $"{star} turn {view.Turn}";
     }
 
     /// <summary>The star of the viewer's first colony.</summary>
     private StarId? HomeStar()
     {
-        GameState state = _session.State;
-        ColonyState? colony = state.Colonies.FirstOrDefault(c => c.EmpireId == _viewer);
-        return colony is null ? null : state.FindPlanet(colony.PlanetId)?.StarId;
+        return View.Colonies.FirstOrDefault()?.StarId;
     }
 }

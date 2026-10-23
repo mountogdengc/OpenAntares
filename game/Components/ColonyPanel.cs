@@ -6,6 +6,7 @@ using OpenAntares.Simulation.Commands;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Economy;
 using OpenAntares.Simulation.State;
+using OpenAntares.Simulation.Knowledge;
 
 namespace OpenAntares.Game.Components;
 
@@ -21,12 +22,10 @@ public partial class ColonyPanel : VBoxContainer
     /// <summary>Raised when the player changes something. The screen executes it and refreshes.</summary>
     public event Action<Command>? CommandIssued;
 
-    public void ShowColony(ContentSet content, GameState state, ColonyId colonyId, TurnEconomy forecast)
+    public void ShowColony(ContentSet content, OwnedColonyView colony)
     {
         Clear();
-        ColonyState colony = state.FindColony(colonyId)!;
-        ColonyEconomy economy = forecast.Colony(colonyId);
-        EmpireState empire = state.FindEmpire(colony.EmpireId)!;
+        ColonyEconomy economy = colony.Economy;
 
         AddChild(new HSeparator());
         AddChild(new Label { Text = "Colony", ThemeTypeVariation = "HeaderLabel" });
@@ -54,14 +53,14 @@ public partial class ColonyPanel : VBoxContainer
             workforce.Support > 0 ? workforce with { Production = workforce.Production + 1, Support = workforce.Support - 1 } : null,
             $"{Format.Points(economy.NetProduction.Total)} per turn",
             BreakdownText.Describe(economy.NetProduction, content, "Production per turn"),
-            colony, state.Turn);
+            colony, colony.Turn);
 
         AddWorkforceRow(grid, "Research", workforce.Research,
             workforce.Research > 0 ? workforce with { Research = workforce.Research - 1, Support = workforce.Support + 1 } : null,
             workforce.Support > 0 ? workforce with { Research = workforce.Research + 1, Support = workforce.Support - 1 } : null,
             $"{Format.Points(economy.NetResearch.Total)} per turn",
             BreakdownText.Describe(economy.NetResearch, content, "Research per turn"),
-            colony, state.Turn);
+            colony, colony.Turn);
 
         if (economy.SupportDeficit > 0)
         {
@@ -79,16 +78,26 @@ public partial class ColonyPanel : VBoxContainer
         // Construction.
         AddChild(new HSeparator());
         AddChild(new Label { Text = "Construction", ThemeTypeVariation = "HeaderLabel" });
-        _projectPicker = ProjectPicker(content, colony, empire, state.Turn);
+        _projectPicker = ProjectPicker(content, colony, colony.Turn);
         AddChild(_projectPicker);
 
         ReserveOutcome production = economy.Production;
         string status = production.TargetId is null
             ? $"No project: production is saved (reserve {Format.Points(production.Starting)})."
-            : $"{BreakdownText.Progress(production)}, {BreakdownText.Estimate(production.Estimate)}";
+            : production.BlockedReasonCode is not null ? $"{BreakdownText.Progress(production)}; banking until embarkation is possible" : $"{BreakdownText.Progress(production)}, {BreakdownText.Estimate(production.Estimate)}";
         AddChild(Wrapped(status, "SubtleLabel"));
+        if (colony.ProjectKind == ProductionKinds.Vessel && colony.ProjectId is { } roleId && content.Vessels[roleId].CanFoundColony)
+        {
+            var role = content.Vessels[roleId]; AddChild(Wrapped($"Settler: requires population {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers; transfers {role.EmbarkPopulation} population on completion. Delays construction of a building.", "SubtleLabel"));
+        }
+        if (production.BlockedReasonCode is not null) AddChild(Wrapped("Awaiting embarkation: requires population 4 and 2 support workers. Production is retained.", "WarningLabel"));
+        if (economy.EmbarkOutcome is { } embark)
+        {
+            AddChild(Wrapped($"After embarkation: population {embark.PopulationAfter}, support {embark.WorkforceAfter.Support}, production {embark.WorkforceAfter.Production}, research {embark.WorkforceAfter.Research}. Next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));
+            if (embark.ReassignmentNeeded) AddChild(Wrapped("Reassign workers after completion to avoid a support shortage.", "WarningLabel"));
+        }
 
-        if (colony.CompletedBuildingIds.Count > 0)
+        if (colony.CompletedBuildingIds.Length > 0)
         {
             AddChild(Wrapped("Built: " + string.Join(", ", BreakdownText.Names(colony.CompletedBuildingIds, content)), "SubtleLabel"));
         }
@@ -125,7 +134,7 @@ public partial class ColonyPanel : VBoxContainer
 
     private void AddWorkforceRow(
         GridContainer grid, string name, int count, Workforce? fewer, Workforce? more, string output, string tooltip,
-        ColonyState? colony = null, int turn = 0)
+        OwnedColonyView? colony = null, int turn = 0)
     {
         grid.AddChild(new Label { Text = name });
         grid.AddChild(colony is null ? new Control() : StepButton("−", fewer, colony, turn, $"Move a worker from {name.ToLowerInvariant()} to support"));
@@ -140,7 +149,7 @@ public partial class ColonyPanel : VBoxContainer
         });
     }
 
-    private Button StepButton(string text, Workforce? target, ColonyState colony, int turn, string tooltip)
+    private Button StepButton(string text, Workforce? target, OwnedColonyView colony, int turn, string tooltip)
     {
         var button = new Button { Text = text, Disabled = target is null, TooltipText = tooltip };
         if (target is { } workforce)
@@ -152,27 +161,37 @@ public partial class ColonyPanel : VBoxContainer
     }
 
     /// <summary>Lists buildable projects, then locked ones (disabled) with what they need.</summary>
-    private OptionButton ProjectPicker(ContentSet content, ColonyState colony, EmpireState empire, int turn)
+    private OptionButton ProjectPicker(ContentSet content, OwnedColonyView colony, int turn)
     {
         var picker = new OptionButton { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         picker.AddItem("No project");
         picker.SetItemMetadata(0, string.Empty);
 
         var remaining = content.Buildings.Values.Where(b => !colony.CompletedBuildingIds.Contains(b.Id)).ToList();
-        foreach (BuildingDefinition building in remaining.Where(b => Rules.PrerequisitesKnown(empire, b.PrerequisiteTechnologyIds)))
+        foreach (BuildingDefinition building in remaining.Where(b => b.PrerequisiteTechnologyIds.All(id => colony.KnownTechnologyIds.Contains(id))))
         {
             picker.AddItem($"{building.Name} ({Format.Points(building.Cost)})");
             picker.SetItemMetadata(picker.ItemCount - 1, building.Id);
-            if (building.Id == colony.ProjectId)
+            if (building.Id == colony.ProjectId && colony.ProjectKind == ProductionKinds.Building)
             {
                 picker.Select(picker.ItemCount - 1);
             }
         }
 
-        foreach (BuildingDefinition building in remaining.Where(b => !Rules.PrerequisitesKnown(empire, b.PrerequisiteTechnologyIds)))
+        if (colony.RulesVersion == Rules.ExpansionVersion)
+        {
+            foreach (var role in content.Vessels.Values)
+            {
+                picker.AddItem($"{role.Name} ({Format.Points(role.Cost)})"); picker.SetItemMetadata(picker.ItemCount - 1, "vessel|" + role.Id);
+                picker.SetItemTooltip(picker.ItemCount - 1, role.CanFoundColony ? $"Requires population {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers. Transfers those existing workers into cargo." : $"Speed {role.Speed} map units per turn.");
+                if (colony.ProjectKind == ProductionKinds.Vessel && colony.ProjectId == role.Id) picker.Select(picker.ItemCount - 1);
+            }
+        }
+
+        foreach (BuildingDefinition building in remaining.Where(b => !b.PrerequisiteTechnologyIds.All(id => colony.KnownTechnologyIds.Contains(id))))
         {
             string needs = string.Join(", ", building.PrerequisiteTechnologyIds
-                .Where(id => !empire.KnownTechnologyIds.Contains(id))
+                .Where(id => !colony.KnownTechnologyIds.Contains(id))
                 .Select(id => content.Technologies[id].Name));
             picker.AddItem($"{building.Name}: needs {needs}");
             picker.SetItemMetadata(picker.ItemCount - 1, building.Id);
@@ -182,7 +201,7 @@ public partial class ColonyPanel : VBoxContainer
         picker.ItemSelected += index =>
         {
             string id = picker.GetItemMetadata((int)index).AsString();
-            CommandIssued?.Invoke(new SetProjectCommand(colony.EmpireId, turn, colony.Id, id.Length == 0 ? null : id));
+            CommandIssued?.Invoke(new SetProductionTargetCommand(colony.EmpireId, turn, colony.Id, id.Length == 0 ? null : id.StartsWith("vessel|", StringComparison.Ordinal) ? new(ProductionKinds.Vessel, id[7..]) : new(ProductionKinds.Building, id)));
         };
         return picker;
     }
