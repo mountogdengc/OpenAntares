@@ -2,7 +2,7 @@
 
 Version 1.1, project adaptation dated 2026-10-22.
 
-**Activation gate:** The owner deferred the unavailable uncoached playtest under ADR-005 and approved the expansion specification under ADR-006. Read [PROJECT_STATUS.md](../PROJECT_STATUS.md), the [roadmap](IMPLEMENTATION_PLAN.md) and the separate [expansion implementation plan](superpowers/plans/2026-10-22-exploration-and-colonization.md). The latter awaits owner plan review/execution-method choice before coding. Preserve settled design choices; do not re-block on recruiting a participant.
+**Activation gate:** The owner deferred the unavailable uncoached playtest under ADR-005 and approved the expansion specification under ADR-006. Read [PROJECT_STATUS.md](../PROJECT_STATUS.md), the [roadmap](IMPLEMENTATION_PLAN.md) and the separate [expansion implementation plan](superpowers/plans/2026-10-22-exploration-and-colonization.md). The owner approved that plan and Native execution; inspect its completed tasks, ledger and current status before continuing. Preserve settled design choices; do not re-block on recruiting a participant.
 
 When the owner authorizes a bounded implementation milestone, act as lead engineer, integrator, and test engineer:
 

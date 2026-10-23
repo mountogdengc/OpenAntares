@@ -65,3 +65,8 @@ Visual review in Godot checks that small, medium, and large maps read as spirals
 - Background stars never alter game state or turn results.
 - The first playable milestone stays focused on generation, inspection, colony play, and saves.
 - Future shapes may replace the spiral candidate distribution, but they use the same system, region, state, and presentation boundaries.
+
+
+## Expansion continuation - 2026-10-23
+
+The owner-approved exploration/colonization specification and ADR-006 extend this baseline with rules-2 vessel production/embarkation, direct integer travel, observations and founding. Existing economic formulas, PCG32 generation, spiral geometry/weights and legacy rules-1 behavior are retained. The writer now uses schema 3, with explicit schema-1/2 legacy readers and schema-3 rules-1/2 paths. See the current PROJECT_STATUS.md and expansion validation report for implementation/review state; this historical baseline text does not override those approved extensions.

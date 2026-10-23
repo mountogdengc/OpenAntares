@@ -16,8 +16,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M1 | Close First Playable; REQ-001 through REQ-012, REQ-014 | Preserve technical evidence and owner passes; uncoached session deferred by owner; full acceptance remains unverified | Retain runtime passes and explicit limits; gather remaining human evidence when available | Deferred for full acceptance; not a design blocker under ADR-005 |
 | M1-I | Establish an integrated accepted baseline | M1 evidence; inspect all current diffs and untracked evidence, separate UI/test evidence from unrelated species/research edits, review intended commits/branch | Build/tests and relevant graphical regression on combined intended result; record final SHA and remaining edits | Not Started; no merge/reset/commit during adoption |
 | M2-D | Reviewed exploration/travel/second-colony design; REQ-015 | Design entry authorized by ADR-005; knowledge/visibility, movement/founding/timing, contrasting examples, legacy policy, multi-colony UI | EXP-AC criteria and builder check complete; owner approved full specification in ADR-006 | Verified for design scope only |
-| M2-P | Review the separate expansion implementation plan | Approved M2-D; nine dependency-ordered tasks, exact interfaces/fixtures, regression and runtime evidence | Plan written/self-reviewed; owner reviews concrete plan and chooses execution method | In Progress |
-| M2-I | Implement the reviewed expansion milestone | M2-P handoff; isolated checkout/preserved baseline, state/content/commands, persistence compatibility, simulation, UI | New exact-result/failure tests, legacy continuation, graphical multi-colony scenarios | Not Started |
+| M2-P | Review the separate expansion implementation plan | Approved M2-D; nine dependency-ordered tasks, exact interfaces/fixtures, regression and runtime evidence | Owner approved plan and Native execution | Verified |
+| M2-I | Implement the reviewed expansion milestone | M2-P handoff; isolated checkout/preserved baseline, state/content/commands, persistence compatibility, simulation, UI | New exact-result/failure tests, legacy continuation, graphical multi-colony scenarios | Implemented, Unverified; final independent review pending |
 | M3 | Species mechanics and remaining strategic systems; REQ-016/017 | Focused approved specs; preserve accepted creative roster and charter scope | AC-016/017 planning gates, then system-specific tests | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -25,9 +25,7 @@ M1-I can be prepared alongside validation, but do not call it an accepted baseli
 
 ## Next concrete action
 
-Review the separate [nine-task implementation plan](superpowers/plans/2026-10-22-exploration-and-colonization.md) and choose Native (recommended) or Subagent-driven execution. The [expansion specification](superpowers/specs/2026-10-22-exploration-and-colonization-design.md) is already approved in [ADR-006](DECISIONS/ADR-006-approved-expansion-milestone.md); do not reopen its four highlighted choices. The uncoached session remains Deferred, with its observer sheet available for later use; physical-input/readability limits remain recorded rather than silently passed.
-
-The explicit owner deferral permits this progression without declaring First Playable closed. Reviewed rules and a separate plan now exist; code begins after plan review/execution handoff. Revisit the deferred playtest when a participant is available or the owner changes its disposition.
+Finish the final independent branch review of the implemented expansion and its [executed evidence](../reports/EXPANSION_VALIDATION_2026-10-22.md), then hand over the playable isolated feature checkout. The owner already approved both design and Native execution. Do not ask again or re-block on the deferred uncoached session. No merge/push/cleanup is implied; reconcile the documented index/integration state deliberately.
 
 ## Risks and autonomy
 

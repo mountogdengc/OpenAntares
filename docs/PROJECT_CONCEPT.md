@@ -18,7 +18,7 @@ The supplied OpenJRPG workflow is a reusable process reference. Its RPG systems,
 | Classification | Established scope |
 | --- | --- |
 | Essential now | The charter's eleven First Playable actions: new game, galaxy generation/map, star/planet inspection, one colony, workforce, production, research, end turn, visible advancement, save/reload |
-| Active milestone | Empire knowledge, exploration, travel and a second colony; full design approved under ADR-006, separate implementation plan awaits review/execution choice; human playtest remains deferred under ADR-005 |
+| Active milestone | Empire knowledge, exploration, travel and a second colony; full design and Native plan approved, expansion implemented locally with final independent review pending; human playtest remains deferred under ADR-005 |
 | Later version 1.0 | Multiple civilizations, AI, fleets/ships/design, strategic warfare, diplomacy, events, setup options, victory/defeat, broader technology and development |
 | Optional | Tactical combat only if it does not impede completing the strategic game |
 | Excluded initially | Real-time strategy, MMO/persistent online world, proprietary backend dependence, mandatory online single-player, copied commercial assets or interfaces |

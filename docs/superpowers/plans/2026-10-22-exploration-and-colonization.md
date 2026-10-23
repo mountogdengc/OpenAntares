@@ -10,7 +10,7 @@
 
 **Spec:** [Approved exploration and colonization design](../specs/2026-10-22-exploration-and-colonization-design.md), approved in [ADR-006](../../DECISIONS/ADR-006-approved-expansion-milestone.md). ADR-005's human-playtest deferral remains in force.
 
-**Status:** Owner-approved for Native execution, 2026-10-22. Setup baseline passed: normal restore, build with zero warnings/errors, 195 simulation tests. Task execution is tracked below and in the plan ledger.
+**Status:** Owner-approved for Native execution, 2026-10-22. Setup baseline passed: normal restore, build with zero warnings/errors, 195 simulation tests. Tasks 1–9 are complete; current fresh results are 278 simulation tests, 238 expansion and 466 legacy runtime assertions. Final independent review is pending.
 
 ## Global Constraints
 
@@ -33,10 +33,10 @@
 
 ## Execution setup and baseline preservation
 
-- [ ] Read current status/Git diff/worktree inventory. Reuse no worktree merely because it exists: the detached spiral checkout is an ancestor, not this dirty baseline. Use the worktree skill/native tooling at execution time to establish an isolated feature checkout from current local HEAD.
-- [ ] Bring the intended verified baseline into that checkout using a reviewed file manifest: the existing `ColonyPanel.cs`/`GameScreen.cs` fixes, `project.godot`, retained graphical harness and approved workflow/spec/plan documents. Preserve their original bytes/provenance; leave unrelated species/faction edits and every primary-checkout file untouched. Include linked evidence needed by the copied handoff. Record any baseline-only commit separately from new implementation work; never stage an entire dirty directory blindly.
-- [ ] Before changing serialization, copy the `*-small-pre.json` QA save selected from `reports/first-playable-2026-10-22-run4/results.json` into `tests/OpenAntares.Simulation.Tests/Fixtures/legacy-v2-save.json`. The source was verified during planning as schema 2/rules 1, turn 2, SHA-256 `8E8AE7D8D83D352BA3B8B62B675E633FE23884E569ED500713F3B62E8893DDDA`. Verify that hash and copy without overwriting a different fixture. If unavailable, capture with the untouched baseline writer before proceeding; do not fabricate an old save using the new writer.
-- [ ] Establish fresh baseline build/test results and, if source/configuration differs from the verified snapshot, relevant graphical regressions. Commands: `dotnet build OpenAntares.sln --no-restore --nologo --disable-build-servers`; `dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo`. Restore normally only if needed. Record actual counts, not the historical 195/463 as fresh results.
+- [x] Read current status/Git diff/worktree inventory. Reuse no worktree merely because it exists: the detached spiral checkout is an ancestor, not this dirty baseline. Use the worktree skill/native tooling at execution time to establish an isolated feature checkout from current local HEAD.
+- [x] Bring the intended verified baseline into that checkout using a reviewed file manifest: the existing `ColonyPanel.cs`/`GameScreen.cs` fixes, `project.godot`, retained graphical harness and approved workflow/spec/plan documents. Preserve their original bytes/provenance; leave unrelated species/faction edits and every primary-checkout file untouched. Include linked evidence needed by the copied handoff. Record any baseline-only commit separately from new implementation work; never stage an entire dirty directory blindly.
+- [x] Before changing serialization, copy the `*-small-pre.json` QA save selected from `reports/first-playable-2026-10-22-run4/results.json` into `tests/OpenAntares.Simulation.Tests/Fixtures/legacy-v2-save.json`. The source was verified during planning as schema 2/rules 1, turn 2, SHA-256 `8E8AE7D8D83D352BA3B8B62B675E633FE23884E569ED500713F3B62E8893DDDA`. Verify that hash and copy without overwriting a different fixture. If unavailable, capture with the untouched baseline writer before proceeding; do not fabricate an old save using the new writer.
+- [x] Establish fresh baseline build/test results and, if source/configuration differs from the verified snapshot, relevant graphical regressions. Commands: `dotnet build OpenAntares.sln --no-restore --nologo --disable-build-servers`; `dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo`. Restore normally only if needed. Record actual counts, not the historical 195/463 as fresh results.
 
 ## Contract choices for the implementer
 
@@ -167,11 +167,11 @@ Add `ReadyCommandAllowsOnlyUnpublishedAllReadyInput`, `OneTurnRouteArrivesAtTPlu
 
 **Files:** Update `PROJECT_STATUS.md`, `docs/SPECIFICATIONS.md`, `docs/ACCEPTANCE_CRITERIA.md`, `docs/ARCHITECTURE.md`, `docs/IMPLEMENTATION_PLAN.md`, relevant existing subsystem specs, README and `reports/VALIDATION_REPORT.md`; add a dated expansion validation report. Record final intended branch/worktree/commit/diff inventory.
 
-- [ ] Map EXP-AC-001..008 to named executed tests and runtime artifacts; run the full solution build/test and both relevant graphical scenarios after the last implementation changes. Record actual counts/exit codes, missing physical-input/platform checks, clean-restore/dependency-audit limits and retained QA paths. No guessed test totals.
-- [ ] Review the combined result against the approved spec and this plan's Review Focus. Confirm no Godot reference in simulation; no float/random/time outcome logic; no legacy content injection or hidden-state UI access; no change to old economy fixtures except approved schema assertions/new-mode setup.
-- [ ] Only mark REQ-015 functionality Verified when its executed acceptance scope justifies it; record any remaining integration/manual limits explicitly. M2-D design approval does not itself verify gameplay. REQ-014 remains Deferred under ADR-005.
-- [ ] Review/stage intended task hunks only. Validate any intended integrated result before merging or release; no automatic push/merge/branch/worktree deletion. Keep the original dirty primary checkout and unrelated creative edits intact.
-- [ ] Leave an actionable status with executed evidence, integration state and next task. If all authorized work is complete, hand over the playable local result and limits rather than expanding into AI/combat/species or package delivery.
+- [x] Map EXP-AC-001..008 to named executed tests and runtime artifacts; run the full solution build/test and both relevant graphical scenarios after the last implementation changes. Record actual counts/exit codes, missing physical-input/platform checks, clean-restore/dependency-audit limits and retained QA paths. No guessed test totals.
+- [x] Review the combined result against the approved spec and this plan's Review Focus. Confirm no Godot reference in simulation; no float/random/time outcome logic; no legacy content injection or hidden-state UI access; no change to old economy fixtures except approved schema assertions/new-mode setup.
+- [x] Only mark REQ-015 functionality Verified when its executed acceptance scope justifies it; record any remaining integration/manual limits explicitly. M2-D design approval does not itself verify gameplay. REQ-014 remains Deferred under ADR-005.
+- [x] Review/stage intended task hunks only. Validate any intended integrated result before merging or release; no automatic push/merge/branch/worktree deletion. Keep the original dirty primary checkout and unrelated creative edits intact.
+- [x] Leave an actionable status with executed evidence, integration state and next task. If all authorized work is complete, hand over the playable local result and limits rather than expanding into AI/combat/species or package delivery.
 
 ## Self-review record
 
@@ -179,4 +179,4 @@ Coverage: EXP-001 -> Tasks 1/3/7/8; EXP-002 -> 1/4/7/8; EXP-003 -> 1/5/7/8; EXP-
 
 Interfaces were checked in dependency order. Observation/model types precede projection, explicit expansion generation precedes movement tests, move/founding commands use the same owned IDs and order fields, vessel completion plans allocate IDs only in resolution, and the product new-game default changes only with the permitted-view UI. Existing public compatibility entry points remain. Fixtures and intermediate unpublished readiness validation are explicit; no migration/upgrade policy is left to guess.
 
-No implementation step was executed while writing the plan. The document is ready for owner review. Recommended execution method: **Native**, implementing these tightly shared state/command/save interfaces in one session, with a final independent review; Subagent-driven execution is an alternative if the owner prefers per-task independent review.
+The preceding planning self-review predates execution. The owner approved Native execution; Tasks 1–9 are now implemented and checked with retained evidence. Final independent whole-branch review is the remaining workflow gate; no merge/push/cleanup is authorized.

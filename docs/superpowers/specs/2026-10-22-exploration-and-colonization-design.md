@@ -1,6 +1,6 @@
 # Exploration, travel, and a second colony
 
-**Status:** Approved by the owner on 2026-10-22; see [ADR-006](../../DECISIONS/ADR-006-approved-expansion-milestone.md). The rules, numeric fixtures and bounded policies below are approved design, not implemented functionality or verified balance. [ADR-005](../../DECISIONS/ADR-005-defer-uncoached-playtest-for-design.md) retains the separate human-playtest deferral. The separate implementation plan is written and awaiting plan review/execution choice.
+**Status:** Approved by the owner on 2026-10-22; see [ADR-006](../../DECISIONS/ADR-006-approved-expansion-milestone.md). The rules, numeric fixtures and bounded policies below are approved design and now implemented locally; final balance is not verified. [ADR-005](../../DECISIONS/ADR-005-defer-uncoached-playtest-for-design.md) retains the separate human-playtest deferral. The owner approved the separate plan and Native execution; current implementation evidence/review state is in reports/EXPANSION_VALIDATION_2026-10-22.md.
 
 **Sources:** [Charter](../../CHARTER.md), [engineering rules](../../../CLAUDE.md), [economy contract](../../FIRST_PLAYABLE_ECONOMY.md), [spiral specification](2026-10-05-spiral-galaxy-design.md), [design guide](../../DESIGN_GUIDE.md), [accepted creative roster](../../SPECIES_ROSTER.md), and the existing validation plan's task 6.
 
@@ -152,9 +152,9 @@ Move the verdant world to `(0,300)` and the forge to `(900,0)`. The verdant now 
 
 Compare another discovery using existing types: crystal at `(300,300)` takes scout 2 / settler 3 turns, with 300 research per research worker versus forge's 200. A science goal can therefore change the preferred project and destination. Barren is colonizable under the approved rules but its initial balanced support yields only base growth 10; a later location need might justify it. The current no-opponent milestone cannot prove strategic value from military position and must not pretend otherwise.
 
-## Approved acceptance criteria, not executed results
+## Approved acceptance contracts
 
-These stable EXP/EXP-AC IDs provide approved subsystem traceability within REQ-015. They do not claim any implementation or executed result; the top-level register continues to track the parent requirement.
+These stable EXP/EXP-AC IDs provide approved subsystem traceability within REQ-015. Executed evidence is indexed in the expansion validation report; the top-level register continues to track the parent requirement.
 
 | Criterion | Required evidence after implementation |
 | --- | --- |
@@ -171,8 +171,8 @@ These stable EXP/EXP-AC IDs provide approved subsystem traceability within REQ-0
 
 The owner approved the public-star/hidden-planets discovery model, committed travel, settlement preparation/population transfer, legacy-campaign policy and numeric fixtures under ADR-006. Do not reopen those choices as unanswered questions without new evidence or an explicit change request.
 
-The builder may choose focused class/file decomposition, efficient integer search, collection/index/cache implementations and theme variation names while respecting these contracts. Do not redesign the architecture, invent fuel/AI/species mechanics, change current economic formulas, or alter compatibility policy. The separate implementation plan is now authorized; gameplay coding follows the workflow's plan review and execution setup.
+The builder may choose focused class/file decomposition, efficient integer search, collection/index/cache implementations and theme variation names while respecting these contracts. Do not redesign the architecture, invent fuel/AI/species mechanics, change current economic formulas, or alter compatibility policy. The separate implementation plan and Native execution are owner-approved; further gameplay scope still requires its own reviewed rules.
 
 ## Builder check
 
-A fresh read-only software-engineer review completed before owner approval on 2026-10-22. It identified four owner choices and one additional specification gap: foreign-vessel observations. EXP-001 was clarified before the owner approved the full document under ADR-006. The reviewer did not itself approve product choices or implementation. The separate [implementation plan](../plans/2026-10-22-exploration-and-colonization.md) is now written for plan review.
+A fresh read-only software-engineer review completed before owner approval on 2026-10-22. It identified four owner choices and one additional specification gap: foreign-vessel observations. EXP-001 was clarified before the owner approved the full document under ADR-006. The reviewer did not itself approve product choices or implementation. The separate [implementation plan](../plans/2026-10-22-exploration-and-colonization.md) was subsequently approved and executed using Native implementation.

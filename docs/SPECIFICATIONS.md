@@ -22,7 +22,7 @@ Status vocabulary: Not Started / In Progress / Implemented, Unverified / Verifie
 | REQ-012 | Repeatable simulation and visual-stream isolation | Essential / First Playable | Verified | AC-012 |
 | REQ-013 | Portability and cross-machine determinism | Essential / delivery | Implemented, Unverified | AC-013 |
 | REQ-014 | Understandable, meaningful First Playable choices | Essential / First Playable acceptance | Deferred | AC-014 |
-| REQ-015 | Exploration, travel, and a second colony | Approved design / implementation plan under review | In Progress | AC-015 |
+| REQ-015 | Exploration, travel, and a second colony | Implemented expansion / final branch review | Implemented, Unverified | AC-015 |
 | REQ-016 | Distinct playable species | Future / version 1.0 | Deferred | AC-016 |
 | REQ-017 | Remaining complete strategic game | Future / version 1.0 | Deferred | AC-017 |
 
@@ -84,11 +84,11 @@ Target Windows/Linux/macOS and x64/ARM consistency where supported. Run identica
 
 An uncoached player unfamiliar with source should complete the loop, explain expected/actual support, growth and output, describe when completions help, and articulate workforce/goal tradeoffs. Record observations and unresolved clarity defects rather than treating arithmetic tests as usability proof. Dependencies: REQ-010/011 and a participant. Source: approved [validation plan, tasks 3-5](superpowers/plans/2026-10-19-first-playable-validation-and-exploration-design.md). AC-014. The owner explicitly deferred this unavailable participant session in [ADR-005](DECISIONS/ADR-005-defer-uncoached-playtest-for-design.md); it no longer blocks expansion design and is not marked Verified. No new enjoyment score or balance threshold is invented.
 
-## Future boundaries and specification gaps
+## Expansion and future specification gaps
 
 ### REQ-015: Exploration, travel, second colony
 
-Approved gameplay design, not implemented functionality. The owner accepted the full [expansion specification](superpowers/specs/2026-10-22-exploration-and-colonization-design.md) in [ADR-006](DECISIONS/ADR-006-approved-expansion-milestone.md): per-empire observations, scouts, integer committed travel, vessel production/embarkation, founding, multi-colony UI and explicit legacy-save behavior. EXP-001..007 and EXP-AC-001..008 provide subsystem traceability under this parent requirement. AC-015's design approval is satisfied; the separate [implementation plan](superpowers/plans/2026-10-22-exploration-and-colonization.md) is written/self-reviewed and awaits plan review/execution choice. No expansion implementation or executed acceptance is claimed. ADR-005's human-playtest deferral remains in force.
+Implemented under the owner-approved [specification](superpowers/specs/2026-10-22-exploration-and-colonization-design.md), ADR-006 and Native [implementation plan](superpowers/plans/2026-10-22-exploration-and-colonization.md). EXP-001..007 and EXP-AC-001..008 cover per-empire observations, deterministic travel, vessel production/embarkation, explicit founding, multi-colony UI and legacy continuation. Fresh Windows simulation and graphical control acceptance passes are mapped in [the expansion report](../reports/EXPANSION_VALIDATION_2026-10-22.md). Final independent branch review is pending; integration and full human/platform acceptance remain separate. ADR-005's uncoached session stays Deferred.
 
 ### REQ-016: Distinct playable species
 

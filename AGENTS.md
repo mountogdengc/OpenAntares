@@ -21,7 +21,7 @@ The 2026-10-22 request and continuation authorize adoption, reconciliation, docu
 - Content IDs are existing strings such as `fabrication_hall`; do not add a namespace scheme as an adoption change.
 - UI is built in C#. Style through `game/theme/openantares_theme.tres` and type variations; reread that shared file before minimal edits. Use containers and anchors.
 - Keep ordinary content in JSON, validate at load time, and expose simulation-supplied calculation breakdowns.
-- Current code reads schema 1 and writes schema 2. ADR-006 approves the planned schema-3 writer, schema-1/2 legacy reading and rules-1/2 campaign separation; implement only through the reviewed expansion plan. Preserve embedded content, rules-version checks and failure atomicity.
+- Current code writes schema 3 and explicitly reads schema-1/2 rules-1 campaigns plus schema-3 rules 1/2. ADR-006 governs legacy continuation and expansion separation; no implicit campaign upgrade. Preserve embedded content, rules-version checks and failure atomicity.
 - Preserve the original setting and licenses. Record third-party additions in `LICENSING.md`; do not copy commercial game assets.
 
 ## Branches, worktrees, and integration

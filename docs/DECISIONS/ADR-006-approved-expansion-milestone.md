@@ -18,3 +18,6 @@ Preserve legacy campaign continuation without automatically granting expansion. 
 The document's prototype numeric values and bounded policies are approved for this milestone, not demonstrated final balance or usability findings. The earlier builder-check clarification of foreign stationary-vessel visibility is part of the reviewed specification. No new engine/framework, AI, combat, diplomacy, species mechanics, or campaign upgrade tool is approved.
 
 ADR-005's human-playtest deferral remains in force. This approval completes design review and authorizes preparing the separate implementation plan required by the workflow. It does not mark gameplay implemented, tests freshly passed, First Playable fully accepted, or a release ready. Plan review/execution setup precede broad gameplay coding; no Git integration or cleanup is implied.
+
+
+**Implementation follow-up, 2026-10-23:** The owner approved the concrete Native plan; the isolated feature branch implements ADR-006's schema-3/rules-1/2 paths and original schema-1/2 readers. Both genuine old-save dialog paths and continuation now have executed graphical evidence. Earlier adoption-time verification limits above remain historical; consult the expansion report and PROJECT_STATUS for current review/integration state.

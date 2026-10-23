@@ -15,3 +15,6 @@ Write schema 2 and explicitly read schema 1. Retain old coordinates/planets and 
 The spiral spec explicitly rejects regenerating legacy galaxies or inferring regions from coordinates. Embedding data avoids depending on later edits to core files, but cannot embed changed C# formulas; hence separate rules compatibility checks. No broader historical storage-format comparison was found.
 
 Local tests cover round trips, continuation, legacy layout, corrupt inputs, and failed writes/loads. The legacy fixture's in-game dialog path is still unverified. Package namespacing, versioned external extensions, and arbitrary code sandboxing from the OpenJRPG example were not adopted.
+
+
+**Implementation follow-up, 2026-10-23:** The owner approved the concrete Native plan; the isolated feature branch implements ADR-006's schema-3/rules-1/2 paths and original schema-1/2 readers. Both genuine old-save dialog paths and continuation now have executed graphical evidence. Earlier adoption-time verification limits above remain historical; consult the expansion report and PROJECT_STATUS for current review/integration state.

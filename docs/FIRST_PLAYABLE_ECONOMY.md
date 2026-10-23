@@ -269,3 +269,8 @@ For a first playtest, verify that the player can explain the growth-versus-outpu
 The one-colony economy and turn loop described here is implemented. The next review is a playtest of growth-versus-output choices, progress switching, completion timing, explanations, and save/load continuation. Use its findings to decide whether prototype values or reserve policy need revision.
 
 Galaxy generation and home-world selection are implemented. The current map exposes all generated systems for inspection; empire-specific knowledge and visibility need a focused design with exploration and expansion. Keep the existing `verdant_world` starting fixture and headless economy tests when that design is added.
+
+
+## Expansion continuation - 2026-10-23
+
+The owner-approved exploration/colonization specification and ADR-006 extend this baseline with rules-2 vessel production/embarkation, direct integer travel, observations and founding. Existing economic formulas, PCG32 generation, spiral geometry/weights and legacy rules-1 behavior are retained. The writer now uses schema 3, with explicit schema-1/2 legacy readers and schema-3 rules-1/2 paths. See the current PROJECT_STATUS.md and expansion validation report for implementation/review state; this historical baseline text does not override those approved extensions.

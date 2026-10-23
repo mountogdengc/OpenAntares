@@ -107,11 +107,11 @@ The adoption ran the complete suite, including the named checks below, and retai
 
 ## Deferred design-readiness gates
 
-These criteria check whether future specifications are ready, **not** whether future gameplay is delivered. Add concrete feature acceptance IDs when those systems are approved.
+AC-015 records the approved expansion and its executed child criteria. AC-016/017 remain future design-readiness gates, not delivered gameplay claims.
 
 ### AC-015 / REQ-015: Exploration/colonization specification gate
 
-Under the [owner's design-entry exception](DECISIONS/ADR-005-defer-uncoached-playtest-for-design.md), document every knowledge/travel/founding/UI/save question in the approved plan task 6, invalid-order behavior and exact integer timing, with two contrasting worked maps. Expected: reviewed owner-accepted design and concrete feature criteria, then a separate dependency-ordered implementation plan. The full [specification](superpowers/specs/2026-10-22-exploration-and-colonization-design.md) is owner-approved in [ADR-006](DECISIONS/ADR-006-approved-expansion-milestone.md); design review is Verified for that scope. A separate [implementation plan](superpowers/plans/2026-10-22-exploration-and-colonization.md) is written/self-reviewed, awaiting plan review/execution choice. REQ-015 remains In Progress: EXP-AC-001..008 require implementation and fresh executed evidence, which do not yet exist.
+Design review was satisfied by ADR-006; the owner also approved the separate plan and Native execution. EXP-AC-001..008 now have executed [simulation/runtime evidence](../reports/EXPANSION_VALIDATION_2026-10-22.md): 278 simulation tests, 238 expansion assertions and 466 legacy assertions, with explicit method/limits. REQ-015 is Implemented, Unverified while the final independent branch review is pending; owner playtest deferral is unchanged. Future acceptance must preserve genuine old campaigns, hidden-knowledge filtering and snapshot/population accounting.
 
 ### AC-016 / REQ-016: Species specification gate
 
