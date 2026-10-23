@@ -88,7 +88,7 @@ public static class EconomyCalculator
         long unusedSupport = Math.Max(0, supportSurplus - checked(content.Rules.MaxSurplusGrowth * SupportPerGrowthPoint));
 
         // Production reserve and project completion.
-        BuildingDefinition? project = colony.ProjectId is { } projectId && content.Buildings.TryGetValue(projectId, out var definition)
+        BuildingDefinition? project = colony.ProjectKind == ProductionKinds.Building && colony.ProjectId is { } projectId && content.Buildings.TryGetValue(projectId, out var definition)
             ? definition
             : null;
         bool projectLegal = project is not null
@@ -96,11 +96,12 @@ public static class EconomyCalculator
             && Rules.PrerequisitesKnown(empire, project.PrerequisiteTechnologyIds);
         ReserveOutcome production = Reserve(colony.ProductionReserve, netProduction.Total, project?.Id, project?.Cost, projectLegal);
 
-        return new ColonyEconomy(
+        var result = new ColonyEconomy(
             colony.Id, colony.EmpireId, planetType.Id,
             supportProduced, supportRequired, supportSurplus, supportDeficit, unusedSupport,
             grossProduction, grossResearch, netProduction, netResearch,
             growthEarned, growth, production);
+        return VesselProduction.Calculate(content, state, colony, planet, planetType, buildings, result);
     }
 
     private static EmpireEconomy CalculateEmpire(ContentSet content, EmpireState empire, ImmutableArray<ColonyEconomy> colonies)
@@ -123,7 +124,7 @@ public static class EconomyCalculator
     }
 
     /// <summary>Workers times rate, then each completed building's bonus of <paramref name="effectKind"/>.</summary>
-    private static Quantity Output(string planetTypeId, int workers, long ratePerWorker, List<BuildingDefinition> buildings, string effectKind)
+    internal static Quantity Output(string planetTypeId, int workers, long ratePerWorker, List<BuildingDefinition> buildings, string effectKind)
     {
         var lines = ImmutableArray.CreateBuilder<BreakdownLine>();
         lines.Add(new BreakdownLine(BreakdownKinds.Workers, planetTypeId, workers, checked(workers * ratePerWorker)));
@@ -208,7 +209,7 @@ public static class EconomyCalculator
         return new GrowthOutcome(capacity, population, populationAfter, births, colony.GrowthProgress, progressAfter, discarded, workforceAfter);
     }
 
-    private static ReserveOutcome Reserve(long starting, long earned, string? targetId, long? targetCost, bool targetLegal)
+    internal static ReserveOutcome Reserve(long starting, long earned, string? targetId, long? targetCost, bool targetLegal)
     {
         var lines = ImmutableArray.CreateBuilder<BreakdownLine>();
         lines.Add(new BreakdownLine(BreakdownKinds.Earned, string.Empty, null, earned));

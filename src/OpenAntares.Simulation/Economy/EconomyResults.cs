@@ -30,7 +30,11 @@ public sealed record ColonyEconomy(
     Quantity NetResearch,
     Quantity GrowthEarned,
     GrowthOutcome Growth,
-    ReserveOutcome Production);
+    ReserveOutcome Production)
+{
+    public VesselCompletionPlan? VesselCompletionPlan { get; init; }
+    public EmbarkOutcome? EmbarkOutcome { get; init; }
+}
 
 /// <summary>An empire's combined research and research reserve for a turn.</summary>
 public sealed record EmpireEconomy(EmpireId Empire, Quantity NetResearch, ReserveOutcome Research);
@@ -63,7 +67,11 @@ public sealed record ReserveOutcome(
     string? TargetId,
     long? TargetCost,
     string? CompletedId,
-    TurnEstimate? Estimate);
+    TurnEstimate? Estimate)
+{
+    public string TargetKind { get; init; } = ProductionKinds.Building;
+    public string? BlockedReasonCode { get; init; }
+}
 
 /// <summary>Turns until completion assuming current output continues. <c>null</c> turns means stalled.</summary>
 public sealed record TurnEstimate(long? Turns)

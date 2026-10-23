@@ -11,7 +11,7 @@ namespace OpenAntares.Simulation.Commands;
 /// given: changes are applied to a copy, which becomes the published state only if the whole
 /// command succeeds.
 /// </summary>
-public static class CommandProcessor
+public static partial class CommandProcessor
 {
     public static CommandOutcome Execute(ContentSet content, GameState state, Command command)
     {
@@ -29,6 +29,9 @@ public static class CommandProcessor
 
         return command switch
         {
+            SetProductionTargetCommand c => SetProductionTarget(content, state, issuer, c),
+            SetFoundingOrderCommand c => SetFoundingOrder(content, state, c),
+            SetMoveOrderCommand c => SetMoveOrder(content, state, c),
             SetWorkforceCommand c => SetWorkforce(state, c),
             SetProjectCommand c => SetProject(content, state, issuer, c),
             SetResearchTargetCommand c => SetResearchTarget(content, state, issuer, c),
@@ -93,12 +96,12 @@ public static class CommandProcessor
             }
         }
 
-        if (buildingId == colony.ProjectId)
+        if (buildingId == colony.ProjectId && colony.ProjectKind == ProductionKinds.Building)
         {
             return CommandOutcome.NoChange(state);
         }
 
-        return ApplyPlanningChange(state, command.Issuer, candidate => candidate.FindColony(command.Colony)!.ProjectId = buildingId);
+        return ApplyPlanningChange(state, command.Issuer, candidate => { var target = candidate.FindColony(command.Colony)!; target.ProjectId = buildingId; target.ProjectKind = ProductionKinds.Building; });
     }
 
     private static CommandOutcome SetResearchTarget(ContentSet content, GameState state, EmpireState issuer, SetResearchTargetCommand command)

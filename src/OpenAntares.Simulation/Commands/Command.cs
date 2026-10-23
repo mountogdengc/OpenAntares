@@ -23,3 +23,9 @@ public sealed record SetResearchTargetCommand(EmpireId Issuer, int ExpectedTurn,
 /// <summary>Mark the issuing empire ready for turn resolution, or withdraw readiness.</summary>
 public sealed record SetReadyCommand(EmpireId Issuer, int ExpectedTurn, bool Ready)
     : Command(Issuer, ExpectedTurn);
+
+public sealed record SetMoveOrderCommand(EmpireId Issuer,int ExpectedTurn,VesselId Vessel,StarId? Destination) : Command(Issuer,ExpectedTurn);
+
+public sealed record SetProductionTargetCommand(EmpireId Issuer,int ExpectedTurn,ColonyId Colony,ProductionTarget? Target) : Command(Issuer,ExpectedTurn);
+
+public sealed record SetFoundingOrderCommand(EmpireId Issuer,int ExpectedTurn,VesselId Vessel,PlanetId? Planet) : Command(Issuer,ExpectedTurn);

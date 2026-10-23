@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using OpenAntares.Simulation.Movement;
+using OpenAntares.Simulation.Knowledge;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Economy;
 using OpenAntares.Simulation.State;
@@ -13,7 +16,10 @@ public sealed record TurnResolution(GameState State, TurnReport? Report, IReadOn
 }
 
 /// <summary>What happened during one turn resolution: the turn transition and the economy that was applied.</summary>
-public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy);
+public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
+{
+    public ImmutableArray<ExpansionEvent> ExpansionEvents { get; init; } = ImmutableArray<ExpansionEvent>.Empty;
+}
 
 /// <summary>
 /// Resolves a turn in explicit phases from an immutable snapshot (see the economy specification's
@@ -24,6 +30,9 @@ public static class TurnResolver
 {
     public static TurnResolution Resolve(ContentSet content, GameState snapshot)
     {
+        var inputErrors = GameStateValidator.Validate(content, snapshot, allowAllHumansReady: true);
+        if (inputErrors.Count > 0) return new TurnResolution(snapshot, null, inputErrors);
+        var events = new List<ExpansionEvent>();
         GameState candidate = snapshot.Clone();
         TurnEconomy economy;
         try
@@ -42,7 +51,15 @@ public static class TurnResolver
                 colony.Workforce = result.Growth.WorkforceAfter;
                 colony.GrowthProgress = result.Growth.ProgressAfter;
                 colony.ProductionReserve = result.Production.Ending;
-                if (result.Production.CompletedId is { } building)
+                if (result.VesselCompletionPlan is { } vesselPlan)
+                {
+                    var vessel = new VesselState { Id = new(candidate.AllocateId()), EmpireId = colony.EmpireId, RoleId = vesselPlan.RoleId, CarriedPopulation = vesselPlan.Cargo, StationaryStarId = vesselPlan.Star };
+                    candidate.Vessels.Add(vessel);
+                    if (result.EmbarkOutcome is { } embark) { colony.Population = embark.PopulationAfter; colony.Workforce = embark.WorkforceAfter; }
+                    colony.ProjectId = null; colony.ProjectKind = ProductionKinds.Building;
+                    events.Add(new("vessel_completed", colony.EmpireId, vessel.Id, vesselPlan.Star, colony.PlanetId, colony.Id));
+                }
+                else if (result.Production.CompletedId is { } building)
                 {
                     InsertSorted(colony.CompletedBuildingIds, building);
                     colony.ProjectId = null;
@@ -60,6 +77,12 @@ public static class TurnResolver
                 }
             }
 
+            if (snapshot.RulesVersion == Rules.ExpansionVersion)
+            {
+                MovementResolver.Apply(content, snapshot, candidate, events);
+                Colonization.ColonizationResolver.Apply(content, snapshot, candidate, events);
+            }
+
             // Phase 5: reset readiness, validate, and advance the turn once.
             foreach (EmpireState empire in candidate.Empires)
             {
@@ -70,6 +93,7 @@ public static class TurnResolver
             }
 
             candidate.Turn = checked(candidate.Turn + 1);
+            ObservationUpdater.Refresh(candidate, candidate.Turn);
         }
         catch (OverflowException exception)
         {
@@ -82,7 +106,7 @@ public static class TurnResolver
             return new TurnResolution(snapshot, Report: null, errors);
         }
 
-        return new TurnResolution(candidate, new TurnReport(snapshot.Turn, candidate.Turn, economy), Array.Empty<string>());
+        return new TurnResolution(candidate, new TurnReport(snapshot.Turn, candidate.Turn, economy) { ExpansionEvents = events.ToImmutableArray() }, Array.Empty<string>());
     }
 
     private static void InsertSorted(List<string> ids, string id)
