@@ -6,6 +6,7 @@ using OpenAntares.Simulation.Knowledge;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Economy;
 using OpenAntares.Simulation.State;
+using OpenAntares.Simulation.Rivals;
 
 namespace OpenAntares.Simulation.Turns;
 
@@ -29,16 +30,26 @@ public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 /// </summary>
 public static class TurnResolver
 {
-    public static TurnResolution Resolve(ContentSet content, GameState snapshot)
+    public static TurnResolution Resolve(ContentSet content, GameState snapshot) => Resolve(content,snapshot,RivalTurnPlanner.Prepare);
+
+    internal static TurnResolution Resolve(ContentSet content, GameState snapshot, Func<ContentSet,GameState,RivalPlanningOutcome> prepare)
     {
+        GameState original = snapshot;
         var inputErrors = GameStateValidator.Validate(content, snapshot, allowAllHumansReady: true);
         if (inputErrors.Count > 0) return new TurnResolution(snapshot, null, inputErrors);
         var events = new List<ExpansionEvent>();
         var encounters = ImmutableArray<EncounterEvent>.Empty;
-        GameState candidate = snapshot.Clone();
+        GameState candidate;
         TurnEconomy economy;
         try
         {
+            if (Rules.HasRivals(snapshot.RulesVersion))
+            {
+                var planned = prepare(content,snapshot);
+                if (!planned.Succeeded) return Failed(original,RivalTurnPlanner.FailureMessage);
+                snapshot = planned.State;
+            }
+            candidate = snapshot.Clone();
             // Phases 1-2: from the snapshot, calculate support, outputs, and growth for every colony in
             // ID order, and research for every empire in ID order. Effects completed this turn apply
             // only from the next snapshot.
@@ -100,13 +111,15 @@ public static class TurnResolver
         }
         catch (OverflowException exception)
         {
-            return Failed(snapshot, "Arithmetic overflow during resolution: " + exception.Message);
+            return Failed(original, Rules.HasRivals(original.RulesVersion) ? RivalTurnPlanner.FailureMessage : "Arithmetic overflow during resolution: " + exception.Message);
         }
+        catch (Exception error) when (Rules.HasRivals(original.RulesVersion) && error is (ArgumentException or InvalidOperationException or KeyNotFoundException))
+        { return Failed(original,RivalTurnPlanner.FailureMessage); }
 
         IReadOnlyList<string> errors = GameStateValidator.Validate(content, candidate);
         if (errors.Count > 0)
         {
-            return new TurnResolution(snapshot, Report: null, errors);
+            return Rules.HasRivals(original.RulesVersion) ? Failed(original,RivalTurnPlanner.FailureMessage) : new TurnResolution(original, Report: null, errors);
         }
 
         return new TurnResolution(candidate, new TurnReport(snapshot.Turn, candidate.Turn, economy) { ExpansionEvents = events.ToImmutableArray(), EncounterEvents = encounters }, Array.Empty<string>());

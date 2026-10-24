@@ -60,7 +60,8 @@ public sealed class RivalContactTests
         var again = TurnResolver.Resolve(content, arrived.State); Assert.True(again.Succeeded, string.Join("; ", again.Errors));
         Assert.Empty(Encounters(again.Report!));
         var move = CommandProcessor.Execute(content, again.State, new SetMoveOrderCommand(ai.Id, again.State.Turn, ship.Id, rivalStar)); Assert.True(move.Accepted);
-        var left = TurnResolver.Resolve(content, move.State); Assert.True(left.Succeeded, string.Join("; ", left.Errors));
+        // Isolate departure/contact retention: the active policy can choose a different scouting order.
+        var left = TurnResolver.Resolve(content, move.State, (_, snapshot) => new(snapshot, true)); Assert.True(left.Succeeded, string.Join("; ", left.Errors));
         Assert.Empty(EmpireViewProjector.Project(content, left.State, human.Id).ForeignVessels);
         Assert.Single(left.State.FindEmpire(human.Id)!.Contacts);
         var saved = SaveGame.Deserialize(SaveGame.Serialize(content, left.State)); Assert.True(saved.Succeeded);
