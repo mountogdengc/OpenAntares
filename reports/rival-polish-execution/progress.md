@@ -21,3 +21,4 @@ Final: Ruling: retain cross-platform/package/clean-machine/security/release gaps
 Final: Ruling: exclude future warfare/diplomacy/victory/multiplayer/other strategic features — outside approved correction scope, broader REQ-017 remains In Progress — cost if wrong: another milestone is required before those expectations are met.
 Final deferred minors: none from this review. All old raw review records preserved as history.
 Fresh owner recovery snapshot .rival-polish-integration-20261024-133835: main69f7e1c; exact three other owner hashes and FR-001 paragraph; index empty; six worktrees retained. Local integration follows the retained owner choice after task completion/handoff.
+Task 2: complete (commits e2d74d2..e1801d8, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo → Passed!  - Failed:     0, Passed:   648, Skipped:     0, Total:   648, Duration: 835 ms - OpenAntares.Simulation.Tests.dll (net8.0))
