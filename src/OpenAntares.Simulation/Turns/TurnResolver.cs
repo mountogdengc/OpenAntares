@@ -19,6 +19,7 @@ public sealed record TurnResolution(GameState State, TurnReport? Report, IReadOn
 public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 {
     public ImmutableArray<ExpansionEvent> ExpansionEvents { get; init; } = ImmutableArray<ExpansionEvent>.Empty;
+    public ImmutableArray<EncounterEvent> EncounterEvents { get; init; } = ImmutableArray<EncounterEvent>.Empty;
 }
 
 /// <summary>
@@ -33,6 +34,7 @@ public static class TurnResolver
         var inputErrors = GameStateValidator.Validate(content, snapshot, allowAllHumansReady: true);
         if (inputErrors.Count > 0) return new TurnResolution(snapshot, null, inputErrors);
         var events = new List<ExpansionEvent>();
+        var encounters = ImmutableArray<EncounterEvent>.Empty;
         GameState candidate = snapshot.Clone();
         TurnEconomy economy;
         try
@@ -94,6 +96,7 @@ public static class TurnResolver
 
             candidate.Turn = checked(candidate.Turn + 1);
             ObservationUpdater.Refresh(candidate, candidate.Turn);
+            encounters = ContactUpdater.Refresh(snapshot, candidate);
         }
         catch (OverflowException exception)
         {
@@ -106,7 +109,7 @@ public static class TurnResolver
             return new TurnResolution(snapshot, Report: null, errors);
         }
 
-        return new TurnResolution(candidate, new TurnReport(snapshot.Turn, candidate.Turn, economy) { ExpansionEvents = events.ToImmutableArray() }, Array.Empty<string>());
+        return new TurnResolution(candidate, new TurnReport(snapshot.Turn, candidate.Turn, economy) { ExpansionEvents = events.ToImmutableArray(), EncounterEvents = encounters }, Array.Empty<string>());
     }
 
     private static void InsertSorted(List<string> ids, string id)

@@ -142,7 +142,9 @@ public static class GalaxyGenerator
             state.Vessels.Add(new VesselState { Id = new(state.AllocateId()), EmpireId = empire.Id, RoleId = content.Expansion!.StartingVesselId, StationaryStarId = home.Id });
             if (settings.RivalCount == 1 && RivalHomeGenerator.Add(content, state, settings.RivalSpeciesId!) is { } error)
                 return Fail(error);
+            var beforeRefresh = Rules.HasRivals(state.RulesVersion) ? state.Clone() : null;
             Knowledge.ObservationUpdater.Refresh(state, 0);
+            if (beforeRefresh is not null) Knowledge.ContactUpdater.Refresh(beforeRefresh, state);
         }
 
         IReadOnlyList<string> errors = GameStateValidator.Validate(content, state);

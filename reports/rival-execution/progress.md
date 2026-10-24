@@ -46,3 +46,6 @@ Task 3: Ruling: update new-writer assertions from schema4 to5 while freezing old
 Task 3: complete (commits a907595..68ee309, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo → Passed!  - Failed:     0, Passed:   567, Skipped:     0, Total:   567, Duration: 852 ms - OpenAntares.Simulation.Tests.dll (net8.0))
 
 Task 4: RED17 rival setup/ID/invalid-setting failures; GREEN21 focused and full588/588. Verified all16 species pairs x3 sizes, repeat/varied seeds, independent farthest-third reference including singleton pool one bounded draw, exact IDs/home override, Solo equality and actionable impossible starts.
+Task 4: complete (commits 68ee309..5053a69, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo → Passed!  - Failed:     0, Passed:   588, Skipped:     0, Total:   588, Duration: 669 ms - OpenAntares.Simulation.Tests.dll (net8.0))
+
+Task 5: RED3 arrival failures from missing current contacts; GREEN4 encounter/privacy/persistence cases, full592/592 and normal build0 warnings/errors. Added viewer-specific first_contact/observed_colony records, fixed known identities, stale dated views and filtered reports. Corrected test-only report normalization for existing StarId dictionary keys; production serialization untouched.

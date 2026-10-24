@@ -41,7 +41,7 @@ public static class EmpireViewProjector
         var foreign = state.Vessels.Where(v => v.EmpireId != viewer && v.StationaryStarId is { } star && ObservationUpdater.IsCurrent(state, viewer, star)).Select(v => new ForeignVesselView(v.Id, v.EmpireId, v.RoleId, v.StationaryStarId!.Value)).ToImmutableArray();
         map = map with { Units = vessels.Select(v => new MapVesselMarker(v.Id, v.RoleId, true, v.StationaryStarId, v.Transit?.Origin, v.Transit?.Destination, v.Transit?.RemainingTurns ?? 0)).Concat(foreign.Select(v => new MapVesselMarker(v.Id, v.RoleId, false, v.StarId, null, null, 0))).ToImmutableArray() };
         var names = colonies.ToImmutableDictionary(c => c.Id.ToString(), c => $"{state.FindStar(c.StarId)!.Name} {state.FindPlanet(c.PlanetId)!.Orbit}");
-        return new EmpireView(state.Turn, viewer, state.RulesVersion, map, stars, colonies, vessels, foreign, new(e.Id, e.ResearchReserve, e.ResearchTargetId, e.KnownTechnologyIds.ToImmutableArray(), forecast.Empire(e.Id)) { Turn = state.Turn, Ready = e.Ready, ColonyNames = names }) { SpeciesId = e.SpeciesId, PopulationUnitLabel = profile.PopulationUnitLabel, AvailableVesselRoleIds = roles };
+        return new EmpireView(state.Turn, viewer, state.RulesVersion, map, stars, colonies, vessels, foreign, new(e.Id, e.ResearchReserve, e.ResearchTargetId, e.KnownTechnologyIds.ToImmutableArray(), forecast.Empire(e.Id)) { Turn = state.Turn, Ready = e.Ready, ColonyNames = names }) { SpeciesId = e.SpeciesId, PopulationUnitLabel = profile.PopulationUnitLabel, AvailableVesselRoleIds = roles, Contacts = Rules.HasRivals(state.RulesVersion) ? e.Contacts.Select(c => new ContactView(c.OtherEmpireId, c.SpeciesId, content.Species[c.SpeciesId].Name, content.Species[c.SpeciesId].CultureName, c.FirstObservedTurn)).ToImmutableArray() : ImmutableArray<ContactView>.Empty };
     }
     private static PlanetPotentialView? ProjectPotential(ContentSet content, GameState owned, EmpireId viewer, PlanetObservation observation)
     {
@@ -66,6 +66,6 @@ public static class EmpireViewProjector
             var planet = state.FindPlanet(state.FindColony(c.Colony)!.PlanetId)!; var star = state.FindStar(planet.StarId)!;
             return new ColonyReportView(c, c.Colony, star.Id, $"{star.Name} {planet.Orbit}");
         }).ToImmutableArray();
-        return new(report.FromTurn, report.ToTurn, colonies, report.Economy.Empire(viewer), report.ExpansionEvents.Where(e => e.Owner == viewer).ToImmutableArray(), state.Stars.ToImmutableDictionary(s => s.Id, s => s.Name));
+        return new(report.FromTurn, report.ToTurn, colonies, report.Economy.Empire(viewer), report.ExpansionEvents.Where(e => e.Owner == viewer).ToImmutableArray(), state.Stars.ToImmutableDictionary(s => s.Id, s => s.Name)) { EncounterEvents = Rules.HasRivals(state.RulesVersion) ? report.EncounterEvents.Where(e => e.Viewer == viewer).ToImmutableArray() : ImmutableArray<Turns.EncounterEvent>.Empty };
     }
 }
