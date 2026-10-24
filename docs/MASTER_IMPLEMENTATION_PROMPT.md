@@ -1,5 +1,8 @@
 # Master Autonomous Implementation Prompt - OpenAntares
 
+Current M5 gate (2026-10-24): the owner selected colony-development/delegation direction and explicitly delegates drafting judgment beyond examples. ADR-011 authorizes the proposed full design for review, not implementation. On codex/colony-development-design from main10cb0b4, M5-D In Progress; M5-P/M5-I Not Started. Read PROJECT_STATUS and docs/superpowers/specs/2026-10-24-colony-development-design.md. Preserve recorded future crisis/fleet intent without implementing it. Retained Native method needs no new selection, but full design and separate plan review remain pending. No product changes or implementation plan have been made. Earlier M4-stage wording below is history; its two minor corrections are now integrated and verified.
+
+
 Current continuation (2026-10-24): the owner subsequently approved the rival plan with continue. All ten Native plan tasks/review are complete on isolated codex/rival-expansion (rules4/writer5), source ce6c29c. Final gates pass; one Important correction is verified and two Minor acceptance deviations remain Deferred. [PROJECT_STATUS](../PROJECT_STATUS.md) governs the next action. Earlier planning-only statements below are historical. The owner subsequently chose option1: local main integration is complete at70e91d9 and combined verification passes; see current project status. Push/release/cleanup remain separate owner actions.
 
 

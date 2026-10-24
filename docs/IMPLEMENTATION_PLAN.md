@@ -24,6 +24,9 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M4-D | Define bounded rival expansion; first REQ-017 child | Full design accepted in ADR-010 after builder check | RIV-AC-012 owner approval satisfied | Verified for design scope |
 | M4-P | Plan rival implementation | Approved M4-D; separate ten-task plan written/self-reviewed | Owner continue; Native retained | Verified |
 | M4-I | Implement bounded rival slice | Approved M4-P; preserve old campaigns and scoped planning | RIV-AC-001..011, retained regressions and final independent review | Verified for bounded local automated acceptance; both follow-up details reviewed and verified |
+| M5-D | Define colony development and delegation | Owner direction/delegated drafting judgment in ADR-011; retain M4 baseline | Builder check complete, then full proposed COL specification owner review | In Progress; builder-checked draft; full owner review pending |
+| M5-P | Plan colony-development implementation | Approved full M5-D | Separate task/compatibility/acceptance plan review; retained Native | Not Started |
+| M5-I | Implement approved colony-development slice | Approved M5-P; isolated execution/preserved genuine old campaigns | Proposed COL criteria and retained gates, independent whole-branch review | Not Started |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -31,8 +34,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-The two follow-up corrections are Verified for the bounded local automated contract at reviewed source66e7548690be2fde6328bdc0f55faac84c874a22. All twelve RIV child criteria now have executed evidence; M4-I is Verified in that scope. Parent REQ-017 remains In Progress. [Correction evidence](../reports/RIVAL_POLISH_2026-10-24.md) records648 simulation and all four graphical gates, one fresh independent review with no findings, and unchanged human/platform/release limits. Retained owner option1 local integration is complete atd1aa588 with fresh main648/Rival/ordinary-build checks and exact preservation. [Integration evidence](../reports/RIVAL_POLISH_INTEGRATION_2026-10-24.md). Next: select/specify the next bounded milestone before implementation. No push/release/cleanup.
-
+Review the builder-checked [proposed colony-development specification](superpowers/specs/2026-10-24-colony-development-design.md) for full owner review. [ADR-011](DECISIONS/ADR-011-colony-development-design-entry.md) records direction/drafting authority, including judgment beyond example template names. M5-D In Progress; M5-P/M5-I Not Started. Preserve the reviewed/integrated M4 baseline and owner changes; no product code, core JSON, art, dependency, migration or remote/cleanup action is included. Later crisis/fleet/scout directions are recorded separately. Human acceptance remains Deferred.
 
 ## Risks and autonomy
 

@@ -132,3 +132,7 @@ Both original Minor deviations are now corrected, with regression-first evidence
 ## Local integration complete
 
 The retained owner-selected local workflow fast-forwarded main to d1aa588. Fresh main648 simulation and Rival1146 assertions+12 provenance pass; ordinary rebuild0 warnings/errors and all four harness types excluded. Exact owner changes remain uncommitted; all worktrees/recovery/saves retained. [Integration report](RIVAL_POLISH_INTEGRATION_2026-10-24.md) records exact source, branch/main test distinction and remaining limits. No new implementation/remote/release/cleanup is authorized.
+
+## Colony-development design — 2026-10-24
+
+The owner selected the development/delegation direction and delegated judgment beyond examples. The [full proposed design](../docs/superpowers/specs/2026-10-24-colony-development-design.md) is builder-checked with no important unanswered questions; [review record](COLONY_DEVELOPMENT_DESIGN_REVIEW_2026-10-24.md) distinguishes7/7 independent arithmetic fixtures from engine tests. No code/core-content/art/dependency changes, new application build/test result or implementation plan. M5-D In Progress for full owner review; M5-P/M5-I Not Started. Prior main648/Rival and branch four-scenario evidence remains historical. Old campaigns, primary owner changes, all seven worktrees and recovery are retained. Human/release acceptance is unchanged.
