@@ -31,7 +31,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-The two follow-up corrections are Verified for the bounded local automated contract at reviewed source66e7548690be2fde6328bdc0f55faac84c874a22. All twelve RIV child criteria now have executed evidence; M4-I is Verified in that scope. Parent REQ-017 remains In Progress. [Correction evidence](../reports/RIVAL_POLISH_2026-10-24.md) records648 simulation and all four graphical gates, one fresh independent review with no findings, and unchanged human/platform/release limits. Retained owner option1 selects local main integration after exact recovery/preservation checks. No push/release/cleanup.
+The two follow-up corrections are Verified for the bounded local automated contract at reviewed source66e7548690be2fde6328bdc0f55faac84c874a22. All twelve RIV child criteria now have executed evidence; M4-I is Verified in that scope. Parent REQ-017 remains In Progress. [Correction evidence](../reports/RIVAL_POLISH_2026-10-24.md) records648 simulation and all four graphical gates, one fresh independent review with no findings, and unchanged human/platform/release limits. Retained owner option1 local integration is complete atd1aa588 with fresh main648/Rival/ordinary-build checks and exact preservation. [Integration evidence](../reports/RIVAL_POLISH_INTEGRATION_2026-10-24.md). Next: select/specify the next bounded milestone before implementation. No push/release/cleanup.
 
 
 ## Risks and autonomy

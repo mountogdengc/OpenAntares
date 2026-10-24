@@ -6,12 +6,12 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Rival corrections verified and independently reviewed; local integration next |
+| Current phase | Bounded rival milestone verified and integrated locally |
 | Project health | All bounded rival child criteria verified; human/release acceptance remains open |
-| Active milestone | M4-I — Rival-expansion implementation |
+| Active milestone | M4-I Verified; next bounded milestone selection pending |
 | Current version | Not Released; main rules4/writer5; old rules1/2/3 retained |
 | Last updated | 2026-10-24, America/Denver |
-| Implementation readiness | Reviewed corrections at66e7548; retained owner option1 local integration next |
+| Implementation readiness | Reviewed corrections integrated atd1aa588; fresh main648/Rival/normal-build gates pass |
 
 ## 2. Current state
 
@@ -75,11 +75,13 @@ Fresh correction-branch verification,2026-10-24: **648 simulation tests passed**
 
 The harness invokes controls/signals/handlers in process. Human comprehension, physical OS input, comfortable reading, balance, cross-platform equality and release acceptance remain unverified.
 
+Fresh correction-main verification atd1aa588:648 simulation tests,1146 Rival assertions+12 provenance,64 QA paths/22 PNGs,0 diagnostics; ordinary build0 warnings/errors and four harness types excluded. Other three scenarios passed on identical reviewed branch source and were not rerun on main. [Integration evidence](reports/RIVAL_POLISH_INTEGRATION_2026-10-24.md).
+
 ## 7. Repository and preservation
 
 | Field | Current value |
 | --- | --- |
-| Primary | `F:/Projects-PCGames/OpenAntares`, `main` at69f7e1c; reviewed correction source66e7548 on codex/rival-polish, local integration next; owner changes exact |
+| Primary | `F:/Projects-PCGames/OpenAntares`, `main` includes correction head d1aa58854735416edac2e117642df86429e3003e; reviewed source66e7548; fresh main gates green; owner changes exact |
 | Current correction worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/rival-polish`; base69f7e1c; no review findings |
 | Retained integrated rival worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/rival-expansion`, `codex/rival-expansion`; base4d2efb5; all ten tasks complete; reviewed e36d836, corrected source ce6c29c1cf080893067ac96a43ca1e2366dd97e5 |
 | Retained integrated species worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/species-mechanics` |
@@ -89,11 +91,11 @@ The harness invokes controls/signals/handlers in process. Human comprehension, p
 | Expansion worktree | `C:/Users/david/.codex/worktrees/exploration-colonization/OpenAntares`; retained branch `codex/exploration-colonization` at4d6f7b2, already integrated |
 | Older spiral worktree | acf5f06 ancestor; no pending feature merge inferred |
 | Recovery | Prior snapshots/stash4175cbfe407e822997fe41937946416335045913 retained; new exact owner-file backup/patch recorded in integration report; no stash reapplied |
-| Generated metadata | Godot import/UID files retained unstaged; no worktree cleanup |
+| Generated metadata | No tracked generated metadata changes from this run; build/import artifacts and all worktrees retained |
 | Remote | No fetch/push/PR claim |
 
 Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad7fff126464bc8fe93187b526bf7d27f0f853034`; faction survey `814d22e56cacd52885d947e16bc3e4e6123e4a35cf60297b8af58cf3a99463ba`. Neither file was edited or staged in the species or rival branch. Preserve all QA saves/evidence and recovery copies.
 
 ## 8. Next concrete action
 
-Perform the retained owner-selected local main integration after the fresh exact owner snapshot. Reverify main simulation, affected Rival scenario and normal assembly metadata; preserve owner prose/backlog, six worktrees, stashes and all QA evidence. [Follow-up evidence](reports/RIVAL_POLISH_2026-10-24.md), [plan](docs/superpowers/plans/2026-10-24-rival-polish.md). No further feature implementation is included. Human, balance, platform and release gaps remain open.
+Select and specify the next bounded strategic or delivery milestone before implementation. M4-I and all twelve RIV child criteria are Verified for local automated scope; broader REQ-017 stays In Progress. Local correction integration and fresh main648/Rival/ordinary-build checks are complete. [Integration evidence](reports/RIVAL_POLISH_INTEGRATION_2026-10-24.md) distinguishes branch four-scenario results from fresh main checks. All four original owner changes remain unstaged/uncommitted, with exact recovery; all six worktrees and saves retained. Human/balance/platform/release gaps stay open; no new feature scope, remote publication or cleanup is inferred.

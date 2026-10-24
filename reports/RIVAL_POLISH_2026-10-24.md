@@ -1,6 +1,6 @@
 # Rival review-detail corrections — 2026-10-24
 
-Status: both former Minor deviations corrected on isolated codex/rival-polish; all final graphical gates and independent review complete; ready for retained owner-selected local integration. Base main69f7e1cff5cd65591358fce2d6f5eff23096647b. The owner's continue-on authorizes these corrections to existing RIV-001/RIV-005; no new design, AI mechanics, save/rules version or dependencies. Retained Native method and local integration choice apply after fresh gates/review. [Two-task plan](../docs/superpowers/plans/2026-10-24-rival-polish.md), [execution ledger](rival-polish-execution/progress.md).
+Status: both former Minor deviations corrected on isolated codex/rival-polish; all final graphical gates and independent review complete; locally integrated and reverified on main. Base main69f7e1cff5cd65591358fce2d6f5eff23096647b. The owner's continue-on authorizes these corrections to existing RIV-001/RIV-005; no new design, AI mechanics, save/rules version or dependencies. Retained Native method and local integration choice apply after fresh gates/review. [Two-task plan](../docs/superpowers/plans/2026-10-24-rival-polish.md), [execution ledger](rival-polish-execution/progress.md).
 
 ## Corrections and regression evidence
 
@@ -17,3 +17,7 @@ Evidence: reports/rival-polish-final-20261024-run1/summary.json. Simulation648/6
 ## Preservation and limits
 
 Primary main/owner edits remain untouched during isolated execution. Prior recovery stashes, all previous worktrees/saves/evidence and peaceful-mode backlog are retained. Final preservation audit precedes local integration. This continuation does not change human deferral, physical input/readability/accessibility, balance, platform/packaging/security/release limits, or broader parent REQ-017 In Progress. Previous review records remain historical; this report supplies the closure evidence for the two precise deviations only.
+
+## Local integration complete
+
+The retained owner-selected local workflow fast-forwarded main to d1aa588. Fresh main648 simulation and Rival1146 assertions+12 provenance pass; ordinary rebuild0 warnings/errors and all four harness types excluded. Exact owner changes remain uncommitted; all worktrees/recovery/saves retained. [Integration report](RIVAL_POLISH_INTEGRATION_2026-10-24.md) records exact source, branch/main test distinction and remaining limits. No new implementation/remote/release/cleanup is authorized.
