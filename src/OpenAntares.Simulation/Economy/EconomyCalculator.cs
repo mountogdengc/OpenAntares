@@ -67,25 +67,27 @@ public static class EconomyCalculator
             .Select(id => content.Buildings[id])
             .ToList();
         Workforce workforce = colony.Workforce;
+        EconomyProfile profile = EconomyProfile.For(content, state, colony.EmpireId);
 
         // Support and outputs.
         Quantity supportProduced = Output(planetType.Id, workforce.Support, planetType.SupportPerWorker, buildings, EffectKinds.Support);
         Quantity supportRequired = Quantity.From(new BreakdownLine(
-            BreakdownKinds.Population, string.Empty, colony.Population, checked(colony.Population * content.Rules.SupportPerPopulation)));
+            BreakdownKinds.Population, profile.SpeciesId ?? string.Empty, colony.Population, checked(colony.Population * profile.SupportPerPopulation)));
         long supportSurplus = Math.Max(0, supportProduced.Total - supportRequired.Total);
         long supportDeficit = Math.Max(0, supportRequired.Total - supportProduced.Total);
         long supportSatisfied = Math.Min(supportProduced.Total, supportRequired.Total);
 
-        Quantity grossProduction = Output(planetType.Id, workforce.Production, planetType.ProductionPerWorker, buildings, EffectKinds.Production);
-        Quantity grossResearch = Output(planetType.Id, workforce.Research, planetType.ResearchPerWorker, buildings, EffectKinds.Research);
+        Quantity grossProduction = Output(planetType.Id, workforce.Production, planetType.ProductionPerWorker, buildings, EffectKinds.Production, profile);
+        Quantity grossResearch = Output(planetType.Id, workforce.Research, planetType.ResearchPerWorker, buildings, EffectKinds.Research, profile);
         Quantity netProduction = ApplyShortage(grossProduction, supportSatisfied, supportRequired.Total);
         Quantity netResearch = ApplyShortage(grossResearch, supportSatisfied, supportRequired.Total);
 
         // Growth uses the snapshot capacity; buildings completed this turn don't change it.
-        int capacity = Rules.ColonyCapacity(content, colony);
-        Quantity growthEarned = Growth(content.Rules, supportSurplus, supportDeficit, colony.Population >= capacity);
+        int capacity = Rules.ColonyCapacity(content, state, colony);
+        Quantity growthEarned = Growth(profile, supportSurplus, supportDeficit, colony.Population >= capacity);
         GrowthOutcome growth = ApplyGrowth(colony, capacity, checked((int)growthEarned.Total));
-        long unusedSupport = Math.Max(0, supportSurplus - checked(content.Rules.MaxSurplusGrowth * SupportPerGrowthPoint));
+        Int128 unused = (Int128)supportSurplus - (Int128)profile.MaxSurplusGrowth * profile.SupportPerGrowthPoint;
+        long unusedSupport = unused > 0 ? checked((long)unused) : 0;
 
         // Production reserve and project completion.
         BuildingDefinition? project = colony.ProjectKind == ProductionKinds.Building && colony.ProjectId is { } projectId && content.Buildings.TryGetValue(projectId, out var definition)
@@ -124,10 +126,17 @@ public static class EconomyCalculator
     }
 
     /// <summary>Workers times rate, then each completed building's bonus of <paramref name="effectKind"/>.</summary>
-    internal static Quantity Output(string planetTypeId, int workers, long ratePerWorker, List<BuildingDefinition> buildings, string effectKind)
+    internal static Quantity Output(string planetTypeId, int workers, long ratePerWorker, List<BuildingDefinition> buildings, string effectKind, EconomyProfile? profile = null)
     {
         var lines = ImmutableArray.CreateBuilder<BreakdownLine>();
-        lines.Add(new BreakdownLine(BreakdownKinds.Workers, planetTypeId, workers, checked(workers * ratePerWorker)));
+        long baseOutput = checked(workers * ratePerWorker);
+        lines.Add(new BreakdownLine(BreakdownKinds.Workers, planetTypeId, workers, baseOutput));
+        if (profile?.SpeciesId is { } speciesId && effectKind is EffectKinds.Production or EffectKinds.Research)
+        {
+            int basisPoints = effectKind == EffectKinds.Production ? profile.ProductionBasisPoints : profile.ResearchBasisPoints;
+            DivisionDetails division = DivisionDetails.Divide((Int128)baseOutput * basisPoints, 10000);
+            lines.Add(new BreakdownLine(BreakdownKinds.Species, speciesId, workers, checked(division.Quotient - baseOutput), division));
+        }
         foreach (BuildingDefinition building in buildings)
         {
             foreach (BuildingEffect effect in building.Effects)
@@ -158,7 +167,7 @@ public static class EconomyCalculator
         return Quantity.From(gross.Lines.Add(new BreakdownLine(BreakdownKinds.Shortage, string.Empty, null, deduction, division)));
     }
 
-    private static Quantity Growth(RulesParameters rules, long supportSurplus, long supportDeficit, bool atCapacity)
+    private static Quantity Growth(EconomyProfile rules, long supportSurplus, long supportDeficit, bool atCapacity)
     {
         if (supportDeficit > 0)
         {
@@ -167,10 +176,10 @@ public static class EconomyCalculator
         }
 
         var lines = ImmutableArray.CreateBuilder<BreakdownLine>();
-        lines.Add(new BreakdownLine(BreakdownKinds.GrowthBase, string.Empty, null, rules.BaseGrowth));
+        lines.Add(new BreakdownLine(BreakdownKinds.GrowthBase, rules.SpeciesId ?? string.Empty, null, rules.BaseGrowth));
 
-        DivisionDetails surplusBonus = DivisionDetails.Divide(supportSurplus, SupportPerGrowthPoint);
-        lines.Add(new BreakdownLine(BreakdownKinds.GrowthSurplus, string.Empty, null, surplusBonus.Quotient, surplusBonus));
+        DivisionDetails surplusBonus = DivisionDetails.Divide(supportSurplus, rules.SupportPerGrowthPoint);
+        lines.Add(new BreakdownLine(BreakdownKinds.GrowthSurplus, rules.SpeciesId ?? string.Empty, null, surplusBonus.Quotient, surplusBonus));
         if (surplusBonus.Quotient > rules.MaxSurplusGrowth)
         {
             lines.Add(new BreakdownLine(BreakdownKinds.Cap, string.Empty, null, rules.MaxSurplusGrowth - surplusBonus.Quotient));

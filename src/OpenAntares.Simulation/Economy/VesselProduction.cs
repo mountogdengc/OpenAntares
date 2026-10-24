@@ -12,7 +12,7 @@ internal static class VesselProduction
 {
     internal static ColonyEconomy Calculate(ContentSet content, GameState state, ColonyState colony, PlanetState planet, PlanetTypeDefinition type, List<BuildingDefinition> buildings, ColonyEconomy result)
     {
-        if (state.RulesVersion != Rules.ExpansionVersion || colony.ProjectKind != ProductionKinds.Vessel || colony.ProjectId is not { } id || !content.Vessels.TryGetValue(id, out var role)) return result;
+        if (!Rules.HasExpansion(state.RulesVersion) || colony.ProjectKind != ProductionKinds.Vessel || colony.ProjectId is not { } id || !content.Vessels.TryGetValue(id, out var role)) return result;
         bool eligible = colony.Population >= role.MinimumSourcePopulation && colony.Workforce.Support >= role.EmbarkPopulation;
         var reserve = EconomyCalculator.Reserve(colony.ProductionReserve, result.NetProduction.Total, id, role.Cost, eligible) with { TargetKind = ProductionKinds.Vessel, BlockedReasonCode = eligible ? null : "awaiting_embarkation" };
         if (!eligible) reserve = reserve with { Estimate = new TurnEstimate(null) };
@@ -22,9 +22,10 @@ internal static class VesselProduction
         EmbarkOutcome? embark = null;
         if (role.EmbarkPopulation > 0)
         {
+            var profile = EconomyProfile.For(content, state, colony.EmpireId);
             int population = result.Growth.PopulationAfter - role.EmbarkPopulation;
             var workers = result.Growth.WorkforceAfter with { Support = result.Growth.WorkforceAfter.Support - role.EmbarkPopulation };
-            embark = new(population, workers, EconomyCalculator.Output(type.Id, workers.Support, type.SupportPerWorker, buildings, EffectKinds.Support), Quantity.From(new BreakdownLine(BreakdownKinds.Population, string.Empty, population, checked(population * content.Rules.SupportPerPopulation))));
+            embark = new(population, workers, EconomyCalculator.Output(type.Id, workers.Support, type.SupportPerWorker, buildings, EffectKinds.Support), Quantity.From(new BreakdownLine(BreakdownKinds.Population, profile.SpeciesId ?? string.Empty, population, checked(population * profile.SupportPerPopulation))));
         }
         return result with { VesselCompletionPlan = plan, EmbarkOutcome = embark };
     }

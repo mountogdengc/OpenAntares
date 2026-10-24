@@ -66,6 +66,8 @@ public static class BreakdownKinds
     /// <summary>Assigned workers times the planet type's per-worker rate.</summary>
     public const string Workers = "workers";
 
+    public const string Species = "species";
+
     /// <summary>A completed building's flat bonus.</summary>
     public const string Building = "building";
 
