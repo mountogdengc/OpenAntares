@@ -21,6 +21,7 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M3-D | Review species mechanics; REQ-016 | ADR-007 drafting authority; full design approved in ADR-008 with classic direction | AC-016 / SPC-AC-010 owner design review | Verified for design scope |
 | M3-P | Plan approved species implementation | Approved M3-D; separate ten-task plan written/self-reviewed | Owner approved plan (“yes”); Native preference preserved | Verified |
 | M3-I | Implement reviewed species slice | Approved M3-P; preserve old campaigns and core boundaries | SPC-AC-001..009 and retained regressions; independent review | Verified for local automated acceptance; independent review/correction pass complete |
+| M4-D | Define bounded rival expansion; first REQ-017 child | Owner direction selected in ADR-009; full proposed setup/policy/contact/save contract | RIV-AC-012 full design approval after builder check; no implementation plan yet | In Progress |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -28,7 +29,9 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-The [ten-task species slice](superpowers/plans/2026-10-23-species-mechanics.md) and independent review are complete and now locally integrated under the owner’s option1 choice. [Fresh main verification](../reports/SPECIES_INTEGRATION_2026-10-24.md) preserves the source result and both owner edits; the branch/worktree remain retained. The [readiness assessment](../reports/NEXT_MILESTONE_READINESS_2026-10-24.md) compares rival expansion, colony/research depth and fleet conflict. Rival expansion is an agent recommendation pending owner direction; REQ-017 stays Deferred and no new gameplay is authorized. Select/specify the next bounded milestone before adding gameplay. The owner approved plan review with “yes” and retained Native execution. [Species evidence](../reports/SPECIES_VALIDATION_2026-10-23.md) records445 simulation,1181 species,275 frozen expansion and466 legacy assertions plus27 geometry observations. Preserve owner edits, genuine old saves, recovery stash/snapshot and worktrees. The local species merge is explicitly authorized and complete; no remote push/release/cleanup is inferred.
+The fresh builder check returned “nothing important left”. Present the [rival-expansion design](superpowers/specs/2026-10-24-rival-expansion-design.md) for full owner review. The owner’s “yes” selected competition with another empire; it does not approve the detailed proposed setup/policy/contact/version rules. [ADR-009](DECISIONS/ADR-009-rival-expansion-design-entry.md) and [review record](../reports/RIVAL_EXPANSION_DESIGN_REVIEW_2026-10-24.md) distinguish those gates. After full design approval, write a separate implementation plan; Native remains the existing preference.
+
+Species design/implementation/integration are complete and preserved; do not repeat them. The actual product remains rules3/writer4. Existing 445/1181/275/466+27 results are retained integration evidence, not verification of the unimplemented rival design. No new gameplay, remote push/release/cleanup is authorized by drafting.
 
 ## Risks and autonomy
 

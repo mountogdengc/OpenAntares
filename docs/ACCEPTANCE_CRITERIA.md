@@ -107,7 +107,7 @@ The adoption ran the complete suite, including the named checks below, and retai
 
 ## Deferred design-readiness gates
 
-AC-015 records approved expansion and executed child criteria. AC-016 has approved design/plan gates and executed local automated species acceptance; AC-017 remains Deferred. Human/release acceptance is recorded separately.
+AC-015 records approved expansion and executed child criteria. AC-016 has approved design/plan gates and executed local automated species acceptance; AC-017 is In Progress for the owner-selected rival-expansion design; remaining strategic systems stay Deferred. Human/release acceptance is recorded separately.
 
 ### AC-015 / REQ-015: Exploration/colonization specification gate
 
@@ -121,4 +121,4 @@ These local automated checks do not establish balance, comfortable800x600 readin
 
 ### AC-017 / REQ-017: Later strategic milestone gate
 
-Given the charter's version 1.0 envelope, split the chosen next subsystem into stable child requirements, dependencies, state/command/data/save contracts, normal/failure cases, and observable acceptance procedures before coding. Expected: approved bounded milestone; AI/network/combat scope is never inferred from architecture hooks. Method: planning/owner review; deferred.
+Given the charter's version 1.0 envelope, split the chosen next subsystem into stable child requirements, dependencies, state/command/data/save contracts, normal/failure cases, and observable acceptance procedures before coding. Expected: approved bounded milestone; AI/network/combat scope is never inferred from architecture hooks. Method: planning/owner review; In Progress for the rival-expansion draft under ADR-009. RIV-AC-001..012 are proposed child criteria in the [design](superpowers/specs/2026-10-24-rival-expansion-design.md), including full owner approval before implementation planning. None is a new executed gameplay pass; see the [builder-review record](../reports/RIVAL_EXPANSION_DESIGN_REVIEW_2026-10-24.md).

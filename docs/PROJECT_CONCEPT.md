@@ -19,7 +19,7 @@ The supplied OpenJRPG workflow is a reusable process reference. Its RPG systems,
 | Classification | Established scope |
 | --- | --- |
 | Essential now | The charter's eleven First Playable actions: new game, galaxy generation/map, star/planet inspection, one colony, workforce, production, research, end turn, visible advancement, save/reload |
-| Active milestone | M3-I species implementation locally verified/reviewed and integrated into main under owner authorization; classic space-opera direction approved in ADR-008. Expansion is integrated; human playtest remains deferred under ADR-005 |
+| Active milestone | M4-D rival-expansion design: owner selected competition with another empire; builder check complete; detailed draft awaits full owner review. Species/expansion are integrated; classic direction and ADR-005 human deferral remain |
 | Later version 1.0 | Multiple civilizations, AI, fleets/ships/design, strategic warfare, diplomacy, events, setup options, victory/defeat, broader technology and development |
 | Optional | Tactical combat only if it does not impede completing the strategic game |
 | Excluded initially | Real-time strategy, MMO/persistent online world, proprietary backend dependence, mandatory online single-player, copied commercial assets or interfaces |

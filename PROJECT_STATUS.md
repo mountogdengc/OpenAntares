@@ -6,12 +6,12 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Next milestone selection: readiness assessment prepared; species remains integrated |
+| Current phase | Rival-expansion design drafted; builder check complete, full owner review pending |
 | Project health | All local automated gates pass; human/release acceptance remain open |
-| Active milestone | M3-I complete; next milestone direction under review |
+| Active milestone | M4-D — Rival-expansion design review |
 | Current version | Not Released; new games rules3, writer schema4; legacy rules1/2 retained |
 | Last updated | 2026-10-24, America/Denver |
-| Implementation readiness | All ten tasks/review complete; owner-authorized local integration freshly verified |
+| Implementation readiness | Species integrated/verified; rival direction approved for design, detailed rules unapproved/unimplemented |
 
 ## 2. Current state
 
@@ -20,6 +20,8 @@ The owner approved the species design/classic Master of Orion II direction in AD
 Implemented on `codex/species-mechanics`, then fast-forwarded into local `main` on2026-10-24 under the owner’s option1 authorization: four explicit species profiles and setup choices, visible Harl default, shared species economy/breakdowns, conserved expeditions, native/sealed Sulan habitats, Wenth current-capacity maturity/fission, permitted environment/founding previews and schema4 persistence. Existing rules1/2 campaigns keep embedded content/state/RNG; no upgrade is injected. All twelve generated species/size loops plus forced Sulan harbor, labelled contrasting maps and extended Wenth passed.
 
 Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execution ledger](reports/species-execution/progress.md), [final review/handoff](reports/SPECIES_FINAL_REVIEW_2026-10-23.md). Expansion integration is historical and complete under separate authorization. The owner selected local integration(option1); main now includes species head3f25a14. [Integration verification](reports/SPECIES_INTEGRATION_2026-10-24.md) records fresh main gates and exact edit preservation. No remote push/release/cleanup was performed.
+
+**Current design work:** The owner answered “yes” to competition with another empire as the next experience. [ADR-009](docs/DECISIONS/ADR-009-rival-expansion-design-entry.md) records direction/drafting authority only. The [rival-expansion draft](docs/superpowers/specs/2026-10-24-rival-expansion-design.md) proposes one default rival, Solo retained, legal deterministic planning, observed contacts and new-game version separation; its fresh builder check found nothing important left. These are drafter proposals, not approved gameplay or current functionality. [Design-review record](reports/RIVAL_EXPANSION_DESIGN_REVIEW_2026-10-24.md).
 
 ## 3. Milestone progress
 
@@ -32,14 +34,15 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 | M3-D | Species design | Verified | ADR-008 / SPC-AC-010 |
 | M3-P | Species implementation plan | Verified | Owner “yes”; Native execution retained |
 | M3-I | Species implementation | Verified | Local automated criteria, independent review/corrections and authorized main integration verified; human/release limits remain |
-| M-Later | Remaining strategic systems | Deferred | REQ-017; no inferred scope |
+| M4-D | Rival-expansion design | In Progress | Direction approved in ADR-009; builder check complete; full RIV design owner review pending |
+| M-Later | Remaining strategic systems | Deferred | Rest of REQ-017 envelope; no inferred combat/diplomacy scope |
 | M-Delivery | Cross-platform/release | Not Started | Windows-only local evidence |
 
 ## 4. Decisions and open questions
 
 Preserve ADR-001..004 architecture/JSON/determinism/spiral decisions, ADR-005 human deferral, ADR-006 historical expansion separation and ADR-008 approved species rules. Implementation rulings are retained in the execution ledger. No new architecture, dependencies, portraits, AI/combat/diplomacy or custom civilizations were added.
 
-Open: next bounded strategic milestone selection, physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
+Open: full rival-expansion design review (including proposed setup/policy/contact/version calls), physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
 
 ## 5. Blockers and risks
 
@@ -59,11 +62,11 @@ Counts derive from the17 parent rows in [SPECIFICATIONS.md](docs/SPECIFICATIONS.
 | Status | Count |
 | --- | ---: |
 | Not Started | 0 |
-| In Progress | 0 |
+| In Progress | 1 |
 | Implemented, Unverified | 3 |
 | Verified | 12 |
 | Blocked | 0 |
-| Deferred | 2 |
+| Deferred | 1 |
 | Total | 17 |
 
 Fresh integrated-main verification,2026-10-24: **445 simulation tests passed**,0 failed/skipped; **1,181 species runtime assertions**, **275 frozen expansion assertions**, **466 legacy assertions plus27 geometry observations**. All scenarios passed with zero final engine diagnostics; ordinary rebuild0 warnings/errors. Assembly metadata excludes all three validation classes. Species/expansion/legacy evidence retains29/10/16 PNGs and61/20/11 QA paths. Genuine old saves and four-turn canonical rules2 continuation pass.
@@ -89,8 +92,8 @@ Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad
 
 ## 8. Immediate next action
 
-Read the [next-milestone readiness assessment](reports/NEXT_MILESTONE_READINESS_2026-10-24.md). Rival expansion is the agent-recommended candidate; deeper colony/research choices are an alternative. The owner’s desired next-turn experience remains open, so no new milestone is selected or approved. Establish its full specification/acceptance before implementation. Species implementation, review and local integration are complete; do not repeat those gates. The owner’s option1 authorizes this local merge only; remote push/release/worktree cleanup remain separate.
+Review the complete [rival-expansion specification](docs/superpowers/specs/2026-10-24-rival-expansion-design.md) with its builder check complete. The owner selected the experience; detailed setup, policy, contact and compatibility rules remain proposals requiring full-design approval. After approval, write the separate implementation plan using the retained Native preference; no new method choice or species-design reapproval is needed. Species implementation, review and local integration are complete; do not repeat those gates. The owner’s option1 authorizes this local merge only; remote push/release/worktree cleanup remain separate.
 
 ## 9. Agent handoff
 
-Read actual Git state and the final report before continuing. Do not repeat approved design, completed tasks or execution-method selection; do not re-block on the deferred participant session. Preserve simulation/Godot separation, integer/PCG32 determinism, typed IDs, ordered iteration, snapshot timing, permitted views and compatibility. All ten plan tasks and one independent review/correction pass are complete. Source remains identical to verified code checkpoint713d305. Fresh integrated-main evidence and exact preservation are in the2026-10-24 integration report; integration handoff changes are documentation/evidence only.
+Read actual Git state and the final report before continuing. Do not repeat approved design, completed tasks or execution-method selection; do not re-block on the deferred participant session. Preserve simulation/Godot separation, integer/PCG32 determinism, typed IDs, ordered iteration, snapshot timing, permitted views and compatibility. All ten species-plan tasks and one independent review/correction pass are complete. Rival work is design-only; do not implement it from the direction approval alone. Source remains identical to verified code checkpoint713d305. Fresh integrated-main evidence and exact preservation are in the2026-10-24 integration report; integration handoff changes are documentation/evidence only.

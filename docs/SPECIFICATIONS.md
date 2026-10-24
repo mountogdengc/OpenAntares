@@ -24,7 +24,7 @@ Status vocabulary: Not Started / In Progress / Implemented, Unverified / Verifie
 | REQ-014 | Understandable, meaningful First Playable choices | Essential / First Playable acceptance | Deferred | AC-014 |
 | REQ-015 | Exploration, travel, and a second colony | Implemented expansion / local automated acceptance | Verified | AC-015 |
 | REQ-016 | Distinct playable species | Species slice / local automated acceptance | Verified | AC-016 |
-| REQ-017 | Remaining complete strategic game | Future / version 1.0 | Deferred | AC-017 |
+| REQ-017 | Remaining complete strategic game | Rival-expansion design M4-D; rest later | In Progress | AC-017 |
 
 ## Functional contracts
 
@@ -96,6 +96,6 @@ The roster supplied the starting point; creative amendments were permitted under
 
 ### REQ-017: Remaining strategic game
 
-Track the charter's later AI, diplomacy, ships/fleets/design, warfare, events, victory/defeat, expanded technology/development/setup as a deferred scope envelope. Tactical combat remains conditional. These are not independently implementation-ready: create stable child requirements and concrete failure/acceptance cases when each milestone is approved. Networking readiness does not authorize a network implementation. Source: [CHARTER.md](CHARTER.md). AC-017 is a planning gate.
+Track the charter's later AI, diplomacy, ships/fleets/design, warfare, events, victory/defeat, expanded technology/development/setup as a deferred scope envelope. Tactical combat remains conditional. These are not independently implementation-ready: create stable child requirements and concrete failure/acceptance cases when each milestone is approved. The owner selected rival expansion for design in [ADR-009](DECISIONS/ADR-009-rival-expansion-design-entry.md). Its proposed child contracts RIV-001..007 and RIV-AC-001..012 are in the [full draft](superpowers/specs/2026-10-24-rival-expansion-design.md), with full gameplay approval pending. Parent In Progress records this first design slice; the remaining strategic envelope stays Deferred. No rival feature is implemented. Networking readiness does not authorize a network implementation. Source: [CHARTER.md](CHARTER.md). AC-017 is a planning gate.
 
 Cross-cutting gaps before relevant delivery: accessibility/input coverage, localization, performance/resource budgets, maliciously large inputs, clean install/export, dependency/security audit, and third-party attribution. Existing decisions do not settle those policies. See [adoption findings](../reports/ADOPTION_AUDIT.md) and the [implementation plan](IMPLEMENTATION_PLAN.md).

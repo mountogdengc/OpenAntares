@@ -1,5 +1,8 @@
 # Next milestone readiness — 2026-10-24
 
+**Subsequent owner direction:** The owner answered “yes” to competing with another empire. [ADR-009](../docs/DECISIONS/ADR-009-rival-expansion-design-entry.md) now records rival expansion selected for drafting; [the full proposed design](../docs/superpowers/specs/2026-10-24-rival-expansion-design.md) has completed its builder check and awaits full owner review. The earlier selection-open statements below are retained assessment history, not a reason to ask the direction again. No detailed gameplay approval is claimed.
+
+
 **Status: Recommendation for owner direction; no new gameplay specification or implementation approved.**
 
 Continuation baseline: local main `c41baaddb6ecefb019a7685878beaedaae1ec138`, with the two preserved owner prose edits. Species implementation, independent review and local integration are complete. The owner asked to continue; this assessment advances selection of the next bounded milestone under REQ-017/AC-017, without treating that broad envelope as an approved feature list.

@@ -15,6 +15,8 @@ The 2026-10-22 request and continuation authorize adoption, reconciliation, docu
 
 Current continuation: the owner approved the species implementation plan (“yes”) and the retained Native execution preference. All ten tasks are complete on isolated `codex/species-mechanics`; one independent whole-branch review and its regression-first corrections are resolved. On2026-10-24 the owner selected option1: local main integration is complete, with fresh combined verification. Read PROJECT_STATUS and the species integration report before the next milestone. Preserve the classic space-opera direction, original owner roster/research edits, genuine old campaigns and all evidence. Do not repeat completed implementation/integration or infer remote push/release/cleanup authorization. Retain the species branch/worktree, owner edits and all recovery/QA evidence.
 
+Next design continuation: the owner explicitly selected competition with another empire on 2026-10-24. ADR-009 authorizes drafting the rival-expansion specification and builder/owner review. Its proposed rules 4/writer 5, setup and policy are not approved or implemented; the actual product remains rules 3/writer 4. Read the full draft and design-review record. Only full design approval proceeds to a separate implementation plan; do not infer gameplay implementation from this direction-only “yes”.
+
 ## Engineering constraints
 
 - C# throughout; Godot .NET presentation, plain .NET simulation, JSON content, xUnit tests.
