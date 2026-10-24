@@ -25,8 +25,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M4-P | Plan rival implementation | Approved M4-D; separate ten-task plan written/self-reviewed | Owner continue; Native retained | Verified |
 | M4-I | Implement bounded rival slice | Approved M4-P; preserve old campaigns and scoped planning | RIV-AC-001..011, retained regressions and final independent review | Verified for bounded local automated acceptance; both follow-up details reviewed and verified |
 | M5-D | Define colony development and delegation | Full owner approval in ADR-012 after builder check | COL-AC-012 full design gate | Verified for design scope |
-| M5-P | Plan colony-development implementation | Approved M5-D; retained Native | Twelve-task plan self-review and owner plan confirmation | In Progress; plan written/self-reviewed, review pending |
-| M5-I | Implement approved colony-development slice | Approved M5-P; isolated execution/preserved genuine old campaigns | Proposed COL criteria and retained gates, independent whole-branch review | Not Started |
+| M5-P | Plan colony-development implementation | Approved M5-D; retained Native | Twelve-task plan self-review and owner plan confirmation | Verified; owner approved with “yes” |
+| M5-I | Implement approved colony-development slice | Approved M5-P; isolated execution/preserved genuine old campaigns | Proposed COL criteria and retained gates, independent whole-branch review | In Progress |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -45,3 +45,5 @@ Review the separate [twelve-task colony-development plan](superpowers/plans/2026
 - Performance, accessibility, localization, hostile-input limits, licensing inventory and distribution remain explicit later gaps. Do not turn unspecified targets into asserted requirements met.
 
 Use Not Started / In Progress / Implemented, Unverified / Verified / Blocked / Deferred. Update requirement statuses only to match their exact verified contracts, with evidence and dates; distinguish milestone state from code existence.
+
+Execution entry: owner approved the separate twelve-task plan with “yes”; M5-P Verified, M5-I In Progress. Follow the execution ledger; no repeated plan/method approval.

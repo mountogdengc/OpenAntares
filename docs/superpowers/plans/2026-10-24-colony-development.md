@@ -12,7 +12,7 @@
 
 ## Global Constraints
 
-- **Native is already selected.** Use executing-plans inline, no implementer/per-task reviewer agents; one fresh whole-branch reviewer at the end on the most capable available model. Do not ask for the execution method again. This plan awaits owner review; no tasks have run.
+- **Native is already selected.** Use executing-plans inline, no implementer/per-task reviewer agents; one fresh whole-branch reviewer at the end on the most capable available model. Do not ask for the execution method again. Owner approved this separate plan with “yes”; execution is authorized. No tasks had run at approval.
 - Keep all current building costs/effects, technology costs, worker/species rates, growth/capacity/support rules and starting assets. Start without free buildings. Species worker multipliers do not multiply flat building bonuses.
 - At most one project completes per colony per turn, regardless of banked reserve. Completed effects apply from the next snapshot. Explicit finite player vessel orders retain ordinary cost, cargo, maturity and founding rules.
 - Each colony independently enables workforce automation and construction automation; both start off. Workforce automation requires an assigned template; construction automation may use an explicit queue without a template. No forced takeover at6/11 colonies.
