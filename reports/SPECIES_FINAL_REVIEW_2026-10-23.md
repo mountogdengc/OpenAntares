@@ -1,5 +1,8 @@
 # Species final review and handoff — 2026-10-23
 
+**Subsequent local integration,2026-10-24:** The owner selected option1 and main fast-forwarded to3f25a14. [Fresh integrated verification](SPECIES_INTEGRATION_2026-10-24.md) records current checks and exact preservation. The branch-stage integration boundary and primary-state statements below are retained history, superseded by this separate authorization. No remote push/release/cleanup occurred.
+
+
 Baseline `e32ada6d1c8fbef4fadd620a93139c6188447c27`; acceptance checkpoint `bb9a2c517466aae8aee27076015d586e8a4e8527`; independently reviewed candidate **`816f5de74e185f58d9ec2492d8b9de633cab6a43`**. Branch `codex/species-mechanics`, isolated checkout recorded in PROJECT_STATUS. Product implementation and [retained acceptance](SPECIES_VALIDATION_2026-10-23.md) follow the owner-approved classic space-opera specification/ten-task plan and Native workflow.
 
 ## Independent whole-branch review

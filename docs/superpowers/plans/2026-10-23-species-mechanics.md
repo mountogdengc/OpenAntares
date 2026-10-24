@@ -12,6 +12,9 @@
 
 **Status:** Owner-approved Native execution complete,2026-10-23. All ten tasks and independent review/corrections are complete; see retained validation and final review reports. Source inventory anchor: main at `5958c25177e064d4aafb9a102fe6bc390dc59bd3` before this planning commit; only the two owner prose files were dirty.
 
+**Subsequent integration:** Owner selected local merge(option1),2026-10-24. The completed species branch is now in main; [integration evidence](../../../reports/SPECIES_INTEGRATION_2026-10-24.md) records fresh main verification and edit preservation. Original execution stop-before-integration instructions below describe the earlier authorization boundary, now satisfied for this local merge only.
+
+
 ## Global Constraints
 
 - Four core IDs: peldra, harl, sulan, wenth. Colorful humanoid animals/monsters and fanciful biology are welcome. No compulsory cohort model, scientific explanation, mortality system or representational checklist.

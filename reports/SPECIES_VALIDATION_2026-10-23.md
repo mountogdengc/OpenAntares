@@ -1,5 +1,8 @@
 # Species implementation validation — 2026-10-23
 
+**Subsequent local integration,2026-10-24:** The owner selected option1 and main fast-forwarded to3f25a14. [Fresh integrated verification](SPECIES_INTEGRATION_2026-10-24.md) records current checks and exact preservation. The branch-stage integration boundary and primary-state statements below are retained history, superseded by this separate authorization. No remote push/release/cleanup occurred.
+
+
 Owner-approved classic space-opera species slice, executed inline with the retained Native preference. Baseline: `e32ada6d1c8fbef4fadd620a93139c6188447c27`; branch `codex/species-mechanics`, isolated checkout `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/species-mechanics`. This is local Windows automated acceptance, with integration and human/release acceptance separate.
 
 ## Final post-review gates

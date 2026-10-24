@@ -6,20 +6,20 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Species implementation complete for local automated acceptance; integration decision next |
+| Current phase | Species milestone integrated into local main; next milestone selection remains open |
 | Project health | All local automated gates pass; human/release acceptance remain open |
-| Active milestone | M3-I complete; species integration decision |
+| Active milestone | M3-I complete and locally integrated |
 | Current version | Not Released; new games rules3, writer schema4; legacy rules1/2 retained |
-| Last updated | 2026-10-23, America/Denver |
-| Implementation readiness | All ten tasks complete; independent findings resolved and final gates pass |
+| Last updated | 2026-10-24, America/Denver |
+| Implementation readiness | All ten tasks/review complete; owner-authorized local integration freshly verified |
 
 ## 2. Current state
 
 The owner approved the species design/classic Master of Orion II direction in ADR-008, then approved the separate ten-task plan with “yes”. The retained Native preference authorized inline implementation and one final independent whole-branch review. Colorful aliens and fanciful biology are welcome, with respect for real peoples and beliefs.
 
-Implemented on isolated `codex/species-mechanics`: four explicit species profiles and setup choices, visible Harl default, shared species economy/breakdowns, conserved expeditions, native/sealed Sulan habitats, Wenth current-capacity maturity/fission, permitted environment/founding previews and schema4 persistence. Existing rules1/2 campaigns keep embedded content/state/RNG; no upgrade is injected. All twelve generated species/size loops plus forced Sulan harbor, labelled contrasting maps and extended Wenth passed.
+Implemented on `codex/species-mechanics`, then fast-forwarded into local `main` on2026-10-24 under the owner’s option1 authorization: four explicit species profiles and setup choices, visible Harl default, shared species economy/breakdowns, conserved expeditions, native/sealed Sulan habitats, Wenth current-capacity maturity/fission, permitted environment/founding previews and schema4 persistence. Existing rules1/2 campaigns keep embedded content/state/RNG; no upgrade is injected. All twelve generated species/size loops plus forced Sulan harbor, labelled contrasting maps and extended Wenth passed.
 
-Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execution ledger](reports/species-execution/progress.md), [final review/handoff](reports/SPECIES_FINAL_REVIEW_2026-10-23.md). Expansion integration is historical and complete under separate authorization. Species integration has not been authorized or performed.
+Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execution ledger](reports/species-execution/progress.md), [final review/handoff](reports/SPECIES_FINAL_REVIEW_2026-10-23.md). Expansion integration is historical and complete under separate authorization. The owner selected local integration(option1); main now includes species head3f25a14. [Integration verification](reports/SPECIES_INTEGRATION_2026-10-24.md) records fresh main gates and exact edit preservation. No remote push/release/cleanup was performed.
 
 ## 3. Milestone progress
 
@@ -31,7 +31,7 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 | M2-D / M2-P / M2-I | Expansion design, plan and implementation | Verified | Existing approval and retained review/regressions |
 | M3-D | Species design | Verified | ADR-008 / SPC-AC-010 |
 | M3-P | Species implementation plan | Verified | Owner “yes”; Native execution retained |
-| M3-I | Species implementation | Verified | Local automated criteria and independent review/corrections complete; human/release limits remain |
+| M3-I | Species implementation | Verified | Local automated criteria, independent review/corrections and authorized main integration verified; human/release limits remain |
 | M-Later | Remaining strategic systems | Deferred | REQ-017; no inferred scope |
 | M-Delivery | Cross-platform/release | Not Started | Windows-only local evidence |
 
@@ -39,7 +39,7 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 
 Preserve ADR-001..004 architecture/JSON/determinism/spiral decisions, ADR-005 human deferral, ADR-006 historical expansion separation and ADR-008 approved species rules. Implementation rulings are retained in the execution ledger. No new architecture, dependencies, portraits, AI/combat/diplomacy or custom civilizations were added.
 
-Open: species integration disposition, physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
+Open: next bounded strategic milestone selection, physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
 
 ## 5. Blockers and risks
 
@@ -66,22 +66,22 @@ Counts derive from the17 parent rows in [SPECIFICATIONS.md](docs/SPECIFICATIONS.
 | Deferred | 2 |
 | Total | 17 |
 
-Fresh candidate: **445 simulation tests passed**,0 failed/skipped; **1,181 species runtime assertions**, **275 frozen expansion assertions**, **466 legacy assertions plus27 geometry observations**. All scenarios passed with zero final engine diagnostics; ordinary rebuild0 warnings/errors. Assembly metadata excludes all three validation classes. Species/expansion/legacy evidence retains29/10/16 PNGs and61/20/11 QA paths. Genuine old saves and four-turn canonical rules2 continuation pass.
+Fresh integrated-main verification,2026-10-24: **445 simulation tests passed**,0 failed/skipped; **1,181 species runtime assertions**, **275 frozen expansion assertions**, **466 legacy assertions plus27 geometry observations**. All scenarios passed with zero final engine diagnostics; ordinary rebuild0 warnings/errors. Assembly metadata excludes all three validation classes. Species/expansion/legacy evidence retains29/10/16 PNGs and61/20/11 QA paths. Genuine old saves and four-turn canonical rules2 continuation pass.
 
-The harness invokes real controls/signals/handlers and shared commands in process. Human comprehension, physical OS input, comfortable small-window reading, balance, cross-platform equality and release acceptance remain unverified. Historical281/275/466 baseline results remain historical.
+The harness invokes real controls/signals/handlers and shared commands in process. Human comprehension, physical OS input, comfortable small-window reading, balance, cross-platform equality and release acceptance remain unverified. Earlier branch445/1181/275/466 results remain retained separately; today’s main counts are from new runs. Historical281/275/466 baseline results remain historical.
 
 ## 7. Repository and preservation
 
 | Field | Current value |
 | --- | --- |
-| Primary | `F:/Projects-PCGames/OpenAntares`, `main` at `e32ada6d1c8fbef4fadd620a93139c6188447c27`; two owner prose edits retained |
-| Species worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/species-mechanics` |
+| Primary | `F:/Projects-PCGames/OpenAntares`, `main` fast-forwarded to `3f25a1463fe6b2b4f55b171b0d4f4646d954a32a`; integration handoff commit follows; two owner prose edits retained |
+| Retained integrated species worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/species-mechanics` |
 | Species branch / baseline | `codex/species-mechanics` / `e32ada6d1c8fbef4fadd620a93139c6188447c27` |
 | Checkpoints | Tasks1..8:40915c7,c2d9bd7,d0b1cc0,e4538f8,94ac4db,8c1a546,0470a11,7449d34; Task9:bb9a2c5 |
 | Final code checkpoint/review | `713d305c201d51e1e7612d7b11b6913c95c5cae1`; reviewed candidate816f5de, one regression-first correction pass; final handoff commit in Git history |
 | Expansion worktree | `C:/Users/david/.codex/worktrees/exploration-colonization/OpenAntares`; retained branch `codex/exploration-colonization` at4d6f7b2, already integrated |
 | Older spiral worktree | acf5f06 ancestor; no pending feature merge inferred |
-| Recovery | Snapshot in chat workspace; stash4175cbfe407e822997fe41937946416335045913 retained, not reapplied |
+| Recovery | Prior snapshots/stash4175cbfe407e822997fe41937946416335045913 retained; new exact owner-file backup/patch recorded in integration report; no stash reapplied |
 | Generated metadata | Godot import/UID files retained unstaged; no worktree cleanup |
 | Remote | No fetch/push/PR claim |
 
@@ -89,8 +89,8 @@ Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad
 
 ## 8. Immediate next action
 
-Review the completed species candidate and choose integration disposition when ready. No implementation or repeat review task remains open in this approved slice. Stop before species merge/push/release/worktree cleanup unless separately authorized. Earlier expansion integration approval is not blanket species integration approval.
+Select the next bounded milestone from the charter and establish its specification/acceptance before new gameplay implementation. Species implementation, review and local integration are complete; do not repeat those gates. The owner’s option1 authorizes this local merge only; remote push/release/worktree cleanup remain separate.
 
 ## 9. Agent handoff
 
-Read actual Git state and the final report before continuing. Do not repeat approved design, completed tasks or execution-method selection; do not re-block on the deferred participant session. Preserve simulation/Godot separation, integer/PCG32 determinism, typed IDs, ordered iteration, snapshot timing, permitted views and compatibility. All ten plan tasks and one independent review/correction pass are complete. Fresh final evidence belongs to code checkpoint713d305; subsequent handoff changes are documentation/evidence only.
+Read actual Git state and the final report before continuing. Do not repeat approved design, completed tasks or execution-method selection; do not re-block on the deferred participant session. Preserve simulation/Godot separation, integer/PCG32 determinism, typed IDs, ordered iteration, snapshot timing, permitted views and compatibility. All ten plan tasks and one independent review/correction pass are complete. Source remains identical to verified code checkpoint713d305. Fresh integrated-main evidence and exact preservation are in the2026-10-24 integration report; integration handoff changes are documentation/evidence only.

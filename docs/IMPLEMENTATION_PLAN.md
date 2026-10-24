@@ -28,7 +28,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review the completed [ten-task species slice](superpowers/plans/2026-10-23-species-mechanics.md), and choose its integration disposition. Independent review findings are resolved; the isolated branch remains preserved. The owner approved plan review with “yes” and retained Native execution. [Species evidence](../reports/SPECIES_VALIDATION_2026-10-23.md) records445 simulation,1181 species,275 frozen expansion and466 legacy assertions plus27 geometry observations. Preserve owner edits, genuine old saves, recovery stash/snapshot and worktrees. No species merge/push/release/cleanup is inferred.
+The [ten-task species slice](superpowers/plans/2026-10-23-species-mechanics.md) and independent review are complete and now locally integrated under the owner’s option1 choice. [Fresh main verification](../reports/SPECIES_INTEGRATION_2026-10-24.md) preserves the source result and both owner edits; the branch/worktree remain retained. Select/specify the next bounded milestone before adding gameplay. The owner approved plan review with “yes” and retained Native execution. [Species evidence](../reports/SPECIES_VALIDATION_2026-10-23.md) records445 simulation,1181 species,275 frozen expansion and466 legacy assertions plus27 geometry observations. Preserve owner edits, genuine old saves, recovery stash/snapshot and worktrees. The local species merge is explicitly authorized and complete; no remote push/release/cleanup is inferred.
 
 ## Risks and autonomy
 
