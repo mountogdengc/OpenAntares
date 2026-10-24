@@ -24,7 +24,7 @@ Status vocabulary: Not Started / In Progress / Implemented, Unverified / Verifie
 | REQ-014 | Understandable, meaningful First Playable choices | Essential / First Playable acceptance | Deferred | AC-014 |
 | REQ-015 | Exploration, travel, and a second colony | Implemented expansion / local automated acceptance | Verified | AC-015 |
 | REQ-016 | Distinct playable species | Species slice / local automated acceptance | Verified | AC-016 |
-| REQ-017 | Remaining complete strategic game | M4-I Verified locally; M5-D design; rest later | In Progress | AC-017 |
+| REQ-017 | Remaining complete strategic game | M4-I Verified locally; M5-P review; rest later | In Progress | AC-017 |
 
 ## Functional contracts
 
@@ -101,6 +101,6 @@ Track the charter's later AI, diplomacy, ships/fleets/design, warfare, events, v
 Cross-cutting gaps before relevant delivery: accessibility/input coverage, localization, performance/resource budgets, maliciously large inputs, clean install/export, dependency/security audit, and third-party attribution. Existing decisions do not settle those policies. See [adoption findings](../reports/ADOPTION_AUDIT.md) and the [implementation plan](IMPLEMENTATION_PLAN.md).
 
 
-### Proposed M5 child envelope — not approved implementation requirements
+### Approved M5 child requirements — execution not started
 
-[ADR-011](DECISIONS/ADR-011-colony-development-design-entry.md) records the owner direction and delegated drafting judgment. [Colony-development design](superpowers/specs/2026-10-24-colony-development-design.md) proposes COL-001..008 and COL-AC-001..012: foundations/next-tier construction, editable templates, finite queues, scoped workforce policy, atomic preparation, management/reports, cosmetic planet identity and compatibility. M5-D In Progress; M5-P/M5-I Not Started. Builder check and full owner review precede a separate plan. No gameplay/content/art changes. [Future crisis/fleet intent](design-notes/2026-10-24-delegation-crises-and-fleet-intent.md) is recorded without authorizing those systems. Parent REQ-017 remains In Progress and the17-row totals remain unchanged.
+[ADR-012](DECISIONS/ADR-012-approved-colony-development-design.md) records the owner's approval of the complete [colony-development specification](superpowers/specs/2026-10-24-colony-development-design.md). COL-001..008 and COL-AC-001..012 define foundations/next-tier construction, editable templates, finite queues, scoped workforce policy, atomic preparation, management/reports, cosmetic planet identity and compatibility. M5-D/COL-AC-012 are Verified for design; COL-AC-001..011 and M5-I Not Started. The separate [twelve-task plan](superpowers/plans/2026-10-24-colony-development.md) is written/self-reviewed, M5-P In Progress for owner plan review; retained Native requires no new method selection. No implementation/application test result. [Future crisis/fleet intent](design-notes/2026-10-24-delegation-crises-and-fleet-intent.md) remains recorded without authorizing those systems. Parent REQ-017 In Progress and17-row totals unchanged.

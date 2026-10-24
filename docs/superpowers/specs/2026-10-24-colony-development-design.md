@@ -1,6 +1,7 @@
 # Colony development, governors and planetary identity
 
-**Status: In Progress — proposed full design for owner review, not approved for implementation.** Direction/drafting authority: [ADR-011](../../DECISIONS/ADR-011-colony-development-design-entry.md). M5-D is design only; M5-P/M5-I have not started. Current product remains rules4/writer5 at main10cb0b4. Proposed numbers, defaults, bounds and version changes below are the drafter's calls, open to owner amendment.
+**Status: Full design approved 2026-10-24 in [ADR-012](../../DECISIONS/ADR-012-approved-colony-development-design.md).** [ADR-011](../../DECISIONS/ADR-011-colony-development-design-entry.md) records historical direction/drafting. M5-D and COL-AC-012 are Verified for design scope. The separate [twelve-task implementation plan](../plans/2026-10-24-colony-development.md) is written/self-reviewed and awaits owner review; no M5 implementation has begun. Current product remains rules4/writer5 at main10cb0b4. The initially proposed numbers/defaults/bounds/version changes below are now accepted targets, not implemented functionality.
+
 
 ## 1. Intent and authority
 
@@ -22,7 +23,7 @@ Keep all current building costs/effects, technology costs, worker/species rates,
 
 The default foundation list is Fabrication Hall, Cultivation Hub, Analysis Lab, in that order. A plan waits for or works around unavailable technology as defined in COL-003; foundations are a preference, not a forced prerequisite or a promise that all three are unlocked. Habitat Extension remains available. Players may reorder, omit or replace these preferences.
 
-Proposed small content addition, all costs below in displayed points (multiply by100 in JSON):
+Approved small content addition, all costs below in displayed points (multiply by100 in JSON):
 
 | Technology ID / name | Cost | Existing prerequisites |
 | --- | ---: | --- |
@@ -133,7 +134,7 @@ Procedural C#/Godot drawing with bounded cached results is the recommended first
 
 ## 9. COL-008 — Data, persistence and compatibility
 
-Proposed new games use rules5; proposed writer6 adds the new campaign contracts. This is a recommendation requiring full-design approval, not a change already made. Preserve the existing eleven accepted schema/rules pairs and add exactly (6,1),(6,2),(6,3),(6,4),(6,5), sixteen in total. Earlier schemas may not claim rules5. Reject unsupported pairs before publishing any campaign. Old games keep their embedded content/rules/AI and are never automatically upgraded. New fields are absent from rules1..4 writes, including under schema6; old canonical future traces may normalize schema version only.
+Approved new-game target is rules5; writer6 adds the new campaign contracts. This is an approved target, not a change already made. Preserve the existing eleven accepted schema/rules pairs and add exactly (6,1),(6,2),(6,3),(6,4),(6,5), sixteen in total. Earlier schemas may not claim rules5. Reject unsupported pairs before publishing any campaign. Old games keep their embedded content/rules/AI and are never automatically upgraded. New fields are absent from rules1..4 writes, including under schema6; old canonical future traces may normalize schema version only.
 
 Rules5 saves require embedded default template definitions, private per-empire custom libraries/counters/new-colony inheritance, assigned colony template snapshots and switches, queues/local token counters/active bindings, bounded governor report history, and planet/survey appearance descriptors/version. Default counters and explicit empty lists are serialized; omission is not silently treated as consent. Clone all mutable nested objects. Validate ownership, unique IDs/revisions/tokens, bounds, references, active binding/project agreement, no duplicate/completed queued building and report viewer/order/turn consistency. Do not accept active governor state on an AI-owned colony. Writer failure leaves destination/original session unchanged, as current behavior.
 
@@ -143,7 +144,7 @@ Before implementation changes writer/default, capture genuine current rules4 mai
 
 ## 10. Acceptance and review gates
 
-All criteria below are proposed until the full design is approved. No application test or gameplay acceptance is claimed by drafting them.
+COL-AC-012 is satisfied by full owner approval in ADR-012; COL-AC-001..011 are Not Started. Written criteria do not claim application tests or gameplay acceptance.
 
 | ID | Required observable evidence |
 | --- | --- |
@@ -160,4 +161,4 @@ All criteria below are proposed until the full design is approved. No applicatio
 | COL-AC-011 Integrated regression | Generated core campaigns all four human species, real foundation/specialist research and construction, custom/default governors, save pending queue/Ready and canonical continuation; retained Rival/Species/Expansion/Legacy scenes, ordinary build/excluded harness metadata, logged counts/QA paths/PNG inspection; labelled scale/rare cases separate. |
 | COL-AC-012 Owner design gate | Explicit approval/amendment of this complete scope/defaults/governor authority/ordering/content/version policy before a separate implementation plan. Direction and delegation of drafting judgment alone do not satisfy it. |
 
-Builder check completed: a fresh read-only C#/Godot engineering reviewer returned "nothing important left"; [record](../../../reports/COLONY_DEVELOPMENT_DESIGN_REVIEW_2026-10-24.md). This establishes planning clarity, not gameplay or design approval. Full owner review then precedes a separately reviewed implementation plan. Retained Native execution applies only after those gates; do not request the same method again. Windows automated fixtures do not close physical input, uncoached comprehension, aesthetics, general balance, target-platform equality, security/export or release. Broader REQ-017 remains In Progress. No merge/push/cleanup is inferred from design drafting.
+Builder check completed: a fresh read-only C#/Godot engineering reviewer returned "nothing important left"; [record](../../../reports/COLONY_DEVELOPMENT_DESIGN_REVIEW_2026-10-24.md). The builder check established planning clarity, not gameplay acceptance. The owner subsequently approved this full design in ADR-012; separate implementation-plan review remains pending. Retained Native execution applies after that plan gate; do not request the same method again. Windows automated fixtures do not close physical input, uncoached comprehension, aesthetics, general balance, target-platform equality, security/export or release. Broader REQ-017 remains In Progress. No merge/push/cleanup is inferred from design drafting.

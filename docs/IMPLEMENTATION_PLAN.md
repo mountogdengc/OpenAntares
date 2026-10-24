@@ -24,8 +24,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M4-D | Define bounded rival expansion; first REQ-017 child | Full design accepted in ADR-010 after builder check | RIV-AC-012 owner approval satisfied | Verified for design scope |
 | M4-P | Plan rival implementation | Approved M4-D; separate ten-task plan written/self-reviewed | Owner continue; Native retained | Verified |
 | M4-I | Implement bounded rival slice | Approved M4-P; preserve old campaigns and scoped planning | RIV-AC-001..011, retained regressions and final independent review | Verified for bounded local automated acceptance; both follow-up details reviewed and verified |
-| M5-D | Define colony development and delegation | Owner direction/delegated drafting judgment in ADR-011; retain M4 baseline | Builder check complete, then full proposed COL specification owner review | In Progress; builder-checked draft; full owner review pending |
-| M5-P | Plan colony-development implementation | Approved full M5-D | Separate task/compatibility/acceptance plan review; retained Native | Not Started |
+| M5-D | Define colony development and delegation | Full owner approval in ADR-012 after builder check | COL-AC-012 full design gate | Verified for design scope |
+| M5-P | Plan colony-development implementation | Approved M5-D; retained Native | Twelve-task plan self-review and owner plan confirmation | In Progress; plan written/self-reviewed, review pending |
 | M5-I | Implement approved colony-development slice | Approved M5-P; isolated execution/preserved genuine old campaigns | Proposed COL criteria and retained gates, independent whole-branch review | Not Started |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
@@ -34,7 +34,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review the builder-checked [proposed colony-development specification](superpowers/specs/2026-10-24-colony-development-design.md) for full owner review. [ADR-011](DECISIONS/ADR-011-colony-development-design-entry.md) records direction/drafting authority, including judgment beyond example template names. M5-D In Progress; M5-P/M5-I Not Started. Preserve the reviewed/integrated M4 baseline and owner changes; no product code, core JSON, art, dependency, migration or remote/cleanup action is included. Later crisis/fleet/scout directions are recorded separately. Human acceptance remains Deferred.
+Review the separate [twelve-task colony-development plan](superpowers/plans/2026-10-24-colony-development.md). The owner approved the full specification in ADR-012; M5-D/COL-AC-012 Verified for design. M5-P In Progress for plan review, M5-I Not Started. [Plan self-review](../reports/COLONY_IMPLEMENTATION_PLAN_REVIEW_2026-10-24.md) records dependency/coverage/interface checks; no task or new application test has run. Retain Native without a new method/design question. Freeze genuine rules4 continuation first during execution, keep new behavior gated until saves/UI connect, preserve all existing edits/evidence and defer crisis/fleet systems as agreed.
 
 ## Risks and autonomy
 

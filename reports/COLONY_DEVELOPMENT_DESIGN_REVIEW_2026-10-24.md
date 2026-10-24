@@ -31,3 +31,7 @@ No worktree setup/application baseline run is needed for this documentation-only
 ## Handoff
 
 Review the complete design and drafter calls. Full design approval or amendments precede a separate implementation plan; retained Native method is not a new choice. Parent REQ-017 remains In Progress and17-row totals stay12 Verified,3 Implemented, Unverified,1 In Progress,1 Deferred. Design documentation can be committed for review; no product code begins at this stage.
+
+## Subsequent full owner approval
+
+The owner replied “approved” after the full specification/checkpoint67c2853 was presented. [ADR-012](../docs/DECISIONS/ADR-012-approved-colony-development-design.md) now satisfies M5-D/COL-AC-012; earlier review-pending statements above are historical. The separate [twelve-task plan](../docs/superpowers/plans/2026-10-24-colony-development.md) is written/self-reviewed and awaits owner plan review; no implementation has started. Native remains selected. This approval accepts design, not gameplay/balance/aesthetic/release evidence.

@@ -6,12 +6,12 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | M5 colony-development design drafted; builder check complete; owner review pending |
+| Current phase | M5 design approved; implementation plan written/self-reviewed, owner plan review pending |
 | Project health | All bounded rival child criteria verified; human/release acceptance remains open |
-| Active milestone | M5-D — Colony development, governors and planet identity |
+| Active milestone | M5-P — Colony-development implementation plan review |
 | Current version | Not Released; main rules4/writer5; old rules1/2/3 retained |
 | Last updated | 2026-10-24, America/Denver |
-| Implementation readiness | M4 baseline integrated at10cb0b4; M5 proposed design awaiting full approval, no implementation plan/code |
+| Implementation readiness | Full M5 design accepted in ADR-012; separate twelve-task plan awaits review; no implementation |
 
 ## 2. Current state
 
@@ -23,7 +23,7 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 
 **Current rival work:** The owner approved the full design and ten-task plan, then retained Native execution. All ten Native plan tasks and the independent review/correction pass are complete on isolated `codex/rival-expansion`: fair expansion policy through ordinary commands/permitted facts, scoped forecasts, atomic publication, observed contacts and rules4/writer5 with eleven explicit version pairs. Old rules1/2/3 and passive Ai3 continuations remain unchanged. See [rival validation](reports/RIVAL_VALIDATION_2026-10-24.md), [ledger](reports/rival-execution/progress.md) and [review](reports/RIVAL_FINAL_REVIEW_2026-10-24.md). Final four-scenario regression passes; the sole Important finding is corrected. Both original Minor deviations are now corrected and independently reviewed with no findings at66e7548. All twelve RIV child criteria and M4-I are Verified for the bounded local automated contract. [Follow-up evidence](reports/RIVAL_POLISH_2026-10-24.md) records648 simulation and all four graphical gates. Parent REQ-017 stays In Progress. The owner selected option1; local main fast-forwarded to70e91d9 with owner edits preserved. Fresh combined verification passes; see [integration evidence](reports/RIVAL_INTEGRATION_2026-10-24.md).
 
-**Current M5 design:** Owner direction covers foundational buildings, later specialization, scalable optional governors, editable default/custom templates and visual variety among planets of the same type. The owner explicitly delegates judgment beyond their examples. [Full proposed design](docs/superpowers/specs/2026-10-24-colony-development-design.md) and [ADR-011](docs/DECISIONS/ADR-011-colony-development-design-entry.md) are documentation only on codex/colony-development-design. Costs, defaults, policy, guidance thresholds and versions are drafter proposals; builder check complete; full owner review pending. [Future crisis/fleet/scout intent](docs/design-notes/2026-10-24-delegation-crises-and-fleet-intent.md) preserves additional requests without implementing those systems.
+**Current M5:** The owner replied “approved” after the complete [colony-development specification](docs/superpowers/specs/2026-10-24-colony-development-design.md) and drafter calls were presented. [ADR-012](docs/DECISIONS/ADR-012-approved-colony-development-design.md) satisfies full design approval. The separate [twelve-task implementation plan](docs/superpowers/plans/2026-10-24-colony-development.md) is written/self-reviewed and awaits review; Native remains selected. No implementation/capture/application test has run. [Future crisis/culture/fleet/scout intent](docs/design-notes/2026-10-24-delegation-crises-and-fleet-intent.md) remains later scope. All technical values from the complete design are accepted targets, with gameplay/balance/aesthetic evidence still to be gathered.
 
 ## 3. Milestone progress
 
@@ -39,8 +39,8 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 | M4-D | Rival-expansion design | Verified | Builder check and explicit full owner approval in ADR-010; design scope only |
 | M4-P | Rival implementation plan | Verified | Owner “continue” after plan presentation; Native retained |
 | M4-I | Rival implementation | Verified | All twelve child criteria in local automated scope, both follow-up details corrected;648 simulation/four scenarios/fresh review pass; human/release limits remain |
-| M5-D | Colony-development design | In Progress | Owner direction/drafting authority; builder check complete; full owner review pending |
-| M5-P | Colony-development implementation plan | Not Started | Full design approval first |
+| M5-D | Colony-development design | Verified | Full owner approval in ADR-012 / COL-AC-012, after builder check |
+| M5-P | Colony-development implementation plan | In Progress | Twelve tasks written/self-reviewed; owner plan confirmation pending; Native retained |
 | M5-I | Colony-development implementation | Not Started | Separate approved plan first; retained Native method |
 | M-Later | Remaining strategic systems | Deferred | Rest of REQ-017 envelope; no inferred combat/diplomacy scope |
 | M-Delivery | Cross-platform/release | Not Started | Windows-only local evidence |
@@ -49,7 +49,7 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 
 Preserve ADR-001..004 architecture/JSON/determinism/spiral decisions, ADR-005 human deferral, ADR-006 historical expansion separation and ADR-008 approved species rules. Implementation rulings are retained in the execution ledger. The approved bounded expansion AI is implemented; no new architecture, dependencies, portraits, warfare, diplomacy or custom civilizations were added.
 
-Open: full M5 design review and later separate plan approval; physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
+Open: M5 implementation plan review; physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
 
 ## 5. Blockers and risks
 
@@ -104,4 +104,4 @@ Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad
 
 ## 8. Next concrete action
 
-Review the builder-checked full [M5 design](docs/superpowers/specs/2026-10-24-colony-development-design.md) for owner review. The owner permits judgment beyond examples; proposed Balanced/Industrial/Research/Growth templates, optional governors, queue/workforce rules, content values and rules5/writer6 remain reviewable calls. A separate implementation plan follows full design approval; retained Native preference is unchanged. No product/content/art/dependency changes, new application test result, merge/push/release/cleanup. M4 remains Verified locally; broader REQ-017 In Progress and17 parent totals unchanged. Primary main10cb0b4 and all four owner changes remain exact; all seven worktrees, saves and recovery retained. Human/release limits remain open.
+Review the [twelve-task M5 implementation plan](docs/superpowers/plans/2026-10-24-colony-development.md); [self-review/coverage](reports/COLONY_IMPLEMENTATION_PLAN_REVIEW_2026-10-24.md) is complete. Full design approval is recorded in ADR-012 and should not be requested again. Retain Native, but do not execute until the separate plan review. Task1 freezes genuine current rules4 continuation before writer/default changes; later tasks gate new behavior until content/saves/UI are connected. No gameplay/core-content/art/dependency change or new application test/capture result is claimed. M4 Verified locally; REQ-017 In Progress and17 parent totals unchanged. Primary10cb0b4 and exact four owner changes, all seven worktrees/saves/recovery remain retained; no planning-time integration/push/cleanup. Human/release limits stay open.
