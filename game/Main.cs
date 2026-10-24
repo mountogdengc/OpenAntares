@@ -98,9 +98,19 @@ public partial class Main : Control
         var column = new VBoxContainer();
         column.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         column.AddChild(new Label { Text = "The game content could not be loaded.", ThemeTypeVariation = "HeaderLabel" });
+        var scroll = new ScrollContainer
+        {
+            Name = "ContentErrorScroll",
+            SizeFlagsVertical = SizeFlags.ExpandFill,
+            HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled,
+            FollowFocus = true,
+        };
+        column.AddChild(scroll);
+        var diagnostics = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        scroll.AddChild(diagnostics);
         foreach (ContentError error in loaded.Errors)
         {
-            column.AddChild(new Label
+            diagnostics.AddChild(new Label
             {
                 Text = error.ToString(),
                 ThemeTypeVariation = "WarningLabel",

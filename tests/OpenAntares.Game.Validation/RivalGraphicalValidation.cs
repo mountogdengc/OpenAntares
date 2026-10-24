@@ -49,9 +49,14 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         var core=ContentFiles.LoadCore().Content!;var state=GalaxyGenerator.CreateNewGame(core,new("small",42,3,"harl")).State!;
         string name=$"qa-{_runId}-invalid-disk-content-legacy";string path=SaveFiles.PathFor(name);Check(!File.Exists(path),"Invalid-content legacy QA name is unique");SaveGame.WriteFile(path,core,state);_savePaths.Add(path);
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();
-        var invalid=ContentLoader.Load(new[]{new ContentSource("rival_ai.json","{invalid json")});Check(invalid.Content is null,"Invalid disk-content result comes from the real loader");
+        GetTree().Root.Size=new(800,600);await Frames();
+        var invalid=ContentLoader.Load(Enumerable.Range(0,80).Select(i=>new ContentSource($"invalid-{i}.json","{invalid json")));Check(invalid.Content is null && invalid.Errors.Count>=80,"Long invalid disk-content result comes from the real loader");
         typeof(Main).GetMethod("ShowContentErrors",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!.Invoke(main,new object[]{invalid});await Frames();
         Check(Descendants<Button>(main).Any(b=>b.Text=="Load Game" && b.IsVisibleInTree()),"Invalid disk content keeps Load Game available");
+        Check(VisibleInWindow(Button(main,"Load Game")),"Long content-error recovery action stays inside the 800x600 viewport");
+        var scroll=Descendants<ScrollContainer>(main).Single(s=>s.Name=="ContentErrorScroll");
+        Check(scroll.GetVScrollBar().MaxValue>scroll.GetVScrollBar().Page,"Long content diagnostics scroll while recovery action stays visible");
+        await Capture("long-content-error-recovery-800");
         Press(Button(main,"Load Game"));await Frames();var dialog=One<LoadGameDialog>(main);var list=One<ItemList>(dialog);int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,index);Press(dialog.GetOkButton());await Frames();
         Check(Snapshot(Session(One<GameScreen>(main)))==SaveGame.Serialize(core,state),"Invalid disk content still loads original embedded rules3 campaign");await Drop(main);
     }
