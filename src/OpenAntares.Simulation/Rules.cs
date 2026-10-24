@@ -12,9 +12,12 @@ public static class Rules
     public const int LegacyVersion = 1;
     public const int ExpansionVersion = 2;
     public const int SpeciesVersion = 3;
+    public const int RivalVersion = 4;
     public const int CurrentVersion = SpeciesVersion;
-    public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion;
-    public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion;
+    public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion or RivalVersion;
+    public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion or RivalVersion;
+    public static bool HasSpecies(int version) => version is SpeciesVersion or RivalVersion;
+    public static bool HasRivals(int version) => version == RivalVersion;
 
     /// <summary>A colony's population capacity: the base capacity plus completed capacity buildings.</summary>
     public static int ColonyCapacity(ContentSet content, ColonyState colony)
@@ -36,7 +39,7 @@ public static class Rules
 
     public static int ColonyCapacity(ContentSet content, GameState state, ColonyState colony)
     {
-        if (state.RulesVersion != SpeciesVersion) return ColonyCapacity(content, colony);
+        if (!HasSpecies(state.RulesVersion)) return ColonyCapacity(content, colony);
         long capacity = Species.SpeciesRules.BaseCapacity(content, state, colony.EmpireId, colony.HabitatMode);
         foreach (string id in colony.CompletedBuildingIds)
             foreach (var effect in content.Buildings[id].Effects)

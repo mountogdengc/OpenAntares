@@ -100,13 +100,13 @@ public partial class ColonyPanel : VBoxContainer
         if (colony.ProjectKind == ProductionKinds.Vessel && colony.ProjectId is { } roleId && content.Vessels[roleId].CanFoundColony)
         {
             var role = content.Vessels[roleId];
-            string full = colony.RulesVersion == Rules.SpeciesVersion && role.RequiresFullColony ? $" Requires a full colony at current capacity {economy.Growth.Capacity}." : string.Empty;
+            string full = Rules.HasSpecies(colony.RulesVersion) && role.RequiresFullColony ? $" Requires a full colony at current capacity {economy.Growth.Capacity}." : string.Empty;
             AddChild(Wrapped($"{role.Name}: requires {unit} {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers; transfers {role.EmbarkPopulation} {unit} on completion. Delays construction of a building." + full, "SubtleLabel"));
         }
         if (production.BlockedReasonCode is not null && colony.ProjectId is { } blockedRoleId)
         {
             var role = content.Vessels[blockedRoleId];
-            if (colony.RulesVersion == Rules.SpeciesVersion)
+            if (Rules.HasSpecies(colony.RulesVersion))
             {
                 AddChild(Wrapped("Awaiting embarkation. Production is retained.", "WarningLabel"));
                 foreach (var requirement in production.BlockedRequirements) AddChild(Wrapped(BreakdownText.EmbarkRequirement(requirement, unit), "WarningLabel"));
@@ -206,8 +206,8 @@ public partial class ColonyPanel : VBoxContainer
             {
                 picker.AddItem($"{role.Name} ({Format.Points(role.Cost)})"); picker.SetItemMetadata(picker.ItemCount - 1, "vessel|" + role.Id);
                 picker.SetItemTooltip(picker.ItemCount - 1, role.CanFoundColony ? $"Requires {colony.PopulationUnitLabel} {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers. Transfers those existing workers into cargo." +
-                    (colony.RulesVersion == Rules.SpeciesVersion && role.RequiresFullColony ? $" Requires a full colony at current capacity {colony.Economy.Growth.Capacity}." : string.Empty) +
-                    (colony.RulesVersion == Rules.SpeciesVersion ? role.FoundsSealedHabitat ? " Founds a sealed habitat." : " Founds a native habitat." : string.Empty) : $"Speed {role.Speed} map units per turn.");
+                    (Rules.HasSpecies(colony.RulesVersion) && role.RequiresFullColony ? $" Requires a full colony at current capacity {colony.Economy.Growth.Capacity}." : string.Empty) +
+                    (Rules.HasSpecies(colony.RulesVersion) ? role.FoundsSealedHabitat ? " Founds a sealed habitat." : " Founds a native habitat." : string.Empty) : $"Speed {role.Speed} map units per turn.");
                 if (colony.ProjectKind == ProductionKinds.Vessel && colony.ProjectId == role.Id) picker.Select(picker.ItemCount - 1);
             }
         }

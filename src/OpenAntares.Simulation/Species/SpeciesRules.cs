@@ -11,7 +11,7 @@ public static class HabitatModes
 public static class SpeciesRules
 {
     internal static SpeciesDefinition? Definition(ContentSet content, GameState state, EmpireId owner) =>
-        state.RulesVersion == Rules.SpeciesVersion && state.FindEmpire(owner)?.SpeciesId is { } id && content.Species.TryGetValue(id, out var profile) ? profile : null;
+        Rules.HasSpecies(state.RulesVersion) && state.FindEmpire(owner)?.SpeciesId is { } id && content.Species.TryGetValue(id, out var profile) ? profile : null;
     public static int BaseCapacity(ContentSet content, GameState state, EmpireId owner, string? habitatMode)
     {
         var sp = Definition(content, state, owner);
@@ -19,7 +19,7 @@ public static class SpeciesRules
     }
     public static bool CanBuildVessel(ContentSet content, GameState state, EmpireId owner, string roleId) =>
         Rules.HasExpansion(state.RulesVersion) && content.Vessels.ContainsKey(roleId) &&
-        (state.RulesVersion != Rules.SpeciesVersion || Definition(content,state,owner)?.AllowedVesselIds.Contains(roleId) == true);
+        (!Rules.HasSpecies(state.RulesVersion) || Definition(content,state,owner)?.AllowedVesselIds.Contains(roleId) == true);
     public static bool HabitatAllowed(ContentSet content, GameState state, EmpireId owner, string environmentId, string habitatMode)
     {
         var sp = Definition(content,state,owner);

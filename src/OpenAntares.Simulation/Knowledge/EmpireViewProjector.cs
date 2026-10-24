@@ -17,7 +17,7 @@ public static class EmpireViewProjector
         var owned = state.Clone(); owned.Colonies.RemoveAll(c => c.EmpireId != viewer); owned.Empires.RemoveAll(e => e.Id != viewer);
         var forecast = EconomyCalculator.Calculate(content, owned);
         var profile = EconomyProfile.For(content,owned,viewer);
-        var roles = state.RulesVersion == Rules.SpeciesVersion ? content.Species[e.SpeciesId!].AllowedVesselIds :
+        var roles = Rules.HasSpecies(state.RulesVersion) ? content.Species[e.SpeciesId!].AllowedVesselIds :
             Rules.HasExpansion(state.RulesVersion) ? content.Vessels.Keys.ToImmutableArray() : ImmutableArray<string>.Empty;
         var charts = state.Stars.Select(s => new ChartedStar(s.Id, s.Name, s.X, s.Y, s.RegionId)).ToImmutableArray();
         bool legacy = state.RulesVersion == Rules.LegacyVersion;
@@ -45,7 +45,7 @@ public static class EmpireViewProjector
     }
     private static PlanetPotentialView? ProjectPotential(ContentSet content, GameState owned, EmpireId viewer, PlanetObservation observation)
     {
-        if(owned.RulesVersion != Rules.SpeciesVersion) return null;
+        if(!Rules.HasSpecies(owned.RulesVersion)) return null;
         var type=content.PlanetTypes[observation.PlanetTypeId];
         var profile=EconomyProfile.For(content,owned,viewer);
         var species=content.Species[profile.SpeciesId!];

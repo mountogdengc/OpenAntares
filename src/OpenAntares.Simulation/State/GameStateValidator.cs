@@ -39,6 +39,7 @@ public static class GameStateValidator
 
         ExpansionStateValidator.Validate(content, state, errors);
         SpeciesStateValidator.Validate(content, state, errors);
+        RivalStateValidator.Validate(content, state, errors);
         return errors;
     }
 

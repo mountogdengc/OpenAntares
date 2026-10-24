@@ -43,6 +43,7 @@ public class ContentLoaderTests
         {
             // The original economy fixture remains authoritative for old campaigns; species extensions have their own core tests.
             Expansion = null,
+            RivalAi = null,
             Species = ImmutableSortedDictionary<string, SpeciesDefinition>.Empty,
             Environments = ImmutableSortedDictionary<string, EnvironmentDefinition>.Empty,
             Vessels = System.Collections.Immutable.ImmutableSortedDictionary<string, VesselDefinition>.Empty,

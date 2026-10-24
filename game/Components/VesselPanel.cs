@@ -48,7 +48,7 @@ public partial class VesselPanel : VBoxContainer
         {
             var preview = vessel.FoundingPreviews.FirstOrDefault(p => p.Target == selectedPlanet);
             string reason = preview is null ? "Select a surveyed planet." : BreakdownText.FoundingReason(preview.RejectionCode);
-            AddChild(Text(view.RulesVersion == Rules.SpeciesVersion
+            AddChild(Text(Rules.HasSpecies(view.RulesVersion)
                 ? $"Founding transfers cargo into {vessel.CarriedPopulation} {view.PopulationUnitLabel}, all in support. Output begins in the following economic snapshot."
                 : $"Founding transfers the cargo into population {vessel.CarriedPopulation}, all in support. Output begins in the following economic snapshot."));
             if (preview is { RejectionCode: null })

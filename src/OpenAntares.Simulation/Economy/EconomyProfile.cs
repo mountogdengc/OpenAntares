@@ -11,7 +11,7 @@ public sealed record EconomyProfile(long SupportPerPopulation, long SupportPerGr
 {
     public static EconomyProfile For(ContentSet content, GameState state, EmpireId owner)
     {
-        if (state.RulesVersion != Rules.SpeciesVersion)
+        if (!Rules.HasSpecies(state.RulesVersion))
             return new(content.Rules.SupportPerPopulation, EconomyCalculator.SupportPerGrowthPoint, 10000, 10000,
                 content.Rules.BaseGrowth, content.Rules.MaxSurplusGrowth, null, "population");
         var sp = SpeciesRules.Definition(content,state,owner) ?? throw new InvalidOperationException("Species rules require a valid owner species.");

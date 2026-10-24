@@ -39,7 +39,7 @@ public static class GalaxyGenerator
         }
 
         SpeciesDefinition? species = null;
-        if (settings.RulesVersion == Rules.SpeciesVersion && (settings.SpeciesId is not { } speciesId || !content.Species.TryGetValue(speciesId, out species)))
+        if (Rules.HasSpecies(settings.RulesVersion) && (settings.SpeciesId is not { } speciesId || !content.Species.TryGetValue(speciesId, out species)))
             return Fail("A defined species must be selected for a species campaign.");
 
         var state = new GameState

@@ -36,7 +36,7 @@ internal static class ExpansionStateValidator
             if (v.PendingFounding is { } target)
             {
                 var planet = s.FindPlanet(target);
-                if (role is null || !role.CanFoundColony || planet is null || planet.StarId != v.StationaryStarId || !content.PlanetTypes.TryGetValue(planet.PlanetTypeId, out var type) || !type.Colonizable || type.SupportPerWorker <= 0 || (s.RulesVersion != Rules.SpeciesVersion && content.Rules.BaseColonyCapacity < v.CarriedPopulation) || s.Colonies.Any(c => c.PlanetId == target) || !(s.FindEmpire(v.EmpireId)?.Surveys.Any(o => o.Planets.Any(p => p.PlanetId == target)) ?? false)) errors.Add($"{label}: invalid founding intent.");
+                if (role is null || !role.CanFoundColony || planet is null || planet.StarId != v.StationaryStarId || !content.PlanetTypes.TryGetValue(planet.PlanetTypeId, out var type) || !type.Colonizable || type.SupportPerWorker <= 0 || (!Rules.HasSpecies(s.RulesVersion) && content.Rules.BaseColonyCapacity < v.CarriedPopulation) || s.Colonies.Any(c => c.PlanetId == target) || !(s.FindEmpire(v.EmpireId)?.Surveys.Any(o => o.Planets.Any(p => p.PlanetId == target)) ?? false)) errors.Add($"{label}: invalid founding intent.");
             }
         }
         foreach (var group in s.Vessels.Where(v => v.PendingFounding.HasValue).GroupBy(v => (v.EmpireId, v.PendingFounding)))

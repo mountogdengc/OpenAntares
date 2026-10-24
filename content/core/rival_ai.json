@@ -1,0 +1,7 @@
+{
+  "rival_ai": {
+    "algorithm_id": "expansion_v1",
+    "growth_support_workers": 1,
+    "resurvey_min_age": 3
+  }
+}

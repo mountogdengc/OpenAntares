@@ -44,9 +44,9 @@ public static partial class ContentLoader
         return Load(sources);
     }
 
-    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false)
+    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false)
     {
-        var builder = new Builder(requireSpecies);
+        var builder = new Builder(requireSpecies || requireRivals, requireRivals);
         foreach (ContentSource source in sources.OrderBy(s => s.Name, StringComparer.Ordinal))
         {
             builder.AddFile(source);
@@ -55,7 +55,7 @@ public static partial class ContentLoader
         return builder.Build();
     }
 
-    private sealed partial class Builder(bool requireSpecies)
+    private sealed partial class Builder(bool requireSpecies, bool requireRivals)
     {
         private readonly List<ContentError> _errors = new();
         private (ExpansionDefinition Value, string File)? _expansion;
@@ -94,6 +94,9 @@ public static partial class ContentLoader
                 {
                     switch (section.Name)
                     {
+                        case "rival_ai":
+                            SetOnce(ref _rivalAi, ReadRivalAi(section.Value, file), file, "rival_ai");
+                            break;
                         case "species":
                             ReadEntries(section.Value, file, section.Name, ReadSpecies, _species);
                             break;
@@ -155,6 +158,7 @@ public static partial class ContentLoader
 
             CheckExpansion();
             CheckSpecies();
+            CheckRivals();
             CheckPrerequisiteReferences();
             CheckGeneration();
             CheckTechnologyCycles();
@@ -180,6 +184,7 @@ public static partial class ContentLoader
             {
                 Vessels = _vessels.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 Expansion = _expansion?.Value,
+                RivalAi = _rivalAi?.Value,
                 Species = _species.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 Environments = _environments.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal)
             };

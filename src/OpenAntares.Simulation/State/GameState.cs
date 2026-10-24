@@ -70,6 +70,8 @@ public enum ControllerKind
 
 public sealed class EmpireState
 {
+    public string? AiPolicyId { get; set; }
+    public List<ContactState> Contacts { get; set; } = new();
     public string? SpeciesId { get; set; }
     public EmpireId Id { get; set; }
     public ControllerKind Controller { get; set; }
@@ -91,6 +93,8 @@ public sealed class EmpireState
     {
         Id = Id,
         Controller = Controller,
+        AiPolicyId = AiPolicyId,
+        Contacts = new(Contacts),
         SpeciesId = SpeciesId,
         ResearchReserve = ResearchReserve,
         ResearchTargetId = ResearchTargetId,

@@ -30,12 +30,12 @@ public static class FoundingRules
         if(planet is null) return Reject("target_not_known");
         if(!content.Vessels.TryGetValue(vessel.RoleId,out var role) || !role.CanFoundColony || vessel.CarriedPopulation != role.EmbarkPopulation || vessel.CarriedPopulation < 1 || !SpeciesRules.CanBuildVessel(content,state,issuer,role.Id)) return Reject("cannot_found");
         population=vessel.CarriedPopulation;
-        if(state.RulesVersion == Rules.SpeciesVersion && role.FoundsSealedHabitat) mode=HabitatModes.Sealed;
+        if(Rules.HasSpecies(state.RulesVersion) && role.FoundsSealedHabitat) mode=HabitatModes.Sealed;
         capacity=SpeciesRules.BaseCapacity(content,state,issuer,mode);
         if(vessel.StationaryStarId != planet.StarId) return Reject("wrong_system");
         var type=content.PlanetTypes[known.PlanetTypeId];
         if(!type.Colonizable || type.SupportPerWorker <= 0 || capacity < population) return Reject("not_colonizable");
-        if(state.RulesVersion == Rules.SpeciesVersion)
+        if(Rules.HasSpecies(state.RulesVersion))
         {
             var species=SpeciesRules.Definition(content,state,issuer);
             if(species is null || (mode==HabitatModes.Sealed && !species.AllowsSealedHabitats)) return Reject("habitat_mode_not_available");
@@ -45,7 +45,7 @@ public static class FoundingRules
         if(state.Colonies.Any(c=>c.PlanetId==target)) return Reject("target_occupied");
         if(state.Vessels.Any(v=>v.Id!=vesselId && v.EmpireId==issuer && v.PendingFounding==target)) return Reject("target_reserved");
         // An unpublished one-colony calculation frame: no entity allocation or authoritative RNG draw.
-        var colony=new ColonyState{Id=new(vesselId.Value),PlanetId=target,EmpireId=issuer,Population=population,Workforce=new(population,0,0),HabitatMode=state.RulesVersion==Rules.SpeciesVersion?mode:null};
+        var colony=new ColonyState{Id=new(vesselId.Value),PlanetId=target,EmpireId=issuer,Population=population,Workforce=new(population,0,0),HabitatMode=Rules.HasSpecies(state.RulesVersion)?mode:null};
         var frame=new GameState{RulesVersion=state.RulesVersion,Random=state.Random.Clone(),Empires=new(){owner!.Clone()},Planets=new(){new PlanetState{Id=target,StarId=planet.StarId,Orbit=known.Orbit,PlanetTypeId=known.PlanetTypeId,EnvironmentId=known.EnvironmentId}}};
         var economic=EconomyCalculator.CalculateColony(content,frame,colony);
         return new(target,mode,population,capacity,null){Economy=new(economic.SupportProduced,economic.SupportRequired,economic.GrowthEarned)};

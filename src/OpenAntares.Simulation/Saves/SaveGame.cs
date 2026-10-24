@@ -153,7 +153,7 @@ public static class SaveGame
             if (root.RequiredObject("content") is not null)
             {
                 string contentJson = document.RootElement.GetProperty("content").GetRawText();
-                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: rulesVersion == Rules.SpeciesVersion);
+                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion));
                 errors.AddRange(loaded.Errors);
                 content = loaded.Content;
             }

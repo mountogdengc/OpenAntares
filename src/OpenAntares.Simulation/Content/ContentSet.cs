@@ -19,6 +19,7 @@ public sealed record ContentSet(
 {
     public ImmutableSortedDictionary<string, VesselDefinition> Vessels { get; init; } = ImmutableSortedDictionary<string, VesselDefinition>.Empty.WithComparers(System.StringComparer.Ordinal);
     public ExpansionDefinition? Expansion { get; init; }
+    public RivalAiDefinition? RivalAi { get; init; }
     public ImmutableSortedDictionary<string, SpeciesDefinition> Species { get; init; } = ImmutableSortedDictionary<string, SpeciesDefinition>.Empty.WithComparers(System.StringComparer.Ordinal);
     public ImmutableSortedDictionary<string, EnvironmentDefinition> Environments { get; init; } = ImmutableSortedDictionary<string, EnvironmentDefinition>.Empty.WithComparers(System.StringComparer.Ordinal);
     public ImmutableSortedDictionary<string, GalaxyRegionDefinition> RegionDefinitions => Galaxy.RegionDefinitions;

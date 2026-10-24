@@ -35,3 +35,7 @@ Ruling: retain this plan's workspace and copy evidence to tracked reports rather
 Evidence is mirrored into reports/rival-execution/progress.md at each task checkpoint. No implementation task is complete yet.
 
 Baseline: normal audited restore succeeded; normal build 0 warnings/errors; 445/445 tests pass. Task 1: RED 2 missing-fixture failures; captured genuine schema4/rules3 exact source and labelled passive-Ai fixture with four unchanged-engine continuations each; GREEN focused2/full447, no failures/skips.
+Task 1: complete (commits 4d2efb5..b393131, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo → Passed!  - Failed:     0, Passed:   447, Skipped:     0, Total:   447, Duration: 606 ms - OpenAntares.Simulation.Tests.dll (net8.0))
+
+Task 2: policy-content RED unknown section, GREEN8; species feature RED4 unsupported/version-loss failures, GREEN4; metadata RED10 invalid states accepted, GREEN14 then extended coverage. Final full suite473/473 and ordinary build0 warnings/errors. Save-reader version is long bounded to int; explicit conversion fixes the predicate call, retained diagnostic log.
+Task 2: Ruling: exclude the new optional RivalAi field from the existing legacy-only prototype fixture comparison — that comparison already strips species/expansion extensions and new policy is tested separately — cost if wrong: legacy fixture does not exercise new optional policy; dedicated rival tests do.

@@ -8,7 +8,7 @@ internal static class SpeciesStateValidator
 {
     internal static void Validate(ContentSet content, GameState state, List<string> errors)
     {
-        if (state.RulesVersion != Rules.SpeciesVersion)
+        if (!Rules.HasSpecies(state.RulesVersion))
         {
             if (state.Empires.Any(e => e.SpeciesId is not null || e.Surveys.Any(o => o.Planets.Any(p => p.EnvironmentId is not null))) || state.Planets.Any(p => p.EnvironmentId is not null) || state.Colonies.Any(c => c.HabitatMode is not null))
                 errors.Add("Legacy campaigns cannot contain species/environment/habitat metadata.");

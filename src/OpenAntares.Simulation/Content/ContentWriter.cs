@@ -9,9 +9,9 @@ namespace OpenAntares.Simulation.Content;
 /// </summary>
 public static partial class ContentWriter
 {
-    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty);
-    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, rulesVersion == Rules.SpeciesVersion);
-    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies)
+    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null);
+    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), false);
+    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals)
     {
         writer.WriteStartObject();
 
@@ -152,6 +152,7 @@ public static partial class ContentWriter
             writer.WriteEndArray();
         }
         if (includeSpecies) WriteSpecies(writer,content);
+        if (includeRivals) WriteRivals(writer,content.RivalAi!);
         writer.WriteEndObject();
     }
 
