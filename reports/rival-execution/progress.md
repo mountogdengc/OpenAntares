@@ -23,10 +23,10 @@ Ruling: retain this plan's workspace and copy evidence to tracked reports rather
 
 1. Complete — genuine compatibility capture
 2. Complete — feature predicates/content/state
-3. In Progress — persistence
-4. Pending — generation
-5. Pending — contacts
-6. Pending — private queries
+3. Complete — persistence
+4. Complete — generation
+5. Complete — contacts
+6. In Progress — private queries
 7. Pending — policy
 8. Pending — atomic resolution
 9. Pending — UI/defaults
@@ -49,3 +49,6 @@ Task 4: RED17 rival setup/ID/invalid-setting failures; GREEN21 focused and full5
 Task 4: complete (commits 68ee309..5053a69, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo → Passed!  - Failed:     0, Passed:   588, Skipped:     0, Total:   588, Duration: 669 ms - OpenAntares.Simulation.Tests.dll (net8.0))
 
 Task 5: RED3 arrival failures from missing current contacts; GREEN4 encounter/privacy/persistence cases, full592/592 and normal build0 warnings/errors. Added viewer-specific first_contact/observed_colony records, fixed known identities, stale dated views and filtered reports. Corrected test-only report normalization for existing StarId dictionary keys; production serialization untouched.
+Task 5: complete (commits 5053a69..b5591cd, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo → Passed!  - Failed:     0, Passed:   592, Skipped:     0, Total:   592, Duration: 802 ms - OpenAntares.Simulation.Tests.dll (net8.0))
+
+Task 6: initial API compile failure then semantic RED8/9 (missing forecasts/seed leak); GREEN9 scoped-query cases, final full601/601. Frame is built only from permitted own projections/observations with placeholder RNG and no actual ID counter; seed scrubbed. Shared calculator results/traces, virtual building purity, stale empty-world previews, unknown/foreign/overflow rejection, nondefault cost/cargo/factor and renamed species pass.
