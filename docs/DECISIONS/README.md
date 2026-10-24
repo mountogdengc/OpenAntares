@@ -14,6 +14,6 @@ Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/0
 | [ADR-008](ADR-008-approved-species-mechanics.md) | Approve classic space-opera species mechanics and request implementation planning | Explicit design approval2026-10-23; separate plan subsequently approved for Native execution; implementation/review evidence linked in ADR-008 |
 | [ADR-009](ADR-009-rival-expansion-design-entry.md) | Select competition with another empire for the next design | Historical direction/drafting; full design subsequently approved in ADR-010 |
 
-| [ADR-010](ADR-010-approved-rival-expansion-design.md) | Approve full rival-expansion design and proceed to separate implementation planning | Explicit full-design approval 2026-10-24; plan subsequently approved; Native functional implementation complete; final gates/review in progress |
+| [ADR-010](ADR-010-approved-rival-expansion-design.md) | Approve full rival-expansion design and proceed to separate implementation planning | Explicit full-design approval 2026-10-24; plan subsequently approved; Native plan/review complete; Important corrected, two Minor details Deferred; integration remains separate |
 
 The charter remains authoritative for scope; original specs retain exact behavior. Alternative evaluations are recorded only where sources contain them. New consequential decisions need their own record and actual approval status; do not reclassify research or a proposed design-guide paragraph as accepted.

@@ -24,4 +24,4 @@ After the separate ten-task plan was presented and reviewed, the owner said “c
 
 ## Subsequent implementation
 
-Approved Native execution implemented functional Tasks1–9 on isolated codex/rival-expansion (rules4/writer5). [Rival evidence](../../reports/RIVAL_VALIDATION_2026-10-24.md) records final gates/review; earlier planning-stage descriptions above remain historical. Integration/push/release/cleanup remain separate owner actions.
+Approved Native execution completed all ten plan tasks and the independent review/correction pass on isolated codex/rival-expansion (rules4/writer5). [Rival evidence](../../reports/RIVAL_VALIDATION_2026-10-24.md) records green final gates, the Important correction and two deferred Minor details; earlier planning-stage descriptions above remain historical. Integration/push/release/cleanup remain separate owner actions.
