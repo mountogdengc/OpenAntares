@@ -1,6 +1,6 @@
 # Rival expansion validation — 2026-10-24
 
-Status: functional implementation and both complete regression gates pass, including the regression-first startup Load correction. The single independent review is complete; its sole Important issue is regression-fixed. Two Minor deviations remain Deferred. The branch is a local-integration candidate with disclosed limits, not an exact full-spec/release acceptance.
+Current status: the original implementation, startup Load correction and both follow-up details are Verified for the bounded local automated contract. The follow-up has648 simulation tests, all four graphical gates and one fresh independent review with no findings. See [correction closure](RIVAL_POLISH_2026-10-24.md). Earlier runs/review dispositions below remain dated history; human/release acceptance is open.
 
 ## Scope and source
 
@@ -41,18 +41,18 @@ All twelve seed42 campaigns are generated unchanged through the actual new-game 
 
 Every loop includes real human settlement, contact report, pending move/transit/founding saves through ordinary dialogs, canonical comparison after each actual End Turn, and three future turns equal after the completed-campaign reload. Completion turns are before the final three continuation turns. The approved80-turn bound concerns expansion/contact; per-species research is witnessed in Small campaigns, while actual other-map counts are retained. This is core fixture evidence, not universal balance/performance.
 
-## Acceptance mapping (with disclosed exceptions)
+## Current acceptance mapping (follow-up closure included)
 
 | Child criterion | Status | Evidence |
 | --- | --- | --- |
-| RIV-AC-001 Setup | In Progress | RivalGenerationTests:16 pairings×3 sizes, explicit count/species errors; actual setup defaults, Solo, mirrors, independent selections, single/empty definitions and generation failure; alternate-content distinct fallback differs from spec and is a deferred Minor |
+| RIV-AC-001 Setup | Verified | RivalGenerationTests:16 pairings×3 sizes, explicit count/species errors; actual setup defaults, Solo, mirrors, independent selections, single/empty definitions and generation failure; follow-up verifies literal alternate-content initial pairs, real submission, singleton/empty definitions, renamed/reordered content and later manual mirrors |
 | RIV-AC-002 Generation | Verified | Solo equality to rules3 facts/IDs/RNG, top-third rank/one bounded draw, single extra override, repeated seeds/no home leak |
 | RIV-AC-003 Fair economy | Verified | RivalPolicyTests exact four opening traces, ordinary costs/cargo/parent-daughter conservation, renamed/edited definitions and scoped shared forecasts |
 | RIV-AC-004 Viability | Verified | Generated real projects/research/second colonies for all four species; Peldra bridge/Harl recovery/Sulan modes/Wenth base+extended tests; no-candidate waiting unit fixtures; labelled native/sealed/extended UI fixtures |
 | RIV-AC-005 Information | Verified | RivalPlanningQueryTests/RivalPolicyTests unseen-state invariance, scrubbed seed/counters; UI labels/tooltips invariant under foreign overflowing reserves/private orders |
 | RIV-AC-006 Transaction | Verified | RivalTransactionTests final/nonfinal/no-op/stale Ready, two humans/multiple AI, rejected/bound/issuer/count/exception plans, output/ID/final validation rollback preserve original references/bytes/contacts/readiness/RNG |
 | RIV-AC-007 Travel/race | Verified | New-vessel wait, snapshot maturity/capacity, same-planet lower-ID winner/loser cargo, distinct planets and stale-target retarget; labelled simultaneous UI race |
-| RIV-AC-008 Contacts | In Progress | RivalContactTests current/unknown/stale identity retention and viewer-only events, save corruption rejection; contact/culture/dated ownership UI passes; report omits exact identity/planet detail, a deferred Minor |
+| RIV-AC-008 Contacts | Verified | RivalContactTests current/unknown/stale identity retention and viewer-only events, save corruption rejection; contact/culture/dated ownership UI passes; follow-up verifies observed species/culture, captured orbit/date, several worlds in one system, ship-only null planet, viewer filtering and dated hidden-state invariance |
 | RIV-AC-009 Compatibility | Verified | Exhaustive eleven-pair matrix; actual pre-change rules3/passive-Ai captures and four canonical future states; legacy1/2 traces; omission/corrupt fields/failed load+write, frozen Species UI loops |
 | RIV-AC-010 Integrated | Verified | Twelve generated loops, actual settings/controls/dialogs/future equality; eight all-human-species/Solo continuations; labelled Sulan/Wenth/race/renamed policy0/9 fixtures |
 | RIV-AC-011 Retained gates | Verified | Both four-scenario gates green, including final second gate after startup correction; ordinary metadata excludes all harnesses |
@@ -81,3 +81,7 @@ The review's Important long-error recovery defect was reproduced with eighty act
 ## Subsequent owner-authorized local integration
 
 The owner selected option1; main fast-forwarded to reviewed rival head70e91d9. [Fresh combined-main verification](RIVAL_INTEGRATION_2026-10-24.md) passed642 simulation,1115 Rival,1194 Species,275 Expansion and466 Legacy assertions+27 geometry; normal build0warnings/errors, all four harness types excluded, engine diagnostics0. Exact owner changes and all recovery/worktrees retained. Two Minor details and human/platform/release limits are unchanged. No push/release/cleanup. Earlier branch-stage integration-pending descriptions above remain historical.
+
+## Follow-up closure — 2026-10-24
+
+Both original Minor deviations are now corrected, with regression-first evidence and a fresh independent whole-branch review of69f7e1c..66e7548: no Critical/Important/Minor findings. Simulation648/648 and Rival1146 assertions+12 provenance, Species1194, Expansion275, Legacy466+27 geometry pass; normal build0 warnings/errors and four harness types excluded. RIV-AC-001/008 and M4-I are Verified for local automated scope; broader REQ-017 stays In Progress. [Correction report](RIVAL_POLISH_2026-10-24.md) supplies exact evidence and current integration state. Prior review/deferred descriptions above are historical, preserved without rewriting raw reviews.

@@ -6,12 +6,12 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Two rival follow-up corrections implemented; final gates/review in progress |
-| Project health | All local automated gates pass; two minor specification deviations and human/release acceptance remain open |
+| Current phase | Rival corrections verified and independently reviewed; local integration next |
+| Project health | All bounded rival child criteria verified; human/release acceptance remains open |
 | Active milestone | M4-I — Rival-expansion implementation |
 | Current version | Not Released; main rules4/writer5; old rules1/2/3 retained |
 | Last updated | 2026-10-24, America/Denver |
-| Implementation readiness | Integrated main69f7e1c retained; bounded corrections isolated on codex/rival-polish for final gates/review |
+| Implementation readiness | Reviewed corrections at66e7548; retained owner option1 local integration next |
 
 ## 2. Current state
 
@@ -21,7 +21,7 @@ Implemented on `codex/species-mechanics`, then fast-forwarded into local `main` 
 
 Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execution ledger](reports/species-execution/progress.md), [final review/handoff](reports/SPECIES_FINAL_REVIEW_2026-10-23.md). Expansion integration is historical and complete under separate authorization. The owner selected local integration(option1); main now includes species head3f25a14. [Integration verification](reports/SPECIES_INTEGRATION_2026-10-24.md) records fresh main gates and exact edit preservation. No remote push/release/cleanup was performed.
 
-**Current rival work:** The owner approved the full design and ten-task plan, then retained Native execution. All ten Native plan tasks and the independent review/correction pass are complete on isolated `codex/rival-expansion`: fair expansion policy through ordinary commands/permitted facts, scoped forecasts, atomic publication, observed contacts and rules4/writer5 with eleven explicit version pairs. Old rules1/2/3 and passive Ai3 continuations remain unchanged. See [rival validation](reports/RIVAL_VALIDATION_2026-10-24.md), [ledger](reports/rival-execution/progress.md) and [review](reports/RIVAL_FINAL_REVIEW_2026-10-24.md). Final four-scenario regression passes; the sole Important finding is corrected. Two minor deviations remain Deferred: alternative-content initial rival fallback and encounter-report identity/orbit detail. RIV-AC-001/008 remain In Progress for those narrow details; other executed child criteria are Verified. The owner selected option1; local main fast-forwarded to70e91d9 with owner edits preserved. Fresh combined verification passes; see [integration evidence](reports/RIVAL_INTEGRATION_2026-10-24.md).
+**Current rival work:** The owner approved the full design and ten-task plan, then retained Native execution. All ten Native plan tasks and the independent review/correction pass are complete on isolated `codex/rival-expansion`: fair expansion policy through ordinary commands/permitted facts, scoped forecasts, atomic publication, observed contacts and rules4/writer5 with eleven explicit version pairs. Old rules1/2/3 and passive Ai3 continuations remain unchanged. See [rival validation](reports/RIVAL_VALIDATION_2026-10-24.md), [ledger](reports/rival-execution/progress.md) and [review](reports/RIVAL_FINAL_REVIEW_2026-10-24.md). Final four-scenario regression passes; the sole Important finding is corrected. Both original Minor deviations are now corrected and independently reviewed with no findings at66e7548. All twelve RIV child criteria and M4-I are Verified for the bounded local automated contract. [Follow-up evidence](reports/RIVAL_POLISH_2026-10-24.md) records648 simulation and all four graphical gates. Parent REQ-017 stays In Progress. The owner selected option1; local main fast-forwarded to70e91d9 with owner edits preserved. Fresh combined verification passes; see [integration evidence](reports/RIVAL_INTEGRATION_2026-10-24.md).
 
 ## 3. Milestone progress
 
@@ -36,7 +36,7 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 | M3-I | Species implementation | Verified | Local automated criteria, independent review/corrections and authorized main integration verified; human/release limits remain |
 | M4-D | Rival-expansion design | Verified | Builder check and explicit full owner approval in ADR-010; design scope only |
 | M4-P | Rival implementation plan | Verified | Owner “continue” after plan presentation; Native retained |
-| M4-I | Rival implementation | In Progress | Ten-task plan/review complete; source ce6c29c, all automated gates green; two minor details Deferred, so exact child acceptance remains open |
+| M4-I | Rival implementation | Verified | All twelve child criteria in local automated scope, both follow-up details corrected;648 simulation/four scenarios/fresh review pass; human/release limits remain |
 | M-Later | Remaining strategic systems | Deferred | Rest of REQ-017 envelope; no inferred combat/diplomacy scope |
 | M-Delivery | Cross-platform/release | Not Started | Windows-only local evidence |
 
@@ -44,7 +44,7 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 
 Preserve ADR-001..004 architecture/JSON/determinism/spiral decisions, ADR-005 human deferral, ADR-006 historical expansion separation and ADR-008 approved species rules. Implementation rulings are retained in the execution ledger. The approved bounded expansion AI is implemented; no new architecture, dependencies, portraits, warfare, diplomacy or custom civilizations were added.
 
-Open: two deferred minor details, physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
+Open: physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
 
 ## 5. Blockers and risks
 
@@ -71,16 +71,17 @@ Counts derive from the17 parent rows in [SPECIFICATIONS.md](docs/SPECIFICATIONS.
 | Deferred | 1 |
 | Total | 17 |
 
-Fresh integrated-main verification,2026-10-24: **445 simulation tests passed**,0 failed/skipped; **1,181 species runtime assertions**, **275 frozen expansion assertions**, **466 legacy assertions plus27 geometry observations**. All scenarios passed with zero final engine diagnostics; ordinary rebuild0 warnings/errors. Assembly metadata excludes all three validation classes. Species/expansion/legacy evidence retains29/10/16 PNGs and61/20/11 QA paths. Genuine old saves and four-turn canonical rules2 continuation pass.
+Fresh correction-branch verification,2026-10-24: **648 simulation tests passed**,0 failed/skipped; **1,146 Rival assertions+12 provenance rows**, **1,194 Species assertions**, **275 Expansion assertions**, **466 Legacy assertions+27 geometry observations**. All processes exit0; engine diagnostics0. Normal rebuild0 warnings/errors; metadata excludes all four harness types. Exact counts/QA paths/PNG inspection in [follow-up report](reports/RIVAL_POLISH_2026-10-24.md). Single independent review69f7e1c..66e7548 found no issues. Earlier integrated-main counts remain historical in their reports.
 
-The harness invokes real controls/signals/handlers and shared commands in process. Human comprehension, physical OS input, comfortable small-window reading, balance, cross-platform equality and release acceptance remain unverified. Earlier branch445/1181/275/466 results remain retained separately; today’s main counts are from new runs. Historical281/275/466 baseline results remain historical.
+The harness invokes controls/signals/handlers in process. Human comprehension, physical OS input, comfortable reading, balance, cross-platform equality and release acceptance remain unverified.
 
 ## 7. Repository and preservation
 
 | Field | Current value |
 | --- | --- |
-| Primary | `F:/Projects-PCGames/OpenAntares`, `main` fast-forwarded to reviewed rival head `70e91d9c4f70dfcdba96e38fa7ae9822fae2cdc2`; owner prose and peaceful-mode status/backlog retained |
-| Current rival worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/rival-expansion`, `codex/rival-expansion`; base4d2efb5; all ten tasks complete; reviewed e36d836, corrected source ce6c29c1cf080893067ac96a43ca1e2366dd97e5 |
+| Primary | `F:/Projects-PCGames/OpenAntares`, `main` at69f7e1c; reviewed correction source66e7548 on codex/rival-polish, local integration next; owner changes exact |
+| Current correction worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/rival-polish`; base69f7e1c; no review findings |
+| Retained integrated rival worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/rival-expansion`, `codex/rival-expansion`; base4d2efb5; all ten tasks complete; reviewed e36d836, corrected source ce6c29c1cf080893067ac96a43ca1e2366dd97e5 |
 | Retained integrated species worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/species-mechanics` |
 | Species branch / baseline | `codex/species-mechanics` / `e32ada6d1c8fbef4fadd620a93139c6188447c27` |
 | Checkpoints | Tasks1..8:40915c7,c2d9bd7,d0b1cc0,e4538f8,94ac4db,8c1a546,0470a11,7449d34; Task9:bb9a2c5 |
@@ -95,4 +96,4 @@ Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad
 
 ## 8. Next concrete action
 
-Complete final graphical gates, the single fresh review/correction pass and verification for the two former Minor details. [Follow-up evidence](reports/RIVAL_POLISH_2026-10-24.md), [plan](docs/superpowers/plans/2026-10-24-rival-polish.md). The corrections restore approved alternative defaults and observed species/orbit/date reporting; no new gameplay design or save/rules change. Primary main remains69f7e1c while implementation is isolated on codex/rival-polish. Retain the owner's selected local integration workflow after green review/gates, preserving owner changes/recovery/worktrees. No push/release/cleanup. Human, balance, platform and release limits remain open.
+Perform the retained owner-selected local main integration after the fresh exact owner snapshot. Reverify main simulation, affected Rival scenario and normal assembly metadata; preserve owner prose/backlog, six worktrees, stashes and all QA evidence. [Follow-up evidence](reports/RIVAL_POLISH_2026-10-24.md), [plan](docs/superpowers/plans/2026-10-24-rival-polish.md). No further feature implementation is included. Human, balance, platform and release gaps remain open.

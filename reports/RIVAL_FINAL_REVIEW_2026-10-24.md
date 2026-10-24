@@ -16,3 +16,7 @@ Final corrected source: `ce6c29c1cf080893067ac96a43ca1e2366dd97e5`. The Importan
 ## Subsequent owner-authorized local integration
 
 The owner selected option1; main fast-forwarded to reviewed rival head70e91d9. [Fresh combined-main verification](RIVAL_INTEGRATION_2026-10-24.md) passed642 simulation,1115 Rival,1194 Species,275 Expansion and466 Legacy assertions+27 geometry; normal build0warnings/errors, all four harness types excluded, engine diagnostics0. Exact owner changes and all recovery/worktrees retained. Two Minor details and human/platform/release limits are unchanged. No push/release/cleanup. Earlier branch-stage integration-pending descriptions above remain historical.
+
+## Follow-up closure — 2026-10-24
+
+Both original Minor deviations are now corrected, with regression-first evidence and a fresh independent whole-branch review of69f7e1c..66e7548: no Critical/Important/Minor findings. Simulation648/648 and Rival1146 assertions+12 provenance, Species1194, Expansion275, Legacy466+27 geometry pass; normal build0 warnings/errors and four harness types excluded. RIV-AC-001/008 and M4-I are Verified for local automated scope; broader REQ-017 stays In Progress. [Correction report](RIVAL_POLISH_2026-10-24.md) supplies exact evidence and current integration state. Prior review/deferred descriptions above are historical, preserved without rewriting raw reviews.

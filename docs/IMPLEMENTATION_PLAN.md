@@ -23,7 +23,7 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M3-I | Implement reviewed species slice | Approved M3-P; preserve old campaigns and core boundaries | SPC-AC-001..009 and retained regressions; independent review | Verified for local automated acceptance; independent review/correction pass complete |
 | M4-D | Define bounded rival expansion; first REQ-017 child | Full design accepted in ADR-010 after builder check | RIV-AC-012 owner approval satisfied | Verified for design scope |
 | M4-P | Plan rival implementation | Approved M4-D; separate ten-task plan written/self-reviewed | Owner continue; Native retained | Verified |
-| M4-I | Implement bounded rival slice | Approved M4-P; preserve old campaigns and scoped planning | RIV-AC-001..011, retained regressions and final independent review | In Progress; plan/review complete, two minor acceptance details Deferred |
+| M4-I | Implement bounded rival slice | Approved M4-P; preserve old campaigns and scoped planning | RIV-AC-001..011, retained regressions and final independent review | Verified for bounded local automated acceptance; both follow-up details reviewed and verified |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -31,7 +31,8 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-The ten-task rival Native plan and single independent review/correction pass are complete on `codex/rival-expansion`, source ce6c29c. Final642 simulation and all four runtime gates pass; the sole Important review issue is corrected. Two narrow Minor deviations remain Deferred, so RIV-AC-001/008 remain In Progress for exact fallback/report detail while the other child contracts have evidence. See [validation](../reports/RIVAL_VALIDATION_2026-10-24.md), [review](../reports/RIVAL_FINAL_REVIEW_2026-10-24.md) and [status](../PROJECT_STATUS.md). The owner selected option1 and local main now includes reviewed head70e91d9; fresh combined verification passes; see the integration report and current status. Owner edits/backlog, saves/evidence/recovery/worktrees are preserved; no push/release/cleanup.
+The two follow-up corrections are Verified for the bounded local automated contract at reviewed source66e7548690be2fde6328bdc0f55faac84c874a22. All twelve RIV child criteria now have executed evidence; M4-I is Verified in that scope. Parent REQ-017 remains In Progress. [Correction evidence](../reports/RIVAL_POLISH_2026-10-24.md) records648 simulation and all four graphical gates, one fresh independent review with no findings, and unchanged human/platform/release limits. Retained owner option1 selects local main integration after exact recovery/preservation checks. No push/release/cleanup.
+
 
 ## Risks and autonomy
 

@@ -1,6 +1,6 @@
 # Rival expansion: another civilization in the galaxy
 
-**Status: Full design approved 2026-10-24 in [ADR-010](../../DECISIONS/ADR-010-approved-rival-expansion-design.md). RIV-AC-012 is satisfied; no rival implementation yet. Separate [implementation plan](../plans/2026-10-24-rival-expansion.md) awaits owner review.**
+**Status: Full design approved 2026-10-24 in [ADR-010](../../DECISIONS/ADR-010-approved-rival-expansion-design.md). RIV-AC-012 is satisfied. The subsequently approved implementation and two-detail follow-up are complete and independently reviewed; all twelve child criteria are Verified for the local automated contract. See [follow-up closure](../../../reports/RIVAL_POLISH_2026-10-24.md). The prospective rules below remain the approved contract; human/release acceptance stays open.**
 
 REQ-017 / design milestone M4-D complete. The owner first selected competition with another empire in [ADR-009](../../DECISIONS/ADR-009-rival-expansion-design-entry.md), then approved this complete document after its fresh builder check in ADR-010. The accepted gameplay contract below governs the separate plan; it is not implemented functionality.
 

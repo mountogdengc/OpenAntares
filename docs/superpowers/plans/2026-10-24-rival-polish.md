@@ -37,8 +37,8 @@
 - [x] RED: typed report regression checks observed identity/orbit/date and first-contact null orbit; declarations may follow initial compile RED, then require observed semantic RED. Add actual report-dialog fixture with two observed planets in one system and hidden/later mutation invariance. Run focused RivalContactTests then graphical Rival in fresh directories; expect missing metadata/wording failures.
 - [x] GREEN: capture orbit at observation, project known identity, render culture/species/star/orbit/date with observational wording and safe unknown fallback. Keep first-contact prefix used by retained scenario. Run focused then full simulation and normal build; expect all green.
 - [x] Full gate: sequential Rival, Species, Expansion, Legacy scenes into unique rival-polish-final directory, normal rebuild and metadata exclusions. Inspect real result counts/logs/representative PNGs. No OS-input/readability/balance/platform/release claim.
-- [ ] Obtain one fresh read-only whole-branch review base69f7e1c..HEAD using all five focus cases and rulings. Re-grade and resolve Important/Critical regression-first; record any Minor/declined items explicitly, no re-review.
-- [ ] Reconcile RIV-AC-001/008 and M4-I only after actual gates/review; keep parent REQ-017 In Progress. Update PROJECT_STATUS with exact source, preservation and next integration decision; commit evidence/handoff.
+- [x] Obtain one fresh read-only whole-branch review base69f7e1c..HEAD using all five focus cases and rulings. Re-grade and resolve Important/Critical regression-first; record any Minor/declined items explicitly, no re-review.
+- [x] Reconcile RIV-AC-001/008 and M4-I only after actual gates/review; keep parent REQ-017 In Progress. Update PROJECT_STATUS with exact source, preservation and next integration decision; commit evidence/handoff.
 
 ## Authorization and scope
 
