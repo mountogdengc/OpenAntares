@@ -25,3 +25,7 @@ After the separate ten-task plan was presented and reviewed, the owner said “c
 ## Subsequent implementation
 
 Approved Native execution completed all ten plan tasks and the independent review/correction pass on isolated codex/rival-expansion (rules4/writer5). [Rival evidence](../../reports/RIVAL_VALIDATION_2026-10-24.md) records green final gates, the Important correction and two deferred Minor details; earlier planning-stage descriptions above remain historical. Integration/push/release/cleanup remain separate owner actions.
+
+## Subsequent local integration authorization
+
+After the completed ten-task plan, single review/correction pass and disclosed two Minor deviations were presented, the owner chose option1 (merge locally). Main fast-forwarded from4d2efb5 to reviewed head70e91d9 on2026-10-24. Exact owner changes and all worktrees/recovery were retained. [Fresh combined integration evidence](../../reports/RIVAL_INTEGRATION_2026-10-24.md) records verification; remote publication, release and cleanup remain separate. The original design approval and minor acceptance statuses are unchanged.

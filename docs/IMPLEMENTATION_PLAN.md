@@ -31,7 +31,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-The ten-task rival Native plan and single independent review/correction pass are complete on `codex/rival-expansion`, source ce6c29c. Final642 simulation and all four runtime gates pass; the sole Important review issue is corrected. Two narrow Minor deviations remain Deferred, so RIV-AC-001/008 remain In Progress for exact fallback/report detail while the other child contracts have evidence. See [validation](../reports/RIVAL_VALIDATION_2026-10-24.md), [review](../reports/RIVAL_FINAL_REVIEW_2026-10-24.md) and [status](../PROJECT_STATUS.md). Present the reviewed candidate for a separate owner integration decision. Main4d2efb5, owner edits/backlog, saves/evidence/recovery/worktrees remain unchanged; no push/release/cleanup.
+The ten-task rival Native plan and single independent review/correction pass are complete on `codex/rival-expansion`, source ce6c29c. Final642 simulation and all four runtime gates pass; the sole Important review issue is corrected. Two narrow Minor deviations remain Deferred, so RIV-AC-001/008 remain In Progress for exact fallback/report detail while the other child contracts have evidence. See [validation](../reports/RIVAL_VALIDATION_2026-10-24.md), [review](../reports/RIVAL_FINAL_REVIEW_2026-10-24.md) and [status](../PROJECT_STATUS.md). The owner selected option1 and local main now includes reviewed head70e91d9; fresh combined verification passes; see the integration report and current status. Owner edits/backlog, saves/evidence/recovery/worktrees are preserved; no push/release/cleanup.
 
 ## Risks and autonomy
 
