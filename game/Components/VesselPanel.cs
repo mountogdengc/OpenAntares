@@ -18,7 +18,7 @@ public partial class VesselPanel : VBoxContainer
         foreach (Node child in GetChildren()) { RemoveChild(child); child.QueueFree(); }
         Visible = Rules.HasExpansion(view.RulesVersion); if (!Visible) return;
         AddChild(new HSeparator()); AddChild(new Label { Text = "Expeditions", ThemeTypeVariation = "HeaderLabel" });
-        foreach (var foreign in view.ForeignVessels) AddChild(Text($"Observed {foreign.EmpireId}: {content.Vessels[foreign.RoleId].Name} at {view.Stars.First(s => s.Chart.Id == foreign.StarId).Chart.Name}"));
+        foreach (var foreign in view.ForeignVessels) AddChild(Text($"Observed {view.Contacts.FirstOrDefault(c=>c.OtherEmpireId==foreign.EmpireId)?.CultureName ?? foreign.EmpireId.ToString()}: {content.Vessels[foreign.RoleId].Name} at {view.Stars.First(s => s.Chart.Id == foreign.StarId).Chart.Name} (turn {view.Turn})"));
         if (view.Vessels.Length == 0) { AddChild(Text("No vessels. Build a scout or settler in a colony.")); return; }
         var picker = new OptionButton { SizeFlagsHorizontal = SizeFlags.ExpandFill, Name = "VesselPicker" }; AddChild(picker);
         foreach (var unit in view.Vessels) { picker.AddItem($"{content.Vessels[unit.RoleId].Name} {unit.Id.Value}"); picker.SetItemMetadata(picker.ItemCount - 1, unit.Id.Value); if (unit.Id == selected) picker.Select(picker.ItemCount - 1); }

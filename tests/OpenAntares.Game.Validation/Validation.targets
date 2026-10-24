@@ -4,5 +4,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)GraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExpansionGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpeciesGraphicalValidation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RivalGraphicalValidation.cs" />
   </ItemGroup>
 </Project>

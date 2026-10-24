@@ -8,7 +8,7 @@ namespace OpenAntares.Game.Components;
 public partial class StarPanel : VBoxContainer
 {
     public event Action<PlanetId>? PlanetSelected;
-    public void ShowStar(ContentSet content, StarView view)
+    public void ShowStar(ContentSet content, StarView view, EmpireView? empire = null)
     {
         foreach (Node child in GetChildren()) { RemoveChild(child); child.QueueFree(); }
         AddChild(new Label { Text = view.Chart.Name, ThemeTypeVariation = "HeaderLabel" });
@@ -28,7 +28,7 @@ public partial class StarPanel : VBoxContainer
                 AddChild(Wrapped(potential.NativeHabitatAllowed ? $"Native colony: base capacity {potential.NativeCapacity}." : "Native colony: unsuitable here."));
                 if (potential.SealedCapacity is { } capacity) AddChild(Wrapped(potential.SealedHabitatAllowed ? $"Sealed harbor: base capacity {capacity}." : "Sealed harbor: unavailable here."));
             }
-            if (planet.OwnerId is { } owner) AddChild(Wrapped($"Colony observed: {owner}"));
+            if (planet.OwnerId is { } owner) AddChild(Wrapped($"Colony observed: {empire?.Contacts.FirstOrDefault(c=>c.OtherEmpireId==owner)?.CultureName ?? owner.ToString()} (turn {view.LastObservedTurn})"));
             var button = new Button { Text = $"Select planet {planet.Orbit}", TooltipText = "Select this exact world for colony management or founding." }; button.Pressed += () => PlanetSelected?.Invoke(planet.Id); AddChild(button);
         }
     }

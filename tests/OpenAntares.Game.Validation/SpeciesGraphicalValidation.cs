@@ -52,7 +52,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         Check(picker!.GetSelectedMetadata().AsString()=="harl","Harl is visibly selected by default");
         Check(Descendants<Label>(setup).Any(l=>l.Name=="SpeciesSummary" && l.Text.Length>60),"Starting tradeoffs and flavor appear before Start");
         Press(Button(setup,"Start"));await Frames();var screen=One<GameScreen>(main);var session=Session(screen);
-        Check(session.State.RulesVersion==3 && session.State.Empires[0].SpeciesId=="harl","Actual Start launches a rules-3 Harl campaign");
+        Check(session.State.RulesVersion==4 && session.State.Empires[0].SpeciesId=="harl","Actual current Start launches a rules-4 Harl campaign");
         await Capture("default-harl-start");RemoveChild(main);main.QueueFree();await Frames();
     }
     private async Task AlternativeContent()
@@ -63,7 +63,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         var picker=Descendants<OptionButton>(setup).Single(p=>p.Name=="SpeciesPicker");
         Check(picker.ItemCount==3 && picker.GetSelectedMetadata().AsString()=="peldra","Valid content without Harl selects the ordinal first species");
         NewGameSettings? selected=null;setup.StartRequested+=settings=>selected=settings;setup.Configure("small",42);Press(Button(setup,"Start"));await Frames();
-        Check(selected?.SpeciesId=="peldra" && selected.RulesVersion==3,"Alternative-content Start passes its actual species identity");
+        Check(selected?.SpeciesId=="peldra" && selected.RulesVersion==4,"Alternative-content Start passes its actual species identity");
         RemoveChild(setup);setup.QueueFree();await Frames();
         var empty=new NewGameScreen(core with{Species=ImmutableSortedDictionary<string,SpeciesDefinition>.Empty}){Theme=GD.Load<Theme>("res://game/theme/openantares_theme.tres")};AddChild(empty);await Frames();
         Check(Button(empty,"Start").Disabled,"Missing species disables New Game");bool load=false;empty.LoadRequested+=()=>load=true;Press(Button(empty,"Load Game"));Check(load,"Missing species still permits Load Game");
@@ -110,7 +110,10 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
             GetTree().Root.Size=new(800,600);await Frames();Check(InViewport(Button(setup,"Start")) && InViewport(Descendants<OptionButton>(setup).Single(p=>p.Name=="SpeciesPicker")),label+": setup controls fit the smaller window");
             await Capture(label+"-setup-800");GetTree().Root.Size=new(1920,1080);await Frames();
         }
-        Press(Button(setup,"Start"));await Frames();var screen=One<GameScreen>(main);var session=Session(screen);var viewer=session.State.Empires[0].Id;var source=session.State.Colonies[0].Id;
+        Press(Button(setup,"Start"));await Frames();
+        var frozen=GalaxyGenerator.CreateNewGame(ContentFiles.LoadCore().Content!,new(size,42,3,species));
+        string frozenName=$"qa-{_runId}-{label}-rules3";string frozenPath=SaveFiles.PathFor(frozenName);Check(!File.Exists(frozenPath),label+": frozen save is unique");SaveGame.WriteFile(frozenPath,ContentFiles.LoadCore().Content!,frozen.State!);_savePaths.Add(frozenPath);
+        var screen=await LoadThroughDialog(main,frozenName);var session=Session(screen);var viewer=session.State.Empires[0].Id;var source=session.State.Colonies[0].Id;
         Check(session.State.RulesVersion==3 && session.State.Empires[0].SpeciesId==species,label+": actual selected species starts");
         var opening=session.View(viewer);var scout=opening.Vessels.Single();var home=opening.Stars.Single(s=>s.Chart.Id==scout.StationaryStarId);
         var target=opening.Stars.Where(s=>s.Chart.Id!=home.Chart.Id).OrderByDescending(s=>TravelCalculator.Duration(home.Chart.X,home.Chart.Y,s.Chart.X,s.Chart.Y,300)).ThenBy(s=>s.Chart.Id).First();

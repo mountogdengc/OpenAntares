@@ -24,6 +24,7 @@ public partial class GameScreen : VBoxContainer
     private readonly StarPanel _starPanel = new();
     private readonly ColonyPanel _colonyPanel = new();
     private readonly Button _endTurn = new();
+    private readonly ContactsPanel _contacts = new();
     private readonly ColonyList _colonies = new();
     private readonly VesselPanel _vessels = new();
     private ColonyId? _selectedColony;
@@ -103,6 +104,7 @@ public partial class GameScreen : VBoxContainer
         scroll.Resized += () => KeepFocusVisibleAfterResize(scroll);
         var sideColumn = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         scroll.AddChild(sideColumn);
+        sideColumn.AddChild(_contacts);
         sideColumn.AddChild(_colonies);
         _colonies.ColonySelected += SelectColony;
         sideColumn.AddChild(_starPanel);
@@ -172,6 +174,7 @@ public partial class GameScreen : VBoxContainer
         _endTurn.Text = view.Research.Ready ? "Waiting for others (cancel)" : "End Turn";
         _researchBar.ShowEmpire(_session.Content, view.Research);
         _map.ShowGalaxy(view.Galaxy);
+        _contacts.Show(view);
         if (view.RulesVersion == Rules.LegacyVersion) ShowMessage("Legacy colony game - start a new game for exploration", false);
         if (_map.Selected is not { } selected) return;
         var star = view.Stars.Single(s => s.Chart.Id == selected);
@@ -184,7 +187,7 @@ public partial class GameScreen : VBoxContainer
         var colony = view.Colonies.FirstOrDefault(c => c.PlanetId == _selectedPlanet && c.StarId == selected);
         _selectedColony = colony?.Id;
         if (colony is not null) _selectedPlanet = colony.PlanetId;
-        _starPanel.ShowStar(_session.Content, star);
+        _starPanel.ShowStar(_session.Content, star, view);
         _colonies.ShowColonies(view, _selectedColony);
         if (colony is null) _colonyPanel.Clear(); else _colonyPanel.ShowColony(_session.Content, colony);
         if (!view.Vessels.Any(v => v.Id == _selectedVessel)) _selectedVessel = view.Vessels.Length > 0 ? view.Vessels[0].Id : null;

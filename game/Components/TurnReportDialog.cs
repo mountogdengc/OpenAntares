@@ -79,6 +79,11 @@ public partial class TurnReportDialog : AcceptDialog
             var view = new Button { Text = e.Colony.HasValue && e.Kind == "colony_founded" ? "View colony" : e.Vessel.HasValue && e.Kind == "vessel_completed" ? "View vessel" : "View system" };
             view.Pressed += () => { Hide(); if (e.Colony is { } colony && e.Kind == "colony_founded") ColonyRequested?.Invoke(colony); else if (e.Vessel is { } vessel && e.Kind == "vessel_completed") VesselRequested?.Invoke(vessel); else if (e.Star is { } destination) StarRequested?.Invoke(destination); }; _body.AddChild(view);
         }
+        foreach (var encounter in report.EncounterEvents)
+        {
+            string location = report.StarNames.TryGetValue(encounter.StarId,out var name) ? name : "system";
+            _body.AddChild(Wrapped(encounter.Kind == "first_contact" ? $"First contact observed at {location} on turn {encounter.ObservedTurn}." : $"Foreign colony observed at {location} on turn {encounter.ObservedTurn}.","SubtleLabel"));
+        }
         PopupCentered(new Vector2I(580, 440));
     }
 
