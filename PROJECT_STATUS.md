@@ -6,9 +6,9 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Species milestone integrated into local main; next milestone selection remains open |
+| Current phase | Next milestone selection: readiness assessment prepared; species remains integrated |
 | Project health | All local automated gates pass; human/release acceptance remain open |
-| Active milestone | M3-I complete and locally integrated |
+| Active milestone | M3-I complete; next milestone direction under review |
 | Current version | Not Released; new games rules3, writer schema4; legacy rules1/2 retained |
 | Last updated | 2026-10-24, America/Denver |
 | Implementation readiness | All ten tasks/review complete; owner-authorized local integration freshly verified |
@@ -89,7 +89,7 @@ Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad
 
 ## 8. Immediate next action
 
-Select the next bounded milestone from the charter and establish its specification/acceptance before new gameplay implementation. Species implementation, review and local integration are complete; do not repeat those gates. The owner’s option1 authorizes this local merge only; remote push/release/worktree cleanup remain separate.
+Read the [next-milestone readiness assessment](reports/NEXT_MILESTONE_READINESS_2026-10-24.md). Rival expansion is the agent-recommended candidate; deeper colony/research choices are an alternative. The owner’s desired next-turn experience remains open, so no new milestone is selected or approved. Establish its full specification/acceptance before implementation. Species implementation, review and local integration are complete; do not repeat those gates. The owner’s option1 authorizes this local merge only; remote push/release/worktree cleanup remain separate.
 
 ## 9. Agent handoff
 
