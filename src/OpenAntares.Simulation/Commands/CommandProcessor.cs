@@ -15,6 +15,13 @@ public static partial class CommandProcessor
 {
     public static CommandOutcome Execute(ContentSet content, GameState state, Command command)
     {
+        var result = ExecuteCore(content, state, command);
+        if (result.Changed && Rules.HasDevelopment(state.RulesVersion)) ApplyManualIntervention(result.State, command);
+        return result;
+    }
+
+    private static CommandOutcome ExecuteCore(ContentSet content, GameState state, Command command)
+    {
         EmpireState? issuer = state.FindEmpire(command.Issuer);
         if (issuer is null)
         {
@@ -29,6 +36,7 @@ public static partial class CommandProcessor
 
         return command switch
         {
+            DevelopmentCommand c => ExecuteDevelopment(content, state, issuer, c),
             SetProductionTargetCommand c => SetProductionTarget(content, state, issuer, c),
             SetFoundingOrderCommand c => SetFoundingOrder(content, state, c),
             SetMoveOrderCommand c => SetMoveOrder(content, state, c),

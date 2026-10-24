@@ -1,0 +1,12 @@
+using System.Collections.Immutable;
+using OpenAntares.Simulation.Development;
+using OpenAntares.Simulation.State;
+namespace OpenAntares.Simulation.Commands;
+public abstract record DevelopmentCommand(EmpireId Issuer,int ExpectedTurn):Command(Issuer,ExpectedTurn);
+public sealed record UpsertGovernorTemplateCommand(EmpireId Issuer,int ExpectedTurn,string? TemplateId,GovernorTemplateDraft Draft):DevelopmentCommand(Issuer,ExpectedTurn);
+public sealed record DeleteGovernorTemplateCommand(EmpireId Issuer,int ExpectedTurn,string TemplateId):DevelopmentCommand(Issuer,ExpectedTurn);
+public sealed record AssignGovernorTemplateCommand(EmpireId Issuer,int ExpectedTurn,ImmutableArray<ColonyId> Colonies,string? TemplateId,bool WorkforceEnabled,bool ConstructionEnabled,bool ReplaceActive=false):DevelopmentCommand(Issuer,ExpectedTurn);
+public sealed record SetColonyAutomationCommand(EmpireId Issuer,int ExpectedTurn,ColonyId Colony,bool WorkforceEnabled,bool ConstructionEnabled):DevelopmentCommand(Issuer,ExpectedTurn);
+public sealed record SetColonyQueueCommand(EmpireId Issuer,int ExpectedTurn,ColonyId Colony,ImmutableArray<QueueEntryDraft> Entries,bool ReplaceActive=false):DevelopmentCommand(Issuer,ExpectedTurn);
+public sealed record SetNewColonyPlanCommand(EmpireId Issuer,int ExpectedTurn,string? TemplateId,bool WorkforceEnabled,bool ConstructionEnabled):DevelopmentCommand(Issuer,ExpectedTurn);
+public sealed record ImportGovernorTemplatesCommand(EmpireId Issuer,int ExpectedTurn,ImmutableArray<GovernorTemplateDraft> Templates):DevelopmentCommand(Issuer,ExpectedTurn);
