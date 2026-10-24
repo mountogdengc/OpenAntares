@@ -16,7 +16,7 @@ public static class ColonizationResolver
             {
                 vessel.PendingFounding = null; events.Add(new("founding_failed", before.EmpireId, before.Id, planet.StarId, target, Reason: "target_occupied")); continue;
             }
-            var colony = new ColonyState { Id = new(candidate.AllocateId()), PlanetId = target, EmpireId = before.EmpireId, Population = vessel.CarriedPopulation, Workforce = new(vessel.CarriedPopulation, 0, 0) };
+            var colony = new ColonyState { Id = new(candidate.AllocateId()), PlanetId = target, EmpireId = before.EmpireId, Population = vessel.CarriedPopulation, Workforce = new(vessel.CarriedPopulation, 0, 0), HabitatMode = snapshot.RulesVersion == Rules.SpeciesVersion ? (content.Vessels[before.RoleId].FoundsSealedHabitat ? Species.HabitatModes.Sealed : Species.HabitatModes.Native) : null };
             candidate.Colonies.Add(colony); candidate.Vessels.Remove(vessel);
             events.Add(new("colony_founded", before.EmpireId, before.Id, planet.StarId, target, colony.Id));
         }

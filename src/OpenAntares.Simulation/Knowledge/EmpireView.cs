@@ -27,7 +27,10 @@ public sealed record OwnedColonyView(ColonyId Id, PlanetId PlanetId, StarId Star
     public ImmutableArray<string> AvailableVesselRoleIds { get; init; } = ImmutableArray<string>.Empty;
     public ImmutableArray<string> KnownTechnologyIds { get; init; } = ImmutableArray<string>.Empty;
 }
-public sealed record OwnedVesselView(VesselId Id, EmpireId EmpireId, string RoleId, StarId? StationaryStarId, TransitState? Transit, StarId? PendingMove, PlanetId? PendingFounding, int CarriedPopulation);
+public sealed record OwnedVesselView(VesselId Id, EmpireId EmpireId, string RoleId, StarId? StationaryStarId, TransitState? Transit, StarId? PendingMove, PlanetId? PendingFounding, int CarriedPopulation)
+{
+    public ImmutableArray<Colonization.FoundingPreview> FoundingPreviews { get; init; } = ImmutableArray<Colonization.FoundingPreview>.Empty;
+}
 public sealed record OwnResearchView(EmpireId Id, long Reserve, string? TargetId, ImmutableArray<string> KnownTechnologyIds, EmpireEconomy Economy)
 {
     public int Turn { get; init; }

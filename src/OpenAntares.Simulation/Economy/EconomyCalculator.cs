@@ -55,7 +55,7 @@ public static class EconomyCalculator
         return new TurnEstimate(checked((long)((remaining + perTurn - 1) / perTurn)));
     }
 
-    private static ColonyEconomy CalculateColony(ContentSet content, GameState state, ColonyState colony)
+    internal static ColonyEconomy CalculateColony(ContentSet content, GameState state, ColonyState colony)
     {
         PlanetState planet = state.FindPlanet(colony.PlanetId)
             ?? throw new InvalidOperationException($"{colony.Id} refers to missing {colony.PlanetId}.");

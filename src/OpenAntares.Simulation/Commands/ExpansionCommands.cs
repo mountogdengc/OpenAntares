@@ -46,16 +46,8 @@ public static partial class CommandProcessor
         var rejection = CheckVessel(s, c.Issuer, c.Vessel, out var v); if (rejection is not null) return rejection;
         if (c.Planet is { } target)
         {
-            if (!s.FindEmpire(c.Issuer)!.Surveys.Any(o => o.Planets.Any(p => p.PlanetId == target))) return CommandOutcome.Reject(s, "target_not_known", "Planet is not known to this empire.");
-            var planet = s.FindPlanet(target);
-            if (planet is null) return CommandOutcome.Reject(s, "target_not_known", "Planet is not known to this empire.");
-            var role = content.Vessels[v!.RoleId];
-            if (!role.CanFoundColony || v.CarriedPopulation != role.EmbarkPopulation || v.CarriedPopulation < 1) return CommandOutcome.Reject(s, "cannot_found", "This vessel cannot found a colony.");
-            if (v.StationaryStarId != planet.StarId) return CommandOutcome.Reject(s, "wrong_system", "Settler must be stationed at the selected planet's system.");
-            var type = content.PlanetTypes[planet.PlanetTypeId];
-            if (!type.Colonizable || type.SupportPerWorker <= 0 || content.Rules.BaseColonyCapacity < v.CarriedPopulation) return CommandOutcome.Reject(s, "not_colonizable", "Planet cannot support this settlement.");
-            if (s.Colonies.Any(colony => colony.PlanetId == target)) return CommandOutcome.Reject(s, "target_occupied", "Planet is already colonized.");
-            if (s.Vessels.Any(other => other.Id != v.Id && other.EmpireId == c.Issuer && other.PendingFounding == target)) return CommandOutcome.Reject(s, "target_reserved", "Another settler already has a founding order here.");
+            var preview = Colonization.FoundingRules.Preview(content,s,c.Issuer,c.Vessel,target);
+            if (preview.RejectionCode is { } code) return CommandOutcome.Reject(s,code,Colonization.FoundingRules.Message(code));
         }
         if (v!.PendingFounding == c.Planet && (c.Planet is null || v.PendingMove is null)) return CommandOutcome.NoChange(s);
         return ApplyPlanningChange(s, c.Issuer, candidate => { var unit = candidate.FindVessel(c.Vessel)!; unit.PendingFounding = c.Planet; if (c.Planet.HasValue) unit.PendingMove = null; });

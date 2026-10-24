@@ -77,7 +77,7 @@ public static class TurnResolver
                 }
             }
 
-            if (snapshot.RulesVersion == Rules.ExpansionVersion)
+            if (Rules.HasExpansion(snapshot.RulesVersion))
             {
                 MovementResolver.Apply(content, snapshot, candidate, events);
                 Colonization.ColonizationResolver.Apply(content, snapshot, candidate, events);
