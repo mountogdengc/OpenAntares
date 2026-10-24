@@ -21,3 +21,7 @@ Actual product remains rules 3/schema 4. Preserve original owner edits, peaceful
 ## Subsequent plan authorization
 
 After the separate ten-task plan was presented and reviewed, the owner said “continue”, authorizing its execution with the retained Native method. Work is isolated on codex/rival-expansion; [the execution ledger](../../reports/rival-execution/progress.md) records actual progress, evidence and rulings. Earlier planning-only wording above records the preceding stage. Main integration, remote publication, release and cleanup remain separate.
+
+## Subsequent implementation
+
+Approved Native execution implemented functional Tasks1–9 on isolated codex/rival-expansion (rules4/writer5). [Rival evidence](../../reports/RIVAL_VALIDATION_2026-10-24.md) records final gates/review; earlier planning-stage descriptions above remain historical. Integration/push/release/cleanup remain separate owner actions.

@@ -107,7 +107,7 @@ The adoption ran the complete suite, including the named checks below, and retai
 
 ## Deferred design-readiness gates
 
-AC-015 records approved expansion and executed child criteria. AC-016 has approved design/plan gates and executed local automated species acceptance; AC-017 is In Progress for the approved rival-expansion design and pending implementation-plan review; remaining strategic systems stay Deferred. Human/release acceptance is recorded separately.
+AC-015 records approved expansion and executed child criteria. AC-016 has approved design/plan gates and executed local automated species acceptance; AC-017 is In Progress for the approved rival implementation and final review; remaining strategic systems stay Deferred. Human/release acceptance is recorded separately.
 
 ### AC-015 / REQ-015: Exploration/colonization specification gate
 
@@ -121,4 +121,4 @@ These local automated checks do not establish balance, comfortable800x600 readin
 
 ### AC-017 / REQ-017: Later strategic milestone gate
 
-Given the charter's version 1.0 envelope, split the chosen next subsystem into stable child requirements, dependencies, state/command/data/save contracts, normal/failure cases, and observable acceptance procedures before coding. Expected: approved bounded milestone; AI/network/combat scope is never inferred from architecture hooks. Method: planning/owner review; In Progress for the bounded rival slice. RIV-AC-001..012 are child criteria in the [approved design](superpowers/specs/2026-10-24-rival-expansion-design.md); RIV-AC-012 is satisfied by full owner approval in [ADR-010](DECISIONS/ADR-010-approved-rival-expansion-design.md). The separate [implementation plan](superpowers/plans/2026-10-24-rival-expansion.md) awaits review. RIV-AC-001..011 remain unexecuted; no new gameplay pass is claimed; see the [builder-review record](../reports/RIVAL_EXPANSION_DESIGN_REVIEW_2026-10-24.md).
+Given the charter's version 1.0 envelope, split the chosen next subsystem into stable child requirements, dependencies, state/command/data/save contracts, normal/failure cases, and observable acceptance procedures before coding. Expected: approved bounded milestone; AI/network/combat scope is never inferred from architecture hooks. Method: planning/owner review; In Progress for the bounded rival slice. RIV-AC-001..012 are child criteria in the [approved design](superpowers/specs/2026-10-24-rival-expansion-design.md); RIV-AC-012 is satisfied by full owner approval in [ADR-010](DECISIONS/ADR-010-approved-rival-expansion-design.md). The separate [implementation plan](superpowers/plans/2026-10-24-rival-expansion.md) was approved for Native execution. [Rival evidence](../reports/RIVAL_VALIDATION_2026-10-24.md) maps executed child criteria; final regression/review is in progress. Broader REQ-017 stays In Progress; human/platform/release limits remain open.

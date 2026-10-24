@@ -1,5 +1,8 @@
 # OpenAntares project concept
 
+Current continuation (2026-10-24): the owner subsequently approved the rival plan with continue. Native functional Tasks1–9 are complete on isolated codex/rival-expansion (rules4/writer5); final regression/review/handoff is in progress. [PROJECT_STATUS](../PROJECT_STATUS.md) governs the next action. Earlier planning-only statements below are historical. Main integration/push/release/cleanup remain separate owner actions.
+
+
 Reconciled 2026-10-22 from [CHARTER.md](CHARTER.md). This is an adoption summary of the existing project, not a new product proposal.
 
 ## Identity and outcomes

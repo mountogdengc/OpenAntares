@@ -22,8 +22,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M3-P | Plan approved species implementation | Approved M3-D; separate ten-task plan written/self-reviewed | Owner approved plan (“yes”); Native preference preserved | Verified |
 | M3-I | Implement reviewed species slice | Approved M3-P; preserve old campaigns and core boundaries | SPC-AC-001..009 and retained regressions; independent review | Verified for local automated acceptance; independent review/correction pass complete |
 | M4-D | Define bounded rival expansion; first REQ-017 child | Full design accepted in ADR-010 after builder check | RIV-AC-012 owner approval satisfied | Verified for design scope |
-| M4-P | Plan rival implementation | Approved M4-D; separate ten-task plan written/self-reviewed | Owner plan review; Native retained | In Progress |
-| M4-I | Implement bounded rival slice | Approved M4-P; preserve old campaigns and scoped planning | RIV-AC-001..011, retained regressions and final independent review | Not Started |
+| M4-P | Plan rival implementation | Approved M4-D; separate ten-task plan written/self-reviewed | Owner continue; Native retained | Verified |
+| M4-I | Implement bounded rival slice | Approved M4-P; preserve old campaigns and scoped planning | RIV-AC-001..011, retained regressions and final independent review | In Progress; functional implementation complete |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -31,9 +31,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review the [ten-task rival implementation plan](superpowers/plans/2026-10-24-rival-expansion.md). Full design approval is recorded in [ADR-010](DECISIONS/ADR-010-approved-rival-expansion-design.md), after the completed builder check. The plan was checked against the current source interfaces, compatibility boundary and all RIV requirements; its [self-review record](../reports/RIVAL_IMPLEMENTATION_PLAN_REVIEW_2026-10-24.md) distinguishes planning checks from gameplay results. Owner plan review is pending. Native remains selected; do not request the execution method or full design again.
-
-After plan confirmation, establish an isolated baseline and capture genuine rules-3/passive-Ai traces before any writer/default change, then execute the tasks inline and obtain one final independent whole-branch review. Current product remains rules 3/writer 4; no task has run. Historical 445/1181/275/466+27 results remain species integration evidence. Preserve owner edits/backlog, all old saves/evidence/recovery/worktrees and deferred human acceptance. Integration, push, release and cleanup remain separate.
+Complete the final regression/review/handoff in Task10 of the approved rival plan. Tasks1–9 are verified; the current branch runs rules4/writer5. Generated rival acceptance has1120 passing result rows. See [rival validation](../reports/RIVAL_VALIDATION_2026-10-24.md) and [status](../PROJECT_STATUS.md). Main stays at4d2efb5; integration/push/release/cleanup remain separate owner actions.
 
 ## Risks and autonomy
 

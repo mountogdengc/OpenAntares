@@ -49,3 +49,9 @@ Windows x64 builds and tests pass at adoption. Linux/macOS/ARM determinism and d
 ## Decisions
 
 See the [decision index](DECISIONS/README.md). These records recover established choices and known consequences; they do not manufacture approvals or alternatives absent from the source documents.
+
+## Current species/rival amendments (2026-10-24)
+
+Approved species/rival designs supersede the historical rules2/schema3-only descriptions above for new campaigns. Explicit feature predicates retain species formulas in3/4 and expansion in2/3/4; only4 activates rival policy. Writer5 accepts exactly(schema,rules):(1,1),(2,1),(3,1),(3,2),(4,1),(4,2),(4,3),(5,1),(5,2),(5,3),(5,4). Old campaigns omit rival metadata and do not activate passive Ai tags.
+
+Policy receives an own EmpireView with seed scrubbed, immutable content and pure scoped shared forecasts/settlement/travel queries built solely from permitted facts. Bounded ordinary commands run on private state in EmpireId order before economy. Turn publication and triggering Ready succeed or roll back together. Private plans do not refresh other empires' observations. Species growth/cargo/maturity, new-vessel wait, explicit founding and ID tie order remain unchanged. After ordinary observations refresh, contacts retain discovered identity and first-observed turn. UI consumes dated facts and viewer-only events; foreign economy/routes/cargo remain hidden. Broad warfare/diplomacy/network systems remain deferred.

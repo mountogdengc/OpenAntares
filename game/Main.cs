@@ -35,6 +35,10 @@ public partial class Main : Control
         background.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         AddChild(background);
 
+        // Saved campaigns carry their own validated content, even if the current disk content fails.
+        AddChild(_loadDialog);
+        _loadDialog.Loaded += game => ShowGame(new GameSession(game.Content, game.State));
+
         ContentLoadResult loaded = ContentFiles.LoadCore();
         if (loaded.Content is null)
         {
@@ -43,8 +47,6 @@ public partial class Main : Control
         }
 
         _content = loaded.Content;
-        AddChild(_loadDialog);
-        _loadDialog.Loaded += game => ShowGame(new GameSession(game.Content, game.State));
         NewGameScreen newGame = ShowNewGame();
         _ = RunDevelopmentOptions(newGame);
     }
@@ -106,7 +108,11 @@ public partial class Main : Control
             });
         }
 
+        var load = new Button { Text = "Load Game" };
+        load.Pressed += _loadDialog.Open;
+        column.AddChild(load);
         SetScreen(column);
+        load.GrabFocus();
     }
 
     private async Task RunDevelopmentOptions(NewGameScreen newGame)

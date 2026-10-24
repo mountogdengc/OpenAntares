@@ -6,12 +6,12 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Approved rival plan executing with Native; Tasks 1–5 verified, private queries next |
+| Current phase | Rival functional implementation complete; final regression/review in progress |
 | Project health | All local automated gates pass; human/release acceptance remain open |
 | Active milestone | M4-I — Rival-expansion implementation |
-| Current version | Not Released; new-game default rules3, branch writer schema5; explicit rules4 under construction; old rules1/2/3 retained |
+| Current version | Not Released; branch rules4/writer5; main rules3/writer4; old rules1/2/3 retained |
 | Last updated | 2026-10-24, America/Denver |
-| Implementation readiness | Full design/plan approved; Native in isolated codex/rival-expansion; legacy captures and policy/state gates verified |
+| Implementation readiness | Native Tasks1–9 complete in isolated codex/rival-expansion; final gates/review pending |
 
 ## 2. Current state
 
@@ -21,7 +21,7 @@ Implemented on `codex/species-mechanics`, then fast-forwarded into local `main` 
 
 Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execution ledger](reports/species-execution/progress.md), [final review/handoff](reports/SPECIES_FINAL_REVIEW_2026-10-23.md). Expansion integration is historical and complete under separate authorization. The owner selected local integration(option1); main now includes species head3f25a14. [Integration verification](reports/SPECIES_INTEGRATION_2026-10-24.md) records fresh main gates and exact edit preservation. No remote push/release/cleanup was performed.
 
-**Current rival work:** The owner approved the complete [rival-expansion design](docs/superpowers/specs/2026-10-24-rival-expansion-design.md) after its builder check. [ADR-010](docs/DECISIONS/ADR-010-approved-rival-expansion-design.md) records full design approval and satisfies RIV-AC-012. The separate [ten-task plan](docs/superpowers/plans/2026-10-24-rival-expansion.md) is written/self-reviewed and awaits owner plan review; Native is retained. No rival task, product change or gameplay verification has run. [Plan-review record](reports/RIVAL_IMPLEMENTATION_PLAN_REVIEW_2026-10-24.md).
+**Current rival work:** The owner approved the full design and ten-task plan, then retained Native execution. Functional Tasks1–9 are complete on isolated `codex/rival-expansion`: fair expansion policy through ordinary commands/permitted facts, scoped forecasts, atomic publication, observed contacts and rules4/writer5 with eleven explicit version pairs. Old rules1/2/3 and passive Ai3 continuations remain unchanged. See [rival validation](reports/RIVAL_VALIDATION_2026-10-24.md), [ledger](reports/rival-execution/progress.md) and [review](reports/RIVAL_FINAL_REVIEW_2026-10-24.md). Final four-scenario regression and the single independent review are in progress. Main integration is a separate owner decision.
 
 ## 3. Milestone progress
 
@@ -36,15 +36,15 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 | M3-I | Species implementation | Verified | Local automated criteria, independent review/corrections and authorized main integration verified; human/release limits remain |
 | M4-D | Rival-expansion design | Verified | Builder check and explicit full owner approval in ADR-010; design scope only |
 | M4-P | Rival implementation plan | Verified | Owner “continue” after plan presentation; Native retained |
-| M4-I | Rival implementation | In Progress | Tasks 1–5 verified; 592 branch simulation tests and normal build pass; Tasks 6–10 incomplete |
+| M4-I | Rival implementation | In Progress | Tasks1–9 verified; 642 simulation tests; generated acceptance1120 rows; final regression/review in progress |
 | M-Later | Remaining strategic systems | Deferred | Rest of REQ-017 envelope; no inferred combat/diplomacy scope |
 | M-Delivery | Cross-platform/release | Not Started | Windows-only local evidence |
 
 ## 4. Decisions and open questions
 
-Preserve ADR-001..004 architecture/JSON/determinism/spiral decisions, ADR-005 human deferral, ADR-006 historical expansion separation and ADR-008 approved species rules. Implementation rulings are retained in the execution ledger. No new architecture, dependencies, portraits, AI/combat/diplomacy or custom civilizations were added.
+Preserve ADR-001..004 architecture/JSON/determinism/spiral decisions, ADR-005 human deferral, ADR-006 historical expansion separation and ADR-008 approved species rules. Implementation rulings are retained in the execution ledger. The approved bounded expansion AI is implemented; no new architecture, dependencies, portraits, warfare, diplomacy or custom civilizations were added.
 
-Open: remaining rival implementation/verification and final independent review, physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
+Open: final rival regression/review and separate integration decision, physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
 
 ## 5. Blockers and risks
 
@@ -79,7 +79,8 @@ The harness invokes real controls/signals/handlers and shared commands in proces
 
 | Field | Current value |
 | --- | --- |
-| Primary | `F:/Projects-PCGames/OpenAntares`, `main` fast-forwarded to `3f25a1463fe6b2b4f55b171b0d4f4646d954a32a`; integration handoff commit follows; two owner prose edits retained |
+| Primary | `F:/Projects-PCGames/OpenAntares`, `main` at approved plan baseline `4d2efb5384a100f2c75ce055d0233399f435e5d3`; owner prose and peaceful-mode status/backlog retained |
+| Current rival worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/rival-expansion`, `codex/rival-expansion`; base4d2efb5; Tasks1–9 committed, Task10 review pending |
 | Retained integrated species worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/species-mechanics` |
 | Species branch / baseline | `codex/species-mechanics` / `e32ada6d1c8fbef4fadd620a93139c6188447c27` |
 | Checkpoints | Tasks1..8:40915c7,c2d9bd7,d0b1cc0,e4538f8,94ac4db,8c1a546,0470a11,7449d34; Task9:bb9a2c5 |
@@ -90,16 +91,8 @@ The harness invokes real controls/signals/handlers and shared commands in proces
 | Generated metadata | Godot import/UID files retained unstaged; no worktree cleanup |
 | Remote | No fetch/push/PR claim |
 
-Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad7fff126464bc8fe93187b526bf7d27f0f853034`; faction survey `814d22e56cacd52885d947e16bc3e4e6123e4a35cf60297b8af58cf3a99463ba`. Neither file was edited or staged in the species branch. Preserve all QA saves/evidence and recovery copies.
+Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad7fff126464bc8fe93187b526bf7d27f0f853034`; faction survey `814d22e56cacd52885d947e16bc3e4e6123e4a35cf60297b8af58cf3a99463ba`. Neither file was edited or staged in the species or rival branch. Preserve all QA saves/evidence and recovery copies.
 
-## 8. Immediate next action
+## 8. Next concrete action
 
-Continue the approved Native plan at Task 6 after reading the exact brief and [execution ledger](reports/rival-execution/progress.md). Tasks 1–5 are verified: genuine legacy captures, version predicates/policy/state, writer5/eleven pairs, deterministic rival/Solo generation and observed contacts/projections. Latest branch suite: 592 tests pass; normal build zero warnings/errors. The new-game default is still rules3. No active policy, atomic AI planning, rival UI/default activation, final runtime acceptance or independent branch review yet.
-
-All remaining bounded tasks are authorized. Preserve primary owner edits/backlog, old saves/evidence/recovery/worktrees and deferred human acceptance. Do not ask again for design/plan/Native approval; main integration, push, release and cleanup remain separate.
-
-## 9. Agent handoff
-
-Read actual Git state and the final report before continuing. Do not repeat approved design, completed tasks or execution-method selection; do not re-block on the deferred participant session. Preserve simulation/Godot separation, integer/PCG32 determinism, typed IDs, ordered iteration, snapshot timing, permitted views and compatibility. All ten species-plan tasks and one independent review/correction pass are complete. Rival design and plan are now approved; Native execution is active. Resume at the first incomplete ledger task and preserve exact legacy traces. Do not repeat rival design approval or Native selection. Source remains identical to verified code checkpoint713d305. Fresh integrated-main evidence and exact preservation are in the2026-10-24 integration report; integration handoff changes are documentation/evidence only.
-
-Current isolated-branch checkpoint: tasks 1–5 verified on codex/rival-expansion, through b5591cd; main is unchanged at approved plan commit 4d2efb5. Historical main runtime evidence above remains historical and is not new rival runtime acceptance.
+Finish final regression and the single independent review/correction pass, then present the branch for a separate local-integration decision. Do not merge/push/release, recruit a participant or delete worktrees/evidence. Primary remains at4d2efb5; owner prose/backlog/status paragraph are unchanged in [the preservation audit](reports/rival-execution/preservation-final.json).

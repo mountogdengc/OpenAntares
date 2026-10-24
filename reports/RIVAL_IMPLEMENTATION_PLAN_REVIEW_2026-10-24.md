@@ -1,5 +1,8 @@
 # Rival implementation-plan review — 2026-10-24
 
+Current continuation (2026-10-24): the owner subsequently approved the rival plan with continue. Native functional Tasks1–9 are complete on isolated codex/rival-expansion (rules4/writer5); final regression/review/handoff is in progress. [PROJECT_STATUS](../PROJECT_STATUS.md) governs the next action. Earlier planning-only statements below are historical. Main integration/push/release/cleanup remain separate owner actions.
+
+
 **Status: Written/self-reviewed; owner plan review pending. No implementation tasks executed.**
 
 The owner replied “approved” after the complete design and builder result were presented. [ADR-010](../docs/DECISIONS/ADR-010-approved-rival-expansion-design.md) records that full-design approval; [the ten-task plan](../docs/superpowers/plans/2026-10-24-rival-expansion.md) is the resulting concrete implementation proposal. Native persists from the existing owner choice. No new execution-method question is needed.

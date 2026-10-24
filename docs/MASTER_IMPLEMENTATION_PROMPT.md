@@ -1,5 +1,8 @@
 # Master Autonomous Implementation Prompt - OpenAntares
 
+Current continuation (2026-10-24): the owner subsequently approved the rival plan with continue. Native functional Tasks1–9 are complete on isolated codex/rival-expansion (rules4/writer5); final regression/review/handoff is in progress. [PROJECT_STATUS](../PROJECT_STATUS.md) governs the next action. Earlier planning-only statements below are historical. Main integration/push/release/cleanup remain separate owner actions.
+
+
 Version 1.1, project adaptation dated 2026-10-22.
 
 **Activation gate:** The owner deferred the unavailable uncoached playtest under ADR-005 and approved the expansion specification under ADR-006. Read [PROJECT_STATUS.md](../PROJECT_STATUS.md), the [roadmap](IMPLEMENTATION_PLAN.md) and the separate [expansion implementation plan](superpowers/plans/2026-10-22-exploration-and-colonization.md). The owner approved that plan and Native execution; inspect its completed tasks, ledger and current status before continuing. Preserve settled design choices; do not re-block on recruiting a participant.
