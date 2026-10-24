@@ -64,7 +64,7 @@ The adoption ran the complete suite, including the named checks below, and retai
 ### AC-009 / REQ-009: Persistence and failure paths
 
 - **Procedure:** Run all `SaveGameTests`, including embedded content, RNG, readiness, canonical serialization, uninterrupted-vs-reloaded continuation, schema-1 fixture, invalid/incompatible input, failed file write, and failed session load.
-- **Expected:** Complete state/content round-trip; continued states match. Schema 1/2 retains legacy rules/content/layout/planets/null metadata and resaves in schema 3/rules 1; rules-2 campaigns retain vessels, orders, transit and surveys in schema 3. Unsupported rules/schema reject clearly. Failed write/load preserves the prior save/session and leaves no temporary file after the covered cases.
+- **Expected:** Complete state/content round-trip; continued states match. Schema 1/2 retains legacy rules/content/layout/planets/null metadata and resaves in schema4/rules1; rules2 campaigns retain vessels, orders, transit and surveys in schema4. Rules3 additionally preserves fixed species, physical environments and colony habitat modes. Explicit readers retain schema3 rules1/2; only the seven approved schema/rules pairs are accepted. Unsupported rules/schema reject clearly. Failed write/load preserves the prior save/session and leaves no temporary file after the covered cases.
 - **Method/evidence:** Unit/integration/file tests. UI filenames, dialogs, overwrite prompts, and legacy UI loading require AC-011; not inferred from serializer tests.
 
 ### AC-012 / REQ-012: Local deterministic replay
@@ -113,9 +113,11 @@ AC-015 records approved expansion and executed child criteria. AC-016 has an app
 
 Design review was satisfied by ADR-006; the owner also approved the separate plan and Native execution. EXP-AC-001..008 now have executed [simulation/runtime evidence](../reports/EXPANSION_VALIDATION_2026-10-22.md): 281 simulation tests, 275 expansion assertions and 466 legacy assertions, with explicit method/limits. REQ-015 is Verified for the executed automated Windows contract after [independent review and corrections](../reports/EXPANSION_REVIEW_2026-10-23.md); owner playtest deferral and separate full human/platform acceptance are unchanged. Future acceptance must preserve genuine old campaigns, hidden-knowledge filtering and snapshot/population accounting.
 
-### AC-016 / REQ-016: Species specification gate
+### AC-016 / REQ-016: Species mechanics acceptance
 
-The owner approved the complete [species specification](superpowers/specs/2026-10-23-species-mechanics-design.md), including creative/unit amendments, exact profiles/roles, Sulan investment, Wenth maturity/capacity and compatibility/default policy; [ADR-008](DECISIONS/ADR-008-approved-species-mechanics.md) satisfies SPC-AC-010. The separate [implementation plan](superpowers/plans/2026-10-23-species-mechanics.md) maps every SPC-AC-001..009 future exact/failure/interaction criterion to tasks and awaits owner review. REQ-016 remains In Progress because species functionality is unimplemented; arithmetic, design approval and plan self-review are not engine/balance/human acceptance. Old-campaign fixtures and owner edits remain unchanged.
+The owner approved the complete [species specification](superpowers/specs/2026-10-23-species-mechanics-design.md) and then the separate ten-task plan with the retained Native preference. ADR-008 satisfies SPC-AC-010, the design gate. [Species validation](../reports/SPECIES_VALIDATION_2026-10-23.md) maps SPC-AC-001..009 to exact profiles, fixed-point economy/growth, allowed cargo/snapshot eligibility, Sulan habitats, Wenth maturity/fission, generation/RNG, compatibility/failure atomicity and integrated UI campaigns. Twelve generated species/size loops plus forced harbor and labelled supplemental fixtures passed; all three regression scenarios are retained. Final independent review is in [the handoff](../reports/SPECIES_FINAL_REVIEW_2026-10-23.md).
+
+These local automated checks do not establish balance, comfortable800x600 reading, physical OS input, uncoached comprehension, cross-platform equality or release packaging. The owner prose files remain unchanged. REQ-014 remains Deferred and REQ-013 remains Implemented, Unverified.
 
 ### AC-017 / REQ-017: Later strategic milestone gate
 

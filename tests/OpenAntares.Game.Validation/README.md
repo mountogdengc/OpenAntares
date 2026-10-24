@@ -1,6 +1,6 @@
 # Godot runtime validation
 
-This opt-in harness tests the legacy colony loop and the approved expansion loop inside graphical Godot. It is excluded from ordinary compilation by the root project's `tests/**` exclusion and is added only through `Validation.targets` during this runner.
+This opt-in harness tests the legacy colony loop, frozen rules2 expansion and current rules3 species loop inside graphical Godot. It is excluded from ordinary compilation by the root project's `tests/**` exclusion and is added only through `Validation.targets` during this runner.
 
 From the repository root, with restored dependencies and a Godot 4.7.2 **.NET console executable**:
 
@@ -12,7 +12,7 @@ The output directory must be inside the repository and must not already contain 
 
 ## Coverage and evidence
 
-- Boots the real New Game screen, then loads a labelled generated rules-1 fixture through the real Load dialog for each legacy Small/Medium/Large loop. New-game expansion defaults are independently covered by the expansion scenario.
+- Boots the real New Game screen, then loads a labelled generated rules-1 fixture through the real Load dialog for each legacy Small/Medium/Large loop. Current new-game defaults are independently covered by the Species scenario.
 - Checks selectable counts, every system's map/inspector handler, and rejection of a background point.
 - Exercises workforce buttons/visible shortage feedback, production/research selectors, End Turn, completions and population growth.
 - Uses real Save/Load dialog confirmation handlers for pre/post-completion saves, compares full serialized content/state and restored map bounds, and checks continued play.
@@ -35,8 +35,13 @@ Pass `-Scenario Expansion` (the default remains `Legacy` for existing invocation
 ./tests/OpenAntares.Game.Validation/Run-Validation.ps1 -Godot 'PATH/TO/Godot_v4.7.2-stable_mono_win64_console.exe' -Scenario Expansion -OutputDirectory reports/my-unique-expansion-run
 ```
 
-Small/Medium/Large seed-42 campaigns each start through New Game, queue scout travel and settler production, save/reload pending movement and transit, repair source workforce after embarkation, travel/found explicitly, manage independent colony projects/research, resize, save pending founding and continue after a two-colony reload. Forecasts and actual published outcomes are compared. No economy outcomes are injected.
+Small/Medium/Large seed42 campaigns start through New Game and then load a uniquely saved frozen rules2 generated campaign, queue scout travel and settler production, save/reload pending movement and transit, repair source workforce after embarkation, travel/found explicitly, manage independent colony projects/research, resize, save pending founding and continue after a two-colony reload. Forecasts and actual published outcomes are compared. No economy outcomes are injected.
 
 A separately labelled synthetic fixture covers two owned colonies plus an empty world in the same system, exact selection/founding, and visible-text/action/tooltip invariance under changed hidden planets, foreign ownership and units. Both retained genuine schema-1/2 saves load and continue through the real dialogs with the legacy banner and expansion controls hidden. The synthetic observations are produced by the same public observation updater as ordinary generation/resolution.
 
 The final implementation evidence is indexed in [the expansion validation report](../../reports/EXPANSION_VALIDATION_2026-10-22.md). Automated signal dispatch and screenshots do not establish physical input, small-window comfort, player understanding or exported packaging. All QA saves and failed runs remain retained.
+
+
+## Species scenario
+
+Pass `-Scenario Species` with a new output directory. Actual New Game selects each of four species across Small/Medium/Large seed42 campaigns. All twelve loops scout/survey, build/embark, travel/found, allocate two colonies and continue after UI save/reload; a thirteenth forces Sulan harbor. Separately labelled initial fixtures exercise contrasting native/sealed maps, hidden environment/foreign-overflow UI parity and extended Wenth8→5+3 maturity with daughter capacity6. Missing-Harl, empty-list and renamed/edited-cargo content checks are included. Resize/focus checks cover800x600,1152x648,1280x720,1600x900,1920x1080. See [species validation](../../reports/SPECIES_VALIDATION_2026-10-23.md) for current counts, failures/corrections and human limits. All three validation types remain opt-in and are absent after ordinary rebuild.

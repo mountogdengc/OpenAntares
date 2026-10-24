@@ -19,8 +19,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M2-P | Review the separate expansion implementation plan | Approved M2-D; nine dependency-ordered tasks, exact interfaces/fixtures, regression and runtime evidence | Owner approved plan and Native execution | Verified |
 | M2-I | Implement the reviewed expansion milestone | M2-P handoff; isolated checkout/preserved baseline, state/content/commands, persistence compatibility, simulation, UI | New exact-result/failure tests, legacy continuation, graphical multi-colony scenarios | Verified for executed local automated criteria; independent review/corrections complete |
 | M3-D | Review species mechanics; REQ-016 | ADR-007 drafting authority; full design approved in ADR-008 with classic direction | AC-016 / SPC-AC-010 owner design review | Verified for design scope |
-| M3-P | Plan approved species implementation | Approved M3-D; separate ten-task plan written/self-reviewed | Owner plan review before execution; prior Native preference preserved | In Progress |
-| M3-I | Implement reviewed species slice | Approved M3-P; preserve old campaigns and core boundaries | SPC-AC-001..009 and retained regressions | Not Started |
+| M3-P | Plan approved species implementation | Approved M3-D; separate ten-task plan written/self-reviewed | Owner approved plan (“yes”); Native preference preserved | Verified |
+| M3-I | Implement reviewed species slice | Approved M3-P; preserve old campaigns and core boundaries | SPC-AC-001..009 and retained regressions; independent review | In Progress pending final review |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -28,14 +28,14 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review the [ten-task species implementation plan](superpowers/plans/2026-10-23-species-mechanics.md), written against the [approved specification](superpowers/specs/2026-10-23-species-mechanics-design.md) and ADR-008. All execution steps are unchecked. The prior Native preference persists; plan review is the next gate, not reapproval of the species design. Expansion integration is complete under its earlier authorization, with [preservation/regression evidence](../reports/EXPANSION_INTEGRATION_2026-10-23.md). Preserve owner edits, genuine old saves, recovery stash/snapshot and worktrees; no new gameplay implementation, push or cleanup has occurred.
+Complete independent review of the implemented [ten-task species slice](superpowers/plans/2026-10-23-species-mechanics.md), reconcile any findings and hand off the isolated branch. The owner approved plan review with “yes” and retained Native execution. [Species evidence](../reports/SPECIES_VALIDATION_2026-10-23.md) records441 simulation,1177 species,275 frozen expansion and466 legacy assertions plus27 geometry observations. Preserve owner edits, genuine old saves, recovery stash/snapshot and worktrees. No species merge/push/release/cleanup is inferred.
 
 ## Risks and autonomy
 
 - Automation may rerun existing builds/tests, inspect code, reconcile documentation, and propose scoped defect work. A confirmed future fix should be reproduced, reviewed, and tested within its authorized scope.
 - Player comprehension remains unverified and is explicitly deferred. ADR-006 approves this expansion milestone; future material changes beyond that scope still require owner review.
 - Preserve the two uncommitted species/faction prose changes, incorporated UI fixes/window setting, recovery stash/snapshot and retained evidence. Existing worktree cleanup and remote branch deletion are separate owner choices.
-- Avoid a rewrite, new engine/framework, dependency upgrade, species gameplay implementation or combat/AI/network implementation during this planning task. Approved species fixture numbers are reproducible contracts, not verified balance. The approved expansion observation model is the bounded visibility change; do not extend it into strategic sensors or espionage.
+- Avoid a rewrite, new engine/framework, dependency upgrade, unapproved species redesign or combat/AI/network implementation during this bounded milestone. Approved species fixture numbers are reproducible contracts, not verified balance. The approved expansion observation model is the bounded visibility change; do not extend it into strategic sensors or espionage.
 - Performance, accessibility, localization, hostile-input limits, licensing inventory and distribution remain explicit later gaps. Do not turn unspecified targets into asserted requirements met.
 
 Use Not Started / In Progress / Implemented, Unverified / Verified / Blocked / Deferred. Update requirement statuses only to match their exact verified contracts, with evidence and dates; distinguish milestone state from code existence.

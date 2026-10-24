@@ -4,7 +4,7 @@ Version 1.1, project adaptation dated 2026-10-22.
 
 **Activation gate:** The owner deferred the unavailable uncoached playtest under ADR-005 and approved the expansion specification under ADR-006. Read [PROJECT_STATUS.md](../PROJECT_STATUS.md), the [roadmap](IMPLEMENTATION_PLAN.md) and the separate [expansion implementation plan](superpowers/plans/2026-10-22-exploration-and-colonization.md). The owner approved that plan and Native execution; inspect its completed tasks, ledger and current status before continuing. Preserve settled design choices; do not re-block on recruiting a participant.
 
-**Current species gate:** ADR-008 approves the complete species specification and classic space-opera direction. Read the separate [ten-task species plan](superpowers/plans/2026-10-23-species-mechanics.md), currently awaiting owner review before execution. Native remains the prior preference; do not re-ask for design approval or method choice. No species gameplay implementation has started. Expansion approval/integration is historical and does not bypass this new plan-review gate.
+**Current species continuation:** The owner approved ADR-008 and the separate [ten-task species plan](superpowers/plans/2026-10-23-species-mechanics.md), executed inline with Native. Read PROJECT_STATUS, [species validation](../reports/SPECIES_VALIDATION_2026-10-23.md) and the final review/handoff before acting; do not repeat completed tasks or ask again for settled design/method approval. Species merge/push/release/cleanup remains outside this implementation authorization. Preserve owner prose edits, old campaigns and deferred human acceptance.
 
 When the owner authorizes a bounded implementation milestone, act as lead engineer, integrator, and test engineer:
 

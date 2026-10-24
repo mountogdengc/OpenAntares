@@ -69,3 +69,13 @@ Task9 BASE7449d34e3132d9662ef8f18bb1c507c1c5541277.
 Task9 observed regression: at1152x648 after800x600, alreadyFocused=true, picker y1141..1175 outside scroll y86..1064, scroll0; releasing/reacquiring focus moves picker y1030..1064 and scroll111. Root cause: FollowFocus is focus-change driven, not resize-driven. GameScreen now waits one layout frame on side-scroll resize then ensures its current focused descendant is visible. No domain state changes. RED initial and explicit-refocus diagnostic retained in separate runs.
 
 Task9 arithmetic regression: valid one-species content with divisor1, bounded support near long.MaxValue, base growth1000 and cap40 loaded/validated but resolution overflowed while summing base+raw surplus before the negative cap line. Quantity.From now sums lines in checked Int128 and converts only the final stored total to long. RED ValidLargeSupportGrowthIsCappedBeforeStoredTotalOverflow retained; ordinary reserve overflow still uses the original checked available-reserve gate. This follows the approved wide-intermediate/capped-growth contract.
+
+Task9 gates: 441/441 simulation; Species1177/1177 (61 QA paths,29 PNGs); Expansion275/275 (20 QA paths,10 PNGs); Legacy466 assertions plus27 geometry observations (11 QA paths,16 PNGs). All run records passed with zero false rows and no final engine diagnostics. Each normal rebuild0warnings/errors; metadata excludes all three validation classes. Owner-file hashes match original exact values. Inspected800 setup and extended daughter images; small text remains a human-readability limit. Supplemental labelled fixtures passed first execution; no fabricated RED.
+
+Task 9: complete (commits 7449d34..bb9a2c5, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo -> 441 passed,0 failed/skipped; all three GUI gates inspected).
+Task10 BASEbb9a2c517466aae8aee27076015d586e8a4e8527.
+Task10 Ruling: retain raw runner/engine logs including six trailing-space PASS lines — evidence fidelity is preferable to editing observed output; source/docs formatting is checked separately — cost if wrong: six harmless whitespace warnings in evidence only.
+
+Task 9: complete (commits 7449d34..bb9a2c5, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo -> 441 passed,0 failed/skipped; all three GUI gates inspected).
+Task10 BASEbb9a2c517466aae8aee27076015d586e8a4e8527.
+Task10 Ruling: retain raw runner/engine logs including six trailing-space PASS lines — evidence fidelity is preferable to editing observed output; source/docs formatting is checked separately — cost if wrong: six harmless whitespace warnings in evidence only.

@@ -13,7 +13,7 @@ Explicit owner instructions take precedence. Existing authoritative designs gove
 
 The 2026-10-22 request and continuation authorize adoption, reconciliation, documentation, verification and retained regression checks. The owner deferred the unavailable uncoached playtest (ADR-005) and then approved the full exploration/colonization specification (ADR-006). **Do not block progression on recruiting a participant or closing First Playable, or reopen the approved design choices.** The owner approved the separate implementation plan and Native execution. Its nine tasks and independent review/corrections are complete. On 2026-10-23 the owner explicitly authorized lock repair and local integration: main now contains the expansion, the normal index works, and two separate owner prose edits remain uncommitted. Read current status; do not repeat completed implementation. Full First Playable acceptance stays open. Do not import OpenJRPG-specific requirements or ADR numbering from the workflow PDF.
 
-Current continuation: the full species design is approved in ADR-008. The ten-task species implementation plan is written/self-reviewed and awaits owner review before execution; Native remains the existing preference. Preserve classic space-opera direction, original owner roster/research edits and genuine old campaigns. No species gameplay/core-content implementation has started; read PROJECT_STATUS and the approved spec/plan before continuing.
+Current continuation: the owner approved the species implementation plan (“yes”) and the retained Native execution preference. Tasks1–9 are implemented on isolated `codex/species-mechanics`; Task10 reconciles documentation and obtains one independent whole-branch review. Read PROJECT_STATUS and the final review report for actual completion. Preserve the classic space-opera direction, original owner roster/research edits, genuine old campaigns and all evidence. Do not repeat completed implementation or infer species merge/push/release/cleanup authorization.
 
 ## Engineering constraints
 
@@ -23,7 +23,7 @@ Current continuation: the full species design is approved in ADR-008. The ten-ta
 - Content IDs are existing strings such as `fabrication_hall`; do not add a namespace scheme as an adoption change.
 - UI is built in C#. Style through `game/theme/openantares_theme.tres` and type variations; reread that shared file before minimal edits. Use containers and anchors.
 - Keep ordinary content in JSON, validate at load time, and expose simulation-supplied calculation breakdowns.
-- Current code writes schema 3 and explicitly reads schema-1/2 rules-1 campaigns plus schema-3 rules 1/2. ADR-006 governs legacy continuation and expansion separation; no implicit campaign upgrade. Preserve embedded content, rules-version checks and failure atomicity.
+- Current new games use rules3 with visible Harl default; code writes schema4 and supports exactly (schema,rules) pairs(1,1),(2,1),(3,1),(3,2),(4,1),(4,2),(4,3). ADR-006 and the approved species amendment govern legacy continuation; no implicit campaign upgrade. Preserve embedded content, rules-version checks and failure atomicity.
 - Preserve the original setting and licenses. Record third-party additions in `LICENSING.md`; do not copy commercial game assets.
 
 ## Branches, worktrees, and integration

@@ -1,6 +1,6 @@
 # ADR-008: Approve the classic space-opera species mechanics
 
-Date: 2026-10-23. **Status: Accepted design; separate implementation plan requested, execution not started.**
+Date: 2026-10-23. **Status: Accepted design; subsequent implementation plan approved for Native execution.**
 
 ## Owner decision
 
@@ -17,3 +17,8 @@ Accept the exact profiles and expedition tables: viable supported Peldra start, 
 M3-D is complete for design; SPC-AC-010 owner review is satisfied. REQ-016 remains In Progress because no species functionality has been implemented or verified. The separate [ten-task implementation plan](../superpowers/plans/2026-10-23-species-mechanics.md) is written/self-reviewed and awaits owner review before execution. The prior Native preference persists without requiring another method choice; it does not substitute for review of this new plan.
 
 Preserve the owner's uncommitted roster/research files, approved architecture, integrated working code, genuine old saves and recovery evidence. No gameplay/core-content edits, dependency changes, migration, new art or broad later systems are authorized by this planning task. The deferred human session remains Deferred; no balance, usability or release pass is invented.
+
+
+## Subsequent implementation authorization
+
+After the separate plan was presented, the owner replied “yes”, approving execution with the retained Native preference. That later authorization permits the bounded implementation and independent review; the preceding planning-only restrictions describe the earlier planning step. [Execution evidence](../../reports/SPECIES_VALIDATION_2026-10-23.md) and [handoff](../../reports/SPECIES_FINAL_REVIEW_2026-10-23.md) record actual results. Merge/push/release/cleanup and human acceptance remain separate.

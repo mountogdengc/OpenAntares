@@ -19,12 +19,12 @@ The supplied OpenJRPG workflow is a reusable process reference. Its RPG systems,
 | Classification | Established scope |
 | --- | --- |
 | Essential now | The charter's eleven First Playable actions: new game, galaxy generation/map, star/planet inspection, one colony, workforce, production, research, end turn, visible advancement, save/reload |
-| Active milestone | M3-P species implementation-plan review; full design approved in ADR-008 with classic space-opera direction. Expansion is integrated; human playtest remains deferred under ADR-005 |
+| Active milestone | M3-I species implementation acceptance/review on an isolated branch; classic space-opera direction approved in ADR-008. Expansion is integrated; human playtest remains deferred under ADR-005 |
 | Later version 1.0 | Multiple civilizations, AI, fleets/ships/design, strategic warfare, diplomacy, events, setup options, victory/defeat, broader technology and development |
 | Optional | Tactical combat only if it does not impede completing the strategic game |
 | Excluded initially | Real-time strategy, MMO/persistent online world, proprietary backend dependence, mandatory online single-player, copied commercial assets or interfaces |
 
-[SPECIES_ROSTER.md](SPECIES_ROSTER.md) records the original Peldra, Harl, Sulan and Wenth creative starting point; current owner edits remain preserved. The owner permitted creative changes under ADR-007 and subsequently approved the full [species mechanics](superpowers/specs/2026-10-23-species-mechanics-design.md) in [ADR-008](DECISIONS/ADR-008-approved-species-mechanics.md). That rules-3 amendment governs future mechanics without rewriting historical roster text. The [implementation plan](superpowers/plans/2026-10-23-species-mechanics.md) awaits review; no species functionality is implemented.
+[SPECIES_ROSTER.md](SPECIES_ROSTER.md) records the original Peldra, Harl, Sulan and Wenth creative starting point; current owner edits remain preserved. The owner permitted creative changes under ADR-007 and subsequently approved the full [species mechanics](superpowers/specs/2026-10-23-species-mechanics-design.md) in [ADR-008](DECISIONS/ADR-008-approved-species-mechanics.md). That rules3 amendment governs implemented mechanics without rewriting historical roster text. The owner approved the [implementation plan](superpowers/plans/2026-10-23-species-mechanics.md); [execution evidence](../reports/SPECIES_VALIDATION_2026-10-23.md) and the final review report describe actual local acceptance. New games visibly default to Harl; old campaigns retain their original rules/content.
 
 ## Constraints and success
 

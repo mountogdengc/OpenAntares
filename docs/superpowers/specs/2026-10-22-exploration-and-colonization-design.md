@@ -1,5 +1,8 @@
 # Exploration, travel, and a second colony
 
+
+**Subsequent rules3 amendment:** The approved [species mechanics](2026-10-23-species-mechanics-design.md) and [execution evidence](../../../reports/SPECIES_VALIDATION_2026-10-23.md) extend new campaigns with species/habitats and writer4. This document retains the historical rules2 contract; old campaigns are not upgraded.
+
 **Status:** Approved by the owner on 2026-10-22; see [ADR-006](../../DECISIONS/ADR-006-approved-expansion-milestone.md). The rules, numeric fixtures and bounded policies below are approved design and now implemented locally; final balance is not verified. [ADR-005](../../DECISIONS/ADR-005-defer-uncoached-playtest-for-design.md) retains the separate human-playtest deferral. The owner approved the separate plan and Native execution; current implementation evidence/review state is in reports/EXPANSION_VALIDATION_2026-10-22.md.
 
 **Sources:** [Charter](../../CHARTER.md), [engineering rules](../../../CLAUDE.md), [economy contract](../../FIRST_PLAYABLE_ECONOMY.md), [spiral specification](2026-10-05-spiral-galaxy-design.md), [design guide](../../DESIGN_GUIDE.md), [accepted creative roster](../../SPECIES_ROSTER.md), and the existing validation plan's task 6.

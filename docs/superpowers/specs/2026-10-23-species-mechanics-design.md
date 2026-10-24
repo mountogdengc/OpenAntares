@@ -1,10 +1,10 @@
 # Playable species: economy, habitats and founding
 
-**Status: Owner-approved design, 2026-10-23; implementation not started.**
+**Status: Owner-approved design and implementation plan, 2026-10-23; implemented candidate undergoing final independent review.**
 
-REQ-016 / completed design milestone M3-D. The owner approved the full design and requested the separate implementation plan with the classic Master of Orion II direction. [ADR-008](../../DECISIONS/ADR-008-approved-species-mechanics.md) records this approval; [the plan](../plans/2026-10-23-species-mechanics.md) awaits its own review. The original [roster](../../SPECIES_ROSTER.md), including the owner's uncommitted appearance edits, remains unchanged. The numbers and creative amendments below are accepted rules for the bounded species slice, not implemented functionality.
+REQ-016 / design milestone M3-D. ADR-008 records design approval; the owner subsequently approved [the plan](../plans/2026-10-23-species-mechanics.md) with “yes” and the retained Native preference. [Implementation validation](../../../reports/SPECIES_VALIDATION_2026-10-23.md) and [review/handoff](../../../reports/SPECIES_FINAL_REVIEW_2026-10-23.md) supply actual evidence and limits. The original [roster](../../SPECIES_ROSTER.md), including the owner's uncommitted appearance edits, remains unchanged. Numbers below are accepted reproducible rules, not verified balance.
 
-Sources: [charter](../../CHARTER.md), [engineering constraints](../../../CLAUDE.md), [design guide](../../DESIGN_GUIDE.md), [economy contract](../../FIRST_PLAYABLE_ECONOMY.md), [expansion contract](2026-10-22-exploration-and-colonization-design.md) and [integrated baseline](../../../reports/EXPANSION_INTEGRATION_2026-10-23.md). Existing approved behavior governs rules-1/2 campaigns. This approved extension applies to rules-3 campaigns after implementation of the separately reviewed plan.
+Sources: [charter](../../CHARTER.md), [engineering constraints](../../../CLAUDE.md), [design guide](../../DESIGN_GUIDE.md), [economy contract](../../FIRST_PLAYABLE_ECONOMY.md), [expansion contract](2026-10-22-exploration-and-colonization-design.md) and [integrated baseline](../../../reports/EXPANSION_INTEGRATION_2026-10-23.md). Existing approved behavior governs rules-1/2 campaigns. This approved extension applies to rules-3 campaigns under the separately approved implementation plan.
 
 ## 1. Intent and scope
 
