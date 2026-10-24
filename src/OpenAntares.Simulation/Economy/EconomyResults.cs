@@ -71,6 +71,7 @@ public sealed record ReserveOutcome(
 {
     public string TargetKind { get; init; } = ProductionKinds.Building;
     public string? BlockedReasonCode { get; init; }
+    public ImmutableArray<EmbarkationRequirement> BlockedRequirements { get; init; } = ImmutableArray<EmbarkationRequirement>.Empty;
 }
 
 /// <summary>Turns until completion assuming current output continues. <c>null</c> turns means stalled.</summary>

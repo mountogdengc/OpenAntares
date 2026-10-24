@@ -10,7 +10,7 @@ public static partial class CommandProcessor
     private static CommandOutcome? CheckVessel(GameState s, EmpireId issuer, VesselId id, out VesselState? v)
     {
         v = null;
-        if (s.RulesVersion != Rules.ExpansionVersion) return CommandOutcome.Reject(s, "expansion_unavailable", "Legacy colony game - start a new game for exploration.");
+        if (!Rules.HasExpansion(s.RulesVersion)) return CommandOutcome.Reject(s, "expansion_unavailable", "Legacy colony game - start a new game for exploration.");
         v = s.FindVessel(id);
         if (v is null || v.EmpireId != issuer) return CommandOutcome.Reject(s, RejectionCodes.NotOwner, "Vessel is not controlled by this empire.");
         if (v.Transit is not null) return CommandOutcome.Reject(s, "vessel_in_transit", "Travel is committed until arrival.");
@@ -35,8 +35,9 @@ public static partial class CommandProcessor
         if (c.Target is null || c.Target.Kind == ProductionKinds.Building) return SetProject(content, s, issuer, new(c.Issuer, c.ExpectedTurn, c.Colony, c.Target?.ContentId));
         if (!TryGetOwnedColony(s, c.Issuer, c.Colony, out var colony, out var rejection)) return rejection;
         if (c.Target.Kind != ProductionKinds.Vessel) return CommandOutcome.Reject(s, "invalid_production_kind", "Unknown production kind.");
-        if (s.RulesVersion != Rules.ExpansionVersion) return CommandOutcome.Reject(s, "expansion_unavailable", "Legacy colony game - start a new game for exploration.");
+        if (!Rules.HasExpansion(s.RulesVersion)) return CommandOutcome.Reject(s, "expansion_unavailable", "Legacy colony game - start a new game for exploration.");
         if (!content.Vessels.ContainsKey(c.Target.ContentId)) return CommandOutcome.Reject(s, "unknown_vessel_role", "Vessel role is not defined.");
+        if (!Species.SpeciesRules.CanBuildVessel(content,s,c.Issuer,c.Target.ContentId)) return CommandOutcome.Reject(s, "project_not_available_for_species", "This expedition is not available to the selected species.");
         if (colony.ProjectId == c.Target.ContentId && colony.ProjectKind == c.Target.Kind) return CommandOutcome.NoChange(s);
         return ApplyPlanningChange(s, c.Issuer, candidate => { var target = candidate.FindColony(c.Colony)!; target.ProjectId = c.Target.ContentId; target.ProjectKind = c.Target.Kind; });
     }
