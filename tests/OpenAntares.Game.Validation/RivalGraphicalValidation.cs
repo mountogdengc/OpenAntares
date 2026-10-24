@@ -80,14 +80,36 @@ public partial class RivalGraphicalValidation : GraphicalValidation
             await Capture("rival-setup-"+dimensions.X+"x"+dimensions.Y);
         }
         await Drop(setup);
-        foreach(var ids in new[]{new[]{"peldra","sulan","wenth"},new[]{"sulan","wenth"},new[]{"wenth"},Array.Empty<string>()})
+        foreach(var entry in new[]{
+            (Ids:new[]{"peldra","sulan","wenth"},Human:"peldra",Rival:"sulan"),
+            (Ids:new[]{"harl","sulan","wenth"},Human:"harl",Rival:"sulan"),
+            (Ids:new[]{"sulan","wenth"},Human:"sulan",Rival:"wenth"),
+            (Ids:new[]{"peldra"},Human:"peldra",Rival:"peldra"),
+            (Ids:new[]{"harl"},Human:"harl",Rival:"harl"),
+            (Ids:new[]{"wenth"},Human:"wenth",Rival:"wenth"),
+            (Ids:Array.Empty<string>(),Human:"",Rival:"")})
         {
+            var ids=entry.Ids;
             var alternative=core with{Species=core.Species.Where(p=>ids.Contains(p.Key)).ToImmutableSortedDictionary(p=>p.Key,p=>p.Value,StringComparer.Ordinal)};
             var ui=new NewGameScreen(alternative){Theme=GD.Load<Theme>("res://game/theme/openantares_theme.tres")};AddChild(ui);await Frames();
             if(ids.Length==0){Check(Button(ui,"Start").Disabled,"No species disables Start");bool loaded=false;ui.LoadRequested+=()=>loaded=true;Press(Button(ui,"Load Game"));Check(loaded,"No species retains Load");}
-            else{Check(Picker(ui,"SpeciesPicker").GetSelectedMetadata().AsString()==ids[0],"Fallback human is ordinal first");Check(Picker(ui,"RivalSpeciesPicker").GetSelectedMetadata().AsString()==(ids.Contains("peldra")?"peldra":ids.Length>1?ids[1]:ids[0]),"Fallback rival chooses Peldra or first other or single mirror");}
+            else
+            {
+                Check(Picker(ui,"SpeciesPicker").GetSelectedMetadata().AsString()==entry.Human,"Alternative human defaults to "+entry.Human);
+                Check(Picker(ui,"RivalSpeciesPicker").GetSelectedMetadata().AsString()==entry.Rival,"Alternative rival defaults to distinct choice or sole mirror: "+entry.Rival);
+                NewGameSettings? chosen=null;ui.StartRequested+=settings=>chosen=settings;ui.Configure("small",42);Press(Button(ui,"Start"));
+                Check(chosen?.SpeciesId==entry.Human && chosen.RivalSpeciesId==entry.Rival && chosen.RivalCount==1,"Actual alternative Start uses both initial identities");
+                Select(Picker(ui,"SpeciesPicker"),entry.Rival);Press(Button(ui,"Start"));
+                Check(chosen?.SpeciesId==entry.Rival && chosen.RivalSpeciesId==entry.Rival,"Later manual mirror remains legal without rival auto-swap");
+            }
             await Drop(ui);
         }
+        var renamed=core with{Species=ImmutableSortedDictionary<string,SpeciesDefinition>.Empty
+            .Add("custom_zeta",core.Species["harl"] with{Id="custom_zeta",Name="Zeta"})
+            .Add("custom_alpha",core.Species["peldra"] with{Id="custom_alpha",Name="Alpha"})};
+        var renamedUi=new NewGameScreen(renamed){Theme=GD.Load<Theme>("res://game/theme/openantares_theme.tres")};AddChild(renamedUi);await Frames();
+        Check(Picker(renamedUi,"SpeciesPicker").GetSelectedMetadata().AsString()=="custom_alpha" && Picker(renamedUi,"RivalSpeciesPicker").GetSelectedMetadata().AsString()=="custom_zeta","Renamed/reordered alternative definitions initialize in ordinal order with a distinct rival");
+        await Drop(renamedUi);
         var invalid=new NewGameScreen(core with{RivalAi=null}){Theme=GD.Load<Theme>("res://game/theme/openantares_theme.tres")};AddChild(invalid);await Frames();
         Check(Button(invalid,"Start").Disabled,"Missing policy disables new rules-4 game");bool loadAvailable=false;invalid.LoadRequested+=()=>loadAvailable=true;Press(Button(invalid,"Load Game"));Check(loadAvailable,"Missing policy retains Load");await Drop(invalid);
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();var current=One<NewGameScreen>(main);

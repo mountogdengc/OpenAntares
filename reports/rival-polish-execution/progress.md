@@ -4,3 +4,5 @@ Pre-flight: Tasks1/2 share RivalGraphicalValidation only; preserve Task1 selecto
 Ruling: native worktree tool cannot resolve this chat's C directory as a repository; scoped Git fallback created codex/rival-polish — preserves primary and all older worktrees — cost if wrong: native attachment may need repair.
 Ruling: treat continue-on as authorization for the two listed corrections to the approved specification, not a new design/plan approval gate — no new product choices — cost if wrong: scope limited to these two review deviations.
 Ruling: retain execution workspace/evidence at finish — established owner/project preservation requirement overrides cleanup — cost if wrong: extra disk use.
+
+Task1: actual graphical RED reproduced missing-Harl unintended Peldra mirror; one-line initializer fix preserves core pairing and later manual mirrors. GREEN full Rival 1146 result rows, no engine diagnostics; singleton/empty/renamed/reordered content and real StartRequested identities tested. Runner normal rebuild green.

@@ -51,7 +51,7 @@ public partial class NewGameScreen : CenterContainer
         _rivalCountPicker.AddItem("One"); _rivalCountPicker.SetItemMetadata(1,"1"); _rivalCountPicker.Select(1); form.AddChild(_rivalCountPicker);
         form.AddChild(new Label { Text = "Rival species" });
         foreach (var sp in _species) { _rivalSpeciesPicker.AddItem(sp.Name); _rivalSpeciesPicker.SetItemMetadata(_rivalSpeciesPicker.ItemCount-1,sp.Id); }
-        int rival = Array.FindIndex(_species,s=>s.Id=="peldra");
+        int rival = harl >= 0 ? Array.FindIndex(_species,s=>s.Id=="peldra") : -1;
         if(rival<0) rival = Array.FindIndex(_species,s=>s.Id!=(_speciesPicker.Selected>=0?_species[_speciesPicker.Selected].Id:null));
         if(_species.Length>0) _rivalSpeciesPicker.Select(rival>=0?rival:0); else _rivalSpeciesPicker.Disabled=true;
         form.AddChild(_rivalSpeciesPicker);
