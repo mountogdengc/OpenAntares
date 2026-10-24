@@ -32,3 +32,4 @@ Owner approved design, separate plan and retained Native execution. Baseline e77
 - [ ] Task 11
 - [ ] Task 12
 `nBaseline: ordinary restore exit0; Build exit0/0 warnings/errors; Suite648 passed/0 failed/skipped. Logs in reports/colony-execution. Product source unchanged.
+`nTask1: missing-fixture RED observed (1 failure); exact source hash verified; unchanged writer5/rules4 captured four ordinary Ready states14→18. Suite649/649 GREEN; no src/game/content/art diff. Primary four exact hashes verified at execution entry.

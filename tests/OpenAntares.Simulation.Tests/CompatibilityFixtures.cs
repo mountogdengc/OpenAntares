@@ -17,6 +17,9 @@ internal static class CompatibilityFixtures
     internal static LoadedGame LoadRules3() => SaveGame.ReadFile(PathFor("legacy-rules3-v4-save.json")).Game ?? throw new InvalidOperationException("Missing or invalid genuine rules-3 fixture.");
     internal static LoadedGame LoadPassiveAiRules3() => SaveGame.ReadFile(PathFor("passive-ai-rules3-v4-save.json")).Game ?? throw new InvalidOperationException("Missing or invalid pre-rival passive-Ai fixture.");
     internal static ImmutableArray<string> Rules3Trace(bool passiveAi) => JsonSerializer.Deserialize<ImmutableArray<string>>(File.ReadAllText(PathFor(passiveAi ? "passive-ai-rules3-v4-continuation.json" : "legacy-rules3-v4-continuation.json")));
+    internal static LoadedGame LoadRules4() => SaveGame.ReadFile(PathFor("legacy-rules4-v5-save.json")).Game ?? throw new InvalidOperationException("Missing or invalid genuine rules-4 fixture.");
+    internal static ContentSet Rules4Content() => LoadRules4().Content;
+    internal static ImmutableArray<string> Rules4Trace() => JsonSerializer.Deserialize<ImmutableArray<string>>(File.ReadAllText(PathFor("legacy-rules4-v5-continuation.json")));
     internal static string CanonicalWithoutSchema(ContentSet content, GameState state)
     {
         JsonObject root = JsonNode.Parse(SaveGame.Serialize(content, state))!.AsObject();

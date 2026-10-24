@@ -1,0 +1,12 @@
+{
+  "source_path": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261024-194131-796-rival-peldra-small-expanded.json",
+  "source_sha256": "9f9b812a5ce5102bf5fbf7ae3d6a1e8fedf64ce91e0d4ef287280100999a0354",
+  "product_source": "10cb0b4e86ac2d16d6ec6621eb6ca841d7c5fe2d",
+  "capture_branch_base": "31cff50a899c3189be02e31751e35c9d69ebbf34",
+  "schema_version": 5,
+  "rules_version": 4,
+  "source_turn": 14,
+  "colonies": 5,
+  "future_states": 4,
+  "method": "Four ordinary last-human SetReady commands; no state injection; original retained unchanged."
+}
