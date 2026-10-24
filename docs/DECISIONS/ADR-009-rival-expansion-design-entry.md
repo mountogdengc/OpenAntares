@@ -1,6 +1,6 @@
 # ADR-009: Select rival expansion for the next design
 
-Date:2026-10-24. **Status: Accepted direction and drafting authority only. Full gameplay design approval pending.**
+Date:2026-10-24. **Status: Accepted direction and drafting authority only. Historical drafting decision; full design subsequently approved in [ADR-010](ADR-010-approved-rival-expansion-design.md).**
 
 After the species milestone was integrated, the owner asked to continue. The [readiness assessment](../../reports/NEXT_MILESTONE_READINESS_2026-10-24.md) recommended rival expansion. In response to “Is competition with another empire the experience you want next?”, the owner replied “yes”. This selects that next player experience and authorizes the [rival-expansion specification](../superpowers/specs/2026-10-24-rival-expansion-design.md) for review.
 

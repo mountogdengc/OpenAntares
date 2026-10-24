@@ -1,6 +1,6 @@
 # Rival-expansion design review — 2026-10-24
 
-**Status: Full draft prepared; builder check complete; full owner approval pending.**
+**Status: Builder check complete; full owner design approval received in [ADR-010](../docs/DECISIONS/ADR-010-approved-rival-expansion-design.md). Separate implementation-plan review pending.**
 
 Baseline main `c3b01dbd49d022d526d5319ca8ab34a4ba5e0729`. The owner selected competition with another empire as the next experience; [ADR-009](../docs/DECISIONS/ADR-009-rival-expansion-design-entry.md) records direction only. The [full proposed design](../docs/superpowers/specs/2026-10-24-rival-expansion-design.md) defines a bounded rival-expansion slice. This report records design review, not gameplay implementation.
 
@@ -8,9 +8,9 @@ Baseline main `c3b01dbd49d022d526d5319ca8ab34a4ba5e0729`. The owner selected com
 
 A fresh-context read-only builder (`rival_builder_check`) reviewed the complete draft and the actual species/expansion contracts. Its remit was to report only remaining questions whose wrong answers would materially change the implementation plan. It returned exactly: **“nothing important left”**. No material question, owner clarification round or design correction was requested. The review did not edit files or run product builds.
 
-The author reconciled milestone/requirement/decision records and checked design links, unique requirement/acceptance IDs, the compatibility matrix and preservation boundaries. Passing this check makes the design ready for owner review; it does not satisfy proposed RIV-AC-012 or verify future functionality.
+The author reconciled milestone/requirement/decision records and checked design links, unique requirement/acceptance IDs, the compatibility matrix and preservation boundaries. At the original handoff this check made the design ready for owner review; it did not itself satisfy RIV-AC-012 or verify future functionality. The subsequent owner “approved” satisfies RIV-AC-012 through ADR-010; no gameplay is verified by that approval.
 
-## Proposed calls requiring full design review
+## Calls subsequently accepted in full design review
 
 - One rival by default, with Solo retained; existing four species on each side, Harl/Peldra defaults and mirrors allowed.
 - One deterministic expansion policy using ordinary commands and species rules; no resource or information bonuses.
@@ -18,7 +18,7 @@ The author reconciled milestone/requirement/decision records and checked design 
 - Preserve existing founding priority, including the human’s earlier-ID advantage on an exact simultaneous tie.
 - New rules 4/writer 5 for the new design; old rules 1/2/3 campaigns retain behavior, including passive AI tags.
 
-These are drafter proposals. The owner’s directional “yes” did not approve the detailed calls. After full design approval, the next step is a separate implementation plan using the retained Native preference.
+These originated as drafter proposals: the directional “yes” did not approve the detailed calls. The subsequent full-design “approved” accepts them in ADR-010. The [separate ten-task plan](../docs/superpowers/plans/2026-10-24-rival-expansion.md) is now written/self-reviewed, with owner plan review pending and Native retained.
 
 ## Preservation and evidence
 

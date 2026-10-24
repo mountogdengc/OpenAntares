@@ -1,6 +1,6 @@
 # Next milestone readiness — 2026-10-24
 
-**Subsequent owner direction:** The owner answered “yes” to competing with another empire. [ADR-009](../docs/DECISIONS/ADR-009-rival-expansion-design-entry.md) now records rival expansion selected for drafting; [the full proposed design](../docs/superpowers/specs/2026-10-24-rival-expansion-design.md) has completed its builder check and awaits full owner review. The earlier selection-open statements below are retained assessment history, not a reason to ask the direction again. No detailed gameplay approval is claimed.
+**Subsequent owner direction:** The owner answered “yes” to competing with another empire. [ADR-009](../docs/DECISIONS/ADR-009-rival-expansion-design-entry.md) now records rival expansion selected for drafting; [the full proposed design](../docs/superpowers/specs/2026-10-24-rival-expansion-design.md) has completed its builder check and was subsequently approved in [ADR-010](../docs/DECISIONS/ADR-010-approved-rival-expansion-design.md); the separate [implementation plan](../docs/superpowers/plans/2026-10-24-rival-expansion.md) awaits owner plan review. The earlier selection-open statements below are retained assessment history, not a reason to ask the direction again. The earlier direction-only stage is historical; ADR-010 now supplies full design approval, with no gameplay implementation claimed.
 
 
 **Status: Recommendation for owner direction; no new gameplay specification or implementation approved.**

@@ -6,12 +6,12 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Rival-expansion design drafted; builder check complete, full owner review pending |
+| Current phase | Rival design approved; implementation plan written/self-reviewed, owner plan review pending |
 | Project health | All local automated gates pass; human/release acceptance remain open |
-| Active milestone | M4-D — Rival-expansion design review |
+| Active milestone | M4-P — Rival-expansion implementation-plan review |
 | Current version | Not Released; new games rules3, writer schema4; legacy rules1/2 retained |
 | Last updated | 2026-10-24, America/Denver |
-| Implementation readiness | Species integrated/verified; rival direction approved for design, detailed rules unapproved/unimplemented |
+| Implementation readiness | Rival full design approved in ADR-010; ten-task plan awaits owner review; gameplay unimplemented |
 
 ## 2. Current state
 
@@ -21,7 +21,7 @@ Implemented on `codex/species-mechanics`, then fast-forwarded into local `main` 
 
 Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execution ledger](reports/species-execution/progress.md), [final review/handoff](reports/SPECIES_FINAL_REVIEW_2026-10-23.md). Expansion integration is historical and complete under separate authorization. The owner selected local integration(option1); main now includes species head3f25a14. [Integration verification](reports/SPECIES_INTEGRATION_2026-10-24.md) records fresh main gates and exact edit preservation. No remote push/release/cleanup was performed.
 
-**Current design work:** The owner answered “yes” to competition with another empire as the next experience. [ADR-009](docs/DECISIONS/ADR-009-rival-expansion-design-entry.md) records direction/drafting authority only. The [rival-expansion draft](docs/superpowers/specs/2026-10-24-rival-expansion-design.md) proposes one default rival, Solo retained, legal deterministic planning, observed contacts and new-game version separation; its fresh builder check found nothing important left. These are drafter proposals, not approved gameplay or current functionality. [Design-review record](reports/RIVAL_EXPANSION_DESIGN_REVIEW_2026-10-24.md).
+**Current rival work:** The owner approved the complete [rival-expansion design](docs/superpowers/specs/2026-10-24-rival-expansion-design.md) after its builder check. [ADR-010](docs/DECISIONS/ADR-010-approved-rival-expansion-design.md) records full design approval and satisfies RIV-AC-012. The separate [ten-task plan](docs/superpowers/plans/2026-10-24-rival-expansion.md) is written/self-reviewed and awaits owner plan review; Native is retained. No rival task, product change or gameplay verification has run. [Plan-review record](reports/RIVAL_IMPLEMENTATION_PLAN_REVIEW_2026-10-24.md).
 
 ## 3. Milestone progress
 
@@ -34,7 +34,9 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 | M3-D | Species design | Verified | ADR-008 / SPC-AC-010 |
 | M3-P | Species implementation plan | Verified | Owner “yes”; Native execution retained |
 | M3-I | Species implementation | Verified | Local automated criteria, independent review/corrections and authorized main integration verified; human/release limits remain |
-| M4-D | Rival-expansion design | In Progress | Direction approved in ADR-009; builder check complete; full RIV design owner review pending |
+| M4-D | Rival-expansion design | Verified | Builder check and explicit full owner approval in ADR-010; design scope only |
+| M4-P | Rival implementation plan | In Progress | Ten tasks written/self-reviewed; owner plan review pending; Native retained |
+| M4-I | Rival implementation | Not Started | No gameplay task executed; requires plan authorization |
 | M-Later | Remaining strategic systems | Deferred | Rest of REQ-017 envelope; no inferred combat/diplomacy scope |
 | M-Delivery | Cross-platform/release | Not Started | Windows-only local evidence |
 
@@ -42,7 +44,7 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 
 Preserve ADR-001..004 architecture/JSON/determinism/spiral decisions, ADR-005 human deferral, ADR-006 historical expansion separation and ADR-008 approved species rules. Implementation rulings are retained in the execution ledger. No new architecture, dependencies, portraits, AI/combat/diplomacy or custom civilizations were added.
 
-Open: full rival-expansion design review (including proposed setup/policy/contact/version calls), physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
+Open: rival implementation-plan review, physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
 
 ## 5. Blockers and risks
 
@@ -92,8 +94,8 @@ Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad
 
 ## 8. Immediate next action
 
-Review the complete [rival-expansion specification](docs/superpowers/specs/2026-10-24-rival-expansion-design.md) with its builder check complete. The owner selected the experience; detailed setup, policy, contact and compatibility rules remain proposals requiring full-design approval. After approval, write the separate implementation plan using the retained Native preference; no new method choice or species-design reapproval is needed. Species implementation, review and local integration are complete; do not repeat those gates. The owner’s option1 authorizes this local merge only; remote push/release/worktree cleanup remain separate.
+Review the separate [rival implementation plan](docs/superpowers/plans/2026-10-24-rival-expansion.md). The full design is approved in ADR-010; do not ask to approve it again. After owner plan confirmation, use Native execution, establish an isolated baseline and begin Task 1 genuine legacy captures before any product writer/default mutation. No new method choice is needed. Species implementation, review and local integration are complete; do not repeat those gates. The owner’s option1 authorizes this local merge only; remote push/release/worktree cleanup remain separate.
 
 ## 9. Agent handoff
 
-Read actual Git state and the final report before continuing. Do not repeat approved design, completed tasks or execution-method selection; do not re-block on the deferred participant session. Preserve simulation/Godot separation, integer/PCG32 determinism, typed IDs, ordered iteration, snapshot timing, permitted views and compatibility. All ten species-plan tasks and one independent review/correction pass are complete. Rival work is design-only; do not implement it from the direction approval alone. Source remains identical to verified code checkpoint713d305. Fresh integrated-main evidence and exact preservation are in the2026-10-24 integration report; integration handoff changes are documentation/evidence only.
+Read actual Git state and the final report before continuing. Do not repeat approved design, completed tasks or execution-method selection; do not re-block on the deferred participant session. Preserve simulation/Godot separation, integer/PCG32 determinism, typed IDs, ordered iteration, snapshot timing, permitted views and compatibility. All ten species-plan tasks and one independent review/correction pass are complete. Rival design is now approved; the implementation plan is written/self-reviewed but not yet authorized. Do not execute its unchecked tasks before owner plan review. Do not repeat rival design approval or Native selection. Source remains identical to verified code checkpoint713d305. Fresh integrated-main evidence and exact preservation are in the2026-10-24 integration report; integration handoff changes are documentation/evidence only.

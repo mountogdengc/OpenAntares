@@ -1,8 +1,8 @@
 # Rival expansion: another civilization in the galaxy
 
-**Status: Draft for full owner review. Direction approved2026-10-24; gameplay rules below are proposals, not approved or implemented.**
+**Status: Full design approved 2026-10-24 in [ADR-010](../../DECISIONS/ADR-010-approved-rival-expansion-design.md). RIV-AC-012 is satisfied; no rival implementation yet. Separate [implementation plan](../plans/2026-10-24-rival-expansion.md) awaits owner review.**
 
-REQ-017 / proposed design milestone M4-D. The owner answered “yes” to competition with another empire after the species milestone was integrated. [ADR-009](../../DECISIONS/ADR-009-rival-expansion-design-entry.md) records direction/drafting authority only. This document develops that direction into a reviewable bounded design; it is not an implementation plan. A builder check precedes handoff; approval of the complete design is required before separate implementation planning.
+REQ-017 / design milestone M4-D complete. The owner first selected competition with another empire in [ADR-009](../../DECISIONS/ADR-009-rival-expansion-design-entry.md), then approved this complete document after its fresh builder check in ADR-010. The accepted gameplay contract below governs the separate plan; it is not implemented functionality.
 
 Authorities: [charter](../../CHARTER.md), [engineering constraints](../../../CLAUDE.md), [workflow](../../PROJECT_WORKFLOW.md), [expansion contract](2026-10-22-exploration-and-colonization-design.md), [species contract](2026-10-23-species-mechanics-design.md) and [integrated baseline](../../../reports/SPECIES_INTEGRATION_2026-10-24.md). Keep the original classic space-opera setting/species and accepted mechanics. The current product remains rules3/writer4 until a later approved implementation changes it.
 
@@ -16,9 +16,9 @@ Include: new-game rival setup, deterministic legal planning, existing species ec
 
 Anti-goals: a decorative rival that never expands; an omniscient planner; free resources/population/ships; arbitrary delays pretending to be intelligence; opening a new UI or AI framework; or silently activating AI in an old campaign. The unavailable uncoached session stays Deferred. Exact traces prove reproducibility, not balance/enjoyment.
 
-### Proposed calls for owner review
+### Accepted calls from full owner review
 
-These defaults are the drafter’s proposals; the owner has approved the direction, not this table.
+These defaults were drafter proposals in the reviewed document; full owner approval in ADR-010 accepts them. Prospective implementation wording below describes the approved target, not current functionality.
 
 | Call | Proposed behavior | Reason / limit |
 | --- | --- | --- |
@@ -171,6 +171,6 @@ The80-turn generated fixture is a bounded core regression, not a universal balan
 
 Builder choices: internal file/type layout, own-only query representation, sparse display organization using existing containers, exact error wording/localization labels, and test helper organization. These may not change the defined ordering, budgets, public information, compatibility or policy. No function bodies or implementation task sequence are prescribed here; a separately reviewed plan follows full design approval.
 
-Builder check: complete. A fresh-context, read-only reviewer returned “nothing important left”: no material unanswered design questions were raised. See [the design review record](../../../reports/RIVAL_EXPANSION_DESIGN_REVIEW_2026-10-24.md). The proposed calls in section 1 still require full owner review; the check neither approves gameplay nor verifies an implementation.
+Builder check: complete. A fresh-context, read-only reviewer returned “nothing important left”: no material unanswered design questions were raised. See [the design review record](../../../reports/RIVAL_EXPANSION_DESIGN_REVIEW_2026-10-24.md). The owner subsequently approved the complete design in ADR-010. The builder check itself did not approve gameplay or verify implementation.
 
 Design baseline is main c3b01db plus preserved owner prose. Current source remains species rules3/schema4. Last executed verification is the retained species integration(445 simulation,1181 species,275 expansion,466 legacy assertions+27 geometry observations); none of those counts verifies this proposed rival system. This design task changes documentation only. Keep both owner prose hashes, all QA saves, recovery snapshots/stash and worktrees; no push/merge/cleanup or product dependency/art change is authorized by drafting.
