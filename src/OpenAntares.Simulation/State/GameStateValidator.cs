@@ -38,6 +38,7 @@ public static class GameStateValidator
         ValidateColonies(content, state, errors);
 
         ExpansionStateValidator.Validate(content, state, errors);
+        SpeciesStateValidator.Validate(content, state, errors);
         return errors;
     }
 
@@ -232,7 +233,7 @@ public static class GameStateValidator
 
             if (colony.ProjectId is { } project)
             {
-                if (colony.ProjectKind == ProductionKinds.Vessel && state.RulesVersion == Rules.ExpansionVersion && content.Vessels.ContainsKey(project)) { }
+                if (colony.ProjectKind == ProductionKinds.Vessel && Rules.HasExpansion(state.RulesVersion) && content.Vessels.ContainsKey(project)) { }
                 else if (colony.ProjectKind != ProductionKinds.Building || !content.Buildings.ContainsKey(project))
                 {
                     errors.Add($"{name}: project '{project}' is not defined.");
@@ -248,7 +249,7 @@ public static class GameStateValidator
                 int capacity;
                 try
                 {
-                    capacity = Rules.ColonyCapacity(content, colony);
+                    capacity = Rules.ColonyCapacity(content, state, colony);
                 }
                 catch (OverflowException)
                 {

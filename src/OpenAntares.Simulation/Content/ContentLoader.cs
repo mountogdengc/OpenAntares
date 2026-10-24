@@ -15,7 +15,7 @@ namespace OpenAntares.Simulation.Content;
 /// <c>buildings</c>, and <c>technologies</c>, so content can be split across files however is convenient. Files are read
 /// in ordinal name order. All problems are reported together with their file, entry ID, and field.
 /// </summary>
-public static class ContentLoader
+public static partial class ContentLoader
 {
     private const string AllFiles = "(content)";
 
@@ -44,9 +44,9 @@ public static class ContentLoader
         return Load(sources);
     }
 
-    public static ContentLoadResult Load(IEnumerable<ContentSource> sources)
+    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false)
     {
-        var builder = new Builder();
+        var builder = new Builder(requireSpecies);
         foreach (ContentSource source in sources.OrderBy(s => s.Name, StringComparer.Ordinal))
         {
             builder.AddFile(source);
@@ -55,7 +55,7 @@ public static class ContentLoader
         return builder.Build();
     }
 
-    private sealed class Builder
+    private sealed partial class Builder(bool requireSpecies)
     {
         private readonly List<ContentError> _errors = new();
         private (ExpansionDefinition Value, string File)? _expansion;
@@ -94,6 +94,12 @@ public static class ContentLoader
                 {
                     switch (section.Name)
                     {
+                        case "species":
+                            ReadEntries(section.Value, file, section.Name, ReadSpecies, _species);
+                            break;
+                        case "environments":
+                            ReadEntries(section.Value, file, section.Name, ReadEnvironment, _environments);
+                            break;
                         case "vessels":
                             ReadEntries(section.Value, file, section.Name, ReadVessel, _vessels);
                             break;
@@ -148,6 +154,7 @@ public static class ContentLoader
             }
 
             CheckExpansion();
+            CheckSpecies();
             CheckPrerequisiteReferences();
             CheckGeneration();
             CheckTechnologyCycles();
@@ -172,7 +179,9 @@ public static class ContentLoader
                 _technologies.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal))
             {
                 Vessels = _vessels.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
-                Expansion = _expansion?.Value
+                Expansion = _expansion?.Value,
+                Species = _species.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
+                Environments = _environments.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal)
             };
             return new ContentLoadResult(content, Array.Empty<ContentError>());
         }
@@ -183,10 +192,14 @@ public static class ContentLoader
             var value = new ExpansionDefinition(reader.RequiredString("starting_vessel"));
             reader.RejectUnknownFields(); return value;
         }
-        private VesselDefinition ReadVessel(EntryReader reader, string id) => new(id,
-            reader.RequiredString("name"), reader.RequiredLong("cost", 1, long.MaxValue),
-            reader.RequiredInt("speed", 1, int.MaxValue), reader.RequiredInt("embark_population", 0, int.MaxValue),
-            reader.RequiredInt("minimum_source_population", 0, int.MaxValue), reader.RequiredBool("can_found_colony"));
+        private VesselDefinition ReadVessel(EntryReader reader, string id)
+        {
+            if (reader.HasField("requires_full_colony") && reader.HasField("founds_sealed_habitat")) _extendedVessels.Add(id);
+            return new(id, reader.RequiredString("name"), reader.RequiredLong("cost", 1, long.MaxValue),
+                reader.RequiredInt("speed", 1, int.MaxValue), reader.RequiredInt("embark_population", 0, int.MaxValue),
+                reader.RequiredInt("minimum_source_population", 0, int.MaxValue), reader.RequiredBool("can_found_colony"))
+            { RequiresFullColony = reader.OptionalBool("requires_full_colony"), FoundsSealedHabitat = reader.OptionalBool("founds_sealed_habitat") };
+        }
         private void CheckExpansion()
         {
             if ((_expansion is null) != (_vessels.Count == 0))
@@ -283,6 +296,7 @@ public static class ContentLoader
             return new PlanetTypeDefinition(id, name, support, production, research, weight)
             {
                 RegionGenerationWeights = regionWeights.ToImmutable(),
+                EnvironmentGenerationWeights = ReadEnvironmentWeights(reader),
                 Colonizable = colonizable,
             };
         }

@@ -19,6 +19,8 @@ public sealed record ContentSet(
 {
     public ImmutableSortedDictionary<string, VesselDefinition> Vessels { get; init; } = ImmutableSortedDictionary<string, VesselDefinition>.Empty.WithComparers(System.StringComparer.Ordinal);
     public ExpansionDefinition? Expansion { get; init; }
+    public ImmutableSortedDictionary<string, SpeciesDefinition> Species { get; init; } = ImmutableSortedDictionary<string, SpeciesDefinition>.Empty.WithComparers(System.StringComparer.Ordinal);
+    public ImmutableSortedDictionary<string, EnvironmentDefinition> Environments { get; init; } = ImmutableSortedDictionary<string, EnvironmentDefinition>.Empty.WithComparers(System.StringComparer.Ordinal);
     public ImmutableSortedDictionary<string, GalaxyRegionDefinition> RegionDefinitions => Galaxy.RegionDefinitions;
 }
 
@@ -71,6 +73,7 @@ public sealed record PlanetTypeDefinition(
         ImmutableSortedDictionary<string, int>.Empty.WithComparers(System.StringComparer.Ordinal);
 
     public bool Colonizable { get; init; }
+    public ImmutableSortedDictionary<string, int> EnvironmentGenerationWeights { get; init; } = ImmutableSortedDictionary<string, int>.Empty.WithComparers(System.StringComparer.Ordinal);
 
     public int WeightForRegion(string regionId) =>
         RegionGenerationWeights.TryGetValue(regionId, out int weight) ? weight : GenerationWeight;
@@ -103,5 +106,9 @@ public sealed record TechnologyDefinition(
     long Cost,
     ImmutableArray<string> PrerequisiteTechnologyIds);
 
-public sealed record VesselDefinition(string Id, string Name, long Cost, int Speed, int EmbarkPopulation, int MinimumSourcePopulation, bool CanFoundColony);
+public sealed record VesselDefinition(string Id, string Name, long Cost, int Speed, int EmbarkPopulation, int MinimumSourcePopulation, bool CanFoundColony)
+{
+    public bool RequiresFullColony { get; init; }
+    public bool FoundsSealedHabitat { get; init; }
+}
 public sealed record ExpansionDefinition(string StartingVesselId);

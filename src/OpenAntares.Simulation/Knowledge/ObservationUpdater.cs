@@ -7,7 +7,7 @@ public static class ObservationUpdater
     public static bool IsCurrent(GameState s, EmpireId empire, StarId star) => s.Colonies.Any(c => c.EmpireId == empire && s.FindPlanet(c.PlanetId)?.StarId == star) || s.Vessels.Any(v => v.EmpireId == empire && v.StationaryStarId == star);
     public static void Refresh(GameState candidate, int observedTurn)
     {
-        if (candidate.RulesVersion != Rules.ExpansionVersion) return;
+        if (!Rules.HasExpansion(candidate.RulesVersion)) return;
         foreach (var e in candidate.Empires)
         {
             foreach (var star in candidate.Stars.Where(star => IsCurrent(candidate, e.Id, star.Id)))
@@ -25,7 +25,7 @@ public static class ObservationUpdater
         Planets = s.Planets.Where(p => p.StarId == star).OrderBy(p => p.Id).Select(p =>
         {
             var c = s.Colonies.FirstOrDefault(c => c.PlanetId == p.Id);
-            return new PlanetObservation(p.Id, p.Orbit, p.PlanetTypeId, c?.Id, c?.EmpireId);
+            return new PlanetObservation(p.Id, p.Orbit, p.PlanetTypeId, c?.Id, c?.EmpireId) { EnvironmentId = p.EnvironmentId };
         }).ToList()
     };
 }

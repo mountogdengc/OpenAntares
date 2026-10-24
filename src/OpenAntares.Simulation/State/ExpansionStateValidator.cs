@@ -14,7 +14,7 @@ internal static class ExpansionStateValidator
             if (s.Vessels.Count != 0 || s.Empires.Any(e => e.Surveys.Count != 0) || s.Colonies.Any(c => c.ProjectKind != ProductionKinds.Building)) errors.Add("Legacy games cannot contain expansion state.");
             return;
         }
-        if (s.RulesVersion != Rules.ExpansionVersion) return;
+        if (!Rules.HasExpansion(s.RulesVersion)) return;
         if (content.Expansion is null || content.Vessels.Count == 0) errors.Add("Expansion rules require embedded expansion content.");
         foreach (var c in s.Colonies)
             if (c.ProjectKind is not (ProductionKinds.Building or ProductionKinds.Vessel) || (c.ProjectId is null && c.ProjectKind != ProductionKinds.Building)) errors.Add($"{c.Id}: invalid production kind.");
@@ -36,7 +36,7 @@ internal static class ExpansionStateValidator
             if (v.PendingFounding is { } target)
             {
                 var planet = s.FindPlanet(target);
-                if (role is null || !role.CanFoundColony || planet is null || planet.StarId != v.StationaryStarId || !content.PlanetTypes.TryGetValue(planet.PlanetTypeId, out var type) || !type.Colonizable || type.SupportPerWorker <= 0 || content.Rules.BaseColonyCapacity < v.CarriedPopulation || s.Colonies.Any(c => c.PlanetId == target) || !(s.FindEmpire(v.EmpireId)?.Surveys.Any(o => o.Planets.Any(p => p.PlanetId == target)) ?? false)) errors.Add($"{label}: invalid founding intent.");
+                if (role is null || !role.CanFoundColony || planet is null || planet.StarId != v.StationaryStarId || !content.PlanetTypes.TryGetValue(planet.PlanetTypeId, out var type) || !type.Colonizable || type.SupportPerWorker <= 0 || (s.RulesVersion != Rules.SpeciesVersion && content.Rules.BaseColonyCapacity < v.CarriedPopulation) || s.Colonies.Any(c => c.PlanetId == target) || !(s.FindEmpire(v.EmpireId)?.Surveys.Any(o => o.Planets.Any(p => p.PlanetId == target)) ?? false)) errors.Add($"{label}: invalid founding intent.");
             }
         }
         foreach (var group in s.Vessels.Where(v => v.PendingFounding.HasValue).GroupBy(v => (v.EmpireId, v.PendingFounding)))

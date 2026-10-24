@@ -11,8 +11,10 @@ public static class Rules
     /// <summary>Version of the rules implementation. Saves record it, because formulas in code can't be embedded.</summary>
     public const int LegacyVersion = 1;
     public const int ExpansionVersion = 2;
+    public const int SpeciesVersion = 3;
     public const int CurrentVersion = ExpansionVersion;
-    public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion;
+    public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion;
+    public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion;
 
     /// <summary>A colony's population capacity: the base capacity plus completed capacity buildings.</summary>
     public static int ColonyCapacity(ContentSet content, ColonyState colony)
@@ -29,6 +31,16 @@ public static class Rules
             }
         }
 
+        return checked((int)capacity);
+    }
+
+    public static int ColonyCapacity(ContentSet content, GameState state, ColonyState colony)
+    {
+        if (state.RulesVersion != SpeciesVersion) return ColonyCapacity(content, colony);
+        long capacity = Species.SpeciesRules.BaseCapacity(content, state, colony.EmpireId, colony.HabitatMode);
+        foreach (string id in colony.CompletedBuildingIds)
+            foreach (var effect in content.Buildings[id].Effects)
+                if (effect.Kind == EffectKinds.Capacity) capacity = checked(capacity + effect.Amount);
         return checked((int)capacity);
     }
 

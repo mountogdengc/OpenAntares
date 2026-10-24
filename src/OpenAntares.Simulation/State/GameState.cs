@@ -70,6 +70,7 @@ public enum ControllerKind
 
 public sealed class EmpireState
 {
+    public string? SpeciesId { get; set; }
     public EmpireId Id { get; set; }
     public ControllerKind Controller { get; set; }
 
@@ -90,6 +91,7 @@ public sealed class EmpireState
     {
         Id = Id,
         Controller = Controller,
+        SpeciesId = SpeciesId,
         ResearchReserve = ResearchReserve,
         ResearchTargetId = ResearchTargetId,
         KnownTechnologyIds = new List<string>(KnownTechnologyIds),
@@ -112,6 +114,7 @@ public sealed class StarState
 
 public sealed class PlanetState
 {
+    public string? EnvironmentId { get; set; }
     public PlanetId Id { get; set; }
     public StarId StarId { get; set; }
 
@@ -121,11 +124,12 @@ public sealed class PlanetState
     /// <summary>Content ID of the planet type.</summary>
     public string PlanetTypeId { get; set; } = string.Empty;
 
-    public PlanetState Clone() => new() { Id = Id, StarId = StarId, Orbit = Orbit, PlanetTypeId = PlanetTypeId };
+    public PlanetState Clone() => new() { Id = Id, StarId = StarId, Orbit = Orbit, PlanetTypeId = PlanetTypeId, EnvironmentId = EnvironmentId };
 }
 
 public sealed class ColonyState
 {
+    public string? HabitatMode { get; set; }
     public ColonyId Id { get; set; }
     public PlanetId PlanetId { get; set; }
     public EmpireId EmpireId { get; set; }
@@ -152,6 +156,7 @@ public sealed class ColonyState
     {
         Id = Id,
         PlanetId = PlanetId,
+        HabitatMode = HabitatMode,
         EmpireId = EmpireId,
         Population = Population,
         Workforce = Workforce,

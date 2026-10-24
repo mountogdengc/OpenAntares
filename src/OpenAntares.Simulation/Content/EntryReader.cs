@@ -83,6 +83,8 @@ internal sealed class EntryReader
         return text;
     }
 
+    internal bool HasField(string field) => _object.TryGetProperty(field, out _);
+
     public bool OptionalBool(string field, bool fallback = false)
     {
         _readFields.Add(field);

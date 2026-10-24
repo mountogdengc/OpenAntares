@@ -1,0 +1,458 @@
+{
+  "rules": {
+    "support_per_population": 100,
+    "base_growth": 10,
+    "max_surplus_growth": 40,
+    "base_colony_capacity": 10
+  },
+  "starting_colony": {
+    "planet_type": "verdant_world",
+    "population": 6,
+    "workforce": {
+      "support": 2,
+      "production": 2,
+      "research": 2
+    }
+  },
+  "galaxy": {
+    "min_star_distance": 120,
+    "min_planets_per_star": 1,
+    "max_planets_per_star": 4,
+    "star_names": [
+      "Aldrane",
+      "Ambrel",
+      "Bessaro",
+      "Calloran",
+      "Corvane",
+      "Dellith",
+      "Dunmere",
+      "Esmorra",
+      "Evandry",
+      "Faldis",
+      "Gethra",
+      "Hollin",
+      "Ismere",
+      "Javeth",
+      "Kestra",
+      "Lorvan",
+      "Mirrin",
+      "Nesh",
+      "Oberra",
+      "Pallis",
+      "Quillon",
+      "Rhoven",
+      "Savett",
+      "Tarrow",
+      "Ulvane",
+      "Vessar",
+      "Wardel",
+      "Xandre",
+      "Yollis",
+      "Zerith"
+    ],
+    "regions": {
+      "arm": {
+        "name": "Arm",
+        "description": "The star-rich spiral arms."
+      },
+      "core": {
+        "name": "Core",
+        "description": "The dense galactic center."
+      },
+      "rim": {
+        "name": "Rim",
+        "description": "The sparse outer galaxy."
+      }
+    }
+  },
+  "galaxy_sizes": [
+    {
+      "id": "large",
+      "name": "Large",
+      "star_count": 20,
+      "width": 1400,
+      "height": 980
+    },
+    {
+      "id": "medium",
+      "name": "Medium",
+      "star_count": 16,
+      "width": 1200,
+      "height": 840
+    },
+    {
+      "id": "small",
+      "name": "Small",
+      "star_count": 12,
+      "width": 1000,
+      "height": 700
+    }
+  ],
+  "planet_types": [
+    {
+      "id": "barren_rock",
+      "name": "Barren Rock",
+      "colonizable": true,
+      "support_per_worker": 100,
+      "production_per_worker": 200,
+      "research_per_worker": 100,
+      "generation_weight": 3,
+      "region_generation_weights": {
+        "arm": 2,
+        "core": 1,
+        "rim": 3
+      },
+      "environment_generation_weights": {
+        "dry": 8,
+        "open_ocean": 0,
+        "shelf_sea": 0
+      }
+    },
+    {
+      "id": "crystal_world",
+      "name": "Crystal World",
+      "colonizable": true,
+      "support_per_worker": 200,
+      "production_per_worker": 200,
+      "research_per_worker": 300,
+      "generation_weight": 2,
+      "region_generation_weights": {
+        "arm": 2,
+        "core": 3,
+        "rim": 2
+      },
+      "environment_generation_weights": {
+        "dry": 4,
+        "open_ocean": 3,
+        "shelf_sea": 1
+      }
+    },
+    {
+      "id": "forge_world",
+      "name": "Forge World",
+      "colonizable": true,
+      "support_per_worker": 200,
+      "production_per_worker": 300,
+      "research_per_worker": 200,
+      "generation_weight": 2,
+      "region_generation_weights": {
+        "arm": 2,
+        "core": 3,
+        "rim": 4
+      },
+      "environment_generation_weights": {
+        "dry": 6,
+        "open_ocean": 1,
+        "shelf_sea": 1
+      }
+    },
+    {
+      "id": "verdant_world",
+      "name": "Verdant World",
+      "colonizable": true,
+      "support_per_worker": 300,
+      "production_per_worker": 200,
+      "research_per_worker": 200,
+      "generation_weight": 2,
+      "region_generation_weights": {
+        "arm": 3,
+        "core": 1,
+        "rim": 1
+      },
+      "environment_generation_weights": {
+        "dry": 2,
+        "open_ocean": 2,
+        "shelf_sea": 4
+      }
+    }
+  ],
+  "buildings": [
+    {
+      "id": "analysis_lab",
+      "name": "Analysis Lab",
+      "cost": 1200,
+      "prerequisites": [
+        "measurement_methods"
+      ],
+      "effects": [
+        {
+          "kind": "research",
+          "amount": 100
+        }
+      ]
+    },
+    {
+      "id": "cultivation_hub",
+      "name": "Cultivation Hub",
+      "cost": 1000,
+      "prerequisites": [
+        "cultivation_methods"
+      ],
+      "effects": [
+        {
+          "kind": "support",
+          "amount": 200
+        }
+      ]
+    },
+    {
+      "id": "fabrication_hall",
+      "name": "Fabrication Hall",
+      "cost": 1200,
+      "prerequisites": [],
+      "effects": [
+        {
+          "kind": "production",
+          "amount": 100
+        }
+      ]
+    },
+    {
+      "id": "habitat_extension",
+      "name": "Habitat Extension",
+      "cost": 1600,
+      "prerequisites": [
+        "habitat_methods"
+      ],
+      "effects": [
+        {
+          "kind": "capacity",
+          "amount": 2
+        }
+      ]
+    }
+  ],
+  "technologies": [
+    {
+      "id": "cultivation_methods",
+      "name": "Cultivation Methods",
+      "cost": 1200,
+      "prerequisites": []
+    },
+    {
+      "id": "habitat_methods",
+      "name": "Habitat Methods",
+      "cost": 1600,
+      "prerequisites": []
+    },
+    {
+      "id": "measurement_methods",
+      "name": "Measurement Methods",
+      "cost": 1200,
+      "prerequisites": []
+    }
+  ],
+  "expansion": {
+    "starting_vessel": "scout"
+  },
+  "vessels": [
+    {
+      "id": "scout",
+      "name": "Scout",
+      "cost": 800,
+      "speed": 300,
+      "embark_population": 0,
+      "minimum_source_population": 0,
+      "can_found_colony": false,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": false
+    },
+    {
+      "id": "peldra_settler",
+      "name": "Estate Expedition",
+      "cost": 3200,
+      "speed": 200,
+      "embark_population": 2,
+      "minimum_source_population": 4,
+      "can_found_colony": true,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": false
+    },
+    {
+      "id": "harl_settler",
+      "name": "Settlement Launch",
+      "cost": 1600,
+      "speed": 200,
+      "embark_population": 1,
+      "minimum_source_population": 3,
+      "can_found_colony": true,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": false
+    },
+    {
+      "id": "settler",
+      "name": "Shelf Expedition",
+      "cost": 2400,
+      "speed": 200,
+      "embark_population": 2,
+      "minimum_source_population": 4,
+      "can_found_colony": true,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": false
+    },
+    {
+      "id": "harbor_settler",
+      "name": "Harbor Expedition",
+      "cost": 3600,
+      "speed": 200,
+      "embark_population": 2,
+      "minimum_source_population": 4,
+      "can_found_colony": true,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": true
+    },
+    {
+      "id": "daughter_seed",
+      "name": "Daughter Seed",
+      "cost": 2400,
+      "speed": 200,
+      "embark_population": 3,
+      "minimum_source_population": 6,
+      "can_found_colony": true,
+      "requires_full_colony": true,
+      "founds_sealed_habitat": false
+    }
+  ],
+  "species": [
+    {
+      "id": "peldra",
+      "name": "Peldra",
+      "description": "Test peldra",
+      "culture_name": "Test culture",
+      "population_unit_label": "population",
+      "starting_population": 6,
+      "starting_workforce": {
+        "support": 4,
+        "production": 1,
+        "research": 1
+      },
+      "base_capacity": 10,
+      "sealed_base_capacity": null,
+      "support_per_population": 200,
+      "production_basis_points": 30000,
+      "research_basis_points": 30000,
+      "base_growth": 5,
+      "max_surplus_growth": 15,
+      "support_per_growth_point": 20,
+      "natural_environment_ids": [
+        "dry",
+        "open_ocean",
+        "shelf_sea"
+      ],
+      "allows_sealed_habitats": false,
+      "allowed_vessel_ids": [
+        "peldra_settler",
+        "scout"
+      ]
+    },
+    {
+      "id": "harl",
+      "name": "Harl",
+      "description": "Test harl",
+      "culture_name": "Test culture",
+      "population_unit_label": "population",
+      "starting_population": 6,
+      "starting_workforce": {
+        "support": 2,
+        "production": 2,
+        "research": 2
+      },
+      "base_capacity": 10,
+      "sealed_base_capacity": null,
+      "support_per_population": 100,
+      "production_basis_points": 10000,
+      "research_basis_points": 10000,
+      "base_growth": 10,
+      "max_surplus_growth": 80,
+      "support_per_growth_point": 5,
+      "natural_environment_ids": [
+        "dry",
+        "open_ocean",
+        "shelf_sea"
+      ],
+      "allows_sealed_habitats": false,
+      "allowed_vessel_ids": [
+        "harl_settler",
+        "scout"
+      ]
+    },
+    {
+      "id": "sulan",
+      "name": "Sulan",
+      "description": "Test sulan",
+      "culture_name": "Test culture",
+      "population_unit_label": "population",
+      "starting_population": 6,
+      "starting_workforce": {
+        "support": 2,
+        "production": 2,
+        "research": 2
+      },
+      "base_capacity": 12,
+      "sealed_base_capacity": 8,
+      "support_per_population": 100,
+      "production_basis_points": 10000,
+      "research_basis_points": 10000,
+      "base_growth": 10,
+      "max_surplus_growth": 40,
+      "support_per_growth_point": 10,
+      "natural_environment_ids": [
+        "shelf_sea"
+      ],
+      "allows_sealed_habitats": true,
+      "allowed_vessel_ids": [
+        "harbor_settler",
+        "scout",
+        "settler"
+      ]
+    },
+    {
+      "id": "wenth",
+      "name": "Wenth",
+      "description": "Test wenth",
+      "culture_name": "Test culture",
+      "population_unit_label": "lobes",
+      "starting_population": 4,
+      "starting_workforce": {
+        "support": 2,
+        "production": 1,
+        "research": 1
+      },
+      "base_capacity": 6,
+      "sealed_base_capacity": null,
+      "support_per_population": 100,
+      "production_basis_points": 20000,
+      "research_basis_points": 20000,
+      "base_growth": 10,
+      "max_surplus_growth": 40,
+      "support_per_growth_point": 10,
+      "natural_environment_ids": [
+        "dry",
+        "open_ocean",
+        "shelf_sea"
+      ],
+      "allows_sealed_habitats": false,
+      "allowed_vessel_ids": [
+        "daughter_seed",
+        "scout"
+      ]
+    }
+  ],
+  "environments": [
+    {
+      "id": "dry",
+      "name": "dry",
+      "description": "Test dry"
+    },
+    {
+      "id": "open_ocean",
+      "name": "open_ocean",
+      "description": "Test open_ocean"
+    },
+    {
+      "id": "shelf_sea",
+      "name": "shelf_sea",
+      "description": "Test shelf_sea"
+    }
+  ]
+}
