@@ -1,0 +1,13 @@
+{
+  "kind": "genuine retained QA save",
+  "source": "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves/qa-20261024-133043-627-species-peldra-small-two-colonies.json",
+  "source_sha256": "32eceaa800bb1301956a27b87fc2a784dac9d227a62295b695871ca2d371fd2e",
+  "source_revision": "4d2efb5384a100f2c75ce055d0233399f435e5d3",
+  "source_code_checkpoint": "713d305c201d51e1e7612d7b11b6913c95c5cae1",
+  "schema_version": 4,
+  "rules_version": 3,
+  "changes": "none; exact copied bytes",
+  "command": "dotnet run --project .rival-execution-tools/capture/Capture.csproj -- \u003Crival worktree\u003E",
+  "trace_turns": 4,
+  "normalization": "remove schema_version only"
+}
