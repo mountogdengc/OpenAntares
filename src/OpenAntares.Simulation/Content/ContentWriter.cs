@@ -7,9 +7,11 @@ namespace OpenAntares.Simulation.Content;
 /// Writes a <see cref="ContentSet"/> in the same JSON shape as the content files, so
 /// <see cref="ContentLoader"/> can read and validate it again. Used to embed content in saves.
 /// </summary>
-public static class ContentWriter
+public static partial class ContentWriter
 {
-    public static void Write(Utf8JsonWriter writer, ContentSet content)
+    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty);
+    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, rulesVersion == Rules.SpeciesVersion);
+    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies)
     {
         writer.WriteStartObject();
 
@@ -74,6 +76,12 @@ public static class ContentWriter
             writer.WriteNumber("production_per_worker", planetType.ProductionPerWorker);
             writer.WriteNumber("research_per_worker", planetType.ResearchPerWorker);
             writer.WriteNumber("generation_weight", planetType.GenerationWeight);
+            if (includeSpecies)
+            {
+                writer.WriteStartObject("environment_generation_weights");
+                foreach (var (id, weight) in planetType.EnvironmentGenerationWeights) writer.WriteNumber(id,weight);
+                writer.WriteEndObject();
+            }
             if (planetType.RegionGenerationWeights.Count > 0)
             {
                 writer.WriteStartObject("region_generation_weights");
@@ -133,10 +141,17 @@ public static class ContentWriter
                 writer.WriteStartObject(); writer.WriteString("id", vessel.Id); writer.WriteString("name", vessel.Name);
                 writer.WriteNumber("cost", vessel.Cost); writer.WriteNumber("speed", vessel.Speed);
                 writer.WriteNumber("embark_population", vessel.EmbarkPopulation); writer.WriteNumber("minimum_source_population", vessel.MinimumSourcePopulation);
-                writer.WriteBoolean("can_found_colony", vessel.CanFoundColony); writer.WriteEndObject();
+                writer.WriteBoolean("can_found_colony", vessel.CanFoundColony);
+                if (includeSpecies)
+                {
+                    writer.WriteBoolean("requires_full_colony",vessel.RequiresFullColony);
+                    writer.WriteBoolean("founds_sealed_habitat",vessel.FoundsSealedHabitat);
+                }
+                writer.WriteEndObject();
             }
             writer.WriteEndArray();
         }
+        if (includeSpecies) WriteSpecies(writer,content);
         writer.WriteEndObject();
     }
 

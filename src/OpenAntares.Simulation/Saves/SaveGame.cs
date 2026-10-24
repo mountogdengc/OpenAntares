@@ -28,7 +28,7 @@ public sealed record SaveLoadResult(LoadedGame? Game, IReadOnlyList<string> Erro
 public static class SaveGame
 {
     public const string FormatName = "openantares-save";
-    public const int SchemaVersion = 3;
+    public const int SchemaVersion = 4;
 
     private const string SaveLocation = "save";
 
@@ -51,7 +51,7 @@ public static class SaveGame
             writer.WriteNumber("schema_version", SchemaVersion);
             writer.WriteNumber("rules_version", state.RulesVersion);
             writer.WritePropertyName("content");
-            ContentWriter.Write(writer, content);
+            ContentWriter.Write(writer, content, state.RulesVersion);
             writer.WritePropertyName("state");
             WriteState(writer, state);
             writer.WriteEndObject();
@@ -138,14 +138,14 @@ public static class SaveGame
                 return Fail($"This is not an OpenAntares save (format '{format}').");
             }
 
-            if (schema is not (1 or 2 or SchemaVersion))
+            if (schema is not (1 or 2 or 3 or 4))
             {
                 return Fail($"The save uses unsupported schema version {schema}.");
             }
 
-            if (!Rules.IsSupported((int)rulesVersion) || (schema < 3 && rulesVersion != Rules.LegacyVersion))
+            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3)))
             {
-                return Fail($"The save uses rules version {rulesVersion}; this build implements version 1 and 2 with explicit schema compatibility. Saves are not migrated automatically.");
+                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1, 2 and 3 with explicit schema compatibility. Saves are not migrated automatically.");
             }
 
             // Embedded content goes through the same loader and validation as content files.
@@ -153,7 +153,7 @@ public static class SaveGame
             if (root.RequiredObject("content") is not null)
             {
                 string contentJson = document.RootElement.GetProperty("content").GetRawText();
-                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) });
+                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: rulesVersion == Rules.SpeciesVersion);
                 errors.AddRange(loaded.Errors);
                 content = loaded.Content;
             }
@@ -202,11 +202,12 @@ public static class SaveGame
             writer.WriteStartObject();
             writer.WriteNumber("id", empire.Id.Value);
             writer.WriteString("controller", ControllerName(empire.Controller));
+            SpeciesSaveData.Write(writer, "species_id", empire.SpeciesId, state.RulesVersion);
             writer.WriteNumber("research_reserve", empire.ResearchReserve);
             WriteNullableString(writer, "research_target", empire.ResearchTargetId);
             WriteStrings(writer, "known_technologies", empire.KnownTechnologyIds);
             writer.WriteBoolean("ready", empire.Ready);
-            ExpansionSaveData.WriteSurveys(writer, empire);
+            ExpansionSaveData.WriteSurveys(writer, empire, state.RulesVersion);
             writer.WriteEndObject();
         }
 
@@ -234,6 +235,7 @@ public static class SaveGame
             writer.WriteNumber("star", planet.StarId.Value);
             writer.WriteNumber("orbit", planet.Orbit);
             writer.WriteString("planet_type", planet.PlanetTypeId);
+            SpeciesSaveData.Write(writer, "environment_id", planet.EnvironmentId, state.RulesVersion);
             writer.WriteEndObject();
         }
 
@@ -246,6 +248,7 @@ public static class SaveGame
             writer.WriteNumber("id", colony.Id.Value);
             writer.WriteNumber("planet", colony.PlanetId.Value);
             writer.WriteNumber("empire", colony.EmpireId.Value);
+            SpeciesSaveData.Write(writer, "habitat_mode", colony.HabitatMode, state.RulesVersion);
             writer.WriteNumber("population", colony.Population);
             writer.WriteStartObject("workforce");
             writer.WriteNumber("support", colony.Workforce.Support);
@@ -295,6 +298,7 @@ public static class SaveGame
             {
                 Id = new EmpireId(item.RequiredInt("id", 1, int.MaxValue)),
                 ResearchReserve = item.RequiredLong("research_reserve", 0, long.MaxValue),
+                SpeciesId = SpeciesSaveData.Read(item, "species_id", rulesVersion),
                 ResearchTargetId = item.RequiredNullableString("research_target"),
                 KnownTechnologyIds = item.RequiredStringArray("known_technologies").ToList(),
                 Ready = item.RequiredBool("ready"),
@@ -308,7 +312,7 @@ public static class SaveGame
                 item.Error("controller", $"Unknown controller '{controller}'. Expected human or ai.");
             }
 
-            if (schemaVersion >= 3) ExpansionSaveData.ReadSurveys(item, empire, rulesVersion == Rules.ExpansionVersion);
+            if (schemaVersion >= 3) ExpansionSaveData.ReadSurveys(item, empire, Rules.HasExpansion(rulesVersion), rulesVersion);
             state.Empires.Add(empire);
         });
 
@@ -327,6 +331,7 @@ public static class SaveGame
             StarId = new StarId(item.RequiredInt("star", 1, int.MaxValue)),
             Orbit = item.RequiredInt("orbit", 1, int.MaxValue),
             PlanetTypeId = item.RequiredString("planet_type"),
+            EnvironmentId = SpeciesSaveData.Read(item, "environment_id", rulesVersion),
         }));
 
         ReadItems(reader, "colonies", item =>
@@ -337,10 +342,11 @@ public static class SaveGame
                 PlanetId = new PlanetId(item.RequiredInt("planet", 1, int.MaxValue)),
                 EmpireId = new EmpireId(item.RequiredInt("empire", 1, int.MaxValue)),
                 Population = item.RequiredInt("population", 0, int.MaxValue),
+                HabitatMode = SpeciesSaveData.Read(item, "habitat_mode", rulesVersion),
                 GrowthProgress = item.RequiredInt("growth_progress", 0, int.MaxValue),
                 ProductionReserve = item.RequiredLong("production_reserve", 0, long.MaxValue),
                 ProjectId = item.RequiredNullableString("project"),
-                ProjectKind = schemaVersion < 3 ? ProductionKinds.Building : rulesVersion == Rules.ExpansionVersion ? item.RequiredString("project_kind") : item.OptionalString("project_kind", ProductionKinds.Building),
+                ProjectKind = schemaVersion < 3 ? ProductionKinds.Building : Rules.HasExpansion(rulesVersion) ? item.RequiredString("project_kind") : item.OptionalString("project_kind", ProductionKinds.Building),
                 CompletedBuildingIds = item.RequiredStringArray("completed_buildings").ToList(),
             };
             if (item.RequiredObject("workforce") is { } workforce)
@@ -355,7 +361,7 @@ public static class SaveGame
             state.Colonies.Add(colony);
         });
 
-        if (schemaVersion >= 3) ExpansionSaveData.ReadVessels(reader, state, rulesVersion == Rules.ExpansionVersion);
+        if (schemaVersion >= 3) ExpansionSaveData.ReadVessels(reader, state, Rules.HasExpansion(rulesVersion));
         reader.RejectUnknownFields();
         return state;
     }

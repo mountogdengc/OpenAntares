@@ -19,13 +19,13 @@ internal static class ExpansionSaveData
         }
         w.WriteEndArray();
     }
-    internal static void WriteSurveys(Utf8JsonWriter w, EmpireState e)
+    internal static void WriteSurveys(Utf8JsonWriter w, EmpireState e, int rulesVersion)
     {
         w.WriteStartArray("surveys");
         foreach (var o in e.Surveys)
         {
             w.WriteStartObject(); w.WriteNumber("star", o.StarId.Value); w.WriteNumber("last_observed_turn", o.LastObservedTurn); w.WriteStartArray("planets");
-            foreach (var p in o.Planets) { w.WriteStartObject(); w.WriteNumber("planet", p.PlanetId.Value); w.WriteNumber("orbit", p.Orbit); w.WriteString("planet_type", p.PlanetTypeId); Id(w, "colony", p.ColonyId?.Value); Id(w, "owner", p.OwnerId?.Value); w.WriteEndObject(); }
+            foreach (var p in o.Planets) { w.WriteStartObject(); w.WriteNumber("planet", p.PlanetId.Value); w.WriteNumber("orbit", p.Orbit); w.WriteString("planet_type", p.PlanetTypeId); Id(w, "colony", p.ColonyId?.Value); Id(w, "owner", p.OwnerId?.Value); SpeciesSaveData.Write(w, "environment_id", p.EnvironmentId, rulesVersion); w.WriteEndObject(); }
             w.WriteEndArray(); w.WriteEndObject();
         }
         w.WriteEndArray();
@@ -40,7 +40,7 @@ internal static class ExpansionSaveData
             s.Vessels.Add(vessel);
         });
     }
-    internal static void ReadSurveys(EntryReader r, EmpireState e, bool required)
+    internal static void ReadSurveys(EntryReader r, EmpireState e, bool required, int rulesVersion)
     {
         Items(r, "surveys", required, o =>
         {
@@ -48,7 +48,7 @@ internal static class ExpansionSaveData
             Items(o, "planets", true, p =>
             {
                 int? colony = p.RequiredNullableInt("colony", 1, int.MaxValue), owner = p.RequiredNullableInt("owner", 1, int.MaxValue);
-                survey.Planets.Add(new(new(p.RequiredInt("planet", 1, int.MaxValue)), p.RequiredInt("orbit", 1, int.MaxValue), p.RequiredString("planet_type"), colony is { } c ? new(c) : null, owner is { } x ? new(x) : null));
+                survey.Planets.Add(new(new(p.RequiredInt("planet", 1, int.MaxValue)), p.RequiredInt("orbit", 1, int.MaxValue), p.RequiredString("planet_type"), colony is { } c ? new(c) : null, owner is { } x ? new(x) : null) { EnvironmentId = SpeciesSaveData.Read(p, "environment_id", rulesVersion) });
             });
             e.Surveys.Add(survey);
         });
