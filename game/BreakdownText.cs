@@ -34,6 +34,7 @@ public static class BreakdownText
         {
             BreakdownKinds.Workers => $"{Count(line, "worker")} on {PlanetTypeName(line.SourceId, content)}",
             BreakdownKinds.Species => $"{SpeciesName(line.SourceId, content)} worker modifier" + rounding,
+            BreakdownKinds.SpeciesWorkers => $"{Count(line, "worker")} after {SpeciesName(line.SourceId, content)} multiplier" + rounding,
             BreakdownKinds.Building => content.Buildings.TryGetValue(line.SourceId, out var building) ? building.Name : line.SourceId,
             BreakdownKinds.Population => content.Species.TryGetValue(line.SourceId, out var species) ? $"Support for {line.Count} {species.PopulationUnitLabel} ({species.Name})" : $"{Count(line, "population unit")} to support",
             BreakdownKinds.Shortage when line.Amount == 0 => "Growth paused by support shortage",

@@ -129,14 +129,25 @@ public static class EconomyCalculator
     internal static Quantity Output(string planetTypeId, int workers, long ratePerWorker, List<BuildingDefinition> buildings, string effectKind, EconomyProfile? profile = null)
     {
         var lines = ImmutableArray.CreateBuilder<BreakdownLine>();
-        long baseOutput = checked(workers * ratePerWorker);
-        lines.Add(new BreakdownLine(BreakdownKinds.Workers, planetTypeId, workers, baseOutput));
+        Int128 workerProduct = checked((Int128)workers * ratePerWorker);
         if (profile?.SpeciesId is { } speciesId && effectKind is EffectKinds.Production or EffectKinds.Research)
         {
             int basisPoints = effectKind == EffectKinds.Production ? profile.ProductionBasisPoints : profile.ResearchBasisPoints;
-            DivisionDetails division = DivisionDetails.Divide((Int128)baseOutput * basisPoints, 10000);
-            lines.Add(new BreakdownLine(BreakdownKinds.Species, speciesId, workers, checked(division.Quotient - baseOutput), division));
+            DivisionDetails division = DivisionDetails.Divide(checked(workerProduct * basisPoints), 10000);
+            if (workerProduct > long.MaxValue)
+            {
+                // A reducing factor can make valid output from a raw subtotal too wide for a line.
+                // Keep that contribution together; the division retains the exact wide calculation.
+                lines.Add(new BreakdownLine(BreakdownKinds.SpeciesWorkers, speciesId, workers, division.Quotient, division));
+            }
+            else
+            {
+                long baseOutput = checked((long)workerProduct);
+                lines.Add(new BreakdownLine(BreakdownKinds.Workers, planetTypeId, workers, baseOutput));
+                lines.Add(new BreakdownLine(BreakdownKinds.Species, speciesId, workers, checked(division.Quotient - baseOutput), division));
+            }
         }
+        else lines.Add(new BreakdownLine(BreakdownKinds.Workers, planetTypeId, workers, checked((long)workerProduct)));
         foreach (BuildingDefinition building in buildings)
         {
             foreach (BuildingEffect effect in building.Effects)

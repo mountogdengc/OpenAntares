@@ -68,6 +68,9 @@ public static class BreakdownKinds
 
     public const string Species = "species";
 
+    /// <summary>Combined worker contribution when only its species-scaled amount fits a stored line.</summary>
+    public const string SpeciesWorkers = "species_workers";
+
     /// <summary>A completed building's flat bonus.</summary>
     public const string Building = "building";
 

@@ -81,6 +81,38 @@ public sealed class SpeciesEconomyTests
         var state=SpeciesFixtures.AtHome("peldra");state.Colonies[0].ProductionReserve=long.MaxValue;string before=SpeciesFixtures.Snapshot(state);
         var next=TurnResolver.Resolve(SpeciesFixtures.Content(),state);Assert.False(next.Succeeded);Assert.Same(state,next.State);Assert.Equal(before,SpeciesFixtures.Snapshot(state));
     }
+    [Theory]
+    [InlineData("production",5000,6148914691236517200L,0L,false)]
+    [InlineData("research",5000,6148914691236517200L,0L,false)]
+    [InlineData("production",4999,6147684908298269896L,5600L,true)]
+    [InlineData("research",4999,6147684908298269896L,5600L,true)]
+    public void ValidReducedWorkerOutputUsesWideIntermediateBeforeStoredTotal(string kind,int factor,long workerExpected,long remainder,bool bonusAndShortage)
+    {
+        var root=JsonNode.Parse(SpeciesFixtures.ContentJson())!;
+        var harl=root["species"]!.AsArray().Single(p=>p!["id"]!.GetValue<string>()=="harl")!;
+        harl["base_capacity"]=100;harl["starting_population"]=100;harl[kind+"_basis_points"]=factor;
+        harl["starting_workforce"]=new JsonObject{["support"]=20,["production"]=kind=="production"?80:0,["research"]=kind=="research"?80:0};
+        // One reachable colony makes the research reduction bound independently valid too.
+        root["galaxy"]!["min_planets_per_star"]=1;root["galaxy"]!["max_planets_per_star"]=1;
+        foreach(var size in root["galaxy_sizes"]!.AsArray())size!["star_count"]=1;
+        const long rate=153722867280912930;
+        var verdant=root["planet_types"]!.AsArray().Single(p=>p!["id"]!.GetValue<string>()=="verdant_world")!;
+        verdant[kind+"_per_worker"]=rate;verdant["support_per_worker"]=bonusAndShortage?400:500;
+        var loaded=ContentLoader.Load(new[]{new ContentSource("valid-reduced-output.json",root.ToJsonString())},requireSpecies:true);
+        Assert.True(loaded.Succeeded,string.Join(";",loaded.Errors));
+        var generated=OpenAntares.Simulation.Galaxy.GalaxyGenerator.CreateNewGame(loaded.Content!,new("small",42,3,"harl"));Assert.True(generated.Succeeded,generated.Error);var state=generated.State!;
+        if(bonusAndShortage){state.Colonies[0].CompletedBuildingIds.Add(kind=="production"?"fabrication_hall":"analysis_lab");if(kind=="research")state.Empires[0].KnownTechnologyIds.Add("measurement_methods");}
+        Assert.Empty(GameStateValidator.Validate(loaded.Content!,state));
+        var next=TurnResolver.Resolve(loaded.Content!,state);Assert.True(next.Succeeded,string.Join(";",next.Errors));
+        var economy=next.Report!.Economy.Colonies[0];var output=kind=="production"?economy.GrossProduction:economy.GrossResearch;
+        long grossExpected=workerExpected+(bonusAndShortage?100:0);long netExpected=bonusAndShortage?4918147926638615996:workerExpected;
+        Assert.Equal(grossExpected,output.Total);Assert.Equal(netExpected,kind=="production"?next.State.Colonies[0].ProductionReserve:next.State.Empires[0].ResearchReserve);
+        Assert.Equal((Int128)grossExpected,output.Lines.Aggregate((Int128)0,(sum,line)=>sum+line.Amount));
+        var worker=Assert.Single(output.Lines.Where(line=>line.Kind=="species_workers"));
+        Assert.Equal("harl",worker.SourceId);Assert.Equal(80,worker.Count);Assert.Equal(workerExpected,worker.Amount);
+        Assert.Equal((Int128)80*rate*factor,worker.Division!.Numerator);Assert.Equal(10000,worker.Division.Divisor);Assert.Equal(remainder,worker.Division.Remainder);
+        if(bonusAndShortage){Assert.Equal(100,Assert.Single(output.Lines.Where(line=>line.Kind==BreakdownKinds.Building)).Amount);var net=kind=="production"?economy.NetProduction:economy.NetResearch;Assert.Equal(8000,Assert.Single(net.Lines.Where(line=>line.Kind==BreakdownKinds.Shortage)).Division!.Remainder);}
+    }
     [Fact]
     public void ValidLargeSupportGrowthIsCappedBeforeStoredTotalOverflow()
     {

@@ -82,6 +82,17 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         Check(Descendants<Label>(One<VesselPanel>(screen)).Any(l=>l.Text.Contains("3 population",StringComparison.Ordinal)),"Founding description uses edited carried population");
         Check(!Button(One<VesselPanel>(screen),"Found colony").Disabled,"Prepared expedition eligibility comes from its shared permitted preview");
         await Capture("alternative-content-harbor");RemoveChild(screen);screen.QueueFree();await Frames();
+        foreach(string kind in new[]{"production","research"})
+        {
+            var profile=core.Species["harl"] with{BaseCapacity=100,StartingPopulation=100,StartingWorkforce=kind=="production"?new(20,80,0):new(20,0,80),ProductionBasisPoints=5000,ResearchBasisPoints=5000};
+            var world=core.PlanetTypes["verdant_world"] with{SupportPerWorker=500,ProductionPerWorker=kind=="production"?153722867280912930:200,ResearchPerWorker=kind=="research"?153722867280912930:200};
+            var reduced=core with{Species=core.Species.SetItem("harl",profile),PlanetTypes=core.PlanetTypes.SetItem("verdant_world",world)};
+            var initial=GalaxyGenerator.CreateNewGame(reduced,new("small",42,3,"harl")).State!;
+            Check(GameStateValidator.Validate(reduced,initial).Count==0,"Reduced "+kind+": alternative-content UI state validates");
+            var ui=new GameScreen(new GameSession(reduced,initial),initial.Empires[0].Id){Theme=GD.Load<Theme>("res://game/theme/openantares_theme.tres")};AddChild(ui);await Frames();
+            Check(Descendants<Control>(ui).Any(c=>c.TooltipText.Contains("80 workers after Harl multiplier",StringComparison.Ordinal)),"Reduced "+kind+": combined worker contribution has a truthful tooltip label");
+            RemoveChild(ui);ui.QueueFree();await Frames();
+        }
     }
     private static void SelectNumber(OptionButton picker,int id)
     {
