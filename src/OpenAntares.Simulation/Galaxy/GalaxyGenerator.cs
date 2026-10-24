@@ -8,7 +8,8 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Galaxy;
 
 /// <summary>Choices made on the new-game screen.</summary>
-public sealed record NewGameSettings(string GalaxySizeId, ulong Seed, int RulesVersion = Rules.CurrentVersion, string? SpeciesId = null);
+public sealed record NewGameSettings(string GalaxySizeId, ulong Seed, int RulesVersion = Rules.CurrentVersion, string? SpeciesId = null,
+    int RivalCount = 0, string? RivalSpeciesId = null);
 
 /// <summary>The outcome of creating a new game. <see cref="State"/> is set only on success.</summary>
 public sealed record NewGameResult(GameState? State, string? Error)
@@ -32,6 +33,14 @@ public static class GalaxyGenerator
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
         if (!Rules.IsSupported(settings.RulesVersion)) return Fail("Unsupported rules version.");
+        if (settings.RivalCount is not (0 or 1)) return Fail("Choose either Solo or one rival.");
+        if (settings.RivalCount == 0 && settings.RivalSpeciesId is not null) return Fail("Solo games cannot select a rival species.");
+        if (!Rules.HasRivals(settings.RulesVersion) && (settings.RivalCount != 0 || settings.RivalSpeciesId is not null))
+            return Fail("Old campaign rules cannot start active rivals.");
+        if (Rules.HasRivals(settings.RulesVersion) && content.RivalAi is not { AlgorithmId: "expansion_v1", GrowthSupportWorkers: 0 or 1, ResurveyMinAge: > 0 })
+            return Fail("Rival campaigns, including Solo, require supported rival policy content.");
+        if (settings.RivalCount == 1 && (settings.RivalSpeciesId is not { } rivalSpecies || !content.Species.ContainsKey(rivalSpecies)))
+            return Fail("Select a defined rival species.");
         if (Rules.HasExpansion(settings.RulesVersion) && content.Expansion is null) return Fail("Expansion games require expansion content.");
         if (!content.GalaxySizes.TryGetValue(settings.GalaxySizeId, out GalaxySizeDefinition? size))
         {
@@ -131,6 +140,8 @@ public static class GalaxyGenerator
         if (Rules.HasExpansion(settings.RulesVersion))
         {
             state.Vessels.Add(new VesselState { Id = new(state.AllocateId()), EmpireId = empire.Id, RoleId = content.Expansion!.StartingVesselId, StationaryStarId = home.Id });
+            if (settings.RivalCount == 1 && RivalHomeGenerator.Add(content, state, settings.RivalSpeciesId!) is { } error)
+                return Fail(error);
             Knowledge.ObservationUpdater.Refresh(state, 0);
         }
 
