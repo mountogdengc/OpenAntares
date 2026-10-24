@@ -45,3 +45,7 @@ Task3:14 semantic RED cases observed before handlers;21 command tests GREEN. Sui
 Task 3: complete (commits aaa1e94..9fb9b44, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers → Passed!  - Failed:     0, Passed:   704, Skipped:     0, Total:   704, Duration: 767 ms - OpenAntares.Simulation.Tests.dll (net8.0))
 
 Task4:13 semantic RED cases observed;22 governor tests GREEN with all literal outputs, population extremes, zero support, private overflow, Sulan habitats and Wenth cargo/capacity. Suite726/726; Build0 warnings/errors. No IDs/RNG consumed.
+Task 4: complete (commits 9fb9b44..ff70874, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers → Passed!  - Failed:     0, Passed:   726, Skipped:     0, Total:   726, Duration: 845 ms - OpenAntares.Simulation.Tests.dll (net8.0))
+
+Task5: Ruling: Attach new-colony development after ordinary founding in ColonizationResolver rather than the plan’s listed FoundingRules file — the resolver owns creation, and preview must stay read-only — cost if wrong: relocate one creation hook; same-turn economics remains unchanged.
+Task5:7 semantic transaction RED cases;11 new transaction tests and16 retained rival transaction tests GREEN. Suite737/737; Build0 warnings/errors. Late-fault test corrected to overflowing AI production reserve: research earned0 did not overflow. No product workaround.

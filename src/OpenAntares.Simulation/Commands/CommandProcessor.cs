@@ -149,7 +149,14 @@ public static partial class CommandProcessor
             return CommandOutcome.NoChange(state);
         }
 
-        GameState candidate = state.Clone();
+        GameState prepared = state;
+        if (command.Ready && issuer.Controller == ControllerKind.Human && Rules.HasDevelopment(state.RulesVersion))
+        {
+            var preparation = Development.GovernorTurnCoordinator.Prepare(content, state, issuer.Id);
+            if (!preparation.Succeeded) return CommandOutcome.Reject(state, RejectionCodes.ResolutionFailed, "The turn could not be completed.");
+            prepared = preparation.State;
+        }
+        GameState candidate = prepared.Clone();
         candidate.FindEmpire(command.Issuer)!.Ready = command.Ready;
 
         bool allHumansReady = candidate.Empires

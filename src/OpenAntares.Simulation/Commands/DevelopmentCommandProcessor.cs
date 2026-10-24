@@ -104,4 +104,25 @@ public static partial class CommandProcessor
         var entries=report.Entries.Select(e=>e.Colony!=colony.Id?e:workforce?e with{WorkforceOverridden=e.BeforeWorkforce.HasValue||e.WorkforceOverridden}:e with{ConstructionOverridden=e.BeforeTarget!=e.AfterTarget||e.ConstructionOverridden}).ToImmutableArray();
         d.PendingReport=report with{Entries=entries};
     }
+    internal static CommandOutcome ExecuteGovernor(ContentSet content,GameState state,Command command,int? queueToken,ProductionOrigin origin)
+    {
+        if(!Rules.HasDevelopment(state.RulesVersion)||state.FindEmpire(command.Issuer)?.Controller!=ControllerKind.Human)
+            return CommandOutcome.Reject(state,"invalid_governor","Only human development planning may prepare governors.");
+        ColonyId? id=command switch{SetWorkforceCommand c=>c.Colony,SetProductionTargetCommand c=>c.Colony,_=>null};
+        if(id is null||state.FindColony(id.Value) is not {} colony||colony.EmpireId!=command.Issuer||colony.Development is not {} d)
+            return CommandOutcome.Reject(state,"invalid_governor","Invalid governor command scope.");
+        if(command is SetWorkforceCommand&&!d.WorkforceEnabled||command is SetProductionTargetCommand&&!d.ConstructionEnabled)
+            return CommandOutcome.Reject(state,"invalid_governor","Automation channel is paused.");
+        if(command is SetProductionTargetCommand target) {
+            bool bound=target.Target is null?origin==ProductionOrigin.None&&queueToken is null:
+                origin==ProductionOrigin.Queue?queueToken is {} token&&d.Queue.Any(q=>q.Token==token&&q.Target==target.Target):
+                origin==ProductionOrigin.Template&&queueToken is null&&target.Target.Kind==ProductionKinds.Building&&d.Template is {} t&&t.Definition.FoundationIds.Concat(t.Definition.DevelopmentIds).Contains(target.Target.ContentId);
+            if(!bound)return CommandOutcome.Reject(state,"invalid_governor","Target is outside the explicit queue or assigned template.");
+        }
+        var outcome=ExecuteCore(content,state,command);
+        if(!outcome.Accepted||!outcome.Changed)return outcome;
+        if(command is SetProductionTargetCommand) {var after=outcome.State.FindColony(id.Value)!.Development!;after.ActiveQueueToken=queueToken;after.Origin=origin;}
+        if(GameStateValidator.Validate(content,outcome.State,allowAllHumansReady:true).Count!=0)return CommandOutcome.Reject(state,"invalid_governor","Prepared orders failed validation.");
+        return outcome;
+    }
 }

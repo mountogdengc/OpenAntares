@@ -105,6 +105,7 @@ public static class TurnResolver
                 }
             }
 
+            Development.DevelopmentCompletion.Apply(content, candidate, new TurnReport(snapshot.Turn, checked(snapshot.Turn + 1), economy));
             candidate.Turn = checked(candidate.Turn + 1);
             ObservationUpdater.Refresh(candidate, candidate.Turn);
             encounters = ContactUpdater.Refresh(snapshot, candidate);
