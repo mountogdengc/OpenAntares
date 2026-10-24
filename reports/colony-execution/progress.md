@@ -32,10 +32,16 @@ Owner approved design, separate plan and retained Native execution. Baseline e77
 - [ ] Task 11
 - [ ] Task 12
 `nBaseline: ordinary restore exit0; Build exit0/0 warnings/errors; Suite648 passed/0 failed/skipped. Logs in reports/colony-execution. Product source unchanged.
-`nTask1: missing-fixture RED observed (1 failure); exact source hash verified; unchanged writer5/rules4 captured four ordinary Ready states14→18. Suite649/649 GREEN; no src/game/content/art diff. Primary four exact hashes verified at execution entry.
+
+Task1: missing-fixture RED observed (1 failure); exact source hash verified; unchanged writer5/rules4 captured four ordinary Ready states14→18. Suite649/649 GREEN; no src/game/content/art diff. Primary four exact hashes verified at execution entry.
 Task 1: complete (commits 31cff50..5a9ae10, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers → Passed!  - Failed:     0, Passed:   649, Skipped:     0, Total:   649, Duration: 730 ms - OpenAntares.Simulation.Tests.dll (net8.0))
 
 Task2: Ruling: Copy the already declared immutable appearance descriptor in ObservationUpdater now, advancing this tiny hook from Task7 — Task2 requires valid rules5 observed facts and current-observation equality includes the new record field — cost if wrong: adjust one observation assignment before generation activation. Hash generation/projections remain Task7.
-`nTask2: API RED then semantic parser/validator RED observed. Complete34 development tests; Suite683/683 GREEN; Build0 warnings/errors. Current4 and live core JSON untouched; frozen rules4 trace passes.
+
+Task2: API RED then semantic parser/validator RED observed. Complete34 development tests; Suite683/683 GREEN; Build0 warnings/errors. Current4 and live core JSON untouched; frozen rules4 trace passes.
 Task 2: complete (commits 5a9ae10..aaa1e94, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers → Passed!  - Failed:     0, Passed:   683, Skipped:     0, Total:   683, Duration: 721 ms - OpenAntares.Simulation.Tests.dll (net8.0))
-`nTask3:14 semantic RED cases observed before handlers;21 command tests GREEN. Suite704/704 and normal Build0 warnings/errors. Ordinary manual changes pause only affected human channel; no-op/reject retain original reference/readiness; scheduling remains inactive.
+
+Task3:14 semantic RED cases observed before handlers;21 command tests GREEN. Suite704/704 and normal Build0 warnings/errors. Ordinary manual changes pause only affected human channel; no-op/reject retain original reference/readiness; scheduling remains inactive.
+Task 3: complete (commits aaa1e94..9fb9b44, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers → Passed!  - Failed:     0, Passed:   704, Skipped:     0, Total:   704, Duration: 767 ms - OpenAntares.Simulation.Tests.dll (net8.0))
+
+Task4:13 semantic RED cases observed;22 governor tests GREEN with all literal outputs, population extremes, zero support, private overflow, Sulan habitats and Wenth cargo/capacity. Suite726/726; Build0 warnings/errors. No IDs/RNG consumed.

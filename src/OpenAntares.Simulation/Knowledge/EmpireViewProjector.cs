@@ -1,3 +1,4 @@
+using OpenAntares.Simulation.Development;
 using System;
 using System.Collections.Generic;
 using OpenAntares.Simulation.Species;
@@ -32,7 +33,7 @@ public static class EmpireViewProjector
             }).ToImmutableArray();
             return new StarView(star, planets, observation?.LastObservedTurn, current);
         }).ToImmutableArray();
-        var colonies = owned.Colonies.Select(c => new OwnedColonyView(c.Id, c.PlanetId, state.FindPlanet(c.PlanetId)!.StarId, c.EmpireId, c.Population, c.Workforce, c.GrowthProgress, c.ProductionReserve, c.ProjectId, c.ProjectKind, c.CompletedBuildingIds.ToImmutableArray(), forecast.Colony(c.Id)) { Turn = state.Turn, RulesVersion = state.RulesVersion, KnownTechnologyIds = e.KnownTechnologyIds.ToImmutableArray(), SpeciesId = e.SpeciesId, HabitatMode = c.HabitatMode, PopulationUnitLabel = profile.PopulationUnitLabel, AvailableVesselRoleIds = roles }).ToImmutableArray();
+        var colonies = owned.Colonies.Select(c => new OwnedColonyView(c.Id, c.PlanetId, state.FindPlanet(c.PlanetId)!.StarId, c.EmpireId, c.Population, c.Workforce, c.GrowthProgress, c.ProductionReserve, c.ProjectId, c.ProjectKind, c.CompletedBuildingIds.ToImmutableArray(), forecast.Colony(c.Id)) { Turn = state.Turn, Development = c.Development is {} cd ? new(cd.Template,cd.WorkforceEnabled,cd.ConstructionEnabled,cd.Queue.ToImmutableArray(),cd.ActiveQueueToken,cd.Origin) : null, RulesVersion = state.RulesVersion, KnownTechnologyIds = e.KnownTechnologyIds.ToImmutableArray(), SpeciesId = e.SpeciesId, HabitatMode = c.HabitatMode, PopulationUnitLabel = profile.PopulationUnitLabel, AvailableVesselRoleIds = roles }).ToImmutableArray();
         var map = new GalaxyMapView(charts, state.GalaxySeed, state.GalaxyShapeId, state.GalaxyWidth, state.GalaxyHeight, colonies.Select(c => c.StarId).Distinct().OrderBy(id => id).ToImmutableArray());
         var vessels = state.Vessels.Where(v => v.EmpireId == viewer).Select(v => new OwnedVesselView(v.Id, v.EmpireId, v.RoleId, v.StationaryStarId, v.Transit, v.PendingMove, v.PendingFounding, v.CarriedPopulation)
         {
@@ -41,7 +42,7 @@ public static class EmpireViewProjector
         var foreign = state.Vessels.Where(v => v.EmpireId != viewer && v.StationaryStarId is { } star && ObservationUpdater.IsCurrent(state, viewer, star)).Select(v => new ForeignVesselView(v.Id, v.EmpireId, v.RoleId, v.StationaryStarId!.Value)).ToImmutableArray();
         map = map with { Units = vessels.Select(v => new MapVesselMarker(v.Id, v.RoleId, true, v.StationaryStarId, v.Transit?.Origin, v.Transit?.Destination, v.Transit?.RemainingTurns ?? 0)).Concat(foreign.Select(v => new MapVesselMarker(v.Id, v.RoleId, false, v.StarId, null, null, 0))).ToImmutableArray() };
         var names = colonies.ToImmutableDictionary(c => c.Id.ToString(), c => $"{state.FindStar(c.StarId)!.Name} {state.FindPlanet(c.PlanetId)!.Orbit}");
-        return new EmpireView(state.Turn, viewer, state.RulesVersion, map, stars, colonies, vessels, foreign, new(e.Id, e.ResearchReserve, e.ResearchTargetId, e.KnownTechnologyIds.ToImmutableArray(), forecast.Empire(e.Id)) { Turn = state.Turn, Ready = e.Ready, ColonyNames = names }) { SpeciesId = e.SpeciesId, PopulationUnitLabel = profile.PopulationUnitLabel, AvailableVesselRoleIds = roles, Contacts = Rules.HasRivals(state.RulesVersion) ? e.Contacts.Select(c => new ContactView(c.OtherEmpireId, c.SpeciesId, content.Species[c.SpeciesId].Name, content.Species[c.SpeciesId].CultureName, c.FirstObservedTurn)).ToImmutableArray() : ImmutableArray<ContactView>.Empty };
+        return new EmpireView(state.Turn, viewer, state.RulesVersion, map, stars, colonies, vessels, foreign, new(e.Id, e.ResearchReserve, e.ResearchTargetId, e.KnownTechnologyIds.ToImmutableArray(), forecast.Empire(e.Id)) { Turn = state.Turn, Ready = e.Ready, ColonyNames = names }) { Development = e.Development is {} ed ? new(ed.CustomTemplates.ToImmutableArray(),ed.NewColonyPlan,ed.PendingReport,ed.CompletedReports.ToImmutableArray()) : null, SpeciesId = e.SpeciesId, PopulationUnitLabel = profile.PopulationUnitLabel, AvailableVesselRoleIds = roles, Contacts = Rules.HasRivals(state.RulesVersion) ? e.Contacts.Select(c => new ContactView(c.OtherEmpireId, c.SpeciesId, content.Species[c.SpeciesId].Name, content.Species[c.SpeciesId].CultureName, c.FirstObservedTurn)).ToImmutableArray() : ImmutableArray<ContactView>.Empty };
     }
     private static PlanetPotentialView? ProjectPotential(ContentSet content, GameState owned, EmpireId viewer, PlanetObservation observation)
     {
