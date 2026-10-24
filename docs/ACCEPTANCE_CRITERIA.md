@@ -107,7 +107,7 @@ The adoption ran the complete suite, including the named checks below, and retai
 
 ## Deferred design-readiness gates
 
-AC-015 records approved expansion and executed child criteria. AC-016 has an approved design and an active implementation-plan review gate; AC-017 remains Deferred. Neither claims later gameplay delivered.
+AC-015 records approved expansion and executed child criteria. AC-016 has approved design/plan gates and executed local automated species acceptance; AC-017 remains Deferred. Human/release acceptance is recorded separately.
 
 ### AC-015 / REQ-015: Exploration/colonization specification gate
 

@@ -20,7 +20,7 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M2-I | Implement the reviewed expansion milestone | M2-P handoff; isolated checkout/preserved baseline, state/content/commands, persistence compatibility, simulation, UI | New exact-result/failure tests, legacy continuation, graphical multi-colony scenarios | Verified for executed local automated criteria; independent review/corrections complete |
 | M3-D | Review species mechanics; REQ-016 | ADR-007 drafting authority; full design approved in ADR-008 with classic direction | AC-016 / SPC-AC-010 owner design review | Verified for design scope |
 | M3-P | Plan approved species implementation | Approved M3-D; separate ten-task plan written/self-reviewed | Owner approved plan (“yes”); Native preference preserved | Verified |
-| M3-I | Implement reviewed species slice | Approved M3-P; preserve old campaigns and core boundaries | SPC-AC-001..009 and retained regressions; independent review | In Progress pending final review |
+| M3-I | Implement reviewed species slice | Approved M3-P; preserve old campaigns and core boundaries | SPC-AC-001..009 and retained regressions; independent review | Verified for local automated acceptance; independent review/correction pass complete |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -28,7 +28,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Complete independent review of the implemented [ten-task species slice](superpowers/plans/2026-10-23-species-mechanics.md), reconcile any findings and hand off the isolated branch. The owner approved plan review with “yes” and retained Native execution. [Species evidence](../reports/SPECIES_VALIDATION_2026-10-23.md) records441 simulation,1177 species,275 frozen expansion and466 legacy assertions plus27 geometry observations. Preserve owner edits, genuine old saves, recovery stash/snapshot and worktrees. No species merge/push/release/cleanup is inferred.
+Review the completed [ten-task species slice](superpowers/plans/2026-10-23-species-mechanics.md), and choose its integration disposition. Independent review findings are resolved; the isolated branch remains preserved. The owner approved plan review with “yes” and retained Native execution. [Species evidence](../reports/SPECIES_VALIDATION_2026-10-23.md) records445 simulation,1181 species,275 frozen expansion and466 legacy assertions plus27 geometry observations. Preserve owner edits, genuine old saves, recovery stash/snapshot and worktrees. No species merge/push/release/cleanup is inferred.
 
 ## Risks and autonomy
 

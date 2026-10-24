@@ -1,6 +1,6 @@
 # Playable species: economy, habitats and founding
 
-**Status: Owner-approved design and implementation plan, 2026-10-23; implemented candidate undergoing final independent review.**
+**Status: Owner-approved design and implementation plan, 2026-10-23; implemented and locally verified; independent review/corrections complete, integration separate.**
 
 REQ-016 / design milestone M3-D. ADR-008 records design approval; the owner subsequently approved [the plan](../plans/2026-10-23-species-mechanics.md) with “yes” and the retained Native preference. [Implementation validation](../../../reports/SPECIES_VALIDATION_2026-10-23.md) and [review/handoff](../../../reports/SPECIES_FINAL_REVIEW_2026-10-23.md) supply actual evidence and limits. The original [roster](../../SPECIES_ROSTER.md), including the owner's uncommitted appearance edits, remains unchanged. Numbers below are accepted reproducible rules, not verified balance.
 
@@ -229,4 +229,4 @@ These are approved future procedures, not executed species functionality. Preser
 3. Accept/amend coarse surveyed environments and Sulan's native/sealed tradeoff (24/36 production points, 12/8 base capacity), without terraforming.
 4. Accept/amend Harl as visible New Game default and schema-4/rules-3 new-campaign separation, without converting old campaigns.
 
-The owner accepted all four groups above on 2026-10-23 and requested the separate dependency-ordered implementation plan. SPC-AC-010 is satisfied for design review through ADR-008; SPC-AC-001..009 remain unexecuted. Arithmetic and builder checks are not engine/balance evidence. The implementation plan is written for review; no gameplay code/core JSON, assets/dependencies or migration has been implemented.
+The owner accepted all four groups above on 2026-10-23 and requested the separate dependency-ordered implementation plan. SPC-AC-010 is satisfied for design review through ADR-008; SPC-AC-001..009 now have executed local automated evidence in the species validation report, with independent review/correction recorded separately. The owner subsequently approved and executed the implementation plan using Native. Human/balance/platform/release acceptance remains open; no new art/dependencies or old-campaign migration was added.

@@ -12,6 +12,6 @@ Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/0
 | [ADR-006](ADR-006-approved-expansion-milestone.md) | Approve the exploration/travel/second-colony specification and its compatibility policy | Explicit owner approval 2026-10-22; proceed to separate implementation planning |
 
 | [ADR-007](ADR-007-species-design-and-creative-review.md) | Authorize species draft and creative amendments for owner review | Historical drafting authority, superseded for design approval by ADR-008 |
-| [ADR-008](ADR-008-approved-species-mechanics.md) | Approve classic space-opera species mechanics and request implementation planning | Explicit owner approval 2026-10-23; new plan awaits review, implementation unstarted |
+| [ADR-008](ADR-008-approved-species-mechanics.md) | Approve classic space-opera species mechanics and request implementation planning | Explicit design approval2026-10-23; separate plan subsequently approved for Native execution; implementation/review evidence linked in ADR-008 |
 
 The charter remains authoritative for scope; original specs retain exact behavior. Alternative evaluations are recorded only where sources contain them. New consequential decisions need their own record and actual approval status; do not reclassify research or a proposed design-guide paragraph as accepted.

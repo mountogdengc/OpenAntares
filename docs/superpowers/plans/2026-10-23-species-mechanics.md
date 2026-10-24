@@ -10,7 +10,7 @@
 
 **Spec:** [Owner-approved species design](../specs/2026-10-23-species-mechanics-design.md), approved 2026-10-23 in [ADR-008](../../DECISIONS/ADR-008-approved-species-mechanics.md), including the classic Master of Orion II direction. The charter's original setting/licenses and respect for real peoples/cultures/religions remain in force.
 
-**Status:** Owner-approved for Native execution, 2026-10-23. Checkboxes track actual execution; see the plan-specific ledger. Source inventory anchor: main at `5958c25177e064d4aafb9a102fe6bc390dc59bd3` before this planning commit; only the two owner prose files were dirty.
+**Status:** Owner-approved Native execution complete,2026-10-23. All ten tasks and independent review/corrections are complete; see retained validation and final review reports. Source inventory anchor: main at `5958c25177e064d4aafb9a102fe6bc390dc59bd3` before this planning commit; only the two owner prose files were dirty.
 
 ## Global Constraints
 
@@ -192,10 +192,10 @@ Expected GREEN: runner exit0, results.json all assertions passing, zero final er
 
 **Interfaces:** REQ-016 stays In Progress until implemented criteria have real evidence; automated local verification never promotes human REQ-014 or cross-platform REQ-013. SPC-AC-010 is the already approved design gate, not proof of implementation. Record actual baseline/final SHAs, hashes, commands, test counts, runtime limitations, remaining worktrees and owner edits.
 
-- [ ] **Reconcile:** Update rules-3 formulas/setup/habitats/save/version/UI amendments and coverage links while retaining old-campaign behavior and historical evidence. Check all SPC/AC rows below, actual execution checkboxes and five Review Focus cases; leave unexecuted criteria explicit.
-- [ ] **Final review:** Under the preserved Native workflow, obtain one independent whole-branch review after implementation, scoped to approved spec, invariants, tests and unintended changes. This is an execution-time review, not permission to delegate implementation. Address findings with regression-first fixes and rerun affected gates; retain reviewer conclusions and unresolved limits. Do not seek a human participant to close the deferred session.
-- [ ] **Final verification:** On the exact reviewed candidate, full simulation suite, normal build/rebuild and all three graphical regressions if review fixes touched relevant behavior; documentation links/IDs/counts and owner-file hashes must pass. Expected: complete actual evidence, zero unresolved correctness findings, no unintended gameplay/content changes, no validation classes in normal assembly. If no code changes follow Task 9 gates, cite that exact candidate evidence instead of repeating unchanged expensive tests.
-- [ ] **Commit and handoff:** Commit only reviewed milestone paths. Report final SHA, branch/worktree, implemented versus unverified criteria and concrete remaining risks. Stop before merge/push/release/cleanup unless separately authorized for this milestone. Earlier expansion integration permission is not a blanket species merge authorization.
+- [x] **Reconcile:** Update rules-3 formulas/setup/habitats/save/version/UI amendments and coverage links while retaining old-campaign behavior and historical evidence. Check all SPC/AC rows below, actual execution checkboxes and five Review Focus cases; leave unexecuted criteria explicit.
+- [x] **Final review:** Under the preserved Native workflow, obtain one independent whole-branch review after implementation, scoped to approved spec, invariants, tests and unintended changes. This is an execution-time review, not permission to delegate implementation. Address findings with regression-first fixes and rerun affected gates; retain reviewer conclusions and unresolved limits. Do not seek a human participant to close the deferred session.
+- [x] **Final verification:** On the exact reviewed candidate, full simulation suite, normal build/rebuild and all three graphical regressions if review fixes touched relevant behavior; documentation links/IDs/counts and owner-file hashes must pass. Expected: complete actual evidence, zero unresolved correctness findings, no unintended gameplay/content changes, no validation classes in normal assembly. If no code changes follow Task 9 gates, cite that exact candidate evidence instead of repeating unchanged expensive tests.
+- [x] **Commit and handoff:** Commit only reviewed milestone paths. Report final SHA, branch/worktree, implemented versus unverified criteria and concrete remaining risks. Stop before merge/push/release/cleanup unless separately authorized for this milestone. Earlier expansion integration permission is not a blanket species merge authorization.
 
 ## Coverage and planning self-review
 
@@ -216,8 +216,8 @@ Expected GREEN: runner exit0, results.json all assertions passing, zero final er
 | SPC-AC-007 Determinism | 1,4,5,9: base geometry, sampling/RNG and continuation |
 | SPC-AC-008 Validation/compatibility | 1,2,4,6,7,9: bounds, corrupted states, old fixtures and failure atomicity |
 | SPC-AC-009 Integrated scenarios | 8,9,10: generated loops, windows, all retained regressions and review |
-| SPC-AC-010 Owner design review | ADR-008 records approval; this plan awaits its separate review |
+| SPC-AC-010 Owner design review | ADR-008 records design approval; owner subsequently approved this plan with “yes” for Native execution |
 
 Self-review performed when writing the plan: all eight SPC sections/ten criteria have task coverage; future interfaces agree; five Review Focus risks map to named checks; actual file paths checked against the source inventory (including game/BreakdownText.cs and Commands/ExpansionCommands.cs). No function bodies or speculative extra subsystem were added. Implementation details that remain ordinary coding choices stay with the implementer. The plan is a single coupled slice with ten separately verifiable commits, not ten independent products.
 
-**Plan-review handoff:** Read this plan and its approved spec together. Confirm the plan captures the intended classic space-opera species direction before execution. Preserve the owner's Native preference; no new method selection or design reapproval is needed. No implementation step has been executed by preparing this document.
+**Execution handoff:** Owner plan approval and Native execution supersede the historical planning handoff. Checkboxes record actual completed work; see species validation, execution ledger and final review report. Preserve the classic direction and do not repeat settled approvals. Species integration/release/cleanup remains separate.

@@ -1,6 +1,6 @@
 # OpenAntares validation report
 
-**Latest species implementation, 2026-10-23:** [Species acceptance](SPECIES_VALIDATION_2026-10-23.md) retains441 simulation,1177 species,275 expansion and466 legacy assertions plus27 geometry observations, on the isolated `codex/species-mechanics` branch. [Final review/handoff](SPECIES_FINAL_REVIEW_2026-10-23.md) records review disposition and preservation; integration and human/release acceptance remain separate.
+**Latest species implementation, 2026-10-23:** [Species acceptance](SPECIES_VALIDATION_2026-10-23.md) retains445 simulation,1181 species,275 expansion and466 legacy assertions plus27 geometry observations, on the isolated `codex/species-mechanics` branch. [Final review/handoff](SPECIES_FINAL_REVIEW_2026-10-23.md) records review disposition and preservation; integration and human/release acceptance remain separate.
 
 
 **Latest integration, 2026-10-23:** [Main integration verification](EXPANSION_INTEGRATION_2026-10-23.md): index repaired, expansion integrated locally, existing edits preserved, fresh 281 simulation / 275 expansion / 466 legacy passes (+27 geometry observations). Earlier integration/index limits below describe the pre-integration state. Human/release limits remain open.

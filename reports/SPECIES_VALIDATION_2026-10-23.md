@@ -2,7 +2,22 @@
 
 Owner-approved classic space-opera species slice, executed inline with the retained Native preference. Baseline: `e32ada6d1c8fbef4fadd620a93139c6188447c27`; branch `codex/species-mechanics`, isolated checkout `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/species-mechanics`. This is local Windows automated acceptance, with integration and human/release acceptance separate.
 
-## Executed gates
+## Final post-review gates
+
+Exact product/code checkpoint **`713d305c201d51e1e7612d7b11b6913c95c5cae1`**; all subsequent final handoff edits are documentation/evidence only. Independent review of816f5de identified one valid-content arithmetic defect, corrected in one regression-first pass. Four new production/research cases failed before correction;445/445 now pass. Ordinary core/legacy breakdown shapes remain unchanged. The additive combined worker line is exercised and truthfully labelled by actual UI tooltips.
+
+| Final gate | Observed result | Evidence |
+| --- | --- | --- |
+| Full simulation |445 passed,0 failed/skipped | [Final test log](species-execution/final-tests.log), [four-case RED](species-execution/review-output-all-red2.log), [GREEN](species-execution/review-output-green2.log) |
+| Species |1181 assertions passed;29 PNGs,61 retained QA paths | [Final results](species-review-final-20261023/results.json), [engine log](species-review-final-20261023/godot.log) |
+| Expansion |275 assertions passed;10 PNGs,20 retained QA paths | [Final results](species-review-expansion-20261023/results.json), [engine log](species-review-expansion-20261023/godot.log) |
+| Legacy |466 assertions +27 geometry observations passed;16 PNGs,11 retained QA paths | [Final results](species-review-legacy-20261023/results.json), [engine log](species-review-legacy-20261023/godot.log) |
+| Normal rebuild/assembly |Each final runner exit0,0 warnings/errors; all3 validation types absent; zero final engine diagnostics; every listed QA file still exists | [Final inspection](species-execution/final-audit.json); full runner logs in execution evidence |
+
+Use the same runner commands below with final output directories `species-review-final-20261023`, `species-review-expansion-20261023`, `species-review-legacy-20261023`; all three reran after the correction. [Review/handoff](SPECIES_FINAL_REVIEW_2026-10-23.md) retains finding grades, corrections and all declined-to-judge dispositions. No unresolved correctness findings remain; human/platform/release gates remain open.
+
+## Initial Task9 gates (retained history)
+
 
 Windows x64, PowerShell, .NET SDK10.0.113/runtime8.0.32, net8.0, installed Godot4.7.2 .NET console/GL Compatibility. Existing restored dependencies; no dependency upgrades or clean-machine claim. The native worktree tool could not find a repository from the chat directory; a manual Git worktree preserves the dirty primary checkout.
 
