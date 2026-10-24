@@ -60,12 +60,18 @@ public static class EmpireViewProjector
     }
     public static EmpireTurnReportView ProjectReport(ContentSet content, GameState state, Turns.TurnReport report, EmpireId viewer)
     {
-        if (state.FindEmpire(viewer) is null) throw new ArgumentException("Empire not found.", nameof(viewer));
+        var owner = state.FindEmpire(viewer) ?? throw new ArgumentException("Empire not found.", nameof(viewer));
         var colonies = report.Economy.Colonies.Where(c => c.Empire == viewer).Select(c =>
         {
             var planet = state.FindPlanet(state.FindColony(c.Colony)!.PlanetId)!; var star = state.FindStar(planet.StarId)!;
             return new ColonyReportView(c, c.Colony, star.Id, $"{star.Name} {planet.Orbit}");
         }).ToImmutableArray();
-        return new(report.FromTurn, report.ToTurn, colonies, report.Economy.Empire(viewer), report.ExpansionEvents.Where(e => e.Owner == viewer).ToImmutableArray(), state.Stars.ToImmutableDictionary(s => s.Id, s => s.Name)) { EncounterEvents = Rules.HasRivals(state.RulesVersion) ? report.EncounterEvents.Where(e => e.Viewer == viewer).ToImmutableArray() : ImmutableArray<Turns.EncounterEvent>.Empty };
+        var encounters = Rules.HasRivals(state.RulesVersion) ? report.EncounterEvents.Where(e => e.Viewer == viewer).Select(e =>
+        {
+            var contact = owner.Contacts.FirstOrDefault(c => c.OtherEmpireId == e.OtherEmpireId);
+            var species = contact is not null && content.Species.TryGetValue(contact.SpeciesId, out var known) ? known : null;
+            return e with { SpeciesId = contact?.SpeciesId, SpeciesName = species?.Name, CultureName = species?.CultureName };
+        }).ToImmutableArray() : ImmutableArray<Turns.EncounterEvent>.Empty;
+        return new(report.FromTurn, report.ToTurn, colonies, report.Economy.Empire(viewer), report.ExpansionEvents.Where(e => e.Owner == viewer).ToImmutableArray(), state.Stars.ToImmutableDictionary(s => s.Id, s => s.Name)) { EncounterEvents = encounters };
     }
 }

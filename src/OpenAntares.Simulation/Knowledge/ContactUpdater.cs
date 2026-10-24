@@ -35,7 +35,7 @@ public static class ContactUpdater
                 if (planet.OwnerId is not { } owner || owner == viewer.Id) continue;
                 var old = previous?.Surveys.FirstOrDefault(o => o.StarId == survey.StarId)?.Planets.FirstOrDefault(p => p.PlanetId == planet.PlanetId);
                 if (old?.OwnerId != owner || old.ColonyId != planet.ColonyId)
-                    events.Add(new("observed_colony", viewer.Id, owner, survey.StarId, planet.PlanetId, candidate.Turn));
+                    events.Add(new("observed_colony", viewer.Id, owner, survey.StarId, planet.PlanetId, candidate.Turn) { PlanetOrbit = planet.Orbit });
             }
         }
         return events.OrderBy(e => e.Viewer).ThenBy(e => e.OtherEmpireId).ThenBy(e => e.Kind, System.StringComparer.Ordinal)

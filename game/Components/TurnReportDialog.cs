@@ -82,7 +82,12 @@ public partial class TurnReportDialog : AcceptDialog
         foreach (var encounter in report.EncounterEvents)
         {
             string location = report.StarNames.TryGetValue(encounter.StarId,out var name) ? name : "system";
-            _body.AddChild(Wrapped(encounter.Kind == "first_contact" ? $"First contact observed at {location} on turn {encounter.ObservedTurn}." : $"Foreign colony observed at {location} on turn {encounter.ObservedTurn}.","SubtleLabel"));
+            string species = encounter.SpeciesName ?? "unidentified";
+            string culture = encounter.CultureName is { } knownCulture ? $" ({knownCulture})" : string.Empty;
+            string world = encounter.PlanetOrbit is { } orbit ? $"{location}, orbit {orbit}" : location;
+            _body.AddChild(Wrapped(encounter.Kind == "first_contact"
+                ? $"First contact observed with {species}{culture} at {location} on turn {encounter.ObservedTurn}."
+                : $"Observed a {species} colony{culture} at {world} on turn {encounter.ObservedTurn}.","SubtleLabel"));
         }
         PopupCentered(new Vector2I(580, 440));
     }

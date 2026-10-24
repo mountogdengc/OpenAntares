@@ -32,6 +32,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
             await SetupChecks();
             await InvalidDiskContentCanStillLoadCampaign();
             await ObservationUiChecks();
+            await EncounterReportChecks();
             await HumanAndSoloChecks();
             await LabelledFixtures();
             await TwelveGeneratedRivalsExpandAndAreEncounteredWithin80Turns();
@@ -136,6 +137,39 @@ public partial class RivalGraphicalValidation : GraphicalValidation
             if(text is null){text=rendered;await Capture("rival-observed-contact");}else Check(text==rendered,"Rendered labels and tooltips ignore hidden rival reserves and orders");
             await Drop(screen);
         }
+    }
+    private async Task EncounterReportChecks()
+    {
+        var content=ContentFiles.LoadCore().Content!;var human=content.Species["harl"];var rival=content.Species["peldra"];
+        var state=new GameState{RulesVersion=4,NextEntityId=15};
+        state.Empires.Add(new EmpireState{Id=new(1),Controller=ControllerKind.Human,SpeciesId="harl"});
+        state.Empires.Add(new EmpireState{Id=new(8),Controller=ControllerKind.Ai,SpeciesId="peldra",AiPolicyId="expansion_v1"});
+        state.Stars.Add(new StarState{Id=new(2),Name="Report Home",X=0,Y=0});state.Stars.Add(new StarState{Id=new(6),Name="Observed System",X=300,Y=0});
+        state.Planets.Add(new PlanetState{Id=new(3),StarId=new(2),Orbit=1,PlanetTypeId="verdant_world",EnvironmentId="shelf_sea"});
+        state.Planets.Add(new PlanetState{Id=new(7),StarId=new(6),Orbit=1,PlanetTypeId="verdant_world",EnvironmentId="shelf_sea"});
+        state.Planets.Add(new PlanetState{Id=new(11),StarId=new(6),Orbit=2,PlanetTypeId="verdant_world",EnvironmentId="shelf_sea"});
+        state.Planets.Add(new PlanetState{Id=new(13),StarId=new(6),Orbit=3,PlanetTypeId="verdant_world",EnvironmentId="shelf_sea"});
+        state.Colonies.Add(new ColonyState{Id=new(4),EmpireId=new(1),PlanetId=new(3),Population=human.StartingPopulation,Workforce=human.StartingWorkforce,HabitatMode="native"});
+        state.Colonies.Add(new ColonyState{Id=new(9),EmpireId=new(8),PlanetId=new(7),Population=rival.StartingPopulation,Workforce=rival.StartingWorkforce,HabitatMode="native"});
+        state.Colonies.Add(new ColonyState{Id=new(12),EmpireId=new(8),PlanetId=new(11),Population=2,Workforce=new(2,0,0),HabitatMode="native"});
+        state.Colonies.Add(new ColonyState{Id=new(14),EmpireId=new(8),PlanetId=new(13),Population=2,Workforce=new(2,0,0),HabitatMode="native"});
+        state.Vessels.Add(new VesselState{Id=new(5),EmpireId=new(1),RoleId="scout",StationaryStarId=new(2),PendingMove=new(6)});
+        state.Vessels.Add(new VesselState{Id=new(10),EmpireId=new(8),RoleId="scout",StationaryStarId=new(6)});ObservationUpdater.Refresh(state,0);
+        var loaded=await LoadLabelled(content,state,"encounter-report-details");var screen=loaded.Screen;await EndTurn(screen);
+        var session=Session(screen);var dialog=One<TurnReportDialog>(screen);var labels=Descendants<Label>(dialog).Select(l=>l.Text).ToArray();
+        foreach(int orbit in new[]{2,3})Check(labels.Any(l=>l.Contains("Peldra",StringComparison.Ordinal) && l.Contains("Estates",StringComparison.Ordinal) && l.Contains("Observed System",StringComparison.Ordinal) && l.Contains("orbit "+orbit,StringComparison.Ordinal) && l.Contains("turn 1",StringComparison.Ordinal)),"Actual encounter report distinguishes Peldra colony at observed orbit "+orbit+" with culture/date");
+        Check(labels.Any(l=>l.StartsWith("First contact observed",StringComparison.Ordinal) && l.Contains("Peldra",StringComparison.Ordinal) && !l.Contains("orbit",StringComparison.Ordinal)),"First-contact report identifies species without inventing a planet");
+        Check(!labels.Any(l=>l.Contains("just founded",StringComparison.OrdinalIgnoreCase)),"Encounter wording describes observation rather than unknown founding history");
+        GetTree().Root.Size=new(800,600);await Frames();
+        var reportScroll=Descendants<ScrollContainer>(dialog).Single();reportScroll.ScrollVertical=(int)reportScroll.GetVScrollBar().MaxValue;await Frames();
+        Check(new[]{2,3}.All(orbit=>Descendants<Label>(dialog).Any(l=>l.Text.Contains("orbit "+orbit,StringComparison.Ordinal) && reportScroll.GetGlobalRect().Encloses(l.GetGlobalRect()))),"Report scrolling exposes both exact observed worlds at 800x600");
+        await Capture("encounter-report-details-800");GetTree().Root.Size=new(1920,1080);await Frames();await Capture("encounter-report-details-1920");
+        var reference=TurnResolver.Resolve(content,state);Check(reference.Succeeded,"Labelled report reference resolves normally");
+        var changed=session.State.Clone();changed.Empires[1].SpeciesId="wenth";changed.Empires[1].ResearchReserve=long.MaxValue;
+        foreach(var planet in changed.Planets.Where(p=>p.StarId==new StarId(6)))planet.Orbit+=10;
+        dialog.ShowReport(content,EmpireViewProjector.ProjectReport(content,changed,reference.Report!,new(1)));await Frames();
+        Check(labels.SequenceEqual(Descendants<Label>(dialog).Select(l=>l.Text)),"Report identity/orbit/text ignores hidden foreign mutations and retains dated facts");
+        dialog.Hide();await Drop(loaded.Main);
     }
     private bool VisibleInWindow(Control control)=>new Rect2(Vector2.Zero,GetViewport().GetVisibleRect().Size).Encloses(control.GetGlobalRect());
 

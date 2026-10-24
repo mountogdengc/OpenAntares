@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using OpenAntares.Simulation.Commands;
+using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Knowledge;
 using OpenAntares.Simulation.Saves;
 using OpenAntares.Simulation.State;
@@ -13,6 +14,61 @@ namespace OpenAntares.Simulation.Tests;
 
 public sealed class RivalContactTests
 {
+    private static (ContentSet Content, GameState State, TurnReport Report) ObserveSeveralColonies()
+    {
+        var content=RivalFixtures.Content();var state=RivalFixtures.AtHome("peldra");var ai=state.Empires[1];
+        var star=state.FindPlanet(state.Colonies.Single(c=>c.EmpireId==ai.Id).PlanetId)!.StarId;
+        for(int orbit=2;orbit<=3;orbit++)
+        {
+            var planet=new PlanetState{Id=new(state.AllocateId()),StarId=star,Orbit=orbit,PlanetTypeId="verdant_world",EnvironmentId="shelf_sea"};state.Planets.Add(planet);
+            state.Colonies.Add(new ColonyState{Id=new(state.AllocateId()),EmpireId=ai.Id,PlanetId=planet.Id,Population=2,Workforce=new(2,0,0),HabitatMode="native"});
+        }
+        ObservationUpdater.Refresh(state,0);state.Vessels.Single(v=>v.EmpireId==state.Empires[0].Id).PendingMove=star;
+        var outcome=TurnResolver.Resolve(content,state);Assert.True(outcome.Succeeded,string.Join("; ",outcome.Errors));return(content,outcome.State,outcome.Report!);
+    }
+
+    [Fact]
+    public void EncounterReportsIdentifyObservedSpeciesAndDistinctPlanetOrbits()
+    {
+        var (content,state,report)=ObserveSeveralColonies();var viewer=state.Empires[0].Id;string before=SaveGame.Serialize(content,state);
+        var projected=EmpireViewProjector.ProjectReport(content,state,report,viewer);
+        var colonies=projected.EncounterEvents.Where(e=>e.Kind=="observed_colony").ToArray();Assert.Equal(3,colonies.Length);
+        Assert.Equal(new int?[]{1,2,3},colonies.Select(e=>e.PlanetOrbit));
+        Assert.All(projected.EncounterEvents,e=>{Assert.Equal(viewer,e.Viewer);Assert.Equal("peldra",e.SpeciesId);Assert.Equal("Peldra",e.SpeciesName);Assert.Equal("Estates",e.CultureName);Assert.Equal(1,e.ObservedTurn);});
+        var contact=Assert.Single(projected.EncounterEvents,e=>e.Kind=="first_contact");Assert.Null(contact.PlanetId);Assert.Null(contact.PlanetOrbit);
+        Assert.Equal(before,SaveGame.Serialize(content,state));
+    }
+
+    [Fact]
+    public void DatedReportFactsSurviveLaterSurveyAndHiddenForeignChanges()
+    {
+        var (content,state,report)=ObserveSeveralColonies();var viewer=state.Empires[0];var ai=state.Empires[1];
+        string expected=ReportSnapshot(EmpireViewProjector.ProjectReport(content,state,report,viewer.Id));var changed=state.Clone();
+        // Adversarial read-only boundary probe, not a valid saved continuation: an old report must
+        // retain its captured orbits and known contact identity even against unrelated later inputs.
+        var foreignSurvey=changed.FindEmpire(viewer.Id)!.Surveys.Single(o=>o.StarId==state.Stars[1].Id);
+        foreignSurvey.Planets=foreignSurvey.Planets.Select(p=>p with{Orbit=p.Orbit+10}).ToList();
+        foreach(var planet in changed.Planets.Where(p=>p.StarId==state.Stars[1].Id))planet.Orbit+=10;
+        changed.FindEmpire(ai.Id)!.SpeciesId="wenth";changed.FindEmpire(ai.Id)!.ResearchReserve=long.MaxValue;
+        string untouched=JsonSerializer.Serialize(changed);var actual=EmpireViewProjector.ProjectReport(content,changed,report,viewer.Id);
+        Assert.Equal(new int?[]{1,2,3},actual.EncounterEvents.Where(e=>e.Kind=="observed_colony").Select(e=>e.PlanetOrbit));
+        Assert.Equal(expected,ReportSnapshot(actual));Assert.Equal(untouched,JsonSerializer.Serialize(changed));
+    }
+
+    [Theory]
+    [InlineData("peldra")]
+    [InlineData("harl")]
+    [InlineData("sulan")]
+    [InlineData("wenth")]
+    public void ShipOnlyFirstContactHasKnownIdentityButNoInventedPlanet(string species)
+    {
+        var content=RivalFixtures.Content();var state=RivalFixtures.AtHome(species);var viewer=state.Empires[0].Id;
+        state.Vessels.Single(v=>v.EmpireId==state.Empires[1].Id).PendingMove=state.Stars[0].Id;
+        var outcome=TurnResolver.Resolve(content,state);Assert.True(outcome.Succeeded,string.Join("; ",outcome.Errors));
+        var contact=Assert.Single(EmpireViewProjector.ProjectReport(content,outcome.State,outcome.Report!,viewer).EncounterEvents);
+        Assert.Equal("first_contact",contact.Kind);Assert.Equal(species,contact.SpeciesId);Assert.Equal(content.Species[species].Name,contact.SpeciesName);Assert.Equal(content.Species[species].CultureName,contact.CultureName);Assert.Null(contact.PlanetId);Assert.Null(contact.PlanetOrbit);
+    }
+
     [Fact]
     public void KnownContactsRetainOnlyDatedFactsAndMissingSavedContactRejects()
     {

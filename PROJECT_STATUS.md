@@ -6,12 +6,12 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Rival locally integrated and verified; two minor details Deferred |
+| Current phase | Two rival follow-up corrections implemented; final gates/review in progress |
 | Project health | All local automated gates pass; two minor specification deviations and human/release acceptance remain open |
 | Active milestone | M4-I — Rival-expansion implementation |
 | Current version | Not Released; main rules4/writer5; old rules1/2/3 retained |
 | Last updated | 2026-10-24, America/Denver |
-| Implementation readiness | Owner option1 integration verified on main; two disclosed minor deviations remain |
+| Implementation readiness | Integrated main69f7e1c retained; bounded corrections isolated on codex/rival-polish for final gates/review |
 
 ## 2. Current state
 
@@ -95,6 +95,4 @@ Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad
 
 ## 8. Next concrete action
 
-Local main integration is complete and freshly verified under the owner's option1 authorization. Choose a subsequent bounded task when desired; the two deferred Minor details are the smallest follow-up (alternative-content initial rival fallback; encounter-report identity/orbit detail). RIV-AC-001/008 retain those narrow open details. No additional feature work, push, release or cleanup is inferred. Human, balance, platform and release limits remain unchanged.
-
-Main includes reviewed branch70e91d9, functional source ce6c29c1cf080893067ac96a43ca1e2366dd97e5; the integration documentation/evidence commit follows in Git history. Fresh integrated-main results:642 simulation;1115 Rival assertions+12 provenance rows;1194 Species;275 Expansion;466 Legacy+27 geometry. All exits0, final engine diagnostics0, normal rebuild0warnings/errors, all four harness types excluded. [Integration evidence](reports/RIVAL_INTEGRATION_2026-10-24.md) and [raw summary](reports/rival-integrated-20261024-run1/summary.json). Owner prose, peaceful backlog/status paragraph, all recovery/saves/worktrees are preserved; the owner paragraph remains uncommitted.
+Complete final graphical gates, the single fresh review/correction pass and verification for the two former Minor details. [Follow-up evidence](reports/RIVAL_POLISH_2026-10-24.md), [plan](docs/superpowers/plans/2026-10-24-rival-polish.md). The corrections restore approved alternative defaults and observed species/orbit/date reporting; no new gameplay design or save/rules change. Primary main remains69f7e1c while implementation is isolated on codex/rival-polish. Retain the owner's selected local integration workflow after green review/gates, preserving owner changes/recovery/worktrees. No push/release/cleanup. Human, balance, platform and release limits remain open.
