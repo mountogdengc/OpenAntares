@@ -24,13 +24,13 @@ public sealed record Quantity
 
     public static Quantity From(ImmutableArray<BreakdownLine> lines)
     {
-        long total = 0;
+        Int128 total = 0;
         foreach (BreakdownLine line in lines)
         {
             total = checked(total + line.Amount);
         }
 
-        return new Quantity(total, lines);
+        return new Quantity(checked((long)total), lines);
     }
 }
 

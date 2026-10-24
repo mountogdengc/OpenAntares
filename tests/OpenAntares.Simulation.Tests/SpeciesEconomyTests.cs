@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Economy;
 using OpenAntares.Simulation.State;
@@ -80,4 +81,19 @@ public sealed class SpeciesEconomyTests
         var state=SpeciesFixtures.AtHome("peldra");state.Colonies[0].ProductionReserve=long.MaxValue;string before=SpeciesFixtures.Snapshot(state);
         var next=TurnResolver.Resolve(SpeciesFixtures.Content(),state);Assert.False(next.Succeeded);Assert.Same(state,next.State);Assert.Equal(before,SpeciesFixtures.Snapshot(state));
     }
+    [Fact]
+    public void ValidLargeSupportGrowthIsCappedBeforeStoredTotalOverflow()
+    {
+        var root=JsonNode.Parse(SpeciesFixtures.ContentJson())!;
+        var harl=root["species"]!.AsArray().Single(p=>p!["id"]!.GetValue<string>()=="harl")!.DeepClone();
+        harl["support_per_population"]=1;harl["support_per_growth_point"]=1;harl["base_growth"]=1000;harl["max_surplus_growth"]=40;root["species"]=new JsonArray(harl);
+        var verdant=root["planet_types"]!.AsArray().Single(p=>p!["id"]!.GetValue<string>()=="verdant_world")!;
+        verdant["support_per_worker"]=(long.MaxValue-200)/12;
+        var loaded=ContentLoader.Load(new[]{new ContentSource("large-valid-support.json",root.ToJsonString())},requireSpecies:true);Assert.True(loaded.Succeeded,string.Join(";",loaded.Errors));
+        var state=SpeciesFixtures.AtHome("harl");var c=state.Colonies[0];c.Population=12;c.Workforce=new(12,0,0);c.CompletedBuildingIds.Add("cultivation_hub");c.CompletedBuildingIds.Add("habitat_extension");state.Empires[0].KnownTechnologyIds.Add("cultivation_methods");state.Empires[0].KnownTechnologyIds.Add("habitat_methods");
+        Assert.Empty(GameStateValidator.Validate(loaded.Content!,state));
+        var next=TurnResolver.Resolve(loaded.Content!,state);Assert.True(next.Succeeded,string.Join(";",next.Errors));
+        var growth=next.Report!.Economy.Colonies[0].GrowthEarned;Assert.Equal(0,growth.Total);Assert.Equal(-1040,Assert.Single(growth.Lines.Where(l=>l.Kind==BreakdownKinds.CapacityLimit)).Amount);
+    }
+
 }

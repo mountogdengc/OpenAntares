@@ -100,6 +100,7 @@ public partial class GameScreen : VBoxContainer
             FollowFocus = true,
         };
         sidePadding.AddChild(scroll);
+        scroll.Resized += () => KeepFocusVisibleAfterResize(scroll);
         var sideColumn = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         scroll.AddChild(sideColumn);
         sideColumn.AddChild(_colonies);
@@ -120,6 +121,15 @@ public partial class GameScreen : VBoxContainer
         }
 
         Refresh();
+    }
+
+    private async void KeepFocusVisibleAfterResize(ScrollContainer scroll)
+    {
+        // FollowFocus runs when focus changes. A resize can hide a control that already owns focus.
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        if (!GodotObject.IsInstanceValid(this) || !GodotObject.IsInstanceValid(scroll) || !IsInsideTree()) return;
+        Control? focused = GetViewport().GuiGetFocusOwner();
+        if (focused is not null && scroll.IsAncestorOf(focused)) scroll.EnsureControlVisible(focused);
     }
 
     private async void ChooseProject(ColonyId colony)
