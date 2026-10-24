@@ -94,3 +94,6 @@ Final: Ruling: future AI/combat/mixed populations/customization/broader climate 
 Final: Ruling: preserve the ignored plan workspace after promoting logs/ledger — approved plan explicitly stops before cleanup and preserves execution/recovery evidence, overriding the generic skill's scratch-deletion suggestion — cost if wrong: a small amount of ignored scratch remains for later authorized housekeeping.
 
 Task10 final gates: verified code713d305c201d51e1e7612d7b11b6913c95c5cae1; suite445/445, Species1181,Expansion275,Legacy466+27,zero final diagnostics,ordinary rebuild0warnings/errors,metadata0validationtypes,all92 listed final QA paths exist. Both owner hashes and primary main are preserved; stash/snapshot/worktrees remain. No product changes after this code checkpoint.
+
+Task 10: complete (commits bb9a2c5..c235f6b, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo -> 445 passed,0 failed/skipped; final Species1181,Expansion275,Legacy466+27; independent review and single regression-first fix pass resolved).
+Final handoff candidate c235f6bfe805734657f47d2856159b83c6de8782; code checkpoint713d305c201d51e1e7612d7b11b6913c95c5cae1; final bookkeeping commit changes only evidence. Ignored scratch retained per approved no-cleanup boundary.
