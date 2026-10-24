@@ -28,13 +28,13 @@ public sealed class SpeciesSaveTests
         get
         {
             var data=new TheoryData<int,int,bool>();
-            for(int schema=0;schema<=5;schema++)for(int rules=0;rules<=4;rules++)
+            for(int schema=0;schema<=4;schema++)for(int rules=0;rules<=4;rules++)
                 data.Add(schema,rules,(schema,rules) is (1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3));
             return data;
         }
     }
     [Theory][MemberData(nameof(VersionPairs))]
-    public void OnlyTheSevenExplicitSchemaRulesPairsAreAccepted(int schema,int rules,bool expected)
+    public void RetainedSevenLegacySchemaRulesPairsAreAccepted(int schema,int rules,bool expected)
     {
         string original=rules==3?FutureSpeciesJson():File.ReadAllText(CompatibilityFixtures.PathFor(rules==2?"legacy-rules2-v3-save.json":schema==1?"legacy-v1-save.json":"legacy-v2-save.json"));
         var root=JsonNode.Parse(original)!;root["schema_version"]=schema;root["rules_version"]=rules;
@@ -45,7 +45,7 @@ public sealed class SpeciesSaveTests
     {
         var content=SpeciesFixtures.Content();var state=SpeciesFixtures.AtHome(id);state.Colonies[0].HabitatMode=habitat;
         if(id=="wenth") {state.Colonies[0].Population=5;state.Colonies[0].Workforce=new(3,1,1);state.Colonies[0].ProjectKind=ProductionKinds.Vessel;state.Colonies[0].ProjectId="daughter_seed";state.Colonies[0].ProductionReserve=1200;}
-        string json=SaveGame.Serialize(content,state);Assert.Equal(4,JsonNode.Parse(json)!["schema_version"]!.GetValue<int>());
+        string json=SaveGame.Serialize(content,state);Assert.Equal(5,JsonNode.Parse(json)!["schema_version"]!.GetValue<int>());
         var load=SaveGame.Deserialize(json);Assert.True(load.Succeeded,string.Join(";",load.Errors));var copy=load.Game!;
         Assert.Equal(SpeciesFixtures.Snapshot(state),SpeciesFixtures.Snapshot(copy.State));
         Assert.Equal(JsonSerializer.Serialize(content),JsonSerializer.Serialize(copy.Content));
@@ -88,7 +88,7 @@ public sealed class SpeciesSaveTests
     public void LegacyWriterAddsNoSpeciesDataAndLegacyReaderRejectsInjectedMetadata()
     {
         var game=CompatibilityFixtures.LoadRules2();var json=SaveGame.Serialize(game.Content,game.State);var root=JsonNode.Parse(json)!;
-        Assert.Equal(4,root["schema_version"]!.GetValue<int>());Assert.DoesNotContain("species",json);Assert.DoesNotContain("environment",json);Assert.DoesNotContain("habitat_mode",json);
+        Assert.Equal(5,root["schema_version"]!.GetValue<int>());Assert.DoesNotContain("species",json);Assert.DoesNotContain("environment",json);Assert.DoesNotContain("habitat_mode",json);
         root["state"]!["empires"]![0]!["species_id"]="harl";Assert.False(SaveGame.Deserialize(root.ToJsonString()).Succeeded);
     }
     [Fact]

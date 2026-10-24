@@ -17,3 +17,7 @@ The approved implementation target is rules 4/writer 5 and the eleven explicit s
 M4-D is complete for design approval; no rival gameplay has been implemented or verified. REQ-017 stays In Progress because only this bounded design is approved and the remaining strategic envelope stays Deferred. The [ten-task plan](../superpowers/plans/2026-10-24-rival-expansion.md) is written/self-reviewed and awaits owner review before execution. The existing Native method remains selected; do not request it again.
 
 Actual product remains rules 3/schema 4. Preserve original owner edits, peaceful-mode backlog, all saves/evidence/recovery/worktrees and approved architecture/species/expansion. Human acceptance remains Deferred. This approval proceeds to implementation planning; it does not itself approve this newly written plan, integration, push, release or cleanup.
+
+## Subsequent plan authorization
+
+After the separate ten-task plan was presented and reviewed, the owner said “continue”, authorizing its execution with the retained Native method. Work is isolated on codex/rival-expansion; [the execution ledger](../../reports/rival-execution/progress.md) records actual progress, evidence and rulings. Earlier planning-only wording above records the preceding stage. Main integration, remote publication, release and cleanup remain separate.

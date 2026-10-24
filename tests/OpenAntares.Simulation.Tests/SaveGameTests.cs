@@ -63,7 +63,7 @@ public class SaveGameTests : IDisposable
         Assert.Equal((985, 414), (legacy.State.Stars[0].X, legacy.State.Stars[0].Y));
         Assert.All(legacy.State.Stars, star => Assert.Null(star.RegionId));
         LoadedGame resaved = Load(SaveGame.Serialize(legacy.Content, legacy.State));
-        Assert.Equal(4, JsonDocument.Parse(SaveGame.Serialize(legacy.Content, legacy.State)).RootElement.GetProperty("schema_version").GetInt32());
+        Assert.Equal(5, JsonDocument.Parse(SaveGame.Serialize(legacy.Content, legacy.State)).RootElement.GetProperty("schema_version").GetInt32());
         Assert.Equal(Snapshot(legacy.State), Snapshot(resaved.State));
     }
 
@@ -154,8 +154,8 @@ public class SaveGameTests : IDisposable
     {
         // find (last occurrence, so state fields win over embedded content), replace, expected error fragment
         { "\"format\": \"openantares-save\"", "\"format\": \"something-else\"", "not an OpenAntares save" },
-        { "\"schema_version\": 4", "\"schema_version\": 5", "unsupported schema version 5" },
-        { "\"rules_version\": 1", "\"rules_version\": 7", "rules version 7; this build implements versions 1, 2 and 3" },
+        { "\"schema_version\": 5", "\"schema_version\": 6", "unsupported schema version 6" },
+        { "\"rules_version\": 1", "\"rules_version\": 7", "rules version 7; this build implements versions 1, 2, 3 and 4" },
         { "\"turn\": 2,", "", "field 'state.turn': Required field is missing" },
         { "\"controller\": \"human\"", "\"controller\": \"robot\"", "field 'state.empires[0].controller': Unknown controller 'robot'" },
         { "\"ready\": false", "\"ready\": \"no\"", "field 'state.empires[0].ready': Expected true or false" },
@@ -176,6 +176,7 @@ public class SaveGameTests : IDisposable
         string text = SaveGame.Serialize(_content, state);
         if (!text.Contains(find, StringComparison.Ordinal))
         {
+            Assert.True(find.Contains('\n') || find.Contains('\r'), "A non-line-ending corruption case must match its input.");
             return; // Line-ending variant that doesn't apply on this platform.
         }
 

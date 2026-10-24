@@ -21,9 +21,9 @@ Ruling: retain this plan's workspace and copy evidence to tracked reports rather
 
 ## Tasks
 
-1. Pending — genuine compatibility capture
-2. Pending — feature predicates/content/state
-3. Pending — persistence
+1. Complete — genuine compatibility capture
+2. Complete — feature predicates/content/state
+3. In Progress — persistence
 4. Pending — generation
 5. Pending — contacts
 6. Pending — private queries
@@ -39,3 +39,7 @@ Task 1: complete (commits 4d2efb5..b393131, tests: dotnet test tests/OpenAntares
 
 Task 2: policy-content RED unknown section, GREEN8; species feature RED4 unsupported/version-loss failures, GREEN4; metadata RED10 invalid states accepted, GREEN14 then extended coverage. Final full suite473/473 and ordinary build0 warnings/errors. Save-reader version is long bounded to int; explicit conversion fixes the predicate call, retained diagnostic log.
 Task 2: Ruling: exclude the new optional RivalAi field from the existing legacy-only prototype fixture comparison — that comparison already strips species/expansion extensions and new policy is tested separately — cost if wrong: legacy fixture does not exercise new optional policy; dedicated rival tests do.
+Task 2: complete (commits b393131..a907595, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo → Passed!  - Failed:     0, Passed:   473, Skipped:     0, Total:   473, Duration: 667 ms - OpenAntares.Simulation.Tests.dll (net8.0))
+
+Task 3: RED12 new-version/roundtrip/injected-content failures; implemented writer5, explicit eleven-pair readers, required nullable policy/contacts and embedded tuning, rejection of new metadata in every old pair. Locked destination preserves bytes and temporary cleanup; Windows may report IOException or UnauthorizedAccessException. GREEN68 focused before expanded old-pair cases; final full567/567 with exact genuine rules1/2/3 continuations.
+Task 3: Ruling: update new-writer assertions from schema4 to5 while freezing old-reader expectations to their actual schemas1..4, with the new exhaustive eleven-pair test owning schema5 — required approved writer boundary; no old arithmetic/golden traces changed — cost if wrong: overlap between two matrix suites, covered by exhaustive new matrix.

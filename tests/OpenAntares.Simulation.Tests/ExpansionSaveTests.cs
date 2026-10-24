@@ -21,7 +21,7 @@ public class ExpansionSaveTests
     [InlineData(3, 0, false)]
     [InlineData(3, 3, false)]
     [InlineData(4, 1, true)]
-    [InlineData(5, 1, false)]
+    [InlineData(5, 1, true)]
     public void ReadsOnlySupportedSchemaRulesPairs(int schema, int rules, bool expected)
     {
         string json = schema <= 2 ? Fixture(schema) : SaveGame.Serialize(rules == 2 ? ExpansionFixtures.Content() : Fixtures.PrototypeContent(), rules == 2 ? ExpansionFixtures.AtHome() : Fixtures.StartingState());
@@ -35,7 +35,7 @@ public class ExpansionSaveTests
     {
         var loaded = SaveGame.Deserialize(Fixture(schema)); Assert.True(loaded.Succeeded, string.Join("\n", loaded.Errors));
         var original = loaded.Game!; var text = SaveGame.Serialize(original.Content, original.State);
-        Assert.Equal(4, JsonNode.Parse(text)!["schema_version"]!.GetValue<int>());
+        Assert.Equal(5, JsonNode.Parse(text)!["schema_version"]!.GetValue<int>());
         var reread = SaveGame.Deserialize(text); Assert.True(reread.Succeeded, string.Join("\n", reread.Errors));
         var copy = reread.Game!; Assert.Equal(Fixtures.Snapshot(original.State), Fixtures.Snapshot(copy.State));
         Assert.Equal(1, copy.State.RulesVersion); Assert.Empty(copy.State.Vessels); Assert.Null(copy.Content.Expansion); Assert.Empty(copy.Content.Vessels);

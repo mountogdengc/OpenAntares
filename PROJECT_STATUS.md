@@ -6,12 +6,12 @@
 | --- | --- |
 | Project name | OpenAntares |
 | Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | Rival design approved; implementation plan written/self-reviewed, owner plan review pending |
+| Current phase | Approved rival plan executing with Native; Tasks 1/2 verified, persistence next |
 | Project health | All local automated gates pass; human/release acceptance remain open |
-| Active milestone | M4-P — Rival-expansion implementation-plan review |
+| Active milestone | M4-I — Rival-expansion implementation |
 | Current version | Not Released; new games rules3, writer schema4; legacy rules1/2 retained |
 | Last updated | 2026-10-24, America/Denver |
-| Implementation readiness | Rival full design approved in ADR-010; ten-task plan awaits owner review; gameplay unimplemented |
+| Implementation readiness | Full design/plan approved; Native in isolated codex/rival-expansion; legacy captures and policy/state gates verified |
 
 ## 2. Current state
 
@@ -35,8 +35,8 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 | M3-P | Species implementation plan | Verified | Owner “yes”; Native execution retained |
 | M3-I | Species implementation | Verified | Local automated criteria, independent review/corrections and authorized main integration verified; human/release limits remain |
 | M4-D | Rival-expansion design | Verified | Builder check and explicit full owner approval in ADR-010; design scope only |
-| M4-P | Rival implementation plan | In Progress | Ten tasks written/self-reviewed; owner plan review pending; Native retained |
-| M4-I | Rival implementation | Not Started | No gameplay task executed; requires plan authorization |
+| M4-P | Rival implementation plan | Verified | Owner “continue” after plan presentation; Native retained |
+| M4-I | Rival implementation | In Progress | Task 1 genuine compatibility and Task 2 policy/state/predicates verified; 473 simulation tests and normal build pass; remaining tasks incomplete |
 | M-Later | Remaining strategic systems | Deferred | Rest of REQ-017 envelope; no inferred combat/diplomacy scope |
 | M-Delivery | Cross-platform/release | Not Started | Windows-only local evidence |
 
@@ -44,7 +44,7 @@ Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execu
 
 Preserve ADR-001..004 architecture/JSON/determinism/spiral decisions, ADR-005 human deferral, ADR-006 historical expansion separation and ADR-008 approved species rules. Implementation rulings are retained in the execution ledger. No new architecture, dependencies, portraits, AI/combat/diplomacy or custom civilizations were added.
 
-Open: rival implementation-plan review, physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
+Open: remaining rival implementation/verification and final independent review, physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
 
 ## 5. Blockers and risks
 
@@ -94,8 +94,10 @@ Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad
 
 ## 8. Immediate next action
 
-Review the separate [rival implementation plan](docs/superpowers/plans/2026-10-24-rival-expansion.md). The full design is approved in ADR-010; do not ask to approve it again. After owner plan confirmation, use Native execution, establish an isolated baseline and begin Task 1 genuine legacy captures before any product writer/default mutation. No new method choice is needed. Species implementation, review and local integration are complete; do not repeat those gates. The owner’s option1 authorizes this local merge only; remote push/release/worktree cleanup remain separate.
+Continue the approved plan inline at Task 3 persistence after reading [the execution ledger](reports/rival-execution/progress.md), exact task brief and actual Git commits. Tasks 1/2 are verified: genuine rules-3 and labelled passive-Ai captures, explicit species feature predicates and validated rival policy/contacts. Latest completed gate: 473 simulation tests, normal build zero warnings/errors. No active rival policy, new-game default, contacts UI or final rival acceptance yet. These branch checks do not supersede historical integrated-main runtime evidence.
+
+Owner “continue” authorizes all remaining bounded plan tasks using Native, then one final independent whole-branch review/corrections. Do not ask for design/plan/method approval again or recruit a playtester. Preserve primary owner edits/backlog, legacy saves, recovery and retained worktrees; main integration, push, release and cleanup remain separate.
 
 ## 9. Agent handoff
 
-Read actual Git state and the final report before continuing. Do not repeat approved design, completed tasks or execution-method selection; do not re-block on the deferred participant session. Preserve simulation/Godot separation, integer/PCG32 determinism, typed IDs, ordered iteration, snapshot timing, permitted views and compatibility. All ten species-plan tasks and one independent review/correction pass are complete. Rival design is now approved; the implementation plan is written/self-reviewed but not yet authorized. Do not execute its unchecked tasks before owner plan review. Do not repeat rival design approval or Native selection. Source remains identical to verified code checkpoint713d305. Fresh integrated-main evidence and exact preservation are in the2026-10-24 integration report; integration handoff changes are documentation/evidence only.
+Read actual Git state and the final report before continuing. Do not repeat approved design, completed tasks or execution-method selection; do not re-block on the deferred participant session. Preserve simulation/Godot separation, integer/PCG32 determinism, typed IDs, ordered iteration, snapshot timing, permitted views and compatibility. All ten species-plan tasks and one independent review/correction pass are complete. Rival design and plan are now approved; Native execution is active. Resume at the first incomplete ledger task and preserve exact legacy traces. Do not repeat rival design approval or Native selection. Source remains identical to verified code checkpoint713d305. Fresh integrated-main evidence and exact preservation are in the2026-10-24 integration report; integration handoff changes are documentation/evidence only.

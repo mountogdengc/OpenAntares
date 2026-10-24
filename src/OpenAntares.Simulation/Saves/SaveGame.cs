@@ -28,7 +28,7 @@ public sealed record SaveLoadResult(LoadedGame? Game, IReadOnlyList<string> Erro
 public static class SaveGame
 {
     public const string FormatName = "openantares-save";
-    public const int SchemaVersion = 4;
+    public const int SchemaVersion = 5;
 
     private const string SaveLocation = "save";
 
@@ -138,14 +138,14 @@ public static class SaveGame
                 return Fail($"This is not an OpenAntares save (format '{format}').");
             }
 
-            if (schema is not (1 or 2 or 3 or 4))
+            if (schema is not (1 or 2 or 3 or 4 or 5))
             {
                 return Fail($"The save uses unsupported schema version {schema}.");
             }
 
-            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3)))
+            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4)))
             {
-                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1, 2 and 3 with explicit schema compatibility. Saves are not migrated automatically.");
+                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1, 2, 3 and 4 with explicit schema compatibility. Saves are not migrated automatically.");
             }
 
             // Embedded content goes through the same loader and validation as content files.
@@ -153,7 +153,9 @@ public static class SaveGame
             if (root.RequiredObject("content") is not null)
             {
                 string contentJson = document.RootElement.GetProperty("content").GetRawText();
-                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion));
+                if (!Rules.HasRivals((int)rulesVersion) && document.RootElement.GetProperty("content").TryGetProperty("rival_ai", out _))
+                    errors.Add(new(SaveLocation, null, "content.rival_ai", "Old campaigns cannot contain rival policy content."));
+                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion));
                 errors.AddRange(loaded.Errors);
                 content = loaded.Content;
             }
@@ -208,6 +210,7 @@ public static class SaveGame
             WriteStrings(writer, "known_technologies", empire.KnownTechnologyIds);
             writer.WriteBoolean("ready", empire.Ready);
             ExpansionSaveData.WriteSurveys(writer, empire, state.RulesVersion);
+            RivalSaveData.WriteEmpire(writer, empire, state.RulesVersion);
             writer.WriteEndObject();
         }
 
@@ -313,6 +316,7 @@ public static class SaveGame
             }
 
             if (schemaVersion >= 3) ExpansionSaveData.ReadSurveys(item, empire, Rules.HasExpansion(rulesVersion), rulesVersion);
+            RivalSaveData.ReadEmpire(item, empire, rulesVersion);
             state.Empires.Add(empire);
         });
 
