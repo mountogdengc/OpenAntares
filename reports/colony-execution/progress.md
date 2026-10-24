@@ -33,3 +33,7 @@ Owner approved design, separate plan and retained Native execution. Baseline e77
 - [ ] Task 12
 `nBaseline: ordinary restore exit0; Build exit0/0 warnings/errors; Suite648 passed/0 failed/skipped. Logs in reports/colony-execution. Product source unchanged.
 `nTask1: missing-fixture RED observed (1 failure); exact source hash verified; unchanged writer5/rules4 captured four ordinary Ready states14→18. Suite649/649 GREEN; no src/game/content/art diff. Primary four exact hashes verified at execution entry.
+Task 1: complete (commits 31cff50..5a9ae10, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers → Passed!  - Failed:     0, Passed:   649, Skipped:     0, Total:   649, Duration: 730 ms - OpenAntares.Simulation.Tests.dll (net8.0))
+
+Task2: Ruling: Copy the already declared immutable appearance descriptor in ObservationUpdater now, advancing this tiny hook from Task7 — Task2 requires valid rules5 observed facts and current-observation equality includes the new record field — cost if wrong: adjust one observation assignment before generation activation. Hash generation/projections remain Task7.
+`nTask2: API RED then semantic parser/validator RED observed. Complete34 development tests; Suite683/683 GREEN; Build0 warnings/errors. Current4 and live core JSON untouched; frozen rules4 trace passes.

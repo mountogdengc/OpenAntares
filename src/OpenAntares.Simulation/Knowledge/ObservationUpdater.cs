@@ -25,7 +25,7 @@ public static class ObservationUpdater
         Planets = s.Planets.Where(p => p.StarId == star).OrderBy(p => p.Id).Select(p =>
         {
             var c = s.Colonies.FirstOrDefault(c => c.PlanetId == p.Id);
-            return new PlanetObservation(p.Id, p.Orbit, p.PlanetTypeId, c?.Id, c?.EmpireId) { EnvironmentId = p.EnvironmentId };
+            return new PlanetObservation(p.Id, p.Orbit, p.PlanetTypeId, c?.Id, c?.EmpireId) { EnvironmentId = p.EnvironmentId, Appearance = p.Appearance };
         }).ToList()
     };
 }

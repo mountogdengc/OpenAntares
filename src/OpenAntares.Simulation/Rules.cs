@@ -13,11 +13,14 @@ public static class Rules
     public const int ExpansionVersion = 2;
     public const int SpeciesVersion = 3;
     public const int RivalVersion = 4;
+    public const int DevelopmentVersion = 5;
     public const int CurrentVersion = RivalVersion;
-    public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion or RivalVersion;
-    public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion or RivalVersion;
-    public static bool HasSpecies(int version) => version is SpeciesVersion or RivalVersion;
-    public static bool HasRivals(int version) => version == RivalVersion;
+    public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion;
+    public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion;
+    public static bool HasSpecies(int version) => version is SpeciesVersion or RivalVersion or DevelopmentVersion;
+    public static bool HasRivals(int version) => version is RivalVersion or DevelopmentVersion;
+
+    public static bool HasDevelopment(int version) => version == DevelopmentVersion;
 
     /// <summary>A colony's population capacity: the base capacity plus completed capacity buildings.</summary>
     public static int ColonyCapacity(ContentSet content, ColonyState colony)

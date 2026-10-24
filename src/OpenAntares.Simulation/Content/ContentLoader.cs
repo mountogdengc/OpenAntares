@@ -44,9 +44,9 @@ public static partial class ContentLoader
         return Load(sources);
     }
 
-    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false)
+    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false, bool requireDevelopment = false)
     {
-        var builder = new Builder(requireSpecies || requireRivals, requireRivals);
+        var builder = new Builder(requireSpecies || requireRivals || requireDevelopment, requireRivals || requireDevelopment, requireDevelopment);
         foreach (ContentSource source in sources.OrderBy(s => s.Name, StringComparer.Ordinal))
         {
             builder.AddFile(source);
@@ -55,7 +55,7 @@ public static partial class ContentLoader
         return builder.Build();
     }
 
-    private sealed partial class Builder(bool requireSpecies, bool requireRivals)
+    private sealed partial class Builder(bool requireSpecies, bool requireRivals, bool requireDevelopment)
     {
         private readonly List<ContentError> _errors = new();
         private (ExpansionDefinition Value, string File)? _expansion;
@@ -94,6 +94,9 @@ public static partial class ContentLoader
                 {
                     switch (section.Name)
                     {
+                        case "governor_templates":
+                            ReadEntries(section.Value, file, section.Name, ReadGovernorTemplate, _governorTemplates);
+                            break;
                         case "rival_ai":
                             SetOnce(ref _rivalAi, ReadRivalAi(section.Value, file), file, "rival_ai");
                             break;
@@ -141,6 +144,7 @@ public static partial class ContentLoader
 
         public ContentLoadResult Build()
         {
+            CheckDevelopment();
             if (_rules is null)
             {
                 _errors.Add(new ContentError(AllFiles, null, "rules", "No file defines the rules section."));
@@ -185,6 +189,7 @@ public static partial class ContentLoader
                 Vessels = _vessels.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 Expansion = _expansion?.Value,
                 RivalAi = _rivalAi?.Value,
+                GovernorTemplates = _governorTemplates.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 Species = _species.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 Environments = _environments.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal)
             };
