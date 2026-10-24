@@ -21,6 +21,13 @@ public partial class StarPanel : VBoxContainer
             AddChild(new HSeparator()); var type = content.PlanetTypes[planet.PlanetTypeId];
             AddChild(new Label { Text = $"Orbit {planet.Orbit}: {type.Name}" });
             AddChild(Wrapped($"Per worker: {Format.Points(planet.SupportPerWorker)} support, {Format.Points(planet.ProductionPerWorker)} production, {Format.Points(planet.ResearchPerWorker)} research"));
+            if (planet.EnvironmentId is { } environment && content.Environments.TryGetValue(environment, out var habitat)) AddChild(Wrapped($"Environment: {habitat.Name} — {habitat.Description}"));
+            if (planet.Potential is { } potential)
+            {
+                AddChild(Wrapped($"For your species, per worker: {Format.Points(potential.SupportPerWorker.Total)} support, {Format.Points(potential.ProductionPerWorker.Total)} production, {Format.Points(potential.ResearchPerWorker.Total)} research."));
+                AddChild(Wrapped(potential.NativeHabitatAllowed ? $"Native colony: base capacity {potential.NativeCapacity}." : "Native colony: unsuitable here."));
+                if (potential.SealedCapacity is { } capacity) AddChild(Wrapped(potential.SealedHabitatAllowed ? $"Sealed harbor: base capacity {capacity}." : "Sealed harbor: unavailable here."));
+            }
             if (planet.OwnerId is { } owner) AddChild(Wrapped($"Colony observed: {owner}"));
             var button = new Button { Text = $"Select planet {planet.Orbit}", TooltipText = "Select this exact world for colony management or founding." }; button.Pressed += () => PlanetSelected?.Invoke(planet.Id); AddChild(button);
         }

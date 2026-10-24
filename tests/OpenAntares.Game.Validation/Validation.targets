@@ -3,5 +3,6 @@
   <ItemGroup Condition="'$(MSBuildProjectName)' == 'OpenAntares'">
     <Compile Include="$(MSBuildThisFileDirectory)GraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExpansionGraphicalValidation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SpeciesGraphicalValidation.cs" />
   </ItemGroup>
 </Project>

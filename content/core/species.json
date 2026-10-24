@@ -1,0 +1,127 @@
+{
+  "species": [
+    {
+      "id": "peldra",
+      "name": "Peldra",
+      "description": "Long-lived, broad-handed estate builders with formidable appetites. Support a small, skilled workforce and it can carry powerful workshops and laboratories.",
+      "culture_name": "Estates",
+      "population_unit_label": "population",
+      "starting_population": 6,
+      "starting_workforce": {
+        "support": 4,
+        "production": 1,
+        "research": 1
+      },
+      "base_capacity": 10,
+      "sealed_base_capacity": null,
+      "support_per_population": 200,
+      "production_basis_points": 30000,
+      "research_basis_points": 30000,
+      "base_growth": 5,
+      "max_surplus_growth": 15,
+      "support_per_growth_point": 20,
+      "natural_environment_ids": [
+        "dry",
+        "open_ocean",
+        "shelf_sea"
+      ],
+      "allows_sealed_habitats": false,
+      "allowed_vessel_ids": [
+        "peldra_settler",
+        "scout"
+      ]
+    },
+    {
+      "id": "harl",
+      "name": "Harl",
+      "description": "Restless, short-lived scholars whose schools preserve the work of each generation. Fast recovery and small settlement launches favor busy, growing communities.",
+      "culture_name": "League of Schools",
+      "population_unit_label": "population",
+      "starting_population": 6,
+      "starting_workforce": {
+        "support": 2,
+        "production": 2,
+        "research": 2
+      },
+      "base_capacity": 10,
+      "sealed_base_capacity": null,
+      "support_per_population": 100,
+      "production_basis_points": 10000,
+      "research_basis_points": 10000,
+      "base_growth": 10,
+      "max_surplus_growth": 80,
+      "support_per_growth_point": 5,
+      "natural_environment_ids": [
+        "dry",
+        "open_ocean",
+        "shelf_sea"
+      ],
+      "allows_sealed_habitats": false,
+      "allowed_vessel_ids": [
+        "harl_settler",
+        "scout"
+      ]
+    },
+    {
+      "id": "sulan",
+      "name": "Sulan",
+      "description": "Shark-like aliens at home in shallow, mineral-rich shelf seas. Native expeditions build roomy shelf colonies; costlier harbor kits open other worlds in sealed habitats.",
+      "culture_name": "Harbor Houses",
+      "population_unit_label": "population",
+      "starting_population": 6,
+      "starting_workforce": {
+        "support": 2,
+        "production": 2,
+        "research": 2
+      },
+      "base_capacity": 12,
+      "sealed_base_capacity": 8,
+      "support_per_population": 100,
+      "production_basis_points": 10000,
+      "research_basis_points": 10000,
+      "base_growth": 10,
+      "max_surplus_growth": 40,
+      "support_per_growth_point": 10,
+      "natural_environment_ids": [
+        "shelf_sea"
+      ],
+      "allows_sealed_habitats": true,
+      "allowed_vessel_ids": [
+        "harbor_settler",
+        "scout",
+        "settler"
+      ]
+    },
+    {
+      "id": "wenth",
+      "name": "Wenth",
+      "description": "Each colony is one vast living body; its population units are functional lobes. Skilled work comes easily, but a body must mature to its current capacity before sending a daughter seed.",
+      "culture_name": "Seed Kinship",
+      "population_unit_label": "lobes",
+      "starting_population": 4,
+      "starting_workforce": {
+        "support": 2,
+        "production": 1,
+        "research": 1
+      },
+      "base_capacity": 6,
+      "sealed_base_capacity": null,
+      "support_per_population": 100,
+      "production_basis_points": 20000,
+      "research_basis_points": 20000,
+      "base_growth": 10,
+      "max_surplus_growth": 40,
+      "support_per_growth_point": 10,
+      "natural_environment_ids": [
+        "dry",
+        "open_ocean",
+        "shelf_sea"
+      ],
+      "allows_sealed_habitats": false,
+      "allowed_vessel_ids": [
+        "daughter_seed",
+        "scout"
+      ]
+    }
+  ]
+}

@@ -7,16 +7,64 @@
       "speed": 300,
       "embark_population": 0,
       "minimum_source_population": 0,
-      "can_found_colony": false
+      "can_found_colony": false,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": false
+    },
+    {
+      "id": "peldra_settler",
+      "name": "Estate Expedition",
+      "cost": 3200,
+      "speed": 200,
+      "embark_population": 2,
+      "minimum_source_population": 4,
+      "can_found_colony": true,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": false
+    },
+    {
+      "id": "harl_settler",
+      "name": "Settlement Launch",
+      "cost": 1600,
+      "speed": 200,
+      "embark_population": 1,
+      "minimum_source_population": 3,
+      "can_found_colony": true,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": false
     },
     {
       "id": "settler",
-      "name": "Settler",
+      "name": "Shelf Expedition",
       "cost": 2400,
       "speed": 200,
       "embark_population": 2,
       "minimum_source_population": 4,
-      "can_found_colony": true
+      "can_found_colony": true,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": false
+    },
+    {
+      "id": "harbor_settler",
+      "name": "Harbor Expedition",
+      "cost": 3600,
+      "speed": 200,
+      "embark_population": 2,
+      "minimum_source_population": 4,
+      "can_found_colony": true,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": true
+    },
+    {
+      "id": "daughter_seed",
+      "name": "Daughter Seed",
+      "cost": 2400,
+      "speed": 200,
+      "embark_population": 3,
+      "minimum_source_population": 6,
+      "can_found_colony": true,
+      "requires_full_colony": true,
+      "founds_sealed_habitat": false
     }
   ],
   "expansion": {

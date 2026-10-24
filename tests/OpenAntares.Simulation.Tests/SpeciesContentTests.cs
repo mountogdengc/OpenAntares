@@ -56,4 +56,19 @@ public sealed class SpeciesContentTests
         Assert.NotEmpty(result.Errors);
         Assert.All(result.Errors, e => {Assert.NotEmpty(e.File); Assert.NotNull(e.Field);});
     }
+    [Theory][InlineData("peldra",1200,600,5,10)][InlineData("harl",600,400,10,10)]
+    [InlineData("sulan",600,400,10,12)][InlineData("wenth",400,400,30,6)]
+    public void ActualCoreProfilesProduceTheApprovedOpening(string id,long required,long output,long growth,int capacity)
+    {
+        var content=ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory());Assert.True(content.Succeeded,string.Join(";",content.Errors));
+        Assert.Equal(4,content.Content!.Species.Count);Assert.Equal(3,content.Content.Environments.Count);
+        var generated=OpenAntares.Simulation.Galaxy.GalaxyGenerator.CreateNewGame(content.Content,new("small",42,3,id));Assert.True(generated.Succeeded,generated.Error);
+        var economy=OpenAntares.Simulation.Economy.EconomyCalculator.Calculate(content.Content,generated.State!).Colonies[0];
+        Assert.Equal(required,economy.SupportRequired.Total);Assert.Equal(output,economy.NetProduction.Total);Assert.Equal(output,economy.NetResearch.Total);Assert.Equal(growth,economy.GrowthEarned.Total);Assert.Equal(capacity,economy.Growth.Capacity);
+        var approved=SpeciesFixtures.Content().Species[id];var actual=content.Content.Species[id];
+        Assert.Equal((approved.StartingPopulation,approved.StartingWorkforce,approved.SupportPerPopulation,approved.SupportPerGrowthPoint,approved.ProductionBasisPoints,approved.ResearchBasisPoints,approved.BaseGrowth,approved.MaxSurplusGrowth,approved.BaseCapacity,approved.SealedBaseCapacity),(actual.StartingPopulation,actual.StartingWorkforce,actual.SupportPerPopulation,actual.SupportPerGrowthPoint,actual.ProductionBasisPoints,actual.ResearchBasisPoints,actual.BaseGrowth,actual.MaxSurplusGrowth,actual.BaseCapacity,actual.SealedBaseCapacity));
+        Assert.Equal(approved.AllowedVesselIds.ToArray(),actual.AllowedVesselIds.ToArray());Assert.Equal(approved.NaturalEnvironmentIds.ToArray(),actual.NaturalEnvironmentIds.ToArray());
+        foreach(var role in approved.AllowedVesselIds){var expected=SpeciesFixtures.Content().Vessels[role];var found=content.Content.Vessels[role];Assert.Equal((expected.Cost,expected.Speed,expected.EmbarkPopulation,expected.MinimumSourcePopulation,expected.RequiresFullColony,expected.FoundsSealedHabitat),(found.Cost,found.Speed,found.EmbarkPopulation,found.MinimumSourcePopulation,found.RequiresFullColony,found.FoundsSealedHabitat));}
+    }
+
 }

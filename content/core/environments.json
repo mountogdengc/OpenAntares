@@ -1,0 +1,19 @@
+{
+  "environments": [
+    {
+      "id": "dry",
+      "name": "Dry",
+      "description": "No suitable surface water. A Sulan colony needs a sealed harbor."
+    },
+    {
+      "id": "open_ocean",
+      "name": "Open Ocean",
+      "description": "Water without the shallow mineral-rich shelves needed for native Sulan habitation."
+    },
+    {
+      "id": "shelf_sea",
+      "name": "Shelf Sea",
+      "description": "Shallow mineral-rich water suitable for a native Sulan colony."
+    }
+  ]
+}

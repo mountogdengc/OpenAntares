@@ -12,7 +12,12 @@
         "arm": 3,
         "rim": 1
       },
-      "colonizable": true
+      "colonizable": true,
+      "environment_generation_weights": {
+        "dry": 2,
+        "open_ocean": 2,
+        "shelf_sea": 4
+      }
     },
     {
       "id": "forge_world",
@@ -26,7 +31,12 @@
         "arm": 2,
         "rim": 4
       },
-      "colonizable": true
+      "colonizable": true,
+      "environment_generation_weights": {
+        "dry": 6,
+        "open_ocean": 1,
+        "shelf_sea": 1
+      }
     },
     {
       "id": "crystal_world",
@@ -40,7 +50,12 @@
         "arm": 2,
         "rim": 2
       },
-      "colonizable": true
+      "colonizable": true,
+      "environment_generation_weights": {
+        "dry": 4,
+        "open_ocean": 3,
+        "shelf_sea": 1
+      }
     },
     {
       "id": "barren_rock",
@@ -54,7 +69,12 @@
         "arm": 2,
         "rim": 3
       },
-      "colonizable": true
+      "colonizable": true,
+      "environment_generation_weights": {
+        "dry": 8,
+        "open_ocean": 0,
+        "shelf_sea": 0
+      }
     }
   ]
 }

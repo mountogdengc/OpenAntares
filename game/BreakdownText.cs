@@ -33,11 +33,12 @@ public static class BreakdownText
         return line.Kind switch
         {
             BreakdownKinds.Workers => $"{Count(line, "worker")} on {PlanetTypeName(line.SourceId, content)}",
+            BreakdownKinds.Species => $"{SpeciesName(line.SourceId, content)} worker modifier" + rounding,
             BreakdownKinds.Building => content.Buildings.TryGetValue(line.SourceId, out var building) ? building.Name : line.SourceId,
-            BreakdownKinds.Population => $"{Count(line, "population unit")} to support",
+            BreakdownKinds.Population => content.Species.TryGetValue(line.SourceId, out var species) ? $"Support for {line.Count} {species.PopulationUnitLabel} ({species.Name})" : $"{Count(line, "population unit")} to support",
             BreakdownKinds.Shortage when line.Amount == 0 => "Growth paused by support shortage",
             BreakdownKinds.Shortage => "Support shortage" + rounding,
-            BreakdownKinds.GrowthBase => "Base growth",
+            BreakdownKinds.GrowthBase => line.SourceId.Length > 0 ? $"{SpeciesName(line.SourceId, content)} base growth" : "Base growth",
             BreakdownKinds.GrowthSurplus => $"Spare support {Format.Points((long)line.Division!.Numerator)}" + rounding,
             BreakdownKinds.Cap => "Above the growth bonus limit",
             BreakdownKinds.CapacityLimit => "Colony is at capacity",
@@ -57,6 +58,7 @@ public static class BreakdownText
     private static string Name(string id, ContentSet content) =>
         content.Buildings.TryGetValue(id, out var building) ? building.Name
         : content.Technologies.TryGetValue(id, out var technology) ? technology.Name
+        : content.Vessels.TryGetValue(id, out var vessel) ? vessel.Name
         : id;
 
     /// <summary>Describes a completion estimate in words.</summary>
@@ -76,4 +78,27 @@ public static class BreakdownText
 
     public static IEnumerable<string> Names(IEnumerable<string> buildingIds, ContentSet content) =>
         buildingIds.Select(id => Name(id, content));
+    private static string SpeciesName(string id, ContentSet content) => content.Species.TryGetValue(id, out var species) ? species.Name : id;
+    public static string EmbarkRequirement(EmbarkationRequirement requirement, string unit = "population") => requirement.Code switch
+    {
+        "minimum_population" => $"Minimum {unit}: {requirement.Actual} / {requirement.Required}.",
+        "support_workers" => $"Support workers for cargo: {requirement.Actual} / {requirement.Required}.",
+        "remaining_population" => $"{unit} remaining after cargo: {requirement.Actual}; at least {requirement.Required} required.",
+        "full_colony" => $"Full colony required: {requirement.Actual} / {requirement.Required} at current capacity.",
+        _ => requirement.Code
+    };
+    public static string FoundingReason(string? code) => code switch
+    {
+        null => string.Empty,
+        "target_not_known" => "Select a surveyed planet.",
+        "wrong_system" => "Travel to this system first.",
+        "not_colonizable" => "This world cannot support this settlement.",
+        "habitat_not_suitable" => "This environment is unsuitable for a native colony.",
+        "habitat_mode_not_available" => "This habitat mode is unavailable to your species.",
+        "target_occupied" => "This planet is already colonized.",
+        "target_reserved" => "Another expedition has reserved this world.",
+        "vessel_in_transit" => "Travel is committed until arrival.",
+        _ => "This vessel cannot found here."
+    };
+
 }

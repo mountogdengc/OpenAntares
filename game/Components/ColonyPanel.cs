@@ -31,7 +31,14 @@ public partial class ColonyPanel : VBoxContainer
         AddChild(new Label { Text = "Colony", ThemeTypeVariation = "HeaderLabel" });
 
         // Population and growth.
-        AddChild(new Label { Text = $"Population {colony.Population} of {economy.Growth.Capacity}" });
+        string unit = colony.PopulationUnitLabel;
+        string title = char.ToUpperInvariant(unit[0]) + unit[1..];
+        AddChild(new Label { Text = $"{title} {colony.Population} of {economy.Growth.Capacity}" });
+        if (colony.SpeciesId is { } speciesId)
+        {
+            var species = content.Species[speciesId];
+            AddChild(Wrapped($"{species.Name} — {species.CultureName}; {colony.HabitatMode} habitat.", "SubtleLabel"));
+        }
         AddChild(Readout(
             "Growth",
             $"{BreakdownText.Signed(economy.GrowthEarned.Total)} per turn, progress {Format.Points(colony.GrowthProgress)} / 1",
@@ -68,6 +75,10 @@ public partial class ColonyPanel : VBoxContainer
                 $"Support shortage of {Format.Points(economy.SupportDeficit)}: production and research are reduced and growth is paused.",
                 "WarningLabel"));
         }
+        else if (economy.GrowthEarned.Lines.Any(line => line.Kind == BreakdownKinds.CapacityLimit))
+        {
+            AddChild(Wrapped("At capacity: growth is blocked. The growth breakdown shows potential growth before this limit.", "SubtleLabel"));
+        }
         else if (economy.UnusedSupport > 0)
         {
             AddChild(Wrapped(
@@ -88,16 +99,23 @@ public partial class ColonyPanel : VBoxContainer
         AddChild(Wrapped(status, "SubtleLabel"));
         if (colony.ProjectKind == ProductionKinds.Vessel && colony.ProjectId is { } roleId && content.Vessels[roleId].CanFoundColony)
         {
-            var role = content.Vessels[roleId]; AddChild(Wrapped($"Settler: requires population {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers; transfers {role.EmbarkPopulation} population on completion. Delays construction of a building.", "SubtleLabel"));
+            var role = content.Vessels[roleId];
+            string full = colony.RulesVersion == Rules.SpeciesVersion && role.RequiresFullColony ? $" Requires a full colony at current capacity {economy.Growth.Capacity}." : string.Empty;
+            AddChild(Wrapped($"{role.Name}: requires {unit} {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers; transfers {role.EmbarkPopulation} {unit} on completion. Delays construction of a building." + full, "SubtleLabel"));
         }
         if (production.BlockedReasonCode is not null && colony.ProjectId is { } blockedRoleId)
         {
             var role = content.Vessels[blockedRoleId];
-            AddChild(Wrapped($"Awaiting embarkation: requires population {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers. Production is retained.", "WarningLabel"));
+            if (colony.RulesVersion == Rules.SpeciesVersion)
+            {
+                AddChild(Wrapped("Awaiting embarkation. Production is retained.", "WarningLabel"));
+                foreach (var requirement in production.BlockedRequirements) AddChild(Wrapped(BreakdownText.EmbarkRequirement(requirement, unit), "WarningLabel"));
+            }
+            else AddChild(Wrapped($"Awaiting embarkation: requires population {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers. Production is retained.", "WarningLabel"));
         }
         if (economy.EmbarkOutcome is { } embark)
         {
-            AddChild(Wrapped($"After embarkation: population {embark.PopulationAfter}, support {embark.WorkforceAfter.Support}, production {embark.WorkforceAfter.Production}, research {embark.WorkforceAfter.Research}. Next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));
+            AddChild(Wrapped($"After embarkation: {unit} {embark.PopulationAfter}, support {embark.WorkforceAfter.Support}, production {embark.WorkforceAfter.Production}, research {embark.WorkforceAfter.Research}. Next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));
             if (embark.ReassignmentNeeded) AddChild(Wrapped("Reassign workers after completion to avoid a support shortage.", "WarningLabel"));
         }
 
@@ -182,12 +200,14 @@ public partial class ColonyPanel : VBoxContainer
             }
         }
 
-        if (colony.RulesVersion == Rules.ExpansionVersion)
+        if (Rules.HasExpansion(colony.RulesVersion))
         {
-            foreach (var role in content.Vessels.Values)
+            foreach (var role in content.Vessels.Values.Where(r => colony.AvailableVesselRoleIds.Contains(r.Id)))
             {
                 picker.AddItem($"{role.Name} ({Format.Points(role.Cost)})"); picker.SetItemMetadata(picker.ItemCount - 1, "vessel|" + role.Id);
-                picker.SetItemTooltip(picker.ItemCount - 1, role.CanFoundColony ? $"Requires population {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers. Transfers those existing workers into cargo." : $"Speed {role.Speed} map units per turn.");
+                picker.SetItemTooltip(picker.ItemCount - 1, role.CanFoundColony ? $"Requires {colony.PopulationUnitLabel} {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers. Transfers those existing workers into cargo." +
+                    (colony.RulesVersion == Rules.SpeciesVersion && role.RequiresFullColony ? $" Requires a full colony at current capacity {colony.Economy.Growth.Capacity}." : string.Empty) +
+                    (colony.RulesVersion == Rules.SpeciesVersion ? role.FoundsSealedHabitat ? " Founds a sealed habitat." : " Founds a native habitat." : string.Empty) : $"Speed {role.Speed} map units per turn.");
                 if (colony.ProjectKind == ProductionKinds.Vessel && colony.ProjectId == role.Id) picker.Select(picker.ItemCount - 1);
             }
         }

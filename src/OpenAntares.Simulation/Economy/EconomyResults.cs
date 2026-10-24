@@ -32,6 +32,7 @@ public sealed record ColonyEconomy(
     GrowthOutcome Growth,
     ReserveOutcome Production)
 {
+    public string PopulationUnitLabel { get; init; } = "population";
     public VesselCompletionPlan? VesselCompletionPlan { get; init; }
     public EmbarkOutcome? EmbarkOutcome { get; init; }
 }

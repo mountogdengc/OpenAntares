@@ -41,9 +41,12 @@ public class ContentLoaderTests
         Assert.Empty(result.Errors);
         var legacy = result.Content! with
         {
+            // The original economy fixture remains authoritative for old campaigns; species extensions have their own core tests.
             Expansion = null,
+            Species = ImmutableSortedDictionary<string, SpeciesDefinition>.Empty,
+            Environments = ImmutableSortedDictionary<string, EnvironmentDefinition>.Empty,
             Vessels = System.Collections.Immutable.ImmutableSortedDictionary<string, VesselDefinition>.Empty,
-            PlanetTypes = result.Content!.PlanetTypes.ToImmutableSortedDictionary(p => p.Key, p => p.Value with { Colonizable = false }, StringComparer.Ordinal)
+            PlanetTypes = result.Content!.PlanetTypes.ToImmutableSortedDictionary(p => p.Key, p => p.Value with { Colonizable = false, EnvironmentGenerationWeights = ImmutableSortedDictionary<string,int>.Empty }, StringComparer.Ordinal)
         };
         Assert.Equal(Serialize(Fixtures.PrototypeContent()), Serialize(legacy));
     }

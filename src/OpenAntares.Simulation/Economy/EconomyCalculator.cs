@@ -102,7 +102,7 @@ public static class EconomyCalculator
             colony.Id, colony.EmpireId, planetType.Id,
             supportProduced, supportRequired, supportSurplus, supportDeficit, unusedSupport,
             grossProduction, grossResearch, netProduction, netResearch,
-            growthEarned, growth, production);
+            growthEarned, growth, production) { PopulationUnitLabel = profile.PopulationUnitLabel };
         return VesselProduction.Calculate(content, state, colony, planet, planetType, buildings, result);
     }
 

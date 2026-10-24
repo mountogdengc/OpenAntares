@@ -2,134 +2,95 @@ using System;
 using System.Globalization;
 using System.Linq;
 using Godot;
+using OpenAntares.Simulation;
 using OpenAntares.Simulation.Content;
+using OpenAntares.Simulation.Economy;
 using OpenAntares.Simulation.Galaxy;
-
 namespace OpenAntares.Game.Screens;
 
-/// <summary>Choose a galaxy size and seed, then start a game.</summary>
+/// <summary>Species, galaxy and seed setup; all opening economic previews come from the simulation.</summary>
 public partial class NewGameScreen : CenterContainer
 {
+    private readonly ContentSet _content;
     private readonly GalaxySizeDefinition[] _sizes;
+    private readonly SpeciesDefinition[] _species;
     private readonly OptionButton _sizePicker = new();
+    private readonly OptionButton _speciesPicker = new() { Name = "SpeciesPicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly LineEdit _seedField = new();
-    private readonly Label _error = new() { ThemeTypeVariation = "WarningLabel", Visible = false };
+    private readonly Label _summary = new() { Name = "SpeciesSummary", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+    private readonly Label _error = new() { ThemeTypeVariation = "WarningLabel", Visible = false, AutowrapMode = TextServer.AutowrapMode.WordSmart };
+    private readonly Button _start = new() { Text = "Start" };
+    public event Action<NewGameSettings>? StartRequested;
+    public event Action? LoadRequested;
 
     public NewGameScreen(ContentSet content)
     {
-        _sizes = content.GalaxySizes.Values
-            .OrderBy(size => size.StarCount)
-            .ThenBy(size => size.Id, StringComparer.Ordinal)
-            .ToArray();
+        _content = content;
+        _sizes = content.GalaxySizes.Values.OrderBy(s => s.StarCount).ThenBy(s => s.Id, StringComparer.Ordinal).ToArray();
+        _species = content.Species.Values.OrderBy(s => s.Id, StringComparer.Ordinal).ToArray();
     }
-
-    /// <summary>Raised when the player starts a game with valid settings.</summary>
-    public event Action<NewGameSettings>? StartRequested;
-
-    /// <summary>Raised when the player wants to load a saved game instead.</summary>
-    public event Action? LoadRequested;
-
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-
-        var panel = new PanelContainer();
-        AddChild(panel);
-
-        var margin = new MarginContainer { ThemeTypeVariation = "PanelPadding" };
-        panel.AddChild(margin);
-
-        var column = new VBoxContainer();
-        margin.AddChild(column);
-
-        column.AddChild(new Label
-        {
-            Text = "OpenAntares",
-            ThemeTypeVariation = "TitleLabel",
-            HorizontalAlignment = HorizontalAlignment.Center,
-        });
-        column.AddChild(new Label
-        {
-            Text = "New Game",
-            ThemeTypeVariation = "HeaderLabel",
-            HorizontalAlignment = HorizontalAlignment.Center,
-        });
-
-        var form = new GridContainer { Columns = 2 };
-        column.AddChild(form);
-
+        var panel = new PanelContainer { CustomMinimumSize = new Vector2(600, 0) }; AddChild(panel);
+        var margin = new MarginContainer { ThemeTypeVariation = "PanelPadding" }; panel.AddChild(margin);
+        var column = new VBoxContainer(); margin.AddChild(column);
+        column.AddChild(new Label { Text = "OpenAntares", ThemeTypeVariation = "TitleLabel", HorizontalAlignment = HorizontalAlignment.Center });
+        column.AddChild(new Label { Text = "New Game", ThemeTypeVariation = "HeaderLabel", HorizontalAlignment = HorizontalAlignment.Center });
+        var form = new GridContainer { Columns = 2 }; column.AddChild(form);
+        form.AddChild(new Label { Text = "Species" });
+        foreach (var sp in _species) { _speciesPicker.AddItem(sp.Name); _speciesPicker.SetItemMetadata(_speciesPicker.ItemCount - 1, sp.Id); }
+        int harl = Array.FindIndex(_species, s => s.Id == "harl");
+        if (_species.Length > 0) _speciesPicker.Select(harl >= 0 ? harl : 0);
+        else _speciesPicker.Disabled = true;
+        form.AddChild(_speciesPicker);
         form.AddChild(new Label { Text = "Galaxy size" });
-        foreach (GalaxySizeDefinition size in _sizes)
-        {
-            _sizePicker.AddItem($"{size.Name} ({size.StarCount} stars)");
-        }
-
-        _sizePicker.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        form.AddChild(_sizePicker);
-
+        foreach (var size in _sizes) _sizePicker.AddItem($"{size.Name} ({size.StarCount} stars)");
+        _sizePicker.SizeFlagsHorizontal = SizeFlags.ExpandFill; form.AddChild(_sizePicker);
         form.AddChild(new Label { Text = "Seed" });
         var seedRow = new HBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         _seedField.SizeFlagsHorizontal = SizeFlags.ExpandFill;
-        _seedField.TooltipText = "The same seed and size always produce the same galaxy.";
-        seedRow.AddChild(_seedField);
-        var randomButton = new Button { Text = "Random" };
-        randomButton.Pressed += RandomizeSeed;
-        seedRow.AddChild(randomButton);
-        form.AddChild(seedRow);
-
-        column.AddChild(_error);
-
-        var startButton = new Button { Text = "Start" };
-        startButton.Pressed += Start;
-        column.AddChild(startButton);
-
-        var loadButton = new Button { Text = "Load Game" };
-        loadButton.Pressed += () => LoadRequested?.Invoke();
-        column.AddChild(loadButton);
-
+        _seedField.TooltipText = "The same seed and size produce the same galaxy for every species.";
+        seedRow.AddChild(_seedField); var random = new Button { Text = "Random" }; random.Pressed += RandomizeSeed; seedRow.AddChild(random); form.AddChild(seedRow);
+        var details = new ScrollContainer { CustomMinimumSize = new Vector2(0, 210), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, FollowFocus = true, FocusMode = FocusModeEnum.All };
+        column.AddChild(details); details.AddChild(_summary);
+        column.AddChild(_error); _start.Pressed += Start; column.AddChild(_start);
+        var load = new Button { Text = "Load Game" }; load.Pressed += () => LoadRequested?.Invoke(); column.AddChild(load);
+        _start.Disabled = _species.Length == 0 || _sizes.Length == 0;
+        _speciesPicker.ItemSelected += _ => UpdateSummary(); _sizePicker.ItemSelected += _ => UpdateSummary(); _seedField.TextChanged += _ => UpdateSummary();
         RandomizeSeed();
-        startButton.GrabFocus();
+        if (_start.Disabled) { ShowError("Species or galaxy definitions are missing. Load an existing campaign instead."); load.GrabFocus(); } else _start.GrabFocus();
     }
-
-    /// <summary>Sets the form's values; used by development launch options.</summary>
-    public void Configure(string sizeId, ulong seed)
+    public void Configure(string sizeId, ulong seed, string? speciesId = null)
     {
-        int index = Array.FindIndex(_sizes, size => size.Id == sizeId);
-        if (index >= 0)
-        {
-            _sizePicker.Select(index);
-        }
-
-        _seedField.Text = seed.ToString(CultureInfo.InvariantCulture);
+        int size = Array.FindIndex(_sizes, s => s.Id == sizeId); if (size >= 0) _sizePicker.Select(size);
+        if (speciesId is not null) _speciesPicker.Select(Array.FindIndex(_species, s => s.Id == speciesId));
+        _seedField.Text = seed.ToString(CultureInfo.InvariantCulture); UpdateSummary();
     }
-
     public void Start()
     {
-        if (_sizes.Length == 0)
-        {
-            ShowError("No galaxy sizes are defined in the content files.");
-            return;
-        }
-
-        if (!ulong.TryParse(_seedField.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out ulong seed))
-        {
-            ShowError($"The seed must be a whole number from 0 to {ulong.MaxValue}.");
-            return;
-        }
-
+        if (_sizes.Length == 0 || _sizePicker.Selected < 0) { ShowError("No galaxy sizes are defined in the content files."); return; }
+        if (_species.Length == 0 || _speciesPicker.Selected < 0) { ShowError("Select a defined species before starting a new campaign."); return; }
+        if (!ulong.TryParse(_seedField.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out ulong seed)) { ShowError($"The seed must be a whole number from 0 to {ulong.MaxValue}."); return; }
         _error.Visible = false;
-        StartRequested?.Invoke(new NewGameSettings(_sizes[_sizePicker.Selected].Id, seed));
+        StartRequested?.Invoke(new(_sizes[_sizePicker.Selected].Id, seed, Rules.CurrentVersion, _species[_speciesPicker.Selected].Id));
     }
-
-    public void ShowError(string message)
+    private void UpdateSummary()
     {
-        _error.Text = message;
-        _error.Visible = true;
+        if (_speciesPicker.Selected < 0 || _species.Length == 0 || _sizes.Length == 0) { _summary.Text = "Load a saved campaign to continue with its original embedded rules."; return; }
+        var sp = _species[_speciesPicker.Selected];
+        if (!ulong.TryParse(_seedField.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out ulong seed)) { _summary.Text = sp.Description; return; }
+        var preview = GalaxyGenerator.CreateNewGame(_content, new(_sizes[_sizePicker.Selected].Id, seed, Rules.SpeciesVersion, sp.Id));
+        if (preview.State is null) { _summary.Text = sp.Description + "\n" + preview.Error; return; }
+        var economy = EconomyCalculator.Calculate(_content, preview.State).Colonies[0];
+        var roles = sp.AllowedVesselIds.Select(id => _content.Vessels[id]).Select(role => role.CanFoundColony
+            ? $"{role.Name}: {Format.Points(role.Cost)} production; cargo {role.EmbarkPopulation} {sp.PopulationUnitLabel}; minimum colony {role.MinimumSourcePopulation}." + (role.RequiresFullColony ? " Must be full at its current capacity." : string.Empty) + (role.FoundsSealedHabitat ? " Creates a sealed habitat." : " Creates a native colony.")
+            : $"{role.Name}: {Format.Points(role.Cost)} production; surveys systems.");
+        _summary.Text = $"{sp.Name} — {sp.CultureName}\n{sp.Description}\n\nStarting population: {sp.StartingPopulation} ({sp.PopulationUnitLabel}); capacity {economy.Growth.Capacity}." +
+            (sp.SealedBaseCapacity is { } sealedCapacity ? $" Sealed capacity {sealedCapacity}." : string.Empty) +
+            $"\nWorkers: {sp.StartingWorkforce.Support} support / {sp.StartingWorkforce.Production} production / {sp.StartingWorkforce.Research} research.\nSupport {Format.Points(economy.SupportProduced.Total)} / {Format.Points(economy.SupportRequired.Total)}; production {Format.Points(economy.NetProduction.Total)}, research {Format.Points(economy.NetResearch.Total)} per turn.\nGrowth +{Format.Points(economy.GrowthEarned.Total)} per turn; base +{Format.Points(sp.BaseGrowth)}, surplus bonus up to +{Format.Points(sp.MaxSurplusGrowth)}.\n\n" + string.Join("\n", roles);
+        _summary.TooltipText = BreakdownText.Describe(economy.NetProduction, _content, "Production") + "\n\n" + BreakdownText.Describe(economy.GrowthEarned, _content, "Growth");
     }
-
-    private void RandomizeSeed()
-    {
-        // Presentation may use any randomness; the simulation only ever sees the chosen seed.
-        _seedField.Text = (GD.Randi() % 1_000_000).ToString(CultureInfo.InvariantCulture);
-    }
+    public void ShowError(string message) { _error.Text = message; _error.Visible = true; }
+    private void RandomizeSeed() { _seedField.Text = (GD.Randi() % 1_000_000).ToString(CultureInfo.InvariantCulture); UpdateSummary(); }
 }

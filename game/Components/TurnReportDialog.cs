@@ -103,14 +103,14 @@ public partial class TurnReportDialog : AcceptDialog
 
         if (colony.EmbarkOutcome is { } embark)
         {
-            _body.AddChild(Wrapped($"Embarked workers: source population now {embark.PopulationAfter}; next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));
+            _body.AddChild(Wrapped($"Embarked workers: source {colony.PopulationUnitLabel} now {embark.PopulationAfter}; next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));
             if (embark.ReassignmentNeeded) _body.AddChild(Wrapped("Reassign workers before the next End Turn.", "WarningLabel"));
         }
         if (colony.Production.BlockedReasonCode is not null) _body.AddChild(Wrapped("Awaiting embarkation; production remains banked.", "WarningLabel"));
         GrowthOutcome growth = colony.Growth;
         if (growth.Births > 0)
         {
-            _body.AddChild(new Label { Text = $"Population grew to {growth.PopulationAfter}. New workers start in support." });
+            _body.AddChild(new Label { Text = $"{char.ToUpperInvariant(colony.PopulationUnitLabel[0])}{colony.PopulationUnitLabel[1..]} grew to {growth.PopulationAfter}. New workers start in support." });
         }
 
         if (growth.AtCapacity && growth.PopulationBefore < growth.Capacity)

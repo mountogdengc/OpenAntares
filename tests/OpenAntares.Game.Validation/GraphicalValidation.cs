@@ -78,8 +78,7 @@ public partial class GraphicalValidation : Node
         Press(Button(setup, "Start"));
         await Frames();
         GameScreen screen = One<GameScreen>(main);
-        var legacyContent = ContentFiles.LoadCore().Content!;
-        legacyContent = legacyContent with { Expansion=null, Vessels=System.Collections.Immutable.ImmutableSortedDictionary<string,VesselDefinition>.Empty };
+        var legacyContent = SaveGame.ReadFile(ProjectSettings.GlobalizePath("res://tests/OpenAntares.Simulation.Tests/Fixtures/legacy-v2-save.json")).Game!.Content;
         var legacyState = GalaxyGenerator.CreateNewGame(legacyContent,new NewGameSettings(size,42,Rules.LegacyVersion)).State!;
         string legacyFixtureName=$"qa-{_runId}-{size}-legacy-loop";
         string legacyFixturePath=SaveFiles.PathFor(legacyFixtureName);

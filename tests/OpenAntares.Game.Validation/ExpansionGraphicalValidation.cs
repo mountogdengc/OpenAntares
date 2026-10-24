@@ -41,8 +41,12 @@ public partial class ExpansionGraphicalValidation : GraphicalValidation
         GetTree().Root.Size=new(1920,1080);
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();
         var setup=One<NewGameScreen>(main);setup.Configure(size,42);Press(Button(setup,"Start"));await Frames();
-        var screen=One<GameScreen>(main);var session=Session(screen);var viewer=session.State.Empires[0].Id;
-        Check(session.State.RulesVersion==2,$"{size}: default New Game uses rules 2");Check(session.State.Vessels.Count==1&&session.State.Vessels[0].RoleId=="scout",$"{size}: one starting scout");Check(session.State.Empires[0].Surveys.Count==1,$"{size}: home-only survey");
+        var frozenContent=FrozenExpansionContent();
+        var frozenState=GalaxyGenerator.CreateNewGame(frozenContent,new(size,42,Rules.ExpansionVersion)).State!;
+        string frozenName=$"qa-{_runId}-{size}-frozen-expansion";string frozenPath=SaveFiles.PathFor(frozenName);
+        SaveGame.WriteFile(frozenPath,frozenContent,frozenState);_savePaths.Add(frozenPath);
+        var screen=await LoadThroughDialog(main,frozenName);var session=Session(screen);var viewer=session.State.Empires[0].Id;
+        Check(session.State.RulesVersion==2,$"{size}: frozen expansion campaign uses rules 2");Check(session.State.Vessels.Count==1&&session.State.Vessels[0].RoleId=="scout",$"{size}: one starting scout");Check(session.State.Empires[0].Surveys.Count==1,$"{size}: home-only survey");
         var view=session.View(viewer);var scout=view.Vessels[0];var home=view.Stars.Single(s=>s.Chart.Id==scout.StationaryStarId);
         var target=view.Stars.Where(s=>s.Chart.Id!=home.Chart.Id).OrderByDescending(s=>TravelCalculator.Duration(home.Chart.X,home.Chart.Y,s.Chart.X,s.Chart.Y,300)).ThenBy(s=>s.Chart.Id).First();
         int scoutTurns=TravelCalculator.Duration(home.Chart.X,home.Chart.Y,target.Chart.X,target.Chart.Y,300);
@@ -104,7 +108,7 @@ public partial class ExpansionGraphicalValidation : GraphicalValidation
     }
     private async Task SyntheticViews()
     {
-        var content=ContentFiles.LoadCore().Content!;var state=SyntheticFixture();Check(GameStateValidator.Validate(content,state).Count==0,"Labelled synthetic fixture is valid");
+        var content=FrozenExpansionContent();var state=SyntheticFixture();Check(GameStateValidator.Validate(content,state).Count==0,"Labelled synthetic fixture is valid");
         var session=new GameSession(content,state);var screen=new GameScreen(session,new(1));AddChild(screen);await Frames();
         SelectInt(Descendants<OptionButton>(One<ColonyList>(screen)).Single(),6);await Frames();Press(Step(One<ColonyPanel>(screen),"Move a worker from support to research"));await Frames();
         Check(session.State.FindColony(new(6))!.Workforce==new Workforce(1,0,1)&&session.State.FindColony(new(5))!.Workforce==new Workforce(2,0,0),"Synthetic same-system selection commands the exact second colony");
@@ -122,7 +126,7 @@ public partial class ExpansionGraphicalValidation : GraphicalValidation
     }
     private async Task NondefaultContentInstructions()
     {
-        var original=ContentFiles.LoadCore().Content!;
+        var original=FrozenExpansionContent();
         var content=original with { Vessels=original.Vessels.SetItem("settler",original.Vessels["settler"] with { EmbarkPopulation=3,MinimumSourcePopulation=5 }) };
         var state=SyntheticFixture();state.Vessels.Single(v=>v.RoleId=="settler").CarriedPopulation=3;state.Colonies[0].ProjectKind="vessel";state.Colonies[0].ProjectId="settler";state.Colonies[0].ProductionReserve=2400;
         Check(GameStateValidator.Validate(content,state).Count==0,"Nondefault embedded-content fixture is valid");
@@ -151,4 +155,6 @@ public partial class ExpansionGraphicalValidation : GraphicalValidation
     {
         int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);
     }
+    private static ContentSet FrozenExpansionContent() => SaveGame.ReadFile(ProjectSettings.GlobalizePath("res://tests/OpenAntares.Simulation.Tests/Fixtures/legacy-rules2-v3-save.json")).Game!.Content;
+
 }

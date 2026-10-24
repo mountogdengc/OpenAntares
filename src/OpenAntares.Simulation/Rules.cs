@@ -12,7 +12,7 @@ public static class Rules
     public const int LegacyVersion = 1;
     public const int ExpansionVersion = 2;
     public const int SpeciesVersion = 3;
-    public const int CurrentVersion = ExpansionVersion;
+    public const int CurrentVersion = SpeciesVersion;
     public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion;
     public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion;
 
