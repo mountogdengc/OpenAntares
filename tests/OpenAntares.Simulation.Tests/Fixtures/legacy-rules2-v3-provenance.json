@@ -1,0 +1,9 @@
+{
+  "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261023-143542-124-small-two-colonies.json",
+  "sha256": "bbab27e800c8aea17eda305a0502d8fefba6a5504afb903eef289f74277cd966",
+  "captured_from_commit": "e32ada6d1c8fbef4fadd620a93139c6188447c27",
+  "schema": 3,
+  "rules": 2,
+  "turn": 9,
+  "continuation": "Four untouched TurnResolver.Resolve calls; canonical excludes schema_version only."
+}

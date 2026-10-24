@@ -1,6 +1,6 @@
 # Species Mechanics Implementation Plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans (Native, the existing preference and recommendation here) or superpowers:subagent-driven-development to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking. This document is for plan review; the owner has approved the species design, not execution of this new plan.
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans (Native, the existing preference and recommendation here) or superpowers:subagent-driven-development to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking. Owner approved this plan on 2026-10-23; execute inline using the retained Native preference.
 
 **Goal:** Deliver four playable classic space-opera species with distinct economy/founding choices, explicit habitats and unchanged continuation of existing campaigns.
 
@@ -10,7 +10,7 @@
 
 **Spec:** [Owner-approved species design](../specs/2026-10-23-species-mechanics-design.md), approved 2026-10-23 in [ADR-008](../../DECISIONS/ADR-008-approved-species-mechanics.md), including the classic Master of Orion II direction. The charter's original setting/licenses and respect for real peoples/cultures/religions remain in force.
 
-**Status:** Written/self-reviewed; awaiting owner plan review. All execution steps below are unchecked. Native is the prior project preference, not authorization to start this plan. Source inventory anchor: main at `5958c25177e064d4aafb9a102fe6bc390dc59bd3` before this planning commit; only the two owner prose files were dirty.
+**Status:** Owner-approved for Native execution, 2026-10-23. Checkboxes track actual execution; see the plan-specific ledger. Source inventory anchor: main at `5958c25177e064d4aafb9a102fe6bc390dc59bd3` before this planning commit; only the two owner prose files were dirty.
 
 ## Global Constraints
 
@@ -73,11 +73,11 @@ Unprefixed paths in the simulation rows are relative to src/OpenAntares.Simulati
 
 **Interfaces:** CompatibilityFixtures.LoadRules2() returns LoadedGame with a fresh parsed state/content; Rules2Content() returns its immutable ContentSet. CanonicalWithoutSchema(ContentSet,GameState) returns canonical save JSON with only schema_version removed. ExpectedTrace() returns ImmutableArray<string> of four pre-species canonical continuations. These live only in tests; no product fixture access.
 
-- [ ] **RED:** Add a test that calls LoadRules2(), asserts RulesVersion 2, two colonies, no species/environment JSON keys, and compares four TurnResolver.Resolve results with ExpectedTrace(). Running before capture must fail on missing fixture/trace, not an invented old writer.
-- [ ] **Run RED:** `dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --filter FullyQualifiedName~SpeciesCompatibilityTests`. Expected: nonzero, missing fixture/trace.
-- [ ] **Capture GREEN:** Before any writer/core mutation, copy the retained save ending qa-20261023-143542-124-small-two-colonies.json from the paths in reports/expansion-integrated-2026-10-23-run1/results.json. Planning-time read confirmed schema 3/rules 2/turn 9/two colonies/one vessel; SHA-256 bbab27e800c8aea17eda305a0502d8fefba6a5504afb903eef289f74277cd966. Verify the source before copying; retain it. Record hash/source/build and compute four successful continuations with the still-current resolver/writer. Canonical comparison excludes only schema_version, not content, RNG or rules_version. If that source is unavailable, explicitly capture with the unchanged pre-species build and record its provenance; never use a later writer to pretend an old fixture exists.
-- [ ] **Verify:** Repeat the focused command and full simulation gate. Expected: all green; genuine schema-1/2 fixtures retained and new rules-2 trace matches exactly.
-- [ ] **Commit:** Review diff; `git add` only the new fixture/helper/test paths, then `git commit -m "test: freeze pre-species campaign compatibility"`.
+- [x] **RED:** Add a test that calls LoadRules2(), asserts RulesVersion 2, two colonies, no species/environment JSON keys, and compares four TurnResolver.Resolve results with ExpectedTrace(). Running before capture must fail on missing fixture/trace, not an invented old writer.
+- [x] **Run RED:** `dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --filter FullyQualifiedName~SpeciesCompatibilityTests`. Expected: nonzero, missing fixture/trace.
+- [x] **Capture GREEN:** Before any writer/core mutation, copy the retained save ending qa-20261023-143542-124-small-two-colonies.json from the paths in reports/expansion-integrated-2026-10-23-run1/results.json. Planning-time read confirmed schema 3/rules 2/turn 9/two colonies/one vessel; SHA-256 bbab27e800c8aea17eda305a0502d8fefba6a5504afb903eef289f74277cd966. Verify the source before copying; retain it. Record hash/source/build and compute four successful continuations with the still-current resolver/writer. Canonical comparison excludes only schema_version, not content, RNG or rules_version. If that source is unavailable, explicitly capture with the unchanged pre-species build and record its provenance; never use a later writer to pretend an old fixture exists.
+- [x] **Verify:** Repeat the focused command and full simulation gate. Expected: all green; genuine schema-1/2 fixtures retained and new rules-2 trace matches exactly.
+- [x] **Commit:** Review diff; `git add` only the new fixture/helper/test paths, then `git commit -m "test: freeze pre-species campaign compatibility"`.
 
 ### Task 2: Species content, state and complete structural invariants
 
