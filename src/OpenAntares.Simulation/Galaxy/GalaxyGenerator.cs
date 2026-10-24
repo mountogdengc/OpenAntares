@@ -8,7 +8,7 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Galaxy;
 
 /// <summary>Choices made on the new-game screen.</summary>
-public sealed record NewGameSettings(string GalaxySizeId, ulong Seed, int RulesVersion = Rules.CurrentVersion);
+public sealed record NewGameSettings(string GalaxySizeId, ulong Seed, int RulesVersion = Rules.CurrentVersion, string? SpeciesId = null);
 
 /// <summary>The outcome of creating a new game. <see cref="State"/> is set only on success.</summary>
 public sealed record NewGameResult(GameState? State, string? Error)
@@ -32,11 +32,15 @@ public static class GalaxyGenerator
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
         if (!Rules.IsSupported(settings.RulesVersion)) return Fail("Unsupported rules version.");
-        if (settings.RulesVersion == Rules.ExpansionVersion && content.Expansion is null) return Fail("Expansion games require expansion content.");
+        if (Rules.HasExpansion(settings.RulesVersion) && content.Expansion is null) return Fail("Expansion games require expansion content.");
         if (!content.GalaxySizes.TryGetValue(settings.GalaxySizeId, out GalaxySizeDefinition? size))
         {
             return Fail($"Galaxy size '{settings.GalaxySizeId}' is not defined.");
         }
+
+        SpeciesDefinition? species = null;
+        if (settings.RulesVersion == Rules.SpeciesVersion && (settings.SpeciesId is not { } speciesId || !content.Species.TryGetValue(speciesId, out species)))
+            return Fail("A defined species must be selected for a species campaign.");
 
         var state = new GameState
         {
@@ -51,7 +55,7 @@ public static class GalaxyGenerator
         Pcg32 random = state.Random;
         GalaxyRules galaxy = content.Galaxy;
 
-        var empire = new EmpireState { Id = new EmpireId(state.AllocateId()), Controller = ControllerKind.Human };
+        var empire = new EmpireState { Id = new EmpireId(state.AllocateId()), Controller = ControllerKind.Human, SpeciesId = species?.Id };
         state.Empires.Add(empire);
 
         // Stars: random positions kept at least the minimum distance apart.
@@ -116,7 +120,15 @@ public static class GalaxyGenerator
             Workforce = start.Workforce,
         });
 
-        if (settings.RulesVersion == Rules.ExpansionVersion)
+        if (species is not null)
+        {
+            EnvironmentGenerator.Apply(content,state,homePlanet.Id);
+            var colony = state.Colonies[0];
+            colony.Population = species.StartingPopulation;
+            colony.Workforce = species.StartingWorkforce;
+            colony.HabitatMode = Species.HabitatModes.Native;
+        }
+        if (Rules.HasExpansion(settings.RulesVersion))
         {
             state.Vessels.Add(new VesselState { Id = new(state.AllocateId()), EmpireId = empire.Id, RoleId = content.Expansion!.StartingVesselId, StationaryStarId = home.Id });
             Knowledge.ObservationUpdater.Refresh(state, 0);
