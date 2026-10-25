@@ -26,7 +26,7 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M4-I | Implement bounded rival slice | Approved M4-P; preserve old campaigns and scoped planning | RIV-AC-001..011, retained regressions and final independent review | Verified for bounded local automated acceptance; both follow-up details reviewed and verified |
 | M5-D | Define colony development and delegation | Full owner approval in ADR-012 after builder check | COL-AC-012 full design gate | Verified for design scope |
 | M5-P | Plan colony-development implementation | Approved M5-D; retained Native | Twelve-task plan self-review and owner plan confirmation | Verified; owner approved with “yes” |
-| M5-I | Implement approved colony-development slice | Approved M5-P; isolated execution/preserved genuine old campaigns | Proposed COL criteria and retained gates, independent whole-branch review | In Progress |
+| M5-I | Implement approved colony-development slice | Approved M5-P; isolated execution/preserved genuine old campaigns | COL criteria and retained gates, independent whole-branch review | Implemented, Unverified: three disclosed presentation Minors |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -34,7 +34,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-All twelve approved Native M5 tasks are implemented with982 simulation tests/all five graphical gates passing. Complete the one fresh whole-branch review, regression-first Important/Critical corrections if any, then retained authorized local main integration and fresh combined gates. Preserve owner changes/worktrees/evidence. [Evidence mapping](../reports/COLONY_VALIDATION_2026-10-24.md); future crisis/fleet systems remain later scope.
+All twelve approved Native M5 tasks are implemented with984 simulation tests/all five fresh main graphical gates passing. The one fresh review/blocking correction and authorized local integration are complete; fresh combined gates and preservation audit pass. Next is owner review of the three deferred presentation gaps. Preserve owner changes/worktrees/evidence. [Evidence mapping](../reports/COLONY_VALIDATION_2026-10-24.md); future crisis/fleet systems remain later scope.
 
 ## Risks and autonomy
 
@@ -46,6 +46,6 @@ All twelve approved Native M5 tasks are implemented with982 simulation tests/all
 
 Use Not Started / In Progress / Implemented, Unverified / Verified / Blocked / Deferred. Update requirement statuses only to match their exact verified contracts, with evidence and dates; distinguish milestone state from code existence.
 
-Execution entry: owner approved the separate twelve-task plan with “yes”; M5-P Verified, M5-I In Progress. Follow the execution ledger; no repeated plan/method approval.
+Historical execution entry: owner approved the separate twelve-task plan with “yes”; M5-P Verified, M5-I In Progress. Follow the execution ledger; no repeated plan/method approval.
 
-Current M5 review disposition (2026-10-24): all twelve tasks complete; one fresh whole-branch review and one regression-first Important correction are resolved at9db9933. Suite984/984 and affected Colony593 assertions+4 provenance pass with0 diagnostics/normal build0 warnings/errors/five exclusions. Three Minors remain deferred: historical condition wording, template-deletion affected-colony information, and routine Attention distinction. Therefore COL-AC-002/007 and M5-I remain Implemented, Unverified for exact full acceptance; other functional COL criteria are Verified for local automated scope, design COL-AC-012 already Verified. Parent REQ-017/counts and human/release limits unchanged. See reports/COLONY_FINAL_REVIEW_2026-10-24.md and PROJECT_STATUS.md. Retained authorized local integration and fresh combined five-scenario gates are next; no new scope or cleanup.
+Current M5 review disposition (2026-10-24): all twelve tasks complete; one fresh whole-branch review and one regression-first Important correction are resolved at9db9933. Suite984/984 and affected Colony593 assertions+4 provenance pass with0 diagnostics/normal build0 warnings/errors/five exclusions. Three Minors remain deferred: historical condition wording, template-deletion affected-colony information, and routine Attention distinction. Therefore COL-AC-002/007 and M5-I remain Implemented, Unverified for exact full acceptance; other functional COL criteria are Verified for local automated scope, design COL-AC-012 already Verified. Parent REQ-017/counts and human/release limits unchanged. See reports/COLONY_FINAL_REVIEW_2026-10-24.md and PROJECT_STATUS.md. Retained authorized local integration is complete; fresh combined984-test Suite/all five graphical gates/build/metadata pass; no new scope or cleanup.

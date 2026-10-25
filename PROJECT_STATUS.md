@@ -4,7 +4,7 @@
 
 OpenAntares is an original turn-based space4X, C#/Godot .NET presentation with an independent deterministic simulation. The owner-approved creative direction is a classic Master of Orion II love letter with memorable fanciful aliens, respectful of real peoples and beliefs. Existing architecture and creative decisions remain authoritative.
 
-Current phase: M5 colony development implemented and reviewed; retained authorized local main integration is next. Last updated2026-10-24 America/Denver. No release. Isolated branch rules5/writer6; main remains rules4/writer5 until integration. Full First Playable/human and release acceptance remain open.
+Current phase: M5 colony development implemented and reviewed; retained authorized local main integration is complete, with fresh combined verification complete. Last updated2026-10-24 America/Denver. No release. Main and retained branch use rules5/writer6. Full First Playable/human and release acceptance remain open.
 
 ## 2. Implemented milestone
 
@@ -31,7 +31,7 @@ Before review, source47eb9cb passed982 simulation tests and five sequential runt
 
 Corrected source9db9933 passes984 simulation tests and full affected Colony593 assertions+4 provenance/28 QA/57 PNG,0 diagnostics. Normal rebuild0 warnings/errors, all five harness types excluded after actual opt-in negative controls. [Correction evidence](reports/colony-correction-20261024-run1/summary.json). All24 gallery pages inspected in Task10; final representative800/1920 layouts and corrected individual/bulk previews inspected. Four generated campaigns complete paid foundations/specialists, Harl ordinary second colony/manual favorite, Wenth changing capacity/cargo, actual save/load and three future canonical turns. Two-human pending Ready is explicitly labelled.
 
-Fresh combined-main Suite/all five gates/build/metadata are required after integration; do not substitute branch results for them. In-process signals/screenshots do not establish physical input, comfortable reading/accessibility, uncoached understanding, aesthetic approval, general balance, platform equality, clean install/export/security or release readiness.
+Fresh combined main at93ffe8a passes984 simulation tests; Colony593 assertions+4 provenance, Rival1146+12 provenance, Species1194, Expansion275, Legacy466+27 geometry. All197 QA paths exist,134 PNGs retained, diagnostics0; normal rebuild0 warnings/errors, all five harness types excluded. [Integration report](reports/COLONY_INTEGRATION_2026-10-24.md), [exact main summary](reports/colony-main-20261024-run1/summary.json). This is fresh main evidence, separate from branch results. In-process signals/screenshots do not establish physical input, comfortable reading/accessibility, uncoached understanding, aesthetic approval, general balance, platform equality, clean install/export/security or release readiness.
 
 ## 5. Decisions and boundaries
 
@@ -41,9 +41,9 @@ Revolts/plagues/culture/destruction, emergency acknowledgements, fleet/scout doc
 
 ## 6. Repository and preservation
 
-Primary F:/Projects-PCGames/OpenAntares, main10cb0b4 before M5 integration. Execution worktree C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/colony-development-design, codex/colony-development-design. Reuse all seven registered worktrees; old integrated branches are retained, not pending feature merges. [Prior main integration](reports/RIVAL_POLISH_INTEGRATION_2026-10-24.md), [fresh exact audit](reports/colony-execution/preservation-before-review.json).
+Primary F:/Projects-PCGames/OpenAntares, main fast-forwarded10cb0b4→93ffe8a; reviewed correction9db9933. Execution worktree C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/colony-development-design, codex/colony-development-design. Reuse all seven registered worktrees; old integrated branches are retained, not pending feature merges. [Prior main integration](reports/RIVAL_POLISH_INTEGRATION_2026-10-24.md), [fresh exact audit](reports/colony-execution/preservation-before-review.json).
 
-Four owner changes remain outside this branch: PROJECT_STATUS paragraph, docs/SPECIES_ROSTER.md, docs/research/faction-survey.md, untracked docs/FEATURE_REQUESTS.md. Exact recovery backup prepared in chat .colony-integration-20261024-185920; primary index empty and all four hashes verified before review. For overlap, stash only status, restore its exact owner paragraph unstaged into updated status, and keep other three files byte-identical/unstaged. Never apply broad old stashes. All old saves, failed/successful evidence, branches/worktrees and recovery remain; no push/release/history rewrite/cleanup.
+Four owner changes remain outside this branch: PROJECT_STATUS paragraph, docs/SPECIES_ROSTER.md, docs/research/faction-survey.md, untracked docs/FEATURE_REQUESTS.md. Exact recovery backup prepared in chat .colony-integration-20261024-185920; primary index empty and all four hashes verified before review. Only status was stashed (retained cb66546d1deefd2ac184b2897113358916974161); its exact owner paragraph is restored unstaged and excluded from the authored commit. The other three files remain byte-identical/unstaged. Never apply broad old stashes. All old saves, failed/successful evidence, branches/worktrees and recovery remain; no push/release/history rewrite/cleanup.
 
 ## 7. Remaining limits
 
@@ -51,4 +51,4 @@ Deferred human playtest does not block this authorized technical work. Broader g
 
 ## 8. Next concrete action
 
-Perform retained authorized local main integration after fresh preservation audit, then run fresh combined984-test Suite and all five runtime scenarios plus ordinary rebuild/five-harness metadata verification. Record actual main source/evidence and leave an empty index with only the same four owner changes. Afterward, owner review of the three deferred presentation gaps is the next bounded scope decision.
+Review the three disclosed presentation Minors and select a bounded correction scope before another strategic subsystem. Implementation, blocking review correction, local main integration and fresh combined gates are complete. Preserve all owner changes/QA/recovery/worktrees; no automatic new feature work, push, release or cleanup.
