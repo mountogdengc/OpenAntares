@@ -26,8 +26,8 @@ One fresh read-only whole-branch review found duplicate vessel notices and an ov
 | M6-P | Verified | Owner approved the separate14-task plan2026-10-25; Native inline retained |
 | M6-I | Verified | Tasks1..14, independent review, eight corrections and fresh merged-main gates passed locally; no second review |
 | M7-D scout survival / encounter avoidance | Verified | Full amended design approval2026-10-25; ADR-016/SCT-AC-012, design only |
-| M7-P | In Progress | Separate15-task plan/self-review ready; owner plan review pending |
-| M7-I | Not Started | Native retained after plan gate; no product implementation |
+| M7-P | Verified | Owner approved separate15-task plan; Native inline retained |
+| M7-I | In Progress | Execution on codex/scout-survival; follow plan ledger; Task1 old futures frozen |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
 | Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 
@@ -72,3 +72,5 @@ No open Important/Critical or Minor review finding remains after the one authori
 Review/confirm the separate [15-task scout/ameba implementation plan](docs/superpowers/plans/2026-10-25-scout-survival-and-ameba.md). Full design approval is already recorded; do not re-ask design or execution method. After plan approval retain Native inline, one final fresh whole-branch reviewer and no per-task agents. Task1 must capture genuine rules6 futures before any product change;32 real generated UI saves are located/hashed, but future capture has not run. M6/parent statuses/17-row totals remain unchanged. No application build/test/runtime or product implementation occurred in planning.
 
 Drafting checkout: the clean existing `.worktrees/colony-development-design` was reused on new `codex/scout-survival-design` from primary main42e1282; prior `codex/colony-crises` and all seven worktrees/branches remain. Primary main and all four owner files are untouched; no integration, push, release, cleanup or product change. [Draft review and preservation evidence](reports/SCOUT_DESIGN_REVIEW_2026-10-25.md) records fresh checks and limits. This branch's status updates do not copy or commit the owner's primary peaceful-mode paragraph.
+
+Current M7 execution authority: owner approved the15-task plan after b9a39d7. Native implementation is active on codex/scout-survival. Task1 froze32 actual UI,16 old-engine generated and1 labelled held-cargo baseline, each with4 unchanged-engine futures; focused1/1 and full Suite1266/1266 pass with0 build warnings/errors. Product unchanged through capture. Next: Task2 and subsequent tasks continuously per ledger. Earlier plan-review-pending text is historical; no repeated approval/method question or inferred main integration.

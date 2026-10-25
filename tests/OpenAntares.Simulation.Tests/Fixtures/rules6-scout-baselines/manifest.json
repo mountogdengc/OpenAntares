@@ -1,0 +1,944 @@
+{
+  "uiSources": 32,
+  "generatedSources": 16,
+  "syntheticSources": 1,
+  "captureProductUnchanged": true,
+  "sourceCatalogSha256": "33b1c83d65ee6b33a77a78b7fc17f54cfdc0b7a2d987ca24ce2ada93fcf17801",
+  "captureHelperSha256": "0a91c561f6631ce48566d12377e88d42ad38b2cfa8b7214f2fc7fa3e0fd9ab0f",
+  "schema": 7,
+  "rules": 6,
+  "normalization": "schema_version only",
+  "cases": [
+    {
+      "key": "ui-00",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-generated-harl-initial.json",
+      "save": "saves/ui-00.json",
+      "saveSha256": "37debe44f8b28aa7332b167cb4c97049a142f0c8202eb562e3077177978a1923",
+      "futures": "futures/ui-00.json",
+      "futureSha256": "bcf726c701e1217ded8edc2c0294e44ed5075a9aad47cbd42547b0806bdac847",
+      "commands": "commands/ui-00.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-01",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-crisis-generated-harl-onset.json",
+      "save": "saves/ui-01.json",
+      "saveSha256": "13ceb185213a5797f65619d8c931ff1cac320acfdf153789e2296635021bb2a2",
+      "futures": "futures/ui-01.json",
+      "futureSha256": "5ca141f5b3857b88853a96ea5a9e2aa0a2c49fc95283e64663ab7eb4d4ae1218",
+      "commands": "commands/ui-01.json",
+      "commandSha256": "fbfba76a15bbe8ef7ca9dbabb528c862681f6d692e5ca252be5822e70ba53d74",
+      "initialTurn": 20,
+      "futureTurns": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-02",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-generated-harl-contained.json",
+      "save": "saves/ui-02.json",
+      "saveSha256": "1d945e0ff8622fdc18734811746b8a6f6eb595544f6627a4f563f3513bef125f",
+      "futures": "futures/ui-02.json",
+      "futureSha256": "790fcfad5cc45cf886145dbbafe830e1ab9bec59bd898f883980a0a7668f1c4a",
+      "commands": "commands/ui-02.json",
+      "commandSha256": "f0213e4bcd1290faaf08eb72199a6165a2b1defdf58e280df42307898864ab70",
+      "initialTurn": 23,
+      "futureTurns": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-03",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-crisis-generated-harl-continued.json",
+      "save": "saves/ui-03.json",
+      "saveSha256": "fbd4bd45bd317727e913195e5369e502f8fd183e530c79fc5fdce73b069ed04f",
+      "futures": "futures/ui-03.json",
+      "futureSha256": "10de8d4cf54caa888568d0bc8397f57ab89e635fbc76197c2cbb4291e18d5ea7",
+      "commands": "commands/ui-03.json",
+      "commandSha256": "2f7412906d2829ae850de6b9826b6c0e1d58bb32998c5e0b4f72be71092d461d",
+      "initialTurn": 26,
+      "futureTurns": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-04",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-generated-peldra-initial.json",
+      "save": "saves/ui-04.json",
+      "saveSha256": "c05679c14a9671279665096adf9d624726047963fb2b739e9dd47cf421566eab",
+      "futures": "futures/ui-04.json",
+      "futureSha256": "c95261fbc51b07a83b769e7f34a91ceb7091ffafdf187e94fa886312ac61151d",
+      "commands": "commands/ui-04.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-05",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-crisis-generated-peldra-onset.json",
+      "save": "saves/ui-05.json",
+      "saveSha256": "950cd80343de88fccc1b3b0ea9846ca266d22f95853ee6fa597f2d02a9b2a552",
+      "futures": "futures/ui-05.json",
+      "futureSha256": "ba93b2582fed7bf422b8883b717983b36e36793c24d930b9022e389d8c4bf711",
+      "commands": "commands/ui-05.json",
+      "commandSha256": "fbfba76a15bbe8ef7ca9dbabb528c862681f6d692e5ca252be5822e70ba53d74",
+      "initialTurn": 20,
+      "futureTurns": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-06",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-generated-peldra-contained.json",
+      "save": "saves/ui-06.json",
+      "saveSha256": "fa2a2aa38cdb119b735097f6fa9b0ed152e12058db9510846ecb8a922bff5154",
+      "futures": "futures/ui-06.json",
+      "futureSha256": "5f26ea426083214111a8ace6b0359cfa4346448d046e58d3527cf7124f123f52",
+      "commands": "commands/ui-06.json",
+      "commandSha256": "f0213e4bcd1290faaf08eb72199a6165a2b1defdf58e280df42307898864ab70",
+      "initialTurn": 23,
+      "futureTurns": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-07",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-crisis-generated-peldra-continued.json",
+      "save": "saves/ui-07.json",
+      "saveSha256": "8891634f039bbe774da6d94c95a6be30347e83db03dd4d937bd5d657dd964cd5",
+      "futures": "futures/ui-07.json",
+      "futureSha256": "56fb94c8430561ef4641c111d5b4df4a9f86cfc8ed0ffd17aead818e53ca62da",
+      "commands": "commands/ui-07.json",
+      "commandSha256": "2f7412906d2829ae850de6b9826b6c0e1d58bb32998c5e0b4f72be71092d461d",
+      "initialTurn": 26,
+      "futureTurns": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-08",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-generated-sulan-initial.json",
+      "save": "saves/ui-08.json",
+      "saveSha256": "e0f32cfdac5d6940854c8aa99568bb542dc856cc919d94382c0f909e2cb37341",
+      "futures": "futures/ui-08.json",
+      "futureSha256": "545cb465ee48b4bfb3417427942103005480146bf9c5a27b160900440919d16c",
+      "commands": "commands/ui-08.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-09",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-crisis-generated-sulan-onset.json",
+      "save": "saves/ui-09.json",
+      "saveSha256": "ec07b992219a588ea5a4cbbcfd4a1c47ceb565d3c488a05d75a6bc6200cb2cd2",
+      "futures": "futures/ui-09.json",
+      "futureSha256": "e3a83afe08cdf7de0e05101633f0878958717b727a001d4700bf0be546d56fef",
+      "commands": "commands/ui-09.json",
+      "commandSha256": "fbfba76a15bbe8ef7ca9dbabb528c862681f6d692e5ca252be5822e70ba53d74",
+      "initialTurn": 20,
+      "futureTurns": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-10",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-generated-sulan-contained.json",
+      "save": "saves/ui-10.json",
+      "saveSha256": "041df5155fe88bc2b640ef4b84710018d735b4ee59e77ac25e3abd939d68f56d",
+      "futures": "futures/ui-10.json",
+      "futureSha256": "426790233a2f3b1f2608da8d3ec2dcc2a67a6689d7ffb5331c2e5013ff72069f",
+      "commands": "commands/ui-10.json",
+      "commandSha256": "f0213e4bcd1290faaf08eb72199a6165a2b1defdf58e280df42307898864ab70",
+      "initialTurn": 23,
+      "futureTurns": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-11",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-crisis-generated-sulan-continued.json",
+      "save": "saves/ui-11.json",
+      "saveSha256": "9bf858894ebb8d1d0b753ec17822215c7d2fe10d40b1868da2b2ca0f86752c52",
+      "futures": "futures/ui-11.json",
+      "futureSha256": "1eca443c184e8019deb50879657befb0dcecd629159ffca7422a638466336a62",
+      "commands": "commands/ui-11.json",
+      "commandSha256": "2f7412906d2829ae850de6b9826b6c0e1d58bb32998c5e0b4f72be71092d461d",
+      "initialTurn": 26,
+      "futureTurns": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-12",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-generated-wenth-initial.json",
+      "save": "saves/ui-12.json",
+      "saveSha256": "ba70959dcd15d23f2987b6bb1045b99537395c114a0a1e1523f2201acd6695d9",
+      "futures": "futures/ui-12.json",
+      "futureSha256": "f0abe0b02cc68061dc0f06d634631778657fd762ab9ceb023523cf4909ca16c5",
+      "commands": "commands/ui-12.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-13",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-crisis-generated-wenth-onset.json",
+      "save": "saves/ui-13.json",
+      "saveSha256": "bd0894829691317358d3b57d9c6247f04efb6aa1310363883d175727e2081f6d",
+      "futures": "futures/ui-13.json",
+      "futureSha256": "40061e85af7e46cb399599cd748b67f1b30e0631425c3db52d7b06ebf34db8ea",
+      "commands": "commands/ui-13.json",
+      "commandSha256": "fbfba76a15bbe8ef7ca9dbabb528c862681f6d692e5ca252be5822e70ba53d74",
+      "initialTurn": 20,
+      "futureTurns": [
+        21,
+        22,
+        23,
+        24
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-14",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-generated-wenth-contained.json",
+      "save": "saves/ui-14.json",
+      "saveSha256": "2126cb7ab307c1f99386e8ec63797da3c553eacba782acc61312d1c543e6b056",
+      "futures": "futures/ui-14.json",
+      "futureSha256": "bdbd1ef5fe6048e09dcf050f08e93c4a67c23393faa10f52cbde54876c69babe",
+      "commands": "commands/ui-14.json",
+      "commandSha256": "f0213e4bcd1290faaf08eb72199a6165a2b1defdf58e280df42307898864ab70",
+      "initialTurn": 23,
+      "futureTurns": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-15",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-crisis-generated-wenth-continued.json",
+      "save": "saves/ui-15.json",
+      "saveSha256": "9ff8fe32c2656f134b8f2aa420b48580474d4cbcff4a554039555c5ed283995d",
+      "futures": "futures/ui-15.json",
+      "futureSha256": "13e897748f1d33b1909173eaa0af5960e92c3ee36a48015ab8b47a466056c7fd",
+      "commands": "commands/ui-15.json",
+      "commandSha256": "2f7412906d2829ae850de6b9826b6c0e1d58bb32998c5e0b4f72be71092d461d",
+      "initialTurn": 26,
+      "futureTurns": [
+        27,
+        28,
+        29,
+        30
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-16",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-generated-harl-neglect-initial.json",
+      "save": "saves/ui-16.json",
+      "saveSha256": "37debe44f8b28aa7332b167cb4c97049a142f0c8202eb562e3077177978a1923",
+      "futures": "futures/ui-16.json",
+      "futureSha256": "bcf726c701e1217ded8edc2c0294e44ed5075a9aad47cbd42547b0806bdac847",
+      "commands": "commands/ui-16.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-17",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-crisis-generated-harl-neglect-recovered.json",
+      "save": "saves/ui-17.json",
+      "saveSha256": "4d506cd9336daef83c8db24c102071afc9f9f1c4c8a88b244b2ba2a862087540",
+      "futures": "futures/ui-17.json",
+      "futureSha256": "b962178329d990c22ebcd2aa1a6754bf3ca53dd69b2828e840445b99d9c89417",
+      "commands": "commands/ui-17.json",
+      "commandSha256": "6b70a145de0a1d861791b8a7140ee780e28414d515f1208a87949279655c1d69",
+      "initialTurn": 28,
+      "futureTurns": [
+        29,
+        30,
+        31,
+        32
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-18",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-generated-harl-cargo-initial.json",
+      "save": "saves/ui-18.json",
+      "saveSha256": "37debe44f8b28aa7332b167cb4c97049a142f0c8202eb562e3077177978a1923",
+      "futures": "futures/ui-18.json",
+      "futureSha256": "bcf726c701e1217ded8edc2c0294e44ed5075a9aad47cbd42547b0806bdac847",
+      "commands": "commands/ui-18.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-19",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165053-370-crisis-generated-harl-cargo-secondary-warning.json",
+      "save": "saves/ui-19.json",
+      "saveSha256": "ee065a9141a065e66a08f16ffd6fb53f91fef3ee115c60fedc712b6884c58387",
+      "futures": "futures/ui-19.json",
+      "futureSha256": "cd094339721a0acab70434ef18893f694ebba309c2d64ade739974b2458c4f93",
+      "commands": "commands/ui-19.json",
+      "commandSha256": "c6c48b3e8c7c83a5ff441fce0736616c46706cf4c91d3d1e87bdc5b8c3329a03",
+      "initialTurn": 25,
+      "futureTurns": [
+        26,
+        27,
+        28,
+        29
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-20",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-harl-queued-foundation.json",
+      "save": "saves/ui-20.json",
+      "saveSha256": "6f79ec1a5b20b8b85c3426822cb906c885d8f3fe7a907468ff71a401cdfc33e5",
+      "futures": "futures/ui-20.json",
+      "futureSha256": "e80e81feebc1415c46b14aa1a15178a9337ccbe363228650a5bd22aa0c472d92",
+      "commands": "commands/ui-20.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-21",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-harl-queued-expedition.json",
+      "save": "saves/ui-21.json",
+      "saveSha256": "cdc20312b5b0a1ba2968e86efaab5aae87941d43c24698a34a019960e27d0771",
+      "futures": "futures/ui-21.json",
+      "futureSha256": "6905b4f5b8d5429425869d463c4787334c6b85e8723eb5eab367772dad27b9b9",
+      "commands": "commands/ui-21.json",
+      "commandSha256": "980ac2e4e80c33ac031291daa4d1d4e09addc16b0bc4d2a4825a53d39500a5f7",
+      "initialTurn": 22,
+      "futureTurns": [
+        23,
+        24,
+        25,
+        26
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-22",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-harl-pending-founding.json",
+      "save": "saves/ui-22.json",
+      "saveSha256": "ffcc341cce1db0d611423c14e5de384138f935d167fce1e42d4b650459bf3c41",
+      "futures": "futures/ui-22.json",
+      "futureSha256": "32075527419fe1d198eb7f4d440b39f42019e6cabef4bf0a1a152c5912212518",
+      "commands": "commands/ui-22.json",
+      "commandSha256": "f0213e4bcd1290faaf08eb72199a6165a2b1defdf58e280df42307898864ab70",
+      "initialTurn": 23,
+      "futureTurns": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-23",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-harl-manual-favorite-and-delegated-child.json",
+      "save": "saves/ui-23.json",
+      "saveSha256": "cd0d24b1dffbcb13e6e6cf8819140b769f1314d634ba523b3c47db4b70fb10bf",
+      "futures": "futures/ui-23.json",
+      "futureSha256": "ef08d2c8bd5c8690c6f991ff6aefb4b61c7bec1357a9871388263b46a9ba2b89",
+      "commands": "commands/ui-23.json",
+      "commandSha256": "b9daa3923aa496708c276fcc0acaf0e6ca152c5438a5a3be2db155bfa4738a58",
+      "initialTurn": 24,
+      "futureTurns": [
+        25,
+        26,
+        27,
+        28
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-24",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-harl-developed.json",
+      "save": "saves/ui-24.json",
+      "saveSha256": "cd0d24b1dffbcb13e6e6cf8819140b769f1314d634ba523b3c47db4b70fb10bf",
+      "futures": "futures/ui-24.json",
+      "futureSha256": "ef08d2c8bd5c8690c6f991ff6aefb4b61c7bec1357a9871388263b46a9ba2b89",
+      "commands": "commands/ui-24.json",
+      "commandSha256": "b9daa3923aa496708c276fcc0acaf0e6ca152c5438a5a3be2db155bfa4738a58",
+      "initialTurn": 24,
+      "futureTurns": [
+        25,
+        26,
+        27,
+        28
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-25",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-peldra-queued-foundation.json",
+      "save": "saves/ui-25.json",
+      "saveSha256": "cd58ede2ebef0c8b1f0101c6f991e2db0c7c7fec5e6010ec0f39d151ffb8f404",
+      "futures": "futures/ui-25.json",
+      "futureSha256": "8798d17b10fc53f2a53c50a6daa47ed0cca5720e0a78543c371723d5f18e6064",
+      "commands": "commands/ui-25.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-26",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-peldra-developed.json",
+      "save": "saves/ui-26.json",
+      "saveSha256": "ccd7763e12f0377e24bdb5335eaa7df7e04fb27d103e12052cd34ccf52033e26",
+      "futures": "futures/ui-26.json",
+      "futureSha256": "e0042a53039bf5305026d806bee01784cfbc01a4814f25736802a3ef45543383",
+      "commands": "commands/ui-26.json",
+      "commandSha256": "fa39a2e6468c490c46349cc46c2b48d6f423e42a77df3f61c09d66ff1fa9dd4c",
+      "initialTurn": 10,
+      "futureTurns": [
+        11,
+        12,
+        13,
+        14
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-27",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-sulan-queued-foundation.json",
+      "save": "saves/ui-27.json",
+      "saveSha256": "1441a138cadec2d04362df9d4811b7a394e7b9cfea09d708eaba135c99a263c3",
+      "futures": "futures/ui-27.json",
+      "futureSha256": "f08fdaf34d62f3daf2736cc962a8eb32fc37dd56824132f940ec6c126d29c0b0",
+      "commands": "commands/ui-27.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-28",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-sulan-developed.json",
+      "save": "saves/ui-28.json",
+      "saveSha256": "48c302836bcf14d6a526e03183a20057969e4d2e3f03895ee44b328fb0d8e033",
+      "futures": "futures/ui-28.json",
+      "futureSha256": "3056ab23d7ec09d18d7d675d58d8a8f7f2737ef1e7c8e055c778686263ea9d9a",
+      "commands": "commands/ui-28.json",
+      "commandSha256": "007b55e29f57eecac1f5141db5ed05142adcbb68fc147f0a73fe52193a0345d5",
+      "initialTurn": 15,
+      "futureTurns": [
+        16,
+        17,
+        18,
+        19
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-29",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-wenth-queued-foundation.json",
+      "save": "saves/ui-29.json",
+      "saveSha256": "7b4a1f5e3e669499747b07f86ce15f0f7628937ccb8d330ecfa8b22355483de5",
+      "futures": "futures/ui-29.json",
+      "futureSha256": "833b0fe9b0356dea6dcac27aaa8c3bef845654d768b3d25f37ee5a1ae80ae5d5",
+      "commands": "commands/ui-29.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-30",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-wenth-queued-expedition.json",
+      "save": "saves/ui-30.json",
+      "saveSha256": "e3a6efe97f607177c986e6911933e238050d41648b12d9c3a22ea4872614ce06",
+      "futures": "futures/ui-30.json",
+      "futureSha256": "7c8e1e3afa7ceeb241f0785619e69df810c78f1bc7f4e0ca068393eba255712c",
+      "commands": "commands/ui-30.json",
+      "commandSha256": "8cefcc790e2c6d0f10bc46b4c92e3d211ee83b6513b276b57e349bdfea2ee158",
+      "initialTurn": 12,
+      "futureTurns": [
+        13,
+        14,
+        15,
+        16
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "ui-31",
+      "kind": "actual-generated-ui",
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-20261025-165200-330-generated-colony-wenth-developed.json",
+      "save": "saves/ui-31.json",
+      "saveSha256": "8b5eea39a39748ddca6dc937ce0fc911a71bea25ab8eafee1988464cd90f6750",
+      "futures": "futures/ui-31.json",
+      "futureSha256": "c41969e31ebe697d60d0021efac294adec82f40b1fb7dda90f37d5842672f7fc",
+      "commands": "commands/ui-31.json",
+      "commandSha256": "99dc834b564526249ce1bf649d6a126c3902ac1e0122a2d64ccbf2352cb0d3f9",
+      "initialTurn": 17,
+      "futureTurns": [
+        18,
+        19,
+        20,
+        21
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-harl-0-False",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-harl-0-False.json",
+      "save": "saves/gen-harl-0-False.json",
+      "saveSha256": "98f495e3e5491c473980ebd3ecbd89e0e61d12cff0dcb5cb240486e462ac4c8f",
+      "futures": "futures/gen-harl-0-False.json",
+      "futureSha256": "16f6482f99948efcab9d52a19b1a9f705df2798b3a260c6638c39842ce09409b",
+      "commands": "commands/gen-harl-0-False.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-harl-0-True",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-harl-0-True.json",
+      "save": "saves/gen-harl-0-True.json",
+      "saveSha256": "a7b18a852a7b164cbf706457d2fb5a5001cf9b4283a9dd4b5275ed0e91dc953a",
+      "futures": "futures/gen-harl-0-True.json",
+      "futureSha256": "93fb6623d4bb8e4b748d59f6be8420d8de33e0800f0ff6e59d9e7042971d8c49",
+      "commands": "commands/gen-harl-0-True.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-harl-1-False",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-harl-1-False.json",
+      "save": "saves/gen-harl-1-False.json",
+      "saveSha256": "6d54de1580960d82e635aadfcb9b87a1dd0b915605dbc2c8ec3477f1eb3e1874",
+      "futures": "futures/gen-harl-1-False.json",
+      "futureSha256": "30b1fac3bb5d1d11f9760c9730676d85964e32ea0e9393b1835036af3c0a4ad0",
+      "commands": "commands/gen-harl-1-False.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-harl-1-True",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-harl-1-True.json",
+      "save": "saves/gen-harl-1-True.json",
+      "saveSha256": "37debe44f8b28aa7332b167cb4c97049a142f0c8202eb562e3077177978a1923",
+      "futures": "futures/gen-harl-1-True.json",
+      "futureSha256": "bcf726c701e1217ded8edc2c0294e44ed5075a9aad47cbd42547b0806bdac847",
+      "commands": "commands/gen-harl-1-True.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-peldra-0-False",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-peldra-0-False.json",
+      "save": "saves/gen-peldra-0-False.json",
+      "saveSha256": "0dac4e9f05d07a368bfcce6fb9dae4406a55ca9087f29e07d04736e04fc7fd74",
+      "futures": "futures/gen-peldra-0-False.json",
+      "futureSha256": "84cd6c4f1b4f4837db5428cb1ab7b9e804a57bf9e2d821ee126897cb3bf804f5",
+      "commands": "commands/gen-peldra-0-False.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-peldra-0-True",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-peldra-0-True.json",
+      "save": "saves/gen-peldra-0-True.json",
+      "saveSha256": "f55cdda1116e46ec91f8ba4cb9cddbaf75e75f6ef250ef6eb139b24df0721e57",
+      "futures": "futures/gen-peldra-0-True.json",
+      "futureSha256": "95353aa749d4e765ea13dcb985a6dd58348c6f7d7d2f3ebcb65a8863014fed4a",
+      "commands": "commands/gen-peldra-0-True.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-peldra-1-False",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-peldra-1-False.json",
+      "save": "saves/gen-peldra-1-False.json",
+      "saveSha256": "f16261a9de8d2f037979dabfbeaab4dedf75fb22a5e02b06eee855354d5f36a7",
+      "futures": "futures/gen-peldra-1-False.json",
+      "futureSha256": "f0e8ec2c20ba62b37f47c94506e8ee0f2483179c2b8bdc81aa0d38f493c41431",
+      "commands": "commands/gen-peldra-1-False.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-peldra-1-True",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-peldra-1-True.json",
+      "save": "saves/gen-peldra-1-True.json",
+      "saveSha256": "c05679c14a9671279665096adf9d624726047963fb2b739e9dd47cf421566eab",
+      "futures": "futures/gen-peldra-1-True.json",
+      "futureSha256": "c95261fbc51b07a83b769e7f34a91ceb7091ffafdf187e94fa886312ac61151d",
+      "commands": "commands/gen-peldra-1-True.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-sulan-0-False",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-sulan-0-False.json",
+      "save": "saves/gen-sulan-0-False.json",
+      "saveSha256": "c0c67d31c788a759d3c32552e219a4417f5379b313e3747ad544aadf4145ad75",
+      "futures": "futures/gen-sulan-0-False.json",
+      "futureSha256": "625838847b0753ce42563d6af82895b0958015f34f4f2a64ec99f561992b3261",
+      "commands": "commands/gen-sulan-0-False.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-sulan-0-True",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-sulan-0-True.json",
+      "save": "saves/gen-sulan-0-True.json",
+      "saveSha256": "ff97a6217d97069e09b425049f1d333157722c4de7a8d674a1e0a9103eb022bf",
+      "futures": "futures/gen-sulan-0-True.json",
+      "futureSha256": "19c7a7d3490e21c47cfa3838e8c841a3af7c3ee3a4dde7d20b0054e9d13e608c",
+      "commands": "commands/gen-sulan-0-True.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-sulan-1-False",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-sulan-1-False.json",
+      "save": "saves/gen-sulan-1-False.json",
+      "saveSha256": "017727d03815bd3ebe6bc0180747ab548c9ddba199ac92187a424e51c5603676",
+      "futures": "futures/gen-sulan-1-False.json",
+      "futureSha256": "adc2278378c1eda406a95790927d70c9ed0235ddf1cb5dbf409b8966b148ce6b",
+      "commands": "commands/gen-sulan-1-False.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-sulan-1-True",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-sulan-1-True.json",
+      "save": "saves/gen-sulan-1-True.json",
+      "saveSha256": "e0f32cfdac5d6940854c8aa99568bb542dc856cc919d94382c0f909e2cb37341",
+      "futures": "futures/gen-sulan-1-True.json",
+      "futureSha256": "545cb465ee48b4bfb3417427942103005480146bf9c5a27b160900440919d16c",
+      "commands": "commands/gen-sulan-1-True.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-wenth-0-False",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-wenth-0-False.json",
+      "save": "saves/gen-wenth-0-False.json",
+      "saveSha256": "923afa1bee2ecacc9709f08abdc4b03317983d6b9a591f45c28661dbd24d7137",
+      "futures": "futures/gen-wenth-0-False.json",
+      "futureSha256": "9397314280464d5ce87638073028e312f92176656fde9315c95bcee695b58fb2",
+      "commands": "commands/gen-wenth-0-False.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-wenth-0-True",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-wenth-0-True.json",
+      "save": "saves/gen-wenth-0-True.json",
+      "saveSha256": "d23aae4832b67d5f6744e4276d838bdb7e70ebb2fb30121dd191c301c3057bee",
+      "futures": "futures/gen-wenth-0-True.json",
+      "futureSha256": "b41ab0579cbfb3ebc6a20662a7b34877a2af8049289cbd7713d9944692af0c9d",
+      "commands": "commands/gen-wenth-0-True.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-wenth-1-False",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-wenth-1-False.json",
+      "save": "saves/gen-wenth-1-False.json",
+      "saveSha256": "92d23e6fc79f47a2b007479d15a9d939b25d631ec86b0308c68a2b1e54b31ecf",
+      "futures": "futures/gen-wenth-1-False.json",
+      "futureSha256": "f3784feeb7cb1f36e2686c5d0e028e53ad624dd358be1688708a830f606e8f99",
+      "commands": "commands/gen-wenth-1-False.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "gen-wenth-1-True",
+      "kind": "unchanged-engine-simulation-generated",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\gen-wenth-1-True.json",
+      "save": "saves/gen-wenth-1-True.json",
+      "saveSha256": "ba70959dcd15d23f2987b6bb1045b99537395c114a0a1e1523f2201acd6695d9",
+      "futures": "futures/gen-wenth-1-True.json",
+      "futureSha256": "f0abe0b02cc68061dc0f06d634631778657fd762ab9ceb023523cf4909ca16c5",
+      "commands": "commands/gen-wenth-1-True.json",
+      "commandSha256": "f00c71ac9c2e900800c4e0d90b8ba6e8000aaad1dd097d8105a819d14093439f",
+      "initialTurn": 0,
+      "futureTurns": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    },
+    {
+      "key": "labelled-held-cargo",
+      "kind": "labelled-synthetic-held-cargo",
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\colony-development-design\\.superpowers\\sdd\\2026-10-25-scout-survival-and-ameba\\capture\\generated\\labelled-held-cargo.json",
+      "save": "saves/labelled-held-cargo.json",
+      "saveSha256": "4c1bcec6c09f930d6cf5029a2a4b02a6168f1c676c691205b08e15a21865dd48",
+      "futures": "futures/labelled-held-cargo.json",
+      "futureSha256": "930ca4506f0fc93e9c742d46d3345742262835dcc15e06623d326f2b7cae44fe",
+      "commands": "commands/labelled-held-cargo.json",
+      "commandSha256": "f0213e4bcd1290faaf08eb72199a6165a2b1defdf58e280df42307898864ab70",
+      "initialTurn": 23,
+      "futureTurns": [
+        24,
+        25,
+        26,
+        27
+      ],
+      "sourceProductCommit": "d8bef99ead4a8db5ba882912744032dec60ed6ce"
+    }
+  ]
+}

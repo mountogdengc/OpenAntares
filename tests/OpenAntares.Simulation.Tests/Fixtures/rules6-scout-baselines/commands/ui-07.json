@@ -1,0 +1,30 @@
+[
+  [
+    {
+      "kind": "ready",
+      "issuer": 1,
+      "turn": 26
+    }
+  ],
+  [
+    {
+      "kind": "ready",
+      "issuer": 1,
+      "turn": 27
+    }
+  ],
+  [
+    {
+      "kind": "ready",
+      "issuer": 1,
+      "turn": 28
+    }
+  ],
+  [
+    {
+      "kind": "ready",
+      "issuer": 1,
+      "turn": 29
+    }
+  ]
+]
