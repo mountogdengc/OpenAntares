@@ -20,6 +20,8 @@ public static class CrisisStateValidator
         var d=content.Plagues.Values.Single();
         if(state.Crisis is null||state.GalaxySeed is null){Error("explicit setup and galaxy seed required");return;}
         bool off=!state.Crisis.Enabled;
+        var nonColonyIds=state.Empires.Select(e=>e.Id.Value).Concat(state.Stars.Select(x=>x.Id.Value)).Concat(state.Planets.Select(x=>x.Id.Value)).Concat(state.Vessels.Select(x=>x.Id.Value)).ToHashSet();
+        var nonVesselIds=state.Empires.Select(e=>e.Id.Value).Concat(state.Stars.Select(x=>x.Id.Value)).Concat(state.Planets.Select(x=>x.Id.Value)).Concat(state.Colonies.Select(x=>x.Id.Value)).Concat(state.Empires.SelectMany(e=>e.Crisis?.LostColonyLocations??new()).Select(l=>l.Colony.Value)).ToHashSet();
         foreach(var owner in state.Empires)
         {
             var e=owner.Crisis;
@@ -72,7 +74,7 @@ public static class CrisisStateValidator
             {
                 if(illness.EpisodeId!=e.Episode?.Id||!Enum.IsDefined(illness.Stage)||illness.AttentionRevision<1||illness.AttentionRevision==long.MaxValue||illness.HandledRevision<0||illness.HandledRevision>illness.AttentionRevision||illness.WaivedRevision<0||illness.WaivedRevision>illness.AttentionRevision||!OwnedLocation(illness.Origin,owner!)||c.ImmunityFamilyId is not null)Error("invalid owned case/revision/origin");
                 if(illness.Stage==CrisisStage.Warning ? illness.GraceRemaining<1||illness.GraceRemaining>d.GraceTurns||illness.ActiveAge!=0||illness.Severity!=0 : illness.GraceRemaining!=0||illness.ActiveAge<0||illness.ActiveAge>=d.RecoveryIntervals||illness.Severity<d.InitialSeverity||illness.Severity>d.SeverityCap)Error("invalid health progression");
-                if(illness.SourceVessel is {} source&&(source.Value<1||source.Value>=state.NextEntityId||state.FindVessel(source) is {} vessel&&vessel.EmpireId!=colony.EmpireId))Error("invalid owned source vessel");
+                if(illness.SourceVessel is {} source&&(source.Value<1||source.Value>=state.NextEntityId||nonVesselIds.Contains(source.Value)||state.FindVessel(source) is {} vessel&&vessel.EmpireId!=colony.EmpireId))Error("invalid owned source vessel");
             }
             if(off&&(c.Case is not null||c.Quarantined||c.ReleaseEpisode is not null||c.PolicyPaused||c.ImmunityFamilyId is not null||c.ImmuneUntilTurn!=0))Error("Off colony must remain dormant");
         }
@@ -85,7 +87,7 @@ public static class CrisisStateValidator
             if(off&&(v.CarrierEpisode is not null||v.InspectionDueTurn is not null))Error("Off vessel must remain dormant");
         }
 
-        bool LocationShape(CrisisLocation l) => l.Colony.Value>0&&l.Colony.Value<state.NextEntityId&&l.Name.Length is >0 and <=160&&state.FindPlanet(l.Planet)?.StarId==l.Star&&state.FindStar(l.Star) is not null;
+        bool LocationShape(CrisisLocation l) => l.Colony.Value>0&&l.Colony.Value<state.NextEntityId&&!nonColonyIds.Contains(l.Colony.Value)&&l.Name.Length is >0 and <=160&&state.FindPlanet(l.Planet)?.StarId==l.Star&&state.FindStar(l.Star) is not null;
         bool OwnedLocation(CrisisLocation l,EmpireState owner)
         {
             if(!LocationShape(l))return false;
