@@ -27,3 +27,6 @@ Task 1: in progress; BASE42439de037fa27bf90d24d6fb34a0a36d340236c.
 Tasks2..14: pending.
 
 Task1 evidence: missing-fixture RED observed; actual unchanged C# capture turns25..28/four six-colony states; focused1/1 GREEN. Source preserved, product diff empty, exact primary four-file copies/hashes/index/worktree inventory retained in preservation-baseline.json.
+Task 1: complete (commits 42439de..97d7404, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers → Passed!  - Failed:     0, Passed:   989, Skipped:     0, Total:   989, Duration: 1 s - OpenAntares.Simulation.Tests.dll (net8.0))
+
+Task2 evidence: content/generation semantic RED (unknown plagues section) and valid-state semantic RED (missing owner crisis validation). Earlier invalid fixture observations/cargo role were corrected, not counted as semantic failures. Focused37/37 and full Suite1026/1026 passed. All labelled fixtures are fully valid before sessions; generation parity covers four species, Standard/Off and one rival. CurrentVersion5/core unchanged. Immutable metadata records can be shared by clones; every mutable object/list/RNG is independent.

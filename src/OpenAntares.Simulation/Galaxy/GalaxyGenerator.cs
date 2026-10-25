@@ -9,7 +9,7 @@ namespace OpenAntares.Simulation.Galaxy;
 
 /// <summary>Choices made on the new-game screen.</summary>
 public sealed record NewGameSettings(string GalaxySizeId, ulong Seed, int RulesVersion = Rules.CurrentVersion, string? SpeciesId = null,
-    int RivalCount = 0, string? RivalSpeciesId = null);
+    int RivalCount = 0, string? RivalSpeciesId = null, bool CrisesEnabled = true);
 
 /// <summary>The outcome of creating a new game. <see cref="State"/> is set only on success.</summary>
 public sealed record NewGameResult(GameState? State, string? Error)
@@ -32,6 +32,7 @@ public static class GalaxyGenerator
 
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
+        if (Rules.HasCrises(settings.RulesVersion) && content.Plagues.Count != 1) return Fail("Crisis campaigns require exactly one plague family, including Off.");
         if (Rules.HasDevelopment(settings.RulesVersion) && content.GovernorTemplates.IsEmpty) return Fail("Development campaigns require explicit governor defaults.");
         if (!Rules.IsSupported(settings.RulesVersion)) return Fail("Unsupported rules version.");
         if (settings.RivalCount is not (0 or 1)) return Fail("Choose either Solo or one rival.");
@@ -154,6 +155,7 @@ public static class GalaxyGenerator
             if (beforeRefresh is not null) Knowledge.ContactUpdater.Refresh(beforeRefresh, state);
         }
 
+        Crises.CrisisInitializer.Initialize(content,state,settings.CrisesEnabled);
         IReadOnlyList<string> errors = GameStateValidator.Validate(content, state);
         return errors.Count > 0
             ? Fail("Generated an invalid game: " + string.Join("; ", errors))

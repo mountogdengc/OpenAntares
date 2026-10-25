@@ -44,9 +44,9 @@ public static partial class ContentLoader
         return Load(sources);
     }
 
-    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false, bool requireDevelopment = false)
+    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false, bool requireDevelopment = false, bool requireCrises = false)
     {
-        var builder = new Builder(requireSpecies || requireRivals || requireDevelopment, requireRivals || requireDevelopment, requireDevelopment);
+        var builder = new Builder(requireSpecies || requireRivals || requireDevelopment || requireCrises, requireRivals || requireDevelopment || requireCrises, requireDevelopment || requireCrises, requireCrises);
         foreach (ContentSource source in sources.OrderBy(s => s.Name, StringComparer.Ordinal))
         {
             builder.AddFile(source);
@@ -55,7 +55,7 @@ public static partial class ContentLoader
         return builder.Build();
     }
 
-    private sealed partial class Builder(bool requireSpecies, bool requireRivals, bool requireDevelopment)
+    private sealed partial class Builder(bool requireSpecies, bool requireRivals, bool requireDevelopment, bool requireCrises)
     {
         private readonly List<ContentError> _errors = new();
         private (ExpansionDefinition Value, string File)? _expansion;
@@ -94,6 +94,9 @@ public static partial class ContentLoader
                 {
                     switch (section.Name)
                     {
+                        case "plagues":
+                            ReadEntries(section.Value,file,section.Name,ReadPlague,_plagues);
+                            break;
                         case "governor_templates":
                             ReadEntries(section.Value, file, section.Name, ReadGovernorTemplate, _governorTemplates);
                             break;
@@ -144,6 +147,7 @@ public static partial class ContentLoader
 
         public ContentLoadResult Build()
         {
+            CheckCrises();
             CheckDevelopment();
             if (_rules is null)
             {
@@ -186,6 +190,7 @@ public static partial class ContentLoader
                 _buildings.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 _technologies.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal))
             {
+                Plagues = _plagues.ToImmutableSortedDictionary(p => p.Key,p => p.Value.Value,StringComparer.Ordinal),
                 Vessels = _vessels.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 Expansion = _expansion?.Value,
                 RivalAi = _rivalAi?.Value,

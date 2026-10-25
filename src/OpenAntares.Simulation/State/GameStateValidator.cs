@@ -41,6 +41,7 @@ public static class GameStateValidator
         SpeciesStateValidator.Validate(content, state, errors);
         RivalStateValidator.Validate(content, state, errors);
         Development.DevelopmentStateValidator.Validate(content, state, errors);
+        Crises.CrisisStateValidator.Validate(content,state,errors);
         return errors;
     }
 

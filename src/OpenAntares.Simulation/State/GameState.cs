@@ -1,3 +1,4 @@
+using OpenAntares.Simulation.Crises;
 using OpenAntares.Simulation.Development;
 using OpenAntares.Simulation.Appearance;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace OpenAntares.Simulation.State;
 /// </summary>
 public sealed class GameState
 {
+    public GameCrisisState? Crisis { get; set; }
     /// <summary>The rules implementation version that produced this state.</summary>
     public int RulesVersion { get; set; } = Rules.LegacyVersion;
 
@@ -47,6 +49,7 @@ public sealed class GameState
 
     public GameState Clone() => new()
     {
+        Crisis = Crisis?.Clone(),
         RulesVersion = RulesVersion,
         Turn = Turn,
         NextEntityId = NextEntityId,
@@ -72,6 +75,7 @@ public enum ControllerKind
 
 public sealed class EmpireState
 {
+    public EmpireCrisisState? Crisis { get; set; }
     public EmpireDevelopmentState? Development { get; set; }
     public string? AiPolicyId { get; set; }
     public List<ContactState> Contacts { get; set; } = new();
@@ -97,6 +101,7 @@ public sealed class EmpireState
         Id = Id,
         Controller = Controller,
         AiPolicyId = AiPolicyId,
+        Crisis = Crisis?.Clone(),
         Development = Development?.Clone(),
         Contacts = new(Contacts),
         SpeciesId = SpeciesId,
@@ -138,6 +143,7 @@ public sealed class PlanetState
 
 public sealed class ColonyState
 {
+    public ColonyCrisisState? Crisis { get; set; }
     public ColonyDevelopmentState? Development { get; set; }
     public string? HabitatMode { get; set; }
     public ColonyId Id { get; set; }
@@ -167,6 +173,7 @@ public sealed class ColonyState
         Id = Id,
         PlanetId = PlanetId,
         HabitatMode = HabitatMode,
+        Crisis = Crisis?.Clone(),
         Development = Development?.Clone(),
         EmpireId = EmpireId,
         Population = Population,

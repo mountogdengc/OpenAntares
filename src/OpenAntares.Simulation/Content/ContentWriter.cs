@@ -9,11 +9,12 @@ namespace OpenAntares.Simulation.Content;
 /// </summary>
 public static partial class ContentWriter
 {
-    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null, !content.GovernorTemplates.IsEmpty);
-    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), Rules.HasRivals(rulesVersion), Rules.HasDevelopment(rulesVersion));
-    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals, bool includeDevelopment)
+    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null, !content.GovernorTemplates.IsEmpty, !content.Plagues.IsEmpty);
+    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), Rules.HasRivals(rulesVersion), Rules.HasDevelopment(rulesVersion), Rules.HasCrises(rulesVersion));
+    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals, bool includeDevelopment, bool includeCrises)
     {
         writer.WriteStartObject();
+        if(includeCrises) WriteCrises(writer,content);
 
         RulesParameters rules = content.Rules;
         writer.WriteStartObject("rules");
