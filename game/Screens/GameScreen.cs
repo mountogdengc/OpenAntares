@@ -189,7 +189,7 @@ public partial class GameScreen : VBoxContainer
         if (colony is not null) _selectedPlanet = colony.PlanetId;
         _starPanel.ShowStar(_session.Content, star, view);
         _colonies.ShowColonies(view, _selectedColony);
-        if (colony is null) _colonyPanel.Clear(); else _colonyPanel.ShowColony(_session.Content, colony);
+        if (colony is null) _colonyPanel.Clear(); else _colonyPanel.ShowColony(_session.Content, colony, view);
         if (!view.Vessels.Any(v => v.Id == _selectedVessel)) _selectedVessel = view.Vessels.Length > 0 ? view.Vessels[0].Id : null;
         _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination, _selectedPlanet);
     }

@@ -22,13 +22,15 @@ public partial class ColonyPanel : VBoxContainer
     /// <summary>Raised when the player changes something. The screen executes it and refreshes.</summary>
     public event Action<Command>? CommandIssued;
 
-    public void ShowColony(ContentSet content, OwnedColonyView colony)
+    public void ShowColony(ContentSet content, OwnedColonyView colony, EmpireView? view = null)
     {
         Clear();
         ColonyEconomy economy = colony.Economy;
 
         AddChild(new HSeparator());
         AddChild(new Label { Text = "Colony", ThemeTypeVariation = "HeaderLabel" });
+
+        if (view is not null) { var orders = new ColonyOrdersPanel(); AddChild(orders); orders.CommandIssued += c => CommandIssued?.Invoke(c); orders.ShowColony(content, view, colony); }
 
         // Population and growth.
         string unit = colony.PopulationUnitLabel;
@@ -185,7 +187,7 @@ public partial class ColonyPanel : VBoxContainer
     /// <summary>Lists buildable projects, then locked ones (disabled) with what they need.</summary>
     private OptionButton ProjectPicker(ContentSet content, OwnedColonyView colony, int turn)
     {
-        var picker = new OptionButton { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        var picker = new OptionButton { Name = "ColonyProjectPicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
         picker.AddItem("No project");
         picker.SetItemMetadata(0, string.Empty);
 
