@@ -39,7 +39,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 12
 - [x] Task 13
 - [x] Task 14
-- [ ] Task 15
+- [x] Task 15
 
 Task 1: started BASE b9a39d7b25e0c60d84d2be0271ff14273fd783b6; brief task1-brief.md
 
@@ -112,3 +112,6 @@ Final: fixed I1 — QuarantineCancelsCargoDepartureAndReconcilesItsExactConsentO
 Final: fixed I2 — AcceptedOffCargoSaveKeepsItsWaitingOrderRegardlessOfUnrelatedScoutCount false/true RED→GREEN; suite1398/1398. Valid-save/custom-state qualification preserved.
 Final: fixed I3 — RetreatRouteDisclosesOnlyOwnChartDurationFreshnessAndNeutralOverride plus actual Warning label RED→GREEN at800/1920; suite1398/1398; route/override/cargo-response controls and inspected image evidence retained.
 Final correction gates: [('Scout', 202), ('Legacy', 493), ('Expansion', 275), ('Species', 1194), ('Rival', 1158), ('Colony', 670), ('Crisis', 464)]; all7 exit0/zero diagnostics/opt-in7/ordinary0/helper0, normal0 warnings/errors. One fresh review only; no re-review. M1 deferred, SCT-AC-013/M7-I exact acceptance Implemented, Unverified; parent totals/human limits unchanged. Primary/main/owner/index/seven worktrees reverified.
+Task 15: complete (commits 1a74167..11b0d76, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task15-completion.log)
+
+Final handoff: all15 tasks complete; final completion Suite1398/1398 exit0. Validated product3d989a4235698adde77423cc78fc459be1b638f3; acceptance documentation 11b0d760dc889f1c8ec3c3da99be9ba26664972b; this final ledger/proof commit changes no product. Branch/worktree/workspace/evidence kept as-is under approved preservation/no-integration scope. No main merge, push, release or cleanup. M1 remains explicitly deferred; exact M7-I/SCT-AC-013 acceptance not closed.
