@@ -24,8 +24,13 @@ public static class ScoutTurnCoordinator
             var working=s;
             foreach(var command in plan.Commands)
             {
-                if(command.Issuer!=owner||command.ExpectedTurn!=s.Turn||command is not(SetMoveOrderCommand {Destination:null} or SetScoutRetreatOrderCommand))return Failed();
+                if(command.Issuer!=owner||command.ExpectedTurn!=s.Turn||command is not(SetMoveOrderCommand or SetScoutRetreatOrderCommand))return Failed();
                 var result=CommandProcessor.Execute(c,working,command);if(!result.Accepted)return Failed();working=result.State;
+            }
+            if(ScoutReports.NeedsPreparationRecord(working,owner,plan))
+            {
+                if(ReferenceEquals(working,s))working=s.Clone();
+                ScoutReports.RecordPreparation(working,owner,plan);
             }
             if(ScoutReadyQueries.ValidateResponse(c,working,owner).Length!=0||GameStateValidator.Validate(c,working,true).Count!=0)return Failed();
             return new(working,true,plan);

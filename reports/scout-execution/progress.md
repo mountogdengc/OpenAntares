@@ -32,7 +32,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 5
 - [x] Task 6
 - [x] Task 7
-- [ ] Task 8
+- [x] Task 8
 - [ ] Task 9
 - [ ] Task 10
 - [ ] Task 11
@@ -73,3 +73,8 @@ Task 7: complete (commits 155bcd1..8e84ee3, tests: dotnet test tests/OpenAntares
 
 Task 8: started BASE 8e84ee3f748cc27a185f9190e9f32ddd662d7bd3; brief task8-brief.md
 Task 8 evidence: semantic RED13/13; GREEN15/15 including literal74/75,94/95,49/50 and0/100 thresholds,9 fault phases, reward overflow,1199 research/cure timing, cargo no exposure, independent empire claims and downstream blocked departure detection; Suite1347/1347; build0 warnings/errors. Original economic/cargo snapshots retained; only certified consumed IDs skip later phases.
+Task 8: complete (commits 8e84ee3..c03a00e, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task8-completion.log)
+
+Task 9: started BASE c03a00eadbb87a8516b2e7321fc907ae57f9e128; brief task9-brief.md
+Task 9: Ruling: report acceptance exposed a missing neutral Avoid retreat/wait path in the common evaluator — add its regression and complete that approved SCT-003 behavior here using ordinary shared movement, alongside wait deduplication — cost if wrong: a broader Task9 query/coordinator diff, reviewed in the final whole-branch pass.
+Task 9 evidence: semantic RED4/5; GREEN7/7 including15-turn repeated wait,100 planning toggles,30 grouped warnings, earned research after hull loss, report aging/retired cleanup, re-entry numbering and no foreign ship blacklist. Build0 warnings/errors; full Suite1354/1354. Current actual facts use current-turn digest, prior planning digests close into ten-turn history as existing crisis reports do; live encounter consent is independent.

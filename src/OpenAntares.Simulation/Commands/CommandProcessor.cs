@@ -21,6 +21,7 @@ public static partial class CommandProcessor
         {
             try{ReconcileScoutConsent(content,state,result.State,command.Issuer);}
             catch(OverflowException){return CommandOutcome.Reject(state,"ameba_encounter_stale","Encounter revision limit reached.");}
+            Scouting.ScoutReports.RecordCommand(state,result.State,command);
         }
         return result;
     }

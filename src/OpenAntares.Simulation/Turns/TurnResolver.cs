@@ -23,6 +23,7 @@ public sealed record TurnResolution(GameState State, TurnReport? Report, IReadOn
 /// <summary>What happened during one turn resolution: the turn transition and the economy that was applied.</summary>
 public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 {
+    public ImmutableArray<Scouting.ScoutOrderEvent> ScoutEvents { get; init; }=ImmutableArray<Scouting.ScoutOrderEvent>.Empty;
     public ImmutableArray<Crises.CrisisEvent> CrisisEvents { get; init; } = ImmutableArray<Crises.CrisisEvent>.Empty;
     public ImmutableDictionary<ColonyId,Crises.CrisisLocation> ColonyLocations { get; init; } = ImmutableDictionary<ColonyId,Crises.CrisisLocation>.Empty;
     public ImmutableArray<ExpansionEvent> ExpansionEvents { get; init; } = ImmutableArray<ExpansionEvent>.Empty;
@@ -176,6 +177,11 @@ public static class TurnResolver
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Observation);
             if(scouting is not null)Scouting.AmebaResolver.DepositResearch(content,candidate,scouting);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Reward);
+            if(scouting is not null)
+            {
+                Scouting.ScoutReports.RecordMovement(snapshot,candidate,scouting,events);
+                Scouting.ScoutReports.Finalize(snapshot,candidate,scouting);
+            }
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Reports);
             if(crisis is not null)
             {
@@ -186,7 +192,7 @@ public static class TurnResolver
                 hook?.Invoke(CrisisResolutionPhase.Validation);
                 scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Validation);
                 var locations=crisis.Locations.SetItems(candidate.Colonies.Where(c=>!crisis.Locations.ContainsKey(c.Id)).Select(c=>new KeyValuePair<ColonyId,CrisisLocation>(c.Id,CrisisQueries.Location(candidate,c))));
-                crisisReport=new(snapshot.Turn,candidate.Turn,economy){ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations};
+                crisisReport=new(snapshot.Turn,candidate.Turn,economy){ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations,ScoutEvents=scouting?.Events.ToImmutableArray()??ImmutableArray<Scouting.ScoutOrderEvent>.Empty};
             }
         }
         catch (OverflowException exception)

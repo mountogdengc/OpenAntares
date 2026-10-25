@@ -60,6 +60,7 @@ public sealed record EmpireView(int Turn, EmpireId Viewer, int RulesVersion, Gal
 public sealed record ColonyReportView(ColonyEconomy Economy, ColonyId Id, StarId Star, string Name);
 public sealed record EmpireTurnReportView(int FromTurn, int ToTurn, ImmutableArray<ColonyReportView> Colonies, EmpireEconomy Research, ImmutableArray<OpenAntares.Simulation.Turns.ExpansionEvent> Events, ImmutableDictionary<StarId, string> StarNames)
 {
+    public ImmutableArray<Scouting.ScoutOrderEvent> ScoutEvents { get; init; }=ImmutableArray<Scouting.ScoutOrderEvent>.Empty;
     public Scouting.ScoutView? Scouting { get; init; }
     public ImmutableArray<CrisisEvent> CrisisEvents { get; init; } = ImmutableArray<CrisisEvent>.Empty;
     public ImmutableArray<OpenAntares.Simulation.Turns.EncounterEvent> EncounterEvents { get; init; } = ImmutableArray<OpenAntares.Simulation.Turns.EncounterEvent>.Empty;
