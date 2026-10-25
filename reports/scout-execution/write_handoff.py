@@ -1,9 +1,10 @@
 import json
+import re
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 s=json.loads((ROOT/'reports/scout-execution/final-machine-summary.json').read_text())
 review=s['reviewStatus'];verified=review=='Complete; no open Critical or Important findings'
-status='Verified for local automated scope' if verified else 'Implemented, Unverified pending the fresh whole-branch review'
+status=('Implemented, Unverified for exact full acceptance; review M1 deferred' if s.get('deferredMinors') else 'Verified for local automated scope') if verified else 'Implemented, Unverified pending the fresh whole-branch review'
 suite=s['suite'];count=str(suite['passed']) if suite else 'pending final audit suite'
 report=f'''# Scout survival and space-ameba validation — 2026-10-25
 
@@ -13,7 +14,7 @@ Branch rules7 defaults to Harl/One Peldra/plague Standard/ameba Standard; Off an
 
 ## Executed evidence
 
-Validated product commit before final review: `{s['validatedProductCommit']}`. The machine source inventory pins exact product/test bytes; later review corrections are recorded separately if required. Full fresh simulation suite: **{count} passed**,0 failed/skipped when recorded. All49 frozen rules6 campaigns and196 old-engine futures remain exact apart from schema_version; older fixtures and the exact29 supported schema/rules pairs pass. Writer8 never upgrades an old campaign's rules/content.
+Validated product commit: `{s['validatedProductCommit']}`. The machine source inventory pins exact product/test bytes. The single raw review pins4072914; its correction report records the one regression-first fix pass without a second review. Full fresh simulation suite: **{count} passed**,0 failed/skipped when recorded. All49 frozen rules6 campaigns and196 old-engine futures remain exact apart from schema_version; older fixtures and the exact29 supported schema/rules pairs pass. Writer8 never upgrades an old campaign's rules/content.
 
 24 untouched complete-core generated campaigns (four species × three sizes × Solo/One Peldra) discover, safely withdraw, build, research and cure within160 turns through ordinary commands.24 Off starts and24 Solo Observe pairs ×30 boundaries preserve rules6 galaxy/old streams. [Activation report](scout-execution/task14-validation.md) records original RED/GREEN evidence and immutable proof references. Actual UI generated Study uses draw55 and survives; Warning, Exposed and committed-transit Save/Load each match4 future turns. Rare74/75,49/50 and94/95 outcomes are separately labelled pre-session fixtures, never generated luck or live outcome injection.
 
@@ -24,7 +25,7 @@ for run in s['runtime']:report+=f"| {run['scenario']} | {run['records']} | 0 | [
 report+='\nEach real opt-in assembly contains7 scenario types; each ordinary rebuild excludes all7 and both helpers. Normal rebuilds have0 warnings/errors. Native process logs and engine logs were both inspected for ERROR:/WARNING:. Screenshots supplement native geometry; current generated and authored fixture provenance are separate.\n\n'
 report+='## Criterion map\n\n| Criterion | Local disposition | Evidence |\n| --- | --- | --- |\n'
 for c in s['criteria']:
-    paths=c['executedEvidence'];label='Design approval ADR-016' if c['id']=='SCT-AC-012' else ('Automated scope verified' if verified else 'Executed; review pending')
+    paths=c['executedEvidence'];label='Design approval ADR-016' if c['id']=='SCT-AC-012' else ('Implemented, Unverified: M1 deferred' if c['status']=='Implemented, Unverified' else 'Automated scope verified' if verified else 'Executed; review pending')
     report+=f"| {c['id']} | {label} | "+', '.join(f'[{Path(p).name}](../{p})' for p in paths)+' |\n'
 report+='''
 The automated scope covers shared commands/knowledge/fallback/turn timing/AI/transactions/reports/persistence/compatibility and actual in-process controls at800/1920. Human comfortable reading, accessibility/uncoached comprehension, physical OS input/focus, subjective aesthetics, balance/long campaigns, other operating systems/architectures, hostile-input fuzzing/security/dependency audits, clean install/export and release remain open. No parent REQ-017 or First Playable human-acceptance closure is claimed.
@@ -35,6 +36,7 @@ Primary main remains `42e1282b9f38fd8d51d4c99ed0f7481437efcee1` (rules6/writer7)
 
 Next: owner chooses whether to integrate this reviewed branch locally, create a PR, or keep it for later. Integration needs a fresh combined-result check and preservation of the same owner files. [Raw final review and disposition](scout-execution/final-review.md) accompanies handoff once complete.
 '''
+if s.get('deferredMinors'):report+='\nDeferred minor M1: Standard setup on a custom map with fewer than two eligible habitat candidates does not explicitly explain omitted placement. Core sizes and actual placement/Off behavior are verified; SCT-AC-013 and M7-I remain Implemented, Unverified for exact full acceptance. Other functional SCT criteria are Verified for executed local scope after I1–I3 correction; design SCT-AC-012 remains design-only. See [review disposition](scout-execution/final-review.md).\n'
 (ROOT/'reports/SCOUT_VALIDATION_2026-10-25.md').write_text(report,encoding='utf-8')
 
 intro=f'''# OpenAntares project status
@@ -86,6 +88,7 @@ Owner approved the full amended ADR-016 design and separate15-task plan; earlier
 '''
     if name=='docs/IMPLEMENTATION_PLAN.md':
         text=text.replace('In Progress; plan review pending','Verified; owner-approved Native inline execution').replace('| Future approved M7-P, genuine rules6 capture first | Functional SCT criteria, retained gates, one final reviewer | Not Started |',f'| Approved M7-P;49 frozen rules6 baselines/196 futures | Functional SCT criteria, retained gates, one final reviewer | {status} |')
+        text=re.sub(r'^\| M7-I \|.*$',f'| M7-I | Implement approved scout/ameba slice | Approved M7-P;49 frozen rules6 baselines/196 futures | Functional SCT criteria, retained gates, one final reviewer | {status} |',text,flags=re.M)
         a=text.index('## Next concrete action');b=text.index('## Risks and autonomy',a)
         text=text[:a]+'## Next concrete action\n\nOwner chooses local integration, PR or preserving the scout-survival review branch after the final report. No repeated design/plan/method approval; no automatic integration or new feature work.\n\n'+text[b:]
     path.write_text(text+current,encoding='utf-8')

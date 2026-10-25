@@ -3,15 +3,17 @@ import datetime
 import json
 import re
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 from audit_artifacts import ROOT, digest, runtime
 
 OUT = ROOT / 'reports/scout-execution'
+RUN=sys.argv[1] if len(sys.argv)>1 else 'task15'
 def git(*args, cwd=ROOT):
     return subprocess.check_output(['git', *args], cwd=cwd, text=True).strip()
 
-commands=json.loads((OUT/'task15-commands.json').read_text(encoding='utf-8-sig'))
+commands=json.loads((OUT/(RUN+'-commands.json')).read_text(encoding='utf-8-sig'))
 assert len(commands)==7 and all(c['exitCode']==0 for c in commands)
 runs=[]
 for command in commands:
@@ -33,7 +35,8 @@ assert not index
 preservation=dict(main=main,indexEmpty=not index,primaryOwnerHashesUnchanged=True,ownerFiles=owners,worktrees=worktrees,primaryStatus=git('status','--porcelain',cwd=primary))
 
 classes={1:['Command','Generation'],2:['Query','Ai'],3:['Query','Ready'],4:['Resolution','Compatibility'],5:['Query','Resolution'],6:['Ai','Integration'],7:['Ready','Resolution'],8:['Report','Command'],9:['Save','State'],10:['Compatibility','Save','Generation','Integration'],11:['Integration','Compatibility'],13:['Content','Generation','Query'],14:['Ready','Resolution','Ai'],15:['Resolution','Save','Command']}
-trx=OUT/'task15-simulation/task15.trx'
+for n in [3,7,8,9,11,14]:classes[n]+=['ReviewRegression']
+trx=OUT/(RUN+'-simulation')/(RUN+'.trx')
 tests=[]
 if trx.is_file():
     document=ET.parse(trx);ns={'t':'http://microsoft.com/schemas/VisualStudio/TeamTest/2010'}
@@ -42,8 +45,8 @@ if trx.is_file():
 criteria=[]
 for n in range(1,16):
     evidence=['docs/DECISIONS/ADR-016-approved-scout-survival-and-ameba-design.md'] if n==12 else ['tests/OpenAntares.Simulation.Tests/Scouting'+kind+'Tests.cs' for kind in classes[n]]
-    if n!=12:evidence+=['reports/scout-execution/task14-validation.md','reports/scout-execution/task15-scout-20261025/results.json','reports/scout-execution/task15-commands.json']
-    if n!=12 and tests:evidence+=['reports/scout-execution/task15-simulation/task15.trx']
+    if n!=12:evidence+=['reports/scout-execution/task14-validation.md',f'reports/scout-execution/{RUN}-scout-20261025/results.json',f'reports/scout-execution/{RUN}-commands.json']
+    if n!=12 and tests:evidence+=[trx.relative_to(ROOT).as_posix()]
     assert all((ROOT/path).is_file() for path in evidence)
     names=[test['name'] for test in tests if n!=12 and any('Scouting'+kind+'Tests.' in test['name'] for kind in classes[n])]
     if n!=12 and tests:assert names
@@ -54,15 +57,19 @@ for folder in ['src','game','content','tests']:
     for path in sorted((ROOT/folder).rglob('*')):
         if path.is_file() and not any(part in {'bin','obj'} for part in path.parts):
             source.append(dict(path=path.relative_to(ROOT).as_posix(),sha256=digest(path)))
-suitepath=OUT/'task15-suite.log'
+suitepath=OUT/(RUN+'-suite.log')
 suite=None
 if suitepath.exists():
     match=re.search(r'Failed:\s+(\d+), Passed:\s+(\d+), Skipped:\s+(\d+), Total:\s+(\d+)',suitepath.read_text(encoding='utf-8-sig'))
     if match:
         failed,passed,skipped,total=map(int,match.groups());assert failed==0 and skipped==0
-        suite=dict(failed=failed,passed=passed,skipped=skipped,total=total,artifact='reports/scout-execution/task15-suite.log')
+        suite=dict(failed=failed,passed=passed,skipped=skipped,total=total,artifact=suitepath.relative_to(ROOT).as_posix())
 previous=json.loads((OUT/'final-machine-summary.json').read_text()) if (OUT/'final-machine-summary.json').exists() else {}
-summary=dict(capturedUtc=datetime.datetime.now(datetime.timezone.utc).isoformat(),branch=git('branch','--show-current'),validatedProductCommit='1a74167b04470e4535e10d0d87bdb4e662a31e02',snapshotHead=git('rev-parse','HEAD'),rulesDefault=7,writer=8,criteria=criteria,runtime=runs,suite=suite,preservation=preservation,sourceInventory=source,reviewStatus=previous.get('reviewStatus','Pending fresh whole-branch review'),limits=['Local Windows Godot signals/handlers and geometry only; no physical-input, human comprehension, balance, cross-platform, dependency/security audit, clean export or release acceptance.','No primary integration, push, branch/worktree/evidence cleanup.','Parent REQ-017 remains In Progress;17-row totals unchanged.'])
+summary=dict(capturedUtc=datetime.datetime.now(datetime.timezone.utc).isoformat(),branch=git('branch','--show-current'),validatedProductCommit=git('rev-parse','HEAD') if RUN=='final-fixes' else '1a74167b04470e4535e10d0d87bdb4e662a31e02',snapshotHead=git('rev-parse','HEAD'),rulesDefault=7,writer=8,criteria=criteria,runtime=runs,suite=suite,preservation=preservation,sourceInventory=source,reviewStatus=previous.get('reviewStatus','Pending fresh whole-branch review'),limits=['Local Windows Godot signals/handlers and geometry only; no physical-input, human comprehension, balance, cross-platform, dependency/security audit, clean export or release acceptance.','No primary integration, push, branch/worktree/evidence cleanup.','Parent REQ-017 remains In Progress;17-row totals unchanged.'])
+if 'deferredMinors' in previous:
+    summary['deferredMinors']=previous['deferredMinors']
+    criteria[12]['status']='Implemented, Unverified'
+    criteria[12]['limits'].append('Review M1: insufficient-candidate custom maps omit the promised no-habitat setup explanation; core Standard/Off placement is verified.')
 (OUT/'final-machine-summary.json').write_text(json.dumps(summary,indent=2),encoding='utf-8')
 print('Actual runtime records:',[(r['scenario'],r['records']) for r in runs])
 print('QA/PNG:',sum(len(r['qaSaves']) for r in runs),sum(r['pngCount'] for r in runs))

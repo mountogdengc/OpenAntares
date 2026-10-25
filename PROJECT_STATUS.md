@@ -2,7 +2,7 @@
 
 Updated2026-10-25 America/Denver. OpenAntares is an original turn-based space4X with C#/Godot .NET presentation and an independent deterministic simulation. The approved classic Master of Orion II love-letter direction and fanciful aliens respectful of real peoples/beliefs remain authoritative.
 
-Current continuation: the owner approved the full amended scout/space-ameba design in ADR-016 and the separate15-task plan. All implementation tasks and their technical gates have executed on isolated `codex/scout-survival`. M7-I: **Implemented, Unverified pending the fresh whole-branch review**. Pending fresh whole-branch review. Read [validation/handoff](reports/SCOUT_VALIDATION_2026-10-25.md), [machine evidence](reports/scout-execution/final-machine-summary.json), [ledger](reports/scout-execution/progress.md) and [review](reports/scout-execution/final-review.md). Do not repeat completed work or re-ask design, plan or Native execution approval.
+Current continuation: the owner approved the full amended scout/space-ameba design in ADR-016 and the separate15-task plan. All implementation tasks and their technical gates have executed on isolated `codex/scout-survival`. M7-I: **Implemented, Unverified for exact full acceptance; review M1 deferred**. Complete; no open Critical or Important findings. Read [validation/handoff](reports/SCOUT_VALIDATION_2026-10-25.md), [machine evidence](reports/scout-execution/final-machine-summary.json), [ledger](reports/scout-execution/progress.md) and [review](reports/scout-execution/final-review.md). Do not repeat completed work or re-ask design, plan or Native execution approval.
 
 ## Current product and scope
 
@@ -18,11 +18,11 @@ Roaming creatures, colony attacks, sensors/pursuit, tactical combat, warship doc
 | M2 exploration/colonization, M3 species, M4 rivals, M5 colonies, M6 plague | Verified | Previously integrated local automated/design scope; human/delivery limits remain |
 | M7-D / SCT-AC-012 | Verified | Full amended design approval ADR-016 |
 | M7-P | Verified | Owner-approved15-task plan; retained Native inline execution |
-| M7-I | Implemented, Unverified pending the fresh whole-branch review | Functional SCT criteria on isolated review branch |
+| M7-I | Implemented, Unverified for exact full acceptance; review M1 deferred | Functional SCT criteria on isolated review branch |
 
 Parent requirement totals remain17:12 Verified,3 Implemented, Unverified,1 In Progress (REQ-017),1 Deferred. This milestone does not close REQ-017 or change the register's17 rows.
 
-Fresh final simulation suite: 1391; native results and actual metadata/hashes are in the report.24 untouched generated campaigns and720 Off/Observe parity boundaries pass; all49 frozen rules6 baselines/196 genuine old-engine futures remain unchanged except schema_version. Rare threshold fixtures are labelled separately. Seven native scenarios execute sequentially; ordinary builds exclude all7 and both helpers.
+Fresh final simulation suite: 1398; native results and actual metadata/hashes are in the report.24 untouched generated campaigns and720 Off/Observe parity boundaries pass; all49 frozen rules6 baselines/196 genuine old-engine futures remain unchanged except schema_version. Rare threshold fixtures are labelled separately. Seven native scenarios execute sequentially; ordinary builds exclude all7 and both helpers.
 
 ## Preservation and integration
 
