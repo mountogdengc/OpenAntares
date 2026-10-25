@@ -27,7 +27,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 ## Tasks
 - [x] Task 1
 - [x] Task 2
-- [ ] Task 3
+- [x] Task 3
 - [ ] Task 4
 - [ ] Task 5
 - [ ] Task 6
@@ -53,3 +53,7 @@ Task 2: complete (commits d7063e0..be58dc7, tests: dotnet test tests/OpenAntares
 
 Task 3: started BASE be58dc71ab53f3d41beebbce5b868117ab7688b2; brief task3-brief.md
 Task 3 evidence: semantic RED20/21 (validator absent and clone metadata missing), GREEN21/21; full Suite1303/1303; normal build0 warnings/errors. Explicit fixture/shape/reference checks do not regenerate worlds.
+Task 3: complete (commits be58dc7..1061eaa, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task3-completion.log)
+
+Task 4: started BASE 1061eaad5a766296b8bfba62acc0f8762525ce48; brief task4-brief.md
+Task 4 evidence: semantic RED7/7; GREEN7/7 including96 species/size/rival/setting comparisons, three literal PCG vectors and1..4-star placement; Suite1310/1310; build0 warnings/errors. CurrentVersion remains6.

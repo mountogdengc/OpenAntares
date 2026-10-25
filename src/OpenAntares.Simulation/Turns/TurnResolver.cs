@@ -88,6 +88,7 @@ public static class TurnResolver
                 {
                     var vessel = new VesselState { Id = new(candidate.AllocateId()), EmpireId = colony.EmpireId, RoleId = vesselPlan.RoleId, CarriedPopulation = vesselPlan.Cargo, StationaryStarId = vesselPlan.Star };
                     candidate.Vessels.Add(vessel);
+                    Scouting.ScoutInitializer.InitializeVessel(content,candidate.RulesVersion,vessel);
                     if(crisis is not null)CrisisTransport.TagCompletion(content,snapshot,candidate,crisis,colony.Id,vessel);
                     if (result.EmbarkOutcome is { } embark) { colony.Population = embark.PopulationAfter; colony.Workforce = embark.WorkforceAfter; }
                     colony.ProjectId = null; colony.ProjectKind = ProductionKinds.Building;

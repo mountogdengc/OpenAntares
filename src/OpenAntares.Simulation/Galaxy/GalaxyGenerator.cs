@@ -9,7 +9,7 @@ namespace OpenAntares.Simulation.Galaxy;
 
 /// <summary>Choices made on the new-game screen.</summary>
 public sealed record NewGameSettings(string GalaxySizeId, ulong Seed, int RulesVersion = Rules.CurrentVersion, string? SpeciesId = null,
-    int RivalCount = 0, string? RivalSpeciesId = null, bool CrisesEnabled = true);
+    int RivalCount = 0, string? RivalSpeciesId = null, bool CrisesEnabled = true, bool? AmebasEnabled = null);
 
 /// <summary>The outcome of creating a new game. <see cref="State"/> is set only on success.</summary>
 public sealed record NewGameResult(GameState? State, string? Error)
@@ -32,6 +32,11 @@ public static class GalaxyGenerator
 
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
+        if (Rules.HasScouting(settings.RulesVersion))
+        {
+            if(settings.AmebasEnabled is null||content.SpaceAmeba is null)return Fail("Scout campaigns require an explicit ameba choice and hazard content, including Off.");
+        }
+        else if(settings.AmebasEnabled is not null)return Fail("Old campaign rules cannot select ameba settings.");
         if (Rules.HasCrises(settings.RulesVersion) && content.Plagues.Count != 1) return Fail("Crisis campaigns require exactly one plague family, including Off.");
         if (Rules.HasDevelopment(settings.RulesVersion) && content.GovernorTemplates.IsEmpty) return Fail("Development campaigns require explicit governor defaults.");
         if (!Rules.IsSupported(settings.RulesVersion)) return Fail("Unsupported rules version.");
@@ -156,6 +161,7 @@ public static class GalaxyGenerator
         }
 
         Crises.CrisisInitializer.Initialize(content,state,settings.CrisesEnabled);
+        if(Rules.HasScouting(state.RulesVersion))Scouting.ScoutInitializer.Initialize(content,state,settings.AmebasEnabled!.Value);
         IReadOnlyList<string> errors = GameStateValidator.Validate(content, state);
         return errors.Count > 0
             ? Fail("Generated an invalid game: " + string.Join("; ", errors))
