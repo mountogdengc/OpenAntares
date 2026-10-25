@@ -34,7 +34,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 7
 - [x] Task 8
 - [x] Task 9
-- [ ] Task 10
+- [x] Task 10
 - [ ] Task 11
 - [ ] Task 12
 - [ ] Task 13
@@ -82,3 +82,7 @@ Task 9: complete (commits c03a00e..6c8654b, tests: dotnet test tests/OpenAntares
 
 Task 10: started BASE 6c8654b31b629f6547e15f4f834d32846804fabe; brief task10-brief.md
 Task 10 evidence: semantic RED6/7 (missing scoped metadata/posture/survival); GREEN9/9 including4 species, changed hidden placement/foreign plans, zero-colony emergency route, role-capability variant, multiple cargo/scouts and paid replacement after labelled loss; Suite1363/1363; build0 warnings/errors. Rules7 uses2C+2V+1; older policy/budget paths unchanged; risk/ack commands remain outside AI whitelist.
+Task 10: complete (commits 6c8654b..5ac455f, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task10-completion.log)
+
+Task 11: started BASE 5ac455fd05598136daf534260e0ee93ac51256b1; brief task11-brief.md
+Task 11 evidence: semantic RED11/17 (explicit missing metadata/schema), strict-proof RED5/22 then GREEN24/24 with genuine compatibility; all29 pairs tested,12 scouting shapes round-trip and each4 futures agree; all49 frozen old campaigns/196 futures remain exact except schema_version. Full Suite1386/1386; build0 warnings/errors. Current-writer assertions now8 and unsupported versions9/schema,8/rules; historical fixtures/canonical futures untouched. Missing fields including Off nulls and forged encounter age/capability/receipt/signature reject before publication. CurrentVersion remains6.

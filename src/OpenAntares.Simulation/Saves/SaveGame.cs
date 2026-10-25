@@ -28,7 +28,7 @@ public sealed record SaveLoadResult(LoadedGame? Game, IReadOnlyList<string> Erro
 public static class SaveGame
 {
     public const string FormatName = "openantares-save";
-    public const int SchemaVersion = 7;
+    public const int SchemaVersion = 8;
 
     private const string SaveLocation = "save";
 
@@ -138,14 +138,14 @@ public static class SaveGame
                 return Fail($"This is not an OpenAntares save (format '{format}').");
             }
 
-            if (schema is not (1 or 2 or 3 or 4 or 5 or 6 or 7))
+            if (schema is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8))
             {
                 return Fail($"The save uses unsupported schema version {schema}.");
             }
 
-            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5) or (7,1) or (7,2) or (7,3) or (7,4) or (7,5) or (7,6)))
+            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5) or (7,1) or (7,2) or (7,3) or (7,4) or (7,5) or (7,6) or (8,1) or (8,2) or (8,3) or (8,4) or (8,5) or (8,6) or (8,7)))
             {
-                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1, 2, 3, 4, 5 and 6 with explicit schema compatibility. Saves are not migrated automatically.");
+                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1 through 7 with explicit schema compatibility. Saves are not migrated automatically.");
             }
 
             // Embedded content goes through the same loader and validation as content files.
@@ -159,7 +159,9 @@ public static class SaveGame
                     errors.Add(new(SaveLocation, null, "content.governor_templates", "Old campaigns cannot contain governor templates."));
                 if (!Rules.HasCrises((int)rulesVersion) && document.RootElement.GetProperty("content").TryGetProperty("plagues", out _))
                     errors.Add(new(SaveLocation,null,"content.plagues","Old campaigns cannot contain crisis content."));
-                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion), requireDevelopment: Rules.HasDevelopment((int)rulesVersion), requireCrises: Rules.HasCrises((int)rulesVersion));
+                if (!Rules.HasScouting((int)rulesVersion) && document.RootElement.GetProperty("content").TryGetProperty("space_ameba", out _))
+                    errors.Add(new(SaveLocation,null,"content.space_ameba","Old campaigns cannot contain scout hazard content."));
+                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion), requireDevelopment: Rules.HasDevelopment((int)rulesVersion), requireCrises: Rules.HasCrises((int)rulesVersion),requireScouting:Rules.HasScouting((int)rulesVersion));
                 errors.AddRange(loaded.Errors);
                 content = loaded.Content;
             }
@@ -189,6 +191,7 @@ public static class SaveGame
     {
         writer.WriteStartObject();
         CrisisSaveData.WriteGame(writer,state.Crisis,state.RulesVersion);
+        ScoutSaveData.WriteGame(writer,state.Scouting,state.RulesVersion);
         writer.WriteNumber("turn", state.Turn);
         writer.WriteNumber("next_entity_id", state.NextEntityId);
         writer.WriteStartObject("random");
@@ -217,6 +220,7 @@ public static class SaveGame
             ExpansionSaveData.WriteSurveys(writer, empire, state.RulesVersion);
             RivalSaveData.WriteEmpire(writer, empire, state.RulesVersion);
             CrisisSaveData.WriteEmpire(writer,empire.Crisis,state.RulesVersion);
+            ScoutSaveData.WriteEmpire(writer,empire.Scouting,state.RulesVersion);
             DevelopmentSaveData.WriteEmpire(writer, empire.Development, state.RulesVersion);
             writer.WriteEndObject();
         }
@@ -287,6 +291,7 @@ public static class SaveGame
         {
             RulesVersion = rulesVersion,
             Crisis = CrisisSaveData.ReadGame(reader,rulesVersion),
+            Scouting = ScoutSaveData.ReadGame(reader,rulesVersion),
             Turn = reader.RequiredInt("turn", 0, int.MaxValue),
             NextEntityId = reader.RequiredInt("next_entity_id", 1, int.MaxValue),
         };
@@ -329,6 +334,7 @@ public static class SaveGame
             if (schemaVersion >= 3) ExpansionSaveData.ReadSurveys(item, empire, Rules.HasExpansion(rulesVersion), rulesVersion);
             RivalSaveData.ReadEmpire(item, empire, rulesVersion);
             empire.Crisis = CrisisSaveData.ReadEmpire(item,rulesVersion);
+            empire.Scouting = ScoutSaveData.ReadEmpire(item,rulesVersion);
             empire.Development = DevelopmentSaveData.ReadEmpire(item, rulesVersion);
             state.Empires.Add(empire);
         });

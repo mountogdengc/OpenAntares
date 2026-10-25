@@ -16,6 +16,7 @@ internal static class ExpansionSaveData
             Id(w, "station", v.StationaryStarId?.Value); Id(w, "pending_move", v.PendingMove?.Value); Id(w, "pending_founding", v.PendingFounding?.Value); w.WriteNumber("carried_population", v.CarriedPopulation);
             if (v.Transit is { } t) { w.WriteStartObject("transit"); w.WriteNumber("origin", t.Origin.Value); w.WriteNumber("destination", t.Destination.Value); w.WriteNumber("total_turns", t.TotalTurns); w.WriteNumber("remaining_turns", t.RemainingTurns); w.WriteEndObject(); } else w.WriteNull("transit");
             CrisisSaveData.WriteVessel(w,v.Crisis,s.RulesVersion);
+            ScoutSaveData.WriteVessel(w,v,s.RulesVersion);
             w.WriteEndObject();
         }
         w.WriteEndArray();
@@ -39,6 +40,7 @@ internal static class ExpansionSaveData
             var vessel = new VesselState { Id = new(v.RequiredInt("id", 1, int.MaxValue)), EmpireId = new(v.RequiredInt("empire", 1, int.MaxValue)), RoleId = v.RequiredString("role"), CarriedPopulation = v.RequiredInt("carried_population", 0, int.MaxValue), StationaryStarId = station is { } a ? new(a) : null, PendingMove = move is { } b ? new(b) : null, PendingFounding = found is { } c ? new(c) : null };
             if (v.RequiredNullableObject("transit") is { } t) { vessel.Transit = new(new(t.RequiredInt("origin", 1, int.MaxValue)), new(t.RequiredInt("destination", 1, int.MaxValue)), t.RequiredInt("total_turns", 1, int.MaxValue), t.RequiredInt("remaining_turns", 1, int.MaxValue)); t.RejectUnknownFields(); }
             vessel.Crisis=CrisisSaveData.ReadVessel(v,s.RulesVersion);
+            ScoutSaveData.ReadVessel(v,vessel,s.RulesVersion);
             s.Vessels.Add(vessel);
         });
     }

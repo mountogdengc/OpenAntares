@@ -19,12 +19,12 @@ public sealed class CrisisSaveTests
         {
             var data=new TheoryData<int,int,bool>();
             for(int s=0;s<=8;s++)for(int r=0;r<=7;r++)
-                data.Add(s,r,(s,r) is (1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5) or (7,1) or (7,2) or (7,3) or (7,4) or (7,5) or (7,6));
+                data.Add(s,r,(s,r) is (1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5) or (7,1) or (7,2) or (7,3) or (7,4) or (7,5) or (7,6) or (8,1) or (8,2) or (8,3) or (8,4) or (8,5) or (8,6));
             return data;
         }
     }
     [Theory][MemberData(nameof(Pairs))]
-    public void Schema7RulePairsAreExplicit(int schema,int rules,bool allowed)
+    public void HistoricalCampaignLayoutsHaveExplicitSchemaPairs(int schema,int rules,bool allowed)
     {
         string text;
         if(rules==6){var g=CrisisFixtures.Game();text=SaveGame.Serialize(g.Content,g.State);}
@@ -33,12 +33,12 @@ public sealed class CrisisSaveTests
         Assert.Equal(allowed,SaveGame.Deserialize(root.ToJsonString()).Succeeded);
     }
     [Fact]
-    public void Writer7RoundTripsAllExplicitCrisisFacts()
+    public void CurrentWriterRoundTripsAllExplicitCrisisFacts()
     {
         foreach(var g in new[]{CrisisFixtures.Game(),CrisisFixtures.Game(enabled:false),CrisisFixtures.Warning(),CrisisFixtures.Active(),HeldAndWaived(),ResolvedReceipt(),Immune()})
         {
             Assert.Empty(GameStateValidator.Validate(g.Content,g.State));
-            string text=SaveGame.Serialize(g.Content,g.State);var json=JsonNode.Parse(text)!;Assert.Equal(7,json["schema_version"]!.GetValue<int>());
+            string text=SaveGame.Serialize(g.Content,g.State);var json=JsonNode.Parse(text)!;Assert.Equal(8,json["schema_version"]!.GetValue<int>());
             var loaded=SaveGame.Deserialize(text);Assert.True(loaded.Succeeded,string.Join("; ",loaded.Errors));
             Assert.Equal(text,SaveGame.Serialize(loaded.Game!.Content,loaded.Game.State));
             loaded.Game.State.Empires[0].Crisis!.Random.NextUInt32();
