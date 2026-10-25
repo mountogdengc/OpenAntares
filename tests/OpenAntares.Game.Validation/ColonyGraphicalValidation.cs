@@ -27,6 +27,7 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
             _output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output=",StringComparison.Ordinal))[20..];Directory.CreateDirectory(_output);
             Check(DisplayServer.GetName()!="headless","Colony validation uses a graphical display");
             await CurrentStartChecks();
+            await PolishHistoryChecks();
             await ReplacementPreviewChecks();
             await InvalidDevelopmentContentRecovery();
             await PortraitChecks();
@@ -40,6 +41,33 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
         finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Colony",method="Actual controls/signals with labelled fixtures; no physical OS input or human-readability claim.",passed=error is null,error,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
     }
     private static ContentSet DevelopmentContent(){var loaded=ContentLoader.Load(new[]{new ContentSource("labelled-colony-content",File.ReadAllText(ProjectSettings.GlobalizePath("res://tests/OpenAntares.Simulation.Tests/Fixtures/colony-development-content.json")))},requireDevelopment:true);return loaded.Content??throw new InvalidOperationException(string.Join("; ",loaded.Errors));}
+    private async Task PolishHistoryChecks()
+    {
+        var content=DevelopmentContent();
+        var state=GalaxyGenerator.CreateNewGame(content,new("small",42,5,"harl")).State!;
+        bool historical=true;
+        foreach(bool pending in new[]{true,false})
+        {
+            var colony=state.Colonies[0];colony.Workforce=pending?new(0,colony.Population,0):new(colony.Population,0,0);
+            var view=EmpireViewProjector.Project(content,state,state.Empires[0].Id);
+            var issues=pending?ImmutableArray<GovernorIssue>.Empty:ImmutableArray.Create(new GovernorIssue("support_shortage",null));
+            var entry=new GovernorReportEntry(colony.Id,new(6,0,0),new(2,3,1),null,null,issues,true,false);
+            var report=new GovernorTurnReport(0,ImmutableArray.Create(entry),0);
+            view=view with{Development=view.Development! with{PendingReport=pending?report:null,CompletedReports=pending?ImmutableArray<GovernorTurnReport>.Empty:ImmutableArray.Create(report)}};
+            string before=SaveGame.Serialize(content,state);
+            var panel=new GovernorReportPanel{CustomMinimumSize=new(740,400)};AddChild(panel);panel.ShowReports(content,view);await Frames();
+            string text=Descendants<Label>(panel).Single(l=>l.Text.Contains("unchanged",StringComparison.Ordinal)).Text;
+            historical&=text.Contains(pending?"0 conditions recorded in this report":"1 condition recorded in this report",StringComparison.Ordinal)&&!text.Contains("unresolved conditions",StringComparison.Ordinal);
+            Check(Descendants<Label>(panel).Any(l=>l.Text.Contains("Overridden by a manual workforce order.",StringComparison.Ordinal)),"Recorded manual override detail remains available");
+            Check((colony.Workforce.Support==0)==(view.Colonies[0].Economy.SupportDeficit>0),"Labelled current shortage differs from stored report condition count");
+            GetTree().Root.Size=new(800,600);await Frames();await Capture(pending?"polish-history-pending":"polish-history-resolved");
+            panel.Preferences=ColonyNotificationPreferences.Defaults.WithLevel("governor_actions",NotificationLevel.Off);panel.ShowReports(content,view);await Frames();
+            Check(Descendants<Label>(panel).Any(l=>l.Text.Contains("Stored details remain available",StringComparison.Ordinal))&&Descendants<Label>(panel).Any(l=>l.Text.Contains("Overridden by a manual workforce order.",StringComparison.Ordinal)),"Off retains accessible historical override records");
+            Check(SaveGame.Serialize(content,state)==before,"Historical report rendering and Off do not mutate campaign");
+            RemoveChild(panel);panel.QueueFree();await Frames();
+        }
+        Check(historical,"Pending and resolved summaries identify recorded historical conditions, not current unresolved issues");
+    }
     private async Task ReplacementPreviewChecks()
     {
         var mismatches=new System.Collections.Generic.List<string>();
