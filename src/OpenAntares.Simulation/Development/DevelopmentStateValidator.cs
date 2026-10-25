@@ -82,7 +82,7 @@ internal static class DevelopmentStateValidator
                 if(entry.Colony.Value<=last||live?.EmpireId!=owner.Id&&!retired)Error("report entry ownership/order");last=entry.Colony.Value;
                 if(entry.BeforeWorkforce.HasValue!=entry.AfterWorkforce.HasValue||entry.Issues.IsDefault)Error("report action/issue shape");
                 foreach(var w in new[]{entry.BeforeWorkforce,entry.AfterWorkforce})if(w is {} value&&(value.Support<0||value.Production<0||value.Research<0))Error("report workforce");
-                var issues=new HashSet<GovernorIssue>();foreach(var issue in entry.Issues)if(issue.Code is not ("support_shortage" or "construction_locked" or "embarkation_wait" or "plan_complete")||!issues.Add(issue)||issue.ContentId is {} id&&!content.Buildings.ContainsKey(id)&&!content.Vessels.ContainsKey(id))Error("unknown/duplicate report issue");
+                var issues=new HashSet<GovernorIssue>();foreach(var issue in entry.Issues)if(!(issue.Code is ("support_shortage" or "construction_locked" or "embarkation_wait" or "plan_complete")||Rules.HasCrises(state.RulesVersion)&&issue.Code=="quarantine_wait")||!issues.Add(issue)||issue.ContentId is {} id&&!content.Buildings.ContainsKey(id)&&!content.Vessels.ContainsKey(id))Error("unknown/duplicate report issue");
                 foreach(var target in new[]{entry.BeforeTarget,entry.AfterTarget})if(target is {} t&&!(t.Kind==ProductionKinds.Building?content.Buildings.ContainsKey(t.ContentId):t.Kind==ProductionKinds.Vessel&&content.Vessels.ContainsKey(t.ContentId)))Error("report target");
             }
         }

@@ -88,6 +88,7 @@ internal static class RivalColonyPlanner
     private static ProductionTarget? LocalTarget(IRivalPlanningContext context, OwnedColonyView colony)
     {
         bool LegalBuilding(BuildingDefinition b) => !colony.CompletedBuildingIds.Contains(b.Id) && b.PrerequisiteTechnologyIds.All(context.View.Research.KnownTechnologyIds.Contains);
+        if(Rules.HasCrises(context.View.RulesVersion)&&colony.ProjectKind==ProductionKinds.Vessel&&colony.ProjectId is {} waiting&&context.Content.Vessels.TryGetValue(waiting,out var cargo)&&cargo.EmbarkPopulation>0&&context.View.Crisis?.ColonyConditions.Any(c=>c.Quarantined&&c.Location.Star==colony.StarId)==true)return new(ProductionKinds.Vessel,waiting);
         var support = MinimumSupport(context,colony);
         ProductionTarget? existing = null;
         if (colony.ProjectKind == ProductionKinds.Building && colony.ProjectId is { } id && context.Content.Buildings.TryGetValue(id,out var building) && LegalBuilding(building)) existing = new(ProductionKinds.Building,id);

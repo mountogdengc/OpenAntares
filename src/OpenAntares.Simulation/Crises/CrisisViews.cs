@@ -12,4 +12,5 @@ public sealed record CrisisView(int Turn,EmpireId Viewer,bool Enabled,CrisisAuth
     public ImmutableArray<CrisisCaseView> ColonyConditions { get; init; }=ImmutableArray<CrisisCaseView>.Empty;
     public ImmutableArray<CrisisVesselView> Vessels { get; init; }=ImmutableArray<CrisisVesselView>.Empty;
     public ImmutableArray<CrisisDigest> PendingDigests { get; init; }=ImmutableArray<CrisisDigest>.Empty;
+    public QuarantinePreview? ContainmentPreview { get; init; }
 }

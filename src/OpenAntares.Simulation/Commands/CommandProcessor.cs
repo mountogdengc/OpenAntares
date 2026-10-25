@@ -150,10 +150,18 @@ public static partial class CommandProcessor
             return CommandOutcome.NoChange(state);
         }
 
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCrises(state.RulesVersion)&&issuer.Crisis!.RequireAcknowledgement&&!Crises.CrisisQueries.PendingAttention(state,issuer.Id).IsEmpty)
+            return CommandOutcome.Reject(state,"crisis_acknowledgement_required","Review and acknowledge this empire's current crisis facts before Ready, or explicitly change the saved acknowledgement requirement.");
         GameState prepared = state;
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCrises(state.RulesVersion))
+        {
+            var crisis=Crises.CrisisTurnCoordinator.Prepare(content,state,issuer.Id);
+            if(!crisis.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The turn could not be completed.");
+            prepared=crisis.State;
+        }
         if (command.Ready && issuer.Controller == ControllerKind.Human && Rules.HasDevelopment(state.RulesVersion))
         {
-            var preparation = Development.GovernorTurnCoordinator.Prepare(content, state, issuer.Id);
+            var preparation = Development.GovernorTurnCoordinator.Prepare(content, prepared, issuer.Id);
             if (!preparation.Succeeded) return CommandOutcome.Reject(state, RejectionCodes.ResolutionFailed, "The turn could not be completed.");
             prepared = preparation.State;
         }

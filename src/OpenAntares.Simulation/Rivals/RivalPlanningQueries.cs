@@ -55,7 +55,7 @@ public static class RivalPlanningQueries
             var frame = _frame.Clone();
             // A private calculator input, not an allocated or published entity. No source or global ID is read.
             frame.Vessels = new() { new VesselState { Id = new(1), EmpireId = View.Viewer, RoleId = roleId,
-                CarriedPopulation = role.EmbarkPopulation, StationaryStarId = frame.FindPlanet(target)!.StarId } };
+                CarriedPopulation = role.EmbarkPopulation, Crisis=Rules.HasCrises(frame.RulesVersion)?new():null, StationaryStarId = frame.FindPlanet(target)!.StarId } };
             try
             {
                 var preview = FoundingRules.Preview(Content, frame, View.Viewer, new(1), target);
@@ -68,6 +68,7 @@ public static class RivalPlanningQueries
         {
             if (!View.AvailableVesselRoleIds.Contains(roleId) || !Content.Vessels.TryGetValue(roleId, out var role) || role.Speed <= 0
                 || _frame.FindStar(origin) is not { } from || _frame.FindStar(destination) is not { } to) return null;
+            if(role.EmbarkPopulation>0&&(Crises.CrisisQueries.PortClosed(_frame,View.Viewer,origin)||Crises.CrisisQueries.PortClosed(_frame,View.Viewer,destination)))return null;
             try { return origin == destination ? 0 : TravelCalculator.Duration(from.X, from.Y, to.X, to.Y, role.Speed); }
             catch (Exception error) when (error is OverflowException or ArgumentOutOfRangeException) { return null; }
         }
@@ -80,7 +81,7 @@ public static class RivalPlanningQueries
             foreach (var star in view.Stars.Where(s => s.Planets.HasValue))
                 owner.Surveys.Add(new SystemObservation { StarId = star.Chart.Id, LastObservedTurn = star.LastObservedTurn!.Value,
                     Planets = star.Planets!.Value.Select(p => new PlanetObservation(p.Id,p.Orbit,p.PlanetTypeId,p.ColonyId,p.OwnerId) { EnvironmentId = p.EnvironmentId }).ToList() });
-            return new GameState
+            var frame=new GameState
             {
                 RulesVersion = view.RulesVersion, Turn = view.Turn, Random = new Pcg32 { State = 0, Increment = 1 },
                 Empires = new() { owner },
@@ -91,6 +92,8 @@ public static class RivalPlanningQueries
                     Workforce=c.Workforce,GrowthProgress=c.GrowthProgress,ProductionReserve=c.ProductionReserve,ProjectId=c.ProjectId,ProjectKind=c.ProjectKind,
                     HabitatMode=c.HabitatMode,CompletedBuildingIds=c.CompletedBuildingIds.ToList() }).ToList()
             };
+            Crises.CrisisForecastFrame.Apply(frame,view);
+            return frame;
         }
     }
 }

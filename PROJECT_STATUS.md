@@ -22,7 +22,7 @@ One fresh read-only whole-branch review found duplicate vessel notices and an ov
 | M5-I colony development | Verified | All twelve COL child criteria within local automated/design scope |
 | M6-D colony crises/plague | Verified | Full owner design approval2026-10-25, ADR-014/CRI-AC-012 |
 | M6-P | Verified | Owner approved the separate14-task plan2026-10-25; Native inline retained |
-| M6-I | In Progress | Tasks1..8 verified: baseline/data/persistence/forecasts/commands/health/cargo/full turn transaction; Ready/AI/UI integration remains pending |
+| M6-I | In Progress | Tasks1..9 verified: baseline/data/persistence/forecasts/commands/health/cargo/full turn transaction/Ready/AI; UI and generated acceptance remain pending |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
 | Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 

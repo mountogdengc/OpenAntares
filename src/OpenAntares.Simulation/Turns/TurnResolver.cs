@@ -56,6 +56,12 @@ public static class TurnResolver
         IReadOnlyList<string>? crisisValidation=null;
         try
         {
+            if(Rules.HasCrises(snapshot.RulesVersion))
+            {
+                var crisisPreparation=CrisisTurnCoordinator.PrepareAi(content,snapshot);
+                if(!crisisPreparation.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);
+                snapshot=crisisPreparation.State;
+            }
             if (Rules.HasRivals(snapshot.RulesVersion))
             {
                 var planned = prepare(content,snapshot);

@@ -51,11 +51,13 @@ public static class GovernorPlanningQueries
         private static GameState OwnFrame(EmpireView view)
         {
             var owner=new EmpireState{Id=view.Viewer,SpeciesId=view.SpeciesId,Controller=ControllerKind.Human,KnownTechnologyIds=view.Research.KnownTechnologyIds.ToList()};
-            return new GameState {
+            var frame=new GameState {
                 RulesVersion=view.RulesVersion,Turn=view.Turn,Random=new Pcg32{State=0,Increment=1},Empires=new(){owner},
                 Planets=view.Stars.Where(s=>s.Planets.HasValue).SelectMany(s=>s.Planets!.Value.Where(p=>view.Colonies.Any(c=>c.PlanetId==p.Id)).Select(p=>new PlanetState{Id=p.Id,StarId=s.Chart.Id,Orbit=p.Orbit,PlanetTypeId=p.PlanetTypeId,EnvironmentId=p.EnvironmentId})).ToList(),
                 Colonies=view.Colonies.Select(c=>new ColonyState{Id=c.Id,EmpireId=view.Viewer,PlanetId=c.PlanetId,Population=c.Population,Workforce=c.Workforce,GrowthProgress=c.GrowthProgress,ProductionReserve=c.ProductionReserve,ProjectId=c.ProjectId,ProjectKind=c.ProjectKind,HabitatMode=c.HabitatMode,CompletedBuildingIds=c.CompletedBuildingIds.ToList()}).ToList()
             };
+            Crises.CrisisForecastFrame.Apply(frame,view);
+            return frame;
         }
     }
 }

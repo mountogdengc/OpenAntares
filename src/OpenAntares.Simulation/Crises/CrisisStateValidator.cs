@@ -58,6 +58,7 @@ public static class CrisisStateValidator
                 if(key.CompareTo(previousKey)<=0||!Key(receipt.Key,receipt.Location,receipt.Revision,owner)||receipt.Turn<0||receipt.Turn>state.Turn||string.IsNullOrWhiteSpace(receipt.Reason)||receipt.Reason.Length>4096)Error("invalid/unsorted pending receipt");
                 previousKey=key;
             }
+            if(owner.Controller==ControllerKind.Human&&owner.Ready&&e.RequireAcknowledgement&&!CrisisQueries.PendingAttention(state,owner.Id).IsEmpty)Error("ready human has unacknowledged crisis facts");
             if(off)
             {
                 var seeded=CrisisInitializer.CreateRandom(state.GalaxySeed.Value,owner.Id);

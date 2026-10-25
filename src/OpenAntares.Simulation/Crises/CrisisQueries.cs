@@ -54,7 +54,9 @@ public static class CrisisQueries
             return new CrisisVesselView(v.Id,v.RoleId,v.CarriedPopulation,v.Crisis?.CarrierEpisode,v.Crisis?.InspectionDueTurn,v.StationaryStarId,v.Transit,v.PendingMove,v.PendingFounding,port,IsHeld(frame,v.Id),decontaminate,risks);
         }).ToImmutableArray();
         var episode=e.Episode is {} ep?new CrisisEpisodeView(ep.Id,ep.FamilyId,definition.Name,ep.Source,ep.SourcePopulation,ep.CureCost,ep.CureProgress,ep.ResearchShare,ep.ResearchOverride,cure):null;
-        return new(state.Turn,viewer,state.Crisis!.Enabled,e.Authority,e.AuthorityResearchShare,e.ResearchPolicyPaused,e.RequireAcknowledgement,e.CivicLevel,e.CivicExpiresAt,episode,conditions.Where(c=>c.Key is not null).ToImmutableArray(),vessels.Where(v=>v.CarrierEpisode is not null||v.InspectionDueTurn is not null).ToImmutableArray(),PendingAttention(frame,viewer),e.CompletedDigests.ToImmutableArray(),e.LostColonyLocations.ToImmutableArray()){ColonyConditions=conditions,Vessels=vessels,PendingDigests=e.PendingDigests.ToImmutableArray()};
+        var contain=conditions.Where(c=>c.Key is not null&&!c.Quarantined&&(!c.PolicyPaused||owner.Controller==ControllerKind.Ai)).Select(c=>c.Location.Colony).ToImmutableArray();
+        var preview=state.Crisis!.Enabled&&contain.Length>0?PreviewQuarantine(content,frame,viewer,contain,true,true):null;
+        return new(state.Turn,viewer,state.Crisis.Enabled,e.Authority,e.AuthorityResearchShare,e.ResearchPolicyPaused,e.RequireAcknowledgement,e.CivicLevel,e.CivicExpiresAt,episode,conditions.Where(c=>c.Key is not null).ToImmutableArray(),vessels.Where(v=>v.CarrierEpisode is not null||v.InspectionDueTurn is not null).ToImmutableArray(),PendingAttention(frame,viewer),e.CompletedDigests.ToImmutableArray(),e.LostColonyLocations.ToImmutableArray()){ColonyConditions=conditions,Vessels=vessels,PendingDigests=e.PendingDigests.ToImmutableArray(),ContainmentPreview=preview};
     }
     public static PurgePreview PreviewPurge(ContentSet content,GameState state,EmpireId owner,ColonyId colony)
     {

@@ -24,6 +24,7 @@ internal static class RivalVesselPlanner
                 }
                 continue;
             }
+            if(vessel.CarriedPopulation>0&&vessel.Crisis is{ } health&&(health.Held||health.PortClosed))continue;
             Command? command;
             if (role.CanFoundColony) command = Founder(context,vessel,reserved);
             else command = Scout(context,vessel);
