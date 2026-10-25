@@ -26,7 +26,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 
 ## Tasks
 - [x] Task 1
-- [ ] Task 2
+- [x] Task 2
 - [ ] Task 3
 - [ ] Task 4
 - [ ] Task 5
@@ -45,3 +45,11 @@ Task 1: started BASE b9a39d7b25e0c60d84d2be0271ff14273fd783b6; brief task1-brief
 
 Task 1 evidence: semantic missing-capture RED exit1; unchanged-engine helper49 campaigns/196 futures; focused1/1 and Suite1266/1266 pass; normal Build0 warnings/errors. Initial sandbox test host stalled; native host run provides actual RED/GREEN. No src/game/content diff versus main before capture. All sources retained; capture restore succeeded with normal audit. Actual source copies/future/command hashes in fixture manifest.
 Task 1: complete (commits b9a39d7..d7063e0, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task1-completion.log)
+
+Task 2: started BASE d7063e06731413876fc0df61460956801cc0019a; brief task2-brief.md
+
+Task 2 evidence: RED11 semantic failures/5 passes, including unknown valid section and unsupported7 predicates; GREEN16/16; full Suite1282/1282; ordinary Build passes. CurrentVersion remains6, writer7; no core hazard file yet. All49 old baselines replay unchanged.
+Task 2: complete (commits d7063e0..be58dc7, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task2-completion.log)
+
+Task 3: started BASE be58dc71ab53f3d41beebbce5b868117ab7688b2; brief task3-brief.md
+Task 3 evidence: semantic RED20/21 (validator absent and clone metadata missing), GREEN21/21; full Suite1303/1303; normal build0 warnings/errors. Explicit fixture/shape/reference checks do not regenerate worlds.

@@ -4,6 +4,8 @@ namespace OpenAntares.Simulation.State;
 public sealed record TransitState(StarId Origin, StarId Destination, int TotalTurns, int RemainingTurns);
 public sealed class VesselState
 {
+    public Scouting.ScoutVesselState? Scout { get; set; }
+    public Scouting.AmebaEncounterState? AmebaEncounter { get; set; }
     public VesselCrisisState? Crisis { get; set; }
     public VesselId Id { get; set; }
     public EmpireId EmpireId { get; set; }
@@ -13,5 +15,5 @@ public sealed class VesselState
     public StarId? PendingMove { get; set; }
     public PlanetId? PendingFounding { get; set; }
     public int CarriedPopulation { get; set; }
-    public VesselState Clone() { var clone=(VesselState)MemberwiseClone();clone.Crisis=Crisis?.Clone();return clone; }
+    public VesselState Clone() { var clone=(VesselState)MemberwiseClone();clone.Crisis=Crisis?.Clone();clone.Scout=Scout?.Clone();clone.AmebaEncounter=AmebaEncounter?.Clone();return clone; }
 }

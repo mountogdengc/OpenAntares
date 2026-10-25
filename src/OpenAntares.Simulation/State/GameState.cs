@@ -13,6 +13,7 @@ namespace OpenAntares.Simulation.State;
 /// </summary>
 public sealed class GameState
 {
+    public Scouting.ScoutGameState? Scouting { get; set; }
     public GameCrisisState? Crisis { get; set; }
     /// <summary>The rules implementation version that produced this state.</summary>
     public int RulesVersion { get; set; } = Rules.LegacyVersion;
@@ -53,6 +54,7 @@ public sealed class GameState
 
     public GameState Clone() => new()
     {
+        Scouting = Scouting?.Clone(),
         Crisis = Crisis?.Clone(),
         RulesVersion = RulesVersion,
         Turn = Turn,
@@ -79,6 +81,7 @@ public enum ControllerKind
 
 public sealed class EmpireState
 {
+    public Scouting.EmpireScoutState? Scouting { get; set; }
     public EmpireCrisisState? Crisis { get; set; }
     public EmpireDevelopmentState? Development { get; set; }
     public string? AiPolicyId { get; set; }
@@ -102,6 +105,7 @@ public sealed class EmpireState
 
     public EmpireState Clone() => new()
     {
+        Scouting = Scouting?.Clone(),
         Id = Id,
         Controller = Controller,
         AiPolicyId = AiPolicyId,
