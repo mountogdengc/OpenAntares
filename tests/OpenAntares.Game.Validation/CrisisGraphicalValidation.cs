@@ -19,14 +19,22 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Game.Validation;
 public partial class CrisisGraphicalValidation:Node
 {
-    private string _output="";private readonly List<object> _results=new();private readonly List<string> _savePaths=new();
+    private string _output="";private readonly List<object> _results=new();private readonly List<string> _savePaths=new();private bool _combinedReportSeen;
     private readonly string _runId=DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fff");
     public override async void _Ready()
     {
         string? error=null;
-        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Real graphical display");await Attention();await AttentionScaleAndReload();await ResolvedReceiptReload();await FreshInterrupt();await Responses();}
+        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Real graphical display");await Attention();await AttentionScaleAndReload();await ResolvedReceiptReload();await FreshInterrupt();await GeneratedCampaigns();await GeneratedNeglect();await GeneratedCargoFounding();await LabelledPortWait();await Responses();}
         catch(Exception e){error=e.ToString();GD.PrintErr(error);}
         finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Crisis",method="Actual Godot controls/signals; labelled pre-session fixtures, no physical input or human acceptance claim.",passed=error is null,error,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
+    }
+    private static ContentSet CoreWithApprovedPlague()
+    {
+        var files=DirAccess.GetFilesAt("res://content/core").Where(f=>f.EndsWith(".json",StringComparison.Ordinal)).OrderBy(f=>f,StringComparer.Ordinal).Select(f=>new ContentSource(f,Godot.FileAccess.GetFileAsString("res://content/core/"+f)));
+        var plague=System.Text.Json.Nodes.JsonNode.Parse(File.ReadAllText(ProjectSettings.GlobalizePath("res://tests/OpenAntares.Simulation.Tests/Fixtures/crisis-content.json")))!["plagues"]!.DeepClone();
+        var source=new ContentSource("pre-activation-plagues-fixture.json",new System.Text.Json.Nodes.JsonObject{["plagues"]=plague}.ToJsonString());
+        var result=ContentLoader.Load(files.Append(source),requireSpecies:true,requireRivals:true,requireDevelopment:true,requireCrises:true);
+        return result.Content??throw new InvalidOperationException("Core plus exact approved plague did not load: "+string.Join("; ",result.Errors));
     }
     private static ContentSet Content()=>ContentLoader.Load(new[]{new ContentSource("labelled-crisis",File.ReadAllText(ProjectSettings.GlobalizePath("res://tests/OpenAntares.Simulation.Tests/Fixtures/crisis-content.json")))},requireCrises:true).Content!;
     private static GameState Labelled(ContentSet content,int count=1,int population=5)
@@ -126,6 +134,178 @@ public partial class CrisisGraphicalValidation:Node
     {
         var current=One<GameScreen>(main);One<CrisisOverviewDialog>(current).Hide();await Frames();Press(Descendants<Button>(current).Single(b=>b.Text=="Load"));await Frames();var dialog=One<LoadGameDialog>(main);var list=One<ItemList>(dialog);int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,index);Press(dialog.GetOkButton());await Frames();return One<GameScreen>(main);
     }
+    private async Task GeneratedCampaigns()
+    {
+        var content=CoreWithApprovedPlague();
+        foreach(string species in new[]{"harl","peldra","sulan","wenth"})
+        {
+            string label="generated-"+species;var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,6,species,1,"peldra",true));Check(generated.Succeeded,label+": explicit rules6 Standard seed42 generation succeeds");
+            var initial=generated.State!;string initialCanonical=SaveGame.Serialize(content,initial);string initialHash=Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(initialCanonical))).ToLowerInvariant();
+            Check(initial.Turn==0&&initial.Empires.Count(e=>e.Controller==ControllerKind.Ai)==1&&initial.Crisis!.Enabled,label+": untouched generated turn0 with one rival and Standard crises");
+            string name=$"qa-{_runId}-{label}-initial",path=SaveFiles.PathFor(name);SaveGame.WriteFile(path,content,initial);_savePaths.Add(path);
+            var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();Press(Descendants<Button>(One<NewGameScreen>(main)).Single(b=>b.Text=="Start"));await Frames();
+            var screen=await LoadThroughDialog(main,name);var session=Session(screen);var owner=session.State.Empires.Single(e=>e.Controller==ControllerKind.Human).Id;
+            screen.CrisisPreferencesPath=Path.Combine(_output,"crisis-prefs.json");Check(Snapshot(session)==initialCanonical,label+": actual UI loads untouched generated initial state and embedded core-plus-plague content");
+            _results.Add(new{name=label+": generated provenance",passed=true,source="core files plus exact approved plague fixture",species,seed=42,rivals=1,rules=6,initialHash,turn=0,liveOutcomeInjections=0});
+            Select(Picker(screen,"GovernorTemplatePicker"),"industrial");Press(Descendants<Button>(One<ColonyPanel>(screen)).Single(b=>b.Text=="Apply template"));await Frames();
+            Toggle(screen,"WorkforceGovernorToggle",true);await Frames();Toggle(screen,"ConstructionGovernorToggle",true);await Frames();
+            await QueueGeneratedProject(screen,"building","fabrication_hall");
+            var homeId=session.State.Colonies.Single(c=>c.EmpireId==owner).Id;
+            Check(session.State.FindColony(homeId)!.Development is {WorkforceEnabled:true,ConstructionEnabled:true},label+": actual colony controls enable Industrial workforce and construction");
+            for(int i=0;i<20;i++)
+            {
+                await ChooseResearch(screen,owner);await EndGeneratedTurn(screen,owner);
+            }
+            var onset=session.View(owner).Crisis!;Check(session.State.Turn==20&&onset.Cases.Length==1&&onset.Cases[0].Stage==CrisisStage.Warning&&onset.Cases[0].GraceRemaining==2,label+": spontaneous human Warning2 occurs exactly at turn20");
+            Check(session.State.FindColony(homeId)!.CompletedBuildingIds.Contains("fabrication_hall"),label+": ordinary foundation completes before the spontaneous crisis");
+            SaveEvidence(session,label+"-onset");
+            await AcknowledgeGenerated(screen,owner);await ChooseResearch(screen,owner);await EndGeneratedTurn(screen,owner);
+            Check(session.State.Turn==21&&session.View(owner).Crisis!.Cases.Single().GraceRemaining==1,label+": first warning interval retains grace1");
+            await AcknowledgeGenerated(screen,owner);await ChooseResearch(screen,owner);await EndGeneratedTurn(screen,owner);
+            Check(session.State.Turn==22&&session.View(owner).Crisis!.Cases.Single().Stage==CrisisStage.Active,label+": second warning interval becomes Active");
+            await AcknowledgeGenerated(screen,owner);
+            Select(Picker(screen,"GovernorTemplatePicker"),"research");Press(Descendants<Button>(One<ColonyPanel>(screen)).Single(b=>b.Text=="Apply template"));await Frames();
+            Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();var overview=One<CrisisOverviewDialog>(screen);Named<ItemList>(overview,"CrisisCaseList").Select(0);
+            Press(Named<Button>(overview,"CrisisQuarantine"));await Frames();var response=One<CrisisResponseDialog>(screen);Press(Named<Button>(response,"CrisisConfirmQuarantine"));await Frames();
+            Check(session.State.FindColony(homeId)!.Crisis!.Quarantined,label+": actual preview and confirm contain the generated source");
+            overview=One<CrisisOverviewDialog>(screen);var share=Named<OptionButton>(overview,"CrisisResearchShare");share.Select(3);share.EmitSignal(OptionButton.SignalName.ItemSelected,3);await Frames();
+            Check(session.View(owner).Crisis!.Episode!.ResearchShare==100,label+": actual cure-share control allocates future research");
+            var beforeCure=session.View(owner).Crisis!.Episode!.CureProgress;
+            await AcknowledgeGenerated(screen,owner);await ChooseResearch(screen,owner);await EndGeneratedTurn(screen,owner);
+            Check(session.View(owner).Crisis!.Episode!.CureProgress>beforeCure,label+": ordinary research increases cure progress after containment; before="+beforeCure+", after="+session.View(owner).Crisis!.Episode!.CureProgress+", forecast="+session.View(owner).Crisis!.Episode!.Forecast.Diverted);
+            await AcknowledgeGenerated(screen,owner);
+            string saved=await SaveThroughDialog(screen,label+"-contained");var reference=new GameSession(session.Content,session.State.Clone());
+            screen=await LoadThroughDialog(main,saved);session=Session(screen);screen.CrisisPreferencesPath=Path.Combine(_output,"crisis-prefs.json");
+            Check(Snapshot(session)==Snapshot(reference),label+": actual UI load preserves complete generated state");
+            for(int i=0;i<3;i++)
+            {
+                await AcknowledgeGenerated(screen,owner);var pending=reference.View(owner).Crisis!.PendingReceipts;if(!pending.IsEmpty)Check(reference.Execute(new AcknowledgeCrisisCommand(owner,reference.State.Turn,pending)).Accepted,label+": reference acknowledges exact current facts");
+                await ChooseResearch(screen,owner);var target=session.View(owner).Research.TargetId;
+                if(target!=reference.View(owner).Research.TargetId&&target is not null)Check(reference.Execute(new SetResearchTargetCommand(owner,reference.State.Turn,target)).Accepted,label+": reference follows ordinary selected research");
+                Check(reference.Execute(new SetReadyCommand(owner,reference.State.Turn,true)).Accepted,label+": uninterrupted reference resolves next turn");
+                await EndGeneratedTurn(screen,owner);Check(Snapshot(session)==Snapshot(reference),label+": UI reload future turn "+(i+1)+" equals uninterrupted canonical state");
+            }
+            SaveEvidence(session,label+"-continued");RemoveChild(main);main.QueueFree();await Frames();
+        }
+    }
+    private async Task ChooseResearch(GameScreen screen,EmpireId owner)
+    {
+        if(Session(screen).View(owner).Research.TargetId is not null)return;
+        var picker=One<OptionButton>(One<ResearchBar>(screen));if(picker.ItemCount>1){picker.Select(1);picker.EmitSignal(OptionButton.SignalName.ItemSelected,1);await Frames();}
+    }
+    private async Task AcknowledgeGenerated(GameScreen screen,EmpireId owner)
+    {
+        One<CrisisOverviewDialog>(screen).Hide();await Frames();if(Session(screen).View(owner).Crisis!.PendingReceipts.IsEmpty)return;
+        Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();var overview=One<CrisisOverviewDialog>(screen);Press(Named<Button>(overview,"CrisisSelectAllAttention"));Press(Named<Button>(overview,"CrisisAcknowledgeSelected"));await Frames();
+        Check(Session(screen).View(owner).Crisis!.PendingReceipts.IsEmpty,"Generated campaign acknowledges every current own urgent fact through the actual grouped UI");overview.Hide();await Frames();
+    }
+    private async Task EndGeneratedTurn(GameScreen screen,EmpireId owner)
+    {
+        int before=Session(screen).State.Turn;One<CrisisOverviewDialog>(screen).Hide();await Frames();Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();
+        Check(Session(screen).State.Turn==before+1,"Generated campaign resolves one ordinary turn through End Turn");var report=One<TurnReportDialog>(screen);if(report.Visible)
+        {
+            var lines=Descendants<Label>(report).Select(l=>l.Text).ToArray();
+            if(lines.Any(s=>s.Contains("Colony founded",StringComparison.Ordinal))&&lines.Any(s=>s.Contains("exposure",StringComparison.Ordinal)))
+            {
+                _combinedReportSeen=true;Check(true,"Actual turn report combines colony founding with secondary crisis exposure");var scroll=Descendants<ScrollContainer>(report).First();scroll.ScrollVertical=int.MaxValue;await Frames();await Capture("combined-founding-crisis-report");
+            }
+            report.Hide();await Frames();
+        }
+        One<CrisisOverviewDialog>(screen).Hide();await Frames();
+    }
+    private static OptionButton Picker(Node node,string name)=>Named<OptionButton>(node,name);
+    private static void Select(OptionButton picker,string id){int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsString()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
+    private static void Toggle(Node node,string name,bool value){var box=Named<CheckBox>(node,name);box.SetPressedNoSignal(value);box.EmitSignal(BaseButton.SignalName.Toggled,value);}
+    private async Task QueueGeneratedProject(GameScreen screen,string kind,string id)
+    {
+        Press(Descendants<Button>(One<ColonyPanel>(screen)).Single(b=>b.Text=="Edit queue"));await Frames();var editor=One<ConstructionQueueEditor>(screen);Select(Picker(editor,"QueueTargetPicker"),kind+"|"+id);Press(Descendants<Button>(editor).Single(b=>b.Text=="Add project"));Press(editor.GetOkButton());await Frames();
+    }
+    private async Task GeneratedNeglect()
+    {
+        var content=CoreWithApprovedPlague();var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,6,"harl",1,"peldra",true));Check(generated.Succeeded,"Generated Harl neglect starts from untouched Standard seed42");
+        string name=$"qa-{_runId}-generated-harl-neglect-initial",path=SaveFiles.PathFor(name);SaveGame.WriteFile(path,content,generated.State!);_savePaths.Add(path);
+        var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();Press(Descendants<Button>(One<NewGameScreen>(main)).Single(b=>b.Text=="Start"));await Frames();
+        var screen=await LoadThroughDialog(main,name);var session=Session(screen);var owner=session.State.Empires.Single(e=>e.Controller==ControllerKind.Human).Id;var home=session.State.Colonies.Single(c=>c.EmpireId==owner).Id;
+        Select(Picker(screen,"GovernorTemplatePicker"),"industrial");Press(Descendants<Button>(One<ColonyPanel>(screen)).Single(b=>b.Text=="Apply template"));await Frames();Toggle(screen,"WorkforceGovernorToggle",true);await Frames();Toggle(screen,"ConstructionGovernorToggle",true);await Frames();await QueueGeneratedProject(screen,"building","fabrication_hall");
+        for(int turn=0;turn<22;turn++){await AcknowledgeGenerated(screen,owner);await ChooseResearch(screen,owner);await EndGeneratedTurn(screen,owner);}
+        Check(session.State.Turn==22&&session.View(owner).Crisis!.Cases.Single().Stage==CrisisStage.Active,"Generated Harl neglect reaches Active with open source and no cure allocation");
+        int activePopulation=session.State.FindColony(home)!.Population,minimum=activePopulation;bool naturallyClosed=false;
+        for(int turn=0;turn<12;turn++)
+        {
+            await AcknowledgeGenerated(screen,owner);await ChooseResearch(screen,owner);await EndGeneratedTurn(screen,owner);
+            if(session.State.FindColony(home) is { } colony)minimum=Math.Min(minimum,colony.Population);
+            if(session.View(owner).Crisis!.Episode is null){naturallyClosed=true;break;}
+        }
+        Check(naturallyClosed&&minimum<activePopulation,"Generated open Harl plague causes actual population loss before natural recovery");
+        Check(session.State.Turn<=34,"Generated neglect and natural closure remain within 120 crisis turns");
+        _results.Add(new{name="generated-harl-neglect provenance",passed=true,source="core files plus exact approved plague fixture",seed=42,rivals=1,rules=6,openSource=true,cureShare=0,activePopulation,minimumPopulation=minimum,resolvedTurn=session.State.Turn,liveOutcomeInjections=0});
+        SaveEvidence(session,"generated-harl-neglect-recovered");RemoveChild(main);main.QueueFree();await Frames();
+    }
+    private async Task GeneratedCargoFounding()
+    {
+        var content=CoreWithApprovedPlague();var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,6,"harl",1,"peldra",true));Check(generated.Succeeded,"Generated Harl cargo starts from untouched Standard seed42");
+        string name=$"qa-{_runId}-generated-harl-cargo-initial",path=SaveFiles.PathFor(name);SaveGame.WriteFile(path,content,generated.State!);_savePaths.Add(path);
+        var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();Press(Descendants<Button>(One<NewGameScreen>(main)).Single(b=>b.Text=="Start"));await Frames();
+        var screen=await LoadThroughDialog(main,name);var session=Session(screen);var owner=session.State.Empires.Single(e=>e.Controller==ControllerKind.Human).Id;var home=session.State.Colonies.Single(c=>c.EmpireId==owner).Id;
+        var scout=session.View(owner).Vessels.Single(v=>v.RoleId=="scout").Id;var homeStar=session.View(owner).Colonies.Single().StarId;var chart=session.View(owner).Stars.Single(s=>s.Chart.Id==homeStar).Chart;
+        Select(Picker(screen,"GovernorTemplatePicker"),"industrial");Press(Descendants<Button>(One<ColonyPanel>(screen)).Single(b=>b.Text=="Apply template"));await Frames();Toggle(screen,"WorkforceGovernorToggle",true);await Frames();Toggle(screen,"ConstructionGovernorToggle",true);await Frames();await QueueGeneratedProject(screen,"building","fabrication_hall");
+        StarId? destination=null;PlanetId? targetPlanet=null;var visited=new HashSet<StarId>{homeStar};
+        for(int i=0;i<22;i++)
+        {
+            var view=session.View(owner);var unit=view.Vessels.Single(v=>v.Id==scout);
+            if(unit.Transit is null&&unit.PendingMove is null&&targetPlanet is null)
+            {
+                var stationed=view.Stars.Single(s=>s.Chart.Id==unit.StationaryStarId);
+                if(stationed.Chart.Id!=homeStar&&stationed.Planets is { } planets)
+                {
+                    var viable=planets.Where(p=>p.OwnerId is null&&p.Colonizable&&p.SupportPerWorker>0&&p.Potential?.NativeHabitatAllowed==true).OrderByDescending(p=>p.SupportPerWorker).ThenBy(p=>p.Id).FirstOrDefault();
+                    if(viable is not null){destination=stationed.Chart.Id;targetPlanet=viable.Id;}
+                }
+                if(targetPlanet is null)
+                {
+                    var next=view.Stars.Where(s=>!visited.Contains(s.Chart.Id)).OrderBy(s=>Math.Pow(s.Chart.X-chart.X,2)+Math.Pow(s.Chart.Y-chart.Y,2)).ThenBy(s=>s.Chart.Id).FirstOrDefault();
+                    if(next is not null){visited.Add(next.Chart.Id);SelectNumber(Picker(One<VesselPanel>(screen),"VesselPicker"),scout.Value);await Frames();One<GalaxyMap>(screen).Select(next.Chart.Id);await Frames();Press(Descendants<Button>(One<VesselPanel>(screen)).Single(b=>b.Text=="Set course"));await Frames();}
+                }
+            }
+            await AcknowledgeGenerated(screen,owner);await ChooseResearch(screen,owner);await EndGeneratedTurn(screen,owner);
+        }
+        Check(targetPlanet is not null&&destination is not null&&session.View(owner).Crisis!.Cases.Single().Stage==CrisisStage.Active,"Generated scout surveys an eligible remote world before Harl source becomes Active; visited="+visited.Count);
+        await AcknowledgeGenerated(screen,owner);SelectNumber(One<OptionButton>(One<ColonyList>(screen)),home.Value);await Frames();await QueueGeneratedProject(screen,"vessel","harl_settler");
+        VesselId? founderId=null;bool departedTagged=false,secondaryWarning=false;int completionTurn=-1,departureTurn=-1;
+        for(int i=0;i<35;i++)
+        {
+            var view=session.View(owner);var founder=view.Vessels.FirstOrDefault(v=>v.RoleId=="harl_settler"&&v.CarriedPopulation>0);if(founder is not null)
+            {
+                founderId=founder.Id;if(completionTurn<0){completionTurn=session.State.Turn;Check(completionTurn>22,"Generated Harl founder completes after source became Active");}
+                SelectNumber(Picker(One<VesselPanel>(screen),"VesselPicker"),founder.Id.Value);await Frames();
+                if(founder.Transit is null&&founder.PendingMove is null&&founder.StationaryStarId==homeStar)
+                {
+                    One<GalaxyMap>(screen).Select(destination!.Value);await Frames();Press(Descendants<Button>(One<VesselPanel>(screen)).Single(b=>b.Text=="Set course"));await Frames();departureTurn=session.State.Turn+1;
+                }
+                else if(founder.Transit is null&&founder.PendingMove is null&&founder.StationaryStarId==destination)
+                {
+                    var planet=view.Stars.Single(s=>s.Chart.Id==destination).Planets!.Value.Single(p=>p.Id==targetPlanet);One<GalaxyMap>(screen).Select(destination!.Value);await Frames();Press(Descendants<Button>(One<StarPanel>(screen)).Single(b=>b.Text=="Select planet "+planet.Orbit));await Frames();
+                    var found=Descendants<Button>(One<VesselPanel>(screen)).Single(b=>b.Text=="Found colony");Check(!found.Disabled,"Generated infected founder has legal surveyed destination");Press(found);await Frames();
+                }
+            }
+            await AcknowledgeGenerated(screen,owner);await ChooseResearch(screen,owner);await EndGeneratedTurn(screen,owner);view=session.View(owner);
+            if(founderId is { } id&&view.Vessels.FirstOrDefault(v=>v.Id==id) is { } current&&current.Crisis?.CarrierEpisode is not null)departedTagged=true;
+            var child=view.Colonies.FirstOrDefault(c=>c.Id!=home);if(child?.Crisis is {Stage:CrisisStage.Warning,GraceRemaining:2}){secondaryWarning=true;break;}
+        }
+        Check(departedTagged&&secondaryWarning&&_combinedReportSeen&&session.State.Turn<=57,"Generated founder departs infected open source and creates secondary Warning2 with combined report within120 turns; completion="+completionTurn+", departure="+departureTurn+", final="+session.State.Turn);
+        _results.Add(new{name="generated-harl-cargo provenance",passed=true,source="core files plus exact approved plague fixture",seed=42,rivals=1,rules=6,scoutVisited=visited.Count,targetStar=destination!.Value.Value,targetPlanet=targetPlanet!.Value.Value,completionTurn,departureTurn,secondaryTurn=session.State.Turn,liveOutcomeInjections=0});
+        SaveEvidence(session,"generated-harl-cargo-secondary-warning");RemoveChild(main);main.QueueFree();await Frames();
+    }
+    private static void SelectNumber(OptionButton picker,int id){int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
+    private async Task LabelledPortWait()
+    {
+        var content=Content();var state=Labelled(content);var ship=state.Vessels.Single(v=>v.EmpireId==state.Empires[0].Id);ship.RoleId="harl_settler";ship.CarriedPopulation=1;ship.Crisis!.CarrierEpisode=1;ship.Crisis.InspectionDueTurn=23;
+        Check(GameStateValidator.Validate(content,state).Count==0,"Labelled held-carrier fixture validates before UI session: "+string.Join("; ",GameStateValidator.Validate(content,state)));
+        var session=new GameSession(content,state);var owner=state.Empires[0].Id;var screen=Screen(session,owner);AddChild(screen);await Frames();Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();var overview=One<CrisisOverviewDialog>(screen);
+        Check(Descendants<Label>(overview).Any(l=>l.Text.Contains("inspection until turn 23",StringComparison.Ordinal)),"Actual overview shows labelled carrier port wait and due turn");
+        foreach(var size in new[]{new Vector2I(800,600),new Vector2I(1920,1080)}){GetTree().Root.Size=size;overview.PopupCenteredClamped(new(760,600));Descendants<ScrollContainer>(overview).First().ScrollVertical=int.MaxValue;await Frames();await Capture("labelled-port-wait-"+size.X);}
+        SaveEvidence(session,"labelled-port-wait");RemoveChild(screen);screen.QueueFree();await Frames();
+    }
     private async Task Responses()
     {
         var content=Content();var state=Labelled(content,2);Check(GameStateValidator.Validate(content,state).Count==0,"N5 reserve901 labelled fixture validates before session");
@@ -148,7 +328,11 @@ public partial class CrisisGraphicalValidation:Node
         Press(response.GetOkButton());response.Hide();await Frames();Check(afterPurge==Snapshot(session),"Quarantine preview cancel preserves canonical state");
         Press(Named<Button>(overview,"CrisisQuarantineKeep"));await Frames();Press(Named<Button>(response,"CrisisConfirmQuarantine"));await Frames();Check(session.State.FindColony(first.Id)!.Crisis!.Quarantined,"Actual quarantine response follows its full preview");
         Press(Named<Button>(overview,"CrisisSetAuthority"));await Frames();Check(Named<OptionButton>(overview,"CrisisAuthorityPicker").ItemCount==3,"All three explicit crisis authority choices are available");
-        One<CrisisAuthorityDialog>(overview).Hide();
+        var authority=One<CrisisAuthorityDialog>(overview);Named<OptionButton>(authority,"CrisisAuthorityPicker").Select(2);Named<OptionButton>(authority,"CrisisAuthorityShare").Select(2);Press(Named<Button>(authority,"CrisisApplyAuthority"));await Frames();
+        Check(session.View(owner).Crisis!.Authority==CrisisAuthority.ContainAndResearch,"Actual authority dialog sets automatic containment and research");
+        allFilter=Named<OptionButton>(overview,"CrisisFilter");allFilter.Select(0);allFilter.EmitSignal(OptionButton.SignalName.ItemSelected,0);Named<ItemList>(overview,"CrisisCaseList").Select(0);
+        Press(Named<Button>(overview,"CrisisQuarantineKeep"));await Frames();Press(Named<Button>(response,"CrisisConfirmQuarantine"));await Frames();
+        Check(session.State.FindColony(other.Id)!.Crisis!.PolicyPaused,"Actual manual response overrides the automatic case policy without changing colony governor");await Capture("crisis-policy-override");
         SaveEvidence(session,"labelled-n5-response");RemoveChild(screen);screen.QueueFree();await Frames();
         state=Labelled(content,1,1);session=new(content,state);screen=Screen(session,owner);AddChild(screen);await Frames();Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();overview=One<CrisisOverviewDialog>(screen);Named<ItemList>(overview,"CrisisCaseList").Select(0);Press(Named<Button>(overview,"CrisisPurge"));await Frames();response=One<CrisisResponseDialog>(screen);
         Check(Descendants<Label>(response).Any(l=>l.Text.Contains("last colony",StringComparison.Ordinal)&&l.Text.Contains("existing founder",StringComparison.Ordinal)),"N1 confirmation explains assets and recovery");
