@@ -16,7 +16,7 @@ public static partial class CommandProcessor
         if (v.Transit is not null) return CommandOutcome.Reject(s, "vessel_in_transit", "Travel is committed until arrival.");
         return null;
     }
-    private static CommandOutcome SetMoveOrder(ContentSet content, GameState s, SetMoveOrderCommand c)
+    private static CommandOutcome SetMoveOrder(ContentSet content, GameState s, SetMoveOrderCommand c,Scouting.AmebaApproach? acceptance=null,bool retreat=false)
     {
         var rejection = CheckVessel(s, c.Issuer, c.Vessel, out var v); if (rejection is not null) return rejection;
         if (c.Destination is { } target)
@@ -27,9 +27,10 @@ public static partial class CommandProcessor
             var start = s.FindStar(v.StationaryStarId!.Value)!;
             try { TravelCalculator.Duration(start.X, start.Y, end.X, end.Y, content.Vessels[v.RoleId].Speed); }
             catch (Exception ex) when (ex is OverflowException or ArgumentOutOfRangeException) { return CommandOutcome.Reject(s, "invalid_route", "Route exceeds supported travel limits."); }
+            var scoutRejection=CheckScoutDestination(content,s,v,target,acceptance,retreat);if(scoutRejection is not null)return scoutRejection;
         }
-        if (v!.PendingMove == c.Destination && (c.Destination is null || v.PendingFounding is null)) return CommandOutcome.NoChange(s);
-        return ApplyPlanningChange(s, c.Issuer, candidate => { var unit = candidate.FindVessel(c.Vessel)!; unit.PendingMove = c.Destination; if (c.Destination.HasValue) unit.PendingFounding = null; });
+        if (v!.PendingMove == c.Destination && (c.Destination is null || v.PendingFounding is null&&v.AmebaEncounter?.RiskOrder is null) && (acceptance is null||v.Scout?.ApproachAcceptance==acceptance)) return CommandOutcome.NoChange(s);
+        return ApplyPlanningChange(s, c.Issuer, candidate => { var unit = candidate.FindVessel(c.Vessel)!; unit.PendingMove = c.Destination;if(unit.Scout is {} scout)scout.ApproachAcceptance=acceptance;if (c.Destination.HasValue){unit.PendingFounding = null;if(unit.AmebaEncounter is {} encounter)encounter.RiskOrder=null;} });
     }
     private static CommandOutcome SetProductionTarget(ContentSet content, GameState s, EmpireState issuer, SetProductionTargetCommand c)
     {

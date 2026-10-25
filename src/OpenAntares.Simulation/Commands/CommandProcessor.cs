@@ -17,6 +17,11 @@ public static partial class CommandProcessor
     {
         var result = ExecuteCore(content, state, command);
         if (result.Changed && Rules.HasDevelopment(state.RulesVersion)) ApplyManualIntervention(result.State, command);
+        if(result.Changed&&result.State.Turn==state.Turn&&Rules.HasScouting(state.RulesVersion))
+        {
+            try{ReconcileScoutConsent(content,state,result.State,command.Issuer);}
+            catch(OverflowException){return CommandOutcome.Reject(state,"ameba_encounter_stale","Encounter revision limit reached.");}
+        }
         return result;
     }
 
@@ -36,6 +41,7 @@ public static partial class CommandProcessor
 
         return command switch
         {
+            ScoutCommand c => ExecuteScout(content,state,issuer,c),
             CrisisCommand c => ExecuteCrisis(content,state,issuer,c),
             DevelopmentCommand c => ExecuteDevelopment(content, state, issuer, c),
             SetProductionTargetCommand c => SetProductionTarget(content, state, issuer, c),

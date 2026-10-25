@@ -29,7 +29,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 2
 - [x] Task 3
 - [x] Task 4
-- [ ] Task 5
+- [x] Task 5
 - [ ] Task 6
 - [ ] Task 7
 - [ ] Task 8
@@ -61,3 +61,7 @@ Task 4: complete (commits 1061eaa..0233000, tests: dotnet test tests/OpenAntares
 
 Task 5: started BASE 023300063543a4c74a4791df0ea39f838b367277; brief task5-brief.md
 Task 5 evidence: semantic RED4/5; supplemental fallback RED1/6 identified unknown charts incorrectly excluding a neutral-occupied actual fallback; corrected candidate pool to known routes before caution override. GREEN6/6; build0 warnings/errors; Suite1316/1316. Foreign mutation fixture now adds a genuinely foreign vessel instead of mutating the sole own vessel.
+Task 5: complete (commits 0233000..870b87a, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task5-completion.log)
+
+Task 6: started BASE 870b87ad0228d9bd512bacc908e2c76b126e36e2; brief task6-brief.md
+Task 6 evidence: semantic RED8/8; GREEN8/8; Suite1324/1324; normal build0 warnings/errors. No-op Ready/reference preserved; setters never roll/spend; rejection keeps enclosing reference. Consent revision changes only with effective consequences.

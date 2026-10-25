@@ -33,6 +33,7 @@ public static class FoundingRules
         if(Rules.HasSpecies(state.RulesVersion) && role.FoundsSealedHabitat) mode=HabitatModes.Sealed;
         capacity=SpeciesRules.BaseCapacity(content,state,issuer,mode);
         if(vessel.StationaryStarId != planet.StarId) return Reject("wrong_system");
+        if(Rules.HasScouting(state.RulesVersion)&&owner!.Scouting!.KnownHabitats.Any(h=>h.Star==planet.StarId))return Reject("ameba_habitat_guarded");
         if(Crises.CrisisQueries.IsHeld(state,vesselId)||Crises.CrisisQueries.PortClosed(state,issuer,planet.StarId))return Reject("population_port_closed");
         var type=content.PlanetTypes[known.PlanetTypeId];
         if(!type.Colonizable || type.SupportPerWorker <= 0 || capacity < population) return Reject("not_colonizable");
@@ -61,6 +62,7 @@ public static class FoundingRules
         "habitat_mode_not_available"=>"This habitat mode is not available to the selected species.",
         "target_occupied"=>"Planet is already colonized.",
         "target_reserved"=>"Another settler already has a founding order here.",
+        "ameba_habitat_guarded"=>"A space ameba guards this system. This expedition cannot found here.",
         _=>"This vessel cannot found at the selected planet."
     };
 }
