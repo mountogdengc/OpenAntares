@@ -37,7 +37,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Retain the approved [14-task crisis implementation plan](superpowers/plans/2026-10-25-colony-crises-plague.md), [Task14 validation](../reports/CRISIS_VALIDATION_2026-10-25.md) and [independent-review correction evidence](../reports/CRISIS_REVIEW_CORRECTIONS_2026-10-25.md). M6-D/CRI-AC-012, M6-P and M6-I/CRI-AC-001..011 are Verified within their stated design or local automated scopes. Preserve main and the owner's existing changes; integration is a separate owner decision. Human and delivery limits remain open.
+Retain the approved [14-task crisis implementation plan](superpowers/plans/2026-10-25-colony-crises-plague.md), [Task14 validation](../reports/CRISIS_VALIDATION_2026-10-25.md) and [independent-review correction evidence](../reports/CRISIS_REVIEW_CORRECTIONS_2026-10-25.md). M6-D/CRI-AC-012, M6-P and M6-I/CRI-AC-001..011 are Verified within their stated design or local automated scopes. The owner-authorized fast-forward into main and fresh combined gates are recorded in the [M6 integration report](../reports/CRISIS_INTEGRATION_2026-10-25.md); the four pre-existing owner edits remain uncommitted. Human and delivery limits remain open.
 
 ## Risks and autonomy
 
@@ -55,4 +55,4 @@ Historical M5 review: reports/COLONY_FINAL_REVIEW_2026-10-24.md records the orig
 
 Historical M5 correction closure (2026-10-24): all three authorized presentation fixes and the fresh review duplicate-vessel correction are verified and locally integrated. Functional source4a2e430 passes988 simulation tests; Colony665 assertions+4 provenance; Rival1146+12 provenance; Species1194; Expansion275; Legacy466+27 geometry. Fresh main Suite/Colony/normal rebuild/five harness exclusions pass separately. All twelve COL child criteria and M5-I are Verified for local automated/design scope. Parent REQ-017 and17-row totals remain12 Verified/3 Implemented, Unverified/1 In Progress/1 Deferred. See PROJECT_STATUS.md and reports/COLONY_POLISH_INTEGRATION_2026-10-24.md. Human/platform/delivery/release limits remain open. Next is bounded milestone selection/specification; no automatic implementation or cleanup.
 
-Current M6 approval supersedes the earlier drafting-only gate: full design approved, separate plan now written for review. No implementation has started; previous scope/acceptance checkpoints remain historical.
+Current M6 closure: full design and separate plan were approved; implementation, independent review, correction and owner-authorized local integration are complete within the verified automated scope. Earlier drafting-only checkpoints remain historical. Select and specify the next bounded milestone before further feature implementation.
