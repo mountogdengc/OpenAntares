@@ -33,7 +33,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 6
 - [x] Task 7
 - [x] Task 8
-- [ ] Task 9
+- [x] Task 9
 - [ ] Task 10
 - [ ] Task 11
 - [ ] Task 12
@@ -78,3 +78,7 @@ Task 8: complete (commits 8e84ee3..c03a00e, tests: dotnet test tests/OpenAntares
 Task 9: started BASE c03a00eadbb87a8516b2e7321fc907ae57f9e128; brief task9-brief.md
 Task 9: Ruling: report acceptance exposed a missing neutral Avoid retreat/wait path in the common evaluator — add its regression and complete that approved SCT-003 behavior here using ordinary shared movement, alongside wait deduplication — cost if wrong: a broader Task9 query/coordinator diff, reviewed in the final whole-branch pass.
 Task 9 evidence: semantic RED4/5; GREEN7/7 including15-turn repeated wait,100 planning toggles,30 grouped warnings, earned research after hull loss, report aging/retired cleanup, re-entry numbering and no foreign ship blacklist. Build0 warnings/errors; full Suite1354/1354. Current actual facts use current-turn digest, prior planning digests close into ten-turn history as existing crisis reports do; live encounter consent is independent.
+Task 9: complete (commits c03a00e..6c8654b, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task9-completion.log)
+
+Task 10: started BASE 6c8654b31b629f6547e15f4f834d32846804fabe; brief task10-brief.md
+Task 10 evidence: semantic RED6/7 (missing scoped metadata/posture/survival); GREEN9/9 including4 species, changed hidden placement/foreign plans, zero-colony emergency route, role-capability variant, multiple cargo/scouts and paid replacement after labelled loss; Suite1363/1363; build0 warnings/errors. Rules7 uses2C+2V+1; older policy/budget paths unchanged; risk/ack commands remain outside AI whitelist.

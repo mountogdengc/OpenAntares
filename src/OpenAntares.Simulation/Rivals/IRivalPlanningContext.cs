@@ -12,6 +12,7 @@ public interface IRivalPlanningContext
     EmpireView View { get; }
     ContentSet Content { get; }
     RivalAiDefinition Policy { get; }
+    Scouting.ScoutPreparationPreview? ScoutPreparation => null;
     ColonyEconomy? Forecast(ColonyId colony, Workforce workforce, ProductionTarget? target, string? completedBuildingId = null);
     FoundingPreview? PreviewSettlement(PlanetId target, string roleId);
     int? TravelTurns(StarId origin, StarId destination, string roleId);

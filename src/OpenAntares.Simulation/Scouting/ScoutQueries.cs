@@ -30,6 +30,7 @@ public static class ScoutQueries
         var e=s.FindEmpire(owner)?.Scouting;
         if(e is null||!Rules.HasScouting(s.RulesVersion)||c.SpaceAmeba is not {} d)return (new(owner,s.Turn,ImmutableArray<ScoutVesselView>.Empty,ImmutableArray<KnownAmebaView>.Empty,ImmutableArray<AmebaAttentionToken>.Empty,ImmutableArray<ScoutTurnDigest>.Empty),new(ImmutableArray<Command>.Empty,ImmutableArray<AmebaAttentionToken>.Empty,ImmutableArray<ScoutOrderEvent>.Empty,ImmutableArray<string>.Empty));
         var frame=EmpireViewProjector.ProjectBase(c,s,owner);
+        bool ai=s.FindEmpire(owner)!.Controller==ControllerKind.Ai;
         var rows=ImmutableArray.CreateBuilder<ScoutVesselView>();var commands=ImmutableArray.CreateBuilder<Command>();var tokens=ImmutableArray.CreateBuilder<AmebaAttentionToken>();var blockers=ImmutableArray.CreateBuilder<string>();var outcomes=ImmutableArray.CreateBuilder<ScoutOrderEvent>();
         foreach(var v in frame.Vessels.OrderBy(v=>v.Id))
         {
@@ -41,13 +42,13 @@ public static class ScoutQueries
             bool Forbidden(StarId star)=>Known(star)||scout?.Posture==ScoutPosture.AvoidEncounters&&NeutralExcluded(frame,star);
             StarId? Fallback()
             {
-                if((encounter is null&&!neutralWithdrawal)||scout?.WithdrawFromAmeba!=true||v.Transit is not null)return null;
+                if((encounter is null&&!neutralWithdrawal)||(scout?.WithdrawFromAmeba!=true&&!(ai&&encounter is not null))||v.Transit is not null)return null;
                 var known=frame.Galaxy.Stars.Select(x=>x.Id).Where(t=>!Known(t)&&LegalRoute(c,frame,v,t)&&frame.Stars.Any(star=>star.Chart.Id==t&&star.LastObservedTurn is not null)).ToArray();
-                var ordinary=known.Where(t=>scout.Posture!=ScoutPosture.AvoidEncounters||!NeutralExcluded(frame,t)).ToArray();
+                var ordinary=known.Where(t=>scout?.Posture!=ScoutPosture.AvoidEncounters||!NeutralExcluded(frame,t)).ToArray();
                 var allowed=ordinary.Length>0?ordinary:encounter is not null?known:Array.Empty<StarId>();
                 StarId? route=allowed.Where(t=>frame.Colonies.Any(col=>col.StarId==t)).OrderBy(t=>Duration(c,frame,v,t)).ThenBy(t=>t).Cast<StarId?>().FirstOrDefault()
                     ??allowed.OrderBy(t=>Duration(c,frame,v,t)).ThenBy(t=>t).Cast<StarId?>().FirstOrDefault();
-                if(route is null&&encounter is not null&&s.FindEmpire(owner)!.Controller==ControllerKind.Ai)route=frame.Galaxy.Stars.Select(x=>x.Id).Where(t=>!Known(t)&&LegalRoute(c,frame,v,t)).OrderBy(t=>Duration(c,frame,v,t)).ThenBy(t=>t).Cast<StarId?>().FirstOrDefault();
+                if(route is null&&encounter is not null&&ai)route=frame.Galaxy.Stars.Select(x=>x.Id).Where(t=>!Known(t)&&LegalRoute(c,frame,v,t)).OrderBy(t=>Duration(c,frame,v,t)).ThenBy(t=>t).Cast<StarId?>().FirstOrDefault();
                 return route;
             }
             var fallback=Fallback();
@@ -57,13 +58,13 @@ public static class ScoutQueries
                 commands.Add(new SetMoveOrderCommand(owner,s.Turn,v.Id,null));
                 outcomes.Add(new(owner,s.Turn,v.Id,v.RoleId,v.CarriedPopulation,v.StationaryStarId??v.Transit!.Origin,"move_cancelled","Standing order excludes this destination.",pending));
             }
-            if((encounter is not null&&encounter.RiskOrder is null||neutralWithdrawal)&&departure is null&&scout?.WithdrawFromAmeba==true&&v.Transit is null)
+            if((encounter is not null&&encounter.RiskOrder is null||neutralWithdrawal)&&departure is null&&(scout?.WithdrawFromAmeba==true||ai&&encounter is not null)&&v.Transit is null)
             {
                 departure=fallback;
                 if(departure is {} target)
                 {
                     if(commands.Count>0&&commands[commands.Count-1] is SetMoveOrderCommand {Destination:null} cancelled&&cancelled.Vessel==v.Id)commands.RemoveAt(commands.Count-1);
-                    commands.Add(encounter is not null?new SetScoutRetreatOrderCommand(owner,s.Turn,v.Id,target):new SetMoveOrderCommand(owner,s.Turn,v.Id,target));
+                    commands.Add(encounter is not null&&scout is not null?new SetScoutRetreatOrderCommand(owner,s.Turn,v.Id,target):new SetMoveOrderCommand(owner,s.Turn,v.Id,target));
                     outcomes.Add(new(owner,s.Turn,v.Id,v.RoleId,v.CarriedPopulation,v.StationaryStarId!.Value,"retreat_planned","Ordinary retreat prepared to a known system; survey freshness remains as recorded.",target));
                 }
             }

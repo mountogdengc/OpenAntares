@@ -27,13 +27,13 @@ public static class RivalTurnPlanner
             foreach (var owner in snapshot.Empires.Where(e => e.Controller == ControllerKind.Ai).OrderBy(e => e.Id))
             {
                 long submitted = 0;
-                long budget = 2L*working.Colonies.Count(c => c.EmpireId == owner.Id)+working.Vessels.Count(v => v.EmpireId == owner.Id)+1;
+                long budget = 2L*working.Colonies.Count(c => c.EmpireId == owner.Id)+(Rules.HasScouting(snapshot.RulesVersion)?2L:1L)*working.Vessels.Count(v => v.EmpireId == owner.Id)+1;
                 bool failed = false;
                 var result = plan(() => RivalPlanningQueries.Create(content,working,owner.Id), command =>
                 {
                     if (failed) return false;
                     if (submitted >= budget || command.Issuer != owner.Id || command.ExpectedTurn != snapshot.Turn ||
-                        command is not (SetWorkforceCommand or SetProductionTargetCommand or SetResearchTargetCommand or SetMoveOrderCommand or SetFoundingOrderCommand))
+                        command is not (SetWorkforceCommand or SetProductionTargetCommand or SetResearchTargetCommand or SetMoveOrderCommand or SetFoundingOrderCommand)&&!(Rules.HasScouting(snapshot.RulesVersion)&&command is SetScoutPostureCommand or SetScoutRetreatOrderCommand))
                     { failed = true; return false; }
                     submitted++;
                     var outcome = CommandProcessor.Execute(content,working,command);
@@ -42,6 +42,12 @@ public static class RivalTurnPlanner
                     return true;
                 });
                 if (failed || !result.Succeeded || submitted != result.CommandCount) return new(snapshot,false);
+                if(Rules.HasScouting(snapshot.RulesVersion))
+                {
+                    var preview=Scouting.ScoutQueries.PreviewPreparation(content,working,owner.Id);var scoutPlan=new Scouting.ScoutPlan(System.Collections.Immutable.ImmutableArray<Command>.Empty,preview.Outcomes);
+                    if(Scouting.ScoutReports.NeedsPreparationRecord(working,owner.Id,scoutPlan))Scouting.ScoutReports.RecordPreparation(working,owner.Id,scoutPlan);
+                    if(Scouting.ScoutReadyQueries.ValidateResponse(content,working,owner.Id).Length!=0)return new(snapshot,false);
+                }
             }
             return GameStateValidator.Validate(content,working,allowAllHumansReady:true).Count == 0 ? new(working,true) : new(snapshot,false);
         }

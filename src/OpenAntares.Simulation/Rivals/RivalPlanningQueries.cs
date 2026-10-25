@@ -18,10 +18,10 @@ public static class RivalPlanningQueries
         if (!Rules.HasRivals(working.RulesVersion) || content.RivalAi is null)
             throw new ArgumentException("Rival planning requires explicit rival rules and policy content.");
         var view = EmpireViewProjector.Project(content, working, owner);
-        return new Context(content, view with { Galaxy = view.Galaxy with { Seed = null } });
+        return new Context(content, view with { Galaxy = view.Galaxy with { Seed = null } },Rules.HasScouting(working.RulesVersion)?Scouting.ScoutQueries.PreviewPreparation(content,working,owner):null);
     }
 
-    private sealed record Context(ContentSet Content, EmpireView View) : IRivalPlanningContext
+    private sealed record Context(ContentSet Content, EmpireView View,Scouting.ScoutPreparationPreview? ScoutPreparation) : IRivalPlanningContext
     {
         // This frame is constructed solely from permitted facts, never cloned from the world.
         private readonly GameState _frame = OwnFrame(View);
@@ -78,6 +78,7 @@ public static class RivalPlanningQueries
             var owner = new EmpireState { Id = view.Viewer, SpeciesId = view.SpeciesId, Controller = ControllerKind.Ai,
                 ResearchReserve = view.Research.Reserve, ResearchTargetId = view.Research.TargetId,
                 KnownTechnologyIds = view.Research.KnownTechnologyIds.ToList() };
+            if(view.Scouting is {} scouting)owner.Scouting=new(){KnownHabitats=scouting.Habitats.Select(h=>new Scouting.KnownAmeba(h.HabitatId,h.Star,h.ObservedTurn)).ToList()};
             foreach (var star in view.Stars.Where(s => s.Planets.HasValue))
                 owner.Surveys.Add(new SystemObservation { StarId = star.Chart.Id, LastObservedTurn = star.LastObservedTurn!.Value,
                     Planets = star.Planets!.Value.Select(p => new PlanetObservation(p.Id,p.Orbit,p.PlanetTypeId,p.ColonyId,p.OwnerId) { EnvironmentId = p.EnvironmentId }).ToList() });

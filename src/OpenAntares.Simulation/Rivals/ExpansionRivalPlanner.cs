@@ -10,7 +10,7 @@ public static class ExpansionRivalPlanner
     public static RivalPlanningResult Plan(Func<IRivalPlanningContext> current, Func<Command, bool> apply)
     {
         var initial = current(); long count = 0;
-        long budget = 2L * initial.View.Colonies.Length + initial.View.Vessels.Length + 1;
+        long budget = 2L * initial.View.Colonies.Length + (Rules.HasScouting(initial.View.RulesVersion)?2L:1L)*initial.View.Vessels.Length + 1;
         bool Emit(Command command)
         {
             if (count >= budget || count == int.MaxValue) return false;

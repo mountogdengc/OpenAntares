@@ -64,7 +64,7 @@ internal static class RivalColonyPlanner
         foreach (var star in context.View.Stars.OrderBy(s => s.Chart.Id))
         foreach (var planet in star.Planets ?? System.Collections.Immutable.ImmutableArray<KnownPlanetView>.Empty)
         {
-            if (planet.OwnerId is not null || !planet.Colonizable) continue;
+            if (planet.OwnerId is not null || !planet.Colonizable||context.View.Scouting?.Habitats.Any(h=>h.Star==star.Chart.Id)==true) continue;
             foreach (var role in roles)
                 if (context.PreviewSettlement(planet.Id,role.Id) is { RejectionCode: null, Economy: { } economy } && economy.SupportProduced.Total >= economy.SupportRequired.Total)
                     yield return new(planet,star.Chart.Id,role);
