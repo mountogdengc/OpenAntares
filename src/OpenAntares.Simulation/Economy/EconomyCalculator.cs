@@ -1,3 +1,4 @@
+using OpenAntares.Simulation.Crises;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -29,7 +30,7 @@ public static class EconomyCalculator
 
         ImmutableArray<EmpireEconomy> empires = state.Empires
             .OrderBy(e => e.Id)
-            .Select(empire => CalculateEmpire(content, empire, colonies))
+            .Select(empire => CalculateEmpire(content, state, empire, colonies))
             .ToImmutableArray();
 
         return new TurnEconomy(colonies, empires);
@@ -96,17 +97,19 @@ public static class EconomyCalculator
         bool projectLegal = project is not null
             && !colony.CompletedBuildingIds.Contains(project.Id)
             && Rules.PrerequisitesKnown(empire, project.PrerequisiteTechnologyIds);
-        ReserveOutcome production = Reserve(colony.ProductionReserve, netProduction.Total, project?.Id, project?.Cost, projectLegal);
+        ReserveOutcome production = new(colony.ProductionReserve,Quantity.Zero,colony.ProductionReserve,project?.Id,project?.Cost,null,null);
 
         var result = new ColonyEconomy(
             colony.Id, colony.EmpireId, planetType.Id,
             supportProduced, supportRequired, supportSurplus, supportDeficit, unusedSupport,
             grossProduction, grossResearch, netProduction, netResearch,
             growthEarned, growth, production) { PopulationUnitLabel = profile.PopulationUnitLabel };
+        result = CrisisEconomy.ApplyColony(content,state,colony,result);
+        result = result with {Production=Reserve(colony.ProductionReserve,result.NetProduction.Total,project?.Id,project?.Cost,projectLegal)};
         return VesselProduction.Calculate(content, state, colony, planet, planetType, buildings, result);
     }
 
-    private static EmpireEconomy CalculateEmpire(ContentSet content, EmpireState empire, ImmutableArray<ColonyEconomy> colonies)
+    private static EmpireEconomy CalculateEmpire(ContentSet content, GameState state, EmpireState empire, ImmutableArray<ColonyEconomy> colonies)
     {
         // Colonies are already in ID order; only this empire's colonies contribute.
         Quantity netResearch = Quantity.From(colonies
@@ -120,9 +123,15 @@ public static class EconomyCalculator
         bool targetLegal = target is not null
             && !empire.KnownTechnologyIds.Contains(target.Id)
             && Rules.PrerequisitesKnown(empire, target.PrerequisiteTechnologyIds);
-        ReserveOutcome research = Reserve(empire.ResearchReserve, netResearch.Total, target?.Id, target?.Cost, targetLegal);
-
-        return new EmpireEconomy(empire.Id, netResearch, research);
+        CureAllocation? cure=Rules.HasCrises(state.RulesVersion)&&state.Crisis is{Enabled:true}?CrisisEconomy.SplitResearch(content,state,empire.Id,netResearch.Total):null;
+        ReserveOutcome research = Reserve(empire.ResearchReserve, cure?.RemainingForTechnology??netResearch.Total, target?.Id, target?.Cost, targetLegal);
+        if(cure is{Diverted:>0})
+        {
+            var lines=research.Change.Lines.SetItem(0,new(BreakdownKinds.Earned,string.Empty,null,netResearch.Total));
+            lines=lines.Insert(1,new(BreakdownKinds.CrisisCure,empire.Crisis!.Episode!.FamilyId,null,-cure.Diverted,DivisionDetails.Divide((Int128)netResearch.Total*empire.Crisis.Episode.ResearchShare,100)));
+            research=research with{Change=Quantity.From(lines)};
+        }
+        return new EmpireEconomy(empire.Id, netResearch, research){Cure=cure};
     }
 
     /// <summary>Workers times rate, then each completed building's bonus of <paramref name="effectKind"/>.</summary>
@@ -205,7 +214,7 @@ public static class EconomyCalculator
         return Quantity.From(lines.ToImmutable());
     }
 
-    private static GrowthOutcome ApplyGrowth(ColonyState colony, int capacity, int growthEarned)
+    internal static GrowthOutcome ApplyGrowth(ColonyState colony, int capacity, int growthEarned)
     {
         int population = colony.Population;
         if (population >= capacity)

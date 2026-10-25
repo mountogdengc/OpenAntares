@@ -38,7 +38,10 @@ public sealed record ColonyEconomy(
 }
 
 /// <summary>An empire's combined research and research reserve for a turn.</summary>
-public sealed record EmpireEconomy(EmpireId Empire, Quantity NetResearch, ReserveOutcome Research);
+public sealed record EmpireEconomy(EmpireId Empire, Quantity NetResearch, ReserveOutcome Research)
+{
+    public Crises.CureAllocation? Cure { get; init; }
+}
 
 /// <summary>
 /// How growth changes population. <see cref="DiscardedGrowth"/> is growth lost because the colony

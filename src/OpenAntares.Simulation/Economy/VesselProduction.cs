@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.State;
@@ -15,7 +16,7 @@ internal static class VesselProduction
         if (!Rules.HasExpansion(state.RulesVersion) || colony.ProjectKind != ProductionKinds.Vessel || colony.ProjectId is not { } id || !content.Vessels.TryGetValue(id, out var role)) return result;
         var eligibility = EmbarkationRules.Evaluate(content, state, colony, role);
         bool eligible = eligibility.Eligible;
-        var reserve = EconomyCalculator.Reserve(colony.ProductionReserve, result.NetProduction.Total, id, role.Cost, eligible) with { TargetKind = ProductionKinds.Vessel, BlockedReasonCode = eligible ? null : "awaiting_embarkation", BlockedRequirements = eligibility.Unmet };
+        var reserve = EconomyCalculator.Reserve(colony.ProductionReserve, result.NetProduction.Total, id, role.Cost, eligible) with { TargetKind = ProductionKinds.Vessel, BlockedReasonCode = eligible ? null : eligibility.Unmet.Any(r=>r.Code=="quarantine")?"quarantine":"awaiting_embarkation", BlockedRequirements = eligibility.Unmet };
         if (!eligible) reserve = reserve with { Estimate = new TurnEstimate(null) };
         result = result with { Production = reserve };
         if (reserve.CompletedId is null) return result;

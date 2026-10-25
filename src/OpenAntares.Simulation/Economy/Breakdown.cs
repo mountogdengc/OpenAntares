@@ -63,6 +63,10 @@ public sealed record DivisionDetails(Int128 Numerator, long Divisor, long Quotie
 /// <summary>Stable breakdown line kinds.</summary>
 public static class BreakdownKinds
 {
+    public const string CrisisIllness="crisis_illness";
+    public const string CrisisQuarantine="crisis_quarantine";
+    public const string CrisisCivic="crisis_civic";
+    public const string CrisisCure="crisis_cure";
     /// <summary>Assigned workers times the planet type's per-worker rate.</summary>
     public const string Workers = "workers";
 

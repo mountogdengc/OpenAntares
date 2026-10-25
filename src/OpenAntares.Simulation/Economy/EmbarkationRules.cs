@@ -11,6 +11,7 @@ public static class EmbarkationRules
     public static EmbarkationEligibility Evaluate(ContentSet content, GameState snapshot, ColonyState colony, VesselDefinition role)
     {
         var unmet=ImmutableArray.CreateBuilder<EmbarkationRequirement>();
+        if(role.EmbarkPopulation>0&&snapshot.FindPlanet(colony.PlanetId) is {} port&&Crises.CrisisQueries.PortClosed(snapshot,colony.EmpireId,port.StarId))unmet.Add(new("quarantine",0,1));
         if(colony.Population < role.MinimumSourcePopulation) unmet.Add(new("minimum_population",colony.Population,role.MinimumSourcePopulation));
         if(colony.Workforce.Support < role.EmbarkPopulation) unmet.Add(new("support_workers",colony.Workforce.Support,role.EmbarkPopulation));
         if(role.CanFoundColony && colony.Population-role.EmbarkPopulation < 1) unmet.Add(new("remaining_population",colony.Population-role.EmbarkPopulation,1));

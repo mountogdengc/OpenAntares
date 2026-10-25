@@ -45,8 +45,8 @@ public static class FoundingRules
         if(state.Colonies.Any(c=>c.PlanetId==target)) return Reject("target_occupied");
         if(state.Vessels.Any(v=>v.Id!=vesselId && v.EmpireId==issuer && v.PendingFounding==target)) return Reject("target_reserved");
         // An unpublished one-colony calculation frame: no entity allocation or authoritative RNG draw.
-        var colony=new ColonyState{Id=new(vesselId.Value),PlanetId=target,EmpireId=issuer,Population=population,Workforce=new(population,0,0),HabitatMode=Rules.HasSpecies(state.RulesVersion)?mode:null};
-        var frame=new GameState{RulesVersion=state.RulesVersion,Random=state.Random.Clone(),Empires=new(){owner!.Clone()},Planets=new(){new PlanetState{Id=target,StarId=planet.StarId,Orbit=known.Orbit,PlanetTypeId=known.PlanetTypeId,EnvironmentId=known.EnvironmentId}}};
+        var colony=new ColonyState{Crisis=Rules.HasCrises(state.RulesVersion)?new():null,Id=new(vesselId.Value),PlanetId=target,EmpireId=issuer,Population=population,Workforce=new(population,0,0),HabitatMode=Rules.HasSpecies(state.RulesVersion)?mode:null};
+        var frame=new GameState{Crisis=state.Crisis?.Clone(),RulesVersion=state.RulesVersion,Random=state.Random.Clone(),Empires=new(){owner!.Clone()},Planets=new(){new PlanetState{Id=target,StarId=planet.StarId,Orbit=known.Orbit,PlanetTypeId=known.PlanetTypeId,EnvironmentId=known.EnvironmentId}}};
         var economic=EconomyCalculator.CalculateColony(content,frame,colony);
         return new(target,mode,population,capacity,null){Economy=new(economic.SupportProduced,economic.SupportRequired,economic.GrowthEarned)};
     }

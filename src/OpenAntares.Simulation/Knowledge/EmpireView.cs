@@ -1,3 +1,4 @@
+using OpenAntares.Simulation.Crises;
 using OpenAntares.Simulation.Appearance;
 using OpenAntares.Simulation.Development;
 using System.Collections.Immutable;
@@ -22,6 +23,7 @@ public sealed record KnownPlanetView(PlanetId Id, int Orbit, string PlanetTypeId
 public sealed record StarView(ChartedStar Chart, ImmutableArray<KnownPlanetView>? Planets, int? LastObservedTurn, bool Current);
 public sealed record OwnedColonyView(ColonyId Id, PlanetId PlanetId, StarId StarId, EmpireId EmpireId, int Population, Workforce Workforce, int GrowthProgress, long ProductionReserve, string? ProjectId, string ProjectKind, ImmutableArray<string> CompletedBuildingIds, ColonyEconomy Economy)
 {
+    public CrisisCaseView? Crisis { get; init; }
     public int Turn { get; init; }
     public ColonyDevelopmentView? Development { get; init; }
     public int RulesVersion { get; init; }
@@ -33,6 +35,7 @@ public sealed record OwnedColonyView(ColonyId Id, PlanetId PlanetId, StarId Star
 }
 public sealed record OwnedVesselView(VesselId Id, EmpireId EmpireId, string RoleId, StarId? StationaryStarId, TransitState? Transit, StarId? PendingMove, PlanetId? PendingFounding, int CarriedPopulation)
 {
+    public CrisisVesselView? Crisis { get; init; }
     public ImmutableArray<Colonization.FoundingPreview> FoundingPreviews { get; init; } = ImmutableArray<Colonization.FoundingPreview>.Empty;
 }
 public sealed record OwnResearchView(EmpireId Id, long Reserve, string? TargetId, ImmutableArray<string> KnownTechnologyIds, EmpireEconomy Economy)
@@ -45,6 +48,7 @@ public sealed record ForeignVesselView(VesselId Id, EmpireId EmpireId, string Ro
 public sealed record ContactView(EmpireId OtherEmpireId, string SpeciesId, string SpeciesName, string CultureName, int FirstObservedTurn);
 public sealed record EmpireView(int Turn, EmpireId Viewer, int RulesVersion, GalaxyMapView Galaxy, ImmutableArray<StarView> Stars, ImmutableArray<OwnedColonyView> Colonies, ImmutableArray<OwnedVesselView> Vessels, ImmutableArray<ForeignVesselView> ForeignVessels, OwnResearchView Research)
 {
+    public CrisisView? Crisis { get; init; }
     public EmpireDevelopmentView? Development { get; init; }
     public ImmutableArray<ContactView> Contacts { get; init; } = ImmutableArray<ContactView>.Empty;
     public string? SpeciesId { get; init; }
