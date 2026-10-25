@@ -4,7 +4,7 @@
 
 OpenAntares is an original turn-based space4X: C#/Godot .NET presentation, independent deterministic simulation. The approved classic Master of Orion II love-letter direction and fanciful aliens respectful of real peoples/beliefs remain authoritative.
 
-Current phase: owner approved the separate14-task M6 colony-crisis/plague implementation plan2026-10-25. Native inline execution is In Progress on isolated codex/colony-crises; no main integration authorized. M5 colony presentation corrections remain verified and integrated locally into main. Updated2026-10-25 America/Denver. Current new-game rules5 retained; isolated writer7 supports22 explicit pairs. Ready/AI/UI integration still pending; no release.
+Current phase: all fourteen M6 colony-crisis/plague implementation tasks have passed their isolated technical gates on `codex/colony-crises`; one fresh independent whole-branch review remains. Main stays at rules5/writer6. This branch defaults new games to rules6 Standard, retains Off, and writes schema7 with22 explicit pairs. No main integration or release is authorized. Updated2026-10-25 America/Denver.
 
 ## 2. Implemented milestone
 
@@ -22,11 +22,13 @@ One fresh read-only whole-branch review found duplicate vessel notices and an ov
 | M5-I colony development | Verified | All twelve COL child criteria within local automated/design scope |
 | M6-D colony crises/plague | Verified | Full owner design approval2026-10-25, ADR-014/CRI-AC-012 |
 | M6-P | Verified | Owner approved the separate14-task plan2026-10-25; Native inline retained |
-| M6-I | In Progress | Tasks1..11 verified: baseline/data/persistence/forecasts/commands/health/cargo/full turn transaction/Ready/AI/crisis response UI/notifications; generated acceptance and activation remain pending |
+| M6-I | Implemented, Unverified | Tasks1..14 locally gated; independent whole-branch review and disposition remain |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
 | Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 
 COL-AC-001..011 are Verified for local automated scope; COL-AC-012 for design. The three earlier Minor deferrals are closed. Parent17-row totals remain12 Verified,3 Implemented, Unverified,1 In Progress,1 Deferred.
+
+CRI-AC-001..011 are Implemented, Unverified pending the fresh independent review; CRI-AC-012 is Verified for approved design. The parent REQ-017 and17-row totals are unchanged.
 
 ## 4. Verification
 
@@ -36,22 +38,24 @@ Fresh integrated main `fc29d0b56073752e24bd35e99f5739d8100e73a3`:988 simulation,
 
 Actual controls/signals cover historical wording,30-colony deletion references at800/1920, notification levels, both unified vessel actions, stale-report replacement, save/load and canonical/readiness purity. Fresh vessel Attention800 PNG inspected. Original gallery/legacy/generated-campaign evidence is retained.
 
+M6 isolated branch checkpoint: fresh1,264/1,264 simulation suite and283/283 Crisis filter; sequential Crisis, Colony, Rival, Species, Expansion and Legacy graphical runs produced4,119 passing assertions,22 provenance and27 geometry rows,230 existing QA saves and161 PNGs, with zero Godot errors. Ordinary rebuild had zero warnings/errors; all six harness classes appeared only under opt-in validation and were absent from the ordinary assembly. Generated Standard campaigns, spontaneous onset, recovery, cargo transfer and three canonical Save/Load futures were exercised. See [criterion mapping and limits](reports/CRISIS_VALIDATION_2026-10-25.md) and [machine summary](reports/crisis-execution/final-machine-summary.json). The initial failed Species run and correction to stale current-version assertions are retained.
+
 ## 5. Decisions and boundaries
 
-Preserve architecture, deterministic integer rules, command authority, JSON/versioning and approved subsystem contracts. Sixteen explicit compatibility pairs retain genuine rules1/2/3/4 behavior. No product content/art/dependency/rules/schema/AI changes. The owner approved the full M6 plague contract, including costs/timing/transport/culture deferral/rules6-writer7 target: [ADR-014](docs/DECISIONS/ADR-014-approved-colony-crisis-plague-design.md), [approved specification](docs/superpowers/specs/2026-10-24-colony-crises-plague-design.md). The [14-task plan](docs/superpowers/plans/2026-10-25-colony-crises-plague.md) is written/self-reviewed; its review is pending. Approved targets are not active product behavior. ADR-013 remains historical drafting authority. Ledger rulings/costs cover sorted valid fixtures, finish-gate sequencing, retained evidence and every reviewer declined item.
+Preserve architecture, deterministic integer rules, command authority, JSON/versioning and approved subsystem contracts. Sixteen historical compatibility pairs retain genuine rules1/2/3/4 behavior; writer7 now has22 explicit pairs on this branch. The owner-approved M6 plague contract, including costs/timing/transport/culture deferral, is implemented here: [ADR-014](docs/DECISIONS/ADR-014-approved-colony-crisis-plague-design.md), [approved specification](docs/superpowers/specs/2026-10-24-colony-crises-plague-design.md), [14-task plan](docs/superpowers/plans/2026-10-25-colony-crises-plague.md). ADR-013 remains historical drafting authority. The [execution ledger](reports/crisis-execution/progress.md) and validation report record implementation rulings and their costs.
 
-Plague/containment/emergency acknowledgement have full M6 design approval; separate implementation-plan review is next, implementation remains Not Started. Revolts, broader culture mechanics, fleet/scout doctrine, warfare/diplomacy, peaceful mode, multiplayer and victory remain future scope.
+Plague, containment and emergency acknowledgement are implemented within M6 scope on this isolated branch. Revolts, broader culture mechanics, fleet/scout doctrine, warfare/diplomacy, peaceful mode, multiplayer and victory remain future scope.
 
 ## 6. Repository and preservation
 
-Primary F:/Projects-PCGames/OpenAntares remains on mainfa2a07f33e6ef2e8d24549d0dcda635221068cd8. M5 correction integration was fc29d0b56073752e24bd35e99f5739d8100e73a3, followed by that authored handoff commit; its preservation audit remains retained in chat. For this documentation-only request, the clean existing colony worktree was fast-forwarded to mainfa2a07f and switched to new branch codex/colony-crisis-design. Retain codex/colony-development-design and all existing branches/seven worktrees; no new worktree or main integration.
+Primary `F:/Projects-PCGames/OpenAntares` remains on `main` at `fa2a07f33e6ef2e8d24549d0dcda635221068cd8`. M5 correction integration was `fc29d0b56073752e24bd35e99f5739d8100e73a3`, followed by that authored handoff commit. M6 execution uses the retained `.worktrees/colony-development-design` checkout on `codex/colony-crises`; the older design branch remains. Seven worktrees remain; no main integration.
 
-Exactly four original owner changes remain on primary main outside this design branch/authored commits: PROJECT_STATUS.md's peaceful-mode paragraph, docs/SPECIES_ROSTER.md, docs/research/faction-survey.md and untracked docs/FEATURE_REQUESTS.md. Other three files byte-identical; exact owner paragraph restored unstaged. Status-only recovery `29db8cd8e96c7cc80303bacd78b66497cfbe9329` and exact four-file chat backup `.colony-polish-preservation-20261024-204739` retained. Indexed status excludes owner prose; final index empty. No broad stash application, push/release/history rewrite/cleanup. All old saves, failed/successful QA and scratch retained.
+Exactly four original owner changes remain on primary main outside this branch: `PROJECT_STATUS.md`'s peaceful-mode paragraph, `docs/SPECIES_ROSTER.md`, `docs/research/faction-survey.md` and untracked `docs/FEATURE_REQUESTS.md`. Fresh SHA256 comparison of all four files with the Task5 preservation record is exact; main index remains empty. Status-only recovery `29db8cd8e96c7cc80303bacd78b66497cfbe9329` and exact four-file chat backup `.colony-polish-preservation-20261024-204739` remain. No broad stash application, push/release/history rewrite/cleanup. All old saves, failed/successful QA and scratch remain.
 
 ## 7. Remaining limits
 
-No open correction finding or newly deferred Minor. Physical mouse/keyboard/controller and OS focus, comfortable reading/accessibility/uncoached comprehension, subjective aesthetics, balance/long-campaign enjoyment, Linux/macOS/ARM, hostile-input fuzzing/security/dependency audits, clean installation/export and release remain unverified or deferred. Invalid unsorted campaign storage remains outside the valid-state contract. Deferred human acceptance does not block this authorized technical work.
+Fresh independent M6 review is pending. Physical mouse/keyboard/controller and OS focus, comfortable reading/accessibility/uncoached comprehension, subjective aesthetics, balance/long-campaign enjoyment, Linux/macOS/ARM, hostile-input fuzzing/security/dependency audits, clean installation/export and release remain unverified or deferred. Invalid unsorted campaign storage remains outside the valid-state contract. Deferred human acceptance does not block this authorized technical work.
 
 ## 8. Next concrete action
 
-Execute all14 approved plan tasks continuously under Native inline, then one fresh whole-branch review and regression-first Important corrections. Task1 freezes genuine rules5 futures before any product change; subsequent tasks add rules6 state/content, strict writer7, economics, commands, health/cargo, Ready/AI and UI, then generated campaigns and late default activation. Read the execution ledger before resuming. Preserve primary mainfa2a07f/four exact owner changes/seven worktrees and all saves/recovery/evidence. Main integration, push/release and cleanup remain unauthorized. CRI-AC-001..011 are not yet verified; ADR-014 design approval is retained.
+Conduct one fresh read-only whole-branch review against the approved M6 specification and Task14 evidence, then make at most one regression-first correction pass for Important/Critical findings. Preserve primary main, the four exact owner changes, all seven worktrees and every retained save/recovery/evidence file. Main integration, push/release and cleanup remain separate decisions. CRI-AC-001..011 are not yet independently verified; ADR-014 design approval remains Verified.

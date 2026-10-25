@@ -28,8 +28,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M5-P | Plan colony-development implementation | Approved M5-D; retained Native | Twelve-task plan self-review and owner plan confirmation | Verified; owner approved with “yes” |
 | M5-I | Implement approved colony-development slice | Approved M5-P; isolated execution/preserved genuine old campaigns | COL criteria and retained gates, independent whole-branch review | Verified for local automated scope; authorized corrections verified/integrated |
 | M6-D | Define bounded colony crises, beginning with plague | Owner direction/ADR-013; preserve M5 | Full design/builder check/owner review | Verified for design; ADR-014 full approval2026-10-25 |
-| M6-P | Plan colony-crisis implementation | Approved M6-D/ADR-014 | Separate14-task plan/self-review/owner review | In Progress; written plan awaiting owner review |
-| M6-I | Implement approved crisis slice | Approved separate M6-P | CRI criteria, retained gates, independent review | Not Started |
+| M6-P | Plan colony-crisis implementation | Approved M6-D/ADR-014 | Separate14-task plan/self-review/owner review | Verified; owner approved Native inline execution |
+| M6-I | Implement approved crisis slice | Approved separate M6-P | CRI criteria, retained gates, independent review | Implemented, Unverified; fourteen task gates passed, whole-branch review pending |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -37,7 +37,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review the [14-task crisis implementation plan](superpowers/plans/2026-10-25-colony-crises-plague.md). Full design is approved in ADR-014; M6-D/CRI-AC-012 Verified, M6-P In Progress for plan review, implementation Not Started. Retain Native execution after that review. Read current PROJECT_STATUS.md and reports/COLONY_CRISIS_IMPLEMENTATION_PLAN_REVIEW_2026-10-25.md. No application changes/runtime test or main integration is part of this planning turn.
+Conduct one fresh independent whole-branch review of the approved [14-task crisis implementation plan](superpowers/plans/2026-10-25-colony-crises-plague.md) as executed on `codex/colony-crises`, using the [Task14 validation report](../reports/CRISIS_VALIDATION_2026-10-25.md). M6-D/CRI-AC-012 and M6-P are Verified; M6-I/CRI-AC-001..011 are Implemented, Unverified. Resolve Important/Critical findings with one regression-first correction pass. Preserve main and the owner's existing changes; integration is separate.
 
 ## Risks and autonomy
 
