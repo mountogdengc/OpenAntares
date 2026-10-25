@@ -19,7 +19,7 @@ public static partial class CommandProcessor
         if (result.Changed && Rules.HasDevelopment(state.RulesVersion)) ApplyManualIntervention(result.State, command);
         if(result.Changed&&result.State.Turn==state.Turn&&Rules.HasScouting(state.RulesVersion))
         {
-            try{ReconcileScoutConsent(content,state,result.State,command.Issuer);}
+            try{if(command is not CrisisCommand)ReconcileScoutConsent(content,state,result.State,command.Issuer);}
             catch(OverflowException){return CommandOutcome.Reject(state,"ameba_encounter_stale","Encounter revision limit reached.");}
             Scouting.ScoutReports.RecordCommand(state,result.State,command);
         }

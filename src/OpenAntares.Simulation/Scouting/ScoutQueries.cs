@@ -52,11 +52,22 @@ public static class ScoutQueries
                 return route;
             }
             var fallback=Fallback();
+            ScoutRouteView? Route(StarId? target)
+            {
+                if(target is not {} id||!LegalRoute(c,frame,v,id))return null;
+                var observed=frame.Stars.Single(star=>star.Chart.Id==id);
+                return new(id,observed.Chart.Name,Duration(c,frame,v,id),observed.LastObservedTurn,encounter is not null&&scout?.Posture==ScoutPosture.AvoidEncounters&&id==fallback&&NeutralExcluded(frame,id));
+            }
             if(departure is {} pending&&(!LegalRoute(c,frame,v,pending)||Forbidden(pending)&&scout?.ApproachAcceptance?.Destination!=pending&&pending!=fallback))
             {
                 departure=null;
-                commands.Add(new SetMoveOrderCommand(owner,s.Turn,v.Id,null));
-                outcomes.Add(new(owner,s.Turn,v.Id,v.RoleId,v.CarriedPopulation,v.StationaryStarId??v.Transit!.Origin,"move_cancelled","Standing order excludes this destination.",pending));
+                // Humans retain authority over ordinary cargo. Its legality still matters
+                // for encounter blocking, but scout preparation cannot cancel its orders.
+                if(scout is not null)
+                {
+                    commands.Add(new SetMoveOrderCommand(owner,s.Turn,v.Id,null));
+                    outcomes.Add(new(owner,s.Turn,v.Id,v.RoleId,v.CarriedPopulation,v.StationaryStarId??v.Transit!.Origin,"move_cancelled","Standing order excludes this destination.",pending));
+                }
             }
             if((encounter is not null&&encounter.RiskOrder is null||neutralWithdrawal)&&departure is null&&(scout?.WithdrawFromAmeba==true||ai&&encounter is not null)&&v.Transit is null)
             {
@@ -65,7 +76,9 @@ public static class ScoutQueries
                 {
                     if(commands.Count>0&&commands[commands.Count-1] is SetMoveOrderCommand {Destination:null} cancelled&&cancelled.Vessel==v.Id)commands.RemoveAt(commands.Count-1);
                     commands.Add(encounter is not null&&scout is not null?new SetScoutRetreatOrderCommand(owner,s.Turn,v.Id,target):new SetMoveOrderCommand(owner,s.Turn,v.Id,target));
-                    outcomes.Add(new(owner,s.Turn,v.Id,v.RoleId,v.CarriedPopulation,v.StationaryStarId!.Value,"retreat_planned","Ordinary retreat prepared to a known system; survey freshness remains as recorded.",target));
+                    var route=Route(target)!;string freshness=route.LastObservedTurn is {} observed?$"Observed turn {observed}.":"Unsurveyed chart; no observation date.";
+                    string reason=$"Ordinary retreat to {route.Name} ({target}), {route.Duration} turn(s). {freshness}"+(route.SurvivalOverridesNeutralCaution?" Survival overrides neutral Avoid because no known unoccupied retreat is available.":"");
+                    outcomes.Add(new(owner,s.Turn,v.Id,v.RoleId,v.CarriedPopulation,v.StationaryStarId!.Value,"retreat_planned",reason,target));
                 }
             }
             if(neutralWithdrawal&&departure is null)
@@ -86,7 +99,7 @@ public static class ScoutQueries
                 actions.Add(new SetAmebaRiskOrderCommand(owner,s.Turn,v.Id,encounter.Number,encounter.Revision,AmebaRiskAction.Remain));
                 if(scout is not null&&encounter.Stage==AmebaStage.Warning&&!e.SuccessfulStudies.Any(claim=>claim.HabitatId==encounter.HabitatId)&&!frame.Vessels.Any(other=>other.Id!=v.Id&&s.FindVessel(other.Id)?.AmebaEncounter?.RiskOrder?.Action==AmebaRiskAction.Study))actions.Add(new SetAmebaRiskOrderCommand(owner,s.Turn,v.Id,encounter.Number,encounter.Revision,AmebaRiskAction.Study));
             }
-            rows.Add(new(v.Id,v.RoleId,v.CarriedPopulation,scout?.Posture,v.StationaryStarId,v.Transit,v.PendingMove,departure,encounter?.RiskOrder?.Action,encounter?.Stage,encounter?.Number,encounter?.Revision,c.Vessels[v.RoleId].Speed,d.PursuitSpeed,late,study,late*study,d.ResearchReward,encounter?.Stage==AmebaStage.Warning?s.Turn:null,v.Crisis?.Held==true,blocker,acknowledged,actions.ToImmutable()));
+            rows.Add(new(v.Id,v.RoleId,v.CarriedPopulation,scout?.Posture,v.StationaryStarId,v.Transit,v.PendingMove,departure,encounter?.RiskOrder?.Action,encounter?.Stage,encounter?.Number,encounter?.Revision,c.Vessels[v.RoleId].Speed,d.PursuitSpeed,late,study,late*study,d.ResearchReward,encounter?.Stage==AmebaStage.Warning?s.Turn:null,v.Crisis?.Held==true,blocker,acknowledged,actions.ToImmutable(),Route(departure)));
         }
         var attention=tokens.ToImmutable();
         return(new(owner,s.Turn,rows.ToImmutable(),e.KnownHabitats.Select(h=>new KnownAmebaView(h.HabitatId,h.Star,h.ObservedTurn)).ToImmutableArray(),attention,e.CompletedDigests.Concat(e.PendingDigest is {} pendingDigest?new[]{pendingDigest}:Array.Empty<ScoutTurnDigest>()).ToImmutableArray()),new(commands.ToImmutable(),attention,outcomes.ToImmutable(),blockers.ToImmutable()));

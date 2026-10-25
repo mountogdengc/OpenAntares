@@ -140,6 +140,9 @@ public static partial class CommandProcessor
             }
             if(!changed)return CommandOutcome.NoChange(state);
             owner.Ready=false;
+            // Crisis actions can close/cancel the exact departure the owner acknowledged.
+            // Reconcile before validating this candidate, including automatic preparation.
+            if(Rules.HasScouting(state.RulesVersion))ReconcileScoutConsent(content,state,candidate,issuer.Id);
             Require(GameStateValidator.Validate(content,candidate,allowAllHumansReady:automatic).Count==0,"Candidate validation failed.");
             return new(candidate,null,true,null);
         }
