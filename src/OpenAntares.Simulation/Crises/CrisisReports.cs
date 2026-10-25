@@ -90,4 +90,24 @@ public static class CrisisReports
         string whole=(amount/100).ToString(CultureInfo.InvariantCulture);long fraction=amount%100;
         return fraction==0?whole:whole+"."+fraction.ToString("00",CultureInfo.InvariantCulture).TrimEnd('0');
     }
+    public static void TrimRetiredLocations(GameState candidate)
+    {
+        if(!Rules.HasCrises(candidate.RulesVersion))return;
+        foreach(var owner in candidate.Empires.OrderBy(e=>e.Id))
+        {
+            var crisis=owner.Crisis!;var references=new HashSet<ColonyId>();
+            if(crisis.Episode is {} episode)references.Add(episode.Source.Colony);
+            foreach(var colony in candidate.Colonies.Where(c=>c.EmpireId==owner.Id&&c.Crisis?.Case is not null))references.Add(colony.Crisis!.Case!.Origin.Colony);
+            foreach(var receipt in crisis.PendingReceipts)references.Add(receipt.Location.Colony);
+            foreach(var digest in crisis.PendingDigests.Concat(crisis.CompletedDigests))foreach(var entry in digest.Entries)references.Add(entry.Location.Colony);
+            if(owner.Development is {} development)
+            {
+                if(development.PendingReport is {} pending)foreach(var entry in pending.Entries)references.Add(entry.Colony);
+                foreach(var report in development.CompletedReports)foreach(var entry in report.Entries)references.Add(entry.Colony);
+            }
+            foreach(var empire in candidate.Empires)foreach(var survey in empire.Surveys)foreach(var planet in survey.Planets)
+                if(planet.OwnerId==owner.Id&&planet.ColonyId is {} known)references.Add(known);
+            crisis.LostColonyLocations.RemoveAll(l=>!references.Contains(l.Colony));
+        }
+    }
 }

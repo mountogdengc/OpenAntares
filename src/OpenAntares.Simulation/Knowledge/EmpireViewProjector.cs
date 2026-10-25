@@ -68,6 +68,11 @@ public static class EmpireViewProjector
         var owner = state.FindEmpire(viewer) ?? throw new ArgumentException("Empire not found.", nameof(viewer));
         var colonies = report.Economy.Colonies.Where(c => c.Empire == viewer).Select(c =>
         {
+            if(Rules.HasCrises(state.RulesVersion))
+            {
+                if(!report.ColonyLocations.TryGetValue(c.Colony,out var location))throw new InvalidOperationException("Missing original owned colony report location.");
+                return new ColonyReportView(c,c.Colony,location.Star,location.Name);
+            }
             var planet = state.FindPlanet(state.FindColony(c.Colony)!.PlanetId)!; var star = state.FindStar(planet.StarId)!;
             return new ColonyReportView(c, c.Colony, star.Id, $"{star.Name} {planet.Orbit}");
         }).ToImmutableArray();
@@ -77,6 +82,6 @@ public static class EmpireViewProjector
             var species = contact is not null && content.Species.TryGetValue(contact.SpeciesId, out var known) ? known : null;
             return e with { SpeciesId = contact?.SpeciesId, SpeciesName = species?.Name, CultureName = species?.CultureName };
         }).ToImmutableArray() : ImmutableArray<Turns.EncounterEvent>.Empty;
-        return new(report.FromTurn, report.ToTurn, colonies, report.Economy.Empire(viewer), report.ExpansionEvents.Where(e => e.Owner == viewer).ToImmutableArray(), state.Stars.ToImmutableDictionary(s => s.Id, s => s.Name)) { EncounterEvents = encounters };
+        return new(report.FromTurn, report.ToTurn, colonies, report.Economy.Empire(viewer), report.ExpansionEvents.Where(e => e.Owner == viewer).ToImmutableArray(), state.Stars.ToImmutableDictionary(s => s.Id, s => s.Name)) { EncounterEvents = encounters, CrisisEvents=report.CrisisEvents.Where(e=>e.Key.Owner==viewer).ToImmutableArray() };
     }
 }

@@ -4,7 +4,7 @@
 
 OpenAntares is an original turn-based space4X: C#/Godot .NET presentation, independent deterministic simulation. The approved classic Master of Orion II love-letter direction and fanciful aliens respectful of real peoples/beliefs remain authoritative.
 
-Current phase: owner approved the separate14-task M6 colony-crisis/plague implementation plan2026-10-25. Native inline execution is In Progress on isolated codex/colony-crises; no main integration authorized. M5 colony presentation corrections remain verified and integrated locally into main. Updated2026-10-25 America/Denver. Current new-game rules5 retained; isolated writer7 supports22 explicit pairs. Complete turn/Ready/UI integration still pending; no release.
+Current phase: owner approved the separate14-task M6 colony-crisis/plague implementation plan2026-10-25. Native inline execution is In Progress on isolated codex/colony-crises; no main integration authorized. M5 colony presentation corrections remain verified and integrated locally into main. Updated2026-10-25 America/Denver. Current new-game rules5 retained; isolated writer7 supports22 explicit pairs. Ready/AI/UI integration still pending; no release.
 
 ## 2. Implemented milestone
 
@@ -22,7 +22,7 @@ One fresh read-only whole-branch review found duplicate vessel notices and an ov
 | M5-I colony development | Verified | All twelve COL child criteria within local automated/design scope |
 | M6-D colony crises/plague | Verified | Full owner design approval2026-10-25, ADR-014/CRI-AC-012 |
 | M6-P | Verified | Owner approved the separate14-task plan2026-10-25; Native inline retained |
-| M6-I | In Progress | Tasks1..7 verified: baseline/data/persistence/forecasts/commands and labelled health/cargo phases; complete turn/Ready/UI integration remains pending |
+| M6-I | In Progress | Tasks1..8 verified: baseline/data/persistence/forecasts/commands/health/cargo/full turn transaction; Ready/AI/UI integration remains pending |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
 | Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Linq;
+using OpenAntares.Simulation.Crises;
 using OpenAntares.Simulation.Movement;
 using OpenAntares.Simulation.Knowledge;
 using OpenAntares.Simulation.Content;
@@ -9,6 +11,8 @@ using OpenAntares.Simulation.State;
 using OpenAntares.Simulation.Rivals;
 
 namespace OpenAntares.Simulation.Turns;
+
+internal enum CrisisResolutionPhase { Economy,Health,Transport,Finalize,Validation }
 
 /// <summary>The outcome of resolving a turn. On failure, <see cref="State"/> is the unchanged input.</summary>
 public sealed record TurnResolution(GameState State, TurnReport? Report, IReadOnlyList<string> Errors)
@@ -19,6 +23,8 @@ public sealed record TurnResolution(GameState State, TurnReport? Report, IReadOn
 /// <summary>What happened during one turn resolution: the turn transition and the economy that was applied.</summary>
 public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 {
+    public ImmutableArray<Crises.CrisisEvent> CrisisEvents { get; init; } = ImmutableArray<Crises.CrisisEvent>.Empty;
+    public ImmutableDictionary<ColonyId,Crises.CrisisLocation> ColonyLocations { get; init; } = ImmutableDictionary<ColonyId,Crises.CrisisLocation>.Empty;
     public ImmutableArray<ExpansionEvent> ExpansionEvents { get; init; } = ImmutableArray<ExpansionEvent>.Empty;
     public ImmutableArray<EncounterEvent> EncounterEvents { get; init; } = ImmutableArray<EncounterEvent>.Empty;
 }
@@ -30,17 +36,24 @@ public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 /// </summary>
 public static class TurnResolver
 {
-    public static TurnResolution Resolve(ContentSet content, GameState snapshot) => Resolve(content,snapshot,RivalTurnPlanner.Prepare);
+    public static TurnResolution Resolve(ContentSet content, GameState snapshot) => ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null);
+
+    internal static TurnResolution Resolve(ContentSet content,GameState snapshot,Action<CrisisResolutionPhase> hook) => ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,hook);
 
     internal static TurnResolution Resolve(ContentSet content, GameState snapshot, Func<ContentSet,GameState,RivalPlanningOutcome> prepare)
+        => ResolveCore(content,snapshot,prepare,null);
+
+    private static TurnResolution ResolveCore(ContentSet content,GameState snapshot,Func<ContentSet,GameState,RivalPlanningOutcome> prepare,Action<CrisisResolutionPhase>? hook)
     {
         GameState original = snapshot;
         var inputErrors = GameStateValidator.Validate(content, snapshot, allowAllHumansReady: true);
-        if (inputErrors.Count > 0) return new TurnResolution(snapshot, null, inputErrors);
+        if (inputErrors.Count > 0) return Rules.HasCrises(snapshot.RulesVersion)?Failed(snapshot,RivalTurnPlanner.FailureMessage):new TurnResolution(snapshot, null, inputErrors);
         var events = new List<ExpansionEvent>();
         var encounters = ImmutableArray<EncounterEvent>.Empty;
         GameState candidate;
         TurnEconomy economy;
+        TurnReport? crisisReport=null;
+        IReadOnlyList<string>? crisisValidation=null;
         try
         {
             if (Rules.HasRivals(snapshot.RulesVersion))
@@ -50,6 +63,7 @@ public static class TurnResolver
                 snapshot = planned.State;
             }
             candidate = snapshot.Clone();
+            var crisis=Rules.HasCrises(snapshot.RulesVersion)?CrisisResolutionContext.Capture(content,snapshot):null;
             // Phases 1-2: from the snapshot, calculate support, outputs, and growth for every colony in
             // ID order, and research for every empire in ID order. Effects completed this turn apply
             // only from the next snapshot.
@@ -68,6 +82,7 @@ public static class TurnResolver
                 {
                     var vessel = new VesselState { Id = new(candidate.AllocateId()), EmpireId = colony.EmpireId, RoleId = vesselPlan.RoleId, CarriedPopulation = vesselPlan.Cargo, StationaryStarId = vesselPlan.Star };
                     candidate.Vessels.Add(vessel);
+                    if(crisis is not null)CrisisTransport.TagCompletion(content,snapshot,candidate,crisis,colony.Id,vessel);
                     if (result.EmbarkOutcome is { } embark) { colony.Population = embark.PopulationAfter; colony.Workforce = embark.WorkforceAfter; }
                     colony.ProjectId = null; colony.ProjectKind = ProductionKinds.Building;
                     events.Add(new("vessel_completed", colony.EmpireId, vessel.Id, vesselPlan.Star, colony.PlanetId, colony.Id));
@@ -90,10 +105,26 @@ public static class TurnResolver
                 }
             }
 
+            if(crisis is not null)
+            {
+                hook?.Invoke(CrisisResolutionPhase.Economy);
+                CrisisProgression.Apply(content,snapshot,candidate,economy,crisis);
+                hook?.Invoke(CrisisResolutionPhase.Health);
+                CrisisTransport.PrepareDepartures(content,snapshot,candidate,crisis);
+            }
             if (Rules.HasExpansion(snapshot.RulesVersion))
             {
-                MovementResolver.Apply(content, snapshot, candidate, events);
-                Colonization.ColonizationResolver.Apply(content, snapshot, candidate, events);
+                MovementResolver.Apply(content, snapshot, candidate, events,crisis);
+                if(crisis is not null)CrisisTransport.HandleArrivals(content,snapshot,candidate,crisis);
+                Colonization.ColonizationResolver.Apply(content, snapshot, candidate, events,crisis);
+            }
+            if(crisis is not null)
+            {
+                CrisisTransport.ApplyExposures(content,snapshot,candidate,crisis);
+                hook?.Invoke(CrisisResolutionPhase.Transport);
+                CrisisOnset.Apply(content,candidate,crisis);
+                CrisisReports.CloseFinishedEpisodes(content,candidate,crisis);
+                CrisisReports.Finalize(snapshot,candidate,crisis);
             }
 
             // Phase 5: reset readiness, validate, and advance the turn once.
@@ -109,6 +140,16 @@ public static class TurnResolver
             candidate.Turn = checked(candidate.Turn + 1);
             ObservationUpdater.Refresh(candidate, candidate.Turn);
             encounters = ContactUpdater.Refresh(snapshot, candidate);
+            if(crisis is not null)
+            {
+                CrisisReports.TrimRetiredLocations(candidate);
+                hook?.Invoke(CrisisResolutionPhase.Finalize);
+                crisisValidation=GameStateValidator.Validate(content,candidate);
+                if(crisisValidation.Count>0)return Failed(original,RivalTurnPlanner.FailureMessage);
+                hook?.Invoke(CrisisResolutionPhase.Validation);
+                var locations=crisis.Locations.SetItems(candidate.Colonies.Where(c=>!crisis.Locations.ContainsKey(c.Id)).Select(c=>new KeyValuePair<ColonyId,CrisisLocation>(c.Id,CrisisQueries.Location(candidate,c))));
+                crisisReport=new(snapshot.Turn,candidate.Turn,economy){ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations};
+            }
         }
         catch (OverflowException exception)
         {
@@ -117,13 +158,13 @@ public static class TurnResolver
         catch (Exception error) when (Rules.HasRivals(original.RulesVersion) && error is (ArgumentException or InvalidOperationException or KeyNotFoundException))
         { return Failed(original,RivalTurnPlanner.FailureMessage); }
 
-        IReadOnlyList<string> errors = GameStateValidator.Validate(content, candidate);
+        IReadOnlyList<string> errors = crisisValidation??GameStateValidator.Validate(content, candidate);
         if (errors.Count > 0)
         {
             return Rules.HasRivals(original.RulesVersion) ? Failed(original,RivalTurnPlanner.FailureMessage) : new TurnResolution(original, Report: null, errors);
         }
 
-        return new TurnResolution(candidate, new TurnReport(snapshot.Turn, candidate.Turn, economy) { ExpansionEvents = events.ToImmutableArray(), EncounterEvents = encounters }, Array.Empty<string>());
+        return new TurnResolution(candidate, crisisReport??new TurnReport(snapshot.Turn, candidate.Turn, economy) { ExpansionEvents = events.ToImmutableArray(), EncounterEvents = encounters }, Array.Empty<string>());
     }
 
     private static void InsertSorted(List<string> ids, string id)

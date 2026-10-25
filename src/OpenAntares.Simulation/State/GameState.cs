@@ -40,7 +40,11 @@ public sealed class GameState
     public VesselState? FindVessel(VesselId id) => Vessels.FirstOrDefault(v => v.Id == id);
 
     /// <summary>Reserves a fresh entity ID.</summary>
-    public int AllocateId() => NextEntityId++;
+    public int AllocateId()
+    {
+        if(!Rules.HasCrises(RulesVersion))return NextEntityId++;
+        int id=NextEntityId;NextEntityId=checked(NextEntityId+1);return id;
+    }
 
     public EmpireState? FindEmpire(EmpireId id) => Empires.FirstOrDefault(e => e.Id == id);
     public StarState? FindStar(StarId id) => Stars.FirstOrDefault(s => s.Id == id);
