@@ -36,7 +36,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 9
 - [x] Task 10
 - [x] Task 11
-- [ ] Task 12
+- [x] Task 12
 - [ ] Task 13
 - [ ] Task 14
 - [ ] Task 15
@@ -90,3 +90,9 @@ Task 11: complete (commits 5ac455f..84aca2a, tests: dotnet test tests/OpenAntare
 
 Task 12: started BASE 84aca2a57a539268fd739ffa943f911c1091589b; brief task12-brief.md
 Task 12 evidence: actual Crisis scene RED missing scout overview after404 retained checks; control run exposed native modal/resource issues despite450 passed assertions. Added explicit report handoff/reopen regressions and watched both fail. Verified Crisis454/454 =404 retained+50 scout checks at800/1920,0 engine/stdout diagnostics, normal rebuild0 warnings/errors/six exclusions; Suite1386/1386. Screenshots inspected; no physical-input/readability acceptance. See reports/scout-execution/task12-validation.md. Consumer audit note for Task13: test and refresh own static habitat last-observed date while present; current code only records first arrival.
+Task 12: complete (commits 84aca2a..63398b3, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task12-completion.log)
+
+Task 13: started BASE 63398b3470a4ef743c485611680c4eed99b7c9e2; brief task13-brief.md
+Task 13: Ruling: acceptance inspection found static habitat date stayed at first arrival during continued own presence — add a regression and refresh only that empire from ordinary final own presence in AmebaResolver — cost if wrong: an extra simulation diff in Task13; it must preserve unseen foreign dates and old futures.
+Task 13: Ruling: inspected30-row capture showed selected last encounter jumping above the viewport after refresh — add an actual-control RED and preserve the selected row with deferred layout-aware scrolling in the shared overview — cost if wrong: an extra Task12 UI-file correction in Task13; affected Scout/Crisis gates rerun.
+Task 13 evidence: actual seventh scene RED on missing seventh-type negative control; date regression RED11-versus10 then GREEN16/16 resolution tests. Initial Scout184/184 plus inspected30-row screenshot exposed scroll continuity; actual selected-row RED observed, deferred row retention fixed. Final Scout186, Legacy493, Expansion275, Species1194, Rival1158, Colony670, Crisis454 records all pass with0 engine/process diagnostics; each opt-in7/ordinary0/helper0. All6 retained gates sequential, affected Scout/Crisis rerun. Suite1387/1387, normal rebuild0 warnings/errors. Actual generated UI Save/Load and4 futures each at Warning/Exposed/transit; generated Study55 recorded, threshold fixtures labelled separately. See task13-validation.md/machine-summary; CurrentVersion6, writer8 retained until Task14.

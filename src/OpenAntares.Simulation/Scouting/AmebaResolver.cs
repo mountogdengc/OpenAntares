@@ -47,6 +47,13 @@ public static class AmebaResolver
             e.KnownHabitats.Sort((x,y)=>x.HabitatId.CompareTo(y.HabitatId));
             context.Events.Add(new(v.EmpireId,context.ToTurn,v.Id,v.RoleId,v.CarriedPopulation,habitat.Star,"warning","Space ameba discovered. Departure during the next planning opportunity is certain and uses normal travel time.",Percent:100,EncounterNumber:number,Revision:1));
         }
+        foreach(var owner in candidate.Empires.OrderBy(e=>e.Id))
+        {
+            if(!Knowledge.ObservationUpdater.IsCurrent(candidate,owner.Id,habitat.Star))continue;
+            var knowledge=owner.Scouting!.KnownHabitats;int index=knowledge.FindIndex(h=>h.HabitatId==habitat.Id);
+            if(index<0)throw new InvalidOperationException("Current habitat presence lacks its own discovery.");
+            knowledge[index]=knowledge[index] with{ObservedTurn=context.ToTurn};
+        }
     }
     public static void DepositResearch(ContentSet c,GameState candidate,AmebaResolutionContext context)
     {

@@ -11,6 +11,11 @@ using Xunit;
 namespace OpenAntares.Simulation.Tests;
 public sealed class ScoutingResolutionTests
 {
+    [Fact] public void CurrentOwnPresenceRefreshesStaticHabitatDateWhileLostObservationRetainsPriorDate()
+    {
+        var g=Risk(ScoutingFixtures.WithNextDraw(ScoutingFixtures.AtAmeba(),74),AmebaRiskAction.Study);var result=Ready(g);Assert.True(result.Accepted,result.Rejection?.Message);Assert.Equal(11,result.State.Empires[0].Scouting!.KnownHabitats.Single().ObservedTurn);
+        g=Risk(ScoutingFixtures.AtAmeba(),AmebaRiskAction.Remain);result=Ready(g);Assert.True(result.Accepted,result.Rejection?.Message);Assert.Equal(10,result.State.Empires[0].Scouting!.KnownHabitats.Single().ObservedTurn);
+    }
     internal static LoadedGame Risk(LoadedGame g,AmebaRiskAction action)
     {var v=g.State.Vessels[0];var r=CommandProcessor.Execute(g.Content,g.State,new SetAmebaRiskOrderCommand(v.EmpireId,g.State.Turn,v.Id,v.AmebaEncounter!.Number,v.AmebaEncounter.Revision,action));Assert.True(r.Accepted,r.Rejection?.Message);return ScoutingReadyTests.Acknowledge(g with{State=r.State});}
     internal static CommandOutcome Ready(LoadedGame g)=>CommandProcessor.Execute(g.Content,g.State,new SetReadyCommand(g.State.Empires[0].Id,g.State.Turn,true));

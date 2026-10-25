@@ -26,6 +26,7 @@ public partial class ScoutOverviewDialog:AcceptDialog
         var list=new ItemList{Name="ScoutVesselList",CustomMinimumSize=new(0,100)};_body.AddChild(list);
         if(!view.Vessels.Any(v=>v.Id==_selected))_selected=view.Vessels.FirstOrDefault()?.Id;
         foreach(var row in view.Vessels){list.AddItem($"{content.Vessels[row.RoleId].Name} {row.Id.Value}: {row.Stage?.ToString()??(row.Transit is not null?"Travelling":row.Posture?.ToString()??"Population expedition")}");if(row.Id==_selected)list.Select(list.ItemCount-1);}
+        Callable.From(()=>{if(GodotObject.IsInstanceValid(list)&&list.IsInsideTree())list.EnsureCurrentIsVisible();}).CallDeferred();
         list.ItemSelected+=index=>{_selected=view.Vessels[(int)index].Id;ShowScouting(content,_view!);};
         var vessel=view.Vessels.FirstOrDefault(v=>v.Id==_selected);
         if(vessel is not null)

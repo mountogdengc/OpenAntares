@@ -28,10 +28,10 @@ internal static class ScoutUiControlChecks
         }
         return ContentLoader.Load(files,requireScouting:true).Content??throw new InvalidOperationException("Complete scout content failed.");
     }
-    internal static LoadedGame LabelledWarning(bool cargo=false,int speed=300,int count=1)
+    internal static LoadedGame LabelledWarning(bool cargo=false,int speed=300,int count=1,bool crisesEnabled=false)
     {
         var c=CompleteContent();if(speed!=300)c=c with{Vessels=c.Vessels.SetItem("scout",c.Vessels["scout"] with{Speed=speed})};
-        var generated=GalaxyGenerator.CreateNewGame(c,new("small",42,7,"harl",0,CrisesEnabled:false,AmebasEnabled:true));if(!generated.Succeeded)throw new InvalidOperationException(generated.Error);var s=generated.State!;s.Turn=10;var owner=s.Empires[0];var h=s.Scouting!.Habitat!;var v=s.Vessels[0];v.StationaryStarId=h.Star;v.AmebaEncounter=new(){Number=1,HabitatId=h.Id,ArrivalTurn=10};owner.Scouting!.NextEncounterNumber=2;owner.Scouting.KnownHabitats.Add(new(h.Id,h.Star,10));
+        var generated=GalaxyGenerator.CreateNewGame(c,new("small",42,7,"harl",0,CrisesEnabled:crisesEnabled,AmebasEnabled:true));if(!generated.Succeeded)throw new InvalidOperationException(generated.Error);var s=generated.State!;s.Turn=10;var owner=s.Empires[0];var h=s.Scouting!.Habitat!;var v=s.Vessels[0];v.StationaryStarId=h.Star;v.AmebaEncounter=new(){Number=1,HabitatId=h.Id,ArrivalTurn=10};owner.Scouting!.NextEncounterNumber=2;owner.Scouting.KnownHabitats.Add(new(h.Id,h.Star,10));
         if(cargo){v.RoleId="harl_settler";v.CarriedPopulation=c.Vessels[v.RoleId].EmbarkPopulation;v.Scout=null;}
         for(int i=1;i<count;i++){var extra=v.Clone();extra.Id=new(s.AllocateId());extra.AmebaEncounter!.Number=owner.Scouting.NextEncounterNumber++;s.Vessels.Add(extra);}
         ObservationUpdater.Refresh(s,10);ContactUpdater.Refresh(s.Clone(),s);var errors=GameStateValidator.Validate(c,s);if(errors.Count!=0)throw new InvalidOperationException(string.Join("; ",errors));return new(c,s);
