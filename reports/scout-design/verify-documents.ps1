@@ -25,10 +25,10 @@ $taskOldRegister = (Read-TaskGit $taskRepo @('show', "${taskBase}:docs/SPECIFICA
 $taskRows = @([regex]::Matches($taskRegister, '(?m)^\| REQ-\d{3} \|[^\r\n]+') | ForEach-Object { $_.Value })
 $taskOldRows = @([regex]::Matches($taskOldRegister, '(?m)^\| REQ-\d{3} \|[^\r\n]+') | ForEach-Object { $_.Value })
 Assert-Task ($taskRows.Count -eq 17 -and ($taskRows -join "`n") -eq ($taskOldRows -join "`n")) 'Parent rows changed'
-$taskCounts = @{}
+$taskCounts = [ordered]@{}
 foreach ($taskRow in $taskRows) {
     $taskStatusCell = $taskRow.Split('|')[4].Trim()
-    if (-not $taskCounts.ContainsKey($taskStatusCell)) { $taskCounts[$taskStatusCell] = 0 }
+    if (-not $taskCounts.Contains($taskStatusCell)) { $taskCounts[$taskStatusCell] = 0 }
     $taskCounts[$taskStatusCell]++
 }
 Assert-Task ($taskCounts['Verified'] -eq 12 -and $taskCounts['Implemented, Unverified'] -eq 3 -and $taskCounts['In Progress'] -eq 1 -and $taskCounts['Deferred'] -eq 1) 'Parent status counts differ'
@@ -112,5 +112,5 @@ $taskResult = [ordered]@{
     genuineRules6FutureCaptureRun = $false
     integrationPushReleaseCleanup = $false
 }
-[System.IO.File]::WriteAllText($taskOutput, (($taskResult | ConvertTo-Json -Depth 8) + "`n"), $taskUtf8)
+[System.IO.File]::WriteAllText($taskOutput, ((($taskResult | ConvertTo-Json -Depth 8) -replace "`r`n", "`n") + "`n"), $taskUtf8)
 $taskResult | ConvertTo-Json -Depth 8
