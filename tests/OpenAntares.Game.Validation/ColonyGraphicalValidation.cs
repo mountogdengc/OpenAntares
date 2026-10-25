@@ -132,19 +132,29 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
             Check(!Badge("CompletionAttentionBadge"),"Attention does not fabricate completed work from a finishable forecast");
             Check(Snapshot(Session(screen))==canonical,"Changing notification levels preserves campaign and Ready");
             await SetLevels(NotificationLevel.Summary);await EndTurn(screen);var report=One<TurnReportDialog>(screen);
-            string productionName=vessel?content.Vessels[target].Name:content.Buildings[target].Name;
-            Label[] Notices()=>Descendants<Label>(report).Where(l=>l.Text.Contains("Completed "+productionName+".",StringComparison.Ordinal)||l.Text.Contains("Researched "+content.Technologies["cultivation_methods"].Name+".",StringComparison.Ordinal)).ToArray();
-            Check(Notices().Length==2&&Notices().All(l=>l.ThemeTypeVariation!="WarningLabel"),"Summary displays ordinary production and research completion notices");
+            Label[] Notices()=>Descendants<Label>(report).Where(l=>l.Text.Contains("Completed ",StringComparison.Ordinal)||l.Text.Contains("Researched ",StringComparison.Ordinal)||l.Text.Contains("Expedition completed",StringComparison.Ordinal)).ToArray();
+            Check(Notices().Length==2&&Notices().All(l=>l.ThemeTypeVariation!="WarningLabel"),"Summary displays exactly two completion notices including any expedition wording");
             Check(!Badge("GovernorActionAttentionBadge")&&!Badge("CompletionAttentionBadge"),"Summary does not raise routine Attention badges");
+            if(vessel)
+            {
+                ColonyId? chosen=null;VesselId? inspected=null;
+                report.ChooseProjectRequested+=id=>chosen=id;report.VesselRequested+=id=>inspected=id;
+                var choose=Button(report,"Choose next project");await Reach(choose);Press(choose);await Frames();
+                Check(chosen==colony.Id,"Unified vessel completion retains choose-next-project navigation");
+                await ReopenReport();report=One<TurnReportDialog>(screen);
+                var inspect=Button(report,"View vessel");await Reach(inspect);Press(inspect);await Frames();
+                Check(Session(screen).State.Vessels.Any(v=>v.Id==inspected&&v.EmpireId==owner.Id&&v.RoleId==target&&!state.Vessels.Any(before=>before.Id==v.Id)),"Unified vessel completion retains completed-vessel navigation");
+                await ReopenReport();report=One<TurnReportDialog>(screen);
+            }
             report.Hide();await Frames();canonical=Snapshot(Session(screen));await SetLevels(NotificationLevel.Attention);
             Check(Badge("GovernorActionAttentionBadge")&&Badge("CompletionAttentionBadge"),"Attention raises nonblocking recorded-action and actual-completion badges");
             Check(Descendants<Label>(One<ColonyList>(screen)).Single(l=>l.Name=="CompletionAttentionBadge").Text.Contains("2 completions",StringComparison.Ordinal),"Production and research count once each, without duplicate vessel events");
             await ReopenReport();report=One<TurnReportDialog>(screen);
-            Check(Notices().Length==2&&Notices().All(l=>l.ThemeTypeVariation=="WarningLabel"&&l.Text.StartsWith("Attention:",StringComparison.Ordinal)),"Attention visibly highlights production and research completion rows");
+            Check(Notices().Length==2&&Notices().All(l=>l.ThemeTypeVariation=="WarningLabel"&&l.Text.StartsWith("Attention:",StringComparison.Ordinal)),"Attention highlights exactly two completion notices including any expedition wording");
             Check(Descendants<Label>(report).Single(l=>l.Name=="GovernorReportSummary").ThemeTypeVariation=="WarningLabel","Attention visibly highlights recorded governor actions");
             GetTree().Root.Size=new(800,600);await Frames();await Capture($"polish-attention-{kind}-800");report.Hide();await Frames();GetTree().Root.Size=new(1920,1080);await Frames();await Capture($"polish-attention-{kind}-1920");
             await SetLevels(NotificationLevel.Off);Check(!Badge("GovernorActionAttentionBadge")&&!Badge("CompletionAttentionBadge"),"Off suppresses routine Attention badges");
-            await ReopenReport();report=One<TurnReportDialog>(screen);Check(Notices().Length==0,"Off suppresses production and research completion notices");
+            await ReopenReport();report=One<TurnReportDialog>(screen);Check(Notices().Length==0,"Off suppresses all completion notices including expedition wording");
             Check(Descendants<Label>(report).Any(l=>l.Text.Contains("Stored details remain available",StringComparison.Ordinal)),"Off keeps stored governor detail available");report.Hide();await Frames();
             Check(Snapshot(Session(screen))==canonical,"Summary Attention Off and reopening reports change no campaign bytes");
             await SetLevels(NotificationLevel.Attention);string saved=await SaveThroughDialog(screen,$"attention-{kind}-history");string savedCanonical=Snapshot(Session(screen));

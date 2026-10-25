@@ -56,7 +56,7 @@ public partial class TurnReportDialog : AcceptDialog
 
         foreach (ColonyReportView colony in report.Colonies)
         {
-            AddColony(content, colony);
+            AddColony(content, colony, report);
         }
 
         EmpireEconomy empire = report.Research;
@@ -78,6 +78,10 @@ public partial class TurnReportDialog : AcceptDialog
         foreach (var e in report.Events)
         {
             if(e.Kind=="vessel_completed"&&_preferences.LevelFor("completions")==OpenAntares.Game.Presentation.NotificationLevel.Off)continue;
+            // The colony completion owns the notice and both navigation actions.
+            if (e.Kind == "vessel_completed" && report.Colonies.Any(c =>
+                c.Id == e.Colony && c.Economy.Production.TargetKind == ProductionKinds.Vessel &&
+                c.Economy.Production.CompletedId is not null)) continue;
             string location = e.Star is { } star && report.StarNames.TryGetValue(star, out var name) ? name : "system";
             string message = e.Kind switch { "arrived" => $"Vessel arrived at {location}.", "discovered" => $"Surveyed the planets of {location}.", "vessel_completed" => $"Expedition completed at {location}.", "colony_founded" => $"Colony founded at {location}.", "founding_failed" => $"Another expedition settled {location} first. Your settler and cargo were retained.", _ => "Expedition updated." };
             _body.AddChild(e.Kind=="vessel_completed"?CompletionNotice(message):Wrapped(message, "SubtleLabel"));
@@ -103,7 +107,7 @@ public partial class TurnReportDialog : AcceptDialog
         return new Label{Text=(attention?"Attention: ":"")+text,ThemeTypeVariation=attention?"WarningLabel":"",AutowrapMode=TextServer.AutowrapMode.WordSmart};
     }
 
-    private void AddColony(ContentSet content, ColonyReportView view)
+    private void AddColony(ContentSet content, ColonyReportView view, EmpireTurnReportView report)
     {
         ColonyEconomy colony = view.Economy;
         _body.AddChild(new HSeparator());
@@ -120,6 +124,20 @@ public partial class TurnReportDialog : AcceptDialog
                 ChooseProjectRequested?.Invoke(view.Id);
             };
             _body.AddChild(choose);
+            if (colony.Production.TargetKind == ProductionKinds.Vessel)
+            {
+                foreach (var completion in report.Events.Where(e =>
+                    e.Kind == "vessel_completed" && e.Colony == view.Id && e.Vessel.HasValue))
+                {
+                    var inspect = new Button { Text = "View vessel" };
+                    inspect.Pressed += () =>
+                    {
+                        Hide();
+                        VesselRequested?.Invoke(completion.Vessel!.Value);
+                    };
+                    _body.AddChild(inspect);
+                }
+            }
         }
 
         if (colony.EmbarkOutcome is { } embark)
