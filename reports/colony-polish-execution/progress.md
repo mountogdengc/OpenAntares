@@ -7,3 +7,9 @@ Pre-flight: Task1→Task3 shares GovernorReportPanel summary; Task3 retains hist
 Task1: in progress. Task2/3/4: pending.
 
 Task1: witnessed semantic pending/resolved historical-count RED. Full Colony GREEN:604 assertions+4 provenance,0 diagnostics; normal build0 warnings/errors/five exclusions. Labelled resolved-history PNG inspected. Manual override and Off details retained, source bytes unchanged.
+Task 1: complete (commits 2dacae7..4c24046, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers → Passed!  - Failed:     0, Passed:   984, Skipped:     0, Total:   984, Duration: 1 s - OpenAntares.Simulation.Tests.dll (net8.0))
+
+Task2: Ruling: The plan's reverse-state-storage fixture conflicts with mandatory ascending colony IDs — keep the campaign fixture valid/sorted and challenge reversed diagnostic input in the presentation test instead — cost if wrong: invalid source-state ordering remains outside command correctness guarantees. The command still explicitly sorts issuer references.
+Task2: four semantic missing-code/reference RED cases and actual missing-dialog UI RED witnessed. Initial all-human-Ready and ImmutableArray identity assertions were test defects, corrected to a valid second unready human and element arrays; no product workaround. New rejection fields are command diagnostics only, never campaign state/schema. Full Colony gate running after focused4/4 GREEN; fallback/reordered/foreign diagnostic and30-colony800/1920 checks included.
+
+Task2: full Colony GREEN615 assertions+4 provenance,0 diagnostics; normal rebuild0 warnings/errors/five exclusions. Actual30-name dialog800/1920 PNGs inspected; all references/Close reachable, separate disabled inheritance shown, reversed references/own-ID fallback/foreign omission checked; rejected UI canonical bytes unchanged.

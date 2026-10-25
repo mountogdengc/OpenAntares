@@ -25,7 +25,15 @@ public static partial class CommandProcessor
                     break;
                 case DeleteGovernorTemplateCommand c:
                     Require(library.CustomTemplates.Any(t=>t.Id==c.TemplateId),"Only existing custom templates may be deleted.");
-                    Require(!candidate.Colonies.Any(col=>col.EmpireId==issuer.Id&&col.Development?.Template?.Id==c.TemplateId)&&library.NewColonyPlan?.Template.Id!=c.TemplateId,"Template is assigned to colonies or new-colony inheritance.");
+                    var references=new GovernorTemplateReferences(
+                        state.Colonies.Where(col=>col.EmpireId==issuer.Id&&col.Development?.Template?.Id==c.TemplateId).Select(col=>col.Id).OrderBy(id=>id).ToImmutableArray(),
+                        library.NewColonyPlan?.Template.Id==c.TemplateId);
+                    if(!references.Colonies.IsEmpty||references.NewColonyInheritance)
+                    {
+                        string colonies=references.Colonies.IsEmpty?"":$" Assigned colonies: {string.Join(", ",references.Colonies)}.";
+                        string inheritance=references.NewColonyInheritance?" New-colony inheritance references this template.":"";
+                        return new(state,new CommandRejection("template_in_use","Reassign template references before deleting."+colonies+inheritance){TemplateReferences=references},false,null);
+                    }
                     library.CustomTemplates.RemoveAll(t=>t.Id==c.TemplateId);break;
                 case AssignGovernorTemplateCommand c:
                     Require(!c.Colonies.IsDefaultOrEmpty&&c.Colonies.Distinct().Count()==c.Colonies.Length,"Select distinct owned colonies.");

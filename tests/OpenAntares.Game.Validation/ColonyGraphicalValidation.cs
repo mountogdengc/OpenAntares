@@ -8,6 +8,7 @@ using OpenAntares.Game;
 using OpenAntares.Game.Components;
 using OpenAntares.Game.Screens;
 using OpenAntares.Simulation.Content;
+using OpenAntares.Simulation;
 using OpenAntares.Simulation.Galaxy;
 using OpenAntares.Simulation.Saves;
 using OpenAntares.Simulation.State;
@@ -28,6 +29,7 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
             Check(DisplayServer.GetName()!="headless","Colony validation uses a graphical display");
             await CurrentStartChecks();
             await PolishHistoryChecks();
+            await PolishTemplateDeletionChecks();
             await ReplacementPreviewChecks();
             await InvalidDevelopmentContentRecovery();
             await PortraitChecks();
@@ -67,6 +69,42 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
             RemoveChild(panel);panel.QueueFree();await Frames();
         }
         Check(historical,"Pending and resolved summaries identify recorded historical conditions, not current unresolved issues");
+    }
+    private async Task PolishTemplateDeletionChecks()
+    {
+        var content=DevelopmentContent();var state=GalaxyGenerator.CreateNewGame(content,new("small",42,5,"harl")).State!;
+        var owner=state.Empires[0];var first=state.Colonies[0];var home=state.FindPlanet(first.PlanetId)!;
+        var definition=content.GovernorTemplates["industrial"];
+        var template=new GovernorTemplateSnapshot("custom_1",1,new("Referenced factory plan",definition.FoundationIds,definition.DevelopmentIds,definition.SupportTarget,definition.ProductionWeight,definition.ResearchWeight));
+        owner.Development!.CustomTemplates.Add(template);owner.Development.NextTemplateNumber=2;owner.Development.NewColonyPlan=new(template,false,false);first.Development!.Template=template;
+        for(int i=1;i<30;i++)
+        {
+            var planet=new PlanetState{Id=new(state.AllocateId()),StarId=home.StarId,Orbit=state.Planets.Where(p=>p.StarId==home.StarId).Max(p=>p.Orbit)+1,PlanetTypeId="verdant_world",EnvironmentId="shelf_sea"};planet.Appearance=PlanetAppearance.Create(42,planet.Id);state.Planets.Add(planet);
+            var colony=first.Clone();colony.Id=new(state.AllocateId());colony.PlanetId=planet.Id;state.Colonies.Add(colony);
+        }
+        ObservationUpdater.Refresh(state,0);Check(GameStateValidator.Validate(content,state).Count==0,"Labelled30-reference deletion fixture validates before session");
+        string name=$"qa-{_runId}-template-references",path=SaveFiles.PathFor(name);SaveGame.WriteFile(path,content,state);_savePaths.Add(path);
+        var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();Press(Button(One<NewGameScreen>(main),"Start"));await Frames();
+        var screen=await LoadThroughDialog(main,name);screen.NotificationPreferencesPath=Path.Combine(_output,"template-references-preferences.json");string before=Snapshot(Session(screen));
+        await Click(screen,"Delete custom template");
+        var dialog=Descendants<AcceptDialog>(screen).FirstOrDefault(d=>d.Name=="TemplateReferencesDialog"&&d.Visible);
+        Check(dialog is not null,"Actual rejected Delete opens scrollable affected-colony/inheritance dialog");
+        var view=Session(screen).View(owner.Id);var labels=Descendants<Label>(dialog!).Where(l=>l.Name.ToString().StartsWith("TemplateReference_",StringComparison.Ordinal)).ToArray();
+        Check(labels.Length==30&&labels.Select(l=>l.Text).Distinct(StringComparer.Ordinal).Count()==30,"Deletion explains all30 distinct owned colony references");
+        Check(labels.Select(l=>l.Text).SequenceEqual(view.Colonies.OrderBy(c=>c.Id).Select(c=>view.Research.ColonyNames[c.Id.ToString()]+" ("+c.Id+")")),"Deletion names and IDs follow stable colony order");
+        Check(Descendants<Label>(dialog!).Any(l=>l.Text.Contains("New-colony inheritance",StringComparison.Ordinal)),"Deletion identifies assigned inheritance even with both switches off");
+        foreach(var size in new[]{new Vector2I(800,600),new Vector2I(1920,1080)})
+        {
+            GetTree().Root.Size=size;dialog!.PopupCenteredClamped(new(650,500));await Frames();await Reach(labels[^1]);
+            Check(Visible(labels[^1])&&Visible(dialog.GetOkButton()),$"All deletion references and Close reachable at{size.X}");await Capture($"polish-template-references-{size.X}");
+        }
+        Check(Snapshot(Session(screen))==before,"Rejected UI deletion preserves canonical campaign and Ready");
+        var missing=view.Colonies[0].Id;
+        var fallback=view with{Research=view.Research with{ColonyNames=view.Research.ColonyNames.Remove(missing.ToString())}};
+        ((TemplateReferencesDialog)dialog!).ShowReferences(fallback,new(view.Colonies.Select(c=>c.Id).Reverse().Append(new ColonyId(int.MaxValue)).ToImmutableArray(),true));await Frames();
+        var fallbackLabels=Descendants<Label>(dialog!).Where(l=>l.Name.ToString().StartsWith("TemplateReference_",StringComparison.Ordinal)).ToArray();
+        Check(fallbackLabels.Length==30&&fallbackLabels[0].Text=="Unnamed colony ("+missing+")"&&!fallbackLabels.Any(l=>l.Text.Contains(int.MaxValue.ToString(),StringComparison.Ordinal)),"Reordered diagnostic references retain own-ID fallback and omit foreign/unknown identities");
+        dialog!.Hide();RemoveChild(main);main.QueueFree();await Frames();
     }
     private async Task ReplacementPreviewChecks()
     {

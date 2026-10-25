@@ -25,6 +25,47 @@ public sealed class ColonyCommandTests
         g=g with{State=inherited?Run(g,(e,t)=>new SetNewColonyPlanCommand(e,t,"custom_1",true,true)).State:Run(g,(e,t)=>new AssignGovernorTemplateCommand(e,t,ImmutableArray.Create(g.State.Colonies[0].Id),"custom_1",true,true)).State};
         var r=Run(g,(e,t)=>new DeleteGovernorTemplateCommand(e,t,"custom_1"));Assert.False(r.Accepted);Assert.Same(g.State,r.State);
     }
+    [Theory]
+    [InlineData(true,false)]
+    [InlineData(false,true)]
+    [InlineData(true,true)]
+    public void TemplateDeletionIdentifiesExactBlockersWithoutChangingState(bool colonies,bool inheritance)
+    {
+        var g=ColonyFixtures.Game();
+        g=g with{State=Run(g,(e,t)=>new UpsertGovernorTemplateCommand(e,t,null,Draft(g))).State};
+        if(colonies)g=g with{State=Run(g,(e,t)=>new AssignGovernorTemplateCommand(e,t,ImmutableArray.Create(g.State.Colonies[0].Id),"custom_1",false,false)).State};
+        if(inheritance)g=g with{State=Run(g,(e,t)=>new SetNewColonyPlanCommand(e,t,"custom_1",false,false)).State};
+        g.State.Empires.Add(new(){Id=new(g.State.AllocateId()),Controller=ControllerKind.Human,SpeciesId="harl",Development=new()});
+        g.State.Empires[0].Ready=true;
+        string before=SaveGame.Serialize(g.Content,g.State);
+        var outcome=Run(g,(e,t)=>new DeleteGovernorTemplateCommand(e,t,"custom_1"));
+        Assert.False(outcome.Accepted);Assert.Same(g.State,outcome.State);Assert.True(outcome.State.Empires[0].Ready);
+        Assert.Equal(before,SaveGame.Serialize(g.Content,outcome.State));
+        Assert.Equal("template_in_use",outcome.Rejection!.Code);
+        var references=Assert.IsType<GovernorTemplateReferences>(outcome.Rejection.TemplateReferences);
+        Assert.Equal(colonies?new[]{g.State.Colonies[0].Id}:Array.Empty<ColonyId>(),references.Colonies.ToArray());
+        Assert.Equal(inheritance,references.NewColonyInheritance);
+    }
+    [Fact]
+    public void TemplateDeletionReferencesAreSortedOwnedAndPrivate()
+    {
+        var g=ColonyFixtures.TwoHumansAndAi();var owner=g.State.Empires[0];
+        g=g with{State=Run(g,(e,t)=>new UpsertGovernorTemplateCommand(e,t,null,Draft(g))).State};owner=g.State.Empires[0];
+        var template=owner.Development!.CustomTemplates.Single();
+        var first=g.State.Colonies[0];first.Development!.Template=template;
+        var planet=g.State.Planets.Single(p=>p.Id==first.PlanetId).Clone();planet.Id=new(g.State.AllocateId());planet.Orbit=2;g.State.Planets.Add(planet);
+        var second=first.Clone();second.Id=new(g.State.AllocateId());second.PlanetId=planet.Id;g.State.Colonies.Add(second);
+        var foreign=g.State.Empires[1];foreign.Development!.CustomTemplates.Add(template with{Definition=template.Definition with{Name="Foreign private template"}});foreign.Development.NextTemplateNumber=2;
+        g.State.Colonies.Single(c=>c.EmpireId==foreign.Id).Development!.Template=foreign.Development.CustomTemplates.Single();
+        OpenAntares.Simulation.Knowledge.ObservationUpdater.Refresh(g.State,0);
+        Assert.Empty(GameStateValidator.Validate(g.Content,g.State));
+        string before=SaveGame.Serialize(g.Content,g.State);
+        var outcome=Run(g,(e,t)=>new DeleteGovernorTemplateCommand(e,t,"custom_1"));
+        var refs=Assert.IsType<GovernorTemplateReferences>(outcome.Rejection!.TemplateReferences);
+        Assert.Equal(new[]{first.Id,second.Id}.OrderBy(x=>x),refs.Colonies);
+        Assert.False(refs.NewColonyInheritance);Assert.DoesNotContain("Foreign",outcome.Rejection.Message);
+        Assert.Equal(before,SaveGame.Serialize(g.Content,outcome.State));Assert.Same(g.State,outcome.State);
+    }
     [Fact] public void ManualOrdersPauseOnlyTheirChannel() {
         var g=ColonyFixtures.WithFoundations("harl",6,"industrial");var c=g.State.Colonies[0];c.Development!.ConstructionEnabled=true;
         var noOp=Run(g,(e,t)=>new SetWorkforceCommand(e,t,c.Id,c.Workforce));Assert.Same(g.State,noOp.State);Assert.True(c.Development.WorkforceEnabled);

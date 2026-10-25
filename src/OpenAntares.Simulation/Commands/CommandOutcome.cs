@@ -1,5 +1,6 @@
 using OpenAntares.Simulation.State;
 using OpenAntares.Simulation.Turns;
+using System.Collections.Immutable;
 
 namespace OpenAntares.Simulation.Commands;
 
@@ -19,7 +20,12 @@ public sealed record CommandOutcome(GameState State, CommandRejection? Rejection
 }
 
 /// <summary>Why a command was rejected. <see cref="Code"/> is one of <see cref="RejectionCodes"/>.</summary>
-public sealed record CommandRejection(string Code, string Message);
+public sealed record CommandRejection(string Code, string Message)
+{
+    public GovernorTemplateReferences? TemplateReferences { get; init; }
+}
+
+public sealed record GovernorTemplateReferences(ImmutableArray<ColonyId> Colonies, bool NewColonyInheritance);
 
 /// <summary>Stable rejection codes. Presentation maps these to localized text.</summary>
 public static class RejectionCodes

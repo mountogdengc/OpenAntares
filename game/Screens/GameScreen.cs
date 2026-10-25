@@ -33,6 +33,7 @@ public partial class GameScreen : VBoxContainer
     private StarId? _courseDestination;
     private EmpireView View => _session.View(_viewer);
     private readonly TurnReportDialog _report = new();
+    private readonly TemplateReferencesDialog _templateReferences = new();
     private readonly SaveGameDialog _saveDialog = new();
     private readonly OpenAntares.Game.Presentation.PlanetPortraitCache _portraitCache = new();
     private readonly EmpireManagementDialog _management = new();
@@ -88,6 +89,7 @@ public partial class GameScreen : VBoxContainer
         _colonies.ManageRequested += () => { _management.Preferences = _preferences; _management.ShowEmpire(_session.Content,View); };
         _colonies.NotificationsRequested += () => _notificationDialog.Open(NotificationPreferencesPath);
         AddChild(_report);
+        AddChild(_templateReferences);
         _report.ChooseProjectRequested += ChooseProject;
         _report.StarRequested += star => _map.Select(star);
         _report.ColonyRequested += SelectColony;
@@ -158,6 +160,8 @@ public partial class GameScreen : VBoxContainer
     {
         CommandOutcome outcome = _session.Execute(command);
         ShowMessage(outcome.Rejection?.Message ?? string.Empty, isWarning: true);
+        if (outcome.Rejection?.TemplateReferences is { } references)
+            _templateReferences.ShowReferences(View, references);
 
         // Rebuild after the triggering control's signal has finished.
         Callable.From(Refresh).CallDeferred();
