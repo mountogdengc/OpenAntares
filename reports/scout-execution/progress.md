@@ -37,7 +37,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 10
 - [x] Task 11
 - [x] Task 12
-- [ ] Task 13
+- [x] Task 13
 - [ ] Task 14
 - [ ] Task 15
 
@@ -96,3 +96,8 @@ Task 13: started BASE 63398b3470a4ef743c485611680c4eed99b7c9e2; brief task13-bri
 Task 13: Ruling: acceptance inspection found static habitat date stayed at first arrival during continued own presence — add a regression and refresh only that empire from ordinary final own presence in AmebaResolver — cost if wrong: an extra simulation diff in Task13; it must preserve unseen foreign dates and old futures.
 Task 13: Ruling: inspected30-row capture showed selected last encounter jumping above the viewport after refresh — add an actual-control RED and preserve the selected row with deferred layout-aware scrolling in the shared overview — cost if wrong: an extra Task12 UI-file correction in Task13; affected Scout/Crisis gates rerun.
 Task 13 evidence: actual seventh scene RED on missing seventh-type negative control; date regression RED11-versus10 then GREEN16/16 resolution tests. Initial Scout184/184 plus inspected30-row screenshot exposed scroll continuity; actual selected-row RED observed, deferred row retention fixed. Final Scout186, Legacy493, Expansion275, Species1194, Rival1158, Colony670, Crisis454 records all pass with0 engine/process diagnostics; each opt-in7/ordinary0/helper0. All6 retained gates sequential, affected Scout/Crisis rerun. Suite1387/1387, normal rebuild0 warnings/errors. Actual generated UI Save/Load and4 futures each at Warning/Exposed/transit; generated Study55 recorded, threshold fixtures labelled separately. See task13-validation.md/machine-summary; CurrentVersion6, writer8 retained until Task14.
+Task 13: complete (commits 63398b3..82d1c39, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task13-completion.log)
+
+Task 14: started BASE 82d1c390b6636d47107db27b3f166cf17a80e705; brief task14-brief.md
+
+Task 14 evidence: semantic integration3/3 RED and actual current-setup RED; GREEN3/3 and Suite1390/1390.24 generated campaigns satisfy discovery/withdrawal/build/research/cure;24 Off starts plus720 Solo futures preserve old streams. Actual current UI Scout192 passes; affected retained scenario counts/zero diagnostics and all hashes in task14-machine-summary.json. A stale Colony expected-start reference failed and was corrected/rerun; old fixtures unchanged. Native normal builds0 warnings/errors,7 opt-in/0 ordinary/0 helpers. See task14-validation.md.

@@ -70,7 +70,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         var count=Picker(setup,"RivalCountPicker");var human=Picker(setup,"SpeciesPicker");var rival=Picker(setup,"RivalSpeciesPicker");
         Check(count.GetSelectedMetadata().AsString()=="1" && human.GetSelectedMetadata().AsString()=="harl" && rival.GetSelectedMetadata().AsString()=="peldra","Visible defaults are One / Harl / Peldra");
         NewGameSettings? selected=null;setup.StartRequested+=s=>selected=s;setup.Configure("small",42);Press(Button(setup,"Start"));
-        Check(selected is {RulesVersion:6,RivalCount:1,SpeciesId:"harl",RivalSpeciesId:"peldra",CrisesEnabled:true},"Visible current defaults reach simulation unchanged");
+        Check(selected is {RulesVersion:7,RivalCount:1,SpeciesId:"harl",RivalSpeciesId:"peldra",CrisesEnabled:true},"Visible current defaults reach simulation unchanged");
         Select(human,"peldra");Check(rival.GetSelectedMetadata().AsString()=="peldra","Human selection does not swap rival; mirrors legal");Press(Button(setup,"Start"));Check(selected?.RivalSpeciesId=="peldra" && selected.SpeciesId=="peldra","Mirror settings reach simulation");
         Select(count,"0");Press(Button(setup,"Start"));Check(rival.Disabled && selected is {RivalCount:0,RivalSpeciesId:null},"Solo disables rival and passes null identity");
         Select(count,"1");Check(!rival.Disabled,"One enables the retained rival choice");
@@ -178,9 +178,9 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         foreach(string species in new[]{"harl","peldra","sulan","wenth"})foreach(int rivals in new[]{0,1})
         {
             var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();
-            var setup=One<NewGameScreen>(main);setup.Configure("small",42,species,rivals,"peldra",false);Press(Button(setup,"Start"));await Frames();
+            var setup=One<NewGameScreen>(main);setup.Configure("small",42,species,rivals,"peldra",false,false);Press(Button(setup,"Start"));await Frames();
             var screen=One<GameScreen>(main);var session=Session(screen);var human=session.State.Empires[0].Id;
-            Check(session.State.RulesVersion==6 && !session.State.Crisis!.Enabled && session.State.Empires[0].SpeciesId==species && session.State.Empires.Count==rivals+1,$"{species}/rivals{rivals}: visible Off settings create correct empires");
+            Check(session.State.RulesVersion==7 && !session.State.Crisis!.Enabled && session.State.Empires[0].SpeciesId==species && session.State.Empires.Count==rivals+1,$"{species}/rivals{rivals}: visible Off settings create correct empires");
             var expected=new GameSession(session.Content,session.State.Clone());Check(expected.Execute(new SetReadyCommand(human,0,true)).Accepted,"Reference turn resolves");
             string name=await SaveThroughDialog(screen,$"human-{species}-rivals{rivals}");screen=await LoadThroughDialog(main,name);await EndTurn(screen);
             Check(Snapshot(Session(screen))==Snapshot(expected),$"{species}/rivals{rivals}: UI save/load preserves future continuation");One<TurnReportDialog>(screen).Hide();await Drop(main);
@@ -207,9 +207,9 @@ public partial class RivalGraphicalValidation : GraphicalValidation
     {
         string label=$"rival-{species}-{size}";GetTree().Root.Size=new(1920,1080);
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();
-        var setup=One<NewGameScreen>(main);setup.Configure(size,42,"harl",1,species,false);Press(Button(setup,"Start"));await Frames();
+        var setup=One<NewGameScreen>(main);setup.Configure(size,42,"harl",1,species,false,false);Press(Button(setup,"Start"));await Frames();
         var screen=One<GameScreen>(main);GameSession session=Session(screen);EmpireId humanId=session.State.Empires[0].Id;EmpireId rivalId=session.State.Empires[1].Id;
-        Check(session.State.RulesVersion==6 && !session.State.Crisis!.Enabled && session.State.GalaxySeed==42 && session.State.Empires[1].SpeciesId==species,label+": actual UI starts generated rules6 Off seed42 campaign");
+        Check(session.State.RulesVersion==7 && !session.State.Crisis!.Enabled && session.State.GalaxySeed==42 && session.State.Empires[1].SpeciesId==species,label+": actual UI starts generated rules7 plague/ameba Off seed42 campaign");
         var home=session.View(humanId).Colonies.Single();var scout=session.View(humanId).Vessels.Single();
         Select(Descendants<OptionButton>(One<ColonyPanel>(screen)).Single(p=>p.Name=="ColonyProjectPicker"),"vessel|harl_settler");await Frames();
         Select(Descendants<OptionButton>(One<ResearchBar>(screen)).Single(),"cultivation_methods");await Frames();

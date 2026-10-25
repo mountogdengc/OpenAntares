@@ -34,7 +34,7 @@ public partial class ScoutGraphicalValidation:Node
             string[] types={"GraphicalValidation","ExpansionGraphicalValidation","SpeciesGraphicalValidation","RivalGraphicalValidation","ColonyGraphicalValidation","CrisisGraphicalValidation","ScoutGraphicalValidation"};
             Check(typeof(GameScreen).Assembly.GetTypes().Count(t=>types.Contains(t.Name))==7,"Actual opt-in assembly contains all seven scenario classes");
             Check(File.ReadAllText(Path.Combine(_output,"opt-in-metadata.log")).Contains("ScoutGraphicalValidation",StringComparison.Ordinal),"Normal-assembly negative control explicitly detects the seventh scout type");
-            await GeneratedCampaign();await Thresholds();await ScaleAndNoFallback();await ScoutUiControlChecks.Run(this,Check,_output,_run);
+            await CurrentSetup();await GeneratedCampaign();await Thresholds();await ScaleAndNoFallback();await ScoutUiControlChecks.Run(this,Check,_output,_run);
         }
         catch(Exception failure){error=failure.ToString();GD.PrintErr(error);}
         finally
@@ -44,6 +44,13 @@ public partial class ScoutGraphicalValidation:Node
         }
     }
     private void Check(bool value,string name){_checks.Add(new{name,passed=value});if(!value)throw new InvalidOperationException(name);}
+    private async Task CurrentSetup()
+    {
+        var content=CompleteContent();var setup=new NewGameScreen(content);AddChild(setup);await Frames(this);
+        Check(Rules.CurrentVersion==7&&Named<OptionButton>(setup,"AmebaModePicker").IsVisibleInTree(),"Actual current setup visibly exposes rules7 ameba choice");Check(Named<OptionButton>(setup,"AmebaModePicker").Selected==0,"Actual ameba choice defaults to Standard");
+        NewGameSettings? chosen=null;setup.StartRequested+=settings=>chosen=settings;setup.Configure("small",42);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));Check(chosen is{RulesVersion:7,AmebasEnabled:true,CrisesEnabled:true,RivalCount:1,RivalSpeciesId:"peldra",SpeciesId:"harl"},"Actual default controls submit independent Standard ameba/plague and One Peldra");setup.Configure("small",42,"harl",0,crisesEnabled:false,amebasEnabled:false);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));Check(chosen is{AmebasEnabled:false,CrisesEnabled:false,RivalCount:0},"Actual visible Off/Solo choices remain independent");RemoveChild(setup);setup.QueueFree();await Frames(this);
+        setup=new NewGameScreen(content with{SpaceAmeba=null});AddChild(setup);await Frames(this);Check(Descendants<Button>(setup).Single(b=>b.Text=="Start").Disabled,"Missing current hazard blocks new campaigns including Off");bool load=false;setup.LoadRequested+=()=>load=true;Press(Descendants<Button>(setup).Single(b=>b.Text=="Load Game"));Check(load,"Missing current hazard retains usable Load Game recovery");RemoveChild(setup);setup.QueueFree();await Frames(this);
+    }
     private async Task GeneratedCampaign()
     {
         var content=CompleteContent();var opening=GalaxyGenerator.CreateNewGame(content,new("small",42,7,"harl",0,CrisesEnabled:false,AmebasEnabled:true));Check(opening.Succeeded,"Explicit complete-core rules7 generated campaign starts");string canonical=SaveGame.Serialize(content,opening.State!);

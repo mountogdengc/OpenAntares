@@ -13,9 +13,9 @@ public sealed class ScoutingContentTests
     internal static JsonObject Json()=>JsonNode.Parse(File.ReadAllText(CompatibilityFixtures.PathFor("scouting-content.json")))!.AsObject();
     internal static ContentLoadResult Load(JsonObject json,bool required=true)=>ContentLoader.Load(new[]{new ContentSource("scouting-fixture.json",json.ToJsonString())},requireScouting:required);
     internal static string Write(ContentSet c,int rules){using var stream=new MemoryStream();using(var writer=new Utf8JsonWriter(stream))ContentWriter.Write(writer,c,rules);return Encoding.UTF8.GetString(stream.ToArray());}
-    [Fact] public void SevenRetainsEveryEarlierFeatureWithoutActivatingDefault()
+    [Fact] public void SevenRetainsEveryEarlierFeatureAndIsTheReviewedCurrentDefault()
     {
-        Assert.True(Rules.HasScouting(7));Assert.False(Rules.HasScouting(6));Assert.Equal(6,Rules.CurrentVersion);
+        Assert.True(Rules.HasScouting(7));Assert.False(Rules.HasScouting(6));Assert.Equal(7,Rules.CurrentVersion);
         Assert.True(Rules.IsSupported(7));Assert.True(Rules.HasExpansion(7));Assert.True(Rules.HasSpecies(7));Assert.True(Rules.HasRivals(7));Assert.True(Rules.HasDevelopment(7));Assert.True(Rules.HasCrises(7));
     }
     [Fact] public void ApprovedHazardLoadsAndRoundTripsWithExactValues()

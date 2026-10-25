@@ -13,15 +13,15 @@ namespace OpenAntares.Simulation.Tests;
 public sealed class CrisisGenerationTests
 {
     [Fact]
-    public void CurrentRules6StartsStandardAndOffWithoutChangingGalaxy()
+    public void ExplicitRules6StartsStandardAndOffWithoutChangingGalaxy()
     {
         var content=CrisisContentTests.Load(CrisisContentTests.Json());
         Assert.True(content.Succeeded,string.Join("; ",content.Errors));
         var game=GalaxyGenerator.CreateNewGame(content.Content!,new("small",42,6,"harl"));
         Assert.True(game.Succeeded,game.Error);
-        Assert.Equal(6,Rules.CurrentVersion);
-        var standard=GalaxyGenerator.CreateNewGame(content.Content!,new("small",42,SpeciesId:"harl",RivalCount:1,RivalSpeciesId:"peldra"));
-        var off=GalaxyGenerator.CreateNewGame(content.Content!,new("small",42,SpeciesId:"harl",RivalCount:1,RivalSpeciesId:"peldra",CrisesEnabled:false));
+        Assert.Equal(7,Rules.CurrentVersion);
+        var standard=GalaxyGenerator.CreateNewGame(content.Content!,new("small",42,6,"harl",1,"peldra"));
+        var off=GalaxyGenerator.CreateNewGame(content.Content!,new("small",42,6,"harl",1,"peldra",CrisesEnabled:false));
         Assert.True(standard.Succeeded,standard.Error);Assert.True(off.Succeeded,off.Error);
         Assert.True(standard.State!.Crisis!.Enabled);Assert.False(off.State!.Crisis!.Enabled);
         Assert.Equal(Normalize(standard.State),Normalize(off.State));

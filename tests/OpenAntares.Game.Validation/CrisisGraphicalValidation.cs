@@ -41,12 +41,12 @@ public partial class CrisisGraphicalValidation:Node
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();var setup=One<NewGameScreen>(main);setup.Configure("small",42);
         Check(Named<OptionButton>(setup,"SpeciesPicker").GetSelectedMetadata().AsString()=="harl"&&Named<OptionButton>(setup,"RivalCountPicker").Selected==1&&Named<OptionButton>(setup,"RivalSpeciesPicker").GetSelectedMetadata().AsString()=="peldra"&&Named<OptionButton>(setup,"CrisisModePicker").Selected==0,"Actual current setup defaults Harl, One Peldra rival and Standard crises");
         Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames();var session=Session(One<GameScreen>(main));
-        Check(session.State.RulesVersion==6&&session.State.Crisis!.Enabled&&session.State.FindEmpire(session.State.Empires[0].Id)!.Crisis is {Authority:CrisisAuthority.Manual,RequireAcknowledgement:true},"Actual current Start uses rules6 Standard and manual required acknowledgement");
+        Check(session.State.RulesVersion==7&&session.State.Crisis!.Enabled&&session.State.FindEmpire(session.State.Empires[0].Id)!.Crisis is {Authority:CrisisAuthority.Manual,RequireAcknowledgement:true},"Actual current Start uses rules7 Standard and manual required acknowledgement");
         RemoveChild(main);main.QueueFree();await Frames();
         main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();setup=One<NewGameScreen>(main);setup.Configure("small",42,"harl",1,"peldra",false);
         Check(Named<OptionButton>(setup,"CrisisModePicker").Selected==1&&Descendants<Label>(setup).Any(l=>l.Name=="SpeciesSummary"&&l.Text.Contains("Colony crises: Off",StringComparison.Ordinal)),"Actual Off control updates new-game preview without starting a campaign");
         Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames();session=Session(One<GameScreen>(main));
-        Check(session.State.RulesVersion==6&&!session.State.Crisis!.Enabled,"Actual Off Start keeps rules6 crisis streams dormant");
+        Check(session.State.RulesVersion==7&&!session.State.Crisis!.Enabled,"Actual Off Start keeps rules7 crisis streams dormant");
         RemoveChild(main);main.QueueFree();await Frames();
         var incomplete=CoreWithApprovedPlague() with{Plagues=ImmutableSortedDictionary<string,PlagueDefinition>.Empty};
         setup=new NewGameScreen(incomplete);AddChild(setup);await Frames();Check(Descendants<Button>(setup).Single(b=>b.Text=="Start").Disabled,"Missing current plague prevents even an Off new-game start");bool canLoad=false;setup.LoadRequested+=()=>canLoad=true;Press(Descendants<Button>(setup).Single(b=>b.Text=="Load Game"));Check(canLoad,"Missing current plague still offers old-save Load recovery");RemoveChild(setup);setup.QueueFree();await Frames();
@@ -223,14 +223,14 @@ public partial class CrisisGraphicalValidation:Node
         var content=CoreWithApprovedPlague();
         foreach(string species in new[]{"harl","peldra","sulan","wenth"})
         {
-            string label="generated-"+species;var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,6,species,1,"peldra",true));Check(generated.Succeeded,label+": explicit rules6 Standard seed42 generation succeeds");
+            string label="generated-"+species;var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,7,species,1,"peldra",true,false));Check(generated.Succeeded,label+": explicit rules7 plague Standard/ameba Off seed42 generation succeeds");
             var initial=generated.State!;string initialCanonical=SaveGame.Serialize(content,initial);string initialHash=Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(initialCanonical))).ToLowerInvariant();
             Check(initial.Turn==0&&initial.Empires.Count(e=>e.Controller==ControllerKind.Ai)==1&&initial.Crisis!.Enabled,label+": untouched generated turn0 with one rival and Standard crises");
-            var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();var setup=One<NewGameScreen>(main);setup.Configure("small",42,species,1,"peldra",true);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames();
+            var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();var setup=One<NewGameScreen>(main);setup.Configure("small",42,species,1,"peldra",true,false);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames();
             var screen=One<GameScreen>(main);var session=Session(screen);var owner=session.State.Empires.Single(e=>e.Controller==ControllerKind.Human).Id;
             screen.CrisisPreferencesPath=Path.Combine(_output,"crisis-prefs.json");Check(Snapshot(session)==initialCanonical,label+": actual New Game Start produces untouched generated initial state and complete core content");
             await SaveThroughDialog(screen,label+"-initial");
-            _results.Add(new{name=label+": generated provenance",passed=true,source="complete content/core/*.json",species,seed=42,rivals=1,rules=6,initialHash,turn=0,liveOutcomeInjections=0});
+            _results.Add(new{name=label+": generated provenance",passed=true,source="complete content/core/*.json",species,seed=42,rivals=1,rules=7,amebas=false,initialHash,turn=0,liveOutcomeInjections=0});
             Select(Picker(screen,"GovernorTemplatePicker"),"industrial");Press(Descendants<Button>(One<ColonyPanel>(screen)).Single(b=>b.Text=="Apply template"));await Frames();
             Toggle(screen,"WorkforceGovernorToggle",true);await Frames();Toggle(screen,"ConstructionGovernorToggle",true);await Frames();
             await QueueGeneratedProject(screen,"building","fabrication_hall");
@@ -306,8 +306,8 @@ public partial class CrisisGraphicalValidation:Node
     }
     private async Task GeneratedNeglect()
     {
-        var content=CoreWithApprovedPlague();var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,6,"harl",1,"peldra",true));Check(generated.Succeeded,"Generated Harl neglect starts from untouched Standard seed42");
-        var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();var setup=One<NewGameScreen>(main);setup.Configure("small",42,"harl",1,"peldra",true);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames();
+        var content=CoreWithApprovedPlague();var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,7,"harl",1,"peldra",true,false));Check(generated.Succeeded,"Generated Harl neglect starts from untouched Standard seed42");
+        var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();var setup=One<NewGameScreen>(main);setup.Configure("small",42,"harl",1,"peldra",true,false);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames();
         var screen=One<GameScreen>(main);var session=Session(screen);var owner=session.State.Empires.Single(e=>e.Controller==ControllerKind.Human).Id;var home=session.State.Colonies.Single(c=>c.EmpireId==owner).Id;
         Check(Snapshot(session)==SaveGame.Serialize(content,generated.State!),"Actual Standard Start matches untouched Harl neglect seed");await SaveThroughDialog(screen,"generated-harl-neglect-initial");
         Select(Picker(screen,"GovernorTemplatePicker"),"industrial");Press(Descendants<Button>(One<ColonyPanel>(screen)).Single(b=>b.Text=="Apply template"));await Frames();Toggle(screen,"WorkforceGovernorToggle",true);await Frames();Toggle(screen,"ConstructionGovernorToggle",true);await Frames();await QueueGeneratedProject(screen,"building","fabrication_hall");
@@ -322,13 +322,13 @@ public partial class CrisisGraphicalValidation:Node
         }
         Check(naturallyClosed&&minimum<activePopulation,"Generated open Harl plague causes actual population loss before natural recovery");
         Check(session.State.Turn<=34,"Generated neglect and natural closure remain within 120 crisis turns");
-        _results.Add(new{name="generated-harl-neglect provenance",passed=true,source="complete content/core/*.json",seed=42,rivals=1,rules=6,openSource=true,cureShare=0,activePopulation,minimumPopulation=minimum,resolvedTurn=session.State.Turn,liveOutcomeInjections=0});
+        _results.Add(new{name="generated-harl-neglect provenance",passed=true,source="complete content/core/*.json",seed=42,rivals=1,rules=7,amebas=false,openSource=true,cureShare=0,activePopulation,minimumPopulation=minimum,resolvedTurn=session.State.Turn,liveOutcomeInjections=0});
         SaveEvidence(session,"generated-harl-neglect-recovered");RemoveChild(main);main.QueueFree();await Frames();
     }
     private async Task GeneratedCargoFounding()
     {
-        var content=CoreWithApprovedPlague();var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,6,"harl",1,"peldra",true));Check(generated.Succeeded,"Generated Harl cargo starts from untouched Standard seed42");
-        var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();var setup=One<NewGameScreen>(main);setup.Configure("small",42,"harl",1,"peldra",true);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames();
+        var content=CoreWithApprovedPlague();var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,7,"harl",1,"peldra",true,false));Check(generated.Succeeded,"Generated Harl cargo starts from untouched Standard seed42");
+        var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();var setup=One<NewGameScreen>(main);setup.Configure("small",42,"harl",1,"peldra",true,false);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames();
         var screen=One<GameScreen>(main);var session=Session(screen);var owner=session.State.Empires.Single(e=>e.Controller==ControllerKind.Human).Id;var home=session.State.Colonies.Single(c=>c.EmpireId==owner).Id;
         Check(Snapshot(session)==SaveGame.Serialize(content,generated.State!),"Actual Standard Start matches untouched Harl cargo seed");await SaveThroughDialog(screen,"generated-harl-cargo-initial");
         var scout=session.View(owner).Vessels.Single(v=>v.RoleId=="scout").Id;var homeStar=session.View(owner).Colonies.Single().StarId;var chart=session.View(owner).Stars.Single(s=>s.Chart.Id==homeStar).Chart;
@@ -377,7 +377,7 @@ public partial class CrisisGraphicalValidation:Node
             var child=view.Colonies.FirstOrDefault(c=>c.Id!=home);if(child?.Crisis is {Stage:CrisisStage.Warning,GraceRemaining:2}){secondaryWarning=true;break;}
         }
         Check(departedTagged&&secondaryWarning&&_combinedReportSeen&&session.State.Turn<=57,"Generated founder departs infected open source and creates secondary Warning2 with combined report within120 turns; completion="+completionTurn+", departure="+departureTurn+", final="+session.State.Turn);
-        _results.Add(new{name="generated-harl-cargo provenance",passed=true,source="complete content/core/*.json",seed=42,rivals=1,rules=6,scoutVisited=visited.Count,targetStar=destination!.Value.Value,targetPlanet=targetPlanet!.Value.Value,completionTurn,departureTurn,secondaryTurn=session.State.Turn,liveOutcomeInjections=0});
+        _results.Add(new{name="generated-harl-cargo provenance",passed=true,source="complete content/core/*.json",seed=42,rivals=1,rules=7,amebas=false,scoutVisited=visited.Count,targetStar=destination!.Value.Value,targetPlanet=targetPlanet!.Value.Value,completionTurn,departureTurn,secondaryTurn=session.State.Turn,liveOutcomeInjections=0});
         SaveEvidence(session,"generated-harl-cargo-secondary-warning");RemoveChild(main);main.QueueFree();await Frames();
     }
     private static void SelectNumber(OptionButton picker,int id){int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}

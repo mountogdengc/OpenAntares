@@ -1,0 +1,20 @@
+{
+  "space_ameba": {
+    "id": "space_ameba",
+    "name": "Space ameba",
+    "pursuit_speed": 200,
+    "late_escape": {
+      "base_percent": 50,
+      "relative_speed_coefficient": 100,
+      "minimum_percent": 5,
+      "maximum_percent": 95
+    },
+    "study": {
+      "base_percent": 50,
+      "relative_speed_coefficient": 50,
+      "minimum_percent": 5,
+      "maximum_percent": 90
+    },
+    "research_reward": 600
+  }
+}
