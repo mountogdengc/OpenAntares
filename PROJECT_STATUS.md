@@ -4,7 +4,7 @@
 
 OpenAntares is an original turn-based space4X: C#/Godot .NET presentation, independent deterministic simulation. The approved classic Master of Orion II love-letter direction and fanciful aliens respectful of real peoples/beliefs remain authoritative.
 
-Current phase: complete M6 colony-crisis/plague design approved2026-10-25; separate14-task implementation plan ready for review, implementation Not Started. M5 colony presentation corrections remain verified and integrated locally into main. Updated2026-10-25 America/Denver. Rules5/writer6 unchanged; no release.
+Current phase: owner approved the separate14-task M6 colony-crisis/plague implementation plan2026-10-25. Native inline execution is In Progress on isolated codex/colony-crises; no main integration authorized. M5 colony presentation corrections remain verified and integrated locally into main. Updated2026-10-25 America/Denver. Rules5/writer6 unchanged; no release.
 
 ## 2. Implemented milestone
 
@@ -21,8 +21,8 @@ One fresh read-only whole-branch review found duplicate vessel notices and an ov
 | M5-D / M5-P | Verified | Approved full design and separate plan; Native retained |
 | M5-I colony development | Verified | All twelve COL child criteria within local automated/design scope |
 | M6-D colony crises/plague | Verified | Full owner design approval2026-10-25, ADR-014/CRI-AC-012 |
-| M6-P | In Progress | Separate14-task plan written/self-reviewed; owner plan review pending |
-| M6-I | Not Started | Native preference retained; no product code changes |
+| M6-P | Verified | Owner approved the separate14-task plan2026-10-25; Native inline retained |
+| M6-I | In Progress | Task1 genuine rules5 baseline captured before product changes; runtime criteria remain unverified |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
 | Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 
@@ -54,4 +54,4 @@ No open correction finding or newly deferred Minor. Physical mouse/keyboard/cont
 
 ## 8. Next concrete action
 
-Review the [14-task colony-crisis implementation plan](docs/superpowers/plans/2026-10-25-colony-crises-plague.md). [Plan self-review](reports/COLONY_CRISIS_IMPLEMENTATION_PLAN_REVIEW_2026-10-25.md) records coverage/interfaces, independent reference arithmetic, genuine-save source and exact preservation. M6-D/CRI-AC-012 Verified for design; M6-P In Progress pending plan review; M6-I/CRI-AC-001..011 Not Started. Retain Native execution after that review; do not ask the method again. No product code/core content/dependencies/art/application build/test, main integration/push/release or cleanup in this approval/planning turn. The genuine rules5 future capture is specified for Task1, not claimed executed now.
+Execute all14 approved plan tasks continuously under Native inline, then one fresh whole-branch review and regression-first Important corrections. Task1 freezes genuine rules5 futures before any product change; subsequent tasks add rules6 state/content, strict writer7, economics, commands, health/cargo, Ready/AI and UI, then generated campaigns and late default activation. Read the execution ledger before resuming. Preserve primary mainfa2a07f/four exact owner changes/seven worktrees and all saves/recovery/evidence. Main integration, push/release and cleanup remain unauthorized. CRI-AC-001..011 are not yet verified; ADR-014 design approval is retained.

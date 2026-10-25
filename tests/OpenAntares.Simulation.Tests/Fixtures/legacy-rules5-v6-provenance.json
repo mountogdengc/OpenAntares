@@ -1,0 +1,23 @@
+{
+  "genuine": true,
+  "source": "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves/qa-20261025-033820-304-generated-colony-harl-developed.json",
+  "source_sha256": "33221d961e8c52722639beb43386d95b22331922dc61495d3f1faf772bbea4a3",
+  "source_product_commit": "fc29d0b56073752e24bd35e99f5739d8100e73a3",
+  "capture_commit": "42439de037fa27bf90d24d6fb34a0a36d340236c",
+  "source_evidence": "reports/colony-polish-main-20261024-run1/colony/results.json",
+  "source_turn": 24,
+  "source_colonies": 6,
+  "future_turns": [
+    25,
+    26,
+    27,
+    28
+  ],
+  "command": "dotnet run --project .superpowers/sdd/2026-10-25-colony-crises-plague/capture/Capture.csproj --no-restore",
+  "helper_sha256": "8b8f273a761fb824740bedc790adf2a6ffaa1bafe21744e47e263c4c65a95bc3",
+  "saved_sha256": "33221d961e8c52722639beb43386d95b22331922dc61495d3f1faf772bbea4a3",
+  "continuation_sha256": "e63a4c8fcafc719780191b3480f2310473a9aa3811d4919309590b122c8a3d89",
+  "embedded_content_sha256": "6630a3154f6d94800de287b9e95e21e81270c6c4307e74eecdd9561ba8ffc65b",
+  "normalization": "schema_version only; content/rules/state otherwise exact",
+  "product_diff_vs_main": "empty src/game/content before capture; unchanged rules5/writer6"
+}
