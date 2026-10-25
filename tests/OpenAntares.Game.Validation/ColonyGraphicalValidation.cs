@@ -27,6 +27,7 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
             _output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output=",StringComparison.Ordinal))[20..];Directory.CreateDirectory(_output);
             Check(DisplayServer.GetName()!="headless","Colony validation uses a graphical display");
             await CurrentStartChecks();
+            await ReplacementPreviewChecks();
             await InvalidDevelopmentContentRecovery();
             await PortraitChecks();
             await InitialControls();
@@ -39,6 +40,54 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
         finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Colony",method="Actual controls/signals with labelled fixtures; no physical OS input or human-readability claim.",passed=error is null,error,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
     }
     private static ContentSet DevelopmentContent(){var loaded=ContentLoader.Load(new[]{new ContentSource("labelled-colony-content",File.ReadAllText(ProjectSettings.GlobalizePath("res://tests/OpenAntares.Simulation.Tests/Fixtures/colony-development-content.json")))},requireDevelopment:true);return loaded.Content??throw new InvalidOperationException(string.Join("; ",loaded.Errors));}
+    private async Task ReplacementPreviewChecks()
+    {
+        var mismatches=new System.Collections.Generic.List<string>();
+        foreach(bool bulk in new[]{false,true})
+        {
+            var content=DevelopmentContent();
+            var state=GalaxyGenerator.CreateNewGame(content,new("small",42,5,"wenth")).State!;
+            var owner=state.Empires[0];var colony=state.Colonies[0];
+            owner.KnownTechnologyIds=content.Technologies.Keys.ToList();
+            var planet=state.FindPlanet(colony.PlanetId)!;planet.PlanetTypeId="verdant_world";planet.EnvironmentId="shelf_sea";
+            colony.Population=6;colony.Workforce=new(6,0,0);
+            colony.CompletedBuildingIds=new(){"analysis_lab","cultivation_hub","fabrication_hall","habitat_extension"};
+            colony.ProjectId="daughter_seed";colony.ProjectKind="vessel";colony.ProductionReserve=123;colony.Development!.Origin=ProductionOrigin.Manual;
+            state.Empires.Add(new(){Id=new(state.AllocateId()),Controller=ControllerKind.Human,SpeciesId="harl",Development=new()});
+            ObservationUpdater.Refresh(state,0);
+            Check(GameStateValidator.Validate(content,state).Count==0,"Labelled replacement-preview fixture validates before session");
+            string mode=bulk?"bulk":"individual",name=$"qa-{_runId}-replacement-{mode}",path=SaveFiles.PathFor(name);
+            SaveGame.WriteFile(path,content,state);_savePaths.Add(path);
+            var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();Press(Button(One<NewGameScreen>(main),"Start"));await Frames();
+            var screen=await LoadThroughDialog(main,name);screen.NotificationPreferencesPath=Path.Combine(_output,$"replacement-{mode}-preferences.json");
+            Label preview;
+            if(bulk)
+            {
+                await Click(screen,"Manage colonies");var dialog=One<EmpireManagementDialog>(screen);
+                var list=Descendants<ItemList>(dialog).Single(l=>l.Name=="ManagementColonyList");list.Select(0);list.EmitSignal(ItemList.SignalName.MultiSelected,0,true);
+                Select(Picker(dialog,"BulkTemplatePicker"),"research");Toggle(dialog,"BulkReplaceActive",true);await Frames();
+                preview=Descendants<Label>(dialog).Single(l=>l.Text.Contains("S/P/R",StringComparison.Ordinal));
+            }
+            else
+            {
+                Select(Picker(screen,"GovernorTemplatePicker"),"research");await Click(screen,"Apply template");
+                Toggle(screen,"WorkforceGovernorToggle",true);await Frames();Toggle(screen,"ConstructionGovernorToggle",true);await Frames();Toggle(screen,"ReplaceActiveProject",true);await Frames();
+                preview=Descendants<Label>(One<ColonyPanel>(screen)).Single(l=>l.Text.StartsWith("Preview Support/Production/Research",StringComparison.Ordinal));
+            }
+            string text=preview.Text;
+            if(!text.Contains("to 2/1/3",StringComparison.Ordinal)||!text.Contains("next Ready: Discovery Center",StringComparison.Ordinal)||text.Contains("Active work retained",StringComparison.Ordinal))mismatches.Add(mode+": "+text);
+            await Reach(preview);await Capture($"replacement-{mode}-preview");
+            if(bulk){var dialog=One<EmpireManagementDialog>(screen);await Reach(Button(dialog,"Apply to selected colonies"));Press(Button(dialog,"Apply to selected colonies"));await Frames();dialog.Hide();}
+            else await Click(screen,"Apply template");
+            var applied=Session(screen).State.FindColony(colony.Id)!;
+            Check(applied.ProjectId is null&&applied.ProductionReserve==123,$"{mode}: replacement clears target immediately and retains reserve");
+            await EndPlanningWithoutResolution(screen);
+            var prepared=Session(screen).State.FindColony(colony.Id)!;
+            Check(prepared.Workforce==new Workforce(2,1,3)&&prepared.ProjectId=="discovery_center"&&prepared.ProductionReserve==123,$"{mode}: actual next Ready prepares Discovery Center and2/1/3 without spending reserve");
+            RemoveChild(main);main.QueueFree();await Frames();
+        }
+        Check(mismatches.Count==0,"Both replacement controls forecast actual next Ready: "+string.Join(" | ",mismatches));
+    }
     private async Task InitialControls()
     {
         GetTree().Root.Size=new(800,600);var content=DevelopmentContent();var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,5,"harl"));Check(generated.Succeeded,"Labelled rules5 initial campaign generated normally");

@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text.Json;
 using OpenAntares.Simulation.Content;
+using OpenAntares.Simulation.Commands;
 using OpenAntares.Simulation.Development;
 using OpenAntares.Simulation.Knowledge;
 using OpenAntares.Simulation.Saves;
@@ -12,6 +13,47 @@ namespace OpenAntares.Simulation.Tests;
 public sealed class GovernorPlanningTests
 {
     private static IGovernorPlanningContext Context(LoadedGame g)=>GovernorPlanningQueries.Create(g.Content,EmpireViewProjector.Project(g.Content,g.State,g.State.Empires[0].Id));
+    [Theory]
+    [InlineData(false)]
+    [InlineData(true)]
+    public void ReplacementPreviewMatchesAssignmentAndNextReadyWithoutMutatingSource(bool queued)
+    {
+        var g=ColonyFixtures.WithFoundations("wenth",6,"research");
+        var c=g.State.Colonies[0];
+        c.CompletedBuildingIds.Add("habitat_extension");
+        c.CompletedBuildingIds.Sort(StringComparer.Ordinal);
+        c.ProjectKind=ProductionKinds.Vessel;
+        c.ProjectId="daughter_seed";
+        c.ProductionReserve=123;
+        c.Development!.Origin=ProductionOrigin.Manual;
+        c.Development.ConstructionEnabled=true;
+        if(queued){c.Development.Queue.Add(new(7,new(ProductionKinds.Building,"production_complex")));c.Development.NextQueueToken=8;}
+        var owner=g.State.Empires[0];
+        g.State.Empires.Add(new(){Id=new(g.State.AllocateId()),Controller=ControllerKind.Human,SpeciesId="harl",Development=new()});
+        var view=EmpireViewProjector.Project(g.Content,g.State,owner.Id);
+        string before=JsonSerializer.Serialize(g.State);
+        var retained=GovernorPlanningQueries.Preview(g.Content,view,c.Id,c.Development.Template,true,true);
+        Assert.Equal(new Workforce(3,1,2),retained!.Workforce);
+        var preview=GovernorPlanningQueries.Preview(g.Content,view,c.Id,c.Development.Template,true,true,replaceActive:true);
+        Assert.NotNull(preview);
+        Assert.Equal(new Workforce(2,1,3),preview.Workforce);
+        Assert.Equal(queued?"production_complex":"discovery_center",preview.Target!.ContentId);
+        Assert.Equal(queued?7:(int?)null,preview.QueueToken);
+        Assert.Equal(before,JsonSerializer.Serialize(g.State));
+        var applied=CommandProcessor.Execute(g.Content,g.State,new AssignGovernorTemplateCommand(owner.Id,0,ImmutableArray.Create(c.Id),"research",true,true,true));
+        Assert.True(applied.Accepted,applied.Rejection?.Message);
+        Assert.Null(applied.State.FindColony(c.Id)!.ProjectId);
+        Assert.Equal(123,applied.State.FindColony(c.Id)!.ProductionReserve);
+        var ready=CommandProcessor.Execute(g.Content,applied.State,new SetReadyCommand(owner.Id,0,true));
+        Assert.True(ready.Accepted,ready.Rejection?.Message);
+        Assert.Null(ready.Report);
+        var actual=ready.State.FindColony(c.Id)!;
+        Assert.Equal(preview.Workforce,actual.Workforce);
+        Assert.Equal(preview.Target.ContentId,actual.ProjectId);
+        Assert.Equal(preview.QueueToken,actual.Development!.ActiveQueueToken);
+        Assert.Equal(c.Development.Queue,actual.Development.Queue);
+        Assert.Equal(123,actual.ProductionReserve);
+    }
     [Theory]
     [InlineData("harl",6,"balanced",2,2,2,500,500,0)]
     [InlineData("harl",6,"industrial",2,3,1,700,300,0)]

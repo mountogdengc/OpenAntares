@@ -24,7 +24,19 @@ public partial class ColonyOrdersPanel:VBoxContainer
         var replace=new CheckBox{Name="ReplaceActiveProject",Text="Replace active project when applying (keep reserve)"};AddChild(replace);
         var preview=DevelopmentUi.Text("");AddChild(preview);
         GovernorTemplateSnapshot? Chosen(){string id=picker.GetSelectedMetadata().AsString();if(id.Length==0)return null;if(content.GovernorTemplates.TryGetValue(id,out var t))return new(id,1,new(t.Name,t.FoundationIds,t.DevelopmentIds,t.SupportTarget,t.ProductionWeight,t.ResearchWeight));return view.Development.CustomTemplates.Single(t=>t.Id==id);}
-        void Preview(){var row=GovernorPlanningQueries.Preview(content,view,colony.Id,Chosen(),workforce.ButtonPressed,construction.ButtonPressed);preview.Text=row is null?"Manual control. Current work and reserve are retained.":$"Preview Support/Production/Research {colony.Workforce.Support}/{colony.Workforce.Production}/{colony.Workforce.Research} to {row.Workforce.Support}/{row.Workforce.Production}/{row.Workforce.Research}. Active work retained; next plan: {(row.Target is null?"bank production":row.Target.Kind=="building"?content.Buildings[row.Target.ContentId].Name:content.Vessels[row.Target.ContentId].Name)}.";if(replace.ButtonPressed&&colony.ProjectId is not null)preview.Text+=" Replacement clears the active target and keeps reserve.";}
+        void Preview()
+        {
+            var row=GovernorPlanningQueries.Preview(content,view,colony.Id,Chosen(),workforce.ButtonPressed,construction.ButtonPressed,replace.ButtonPressed);
+            string effect=replace.ButtonPressed&&colony.ProjectId is not null?"Active project cleared on Apply.":"Active work retained.";
+            if(row is null)
+            {
+                preview.Text=$"Manual control. {effect} Reserve retained.";
+                return;
+            }
+            string next=row.Target is null?"bank production":row.Target.Kind=="building"?content.Buildings[row.Target.ContentId].Name:content.Vessels[row.Target.ContentId].Name;
+            preview.Text=$"Preview Support/Production/Research {colony.Workforce.Support}/{colony.Workforce.Production}/{colony.Workforce.Research} to {row.Workforce.Support}/{row.Workforce.Production}/{row.Workforce.Research} at next Ready. {effect} Reserve retained; next Ready: {next}.";
+        }
+
         picker.ItemSelected+=_=>Preview();replace.Toggled+=_=>Preview();Preview();
         DevelopmentUi.Button(this,"Apply template",()=>CommandIssued?.Invoke(new AssignGovernorTemplateCommand(view.Viewer,view.Turn,ImmutableArray.Create(colony.Id),Chosen()?.Id,Chosen() is not null&&workforce.ButtonPressed,construction.ButtonPressed,replace.ButtonPressed)),"ApplyTemplate");
         var editor=new GovernorTemplateDialog();AddChild(editor);editor.CommandIssued+=c=>CommandIssued?.Invoke(c);
