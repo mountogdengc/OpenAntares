@@ -77,7 +77,7 @@ $taskTrackedPaths = @(Read-TaskGit $taskRepo @('diff','--name-only',$taskBase))
 $taskUntrackedPaths = @(Read-TaskGit $taskRepo @('ls-files','--others','--exclude-standard'))
 $taskChangedPaths = @($taskTrackedPaths + $taskUntrackedPaths | Sort-Object -Unique)
 foreach ($taskChangedPath in $taskChangedPaths) {
-    Assert-Task ($taskChangedPath -match '\.md$|^reports/scout-design/(owner-baseline\.json|document-checks\.json|verify-documents\.ps1)$') "Non-documentation change: $taskChangedPath"
+    Assert-Task ($taskChangedPath -match '\.md$|^reports/scout-design/(owner-baseline\.json|document-checks\.json|verify-documents\.ps1|verify-plan\.py|plan-checks\.json|reference-vectors\.json|rules6-source-catalog\.json)$') "Non-documentation change: $taskChangedPath"
 }
 $taskBaseline = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'owner-baseline.json') -Raw | ConvertFrom-Json
 $taskOwnerHashes = [ordered]@{}
@@ -124,7 +124,8 @@ $taskResult = [ordered]@{
     preservedWorktreePaths = $taskWorktreePaths
     retainedPriorBranchesChecked = $true
     builderVerdict = 'One modifiability ambiguity resolved against explicit warning/single-reward invariants; no other material questions'
-    gameplayDesignApproved = $false
+    gameplayDesignApproved = $true
+    implementationPlanApproved = $false
     productImplementationStarted = $false
     applicationBuildTestsRun = $false
     genuineRules6FutureCaptureRun = $false

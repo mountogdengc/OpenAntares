@@ -30,6 +30,9 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M6-D | Define bounded colony crises, beginning with plague | Owner direction/ADR-013; preserve M5 | Full design/builder check/owner review | Verified for design; ADR-014 full approval2026-10-25 |
 | M6-P | Plan colony-crisis implementation | Approved M6-D/ADR-014 | Separate14-task plan/self-review/owner review | Verified; owner approved Native inline execution |
 | M6-I | Implement approved crisis slice | Approved separate M6-P | CRI criteria, retained gates, independent review | Verified for local automated scope; fourteen task gates, independent review, one correction pass |
+| M7-D | Scout survival and space-ameba design | ADR-015 drafting/amendment, full approval ADR-016 | SCT-AC-012 full gameplay approval | Verified for design only |
+| M7-P | Plan scout/ameba implementation | Approved M7-D; retained Native inline | Separate15-task plan/self-review/owner review | In Progress; plan review pending |
+| M7-I | Implement approved scout/ameba slice | Future approved M7-P, genuine rules6 capture first | Functional SCT criteria, retained gates, one final reviewer | Not Started |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -37,7 +40,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Retain the approved [14-task crisis implementation plan](superpowers/plans/2026-10-25-colony-crises-plague.md), [Task14 validation](../reports/CRISIS_VALIDATION_2026-10-25.md) and [independent-review correction evidence](../reports/CRISIS_REVIEW_CORRECTIONS_2026-10-25.md). M6-D/CRI-AC-012, M6-P and M6-I/CRI-AC-001..011 are Verified within their stated design or local automated scopes. The owner-authorized fast-forward into main and fresh combined gates are recorded in the [M6 integration report](../reports/CRISIS_INTEGRATION_2026-10-25.md); the four pre-existing owner edits remain uncommitted. Human and delivery limits remain open.
+Review/confirm the separate [15-task scout/ameba implementation plan](superpowers/plans/2026-10-25-scout-survival-and-ameba.md), after full design approval in [ADR-016](DECISIONS/ADR-016-approved-scout-survival-and-ameba-design.md). M7-D/SCT-AC-012 Verified for design, M7-P In Progress, M7-I Not Started. Native inline/one final reviewer remains retained after the plan gate. Task1 genuine rules6 future capture precedes every product edit. Preserve all M6 implementation/integration evidence, main and four owner edits; human/delivery limits remain open.
 
 ## Risks and autonomy
 
@@ -60,3 +63,5 @@ Current M6 closure: full design and separate plan were approved; implementation,
 Current M7 entry2026-10-25: the owner selected bounded scout survival/encounter-avoidance drafting under [ADR-015](DECISIONS/ADR-015-scout-survival-design-entry.md). [Complete proposed gameplay rules](superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md) precede owner review. M7-D In Progress; M7-P/M7-I Not Started. Next action is review/amendment and full design approval, then a separate implementation plan. Retain Native preference after those gates. No new implementation task sequence, product/default/writer change or primary integration is authorized here; M6/parent statuses remain unchanged.
 
 M7 scope amendment: owner selected space-ameba danger. Review the amended SCT-007 habitat/warning/survival/study/loss/streams contract and new SCT-AC-013..015 before a separate plan. The creature choice supersedes peaceful-only scope; no numeric gameplay/plan/implementation approval is inferred. Retain peaceful rivals, Native after gates, main/owner-edit preservation and current product versions.
+
+Current M7 approval2026-10-25: [ADR-016](DECISIONS/ADR-016-approved-scout-survival-and-ameba-design.md) accepts the full amended gameplay design, M7-D/SCT-AC-012 Verified for design only. Review the [separate15-task implementation plan](superpowers/plans/2026-10-25-scout-survival-and-ameba.md) and [author self-review](../reports/SCOUT_IMPLEMENTATION_PLAN_REVIEW_2026-10-25.md). M7-P In Progress awaiting confirmation; M7-I Not Started. Native inline/one final fresh reviewer/no per-task agents retained. Task1 genuine rules6 future capture precedes any product/default/writer change; only source inventory/reference arithmetic/document checks ran during planning. No primary integration/push/release/cleanup authorization.

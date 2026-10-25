@@ -1,8 +1,8 @@
 # Scout survival and encounter avoidance
 
-2026-10-25. **Draft for owner gameplay review; no design or implementation approval.** REQ-017 / proposed M7-D In Progress. M7-P/M7-I Not Started. All exact choices below are drafter recommendations unless identified as existing authority. Current product remains rules6/writer7.
+2026-10-25. **Full amended design approved by the owner in [ADR-016](../../DECISIONS/ADR-016-approved-scout-survival-and-ameba-design.md).** M7-D/SCT-AC-012 Verified for design only. M7-P In Progress for separate plan review; M7-I and functional SCT criteria Not Started. Earlier proposal labels preserve drafting provenance; full approval accepts the complete rules below. Current product remains rules6/writer7.
 
-**Owner scope amendment:** “Let’s add a space ameba to as a danger.” This selects a space ameba as a real hazard for this specification. The stationary guardian, setup, warning, automatic survival, study reward and exact odds below are new drafter proposals awaiting full gameplay review. The earlier peaceful-only recommendation is superseded; rival empires remain peaceful.
+**Owner scope amendment:** “Let’s add a space ameba to as a danger.” This selects a space ameba as a real hazard for this specification. The owner subsequently approved the full amended specification, including stationary guardian, setup, warning, automatic survival, study reward and exact odds, in ADR-016. The earlier peaceful-only recommendation is superseded; rival empires remain peaceful.
 
 Authorities: [current status](../../../PROJECT_STATUS.md), [charter](../../CHARTER.md), [engineering rules](../../../CLAUDE.md), [recorded fleet intent](../../design-notes/2026-10-24-delegation-crises-and-fleet-intent.md), approved [exploration](2026-10-22-exploration-and-colonization-design.md), [rivals](2026-10-24-rival-expansion-design.md), [species](2026-10-23-species-mechanics-design.md) and [plague](2026-10-24-colony-crises-plague-design.md). [ADR-015](../../DECISIONS/ADR-015-scout-survival-design-entry.md) records drafting authority only.
 
@@ -182,7 +182,7 @@ These are written fixtures, not executed gameplay evidence. Coordinates use the 
 
 ## 9. Acceptance and review gates
 
-SCT-AC-001..011/013..015 execution and M7-I are **Not Started**. SCT-AC-012/M7-D are **In Progress** for amended drafting, not Verified for owner approval. Parent REQ-017/17-row counts, M6 acceptance and all human/platform/release limits remain unchanged. Existing child IDs are retained; ameba-specific criteria append013..015.
+SCT-AC-001..011/013..015 execution and M7-I are **Not Started**. SCT-AC-012/M7-D are **Verified for full owner design approval** in ADR-016; this is not runtime acceptance. Parent REQ-017/17-row counts, M6 acceptance and all human/platform/release limits remain unchanged. Existing child IDs are retained; ameba-specific criteria append013..015.
 
 | ID | Required observable procedure before implementation acceptance |
 | --- | --- |
@@ -208,4 +208,4 @@ Builder chooses efficient pure-query/index representations, class/file boundarie
 
 The owner selected the ameba as the actual danger; SCT-007 now proposes the corresponding warning, local encounter/loss, withdrawal/study, streams and save contract. Its stationary nature, exact numbers and reward are drafter calls. Roaming or colony-threatening creatures, long-range detection, interstellar pursuit, monster combat/removal, warship hold-at-all-costs and hostile-rival fleet doctrine remain separate decisions.
 
-The earlier peaceful-only builder verdict is historical. The fresh read-only ameba builder check raised one ambiguity about modifiable values versus fixed warning/single-reward guarantees. The drafter resolved it explicitly in SCT-007:100% no-roll warning departure and one successful reward are invariant algorithm rules; only the listed balance values are modifiable. No owner-only question remained; [review/evidence](../../../reports/SCOUT_DESIGN_REVIEW_2026-10-25.md) records the finding/disposition. Owner review of the full amended gameplay rules is next; approval leads to a **separate implementation plan**, with retained Native afterward. No implementation/default/writer change, primary integration, push/release/cleanup or gameplay acceptance is authorized or claimed here.
+The earlier peaceful-only builder verdict is historical. The fresh read-only ameba builder check raised one ambiguity about modifiable values versus fixed warning/single-reward guarantees. The drafter resolved it explicitly in SCT-007:100% no-roll warning departure and one successful reward are invariant algorithm rules; only the listed balance values are modifiable. No owner-only question remained; [review/evidence](../../../reports/SCOUT_DESIGN_REVIEW_2026-10-25.md) records the finding/disposition. Full owner approval is now recorded in ADR-016; review of the **separate implementation plan** is next, with retained Native afterward. No implementation/default/writer change, primary integration, push/release/cleanup or gameplay acceptance is authorized or claimed here.

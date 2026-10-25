@@ -4,6 +4,8 @@
 
 2026-10-25 continuation: [ADR-015](../DECISIONS/ADR-015-scout-survival-design-entry.md) records bounded [scout survival/encounter-avoidance drafting](../superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md) and the subsequent owner request to add a **space ameba as danger**. This supersedes the peaceful-only recommendation while retaining peaceful rival empires. Proposed stationary habitat, warning/survival/study/escape rules await full review; broader fleet/warfare scope is not inferred. Original owner statements below remain unchanged.
 
+Subsequent owner approval2026-10-25 in [ADR-016](../DECISIONS/ADR-016-approved-scout-survival-and-ameba-design.md) accepts the full amended scout/ameba design. The separate implementation plan is ready for review; product work is Not Started. Broader warship/fleet intent remains future scope.
+
 ## Owner statements and priorities
 
 - Building useful foundations on most planets is satisfying, especially buildings with output that does not consume dedicated population. After foundations, players should be able to give planets different purposes.

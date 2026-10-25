@@ -1,6 +1,6 @@
 # ADR-015: Scout survival and encounter-avoidance drafting
 
-Date: 2026-10-25. **Status: Accepted drafting authority; proposed gameplay rules awaiting owner review.**
+Date: 2026-10-25. **Status: Historical accepted drafting authority; full amended design subsequently approved in [ADR-016](ADR-016-approved-scout-survival-and-ameba-design.md).**
 
 The owner requested continuation from PROJECT_STATUS.md and a bounded scout survival/encounter-avoidance specification using the recorded fleet-intent note and existing rival/exploration rules, preserving decisions and uncommitted edits, with gameplay review before implementation.
 
@@ -9,3 +9,5 @@ This authorizes the [M7 draft](../superpowers/specs/2026-10-25-scout-survival-an
 Stationary habitat, Standard/Off setup, warning/survival defaults, optional research study, exact escape/loss/reward formulas, AI and proposed rules7/writer8 are drafter recommendations awaiting full gameplay review. The creature request does not approve all those details or authorize implementation, roaming colony attacks, warfare or copied commercial assets. Existing owner decisions remain authoritative outside the explicitly amended hazard scope.
 
 M7-D/SCT-AC-012 In Progress; M7-P/M7-I and functional SCT-AC-001..011/013..015 Not Started. Full amended gameplay approval precedes a separate plan. Retain Native preference after those gates; no repeated method selection. Preserve primary main, four owner edits, all prior branches/seven worktrees, genuine old campaigns, QA and recovery evidence. No code, content, default/writer change, primary integration, remote publication, release or cleanup is inferred.
+
+Subsequent owner “approved”2026-10-25 accepts the complete amended specification in ADR-016. M7-D/SCT-AC-012 Verified for design only; M7-P In Progress for the separate15-task plan, M7-I/functional acceptance Not Started. Earlier paragraphs retain original drafting authority and are not a current request to repeat design approval.

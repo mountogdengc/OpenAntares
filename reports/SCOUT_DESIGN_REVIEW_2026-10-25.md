@@ -1,6 +1,6 @@
 # Scout survival / encounter-avoidance design review — 2026-10-25
 
-**Drafting evidence only. Full amended gameplay approval pending.** The owner subsequently selected a space ameba as an actual danger; the original peaceful-only review below is historical. [Complete amended rules](../docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), [ADR-015 amended drafting authority](../docs/DECISIONS/ADR-015-scout-survival-design-entry.md).
+**Design-drafting evidence; full amended gameplay subsequently approved in [ADR-016](../docs/DECISIONS/ADR-016-approved-scout-survival-and-ameba-design.md).** The original peaceful-only review and pending-approval checkpoints below are historical. [Complete approved rules](../docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), [ADR-015 amended drafting authority](../docs/DECISIONS/ADR-015-scout-survival-design-entry.md). Separate plan review is now the next gate.
 
 ## Baseline and authority
 
@@ -60,3 +60,7 @@ Disposition: the explicit safe-warning/single-reward rules already defined the i
 The retained checker now verifies7 child requirements,15 acceptance IDs,29 proposed compatibility pairs,4 independent travel examples and10 ameba arithmetic examples (speed/caps,75%*95%=7125/10000 and600 stored units=6 research points), plus local links, unchanged parent rows and exact primary preservation. This remains document consistency evidence; no game code/PRNG/application tests, gameplay run or genuine current-rules future capture is executed by the checker.
 
 Fresh amended command: `& ./reports/scout-design/verify-documents.ps1`, Windows PowerShell in the drafting checkout; exit0. All listed checks pass, including15 local links, all four byte-exact primary owner files, unchanged main SHA/status/empty index and seven retained worktrees/prior branches. `git diff --check` exits0. Reviewed clarification is included in the specification hash recorded by document-checks.json; no engine test count or gameplay acceptance is inferred.
+
+## Subsequent full design approval
+
+Owner “approved”2026-10-25 accepts the full amended specification in [ADR-016](../docs/DECISIONS/ADR-016-approved-scout-survival-and-ameba-design.md). Earlier pending-approval statements are historical design-drafting checkpoints. M7-D/SCT-AC-012 Verified for full design only; [separate15-task plan](../docs/superpowers/plans/2026-10-25-scout-survival-and-ameba.md) and [author self-review](SCOUT_IMPLEMENTATION_PLAN_REVIEW_2026-10-25.md) are ready for plan review, M7-P In Progress, M7-I/functional criteria Not Started. No new builder dispatch or application execution is claimed; Native retained after plan gate. Primary and all owner edits remain untouched.

@@ -6,7 +6,7 @@ OpenAntares is an original turn-based space4X: C#/Godot .NET presentation, indep
 
 Current phase: all fourteen M6 colony-crisis/plague implementation tasks, independent whole-branch review and eight corrections are integrated into local `main`. Fresh post-merge main verification passed. M6-I is Verified for local automated acceptance; human and delivery acceptance remain open. New games default to rules6 Standard, retain Off, and write schema7 with22 explicit pairs. Updated2026-10-25 America/Denver.
 
-Current continuation: the owner requested bounded scout survival/encounter-avoidance gameplay review, then selected a **space ameba as an actual danger**. [Amended M7 draft](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), [ADR-015](docs/DECISIONS/ADR-015-scout-survival-design-entry.md). M7-D/SCT-AC-012 In Progress; M7-P/M7-I Not Started. Stationary habitat, warning/automatic scout withdrawal, study reward/odds, setup and rules7/writer8 are proposals awaiting full review; peaceful-only scope is superseded. Rival empires remain peaceful. Product remains rules6/writer7.
+Current continuation: the owner **approved the full amended scout/space-ameba design**2026-10-25 in [ADR-016](docs/DECISIONS/ADR-016-approved-scout-survival-and-ameba-design.md). [Approved specification](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md); [separate15-task implementation plan](docs/superpowers/plans/2026-10-25-scout-survival-and-ameba.md) and [self-review/evidence](reports/SCOUT_IMPLEMENTATION_PLAN_REVIEW_2026-10-25.md) are ready for plan review. M7-D/SCT-AC-012 Verified for design; M7-P In Progress awaiting plan confirmation; M7-I/functional SCT criteria Not Started. Native inline/one final fresh reviewer retained; no per-task agents. Product remains rules6/writer7; no implementation/default/writer change in this approval/planning turn.
 
 ## 2. Implemented milestone
 
@@ -25,8 +25,9 @@ One fresh read-only whole-branch review found duplicate vessel notices and an ov
 | M6-D colony crises/plague | Verified | Full owner design approval2026-10-25, ADR-014/CRI-AC-012 |
 | M6-P | Verified | Owner approved the separate14-task plan2026-10-25; Native inline retained |
 | M6-I | Verified | Tasks1..14, independent review, eight corrections and fresh merged-main gates passed locally; no second review |
-| M7-D scout survival / encounter avoidance | In Progress | Draft and builder check for owner gameplay review; no full design approval |
-| M7-P / M7-I | Not Started | Separate plan follows full design approval; no product implementation |
+| M7-D scout survival / encounter avoidance | Verified | Full amended design approval2026-10-25; ADR-016/SCT-AC-012, design only |
+| M7-P | In Progress | Separate15-task plan/self-review ready; owner plan review pending |
+| M7-I | Not Started | Native retained after plan gate; no product implementation |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
 | Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 
@@ -54,7 +55,7 @@ Preserve architecture, deterministic integer rules, command authority, JSON/vers
 
 Plague, containment and emergency acknowledgement are implemented within M6 scope on `main`. Revolts, broader culture mechanics, fleet/scout doctrine, warfare/diplomacy, peaceful mode, multiplayer and victory remain future scope.
 
-M7 now proposes one stationary lethal space ameba with harmless arrival warning, safe prompt withdrawal, risky optional study/late escape and actual vessel/cargo loss, plus optional neutral-contact avoidance. Ordinary survey/contact and committed travel remain; rival empires stay peaceful. Roaming/colony attacks, long-range sensors, interstellar pursuit, tactical combat and warship doctrine remain Deferred. Full amended gameplay rules require owner review before separate planning. No old campaign is upgraded.
+Approved M7 defines one stationary lethal ameba, harmless arrival warning/100% prompt withdrawal, optional75% core study survival/600 research/95% late escape, actual vessel/cargo loss and optional neutral-contact caution. Ordinary survey/contact/committed travel and peaceful rivals remain. Target rules7/writer8 is approved for reviewed implementation only; no old campaign upgrades. Roaming/colony attacks/sensors/interstellar pursuit/tactical combat/warship doctrine remain Deferred. Separate plan review precedes product work.
 
 ## 6. Repository and preservation
 
@@ -68,6 +69,6 @@ No open Important/Critical or Minor review finding remains after the one authori
 
 ## 8. Next concrete action
 
-Review/amend the complete [scout/space-ameba specification](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), especially stationary habitat, warning/safe withdrawal, optional study reward/odds, late escape, actual cargo loss and default survival authority. The owner selected the danger, not every proposed numeric rule. Full design approval precedes a separate plan; Native remains retained. M6 and parent statuses/17-row totals are unchanged; no application tests ran for documentation-only drafting.
+Review/confirm the separate [15-task scout/ameba implementation plan](docs/superpowers/plans/2026-10-25-scout-survival-and-ameba.md). Full design approval is already recorded; do not re-ask design or execution method. After plan approval retain Native inline, one final fresh whole-branch reviewer and no per-task agents. Task1 must capture genuine rules6 futures before any product change;32 real generated UI saves are located/hashed, but future capture has not run. M6/parent statuses/17-row totals remain unchanged. No application build/test/runtime or product implementation occurred in planning.
 
 Drafting checkout: the clean existing `.worktrees/colony-development-design` was reused on new `codex/scout-survival-design` from primary main42e1282; prior `codex/colony-crises` and all seven worktrees/branches remain. Primary main and all four owner files are untouched; no integration, push, release, cleanup or product change. [Draft review and preservation evidence](reports/SCOUT_DESIGN_REVIEW_2026-10-25.md) records fresh checks and limits. This branch's status updates do not copy or commit the owner's primary peaceful-mode paragraph.
