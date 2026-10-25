@@ -27,6 +27,9 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M5-D | Define colony development and delegation | Full owner approval in ADR-012 after builder check | COL-AC-012 full design gate | Verified for design scope |
 | M5-P | Plan colony-development implementation | Approved M5-D; retained Native | Twelve-task plan self-review and owner plan confirmation | Verified; owner approved with “yes” |
 | M5-I | Implement approved colony-development slice | Approved M5-P; isolated execution/preserved genuine old campaigns | COL criteria and retained gates, independent whole-branch review | Verified for local automated scope; authorized corrections verified/integrated |
+| M6-D | Draft bounded colony crises, beginning with plague | Owner drafting request/ADR-013; preserve M5 contracts | Full proposed gameplay design, builder check, owner review | In Progress; full design approval pending |
+| M6-P | Plan colony-crisis implementation | Full approved M6-D | Separate implementation plan | Not Started |
+| M6-I | Implement approved crisis slice | Approved separate M6-P | CRI criteria, retained gates, independent review | Not Started |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -34,7 +37,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-The requested three corrections, independent review/correction pass and local integration are complete. Fresh988-test main Suite/Colony665+4 provenance/build/metadata and exact owner-preservation checks pass. Next is bounded milestone selection/specification with the owner; no automatic new feature implementation. Read PROJECT_STATUS.md and reports/COLONY_POLISH_INTEGRATION_2026-10-24.md.
+Review/amend the proposed colony-crisis/plague gameplay specification with the owner. ADR-013 authorizes drafting only; M6-D In Progress, separate planning/implementation Not Started. Independent arithmetic/builder check is not gameplay acceptance. Preserve current M5 baseline, owner changes and all worktrees/evidence. See PROJECT_STATUS.md and reports/COLONY_CRISIS_DESIGN_REVIEW_2026-10-24.md.
 
 ## Risks and autonomy
 
@@ -50,4 +53,6 @@ Historical execution entry: owner approved the separate twelve-task plan with �
 
 Historical M5 review: reports/COLONY_FINAL_REVIEW_2026-10-24.md records the original findings and initial deferrals; current correction closure follows below.
 
-Current correction closure (2026-10-24): all three authorized presentation fixes and the fresh review duplicate-vessel correction are verified and locally integrated. Functional source4a2e430 passes988 simulation tests; Colony665 assertions+4 provenance; Rival1146+12 provenance; Species1194; Expansion275; Legacy466+27 geometry. Fresh main Suite/Colony/normal rebuild/five harness exclusions pass separately. All twelve COL child criteria and M5-I are Verified for local automated/design scope. Parent REQ-017 and17-row totals remain12 Verified/3 Implemented, Unverified/1 In Progress/1 Deferred. See PROJECT_STATUS.md and reports/COLONY_POLISH_INTEGRATION_2026-10-24.md. Human/platform/delivery/release limits remain open. Next is bounded milestone selection/specification; no automatic implementation or cleanup.
+Historical M5 correction closure (2026-10-24): all three authorized presentation fixes and the fresh review duplicate-vessel correction are verified and locally integrated. Functional source4a2e430 passes988 simulation tests; Colony665 assertions+4 provenance; Rival1146+12 provenance; Species1194; Expansion275; Legacy466+27 geometry. Fresh main Suite/Colony/normal rebuild/five harness exclusions pass separately. All twelve COL child criteria and M5-I are Verified for local automated/design scope. Parent REQ-017 and17-row totals remain12 Verified/3 Implemented, Unverified/1 In Progress/1 Deferred. See PROJECT_STATUS.md and reports/COLONY_POLISH_INTEGRATION_2026-10-24.md. Human/platform/delivery/release limits remain open. Next is bounded milestone selection/specification; no automatic implementation or cleanup.
+
+Current M6 design entry supersedes earlier next-milestone-selection wording only. Full design review precedes a separate implementation plan; no new code/build/dependency/runtime work is authorized by drafting.

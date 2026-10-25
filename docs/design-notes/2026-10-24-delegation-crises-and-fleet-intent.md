@@ -1,6 +1,6 @@
 # Owner design directions: delegation, crises and fleet intent
 
-2026-10-24. **Status: recorded owner intent and drafter proposals; future mechanics remain Deferred.** This is not an approved implementation specification. Current M5 proposal is [colony development](../superpowers/specs/2026-10-24-colony-development-design.md); current product has no revolt/plague/combat system. Preserve FR-001 Peaceful mode as its existing separate uncommitted backlog item; this note does not alter it.
+2026-10-24. **Status: recorded owner intent and drafter proposals; future mechanics remain Deferred.** This is not an approved implementation specification. M5 [colony development](../superpowers/specs/2026-10-24-colony-development-design.md) is subsequently approved/implemented/verified. The owner now requested the [M6 plague-first crisis draft](../superpowers/specs/2026-10-24-colony-crises-plague-design.md) for gameplay review; its concrete numbers are proposals, not amendments to these owner statements. Current product still has no revolt/plague/combat system. Preserve FR-001 Peaceful mode as its existing separate uncommitted backlog item; this note does not alter it.
 
 ## Owner statements and priorities
 

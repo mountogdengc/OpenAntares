@@ -4,7 +4,7 @@
 
 OpenAntares is an original turn-based space4X: C#/Godot .NET presentation, independent deterministic simulation. The approved classic Master of Orion II love-letter direction and fanciful aliens respectful of real peoples/beliefs remain authoritative.
 
-Current phase: colony presentation corrections verified and integrated locally into main. Updated2026-10-24 America/Denver. Rules5/writer6 unchanged; no release.
+Current phase: M6 colony-crisis/plague specification drafted for owner gameplay review; no implementation authorized. M5 colony presentation corrections remain verified and integrated locally into main. Updated2026-10-24 America/Denver. Rules5/writer6 unchanged; no release.
 
 ## 2. Implemented milestone
 
@@ -20,6 +20,8 @@ One fresh read-only whole-branch review found duplicate vessel notices and an ov
 | First Playable human acceptance | Deferred | ADR-005; unavailable uncoached session |
 | M5-D / M5-P | Verified | Approved full design and separate plan; Native retained |
 | M5-I colony development | Verified | All twelve COL child criteria within local automated/design scope |
+| M6-D colony crises/plague | In Progress | Draft requested; proposed gameplay rules await owner review |
+| M6-P / M6-I | Not Started | Full design approval precedes separate planning; no product code changes |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
 | Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 
@@ -35,15 +37,15 @@ Actual controls/signals cover historical wording,30-colony deletion references a
 
 ## 5. Decisions and boundaries
 
-Preserve architecture, deterministic integer rules, command authority, JSON/versioning and approved subsystem contracts. Sixteen explicit compatibility pairs retain genuine rules1/2/3/4 behavior. No new content/art/dependency/rules/schema/AI/feature scope. Ledger rulings/costs cover sorted valid fixtures, finish-gate sequencing, retained evidence and every reviewer declined item.
+Preserve architecture, deterministic integer rules, command authority, JSON/versioning and approved subsystem contracts. Sixteen explicit compatibility pairs retain genuine rules1/2/3/4 behavior. No product content/art/dependency/rules/schema/AI changes. The owner now authorized drafting the proposed M6 plague contract only: [ADR-013](docs/DECISIONS/ADR-013-colony-crisis-design-entry.md), [full proposed specification](docs/superpowers/specs/2026-10-24-colony-crises-plague-design.md). Its costs, timing, transport, culture deferral and rules6/writer7 are proposals, not approved or active. Ledger rulings/costs cover sorted valid fixtures, finish-gate sequencing, retained evidence and every reviewer declined item.
 
-Crises/plagues/revolts/culture/destruction, emergency acknowledgements, fleet/scout doctrine, warfare/diplomacy, peaceful mode, multiplayer and victory remain future scope.
+Plague/containment/emergency acknowledgement are now selected for M6 design review; their implementation remains Not Started. Revolts, broader culture mechanics, fleet/scout doctrine, warfare/diplomacy, peaceful mode, multiplayer and victory remain future scope.
 
 ## 6. Repository and preservation
 
-Primary F:/Projects-PCGames/OpenAntares, main fast-forwarded fa99cf81604e878e6bd951a85bb6658b2f7c3faf→fc29d0b56073752e24bd35e99f5739d8100e73a3. Final authored documentation/evidence commit follows; its exact SHA is in Git history and the chat final audit. Retain codex/colony-development-design at C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/colony-development-design and all seven worktrees/branches.
+Primary F:/Projects-PCGames/OpenAntares remains on mainfa2a07f33e6ef2e8d24549d0dcda635221068cd8. M5 correction integration was fc29d0b56073752e24bd35e99f5739d8100e73a3, followed by that authored handoff commit; its preservation audit remains retained in chat. For this documentation-only request, the clean existing colony worktree was fast-forwarded to mainfa2a07f and switched to new branch codex/colony-crisis-design. Retain codex/colony-development-design and all existing branches/seven worktrees; no new worktree or main integration.
 
-Exactly four original owner changes remain outside authored commits: this document's peaceful-mode paragraph, docs/SPECIES_ROSTER.md, docs/research/faction-survey.md and untracked docs/FEATURE_REQUESTS.md. Other three files byte-identical; exact owner paragraph restored unstaged. Status-only recovery `29db8cd8e96c7cc80303bacd78b66497cfbe9329` and exact four-file chat backup `.colony-polish-preservation-20261024-204739` retained. Indexed status excludes owner prose; final index empty. No broad stash application, push/release/history rewrite/cleanup. All old saves, failed/successful QA and scratch retained.
+Exactly four original owner changes remain on primary main outside this design branch/authored commits: PROJECT_STATUS.md's peaceful-mode paragraph, docs/SPECIES_ROSTER.md, docs/research/faction-survey.md and untracked docs/FEATURE_REQUESTS.md. Other three files byte-identical; exact owner paragraph restored unstaged. Status-only recovery `29db8cd8e96c7cc80303bacd78b66497cfbe9329` and exact four-file chat backup `.colony-polish-preservation-20261024-204739` retained. Indexed status excludes owner prose; final index empty. No broad stash application, push/release/history rewrite/cleanup. All old saves, failed/successful QA and scratch retained.
 
 ## 7. Remaining limits
 
@@ -51,4 +53,4 @@ No open correction finding or newly deferred Minor. Physical mouse/keyboard/cont
 
 ## 8. Next concrete action
 
-Select and specify the next bounded milestone with the owner. Requested fixes/verification/integration are complete; do not repeat them or infer new implementation. Preserve all owner work and recovery. [Current integration](reports/COLONY_POLISH_INTEGRATION_2026-10-24.md).
+Owner review/amendment of the [proposed colony-crisis/plague gameplay specification](docs/superpowers/specs/2026-10-24-colony-crises-plague-design.md). [Design check/evidence](reports/COLONY_CRISIS_DESIGN_REVIEW_2026-10-24.md) distinguishes independent arithmetic/engineering review from unexecuted gameplay. Full approval is pending; only afterward write a separate implementation plan. No product code, core content, dependency, art, new runtime gate, main merge/push/release or cleanup in this drafting request. Retained Native preference applies after later gates.
