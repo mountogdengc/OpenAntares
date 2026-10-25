@@ -68,12 +68,12 @@ public partial class NewGameScreen : CenterContainer
         column.AddChild(new Label { Text = "Race to explore and settle. Warfare and negotiation are not available yet.", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart });
         column.AddChild(_error); _start.Pressed += Start; column.AddChild(_start);
         var load = new Button { Text = "Load Game" }; load.Pressed += () => LoadRequested?.Invoke(); column.AddChild(load);
-        _start.Disabled = _species.Length == 0 || _sizes.Length == 0 || _content.RivalAi is null;
+        _start.Disabled = _species.Length == 0 || _sizes.Length == 0 || _content.RivalAi is null || _content.GovernorTemplates.IsEmpty;
         _rivalCountPicker.ItemSelected += _ => { _rivalSpeciesPicker.Disabled = _rivalCountPicker.Selected == 0 || _species.Length == 0; UpdateSummary(); };
         _rivalSpeciesPicker.ItemSelected += _ => UpdateSummary();
         _speciesPicker.ItemSelected += _ => UpdateSummary(); _sizePicker.ItemSelected += _ => UpdateSummary(); _seedField.TextChanged += _ => UpdateSummary();
         RandomizeSeed();
-        if (_start.Disabled) { ShowError("Species, galaxy or rival policy definitions are missing. Load an existing campaign instead."); load.GrabFocus(); } else _start.GrabFocus();
+        if (_start.Disabled) { ShowError("Species, galaxy, rival policy or colony template definitions are missing. Load an existing campaign instead."); load.GrabFocus(); } else _start.GrabFocus();
     }
     public void Configure(string sizeId, ulong seed, string? speciesId = null, int? rivalCount = null, string? rivalSpeciesId = null)
     {
@@ -86,6 +86,7 @@ public partial class NewGameScreen : CenterContainer
     }
     public void Start()
     {
+        if (_content.GovernorTemplates.IsEmpty) { ShowError("Colony template definitions are missing. Load an existing campaign instead."); return; }
         if (_content.RivalAi is null) { ShowError("Rival policy definitions are missing. Load an existing campaign instead."); return; }
         if (_rivalCountPicker.Selected < 0 || (_rivalCountPicker.Selected == 1 && _rivalSpeciesPicker.Selected < 0)) { ShowError("Select a defined rival count and species."); return; }
         if (_sizes.Length == 0 || _sizePicker.Selected < 0) { ShowError("No galaxy sizes are defined in the content files."); return; }

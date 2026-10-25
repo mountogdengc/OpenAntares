@@ -8,7 +8,7 @@ namespace OpenAntares.Simulation.Tests;
 
 internal static class RivalFixtures
 {
-    internal static ContentSet Content() => ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory()).Content ?? throw new InvalidOperationException("Invalid core rival content.");
+    internal static ContentSet Content() => CompatibilityFixtures.Rules4Content();
 
     internal static GameState AtHome(string speciesId)
     {

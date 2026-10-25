@@ -18,7 +18,7 @@ public partial class ColonyOrdersPanel:VBoxContainer
         var picker=new OptionButton{Name="GovernorTemplatePicker",SizeFlagsHorizontal=SizeFlags.ExpandFill};picker.AddItem("Manual / no template");picker.SetItemMetadata(0,"");
         foreach(var t in content.GovernorTemplates.Values){picker.AddItem(t.Name+" (default)");picker.SetItemMetadata(picker.ItemCount-1,t.Id);}
         foreach(var t in view.Development!.CustomTemplates){picker.AddItem(t.Definition.Name+$" (revision {t.Revision})");picker.SetItemMetadata(picker.ItemCount-1,t.Id);}
-        for(int i=0;i<picker.ItemCount;i++)if(picker.GetItemMetadata(i).AsString()==d.Template?.Id)picker.Select(i);AddChild(picker);
+        for(int i=0;i<picker.ItemCount;i++)if(picker.GetItemMetadata(i).AsString()==(d.Template?.Id??"balanced"))picker.Select(i);if(d.Template is null&&picker.Selected==0&&picker.ItemCount>1)picker.Select(1);AddChild(picker);
         var workforce=new CheckBox{Name="WorkforceGovernorToggle",Text="Governor manages workforce",ButtonPressed=d.WorkforceEnabled,Disabled=d.Template is null};var construction=new CheckBox{Name="ConstructionGovernorToggle",Text="Governor manages construction",ButtonPressed=d.ConstructionEnabled};AddChild(workforce);AddChild(construction);
         workforce.Toggled+=on=>CommandIssued?.Invoke(new SetColonyAutomationCommand(view.Viewer,view.Turn,colony.Id,on,construction.ButtonPressed));construction.Toggled+=on=>CommandIssued?.Invoke(new SetColonyAutomationCommand(view.Viewer,view.Turn,colony.Id,workforce.ButtonPressed,on));
         var replace=new CheckBox{Name="ReplaceActiveProject",Text="Replace active project when applying (keep reserve)"};AddChild(replace);

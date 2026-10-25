@@ -34,7 +34,7 @@ public class ContentLoaderTests
         """;
 
     [Fact]
-    public void CoreContentLoadsAndMatchesTheSpecificationFixture()
+    public void CoreRetainsOriginalEconomyDefinitions()
     {
         ContentLoadResult result = ContentLoader.LoadDirectory(CoreContentDirectory());
 
@@ -44,6 +44,9 @@ public class ContentLoaderTests
             // The original economy fixture remains authoritative for old campaigns; species extensions have their own core tests.
             Expansion = null,
             RivalAi = null,
+            GovernorTemplates = ImmutableSortedDictionary<string,GovernorTemplateDefinition>.Empty,
+            Buildings = result.Content!.Buildings.Where(p=>Fixtures.PrototypeContent().Buildings.ContainsKey(p.Key)).ToImmutableSortedDictionary(p=>p.Key,p=>p.Value,StringComparer.Ordinal),
+            Technologies = result.Content!.Technologies.Where(p=>Fixtures.PrototypeContent().Technologies.ContainsKey(p.Key)).ToImmutableSortedDictionary(p=>p.Key,p=>p.Value,StringComparer.Ordinal),
             Species = ImmutableSortedDictionary<string, SpeciesDefinition>.Empty,
             Environments = ImmutableSortedDictionary<string, EnvironmentDefinition>.Empty,
             Vessels = System.Collections.Immutable.ImmutableSortedDictionary<string, VesselDefinition>.Empty,

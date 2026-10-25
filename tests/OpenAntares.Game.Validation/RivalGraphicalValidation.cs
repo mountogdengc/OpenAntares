@@ -47,7 +47,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
     private static OptionButton Picker(Node screen,string name)=>Descendants<OptionButton>(screen).Single(p=>p.Name==name);
     private async Task InvalidDiskContentCanStillLoadCampaign()
     {
-        var core=ContentFiles.LoadCore().Content!;var state=GalaxyGenerator.CreateNewGame(core,new("small",42,3,"harl")).State!;
+        var core=FrozenContent.Rules3();var state=GalaxyGenerator.CreateNewGame(core,new("small",42,3,"harl")).State!;
         string name=$"qa-{_runId}-invalid-disk-content-legacy";string path=SaveFiles.PathFor(name);Check(!File.Exists(path),"Invalid-content legacy QA name is unique");SaveGame.WriteFile(path,core,state);_savePaths.Add(path);
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();
         GetTree().Root.Size=new(800,600);await Frames();
@@ -70,7 +70,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         var count=Picker(setup,"RivalCountPicker");var human=Picker(setup,"SpeciesPicker");var rival=Picker(setup,"RivalSpeciesPicker");
         Check(count.GetSelectedMetadata().AsString()=="1" && human.GetSelectedMetadata().AsString()=="harl" && rival.GetSelectedMetadata().AsString()=="peldra","Visible defaults are One / Harl / Peldra");
         NewGameSettings? selected=null;setup.StartRequested+=s=>selected=s;setup.Configure("small",42);Press(Button(setup,"Start"));
-        Check(selected is {RulesVersion:4,RivalCount:1,SpeciesId:"harl",RivalSpeciesId:"peldra"},"Visible defaults reach simulation unchanged");
+        Check(selected is {RulesVersion:5,RivalCount:1,SpeciesId:"harl",RivalSpeciesId:"peldra"},"Visible defaults reach simulation unchanged");
         Select(human,"peldra");Check(rival.GetSelectedMetadata().AsString()=="peldra","Human selection does not swap rival; mirrors legal");Press(Button(setup,"Start"));Check(selected?.RivalSpeciesId=="peldra" && selected.SpeciesId=="peldra","Mirror settings reach simulation");
         Select(count,"0");Press(Button(setup,"Start"));Check(rival.Disabled && selected is {RivalCount:0,RivalSpeciesId:null},"Solo disables rival and passes null identity");
         Select(count,"1");Check(!rival.Disabled,"One enables the retained rival choice");
@@ -122,7 +122,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
     }
     private async Task ObservationUiChecks()
     {
-        var core=ContentFiles.LoadCore().Content!;var state=GalaxyGenerator.CreateNewGame(core,new("small",42,4,"harl",1,"peldra")).State!;
+        var core=FrozenContent.Rules4();var state=GalaxyGenerator.CreateNewGame(core,new("small",42,4,"harl",1,"peldra")).State!;
         var before=state.Clone();var human=state.Empires[0];var ai=state.Empires[1];var home=state.FindPlanet(state.Colonies.Single(c=>c.EmpireId==ai.Id).PlanetId)!.StarId;
         state.Vessels.Single(v=>v.EmpireId==human.Id).StationaryStarId=home;ObservationUpdater.Refresh(state,0);ContactUpdater.Refresh(before,state);
         Check(GameStateValidator.Validate(core,state).Count==0,"Labelled pre-session observation fixture validates");
@@ -140,7 +140,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
     }
     private async Task EncounterReportChecks()
     {
-        var content=ContentFiles.LoadCore().Content!;var human=content.Species["harl"];var rival=content.Species["peldra"];
+        var content=FrozenContent.Rules4();var human=content.Species["harl"];var rival=content.Species["peldra"];
         var state=new GameState{RulesVersion=4,NextEntityId=15};
         state.Empires.Add(new EmpireState{Id=new(1),Controller=ControllerKind.Human,SpeciesId="harl"});
         state.Empires.Add(new EmpireState{Id=new(8),Controller=ControllerKind.Ai,SpeciesId="peldra",AiPolicyId="expansion_v1"});
@@ -180,7 +180,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
             var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();
             var setup=One<NewGameScreen>(main);setup.Configure("small",42,species,rivals,"peldra");Press(Button(setup,"Start"));await Frames();
             var screen=One<GameScreen>(main);var session=Session(screen);var human=session.State.Empires[0].Id;
-            Check(session.State.RulesVersion==4 && session.State.Empires[0].SpeciesId==species && session.State.Empires.Count==rivals+1,$"{species}/rivals{rivals}: visible settings create correct empires");
+            Check(session.State.RulesVersion==5 && session.State.Empires[0].SpeciesId==species && session.State.Empires.Count==rivals+1,$"{species}/rivals{rivals}: visible settings create correct empires");
             var expected=new GameSession(session.Content,session.State.Clone());Check(expected.Execute(new SetReadyCommand(human,0,true)).Accepted,"Reference turn resolves");
             string name=await SaveThroughDialog(screen,$"human-{species}-rivals{rivals}");screen=await LoadThroughDialog(main,name);await EndTurn(screen);
             Check(Snapshot(Session(screen))==Snapshot(expected),$"{species}/rivals{rivals}: UI save/load preserves future continuation");One<TurnReportDialog>(screen).Hide();await Drop(main);
@@ -209,9 +209,9 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();
         var setup=One<NewGameScreen>(main);setup.Configure(size,42,"harl",1,species);Press(Button(setup,"Start"));await Frames();
         var screen=One<GameScreen>(main);GameSession session=Session(screen);EmpireId humanId=session.State.Empires[0].Id;EmpireId rivalId=session.State.Empires[1].Id;
-        Check(session.State.RulesVersion==4 && session.State.GalaxySeed==42 && session.State.Empires[1].SpeciesId==species,label+": actual UI starts generated rules4 seed42 campaign");
+        Check(session.State.RulesVersion==5 && session.State.GalaxySeed==42 && session.State.Empires[1].SpeciesId==species,label+": actual UI starts generated rules5 seed42 campaign");
         var home=session.View(humanId).Colonies.Single();var scout=session.View(humanId).Vessels.Single();
-        Select(Descendants<OptionButton>(One<ColonyPanel>(screen)).Single(),"vessel|harl_settler");await Frames();
+        Select(Descendants<OptionButton>(One<ColonyPanel>(screen)).Single(p=>p.Name=="ColonyProjectPicker"),"vessel|harl_settler");await Frames();
         Select(Descendants<OptionButton>(One<ResearchBar>(screen)).Single(),"cultivation_methods");await Frames();
         bool savedPending=false,savedTransit=false,savedFounding=false,firstContactReport=false,development=false;int resolvedTurns=0,secondAt=-1,contactAt=-1;
         while(resolvedTurns<80)
@@ -246,7 +246,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
             if(!development && session.View(humanId).Vessels.Any(v=>v.CarriedPopulation>0))
             {
                 One<GalaxyMap>(screen).Select(home.StarId);await Frames();Press(Button(One<StarPanel>(screen),$"Select planet {session.State.FindPlanet(home.PlanetId)!.Orbit}"));await Frames();
-                Select(Descendants<OptionButton>(One<ColonyPanel>(screen)).Single(),"cultivation_hub");await Frames();development=true;
+                Select(Descendants<OptionButton>(One<ColonyPanel>(screen)).Single(p=>p.Name=="ColonyProjectPicker"),"cultivation_hub");await Frames();development=true;
             }
             var reference=new GameSession(session.Content,session.State.Clone());Check(reference.Execute(new SetReadyCommand(humanId,reference.State.Turn,true)).Accepted,label+": uninterrupted turn is valid");
             await EndTurn(screen);resolvedTurns++;
@@ -282,7 +282,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
     }
     private async Task LabelledFixtures()
     {
-        var core=ContentFiles.LoadCore().Content!;
+        var core=FrozenContent.Rules4();
         foreach(string mode in new[]{"native","sealed","extended","race","alternate"})
         {
             string species=mode is "native" or "sealed"?"sulan":mode=="extended"?"wenth":"harl";

@@ -15,7 +15,7 @@ public sealed class ColonyContentTests
         Assert.Equal(SupportTargetMode.CappedGrowth,c.GovernorTemplates["growth"].SupportTarget);
         Assert.Equal(3200,c.Buildings["production_complex"].Cost);Assert.Equal(300,c.Buildings["production_complex"].Effects.Single().Amount);
         Assert.Equal(2400,c.Technologies["adaptive_habitats"].Cost);Assert.Equal(2,c.Buildings["habitat_network"].Effects.Single(e=>e.Kind=="capacity").Amount);
-        Assert.Equal(4,Rules.CurrentVersion);
+        Assert.Equal(5,Rules.CurrentVersion);
     }
     [Theory][InlineData("production_weight","101")][InlineData("production_weight","-1")][InlineData("name","\"\"")][InlineData("support_target","\"future\"")][InlineData("foundation_ids","[\"missing\"]")][InlineData("development_ids","[\"fabrication_hall\"]")]
     public void InvalidDefaultsHaveLocatedErrors(string field,string json) {
@@ -43,5 +43,20 @@ public sealed class ColonyContentTests
         var json=ColonyFixtures.Json().Replace("fabrication_hall","modded_factory");
         var r=ContentLoader.Load(new[]{new ContentSource("mod.json",json)},requireDevelopment:true);
         Assert.NotNull(r.Content);Assert.Equal("modded_factory",r.Content!.GovernorTemplates["balanced"].FoundationIds[0]);
+    }
+    [Fact] public void CurrentCoreHasApprovedDevelopmentAndDefaults() {
+        var result=ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory());Assert.NotNull(result.Content);var c=result.Content!;Assert.Equal(5,Rules.CurrentVersion);Assert.Equal(7,c.Buildings.Count);Assert.Equal(6,c.Technologies.Count);Assert.Equal(4,c.GovernorTemplates.Count);
+        Assert.Equal(3200,c.Buildings["production_complex"].Cost);Assert.Equal(new[]{"industrial_coordination"},c.Buildings["production_complex"].PrerequisiteTechnologyIds);Assert.Equal(300,c.Buildings["production_complex"].Effects.Single().Amount);
+        Assert.Equal(3200,c.Buildings["discovery_center"].Cost);Assert.Equal(300,c.Buildings["discovery_center"].Effects.Single().Amount);Assert.Equal(2800,c.Buildings["habitat_network"].Cost);Assert.Equal(new[]{new BuildingEffect("support",200),new BuildingEffect("capacity",2)},c.Buildings["habitat_network"].Effects);Assert.Equal(System.Text.Json.JsonSerializer.Serialize(ColonyFixtures.Content().GovernorTemplates),System.Text.Json.JsonSerializer.Serialize(c.GovernorTemplates));Assert.Equal(new[]{"cultivation_methods","habitat_methods"},c.Technologies["adaptive_habitats"].PrerequisiteTechnologyIds);
+        foreach(string id in new[]{"industrial_coordination","cooperative_science","adaptive_habitats"})Assert.Equal(2400,c.Technologies[id].Cost);
+    }
+    [Theory][MemberData(nameof(PlanetAppearanceTests.SpeciesPairs),MemberType=typeof(PlanetAppearanceTests))]
+    public void CurrentSpeciesPairsStartManualWithDisabledAiGovernors(string size,string human,string rival) {
+        var content=ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory()).Content!;var result=OpenAntares.Simulation.Galaxy.GalaxyGenerator.CreateNewGame(content,new(size,42,SpeciesId:human,RivalCount:1,RivalSpeciesId:rival));Assert.True(result.Succeeded,result.Error);Assert.Equal(5,result.State!.RulesVersion);
+        foreach(var c in result.State.Colonies){Assert.NotNull(c.Development);Assert.False(c.Development!.WorkforceEnabled);Assert.False(c.Development.ConstructionEnabled);Assert.Empty(c.Development.Queue);Assert.Empty(c.CompletedBuildingIds);Assert.Null(c.ProjectId);}
+        var ai=result.State.Empires.Single(e=>e.Controller==OpenAntares.Simulation.State.ControllerKind.Ai);Assert.Empty(ai.Development!.CustomTemplates);Assert.Empty(ai.Development.CompletedReports);Assert.Null(ai.Development.NewColonyPlan);
+    }
+    [Fact] public void WhitespaceDefaultNameIsRejectedAtContentLoad() {
+        var root=JsonNode.Parse(ColonyFixtures.Json())!;root["governor_templates"]![0]!["name"]="   ";var result=ContentLoader.Load(new[]{new ContentSource("bad-name.json",root.ToJsonString())},requireDevelopment:true);Assert.False(result.Succeeded);Assert.Contains(result.Errors,e=>e.File=="bad-name.json"&&e.EntryId=="balanced"&&e.Field=="name");
     }
 }

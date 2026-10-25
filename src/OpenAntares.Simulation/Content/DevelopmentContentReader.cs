@@ -24,7 +24,7 @@ public static partial class ContentLoader
             foreach(var (id,item) in _governorTemplates)
             {
                 var t=item.Value;
-                if(t.Name.Length>80)_errors.Add(new(item.File,id,"name","Expected 1..80 characters."));
+                if(string.IsNullOrWhiteSpace(t.Name)||t.Name.Length>80)_errors.Add(new(item.File,id,"name","Expected 1..80 characters."));
                 if(t.ProductionWeight+t.ResearchWeight==0)_errors.Add(new(item.File,id,"production_weight","Total weights must be positive."));
                 foreach(var pair in new[]{("foundation_ids",t.FoundationIds),("development_ids",t.DevelopmentIds)}) {
                     if(pair.Item2.Length>32)_errors.Add(new(item.File,id,pair.Item1,"At most32 building IDs."));

@@ -17,6 +17,31 @@
       "name": "Habitat Methods",
       "cost": 1600,
       "prerequisites": []
+    },
+    {
+      "id": "industrial_coordination",
+      "name": "Industrial Coordination",
+      "cost": 2400,
+      "prerequisites": [
+        "measurement_methods"
+      ]
+    },
+    {
+      "id": "cooperative_science",
+      "name": "Cooperative Science",
+      "cost": 2400,
+      "prerequisites": [
+        "measurement_methods"
+      ]
+    },
+    {
+      "id": "adaptive_habitats",
+      "name": "Adaptive Habitats",
+      "cost": 2400,
+      "prerequisites": [
+        "cultivation_methods",
+        "habitat_methods"
+      ]
     }
   ]
 }

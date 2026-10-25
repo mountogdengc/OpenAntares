@@ -1,0 +1,70 @@
+{
+  "governor_templates": [
+    {
+      "id": "balanced",
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "id": "industrial",
+      "name": "Industrial",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "production_complex",
+        "habitat_extension"
+      ],
+      "support_target": "minimum",
+      "production_weight": 3,
+      "research_weight": 1
+    },
+    {
+      "id": "research",
+      "name": "Research",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "discovery_center",
+        "habitat_extension"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 3
+    },
+    {
+      "id": "growth",
+      "name": "Growth",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "habitat_network"
+      ],
+      "support_target": "capped_growth",
+      "production_weight": 1,
+      "research_weight": 1
+    }
+  ]
+}

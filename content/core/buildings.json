@@ -5,28 +5,100 @@
       "name": "Fabrication Hall",
       "cost": 1200,
       "prerequisites": [],
-      "effects": [{ "kind": "production", "amount": 100 }]
+      "effects": [
+        {
+          "kind": "production",
+          "amount": 100
+        }
+      ]
     },
     {
       "id": "cultivation_hub",
       "name": "Cultivation Hub",
       "cost": 1000,
-      "prerequisites": ["cultivation_methods"],
-      "effects": [{ "kind": "support", "amount": 200 }]
+      "prerequisites": [
+        "cultivation_methods"
+      ],
+      "effects": [
+        {
+          "kind": "support",
+          "amount": 200
+        }
+      ]
     },
     {
       "id": "analysis_lab",
       "name": "Analysis Lab",
       "cost": 1200,
-      "prerequisites": ["measurement_methods"],
-      "effects": [{ "kind": "research", "amount": 100 }]
+      "prerequisites": [
+        "measurement_methods"
+      ],
+      "effects": [
+        {
+          "kind": "research",
+          "amount": 100
+        }
+      ]
     },
     {
       "id": "habitat_extension",
       "name": "Habitat Extension",
       "cost": 1600,
-      "prerequisites": ["habitat_methods"],
-      "effects": [{ "kind": "capacity", "amount": 2 }]
+      "prerequisites": [
+        "habitat_methods"
+      ],
+      "effects": [
+        {
+          "kind": "capacity",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "production_complex",
+      "name": "Production Complex",
+      "cost": 3200,
+      "prerequisites": [
+        "industrial_coordination"
+      ],
+      "effects": [
+        {
+          "kind": "production",
+          "amount": 300
+        }
+      ]
+    },
+    {
+      "id": "discovery_center",
+      "name": "Discovery Center",
+      "cost": 3200,
+      "prerequisites": [
+        "cooperative_science"
+      ],
+      "effects": [
+        {
+          "kind": "research",
+          "amount": 300
+        }
+      ]
+    },
+    {
+      "id": "habitat_network",
+      "name": "Habitat Network",
+      "cost": 2800,
+      "prerequisites": [
+        "adaptive_habitats"
+      ],
+      "effects": [
+        {
+          "kind": "support",
+          "amount": 200
+        },
+        {
+          "kind": "capacity",
+          "amount": 2
+        }
+      ]
     }
   ]
 }
