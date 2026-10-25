@@ -16,7 +16,7 @@ public static class Rules
     public const int DevelopmentVersion = 5;
     public const int CrisisVersion = 6;
     public static bool HasCrises(int version) => version == CrisisVersion;
-    public const int CurrentVersion = DevelopmentVersion;
+    public const int CurrentVersion = CrisisVersion;
     public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion;
     public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion;
     public static bool HasSpecies(int version) => version is SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion;

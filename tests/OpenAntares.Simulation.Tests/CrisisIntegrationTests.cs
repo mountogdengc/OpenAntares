@@ -14,8 +14,7 @@ public sealed class CrisisIntegrationTests
     internal static ContentSet CoreWithApprovedPlague()
     {
         var core=Directory.GetFiles(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory,"../../../../../content/core")),"*.json").OrderBy(x=>x,StringComparer.Ordinal).Select(path=>new ContentSource(Path.GetFileName(path),File.ReadAllText(path)));
-        var plague=JsonNode.Parse(File.ReadAllText(CompatibilityFixtures.PathFor("crisis-content.json")))!["plagues"]!.DeepClone();
-        var result=ContentLoader.Load(core.Append(new ContentSource("pre-activation-plagues-fixture.json",new JsonObject{["plagues"]=plague}.ToJsonString())),requireSpecies:true,requireRivals:true,requireDevelopment:true,requireCrises:true);
+        var result=ContentLoader.Load(core,requireSpecies:true,requireRivals:true,requireDevelopment:true,requireCrises:true);
         Assert.True(result.Succeeded,string.Join("; ",result.Errors));return result.Content!;
     }
     [Theory][InlineData("harl")][InlineData("peldra")][InlineData("sulan")][InlineData("wenth")]

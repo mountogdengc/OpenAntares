@@ -18,6 +18,18 @@ public sealed class CrisisContentTests
         Assert.True(result.Succeeded,string.Join("; ",result.Errors));
     }
 
+    [Fact]
+    public void CurrentCoreRequiresTheExactApprovedFamily()
+    {
+        var directory=ContentLoaderTests.CoreContentDirectory();
+        var actual=JsonNode.Parse(File.ReadAllText(Path.Combine(directory,"plagues.json")))!["plagues"]!.ToJsonString();
+        var expected=Json()["plagues"]!.ToJsonString();
+        Assert.Equal(expected,actual);
+        var sources=Directory.GetFiles(directory,"*.json").Select(p=>new ContentSource(Path.GetFileName(p),File.ReadAllText(p)));
+        var loaded=ContentLoader.Load(sources,requireSpecies:true,requireRivals:true,requireDevelopment:true,requireCrises:true);
+        Assert.True(loaded.Succeeded,string.Join("; ",loaded.Errors));Assert.Single(loaded.Content!.Plagues);
+    }
+
     [Theory]
     [InlineData("check_interval",0)] [InlineData("grace_turns",0)]
     [InlineData("purge_denominator",0)] [InlineData("illness_factor_bp",10001)]

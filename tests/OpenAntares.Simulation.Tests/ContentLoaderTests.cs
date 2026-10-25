@@ -45,6 +45,7 @@ public class ContentLoaderTests
             Expansion = null,
             RivalAi = null,
             GovernorTemplates = ImmutableSortedDictionary<string,GovernorTemplateDefinition>.Empty,
+            Plagues = Fixtures.PrototypeContent().Plagues,
             Buildings = result.Content!.Buildings.Where(p=>Fixtures.PrototypeContent().Buildings.ContainsKey(p.Key)).ToImmutableSortedDictionary(p=>p.Key,p=>p.Value,StringComparer.Ordinal),
             Technologies = result.Content!.Technologies.Where(p=>Fixtures.PrototypeContent().Technologies.ContainsKey(p.Key)).ToImmutableSortedDictionary(p=>p.Key,p=>p.Value,StringComparer.Ordinal),
             Species = ImmutableSortedDictionary<string, SpeciesDefinition>.Empty,

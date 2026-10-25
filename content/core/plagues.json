@@ -1,0 +1,30 @@
+{
+  "plagues": [
+    {
+      "id": "ash_bloom",
+      "name": "Ash Bloom",
+      "first_check_turn": 20,
+      "check_interval": 20,
+      "check_chance_percent": 25,
+      "cooldown_turns": 30,
+      "grace_turns": 2,
+      "recovery_intervals": 6,
+      "initial_severity": 20,
+      "severity_cap": 100,
+      "open_severity_step": 20,
+      "quarantined_severity_step": 5,
+      "mortality_threshold": 80,
+      "mortality_units": 1,
+      "illness_factor_bp": 8000,
+      "quarantine_factor_bp": 7500,
+      "cure_base": 600,
+      "cure_per_population": 100,
+      "immunity_turns": 12,
+      "purge_numerator": 1,
+      "purge_denominator": 2,
+      "civic_factor_loss_bp": 1000,
+      "civic_max_level": 3,
+      "civic_turns": 5
+    }
+  ]
+}

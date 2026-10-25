@@ -18,6 +18,7 @@ public partial class NewGameScreen : CenterContainer
     private readonly OptionButton _speciesPicker = new() { Name = "SpeciesPicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly OptionButton _rivalCountPicker = new() { Name = "RivalCountPicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly OptionButton _rivalSpeciesPicker = new() { Name = "RivalSpeciesPicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
+    private readonly OptionButton _crisisPicker = new() { Name = "CrisisModePicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly LineEdit _seedField = new();
     private readonly Label _summary = new() { Name = "SpeciesSummary", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart, SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly Label _error = new() { ThemeTypeVariation = "WarningLabel", Visible = false, AutowrapMode = TextServer.AutowrapMode.WordSmart };
@@ -55,6 +56,9 @@ public partial class NewGameScreen : CenterContainer
         if(rival<0) rival = Array.FindIndex(_species,s=>s.Id!=(_speciesPicker.Selected>=0?_species[_speciesPicker.Selected].Id:null));
         if(_species.Length>0) _rivalSpeciesPicker.Select(rival>=0?rival:0); else _rivalSpeciesPicker.Disabled=true;
         form.AddChild(_rivalSpeciesPicker);
+        form.AddChild(new Label { Text = "Colony crises" });
+        _crisisPicker.AddItem("Standard");_crisisPicker.SetItemMetadata(0,true);
+        _crisisPicker.AddItem("Off");_crisisPicker.SetItemMetadata(1,false);_crisisPicker.Select(0);form.AddChild(_crisisPicker);
         form.AddChild(new Label { Text = "Galaxy size" });
         foreach (var size in _sizes) _sizePicker.AddItem($"{size.Name} ({size.StarCount} stars)");
         _sizePicker.SizeFlagsHorizontal = SizeFlags.ExpandFill; form.AddChild(_sizePicker);
@@ -68,19 +72,20 @@ public partial class NewGameScreen : CenterContainer
         column.AddChild(new Label { Text = "Race to explore and settle. Warfare and negotiation are not available yet.", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart });
         column.AddChild(_error); _start.Pressed += Start; column.AddChild(_start);
         var load = new Button { Text = "Load Game" }; load.Pressed += () => LoadRequested?.Invoke(); column.AddChild(load);
-        _start.Disabled = _species.Length == 0 || _sizes.Length == 0 || _content.RivalAi is null || _content.GovernorTemplates.IsEmpty;
+        _start.Disabled = _species.Length == 0 || _sizes.Length == 0 || _content.RivalAi is null || _content.GovernorTemplates.IsEmpty || _content.Plagues.Count!=1;
         _rivalCountPicker.ItemSelected += _ => { _rivalSpeciesPicker.Disabled = _rivalCountPicker.Selected == 0 || _species.Length == 0; UpdateSummary(); };
         _rivalSpeciesPicker.ItemSelected += _ => UpdateSummary();
-        _speciesPicker.ItemSelected += _ => UpdateSummary(); _sizePicker.ItemSelected += _ => UpdateSummary(); _seedField.TextChanged += _ => UpdateSummary();
+        _speciesPicker.ItemSelected += _ => UpdateSummary(); _sizePicker.ItemSelected += _ => UpdateSummary(); _crisisPicker.ItemSelected += _ => UpdateSummary(); _seedField.TextChanged += _ => UpdateSummary();
         RandomizeSeed();
-        if (_start.Disabled) { ShowError("Species, galaxy, rival policy or colony template definitions are missing. Load an existing campaign instead."); load.GrabFocus(); } else _start.GrabFocus();
+        if (_start.Disabled) { ShowError("Species, galaxy, rival policy, colony template or plague definitions are missing. Load an existing campaign instead."); load.GrabFocus(); } else _start.GrabFocus();
     }
-    public void Configure(string sizeId, ulong seed, string? speciesId = null, int? rivalCount = null, string? rivalSpeciesId = null)
+    public void Configure(string sizeId, ulong seed, string? speciesId = null, int? rivalCount = null, string? rivalSpeciesId = null, bool? crisesEnabled = null)
     {
         int size = Array.FindIndex(_sizes, s => s.Id == sizeId); if (size >= 0) _sizePicker.Select(size);
         if (speciesId is not null) _speciesPicker.Select(Array.FindIndex(_species, s => s.Id == speciesId));
         if (rivalCount is not null) _rivalCountPicker.Select(rivalCount is 0 or 1 ? rivalCount.Value : -1);
         if (rivalSpeciesId is not null) _rivalSpeciesPicker.Select(Array.FindIndex(_species,s=>s.Id==rivalSpeciesId));
+        if (crisesEnabled is not null) _crisisPicker.Select(crisesEnabled.Value?0:1);
         _rivalSpeciesPicker.Disabled = _rivalCountPicker.Selected == 0 || _species.Length == 0;
         _seedField.Text = seed.ToString(CultureInfo.InvariantCulture); UpdateSummary();
     }
@@ -88,25 +93,26 @@ public partial class NewGameScreen : CenterContainer
     {
         if (_content.GovernorTemplates.IsEmpty) { ShowError("Colony template definitions are missing. Load an existing campaign instead."); return; }
         if (_content.RivalAi is null) { ShowError("Rival policy definitions are missing. Load an existing campaign instead."); return; }
+        if (_content.Plagues.Count!=1) { ShowError("One valid plague family is required for new campaigns, including Off. Load an existing campaign instead."); return; }
         if (_rivalCountPicker.Selected < 0 || (_rivalCountPicker.Selected == 1 && _rivalSpeciesPicker.Selected < 0)) { ShowError("Select a defined rival count and species."); return; }
         if (_sizes.Length == 0 || _sizePicker.Selected < 0) { ShowError("No galaxy sizes are defined in the content files."); return; }
         if (_species.Length == 0 || _speciesPicker.Selected < 0) { ShowError("Select a defined species before starting a new campaign."); return; }
         if (!ulong.TryParse(_seedField.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out ulong seed)) { ShowError($"The seed must be a whole number from 0 to {ulong.MaxValue}."); return; }
         _error.Visible = false;
-        StartRequested?.Invoke(new(_sizes[_sizePicker.Selected].Id, seed, Rules.CurrentVersion, _species[_speciesPicker.Selected].Id, _rivalCountPicker.Selected, _rivalCountPicker.Selected == 1 ? _species[_rivalSpeciesPicker.Selected].Id : null));
+        StartRequested?.Invoke(new(_sizes[_sizePicker.Selected].Id, seed, Rules.CurrentVersion, _species[_speciesPicker.Selected].Id, _rivalCountPicker.Selected, _rivalCountPicker.Selected == 1 ? _species[_rivalSpeciesPicker.Selected].Id : null,_crisisPicker.Selected==0));
     }
     private void UpdateSummary()
     {
         if (_speciesPicker.Selected < 0 || _species.Length == 0 || _sizes.Length == 0 || _rivalCountPicker.Selected < 0 || (_rivalCountPicker.Selected == 1 && _rivalSpeciesPicker.Selected < 0)) { _summary.Text = "Load a saved campaign to continue with its original embedded rules."; return; }
         var sp = _species[_speciesPicker.Selected];
         if (!ulong.TryParse(_seedField.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out ulong seed)) { _summary.Text = sp.Description; return; }
-        var preview = GalaxyGenerator.CreateNewGame(_content, new(_sizes[_sizePicker.Selected].Id, seed, Rules.CurrentVersion, sp.Id, _rivalCountPicker.Selected, _rivalCountPicker.Selected == 1 ? _species[_rivalSpeciesPicker.Selected].Id : null));
+        var preview = GalaxyGenerator.CreateNewGame(_content, new(_sizes[_sizePicker.Selected].Id, seed, Rules.CurrentVersion, sp.Id, _rivalCountPicker.Selected, _rivalCountPicker.Selected == 1 ? _species[_rivalSpeciesPicker.Selected].Id : null,_crisisPicker.Selected==0));
         if (preview.State is null) { _summary.Text = sp.Description + "\n" + preview.Error; return; }
         var economy = EmpireViewProjector.Project(_content, preview.State, preview.State.Empires[0].Id).Colonies[0].Economy;
         var roles = sp.AllowedVesselIds.Select(id => _content.Vessels[id]).Select(role => role.CanFoundColony
             ? $"{role.Name}: {Format.Points(role.Cost)} production; cargo {role.EmbarkPopulation} {sp.PopulationUnitLabel}; minimum colony {role.MinimumSourcePopulation}." + (role.RequiresFullColony ? " Must be full at its current capacity." : string.Empty) + (role.FoundsSealedHabitat ? " Creates a sealed habitat." : " Creates a native colony.")
             : $"{role.Name}: {Format.Points(role.Cost)} production; surveys systems.");
-        _summary.Text = $"{sp.Name} — {sp.CultureName}\n{sp.Description}\n\nStarting population: {sp.StartingPopulation} ({sp.PopulationUnitLabel}); capacity {economy.Growth.Capacity}." +
+        _summary.Text = $"{sp.Name} — {sp.CultureName}\n{sp.Description}\n\nColony crises: {(_crisisPicker.Selected==0?"Standard":"Off")}. Standard includes plague warnings and response choices; Off keeps crises dormant.\n\nStarting population: {sp.StartingPopulation} ({sp.PopulationUnitLabel}); capacity {economy.Growth.Capacity}." +
             (sp.SealedBaseCapacity is { } sealedCapacity ? $" Sealed capacity {sealedCapacity}." : string.Empty) +
             $"\nWorkers: {sp.StartingWorkforce.Support} support / {sp.StartingWorkforce.Production} production / {sp.StartingWorkforce.Research} research.\nSupport {Format.Points(economy.SupportProduced.Total)} / {Format.Points(economy.SupportRequired.Total)}; production {Format.Points(economy.NetProduction.Total)}, research {Format.Points(economy.NetResearch.Total)} per turn.\nGrowth +{Format.Points(economy.GrowthEarned.Total)} per turn; base +{Format.Points(sp.BaseGrowth)}, surplus bonus up to +{Format.Points(sp.MaxSurplusGrowth)}.\n\n" + string.Join("\n", roles);
         _summary.TooltipText = BreakdownText.Describe(economy.NetProduction, _content, "Production") + "\n\n" + BreakdownText.Describe(economy.GrowthEarned, _content, "Growth");
