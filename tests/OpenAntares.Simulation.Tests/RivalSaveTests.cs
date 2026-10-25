@@ -40,16 +40,16 @@ public sealed class RivalSaveTests
         {
             var data = new TheoryData<int, int, bool>();
             for (int schema = 0; schema <= 6; schema++) for (int rules = 0; rules <= 5; rules++)
-                data.Add(schema, rules, (schema, rules) is (1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4));
+                data.Add(schema, rules, (schema, rules) is (1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5));
             return data;
         }
     }
 
     [Theory]
     [MemberData(nameof(VersionPairs))]
-    public void AcceptsExactlyElevenSchemaRulesPairs(int schema, int rules, bool expected)
+    public void AcceptsExactlySixteenSchemaRulesPairs(int schema, int rules, bool expected)
     {
-        string original = rules == 4 ? SaveGame.Serialize(RivalFixtures.Content(), RivalFixtures.AtHome("harl"))
+        string original = rules == 5 ? SaveGame.Serialize(ColonyFixtures.Game().Content, ColonyFixtures.Game().State) : rules == 4 ? SaveGame.Serialize(RivalFixtures.Content(), RivalFixtures.AtHome("harl"))
             : File.ReadAllText(CompatibilityFixtures.PathFor(rules == 3 ? "legacy-rules3-v4-save.json" : rules == 2 ? "legacy-rules2-v3-save.json" : schema == 1 ? "legacy-v1-save.json" : "legacy-v2-save.json"));
         var root = JsonNode.Parse(original)!; root["schema_version"] = schema; root["rules_version"] = rules;
         Assert.Equal(expected, SaveGame.Deserialize(root.ToJsonString()).Succeeded);
@@ -74,7 +74,7 @@ public sealed class RivalSaveTests
         var loaded = SaveGame.Deserialize(original);
         Assert.True(loaded.Succeeded, string.Join("; ", loaded.Errors));
         Assert.Equal(original, SaveGame.Serialize(loaded.Game!.Content, loaded.Game.State));
-        Assert.Equal(5, JsonNode.Parse(original)!["schema_version"]!.GetValue<int>());
+        Assert.Equal(6, JsonNode.Parse(original)!["schema_version"]!.GetValue<int>());
         Assert.Equal(new("expansion_v1", 0, 9), loaded.Game.Content.RivalAi);
         Assert.True(loaded.Game.State.FindEmpire(human.Id)!.Ready);
         Assert.Equal(321, loaded.Game.State.FindEmpire(ai.Id)!.ResearchReserve);

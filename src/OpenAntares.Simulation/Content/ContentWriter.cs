@@ -9,9 +9,9 @@ namespace OpenAntares.Simulation.Content;
 /// </summary>
 public static partial class ContentWriter
 {
-    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null);
-    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), Rules.HasRivals(rulesVersion));
-    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals)
+    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null, !content.GovernorTemplates.IsEmpty);
+    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), Rules.HasRivals(rulesVersion), Rules.HasDevelopment(rulesVersion));
+    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals, bool includeDevelopment)
     {
         writer.WriteStartObject();
 
@@ -153,6 +153,7 @@ public static partial class ContentWriter
         }
         if (includeSpecies) WriteSpecies(writer,content);
         if (includeRivals) WriteRivals(writer,content.RivalAi!);
+        if (includeDevelopment) WriteDevelopment(writer,content);
         writer.WriteEndObject();
     }
 
