@@ -1,105 +1,54 @@
 # OpenAntares project status
 
-## 1. Project overview
+## 1. Overview
 
-| Field | Value |
-| --- | --- |
-| Project name | OpenAntares |
-| Description | Original turn-based space4X; C#/Godot .NET presentation and independent simulation |
-| Current phase | M5 implemented; final independent review pending |
-| Project health | All bounded rival child criteria verified; human/release acceptance remains open |
-| Active milestone | M5-I — Colony-development implementation |
-| Current version | Not Released; isolated branch rules5/writer6; main rules4/writer5 until integration |
-| Last updated | 2026-10-24, America/Denver |
-| Implementation readiness | Full M5 design accepted in ADR-012; separate twelve-task plan approved by “yes”; implementation authorized |
+OpenAntares is an original turn-based space4X, C#/Godot .NET presentation with an independent deterministic simulation. The owner-approved creative direction is a classic Master of Orion II love letter with memorable fanciful aliens, respectful of real peoples and beliefs. Existing architecture and creative decisions remain authoritative.
 
-## 2. Current state
+Current phase: M5 colony development implemented and reviewed; retained authorized local main integration is next. Last updated2026-10-24 America/Denver. No release. Isolated branch rules5/writer6; main remains rules4/writer5 until integration. Full First Playable/human and release acceptance remain open.
 
-The owner approved the species design/classic Master of Orion II direction in ADR-008, then approved the separate ten-task plan with “yes”. The retained Native preference authorized inline implementation and one final independent whole-branch review. Colorful aliens and fanciful biology are welcome, with respect for real peoples and beliefs.
+## 2. Implemented milestone
 
-Implemented on `codex/species-mechanics`, then fast-forwarded into local `main` on2026-10-24 under the owner’s option1 authorization: four explicit species profiles and setup choices, visible Harl default, shared species economy/breakdowns, conserved expeditions, native/sealed Sulan habitats, Wenth current-capacity maturity/fission, permitted environment/founding previews and schema4 persistence. Existing rules1/2 campaigns keep embedded content/state/RNG; no upgrade is injected. All twelve generated species/size loops plus forced Sulan harbor, labelled contrasting maps and extended Wenth passed.
+All twelve approved Native tasks are complete on codex/colony-development-design. Paid foundational/specialist buildings, four editable governor defaults/custom snapshots, finite queues, independent opt-in workforce/construction automation, manual overrides, optional new-colony inheritance, scalable colony management, ten-turn action history, local notification settings, portable presets and original varied planet portraits are connected. New colonies start manual; Balanced is only a suggestion. Governors never independently choose ships/research/movement/founding.
 
-Evidence: [species validation](reports/SPECIES_VALIDATION_2026-10-23.md), [execution ledger](reports/species-execution/progress.md), [final review/handoff](reports/SPECIES_FINAL_REVIEW_2026-10-23.md). Expansion integration is historical and complete under separate authorization. The owner selected local integration(option1); main now includes species head3f25a14. [Integration verification](reports/SPECIES_INTEGRATION_2026-10-24.md) records fresh main gates and exact edit preservation. No remote push/release/cleanup was performed.
+Current5/writer6 supports sixteen explicit pairs; genuine rules1/2/3/4 and passive-AI continuations retain embedded content/behavior with no silent upgrades. [Validation/evidence map](reports/COLONY_VALIDATION_2026-10-24.md), [twelve-task ledger](reports/colony-execution/progress.md), [final review/disposition](reports/COLONY_FINAL_REVIEW_2026-10-24.md). Reviewed range e77b598..9487b93; one Important replacement-preview finding corrected regression-first at9db9933. No re-review or per-task agents.
 
-**Current rival work:** The owner approved the full design and ten-task plan, then retained Native execution. All ten Native plan tasks and the independent review/correction pass are complete on isolated `codex/rival-expansion`: fair expansion policy through ordinary commands/permitted facts, scoped forecasts, atomic publication, observed contacts and rules4/writer5 with eleven explicit version pairs. Old rules1/2/3 and passive Ai3 continuations remain unchanged. See [rival validation](reports/RIVAL_VALIDATION_2026-10-24.md), [ledger](reports/rival-execution/progress.md) and [review](reports/RIVAL_FINAL_REVIEW_2026-10-24.md). Final four-scenario regression passes; the sole Important finding is corrected. Both original Minor deviations are now corrected and independently reviewed with no findings at66e7548. All twelve RIV child criteria and M4-I are Verified for the bounded local automated contract. [Follow-up evidence](reports/RIVAL_POLISH_2026-10-24.md) records648 simulation and all four graphical gates. Parent REQ-017 stays In Progress. The owner selected option1; local main fast-forwarded to70e91d9 with owner edits preserved. Fresh combined verification passes; see [integration evidence](reports/RIVAL_INTEGRATION_2026-10-24.md).
+## 3. Milestone and acceptance state
 
-**Current M5:** All twelve approved Native tasks are implemented on `codex/colony-development-design`. Paid foundations/specialists, opt-in editable governors, finite queues, manual authority, scalable management/reports, portable presets and original varied portraits are connected. Current5/writer6 supports sixteen explicit pairs with genuine old continuation unchanged. [Validation](reports/COLONY_VALIDATION_2026-10-24.md) maps COL-AC-001..011 to executed tests. Source47eb9cb passes982 simulation tests and all five runtime gates. Final independent whole-branch review is pending; functional child criteria remain Implemented, Unverified until its disposition. COL-AC-012/full design and M5-P/separate plan are already approved. Crisis/culture/fleet/scout systems remain future scope.
-
-## 3. Milestone progress
-
-| ID | Milestone | Status | Evidence / limit |
-| --- | --- | --- | --- |
-| M0 | Adoption/reconciliation | Verified | Existing audit and preserved baseline |
-| M1 | Full First Playable acceptance | Deferred | ADR-005; uncoached comprehension and full physical-input/readability checks open |
-| M1-I | Integrated technical baseline | Verified | Existing authorized expansion integration/preservation report |
-| M2-D / M2-P / M2-I | Expansion design, plan and implementation | Verified | Existing approval and retained review/regressions |
-| M3-D | Species design | Verified | ADR-008 / SPC-AC-010 |
-| M3-P | Species implementation plan | Verified | Owner “yes”; Native execution retained |
-| M3-I | Species implementation | Verified | Local automated criteria, independent review/corrections and authorized main integration verified; human/release limits remain |
-| M4-D | Rival-expansion design | Verified | Builder check and explicit full owner approval in ADR-010; design scope only |
-| M4-P | Rival implementation plan | Verified | Owner “continue” after plan presentation; Native retained |
-| M4-I | Rival implementation | Verified | All twelve child criteria in local automated scope, both follow-up details corrected;648 simulation/four scenarios/fresh review pass; human/release limits remain |
-| M5-D | Colony-development design | Verified | Full owner approval in ADR-012 / COL-AC-012, after builder check |
-| M5-P | Colony-development implementation plan | Verified | Owner approved twelve tasks with “yes”; Native retained |
-| M5-I | Colony-development implementation | In Progress | Twelve tasks implemented; fresh whole-branch review pending |
-| M-Later | Remaining strategic systems | Deferred | Rest of REQ-017 envelope; no inferred combat/diplomacy scope |
-| M-Delivery | Cross-platform/release | Not Started | Windows-only local evidence |
-
-## 4. Decisions and open questions
-
-Preserve ADR-001..004 architecture/JSON/determinism/spiral decisions, ADR-005 human deferral, ADR-006 historical expansion separation and ADR-008 approved species rules. Implementation rulings are retained in the execution ledger. The approved bounded expansion AI is implemented; no new architecture/dependency/warfare/diplomacy/custom civilization scope was added. M5 adds original procedural portraits within its approved scope.
-
-Open: final M5 review disposition; physical-input/readability acceptance, balance/enjoyment, platform/package/support policy. Human deferral does not block this authorized milestone.
-
-## 5. Blockers and risks
-
-| ID | Description | Next step |
+| Milestone | Status | Limit |
 | --- | --- | --- |
-| R04 | Uncoached comprehension remains Deferred | Revisit only when practical or requested; no participant recruitment |
-| R05 | Physical input and comfortable800x600 reading unverified | In-process signals/layout screenshots do not close human checks |
-| R01 | Windows-only; package/export/clean-machine/security audit not established | Keep delivery claims open |
-| R02 | Existing Release mapping/SDK pin/export/CI gaps | Separate delivery work |
+| Adoption/expansion/species/rival local technical slices | Verified | Historical reports retain exact source/methods; human/release limits unchanged |
+| First Playable full human acceptance | Deferred | ADR-005 unavailable uncoached session; no recruiting requirement |
+| M5-D / M5-P | Verified | Full design ADR-012 and separate twelve-task plan approved; Native retained |
+| M5-I colony development | Implemented, Unverified | All tasks/blocking correction complete; three deferred presentation details prevent exact full child acceptance |
+| Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress; no inferred new feature scope |
+| Cross-platform/release delivery | Not Started | Windows-only local execution |
 
-Earlier index-lock and expansion-integration blockers are resolved; recovery material remains preserved.
+COL-AC-001/003/004/005/006/008/009/010/011 Verified for local automated scope; COL-AC-012 Verified for design. COL-AC-002/007 Implemented, Unverified: deletion omits affected colonies/inheritance, historical condition count says unresolved, action/completion Attention equals Summary. All three are deferred Minors; no unresolved Critical/Important finding. Parent17-row register remains12 Verified,3 Implemented, Unverified,1 In Progress,1 Deferred.
 
-## 6. Implementation and verification
+## 4. Verification
 
-Counts derive from the17 parent rows in [SPECIFICATIONS.md](docs/SPECIFICATIONS.md), with REQ-016 Verified for the executed local automated species contract.
+Before review, source47eb9cb passed982 simulation tests and five sequential runtime gates: Colony582 assertions+4 provenance, Rival1146+12 provenance, Species1194, Expansion275, Legacy466+27 geometry. All195 QA paths existed,0 diagnostics. [Machine summary](reports/colony-final-20261024-run1/summary.json).
 
-| Status | Count |
-| --- | ---: |
-| Not Started | 0 |
-| In Progress | 1 |
-| Implemented, Unverified | 3 |
-| Verified | 12 |
-| Blocked | 0 |
-| Deferred | 1 |
-| Total | 17 |
+Corrected source9db9933 passes984 simulation tests and full affected Colony593 assertions+4 provenance/28 QA/57 PNG,0 diagnostics. Normal rebuild0 warnings/errors, all five harness types excluded after actual opt-in negative controls. [Correction evidence](reports/colony-correction-20261024-run1/summary.json). All24 gallery pages inspected in Task10; final representative800/1920 layouts and corrected individual/bulk previews inspected. Four generated campaigns complete paid foundations/specialists, Harl ordinary second colony/manual favorite, Wenth changing capacity/cargo, actual save/load and three future canonical turns. Two-human pending Ready is explicitly labelled.
 
-Fresh M5 branch verification at47eb9cb: **982 simulation tests**,0 failed/skipped; **582 Colony assertions+4 generated provenance**, **1146 Rival+12 provenance**, **1194 Species**, **275 Expansion**, **466 Legacy+27 geometry**. All processes exit0; diagnostics0; normal rebuild0 warnings/errors; all five harness types excluded. [Exact evidence and limits](reports/COLONY_VALIDATION_2026-10-24.md). Earlier integrated-main reports remain historical.
+Fresh combined-main Suite/all five gates/build/metadata are required after integration; do not substitute branch results for them. In-process signals/screenshots do not establish physical input, comfortable reading/accessibility, uncoached understanding, aesthetic approval, general balance, platform equality, clean install/export/security or release readiness.
 
-In-process controls/signals and screenshots do not establish physical input, human readability/accessibility/comprehension, balance, cross-platform equality or release acceptance.
+## 5. Decisions and boundaries
 
-## 7. Repository and preservation
+Preserve architecture/determinism/JSON/versioning decisions, approved expansion/species/rival/colony designs and classic space-opera direction. [Charter](docs/CHARTER.md), [decisions](docs/DECISIONS/README.md), [approved colony spec](docs/superpowers/specs/2026-10-24-colony-development-design.md). No new dependencies or third-party art. Three implementation rulings and all reviewer declined items/costs are explicit in the ledger. No cleanup: owner retention overrides skill defaults.
 
-| Field | Current value |
-| --- | --- |
-| Primary | `F:/Projects-PCGames/OpenAntares`, `main` includes correction head d1aa58854735416edac2e117642df86429e3003e; reviewed source66e7548; fresh main gates green; owner changes exact |
-| Current design worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/colony-development-design`, codex/colony-development-design from main10cb0b4; twelve tasks implemented; isolated |
-| Retained correction worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/rival-polish`; base69f7e1c; no review findings |
-| Retained integrated rival worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/rival-expansion`, `codex/rival-expansion`; base4d2efb5; all ten tasks complete; reviewed e36d836, corrected source ce6c29c1cf080893067ac96a43ca1e2366dd97e5 |
-| Retained integrated species worktree | `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/species-mechanics` |
-| Species branch / baseline | `codex/species-mechanics` / `e32ada6d1c8fbef4fadd620a93139c6188447c27` |
-| Checkpoints | Tasks1..8:40915c7,c2d9bd7,d0b1cc0,e4538f8,94ac4db,8c1a546,0470a11,7449d34; Task9:bb9a2c5 |
-| Final code checkpoint/review | `713d305c201d51e1e7612d7b11b6913c95c5cae1`; reviewed candidate816f5de, one regression-first correction pass; final handoff commit in Git history |
-| Expansion worktree | `C:/Users/david/.codex/worktrees/exploration-colonization/OpenAntares`; retained branch `codex/exploration-colonization` at4d6f7b2, already integrated |
-| Older spiral worktree | acf5f06 ancestor; no pending feature merge inferred |
-| Recovery | Prior snapshots/stash4175cbfe407e822997fe41937946416335045913 retained; new exact owner-file backup/patch recorded in integration report; no stash reapplied |
-| Generated metadata | No tracked generated metadata changes from this run; build/import artifacts and all worktrees retained |
-| Remote | No fetch/push/PR claim |
+Revolts/plagues/culture/destruction, emergency acknowledgements, fleet/scout doctrine and peaceful mode remain future scope in the design notes/backlog. Do not infer implementation authorization from these ideas.
 
-Primary owner SHA256 values rechecked exactly: roster `843fd758b497094b864b965ad7fff126464bc8fe93187b526bf7d27f0f853034`; faction survey `814d22e56cacd52885d947e16bc3e4e6123e4a35cf60297b8af58cf3a99463ba`. Neither file was edited or staged in the species or rival branch. Preserve all QA saves/evidence and recovery copies.
+## 6. Repository and preservation
+
+Primary F:/Projects-PCGames/OpenAntares, main10cb0b4 before M5 integration. Execution worktree C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/colony-development-design, codex/colony-development-design. Reuse all seven registered worktrees; old integrated branches are retained, not pending feature merges. [Prior main integration](reports/RIVAL_POLISH_INTEGRATION_2026-10-24.md), [fresh exact audit](reports/colony-execution/preservation-before-review.json).
+
+Four owner changes remain outside this branch: PROJECT_STATUS paragraph, docs/SPECIES_ROSTER.md, docs/research/faction-survey.md, untracked docs/FEATURE_REQUESTS.md. Exact recovery backup prepared in chat .colony-integration-20261024-185920; primary index empty and all four hashes verified before review. For overlap, stash only status, restore its exact owner paragraph unstaged into updated status, and keep other three files byte-identical/unstaged. Never apply broad old stashes. All old saves, failed/successful evidence, branches/worktrees and recovery remain; no push/release/history rewrite/cleanup.
+
+## 7. Remaining limits
+
+Deferred human playtest does not block this authorized technical work. Broader gameplay balance/enjoyment, physical input/readability/accessibility, owner aesthetics, Linux/macOS/ARM, package/export/clean-machine/security and release acceptance remain unverified. Three presentation Minors are disclosed above; full M5 child acceptance stays open.
 
 ## 8. Next concrete action
 
-Complete one fresh whole-branch review of all twelve tasks; re-grade findings and perform one regression-first Important/Critical correction pass. Then follow the retained authorized local main integration with exact four-owner-change preservation and fresh combined Suite/all five runtime gates. Keep branches/worktrees/recovery/saves; no push/release/cleanup or new feature scope.
+Perform retained authorized local main integration after fresh preservation audit, then run fresh combined984-test Suite and all five runtime scenarios plus ordinary rebuild/five-harness metadata verification. Record actual main source/evidence and leave an empty index with only the same four owner changes. Afterward, owner review of the three deferred presentation gaps is the next bounded scope decision.
