@@ -6,17 +6,19 @@ namespace OpenAntares.Simulation.Movement;
 
 public static class MovementResolver
 {
-    public static void Apply(ContentSet content, GameState snapshot, GameState candidate, List<ExpansionEvent> events,Crises.CrisisResolutionContext? context=null)
+    public static void Apply(ContentSet content, GameState snapshot, GameState candidate, List<ExpansionEvent> events,Crises.CrisisResolutionContext? context=null,Scouting.AmebaResolutionContext? scouting=null)
     {
         foreach (var before in snapshot.Vessels)
         {
-            var v = candidate.FindVessel(before.Id)!; var t = before.Transit;
+            if(scouting?.ConsumedVessels.Contains(before.Id)==true)continue;
+            var v = candidate.FindVessel(before.Id)??throw new System.InvalidOperationException("Unexpected missing movement vessel."); var t = before.Transit;
             if(context is not null&&before.CarriedPopulation>0&&before.Transit is null&&(Crises.CrisisQueries.IsHeld(snapshot,before.Id)||(before.StationaryStarId is {} port&&context.ClosedPorts.Contains((before.EmpireId,port)))||(before.PendingMove is {} target&&context.ClosedPorts.Contains((before.EmpireId,target)))))continue;
             if (before.PendingMove is { } dest)
             {
                 var start = snapshot.FindStar(before.StationaryStarId!.Value)!; var end = snapshot.FindStar(dest)!;
                 int turns = TravelCalculator.Duration(start.X, start.Y, end.X, end.Y, content.Vessels[before.RoleId].Speed);
                 t = new(start.Id, end.Id, turns, turns); v.PendingMove = null; v.StationaryStarId = null;
+                if(v.Scout is {} scout)scout.ApproachAcceptance=null;
             }
             if (t is null) continue;
             int remaining = t.RemainingTurns - 1;

@@ -7,11 +7,13 @@ namespace OpenAntares.Simulation.Colonization;
 
 public static class ColonizationResolver
 {
-    public static void Apply(ContentSet content, GameState snapshot, GameState candidate, List<ExpansionEvent> events,Crises.CrisisResolutionContext? context=null)
+    public static void Apply(ContentSet content, GameState snapshot, GameState candidate, List<ExpansionEvent> events,Crises.CrisisResolutionContext? context=null,Scouting.AmebaResolutionContext? scouting=null)
     {
         foreach (var before in snapshot.Vessels.Where(v => v.PendingFounding.HasValue).OrderBy(v => v.EmpireId).ThenBy(v => v.Id))
         {
-            var target = before.PendingFounding!.Value; var vessel = candidate.FindVessel(before.Id)!; var planet = candidate.FindPlanet(target)!;
+            if(scouting?.ConsumedVessels.Contains(before.Id)==true)continue;
+            var target = before.PendingFounding!.Value; var vessel = candidate.FindVessel(before.Id)??throw new System.InvalidOperationException("Unexpected missing founding vessel."); var planet = candidate.FindPlanet(target)!;
+            if(scouting is not null&&snapshot.Scouting?.Habitat?.Star==planet.StarId)throw new System.InvalidOperationException("Ameba habitat cannot be colonized.");
             if(context is not null&&(Crises.CrisisQueries.IsHeld(snapshot,before.Id)||context.ClosedPorts.Contains((before.EmpireId,planet.StarId))))continue;
             if (candidate.Colonies.Any(c => c.PlanetId == target))
             {

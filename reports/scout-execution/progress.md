@@ -31,7 +31,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 4
 - [x] Task 5
 - [x] Task 6
-- [ ] Task 7
+- [x] Task 7
 - [ ] Task 8
 - [ ] Task 9
 - [ ] Task 10
@@ -69,3 +69,7 @@ Task 6: complete (commits 870b87a..155bcd1, tests: dotnet test tests/OpenAntares
 
 Task 7: started BASE 155bcd1fc4890ea8aa259affd857a75eec7e1671; brief task7-brief.md
 Task 7 evidence: semantic RED4/5; GREEN8/8 including cargo port and independent plague acknowledgement; Suite1332/1332; build0 warnings/errors. Automatic route materialization preserves exact token; coordinator enforces one exact preview operation per owned scout and atomically rejects injected or throwing plans. Direct Resolve checks human consent/idempotent preparation.
+Task 7: complete (commits 155bcd1..8e84ee3, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task7-completion.log)
+
+Task 8: started BASE 8e84ee3f748cc27a185f9190e9f32ddd662d7bd3; brief task8-brief.md
+Task 8 evidence: semantic RED13/13; GREEN15/15 including literal74/75,94/95,49/50 and0/100 thresholds,9 fault phases, reward overflow,1199 research/cure timing, cargo no exposure, independent empire claims and downstream blocked departure detection; Suite1347/1347; build0 warnings/errors. Original economic/cargo snapshots retained; only certified consumed IDs skip later phases.
