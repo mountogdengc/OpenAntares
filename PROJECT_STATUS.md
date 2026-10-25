@@ -6,6 +6,8 @@ OpenAntares is an original turn-based space4X: C#/Godot .NET presentation, indep
 
 Current phase: all fourteen M6 colony-crisis/plague implementation tasks, independent whole-branch review and eight corrections are integrated into local `main`. Fresh post-merge main verification passed. M6-I is Verified for local automated acceptance; human and delivery acceptance remain open. New games default to rules6 Standard, retain Off, and write schema7 with22 explicit pairs. Updated2026-10-25 America/Denver.
 
+Current continuation: the owner requested a bounded scout survival/encounter-avoidance specification for gameplay review before implementation. [M7 draft](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), [drafting authority ADR-015](docs/DECISIONS/ADR-015-scout-survival-design-entry.md). M7-D/SCT-AC-012 In Progress; M7-P/M7-I Not Started. Proposed peaceful avoidance/withdrawal, Observe default/opt-in authority and rules7/writer8 are drafter choices awaiting review, not active gameplay. Product remains rules6/writer7.
+
 ## 2. Implemented milestone
 
 All twelve approved Native colony tasks, the original replacement-preview correction and the three subsequently authorized presentation fixes are integrated. Historical reports describe recorded conditions; deletion lists owned colony names/IDs and inheritance separately; Summary/Attention/Off differ for routine actions and actual completions. Latest economic reports are explicitly session-local; governor history remains saved.
@@ -23,6 +25,8 @@ One fresh read-only whole-branch review found duplicate vessel notices and an ov
 | M6-D colony crises/plague | Verified | Full owner design approval2026-10-25, ADR-014/CRI-AC-012 |
 | M6-P | Verified | Owner approved the separate14-task plan2026-10-25; Native inline retained |
 | M6-I | Verified | Tasks1..14, independent review, eight corrections and fresh merged-main gates passed locally; no second review |
+| M7-D scout survival / encounter avoidance | In Progress | Draft and builder check for owner gameplay review; no full design approval |
+| M7-P / M7-I | Not Started | Separate plan follows full design approval; no product implementation |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
 | Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 
@@ -50,6 +54,8 @@ Preserve architecture, deterministic integer rules, command authority, JSON/vers
 
 Plague, containment and emergency acknowledgement are implemented within M6 scope on `main`. Revolts, broader culture mechanics, fleet/scout doctrine, warfare/diplomacy, peaceful mode, multiplayer and victory remain future scope.
 
+M7 proposes a bounded, non-combat scout posture/avoidance/ordinary-withdrawal contract. Current rivals remain peaceful and ordinary arrival still surveys/contacts before a next-turn response. Actual lethal danger, warning sensors, interception and escape odds remain Deferred pending explicit scope/design. Full proposed gameplay rules require owner review before separate planning. No old campaign is upgraded.
+
 ## 6. Repository and preservation
 
 Primary `F:/Projects-PCGames/OpenAntares` fast-forwarded from `fa2a07f33e6ef2e8d24549d0dcda635221068cd8` to M6 source `d8bef99ead4a8db5ba882912744032dec60ed6ce` on `main`; this status/evidence commit follows. The `codex/colony-crises` checkout, older design branch and all seven worktrees remain available. No push, release or cleanup occurred.
@@ -62,4 +68,6 @@ No open Important/Critical or Minor review finding remains after the one authori
 
 ## 8. Next concrete action
 
-Select and specify the next bounded milestone under the existing charter and REQ-017 gates. M6 is integrated and locally verified; preserve the four owner edits, seven worktrees, backups and retained evidence. Human, platform and release acceptance remain open; no push, release or cleanup has occurred.
+Review/amend the complete [scout specification](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), particularly whether peaceful avoidance is the desired first slice or actual danger should be separately specified now. Full design approval precedes a separate implementation plan; retained Native preference applies afterward. M6 and parent statuses/17-row totals are unchanged. No application tests ran for documentation-only drafting.
+
+Drafting checkout: the clean existing `.worktrees/colony-development-design` was reused on new `codex/scout-survival-design` from primary main42e1282; prior `codex/colony-crises` and all seven worktrees/branches remain. Primary main and all four owner files are untouched; no integration, push, release, cleanup or product change. [Draft review and preservation evidence](reports/SCOUT_DESIGN_REVIEW_2026-10-25.md) records fresh checks and limits. This branch's status updates do not copy or commit the owner's primary peaceful-mode paragraph.

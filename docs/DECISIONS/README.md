@@ -20,3 +20,5 @@ Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/0
 | [ADR-014](ADR-014-approved-colony-crisis-plague-design.md) | Approve complete colony-crisis/plague design and proceed to separate planning | Explicit owner “approved”2026-10-25; M6-D/CRI-AC-012 Verified for design; subsequent [implementation and review corrections](../../reports/CRISIS_REVIEW_CORRECTIONS_2026-10-25.md) and [owner-authorized local integration](../../reports/CRISIS_INTEGRATION_2026-10-25.md) are verified within automated scope |
 
 The charter remains authoritative for scope; original specs retain exact behavior. Alternative evaluations are recorded only where sources contain them. New consequential decisions need their own record and actual approval status; do not reclassify research or a proposed design-guide paragraph as accepted.
+
+[ADR-015: Scout survival/encounter-avoidance drafting](ADR-015-scout-survival-design-entry.md) records explicit owner drafting authority2026-10-25. M7-D/SCT-AC-012 In Progress; proposed gameplay rules await review. No design/plan/implementation approval, default/writer change or warfare scope is inferred.
