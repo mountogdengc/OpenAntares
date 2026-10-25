@@ -30,7 +30,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 3
 - [x] Task 4
 - [x] Task 5
-- [ ] Task 6
+- [x] Task 6
 - [ ] Task 7
 - [ ] Task 8
 - [ ] Task 9
@@ -65,3 +65,7 @@ Task 5: complete (commits 0233000..870b87a, tests: dotnet test tests/OpenAntares
 
 Task 6: started BASE 870b87ad0228d9bd512bacc908e2c76b126e36e2; brief task6-brief.md
 Task 6 evidence: semantic RED8/8; GREEN8/8; Suite1324/1324; normal build0 warnings/errors. No-op Ready/reference preserved; setters never roll/spend; rejection keeps enclosing reference. Consent revision changes only with effective consequences.
+Task 6: complete (commits 870b87a..155bcd1, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task6-completion.log)
+
+Task 7: started BASE 155bcd1fc4890ea8aa259affd857a75eec7e1671; brief task7-brief.md
+Task 7 evidence: semantic RED4/5; GREEN8/8 including cargo port and independent plague acknowledgement; Suite1332/1332; build0 warnings/errors. Automatic route materialization preserves exact token; coordinator enforces one exact preview operation per owned scout and atomically rejects injected or throwing plans. Direct Resolve checks human consent/idempotent preparation.

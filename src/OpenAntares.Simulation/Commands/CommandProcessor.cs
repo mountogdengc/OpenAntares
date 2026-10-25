@@ -156,6 +156,11 @@ public static partial class CommandProcessor
             return CommandOutcome.NoChange(state);
         }
 
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasScouting(state.RulesVersion))
+        {
+            if(!Scouting.ScoutReadyQueries.HasConsent(content,state,issuer.Id))return CommandOutcome.Reject(state,"ameba_acknowledgement_required","Review and acknowledge the current ameba responses before Ready.");
+            if(Scouting.ScoutQueries.PreviewPreparation(content,state,issuer.Id).Blockers.Length>0)return CommandOutcome.Reject(state,"ameba_response_required","Choose an actual legal departure or a displayed risk response before Ready.");
+        }
         if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCrises(state.RulesVersion)&&issuer.Crisis!.RequireAcknowledgement&&!Crises.CrisisQueries.PendingAttention(state,issuer.Id).IsEmpty)
             return CommandOutcome.Reject(state,"crisis_acknowledgement_required","Review and acknowledge this empire's current crisis facts before Ready, or explicitly change the saved acknowledgement requirement.");
         GameState prepared = state;
@@ -170,6 +175,12 @@ public static partial class CommandProcessor
             var preparation = Development.GovernorTurnCoordinator.Prepare(content, prepared, issuer.Id);
             if (!preparation.Succeeded) return CommandOutcome.Reject(state, RejectionCodes.ResolutionFailed, "The turn could not be completed.");
             prepared = preparation.State;
+        }
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasScouting(state.RulesVersion))
+        {
+            var scouting=Scouting.ScoutTurnCoordinator.Prepare(content,prepared,issuer.Id);
+            if(!scouting.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"Scout survival preparation could not be completed. Review current legal responses.");
+            prepared=scouting.State;
         }
         GameState candidate = prepared.Clone();
         candidate.FindEmpire(command.Issuer)!.Ready = command.Ready;

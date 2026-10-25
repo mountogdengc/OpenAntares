@@ -56,6 +56,22 @@ public static class TurnResolver
         IReadOnlyList<string>? crisisValidation=null;
         try
         {
+            if(Rules.HasScouting(snapshot.RulesVersion))
+            {
+                foreach(var human in snapshot.Empires.Where(e=>e.Controller==ControllerKind.Human).OrderBy(e=>e.Id).ToArray())
+                {
+                    if(!Scouting.ScoutReadyQueries.HasConsent(content,snapshot,human.Id))return Failed(original,RivalTurnPlanner.FailureMessage);
+                    if(human.Ready)
+                    {
+                        if(Scouting.ScoutReadyQueries.ValidateResponse(content,snapshot,human.Id).Length!=0)return Failed(original,RivalTurnPlanner.FailureMessage);
+                        continue;
+                    }
+                    var health=CrisisTurnCoordinator.Prepare(content,snapshot,human.Id);if(!health.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);
+                    var governor=Development.GovernorTurnCoordinator.Prepare(content,health.State,human.Id);if(!governor.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);
+                    var scouting=Scouting.ScoutTurnCoordinator.Prepare(content,governor.State,human.Id);if(!scouting.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);
+                    snapshot=scouting.State;
+                }
+            }
             if(Rules.HasCrises(snapshot.RulesVersion))
             {
                 var crisisPreparation=CrisisTurnCoordinator.PrepareAi(content,snapshot);

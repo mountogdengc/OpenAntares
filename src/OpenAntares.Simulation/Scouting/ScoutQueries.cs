@@ -59,7 +59,11 @@ public static class ScoutQueries
             if(encounter is not null&&encounter.RiskOrder is null&&departure is null&&scout?.WithdrawFromAmeba==true&&v.Transit is null)
             {
                 departure=fallback;
-                if(departure is {} target)commands.Add(new SetScoutRetreatOrderCommand(owner,s.Turn,v.Id,target));
+                if(departure is {} target)
+                {
+                    if(commands.Count>0&&commands[commands.Count-1] is SetMoveOrderCommand {Destination:null} cancelled&&cancelled.Vessel==v.Id)commands.RemoveAt(commands.Count-1);
+                    commands.Add(new SetScoutRetreatOrderCommand(owner,s.Turn,v.Id,target));
+                }
             }
             int late=AmebaOdds.LateEscape(d,c.Vessels[v.RoleId].Speed),study=AmebaOdds.Study(d,c.Vessels[v.RoleId].Speed);
             bool acknowledged=false;
