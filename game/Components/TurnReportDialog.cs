@@ -75,6 +75,7 @@ public partial class TurnReportDialog : AcceptDialog
             _body.AddChild(choose);
         }
 
+        foreach(var crisis in report.CrisisEvents)_body.AddChild(Wrapped($"{crisis.Location.Name} ({crisis.Location.Colony}): {crisis.Kind} — {crisis.Reason}; population lost {crisis.PopulationLost}.","WarningLabel"));
         foreach (var e in report.Events)
         {
             if(e.Kind=="vessel_completed"&&_preferences.LevelFor("completions")==OpenAntares.Game.Presentation.NotificationLevel.Off)continue;
@@ -145,7 +146,7 @@ public partial class TurnReportDialog : AcceptDialog
             _body.AddChild(Wrapped($"Embarked workers: source {colony.PopulationUnitLabel} now {embark.PopulationAfter}; next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));
             if (embark.ReassignmentNeeded) _body.AddChild(Wrapped("Reassign workers before the next End Turn.", "WarningLabel"));
         }
-        if (_preferences.LevelFor("embarkation_wait") != OpenAntares.Game.Presentation.NotificationLevel.Off && colony.Production.BlockedReasonCode is not null) _body.AddChild(Wrapped("Awaiting embarkation; production remains banked.", "WarningLabel"));
+        if (_preferences.LevelFor("embarkation_wait") != OpenAntares.Game.Presentation.NotificationLevel.Off && colony.Production.BlockedReasonCode is not null) _body.AddChild(Wrapped(colony.Production.BlockedReasonCode=="quarantine"?"Quarantine: cargo waits for the owned port to reopen; production remains banked.":"Awaiting embarkation; production remains banked.", "WarningLabel"));
         GrowthOutcome growth = colony.Growth;
         if (growth.Births > 0)
         {

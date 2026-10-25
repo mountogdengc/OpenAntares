@@ -7,6 +7,7 @@ namespace OpenAntares.Game.Components;
 public partial class ColonyList : VBoxContainer
 {
     public event Action<ColonyId>? ColonySelected;
+    public event Action? CrisisRequested;
     public event Action? ManageRequested;
     public event Action? NotificationsRequested;
     public event Action? LatestReportRequested;
@@ -17,6 +18,7 @@ public partial class ColonyList : VBoxContainer
         Visible = Rules.HasExpansion(view.RulesVersion);
         if (!Visible) return;
         AddChild(new Label { Text = "Your colonies", ThemeTypeVariation = "HeaderLabel" });
+        if(view.Crisis is not null)DevelopmentUi.Button(this,"Colony crises",()=>CrisisRequested?.Invoke(),"OpenCrisisOverview");
         var picker = new OptionButton { SizeFlagsHorizontal = SizeFlags.ExpandFill }; AddChild(picker);
         foreach (var c in view.Colonies)
         {

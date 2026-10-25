@@ -6,6 +6,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)SpeciesGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)RivalGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ColonyGraphicalValidation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CrisisGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FrozenContent.cs" />
   </ItemGroup>
 </Project>

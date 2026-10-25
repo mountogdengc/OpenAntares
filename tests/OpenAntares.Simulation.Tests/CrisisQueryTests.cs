@@ -91,4 +91,21 @@ public sealed class CrisisQueryTests
         Assert.False(CrisisPreviewEquality.Equal(first,copied with{Orders=copied.Orders.SetItem(0,copied.Orders[0] with{Move=new StarId(6)})}));
         Assert.False(CrisisPreviewEquality.Equal(first,copied with{Assets=copied.Assets! with{Queue=ImmutableArray.Create(new OpenAntares.Simulation.Development.ProductionQueueEntry(1,new("building","fabrication_hall")))}}));
     }
+    [Fact]
+    public void DisplayFactsKeepExactDestructiveCostsAndLostOwnLocation()
+    {
+        var g=CrisisFixtures.Active(population:5);var c=g.State.Colonies[0];c.ProductionReserve=901;
+        var own=CrisisQueries.Project(g.Content,g.State,c.EmpireId);var preview=CrisisQueries.PreviewPurge(g.Content,g.State,c.EmpireId,c.Id);
+        Assert.Equal(5,own.Cases.Single().Population);Assert.Equal(c.Id,own.Episode!.Source.Colony);
+        Assert.Equal(3,preview.PopulationLost);Assert.Equal(450,preview.ReserveAfter);Assert.Equal(g.State.Turn+5,preview.NextCivicExpiresAt);
+        var result=OpenAntares.Simulation.Commands.CommandProcessor.Execute(g.Content,g.State,new OpenAntares.Simulation.Commands.PurgeColonyCommand(c.EmpireId,g.State.Turn,preview));
+        Assert.True(result.Accepted);Assert.Equal(2,result.State.FindColony(c.Id)!.Population);
+        var survivor=CrisisQueries.Project(g.Content,result.State,c.EmpireId);
+        Assert.Contains(survivor.ColonyConditions,x=>x.Location==preview.Location&&x.Population==2);
+        var last=CrisisFixtures.Active(population:1);var lone=last.State.Colonies[0];var loss=CrisisQueries.PreviewPurge(last.Content,last.State,lone.EmpireId,lone.Id);
+        var removed=OpenAntares.Simulation.Commands.CommandProcessor.Execute(last.Content,last.State,new OpenAntares.Simulation.Commands.PurgeColonyCommand(lone.EmpireId,last.State.Turn,loss));
+        Assert.True(removed.Accepted);var zero=CrisisQueries.Project(last.Content,removed.State,lone.EmpireId);
+        Assert.Empty(zero.ColonyConditions);Assert.Contains(loss.Location!,zero.LostColonyLocations);
+    }
+
 }

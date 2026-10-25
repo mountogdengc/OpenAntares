@@ -32,6 +32,9 @@ public partial class GameScreen : VBoxContainer
     private VesselId? _selectedVessel;
     private StarId? _courseDestination;
     private EmpireView View => _session.View(_viewer);
+    private readonly CrisisOverviewDialog _crisisOverview=new();
+    private readonly CrisisResponseDialog _crisisResponse=new();
+    private bool _returnToCrisisOverview;
     private readonly TurnReportDialog _report = new();
     private EmpireTurnReportView? _latestReport;
     private readonly TemplateReferencesDialog _templateReferences = new();
@@ -85,6 +88,13 @@ public partial class GameScreen : VBoxContainer
         AddChild(_saveDialog);
         _saveDialog.Saved += name => ShowMessage($"Saved as \"{name}\".", isWarning: false);
 
+        AddChild(_crisisOverview);AddChild(_crisisResponse);
+        _crisisResponse.VisibilityChanged+=()=>{if(!_crisisResponse.Visible&&_returnToCrisisOverview&&View.Crisis is {} c){_returnToCrisisOverview=false;Callable.From(()=>{if(View.Crisis is {} latest)_crisisOverview.ShowCrisis(_session.Content,latest);}).CallDeferred();}};
+        _crisisOverview.CommandRequested+=Execute;_crisisResponse.CommandRequested+=Execute;
+        _crisisOverview.QuarantineRequested+=(ids,enable,release)=>{_returnToCrisisOverview=_crisisOverview.Visible;_crisisOverview.Hide();var preview=OpenAntares.Simulation.Crises.CrisisQueries.PreviewQuarantine(_session.Content,_session.State,_viewer,ids,enable,release);Callable.From(()=>_crisisResponse.ShowQuarantine(preview)).CallDeferred();};
+        _crisisOverview.PurgeRequested+=id=>{_returnToCrisisOverview=_crisisOverview.Visible;_crisisOverview.Hide();var preview=OpenAntares.Simulation.Crises.CrisisQueries.PreviewPurge(_session.Content,_session.State,_viewer,id);Callable.From(()=>_crisisResponse.ShowPurge(preview)).CallDeferred();};
+        _crisisOverview.StarRequested+=star=>_map.Select(star);
+        _colonies.CrisisRequested+=()=>{if(View.Crisis is {} crisis)_crisisOverview.ShowCrisis(_session.Content,crisis);};
         AddChild(_management); _management.CommandIssued += Execute; _management.ColonyRequested += SelectColony;
         AddChild(_notificationDialog); _notificationDialog.Applied += preferences => { _preferences = preferences; Callable.From(Refresh).CallDeferred(); };
         _colonies.ManageRequested += () => { _management.Preferences = _preferences; _management.ShowEmpire(_session.Content,View); };
@@ -190,6 +200,7 @@ public partial class GameScreen : VBoxContainer
         var view = View;
         _preferences = OpenAntares.Game.Presentation.ColonyNotificationPreferences.Load(ProjectSettings.GlobalizePath(NotificationPreferencesPath));
         if (_management.Visible) { _management.Preferences = _preferences; _management.ShowEmpire(_session.Content,view); }
+        if(_crisisOverview.Visible&&view.Crisis is {} currentCrisis)_crisisOverview.ShowCrisis(_session.Content,currentCrisis);
         _turnLabel.Text = $"Turn {view.Turn}";
         _endTurn.Text = view.Research.Ready ? "Waiting for others (cancel)" : "End Turn";
         _researchBar.ShowEmpire(_session.Content, view.Research);
