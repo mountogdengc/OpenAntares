@@ -9,8 +9,9 @@ public partial class ColonyList : VBoxContainer
     public event Action<ColonyId>? ColonySelected;
     public event Action? ManageRequested;
     public event Action? NotificationsRequested;
+    public event Action? LatestReportRequested;
     private readonly System.Collections.Generic.HashSet<int> _dismissedSuggestions = new();
-    public void ShowColonies(EmpireView view, ColonyId? selected, OpenAntares.Simulation.Content.ContentSet? content = null, OpenAntares.Game.Presentation.ColonyNotificationPreferences? preferences = null)
+    public void ShowColonies(EmpireView view, ColonyId? selected, OpenAntares.Simulation.Content.ContentSet? content = null, OpenAntares.Game.Presentation.ColonyNotificationPreferences? preferences = null, EmpireTurnReportView? latestReport = null)
     {
         foreach (Node child in GetChildren()) { RemoveChild(child); child.QueueFree(); }
         Visible = Rules.HasExpansion(view.RulesVersion);
@@ -36,6 +37,25 @@ public partial class ColonyList : VBoxContainer
                 var plan=OpenAntares.Simulation.Development.GovernorPlanner.Plan(OpenAntares.Simulation.Development.GovernorPlanningQueries.Create(content,view));
                 int attention=view.Colonies.Count(c=>GovernorReportPanel.CurrentIssues(content,view,c,plan).Any(i=>(preferences??OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults).LevelFor(i.Code)==OpenAntares.Game.Presentation.NotificationLevel.Attention));
                 if(attention>0)AddChild(DevelopmentUi.Text($"Attention: {attention} {(attention==1?"colony has":"colonies have")} unresolved conditions. Inspect Manage colonies.","WarningLabel"));
+                var prefs=preferences??OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
+                var recorded=view.Development!.PendingReport??view.Development.CompletedReports.LastOrDefault();
+                int actions=recorded?.Entries.Count(e=>e.BeforeWorkforce.HasValue||e.BeforeTarget!=e.AfterTarget)??0;
+                if(actions>0&&prefs.LevelFor("governor_actions")==OpenAntares.Game.Presentation.NotificationLevel.Attention)
+                {
+                    var badge=DevelopmentUi.Text($"Attention: {actions} {(actions==1?"colony":"colonies")} with recorded governor actions (turn {recorded!.Turn}). Inspect Manage colonies.","WarningLabel");
+                    badge.Name="GovernorActionAttentionBadge";AddChild(badge);
+                }
+                if(latestReport is {} report&&report.ToTurn==view.Turn)
+                {
+                    int completions=report.Colonies.Count(c=>view.Colonies.Any(owned=>owned.Id==c.Id)&&c.Economy.Production.CompletedId is not null)+(report.Research.Research.CompletedId is null?0:1);
+                    if(completions>0&&prefs.LevelFor("completions")==OpenAntares.Game.Presentation.NotificationLevel.Attention)
+                    {
+                        var badge=DevelopmentUi.Text($"Attention: {completions} {(completions==1?"completion":"completions")} in the latest turn report (this session).","WarningLabel");
+                        badge.Name="CompletionAttentionBadge";AddChild(badge);
+                    }
+                    var button=DevelopmentUi.Button(this,"View latest turn report (this session)",()=>LatestReportRequested?.Invoke(),"ViewLatestTurnReport");
+                    button.TooltipText="Economic turn reports are retained until the next resolution or loading a session. Governor history is saved separately.";
+                }
             }
         }
         picker.ItemSelected += index => ColonySelected?.Invoke(new(picker.GetItemMetadata((int)index).AsInt32()));

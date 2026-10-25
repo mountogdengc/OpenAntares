@@ -33,6 +33,7 @@ public partial class GameScreen : VBoxContainer
     private StarId? _courseDestination;
     private EmpireView View => _session.View(_viewer);
     private readonly TurnReportDialog _report = new();
+    private EmpireTurnReportView? _latestReport;
     private readonly TemplateReferencesDialog _templateReferences = new();
     private readonly SaveGameDialog _saveDialog = new();
     private readonly OpenAntares.Game.Presentation.PlanetPortraitCache _portraitCache = new();
@@ -88,6 +89,7 @@ public partial class GameScreen : VBoxContainer
         AddChild(_notificationDialog); _notificationDialog.Applied += preferences => { _preferences = preferences; Callable.From(Refresh).CallDeferred(); };
         _colonies.ManageRequested += () => { _management.Preferences = _preferences; _management.ShowEmpire(_session.Content,View); };
         _colonies.NotificationsRequested += () => _notificationDialog.Open(NotificationPreferencesPath);
+        _colonies.LatestReportRequested += ShowLatestReport;
         AddChild(_report);
         AddChild(_templateReferences);
         _report.ChooseProjectRequested += ChooseProject;
@@ -168,7 +170,8 @@ public partial class GameScreen : VBoxContainer
 
         if (outcome.Report is { } report)
         {
-            _report.ShowReport(_session.Content, EmpireViewProjector.ProjectReport(_session.Content, _session.State, report, _viewer), View, _preferences);
+            _latestReport=EmpireViewProjector.ProjectReport(_session.Content, _session.State, report, _viewer);
+            ShowLatestReport();
         }
     }
 
@@ -205,7 +208,7 @@ public partial class GameScreen : VBoxContainer
         _selectedColony = colony?.Id;
         if (colony is not null) _selectedPlanet = colony.PlanetId;
         _starPanel.ShowStar(_session.Content, star, view);
-        _colonies.ShowColonies(view, _selectedColony, _session.Content, _preferences);
+        _colonies.ShowColonies(view, _selectedColony, _session.Content, _preferences, _latestReport);
         if (colony is null) _colonyPanel.Clear(); else _colonyPanel.ShowColony(_session.Content, colony, view);
         if (!view.Vessels.Any(v => v.Id == _selectedVessel)) _selectedVessel = view.Vessels.Length > 0 ? view.Vessels[0].Id : null;
         _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination, _selectedPlanet);
@@ -215,6 +218,14 @@ public partial class GameScreen : VBoxContainer
     {
         var colony = View.Colonies.FirstOrDefault(c => c.Id == id); if (colony is null) return;
         _selectedColony = id; _selectedPlanet = colony.PlanetId; _map.Select(colony.StarId);
+    }
+
+    private void ShowLatestReport()
+    {
+        if(_latestReport is null)return;
+        var view=View;
+        if(view.Development is {} development)view=view with{Development=development with{PendingReport=null}};
+        _report.ShowReport(_session.Content,_latestReport,view,_preferences);
     }
 
     private void ShowMessage(string text, bool isWarning)

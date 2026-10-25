@@ -63,9 +63,9 @@ public partial class TurnReportDialog : AcceptDialog
         _body.AddChild(new HSeparator());
         _body.AddChild(new Label { Text = "Research" });
         _body.AddChild(Subtle(ReserveSummary(empire.Research)));
-        if (empire.Research.CompletedId is { } technology)
+        if (_preferences.LevelFor("completions") != OpenAntares.Game.Presentation.NotificationLevel.Off && empire.Research.CompletedId is { } technology)
         {
-            _body.AddChild(new Label { Text = $"Researched {content.Technologies[technology].Name}." });
+            _body.AddChild(CompletionNotice($"Researched {content.Technologies[technology].Name}."));
             var choose = new Button { Text = "Choose next research" };
             choose.Pressed += () =>
             {
@@ -77,9 +77,10 @@ public partial class TurnReportDialog : AcceptDialog
 
         foreach (var e in report.Events)
         {
+            if(e.Kind=="vessel_completed"&&_preferences.LevelFor("completions")==OpenAntares.Game.Presentation.NotificationLevel.Off)continue;
             string location = e.Star is { } star && report.StarNames.TryGetValue(star, out var name) ? name : "system";
             string message = e.Kind switch { "arrived" => $"Vessel arrived at {location}.", "discovered" => $"Surveyed the planets of {location}.", "vessel_completed" => $"Expedition completed at {location}.", "colony_founded" => $"Colony founded at {location}.", "founding_failed" => $"Another expedition settled {location} first. Your settler and cargo were retained.", _ => "Expedition updated." };
-            _body.AddChild(Wrapped(message, "SubtleLabel"));
+            _body.AddChild(e.Kind=="vessel_completed"?CompletionNotice(message):Wrapped(message, "SubtleLabel"));
             var view = new Button { Text = e.Colony.HasValue && e.Kind == "colony_founded" ? "View colony" : e.Vessel.HasValue && e.Kind == "vessel_completed" ? "View vessel" : "View system" };
             view.Pressed += () => { Hide(); if (e.Colony is { } colony && e.Kind == "colony_founded") ColonyRequested?.Invoke(colony); else if (e.Vessel is { } vessel && e.Kind == "vessel_completed") VesselRequested?.Invoke(vessel); else if (e.Star is { } destination) StarRequested?.Invoke(destination); }; _body.AddChild(view);
         }
@@ -96,6 +97,12 @@ public partial class TurnReportDialog : AcceptDialog
         PopupCentered(new Vector2I(580, 440));
     }
 
+    private Label CompletionNotice(string text)
+    {
+        bool attention=_preferences.LevelFor("completions")==OpenAntares.Game.Presentation.NotificationLevel.Attention;
+        return new Label{Text=(attention?"Attention: ":"")+text,ThemeTypeVariation=attention?"WarningLabel":"",AutowrapMode=TextServer.AutowrapMode.WordSmart};
+    }
+
     private void AddColony(ContentSet content, ColonyReportView view)
     {
         ColonyEconomy colony = view.Economy;
@@ -105,7 +112,7 @@ public partial class TurnReportDialog : AcceptDialog
 
         if (_preferences.LevelFor("completions") != OpenAntares.Game.Presentation.NotificationLevel.Off && colony.Production.CompletedId is { } building)
         {
-            _body.AddChild(new Label { Text = $"Completed {(colony.Production.TargetKind == ProductionKinds.Vessel ? content.Vessels[building].Name : content.Buildings[building].Name)}." });
+            _body.AddChild(CompletionNotice($"Completed {(colony.Production.TargetKind == ProductionKinds.Vessel ? content.Vessels[building].Name : content.Buildings[building].Name)}."));
             var choose = new Button { Text = "Choose next project" };
             choose.Pressed += () =>
             {

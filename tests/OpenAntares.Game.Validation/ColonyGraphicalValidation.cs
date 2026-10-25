@@ -30,6 +30,7 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
             await CurrentStartChecks();
             await PolishHistoryChecks();
             await PolishTemplateDeletionChecks();
+            await PolishNotificationChecks();
             await ReplacementPreviewChecks();
             await InvalidDevelopmentContentRecovery();
             await PortraitChecks();
@@ -105,6 +106,54 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
         var fallbackLabels=Descendants<Label>(dialog!).Where(l=>l.Name.ToString().StartsWith("TemplateReference_",StringComparison.Ordinal)).ToArray();
         Check(fallbackLabels.Length==30&&fallbackLabels[0].Text=="Unnamed colony ("+missing+")"&&!fallbackLabels.Any(l=>l.Text.Contains(int.MaxValue.ToString(),StringComparison.Ordinal)),"Reordered diagnostic references retain own-ID fallback and omit foreign/unknown identities");
         dialog!.Hide();RemoveChild(main);main.QueueFree();await Frames();
+    }
+    private async Task PolishNotificationChecks()
+    {
+        foreach(bool vessel in new[]{false,true})
+        {
+            var content=DevelopmentContent();var state=GalaxyGenerator.CreateNewGame(content,new("small",42,5,"harl")).State!;
+            var owner=state.Empires[0];var colony=state.Colonies[0];string target=vessel?"scout":"fabrication_hall";
+            colony.ProductionReserve=10000;colony.ProjectId=target;colony.ProjectKind=vessel?"vessel":"building";colony.Development!.Origin=ProductionOrigin.Manual;
+            var d=content.GovernorTemplates["industrial"];colony.Development.Template=new("industrial",1,new(d.Name,d.FoundationIds,d.DevelopmentIds,d.SupportTarget,d.ProductionWeight,d.ResearchWeight));colony.Development.WorkforceEnabled=true;
+            owner.ResearchReserve=10000;owner.ResearchTargetId="cultivation_methods";
+            Check(GameStateValidator.Validate(content,state).Count==0,"Labelled notification completion fixture validates before session");
+            string kind=vessel?"vessel":"building",name=$"qa-{_runId}-notification-{kind}",path=SaveFiles.PathFor(name);SaveGame.WriteFile(path,content,state);_savePaths.Add(path);
+            var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();Press(Button(One<NewGameScreen>(main),"Start"));await Frames();
+            var screen=await LoadThroughDialog(main,name);string preferencesPath=Path.Combine(_output,$"attention-{kind}.json");screen.NotificationPreferencesPath=preferencesPath;
+            async Task SetLevels(NotificationLevel level)
+            {
+                await Click(screen,"Colony notifications");var dialog=One<ColonyNotificationDialog>(screen);
+                foreach(string category in new[]{"governor_actions","completions"}){var picker=Picker(dialog,"Notify_"+category);picker.Select((int)level);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(int)level);}
+                Press(dialog.GetOkButton());await Frames();
+            }
+            bool Badge(string id)=>Descendants<Label>(One<ColonyList>(screen)).Any(l=>l.Name==id&&l.Visible);
+            async Task ReopenReport(){var button=Descendants<Button>(screen).Single(b=>b.Name=="ViewLatestTurnReport");await Reach(button);Press(button);await Frames();}
+            string canonical=Snapshot(Session(screen));await SetLevels(NotificationLevel.Attention);
+            Check(!Badge("CompletionAttentionBadge"),"Attention does not fabricate completed work from a finishable forecast");
+            Check(Snapshot(Session(screen))==canonical,"Changing notification levels preserves campaign and Ready");
+            await SetLevels(NotificationLevel.Summary);await EndTurn(screen);var report=One<TurnReportDialog>(screen);
+            string productionName=vessel?content.Vessels[target].Name:content.Buildings[target].Name;
+            Label[] Notices()=>Descendants<Label>(report).Where(l=>l.Text.Contains("Completed "+productionName+".",StringComparison.Ordinal)||l.Text.Contains("Researched "+content.Technologies["cultivation_methods"].Name+".",StringComparison.Ordinal)).ToArray();
+            Check(Notices().Length==2&&Notices().All(l=>l.ThemeTypeVariation!="WarningLabel"),"Summary displays ordinary production and research completion notices");
+            Check(!Badge("GovernorActionAttentionBadge")&&!Badge("CompletionAttentionBadge"),"Summary does not raise routine Attention badges");
+            report.Hide();await Frames();canonical=Snapshot(Session(screen));await SetLevels(NotificationLevel.Attention);
+            Check(Badge("GovernorActionAttentionBadge")&&Badge("CompletionAttentionBadge"),"Attention raises nonblocking recorded-action and actual-completion badges");
+            Check(Descendants<Label>(One<ColonyList>(screen)).Single(l=>l.Name=="CompletionAttentionBadge").Text.Contains("2 completions",StringComparison.Ordinal),"Production and research count once each, without duplicate vessel events");
+            await ReopenReport();report=One<TurnReportDialog>(screen);
+            Check(Notices().Length==2&&Notices().All(l=>l.ThemeTypeVariation=="WarningLabel"&&l.Text.StartsWith("Attention:",StringComparison.Ordinal)),"Attention visibly highlights production and research completion rows");
+            Check(Descendants<Label>(report).Single(l=>l.Name=="GovernorReportSummary").ThemeTypeVariation=="WarningLabel","Attention visibly highlights recorded governor actions");
+            GetTree().Root.Size=new(800,600);await Frames();await Capture($"polish-attention-{kind}-800");report.Hide();await Frames();GetTree().Root.Size=new(1920,1080);await Frames();await Capture($"polish-attention-{kind}-1920");
+            await SetLevels(NotificationLevel.Off);Check(!Badge("GovernorActionAttentionBadge")&&!Badge("CompletionAttentionBadge"),"Off suppresses routine Attention badges");
+            await ReopenReport();report=One<TurnReportDialog>(screen);Check(Notices().Length==0,"Off suppresses production and research completion notices");
+            Check(Descendants<Label>(report).Any(l=>l.Text.Contains("Stored details remain available",StringComparison.Ordinal)),"Off keeps stored governor detail available");report.Hide();await Frames();
+            Check(Snapshot(Session(screen))==canonical,"Summary Attention Off and reopening reports change no campaign bytes");
+            await SetLevels(NotificationLevel.Attention);string saved=await SaveThroughDialog(screen,$"attention-{kind}-history");string savedCanonical=Snapshot(Session(screen));
+            await EndTurn(screen);One<TurnReportDialog>(screen).Hide();await Frames();Check(!Badge("CompletionAttentionBadge"),"Next resolution replaces stale completion badge with actual zero completions");
+            screen=await LoadThroughDialog(main,saved);screen.NotificationPreferencesPath=preferencesPath;await SetLevels(NotificationLevel.Attention);
+            Check(Snapshot(Session(screen))==savedCanonical&&Badge("GovernorActionAttentionBadge"),"Saved governor history and Attention survive actual UI reload");
+            Check(!Badge("CompletionAttentionBadge")&&!Descendants<Button>(screen).Any(b=>b.Name=="ViewLatestTurnReport"),"Reload does not invent an unsaved economic turn report");
+            RemoveChild(main);main.QueueFree();await Frames();
+        }
     }
     private async Task ReplacementPreviewChecks()
     {
