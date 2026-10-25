@@ -63,7 +63,7 @@
 - [ ] Run full Suite and Colony, inspect800/1920 Attention captures. Expected all checks/metadata normal build pass, no campaign mutation.
 - [ ] Commit `fix: distinguish routine attention notifications`; task-done with full Suite.
 
-### Task 4: Verify, review and integrate the bounded corrections
+### Task 4: Verify the bounded correction branch
 
 **Files:** execution ledger/evidence; `reports/COLONY_POLISH_2026-10-24.md`, `reports/COLONY_POLISH_INTEGRATION_2026-10-24.md`; standard current status/criteria/roadmap/entry docs.
 
@@ -71,6 +71,8 @@
 
 - [ ] Run Suite and sequential Colony/Rival/Species/Expansion/Legacy into fresh `reports/colony-polish-final-20261024-run1`; final ordinary rebuild/five metadata exclusions. Expected0 failed/skipped/errors/engine diagnostics, all QA paths exist; derive assertion/provenance/geometry counts from rows and inspect representative PNGs.
 - [ ] Record all three corrected criteria as Implemented, Unverified pending review, historical deferrals retained as historical; parent REQ-017/counts/human/release limits unchanged. Commit evidence/docs; task-done with full Suite.
+## Final review and authorized local integration
+
 - [ ] One fresh read-only gpt-6-astra/xhigh whole-branch review from fa99cf8; all five Review Focus lines/rulings/actual gate evidence. No reviewer subagents. Re-grade, ONE regression-first Important/Critical correction pass if needed; defer new Minors, no re-review.
 - [ ] After clean blocking disposition, fast-forward main with exact status-only recovery and owner paragraph restoration. Run fresh integrated-main Suite and full affected Colony scenario, ordinary rebuild/five metadata exclusions. Other four branch scenarios remain identified as branch evidence on unchanged reviewed source; broaden only for new failures/changes.
 - [ ] Reconcile acceptance honestly: corrected COL-AC-002/007 and M5-I Verified only if all their details pass/review disposition allows; broader human/platform/release/REQ017 remain open. Commit only authored docs/evidence, clean status blob excludes owner paragraph; assert final four owner changes/empty index/exact hashes/seven retained worktrees. No push/release/cleanup.

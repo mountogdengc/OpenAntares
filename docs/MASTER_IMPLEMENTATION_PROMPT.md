@@ -1,6 +1,7 @@
 # Master Autonomous Implementation Prompt - OpenAntares
 
-Current M5 gate (2026-10-24): full design ADR-012 and separate twelve-task plan are approved; Native execution, one fresh review and the Important preview correction are complete. Main is locally integrated at93ffe8a; fresh combined984-test Suite/all five gates/build/metadata pass. Three disclosed presentation Minors leave COL-AC-002/007 and M5-I Implemented, Unverified; other functional COL criteria have bounded automated verification. Read PROJECT_STATUS and reports/COLONY_INTEGRATION_2026-10-24.md for actual final state. Preserve exact four owner changes, seven worktrees, QA/scratch/recovery. Do not repeat implementation/review/integration or ask method/design approval again. Future crisis/culture/fleet/scout/peaceful systems remain later scope. No push/release/cleanup. Earlier milestone passages below are historical.
+Current M5 correction gate (2026-10-24): owner explicitly authorized all three deferred presentation corrections, verification and local integration. Native Tasks1–3 are implemented at940fa73 with Suite988/full affected Colony663+4 provenance passing. Finish Task4 full branch gate, one fresh whole-branch review and authorized local integration/fresh main Suite+Colony/build/metadata. Preserve exact four owner changes/seven worktrees/recovery. Read PROJECT_STATUS and reports/COLONY_POLISH_2026-10-24.md. No repeated approvals, new feature scope or cleanup. Older milestone paragraphs below are historical.
+
 
 
 

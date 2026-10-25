@@ -4,7 +4,7 @@
 
 OpenAntares is an original turn-based space4X, C#/Godot .NET presentation with an independent deterministic simulation. The owner-approved creative direction is a classic Master of Orion II love letter with memorable fanciful aliens, respectful of real peoples and beliefs. Existing architecture and creative decisions remain authoritative.
 
-Current phase: M5 colony development implemented and reviewed; retained authorized local main integration is complete, with fresh combined verification complete. Last updated2026-10-24 America/Denver. No release. Main and retained branch use rules5/writer6. Full First Playable/human and release acceptance remain open.
+Current phase: three authorized M5 presentation corrections implemented; full branch gate passes; review pending, then authorized local integration. Last updated2026-10-24 America/Denver. No release. Main and retained branch use rules5/writer6. Full First Playable/human and release acceptance remain open.
 
 ## 2. Implemented milestone
 
@@ -19,11 +19,11 @@ Current5/writer6 supports sixteen explicit pairs; genuine rules1/2/3/4 and passi
 | Adoption/expansion/species/rival local technical slices | Verified | Historical reports retain exact source/methods; human/release limits unchanged |
 | First Playable full human acceptance | Deferred | ADR-005 unavailable uncoached session; no recruiting requirement |
 | M5-D / M5-P | Verified | Full design ADR-012 and separate twelve-task plan approved; Native retained |
-| M5-I colony development | Implemented, Unverified | All tasks/blocking correction complete; three deferred presentation details prevent exact full child acceptance |
+| M5-I colony development | Implemented, Unverified | All tasks/blocking correction complete; three corrected presentation details await final gate/review and local integration |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress; no inferred new feature scope |
 | Cross-platform/release delivery | Not Started | Windows-only local execution |
 
-COL-AC-001/003/004/005/006/008/009/010/011 Verified for local automated scope; COL-AC-012 Verified for design. COL-AC-002/007 Implemented, Unverified: deletion omits affected colonies/inheritance, historical condition count says unresolved, action/completion Attention equals Summary. All three are deferred Minors; no unresolved Critical/Important finding. Parent17-row register remains12 Verified,3 Implemented, Unverified,1 In Progress,1 Deferred.
+COL-AC-001/003/004/005/006/008/009/010/011 Verified for local automated scope; COL-AC-012 Verified for design. COL-AC-002/007 Implemented, Unverified: deletion omits affected colonies/inheritance, historical condition count says unresolved, action/completion Attention equals Summary. The owner now explicitly authorized their correction; all three are implemented on the isolated branch and pending final gate/review, rather than deferred for future work. Parent17-row register remains12 Verified,3 Implemented, Unverified,1 In Progress,1 Deferred.
 
 ## 4. Verification
 
@@ -51,4 +51,6 @@ Deferred human playtest does not block this authorized technical work. Broader g
 
 ## 8. Next concrete action
 
-Review the three disclosed presentation Minors and select a bounded correction scope before another strategic subsystem. Implementation, blocking review correction, local main integration and fresh combined gates are complete. Preserve all owner changes/QA/recovery/worktrees; no automatic new feature work, push, release or cleanup.
+Finish the correction branch five-scenario gate and one fresh whole-branch review, then retained authorized local integration and fresh combined main Suite/Colony/build/metadata checks with exact owner preservation. [Correction report](reports/COLONY_POLISH_2026-10-24.md), [ledger](reports/colony-polish-execution/progress.md). No new scope, repeated approval or cleanup.
+
+Current correction evidence: source940fa73, Suite988/988 and full affected Colony663 assertions+4 provenance/33 QA/65 PNG,0 diagnostics; ordinary build0 warnings/errors/five exclusions. Historical count wording, deletion references/names and routine Attention matrix pass. Final all-scenario gate passes; independent review remains pending. Parent counts/human/release limits unchanged.

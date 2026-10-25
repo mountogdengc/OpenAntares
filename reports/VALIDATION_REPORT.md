@@ -150,3 +150,7 @@ Current M5 review disposition (2026-10-24): all twelve tasks complete; one fresh
 ## Colony local main integration — 2026-10-24
 
 Fresh combined main93ffe8a passes984 simulation tests, Colony593+4 provenance, Rival1146+12 provenance, Species1194, Expansion275, Legacy466+27 geometry. All197 QA paths exist/134 PNGs retained,0 diagnostics; normal rebuild0 warnings/errors/all five harnesses excluded. One review Important correction is verified; three presentation Minors keep COL-AC-002/007 and M5-I Implemented, Unverified for exact full acceptance. Other COL functional criteria are Verified for bounded local automated scope. [Integration report](COLONY_INTEGRATION_2026-10-24.md) records exact recovery/status blob/owner preservation. Previous planning and pending-review passages above are historical checkpoints, not current instructions. Parent counts/human/release limits unchanged; no push/release/cleanup.
+
+## Authorized colony presentation corrections — 2026-10-24
+
+Owner requested all three deferred fixes, verification and local integration. Native Tasks1–3 at940fa73 pass988 simulation tests and full affected Colony663+4 provenance,0 diagnostics/ordinary build0 warnings/errors/five exclusions. [Correction report](COLONY_POLISH_2026-10-24.md) records semantic REDs, actual UI matrices and preservation. Complete branch gate passes; independent review is pending; no acceptance upgrade yet. Earlier deferral passages are historical. Parent counts/human/release limits unchanged.
