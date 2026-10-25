@@ -27,8 +27,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M5-D | Define colony development and delegation | Full owner approval in ADR-012 after builder check | COL-AC-012 full design gate | Verified for design scope |
 | M5-P | Plan colony-development implementation | Approved M5-D; retained Native | Twelve-task plan self-review and owner plan confirmation | Verified; owner approved with “yes” |
 | M5-I | Implement approved colony-development slice | Approved M5-P; isolated execution/preserved genuine old campaigns | COL criteria and retained gates, independent whole-branch review | Verified for local automated scope; authorized corrections verified/integrated |
-| M6-D | Draft bounded colony crises, beginning with plague | Owner drafting request/ADR-013; preserve M5 contracts | Full proposed gameplay design, builder check, owner review | In Progress; full design approval pending |
-| M6-P | Plan colony-crisis implementation | Full approved M6-D | Separate implementation plan | Not Started |
+| M6-D | Define bounded colony crises, beginning with plague | Owner direction/ADR-013; preserve M5 | Full design/builder check/owner review | Verified for design; ADR-014 full approval2026-10-25 |
+| M6-P | Plan colony-crisis implementation | Approved M6-D/ADR-014 | Separate14-task plan/self-review/owner review | In Progress; written plan awaiting owner review |
 | M6-I | Implement approved crisis slice | Approved separate M6-P | CRI criteria, retained gates, independent review | Not Started |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
@@ -37,7 +37,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review/amend the proposed colony-crisis/plague gameplay specification with the owner. ADR-013 authorizes drafting only; M6-D In Progress, separate planning/implementation Not Started. Independent arithmetic/builder check is not gameplay acceptance. Preserve current M5 baseline, owner changes and all worktrees/evidence. See PROJECT_STATUS.md and reports/COLONY_CRISIS_DESIGN_REVIEW_2026-10-24.md.
+Review the [14-task crisis implementation plan](superpowers/plans/2026-10-25-colony-crises-plague.md). Full design is approved in ADR-014; M6-D/CRI-AC-012 Verified, M6-P In Progress for plan review, implementation Not Started. Retain Native execution after that review. Read current PROJECT_STATUS.md and reports/COLONY_CRISIS_IMPLEMENTATION_PLAN_REVIEW_2026-10-25.md. No application changes/runtime test or main integration is part of this planning turn.
 
 ## Risks and autonomy
 
@@ -55,4 +55,4 @@ Historical M5 review: reports/COLONY_FINAL_REVIEW_2026-10-24.md records the orig
 
 Historical M5 correction closure (2026-10-24): all three authorized presentation fixes and the fresh review duplicate-vessel correction are verified and locally integrated. Functional source4a2e430 passes988 simulation tests; Colony665 assertions+4 provenance; Rival1146+12 provenance; Species1194; Expansion275; Legacy466+27 geometry. Fresh main Suite/Colony/normal rebuild/five harness exclusions pass separately. All twelve COL child criteria and M5-I are Verified for local automated/design scope. Parent REQ-017 and17-row totals remain12 Verified/3 Implemented, Unverified/1 In Progress/1 Deferred. See PROJECT_STATUS.md and reports/COLONY_POLISH_INTEGRATION_2026-10-24.md. Human/platform/delivery/release limits remain open. Next is bounded milestone selection/specification; no automatic implementation or cleanup.
 
-Current M6 design entry supersedes earlier next-milestone-selection wording only. Full design review precedes a separate implementation plan; no new code/build/dependency/runtime work is authorized by drafting.
+Current M6 approval supersedes the earlier drafting-only gate: full design approved, separate plan now written for review. No implementation has started; previous scope/acceptance checkpoints remain historical.

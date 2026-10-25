@@ -4,7 +4,7 @@
 
 OpenAntares is an original turn-based space4X: C#/Godot .NET presentation, independent deterministic simulation. The approved classic Master of Orion II love-letter direction and fanciful aliens respectful of real peoples/beliefs remain authoritative.
 
-Current phase: M6 colony-crisis/plague specification drafted for owner gameplay review; no implementation authorized. M5 colony presentation corrections remain verified and integrated locally into main. Updated2026-10-24 America/Denver. Rules5/writer6 unchanged; no release.
+Current phase: complete M6 colony-crisis/plague design approved2026-10-25; separate14-task implementation plan ready for review, implementation Not Started. M5 colony presentation corrections remain verified and integrated locally into main. Updated2026-10-25 America/Denver. Rules5/writer6 unchanged; no release.
 
 ## 2. Implemented milestone
 
@@ -20,8 +20,9 @@ One fresh read-only whole-branch review found duplicate vessel notices and an ov
 | First Playable human acceptance | Deferred | ADR-005; unavailable uncoached session |
 | M5-D / M5-P | Verified | Approved full design and separate plan; Native retained |
 | M5-I colony development | Verified | All twelve COL child criteria within local automated/design scope |
-| M6-D colony crises/plague | In Progress | Draft requested; proposed gameplay rules await owner review |
-| M6-P / M6-I | Not Started | Full design approval precedes separate planning; no product code changes |
+| M6-D colony crises/plague | Verified | Full owner design approval2026-10-25, ADR-014/CRI-AC-012 |
+| M6-P | In Progress | Separate14-task plan written/self-reviewed; owner plan review pending |
+| M6-I | Not Started | Native preference retained; no product code changes |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
 | Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 
@@ -37,9 +38,9 @@ Actual controls/signals cover historical wording,30-colony deletion references a
 
 ## 5. Decisions and boundaries
 
-Preserve architecture, deterministic integer rules, command authority, JSON/versioning and approved subsystem contracts. Sixteen explicit compatibility pairs retain genuine rules1/2/3/4 behavior. No product content/art/dependency/rules/schema/AI changes. The owner now authorized drafting the proposed M6 plague contract only: [ADR-013](docs/DECISIONS/ADR-013-colony-crisis-design-entry.md), [full proposed specification](docs/superpowers/specs/2026-10-24-colony-crises-plague-design.md). Its costs, timing, transport, culture deferral and rules6/writer7 are proposals, not approved or active. Ledger rulings/costs cover sorted valid fixtures, finish-gate sequencing, retained evidence and every reviewer declined item.
+Preserve architecture, deterministic integer rules, command authority, JSON/versioning and approved subsystem contracts. Sixteen explicit compatibility pairs retain genuine rules1/2/3/4 behavior. No product content/art/dependency/rules/schema/AI changes. The owner approved the full M6 plague contract, including costs/timing/transport/culture deferral/rules6-writer7 target: [ADR-014](docs/DECISIONS/ADR-014-approved-colony-crisis-plague-design.md), [approved specification](docs/superpowers/specs/2026-10-24-colony-crises-plague-design.md). The [14-task plan](docs/superpowers/plans/2026-10-25-colony-crises-plague.md) is written/self-reviewed; its review is pending. Approved targets are not active product behavior. ADR-013 remains historical drafting authority. Ledger rulings/costs cover sorted valid fixtures, finish-gate sequencing, retained evidence and every reviewer declined item.
 
-Plague/containment/emergency acknowledgement are now selected for M6 design review; their implementation remains Not Started. Revolts, broader culture mechanics, fleet/scout doctrine, warfare/diplomacy, peaceful mode, multiplayer and victory remain future scope.
+Plague/containment/emergency acknowledgement have full M6 design approval; separate implementation-plan review is next, implementation remains Not Started. Revolts, broader culture mechanics, fleet/scout doctrine, warfare/diplomacy, peaceful mode, multiplayer and victory remain future scope.
 
 ## 6. Repository and preservation
 
@@ -53,4 +54,4 @@ No open correction finding or newly deferred Minor. Physical mouse/keyboard/cont
 
 ## 8. Next concrete action
 
-Owner review/amendment of the [proposed colony-crisis/plague gameplay specification](docs/superpowers/specs/2026-10-24-colony-crises-plague-design.md). [Design check/evidence](reports/COLONY_CRISIS_DESIGN_REVIEW_2026-10-24.md) distinguishes independent arithmetic/engineering review from unexecuted gameplay. Full approval is pending; only afterward write a separate implementation plan. No product code, core content, dependency, art, new runtime gate, main merge/push/release or cleanup in this drafting request. Retained Native preference applies after later gates.
+Review the [14-task colony-crisis implementation plan](docs/superpowers/plans/2026-10-25-colony-crises-plague.md). [Plan self-review](reports/COLONY_CRISIS_IMPLEMENTATION_PLAN_REVIEW_2026-10-25.md) records coverage/interfaces, independent reference arithmetic, genuine-save source and exact preservation. M6-D/CRI-AC-012 Verified for design; M6-P In Progress pending plan review; M6-I/CRI-AC-001..011 Not Started. Retain Native execution after that review; do not ask the method again. No product code/core content/dependencies/art/application build/test, main integration/push/release or cleanup in this approval/planning turn. The genuine rules5 future capture is specified for Task1, not claimed executed now.

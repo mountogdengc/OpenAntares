@@ -1,6 +1,6 @@
 # Colony-crisis/plague design review — 2026-10-24
 
-**Status: proposed gameplay design ready for owner review; M6-D In Progress.** M6-P/M6-I and all CRI application acceptance remain Not Started. [Full draft](../docs/superpowers/specs/2026-10-24-colony-crises-plague-design.md), [drafting authority](../docs/DECISIONS/ADR-013-colony-crisis-design-entry.md).
+**Historical drafting check2026-10-24; complete design subsequently approved2026-10-25 in ADR-014.** Original methods/results below remain historical, not new application verification. M6-D/CRI-AC-012 are now Verified for design; separate plan review follows, implementation Not Started. [Full draft](../docs/superpowers/specs/2026-10-24-colony-crises-plague-design.md), [drafting authority](../docs/DECISIONS/ADR-013-colony-crisis-design-entry.md).
 
 ## Authority and baseline
 
@@ -36,3 +36,5 @@ Document checks separately verify local links,12 unique CRI acceptance IDs,7 req
 - Standard/Off setup and proposed rules6/writer7/22-pair policy apply only to future implementation; all old campaigns remain exact.
 
 The full draft specifies shared formulas, command/Ready rollback, AI own-view behavior, zero-colony removal/report facts, cases/carrier holds, persistence/privacy and literal acceptance cases. The owner may amend any proposed gameplay choice before approval. Full approval precedes a separate implementation plan; retained Native execution preference is not asked again. No broad revolt/culture/fleet/peaceful-mode/warfare/multiplayer scope is silently added.
+
+Subsequent approval: [ADR-014](../docs/DECISIONS/ADR-014-approved-colony-crisis-plague-design.md) records full owner approval2026-10-25. [Separate plan](../docs/superpowers/plans/2026-10-25-colony-crises-plague.md) and [self-review](COLONY_CRISIS_IMPLEMENTATION_PLAN_REVIEW_2026-10-25.md) now govern the next gate. No new builder dispatch or application run is claimed.

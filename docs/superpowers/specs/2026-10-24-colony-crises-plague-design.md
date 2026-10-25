@@ -1,8 +1,8 @@
 # Colony crises and emergency governance: first plague scenario
 
-Date: 2026-10-24 America/Denver. Version 0.1, proposed for owner review.
+Originally drafted: 2026-10-24 America/Denver. Version1.0, full owner approval2026-10-25 in [ADR-014](../../DECISIONS/ADR-014-approved-colony-crisis-plague-design.md).
 
-**M6-D: In Progress. Full design approval pending. M6-P/M6-I: Not Started.** The owner requested drafting and gameplay review before implementation. None of the proposed numbers, rules6/writer7 targets or product changes is approved by that request. Main remains the verified rules5/writer6 baseline at fa2a07f. This drafting changes no product code, core content, dependencies or art.
+**M6-D/CRI-AC-012: Verified for design scope. M6-P: In Progress for separate plan review; M6-I: Not Started.** The owner approved this complete design on2026-10-25. Rules6/writer7 are approved future targets, not current implementation. Main remains the verified rules5/writer6 baseline at fa2a07f. Approval/planning changes no product code, core content, dependencies or art.
 
 ## 1. Intent, authority and review choices
 
@@ -10,7 +10,7 @@ An emerging threat should create an understandable strategic decision while ther
 
 Authority: [charter](../../CHARTER.md), [approved colony contract](2026-10-24-colony-development-design.md), [owner crisis/fleet directions](../../design-notes/2026-10-24-delegation-crises-and-fleet-intent.md), and [ADR-013 drafting authority](../../DECISIONS/ADR-013-colony-crisis-design-entry.md). Preserve existing architecture, species and creative decisions. This is fanciful space-opera disease, not a simulation of human medicine or a statement about real peoples.
 
-The owner requested early warnings for colony-loss/spreading threats, configurable notifications, governors with limited authority, and cure/isolation/destruction choices with consequences. **All quantitative rules below are drafter proposals**, not previously approved or balanced facts. Main review choices:
+The owner requested early warnings for colony-loss/spreading threats, configurable notifications, governors with limited authority, and cure/isolation/destruction choices with consequences. **The quantitative rules below originated as drafter proposals and are now included in full owner approval.** They remain unverified balance choices. Main approved choices:
 
 1. A confirmed harmless warning gives two full planning turns before illness. Active illness has six-turn natural recovery; late neglect can still kill population or lose a small colony.
 2. Early quarantine reliably contains the case, at economic and transport cost. Research can clear an entire owned outbreak sooner by diverting a chosen share of new empire research.
@@ -20,7 +20,7 @@ The owner requested early warnings for colony-loss/spreading threats, configurab
 
 ## 2. CRI-001 — Scope, occurrence and warning
 
-Include one content-defined family: working name **Ash Bloom**, ID ash_bloom. Name/lore are proposals. All four currently playable species use the same crisis rules; their population-unit labels, habitats and economic profiles stay intact. No new resistance traits or culture redesign. Revolts, other disease families, trade, migration, diplomacy, warfare, fleet doctrine, peaceful-mode design, network transport and victory/defeat remain outside M6.
+Include one content-defined family: working name **Ash Bloom**, ID ash_bloom. Name/lore are included in the approved design; later amendments require owner review. All four currently playable species use the same crisis rules; their population-unit labels, habitats and economic profiles stay intact. No new resistance traits or culture redesign. Revolts, other disease families, trade, migration, diplomacy, warfare, fleet doctrine, peaceful-mode design, network transport and victory/defeat remain outside M6.
 
 New rules6 games offer **Colony crises: Standard / Off**, default Standard. Save the selection; it cannot be changed mid-campaign. Off generates no episodes, flags, penalties or acknowledgement requirements and makes crisis commands unavailable. No crisis machinery runs for rules1..5.
 
@@ -81,7 +81,7 @@ This is local emergency sterilization, not bombardment. It requires an owned War
 
 On acceptance during planning: lose ceil(population/2); retain floor(productionReserve/2); reset growth progress0; trim workforce in the casualty order; clear this case and grant immunity to a survivor. Surviving buildings/project/queue remain. Population1 means colony loss and all assets lost under CRI-002. Do not evacuate or destroy vessels automatically. Other infected colonies/carriers remain; explicitly warn that burning a colony does not clear them.
 
-Each order increases civic-disruption level1, capped3, and sets expiry=currentTurn+5. While currentTurn<expiry, production/research empire-wide loses10% per level, maximum30%, after local factors. Additional orders increase the level up to cap and refresh expiry; expiry clears all levels. No extra support/growth penalty. This is temporary public/operational disruption, not a new morale resource. **All four cultures share this proposed baseline; culture-specific approval/outrage/resistance/diplomacy remain Deferred.** Existing culture labels grant no destructive permission or immunity.
+Each order increases civic-disruption level1, capped3, and sets expiry=currentTurn+5. While currentTurn<expiry, production/research empire-wide loses10% per level, maximum30%, after local factors. Additional orders increase the level up to cap and refresh expiry; expiry clears all levels. No extra support/growth penalty. This is temporary public/operational disruption, not a new morale resource. **All four cultures share this approved baseline; culture-specific approval/outrage/resistance/diplomacy remain Deferred.** Existing culture labels grant no destructive permission or immunity.
 
 Direct confirmation acknowledges only this order's resulting containment/loss revision, tagged direct_order. It does not acknowledge other cases or authorize future destruction. Governors, AI and standing policies cannot issue destructive containment in M6.
 
@@ -146,11 +146,11 @@ AI uses only its own projected facts and the same commands/costs/holds. Rules6 e
 
 ## 8. CRI-007 — Content, persistence and compatibility
 
-JSON family parameters define schedule/chance/cooldown, grace/recovery/severity/mortality, local factors, cure base/per-source-population cost, immunity, purge fractions and civic bounds/duration. Values above are the proposed core defaults; bounded numeric mods are allowed, not scripts. Policy shares and transport semantics are generic engine rules. Validate references/percentages/finite positive timings/divisors/severity and checked numeric bounds before creation/load. Preserve ordinary Load recovery when current disk content is invalid.
+JSON family parameters define schedule/chance/cooldown, grace/recovery/severity/mortality, local factors, cure base/per-source-population cost, immunity, purge fractions and civic bounds/duration. Values above are the approved core defaults; bounded numeric mods are allowed, not scripts. Policy shares and transport semantics are generic engine rules. Validate references/percentages/finite positive timings/divisors/severity and checked numeric bounds before creation/load. Preserve ordinary Load recovery when current disk content is invalid.
 
 Required rules6 state: setup selection; per-empire crisis PRNG/counter/cooldown; one episode with source metadata/frozen cost/progress/share/override; cases with grace/age/severity/revisions/current response/release binding; colony immunity/preventive quarantine; cargo flags/inspection due turns; authority/overrides/waiver provenance; civic level/expiry; current/10-turn reports and unresolved receipts. Deep clone mutable nested data. Sort/validate unique IDs, owner references and bounded values. Removed entities require immutable report facts, not live references. Exact types/files are builder choices.
 
-Proposed **rules6/writer7**, only after approval and implementation. Retain the existing16 explicit schema/rules pairs; add exactly (7,1)..(7,6),22 total. Earlier schemas cannot claim rules6. Old rules1..5 omit crisis fields even under writer7, preserve embedded content/AI/economy/RNG/governor/appearance and never auto-upgrade. Rules6 requires explicit setup, streams/default counters/empty lists/attention setting; absence is not consent. Reject unsupported pairs, legacy injections, malformed references/flags/holds/health/counters/content atomically.
+Approved target **rules6/writer7**, to become active only through the reviewed implementation plan and its verification. Retain the existing16 explicit schema/rules pairs; add exactly (7,1)..(7,6),22 total. Earlier schemas cannot claim rules6. Old rules1..5 omit crisis fields even under writer7, preserve embedded content/AI/economy/RNG/governor/appearance and never auto-upgrade. Rules6 requires explicit setup, streams/default counters/empty lists/attention setting; absence is not consent. Reject unsupported pairs, legacy injections, malformed references/flags/holds/health/counters/content atomically.
 
 Explicitly include6 in development/species/rival/expansion predicates without changing old behavior. Generation preserves identical underlying rules5 galaxy facts, normal IDs, existing RNG and appearance after stripping only new version/crisis metadata. No free population/buildings/technology. Off consumes no crisis draws and otherwise matches rules5 economics for equivalent commands/content. Canonical save/load continuation must match, not merely screenshots.
 
@@ -177,7 +177,7 @@ Amounts are stored hundredths unless stated. These are design arithmetic fixture
 
 ## 10. Acceptance and review gates
 
-All CRI-AC execution is **Not Started**. Written checks and independent arithmetic cannot establish implementation, balance or acceptance. CRI-AC-012 is future full owner approval.
+CRI-AC-001..011 execution is **Not Started**. Written checks and independent arithmetic cannot establish implementation, balance or runtime acceptance. CRI-AC-012 is **Verified for full owner design approval** in ADR-014.
 
 | ID | Required observable evidence |
 | --- | --- |
@@ -200,7 +200,7 @@ Human playtest remains Deferred under ADR-005; owner feedback is useful without 
 
 Builder chooses class/file/DTO decomposition, efficient indexing, cached pure queries, theme-based layout, diagnostic wording and test organization. A later plan freezes literal seed/draw vectors, full valid fixtures, entity-based report/receipt bounds, phase failure hooks and genuine rules5 capture before code. It cannot silently change costs/timing, add virtual spread, weaken warnings, grant destructive authority, rewrite cultures or drop compatibility.
 
-A fresh read-only builder check precedes handoff; reconcile already answered/material ambiguities here. The next gate is **owner review of these gameplay rules**, then a separate implementation plan after full approval. The drafting request authorizes no implementation.
+A fresh read-only builder check precedes handoff; reconcile already answered/material ambiguities here. The owner subsequently approved the full gameplay rules in ADR-014. The next gate is **review of the separate implementation plan**; retained Native execution follows that gate. No implementation has started.
 
 
-Builder check complete: fresh read-only deterministic C#/Godot engineering reviewer returned “nothing important left.” [Review/evidence](../../../reports/COLONY_CRISIS_DESIGN_REVIEW_2026-10-24.md) records the reviewed document hash, scope and17 independent arithmetic checks. This establishes planning clarity and arithmetic consistency only; full owner design approval, application implementation and gameplay verification remain pending.
+Builder check complete: fresh read-only deterministic C#/Godot engineering reviewer returned “nothing important left.” [Review/evidence](../../../reports/COLONY_CRISIS_DESIGN_REVIEW_2026-10-24.md) records the reviewed document hash, scope and17 independent arithmetic checks. This establishes planning clarity and arithmetic consistency only; full owner design approval is subsequently recorded in ADR-014; application implementation and gameplay verification remain pending.

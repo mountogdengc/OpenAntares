@@ -1,6 +1,6 @@
 # Established decision index
 
-Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/015 was found. ADR-001 through ADR-004 recover existing OpenAntares choices; their date is the recovery date, not a claimed original approval date. ADR-005 through ADR-013 record subsequent explicit owner decisions/drafting direction. ADR-007 authorized drafting; ADR-008 subsequently approves the complete species design and requests a separate implementation plan.
+Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/015 was found. ADR-001 through ADR-004 recover existing OpenAntares choices; their date is the recovery date, not a claimed original approval date. ADR-005 through ADR-014 record subsequent explicit owner decisions/drafting direction. ADR-007 authorized drafting; ADR-008 subsequently approves the complete species design and requests a separate implementation plan.
 
 | ID | Established decision | Source/status |
 | --- | --- | --- |
@@ -16,6 +16,7 @@ Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/0
 | [ADR-010](ADR-010-approved-rival-expansion-design.md) | Approve full rival-expansion design and proceed to separate implementation planning | Explicit full-design approval 2026-10-24; plan subsequently approved; Native plan/review and follow-up complete; all bounded child criteria Verified; owner option1 local integration complete; no push/release/cleanup |
 | [ADR-011](ADR-011-colony-development-design-entry.md) | Colony-development/delegation direction and design entry | Historical drafting authority; full design subsequently approved in ADR-012; separate plan and all twelve Native tasks/review/correction complete |
 | [ADR-012](ADR-012-approved-colony-development-design.md) | Approve full colony-development design and proceed to separate planning | Owner “approved” after full specification; M5-D/COL-AC-012 Verified for design; Native retained; separate plan approved, twelve tasks/review/correction and three subsequent presentation fixes verified/integrated; all bounded COL child criteria Verified |
-| [ADR-013](ADR-013-colony-crisis-design-entry.md) | Authorize colony-crisis specification, starting with plague | Explicit owner drafting request; full gameplay design pending owner review; M6-D In Progress, M6-P/M6-I Not Started |
+| [ADR-013](ADR-013-colony-crisis-design-entry.md) | Authorize colony-crisis specification, starting with plague | Historical drafting authority; complete design subsequently approved in ADR-014 |
+| [ADR-014](ADR-014-approved-colony-crisis-plague-design.md) | Approve complete colony-crisis/plague design and proceed to separate planning | Explicit owner “approved”2026-10-25; M6-D/CRI-AC-012 Verified for design;14-task plan written for review, implementation Not Started |
 
 The charter remains authoritative for scope; original specs retain exact behavior. Alternative evaluations are recorded only where sources contain them. New consequential decisions need their own record and actual approval status; do not reclassify research or a proposed design-guide paragraph as accepted.
