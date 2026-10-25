@@ -18,6 +18,7 @@ namespace OpenAntares.Game.Components;
 public partial class TurnReportDialog : AcceptDialog
 {
     private readonly VBoxContainer _body = new();
+    private OpenAntares.Game.Presentation.ColonyNotificationPreferences _preferences = OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
 
     /// <summary>Raised when the player wants to choose a colony's next project (the colony's star).</summary>
     public event Action<ColonyId>? ChooseProjectRequested;
@@ -39,7 +40,7 @@ public partial class TurnReportDialog : AcceptDialog
         AddChild(padding);
     }
 
-    public void ShowReport(ContentSet content, EmpireTurnReportView report)
+    public void ShowReport(ContentSet content, EmpireTurnReportView report, EmpireView? empireView = null, OpenAntares.Game.Presentation.ColonyNotificationPreferences? preferences = null)
     {
         foreach (Node child in _body.GetChildren())
         {
@@ -47,8 +48,11 @@ public partial class TurnReportDialog : AcceptDialog
             child.QueueFree();
         }
 
+        _preferences = preferences ?? OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
         Title = "Turn report";
         _body.AddChild(new Label { Text = $"Turn {report.FromTurn} results", ThemeTypeVariation = "HeaderLabel" });
+
+        if (empireView?.Development is not null) { var governors = new GovernorReportPanel { Preferences = preferences ?? OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults }; _body.AddChild(governors); governors.ShowReports(content,empireView); }
 
         foreach (ColonyReportView colony in report.Colonies)
         {
@@ -99,7 +103,7 @@ public partial class TurnReportDialog : AcceptDialog
         _body.AddChild(new Label { Text = $"Colony at {view.Name}" });
         _body.AddChild(Subtle("Production: " + ReserveSummary(colony.Production)));
 
-        if (colony.Production.CompletedId is { } building)
+        if (_preferences.LevelFor("completions") != OpenAntares.Game.Presentation.NotificationLevel.Off && colony.Production.CompletedId is { } building)
         {
             _body.AddChild(new Label { Text = $"Completed {(colony.Production.TargetKind == ProductionKinds.Vessel ? content.Vessels[building].Name : content.Buildings[building].Name)}." });
             var choose = new Button { Text = "Choose next project" };
@@ -116,7 +120,7 @@ public partial class TurnReportDialog : AcceptDialog
             _body.AddChild(Wrapped($"Embarked workers: source {colony.PopulationUnitLabel} now {embark.PopulationAfter}; next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));
             if (embark.ReassignmentNeeded) _body.AddChild(Wrapped("Reassign workers before the next End Turn.", "WarningLabel"));
         }
-        if (colony.Production.BlockedReasonCode is not null) _body.AddChild(Wrapped("Awaiting embarkation; production remains banked.", "WarningLabel"));
+        if (_preferences.LevelFor("embarkation_wait") != OpenAntares.Game.Presentation.NotificationLevel.Off && colony.Production.BlockedReasonCode is not null) _body.AddChild(Wrapped("Awaiting embarkation; production remains banked.", "WarningLabel"));
         GrowthOutcome growth = colony.Growth;
         if (growth.Births > 0)
         {
@@ -128,7 +132,7 @@ public partial class TurnReportDialog : AcceptDialog
             _body.AddChild(Wrapped($"The colony reached its capacity of {growth.Capacity}.", "SubtleLabel"));
         }
 
-        if (colony.SupportDeficit > 0)
+        if (_preferences.LevelFor("support_shortage") != OpenAntares.Game.Presentation.NotificationLevel.Off && colony.SupportDeficit > 0)
         {
             long productionLost = -ShortageAmount(colony.NetProduction);
             long researchLost = -ShortageAmount(colony.NetResearch);

@@ -34,6 +34,10 @@ public partial class GameScreen : VBoxContainer
     private EmpireView View => _session.View(_viewer);
     private readonly TurnReportDialog _report = new();
     private readonly SaveGameDialog _saveDialog = new();
+    private readonly EmpireManagementDialog _management = new();
+    private readonly ColonyNotificationDialog _notificationDialog = new();
+    private OpenAntares.Game.Presentation.ColonyNotificationPreferences _preferences = OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
+    public string NotificationPreferencesPath { get; set; } = "user://colony-notifications.json";
 
     /// <summary>Raised when the player wants to load a saved game. The current game is untouched unless a load succeeds.</summary>
     public event System.Action? LoadRequested;
@@ -76,6 +80,10 @@ public partial class GameScreen : VBoxContainer
         AddChild(_saveDialog);
         _saveDialog.Saved += name => ShowMessage($"Saved as \"{name}\".", isWarning: false);
 
+        AddChild(_management); _management.CommandIssued += Execute; _management.ColonyRequested += SelectColony;
+        AddChild(_notificationDialog); _notificationDialog.Applied += preferences => { _preferences = preferences; Callable.From(Refresh).CallDeferred(); };
+        _colonies.ManageRequested += () => { _management.Preferences = _preferences; _management.ShowEmpire(_session.Content,View); };
+        _colonies.NotificationsRequested += () => _notificationDialog.Open(NotificationPreferencesPath);
         AddChild(_report);
         _report.ChooseProjectRequested += ChooseProject;
         _report.StarRequested += star => _map.Select(star);
@@ -153,7 +161,7 @@ public partial class GameScreen : VBoxContainer
 
         if (outcome.Report is { } report)
         {
-            _report.ShowReport(_session.Content, EmpireViewProjector.ProjectReport(_session.Content, _session.State, report, _viewer));
+            _report.ShowReport(_session.Content, EmpireViewProjector.ProjectReport(_session.Content, _session.State, report, _viewer), View, _preferences);
         }
     }
 
@@ -170,6 +178,8 @@ public partial class GameScreen : VBoxContainer
     private void Refresh()
     {
         var view = View;
+        _preferences = OpenAntares.Game.Presentation.ColonyNotificationPreferences.Load(ProjectSettings.GlobalizePath(NotificationPreferencesPath));
+        if (_management.Visible) { _management.Preferences = _preferences; _management.ShowEmpire(_session.Content,view); }
         _turnLabel.Text = $"Turn {view.Turn}";
         _endTurn.Text = view.Research.Ready ? "Waiting for others (cancel)" : "End Turn";
         _researchBar.ShowEmpire(_session.Content, view.Research);
@@ -188,7 +198,7 @@ public partial class GameScreen : VBoxContainer
         _selectedColony = colony?.Id;
         if (colony is not null) _selectedPlanet = colony.PlanetId;
         _starPanel.ShowStar(_session.Content, star, view);
-        _colonies.ShowColonies(view, _selectedColony);
+        _colonies.ShowColonies(view, _selectedColony, _session.Content, _preferences);
         if (colony is null) _colonyPanel.Clear(); else _colonyPanel.ShowColony(_session.Content, colony, view);
         if (!view.Vessels.Any(v => v.Id == _selectedVessel)) _selectedVessel = view.Vessels.Length > 0 ? view.Vessels[0].Id : null;
         _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination, _selectedPlanet);
