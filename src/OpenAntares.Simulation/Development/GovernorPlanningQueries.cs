@@ -14,6 +14,16 @@ public static class GovernorPlanningQueries
         if(!Rules.HasDevelopment(view.RulesVersion))throw new ArgumentException("Governor planning requires development rules.");
         return new Context(content,view with{Galaxy=view.Galaxy with{Seed=null}});
     }
+    public static GovernorColonyOrder? Preview(ContentSet content,EmpireView view,ColonyId colony,GovernorTemplateSnapshot? template,bool workforceEnabled,bool constructionEnabled)
+    {
+        if(!Rules.HasDevelopment(view.RulesVersion)||!workforceEnabled&&!constructionEnabled||workforceEnabled&&template is null)return null;
+        if(template is not null&&DevelopmentStateValidator.DraftErrors(content,template.Definition).Any())return null;
+        var owned=view.Colonies.FirstOrDefault(c=>c.Id==colony&&c.EmpireId==view.Viewer);
+        if(owned?.Development is not {} d)return null;
+        var proposed=owned with{Development=d with{Template=template,WorkforceEnabled=workforceEnabled,ConstructionEnabled=constructionEnabled}};
+        var preview=view with{Colonies=System.Collections.Immutable.ImmutableArray.Create(proposed)};
+        var result=GovernorPlanner.Plan(Create(content,preview));return result.Succeeded?result.Orders.SingleOrDefault():null;
+    }
     private sealed record Context(ContentSet Content,EmpireView View):IGovernorPlanningContext
     {
         // A calculator input built solely from immutable permitted own facts. No world reference.

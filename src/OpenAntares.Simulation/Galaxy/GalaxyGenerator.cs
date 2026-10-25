@@ -32,6 +32,7 @@ public static class GalaxyGenerator
 
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
+        if (Rules.HasDevelopment(settings.RulesVersion) && content.GovernorTemplates.IsEmpty) return Fail("Development campaigns require explicit governor defaults.");
         if (!Rules.IsSupported(settings.RulesVersion)) return Fail("Unsupported rules version.");
         if (settings.RivalCount is not (0 or 1)) return Fail("Choose either Solo or one rival.");
         if (settings.RivalCount == 0 && settings.RivalSpeciesId is not null) return Fail("Solo games cannot select a rival species.");
@@ -142,6 +143,12 @@ public static class GalaxyGenerator
             state.Vessels.Add(new VesselState { Id = new(state.AllocateId()), EmpireId = empire.Id, RoleId = content.Expansion!.StartingVesselId, StationaryStarId = home.Id });
             if (settings.RivalCount == 1 && RivalHomeGenerator.Add(content, state, settings.RivalSpeciesId!) is { } error)
                 return Fail(error);
+            if (Rules.HasDevelopment(state.RulesVersion))
+            {
+                foreach (var owner in state.Empires) owner.Development = new();
+                foreach (var colony in state.Colonies) colony.Development = new();
+                foreach (var planet in state.Planets) planet.Appearance = Appearance.PlanetAppearance.Create(settings.Seed, planet.Id);
+            }
             var beforeRefresh = Rules.HasRivals(state.RulesVersion) ? state.Clone() : null;
             Knowledge.ObservationUpdater.Refresh(state, 0);
             if (beforeRefresh is not null) Knowledge.ContactUpdater.Refresh(beforeRefresh, state);

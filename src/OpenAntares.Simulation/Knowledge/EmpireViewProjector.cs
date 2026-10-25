@@ -29,7 +29,7 @@ public static class EmpireViewProjector
             ImmutableArray<KnownPlanetView>? planets = observation is null ? null : observation.Planets.Select(p =>
             {
                 var t = content.PlanetTypes[p.PlanetTypeId];
-                return new KnownPlanetView(p.PlanetId, p.Orbit, p.PlanetTypeId, t.SupportPerWorker, t.ProductionPerWorker, t.ResearchPerWorker, t.Colonizable, p.ColonyId, p.OwnerId) { EnvironmentId = p.EnvironmentId, Potential = ProjectPotential(content,owned,viewer,p) };
+                return new KnownPlanetView(p.PlanetId, p.Orbit, p.PlanetTypeId, t.SupportPerWorker, t.ProductionPerWorker, t.ResearchPerWorker, t.Colonizable, p.ColonyId, p.OwnerId) { EnvironmentId = p.EnvironmentId, Appearance = p.Appearance, Potential = ProjectPotential(content,owned,viewer,p) };
             }).ToImmutableArray();
             return new StarView(star, planets, observation?.LastObservedTurn, current);
         }).ToImmutableArray();

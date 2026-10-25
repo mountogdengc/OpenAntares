@@ -38,7 +38,7 @@ internal static class DevelopmentStateValidator
                 Snapshot(t,e);previous=t.Id;
             }
             if(d.NewColonyPlan is {} inherit){Snapshot(inherit.Template,e);}
-            foreach(var o in e.Surveys)foreach(var p in o.Planets)if(p.Appearance is not {Version:1,Variant:>=0 and <8}||state.FindPlanet(p.PlanetId)?.Appearance!=p.Appearance)Error($"{e.Id} invalid observed appearance");
+            foreach(var o in e.Surveys)foreach(var p in o.Planets)if(p.Appearance is not {Version:1,Variant:>=0 and <8})Error($"{e.Id} invalid observed appearance");
             if(d.PendingReport is {} pending) {if(pending.Turn!=state.Turn)Error("pending report turn");Report(pending,e);}
             if(d.CompletedReports.Count>10)Error("report history exceeds10");int last=-1;
             foreach(var report in d.CompletedReports){if(report.Turn<=last||report.Turn>=state.Turn)Error("completed report turns/order");last=report.Turn;Report(report,e);}
