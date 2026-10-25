@@ -13,6 +13,8 @@ namespace OpenAntares.Simulation.Knowledge;
 public static class EmpireViewProjector
 {
     public static EmpireView Project(ContentSet content, GameState state, EmpireId viewer)
+        => ProjectBase(content,state,viewer) with{Scouting=Rules.HasScouting(state.RulesVersion)?Scouting.ScoutQueries.Project(content,state,viewer):null};
+    internal static EmpireView ProjectBase(ContentSet content, GameState state, EmpireId viewer)
     {
         var e = state.FindEmpire(viewer) ?? throw new ArgumentException("Empire not found.", nameof(viewer));
         // Forecast only this empire; foreign reserves/outputs cannot affect permitted rendering.

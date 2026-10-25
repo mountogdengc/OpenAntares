@@ -28,7 +28,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 1
 - [x] Task 2
 - [x] Task 3
-- [ ] Task 4
+- [x] Task 4
 - [ ] Task 5
 - [ ] Task 6
 - [ ] Task 7
@@ -57,3 +57,7 @@ Task 3: complete (commits be58dc7..1061eaa, tests: dotnet test tests/OpenAntares
 
 Task 4: started BASE 1061eaad5a766296b8bfba62acc0f8762525ce48; brief task4-brief.md
 Task 4 evidence: semantic RED7/7; GREEN7/7 including96 species/size/rival/setting comparisons, three literal PCG vectors and1..4-star placement; Suite1310/1310; build0 warnings/errors. CurrentVersion remains6.
+Task 4: complete (commits 1061eaa..0233000, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task4-completion.log)
+
+Task 5: started BASE 023300063543a4c74a4791df0ea39f838b367277; brief task5-brief.md
+Task 5 evidence: semantic RED4/5; supplemental fallback RED1/6 identified unknown charts incorrectly excluding a neutral-occupied actual fallback; corrected candidate pool to known routes before caution override. GREEN6/6; build0 warnings/errors; Suite1316/1316. Foreign mutation fixture now adds a genuinely foreign vessel instead of mutating the sole own vessel.

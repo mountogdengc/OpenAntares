@@ -90,5 +90,14 @@ public static class ScoutStateValidator
             if(a.Stage==AmebaStage.Exposed&&(!eligible||a.ArrivalTurn>=state.Turn||e?.SuccessfulStudies.Any(c=>c.HabitatId==a.HabitatId)!=true))Error("Exposed requires a surviving study scout");
             if(a.RiskOrder is {} order&&(!Enum.IsDefined(order.Action)||order.Turn!=state.Turn||order.Revision!=a.Revision||v.PendingMove is not null||order.Action==AmebaRiskAction.Study&&(!eligible||e?.SuccessfulStudies.Any(c=>c.HabitatId==a.HabitatId)==true||a.Stage!=AmebaStage.Warning)))Error("invalid risk order");
         }
+        // Effective consent is evaluated only after the ordinary state and references are sound.
+        // ProjectBase never invokes validation, so this check cannot recurse through this validator.
+        if(errors.Count==0)foreach(var owner in state.Empires)
+        {
+            var e=owner.Scouting!;
+            if(e.Receipts.Count==0&&!owner.Ready)continue;
+            var attention=ScoutQueries.Project(content,state,owner.Id).Attention;
+            if(e.Receipts.Any(r=>!attention.Contains(r.Token))||owner.Controller==ControllerKind.Human&&owner.Ready&&attention.Any(t=>!e.Receipts.Any(r=>r.Token==t)))Error("consent does not match effective encounter consequences");
+        }
     }
 }
