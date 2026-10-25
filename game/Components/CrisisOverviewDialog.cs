@@ -10,7 +10,7 @@ namespace OpenAntares.Game.Components;
 public partial class CrisisOverviewDialog:AcceptDialog
 {
     private VBoxContainer _body=null!;private ContentSet? _content;private CrisisView? _view;private ImmutableArray<CrisisCaseView> _rows=ImmutableArray<CrisisCaseView>.Empty;
-    private ItemList _list=null!;private OptionButton _filter=null!;private readonly CrisisAuthorityDialog _authority=new();private bool _all;private System.Collections.Generic.HashSet<ColonyId> _selected=new();
+    private ItemList _list=null!;private ItemList? _attentionList;private OptionButton _filter=null!;private readonly CrisisAuthorityDialog _authority=new();private bool _all;private System.Collections.Generic.HashSet<ColonyId> _selected=new();
     public event Action<Command>? CommandRequested;
     public event Action<ImmutableArray<ColonyId>,bool,bool>? QuarantineRequested;
     public event Action<ColonyId>? PurgeRequested;public event Action<StarId>? StarRequested;
@@ -21,6 +21,11 @@ public partial class CrisisOverviewDialog:AcceptDialog
         _body.AddChild(DevelopmentUi.Text(view.Enabled?$"Turn {view.Turn}: {view.Cases.Length} cases, {view.Carriers.Length} carriers/inspection holds. Authority: {view.Authority}; research policy {(view.ResearchPolicyPaused?"paused":"available")}. Crisis acknowledgement {(view.RequireAcknowledgement?"required":"explicitly waived")}.":"Crises are Off for this campaign."));
         if(view.Episode is {} ep){_body.AddChild(DevelopmentUi.Text($"{ep.Name}: source {ep.Source.Name} ({ep.Source.Colony}), source population {ep.SourcePopulation}. Cure {Format.Points(ep.CureProgress)} / {Format.Points(ep.CureCost)} points, frozen at onset."));_body.AddChild(DevelopmentUi.Text($"Next interval: new research diversion {Format.Points(ep.Forecast.Diverted)}, remaining {Format.Points(ep.CureCost-ep.CureProgress-ep.Forecast.Diverted)}; old reserve is untouched. Manual research override: {ep.ResearchOverride}."));}
         _body.AddChild(DevelopmentUi.Text($"Empire civic strain {view.CivicLevel}; expires turn {view.CivicExpiresAt}."));
+        _body.AddChild(DevelopmentUi.Text($"Current urgent facts: {view.PendingReceipts.Length}. {(view.RequireAcknowledgement?"These block End Turn until explicitly acknowledged.":"The saved campaign rule explicitly waives the gate; facts remain visible.")}",view.PendingReceipts.IsEmpty?"SubtleLabel":"WarningLabel"));
+        _attentionList=new(){Name="CrisisAttentionList",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,100)};_body.AddChild(_attentionList);
+        foreach(var receipt in view.PendingReceipts){string detail=$"{receipt.Location.Name} ({receipt.Location.Colony}), revision {receipt.Revision}: {receipt.Reason}";_attentionList.AddItem(detail);_attentionList.SetItemTooltip(_attentionList.ItemCount-1,detail);}
+        DevelopmentUi.Button(_body,"Select all urgent facts",()=>{if(_attentionList is null)return;for(int i=0;i<_attentionList.ItemCount;i++)_attentionList.Select(i,false);},"CrisisSelectAllAttention");
+        DevelopmentUi.Button(_body,"Acknowledge selected urgent facts",()=>{if(_attentionList is null)return;var selected=_attentionList.GetSelectedItems().Select(i=>_view!.PendingReceipts[i]).ToImmutableArray();if(!selected.IsEmpty)CommandRequested?.Invoke(new AcknowledgeCrisisCommand(_view!.Viewer,_view.Turn,selected));},"CrisisAcknowledgeSelected");
         if(view.ColonyConditions.IsEmpty)_body.AddChild(DevelopmentUi.Text($"No colonies remain. Surviving founders: {view.Vessels.Count(v=>content.Vessels[v.RoleId].CanFoundColony&&v.Population>0)}. Recover by settling with an existing populated founder; no free population is granted.","WarningLabel"));
         _filter=new(){Name="CrisisFilter"};_filter.AddItem("Current cases");_filter.AddItem("All owned colonies / preventive quarantine");_filter.Select(_all?1:0);_body.AddChild(_filter);
         _list=new(){Name="CrisisCaseList",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,160)};_body.AddChild(_list);_filter.ItemSelected+=i=>{_all=i==1;Rows();};Rows();

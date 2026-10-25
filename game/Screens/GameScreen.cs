@@ -34,6 +34,11 @@ public partial class GameScreen : VBoxContainer
     private EmpireView View => _session.View(_viewer);
     private readonly CrisisOverviewDialog _crisisOverview=new();
     private readonly CrisisResponseDialog _crisisResponse=new();
+    private readonly CrisisNotificationDialog _crisisNotifications=new();
+    private OpenAntares.Game.Presentation.CrisisNotificationPreferences _crisisPreferences=OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
+    private string? _interruptedCrisisSignature;
+    private bool _pendingCrisisInterrupt;
+    public string CrisisPreferencesPath{get;set;}="user://crisis-notifications.json";
     private bool _returnToCrisisOverview;
     private readonly TurnReportDialog _report = new();
     private EmpireTurnReportView? _latestReport;
@@ -88,7 +93,10 @@ public partial class GameScreen : VBoxContainer
         AddChild(_saveDialog);
         _saveDialog.Saved += name => ShowMessage($"Saved as \"{name}\".", isWarning: false);
 
-        AddChild(_crisisOverview);AddChild(_crisisResponse);
+        AddChild(_crisisOverview);AddChild(_crisisResponse);AddChild(_crisisNotifications);
+        _crisisNotifications.Applied+=preferences=>{_crisisPreferences=preferences;Callable.From(Refresh).CallDeferred();};
+        _crisisNotifications.CommandRequested+=Execute;
+        _colonies.CrisisNotificationsRequested+=()=>{if(View.Crisis is {} crisis)_crisisNotifications.Open(CrisisPreferencesPath,crisis);};
         _crisisResponse.VisibilityChanged+=()=>{if(!_crisisResponse.Visible&&_returnToCrisisOverview&&View.Crisis is {} c){_returnToCrisisOverview=false;Callable.From(()=>{if(View.Crisis is {} latest)_crisisOverview.ShowCrisis(_session.Content,latest);}).CallDeferred();}};
         _crisisOverview.CommandRequested+=Execute;_crisisResponse.CommandRequested+=Execute;
         _crisisOverview.QuarantineRequested+=(ids,enable,release)=>{_returnToCrisisOverview=_crisisOverview.Visible;_crisisOverview.Hide();var preview=OpenAntares.Simulation.Crises.CrisisQueries.PreviewQuarantine(_session.Content,_session.State,_viewer,ids,enable,release);Callable.From(()=>_crisisResponse.ShowQuarantine(preview)).CallDeferred();};
@@ -101,6 +109,7 @@ public partial class GameScreen : VBoxContainer
         _colonies.NotificationsRequested += () => _notificationDialog.Open(NotificationPreferencesPath);
         _colonies.LatestReportRequested += ShowLatestReport;
         AddChild(_report);
+        _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingCrisisInterrupt){_pendingCrisisInterrupt=false;Callable.From(()=>{if(View.Crisis is {} current&&current.PendingReceipts.Length>0)_crisisOverview.ShowCrisis(_session.Content,current);}).CallDeferred();}};
         AddChild(_templateReferences);
         _report.ChooseProjectRequested += ChooseProject;
         _report.StarRequested += star => _map.Select(star);
@@ -199,6 +208,7 @@ public partial class GameScreen : VBoxContainer
     {
         var view = View;
         _preferences = OpenAntares.Game.Presentation.ColonyNotificationPreferences.Load(ProjectSettings.GlobalizePath(NotificationPreferencesPath));
+        _crisisPreferences=OpenAntares.Game.Presentation.CrisisNotificationPreferences.Load(ProjectSettings.GlobalizePath(CrisisPreferencesPath));
         if (_management.Visible) { _management.Preferences = _preferences; _management.ShowEmpire(_session.Content,view); }
         if(_crisisOverview.Visible&&view.Crisis is {} currentCrisis)_crisisOverview.ShowCrisis(_session.Content,currentCrisis);
         _turnLabel.Text = $"Turn {view.Turn}";
@@ -220,6 +230,17 @@ public partial class GameScreen : VBoxContainer
         if (colony is not null) _selectedPlanet = colony.PlanetId;
         _starPanel.ShowStar(_session.Content, star, view);
         _colonies.ShowColonies(view, _selectedColony, _session.Content, _preferences, _latestReport);
+        if(view.Crisis is {} crisis)
+        {
+            string signature=string.Join(";",crisis.PendingReceipts.Select(r=>$"{r.Key.Episode}:{r.Key.Colony}:{r.Revision}"));
+            bool newMaterial=_interruptedCrisisSignature is not null&&signature.Length>0&&signature!=_interruptedCrisisSignature;
+            _interruptedCrisisSignature=signature;
+            if(newMaterial&&_crisisPreferences.Critical==OpenAntares.Game.Presentation.CrisisDisplayLevel.Interrupt)
+            {
+                if(_report.Visible)_pendingCrisisInterrupt=true;
+                else if(!_crisisOverview.Visible&&!_crisisResponse.Visible)Callable.From(()=>{if(View.Crisis is {} latest&&latest.PendingReceipts.Length>0)_crisisOverview.ShowCrisis(_session.Content,latest);}).CallDeferred();
+            }
+        }
         if (colony is null) _colonyPanel.Clear(); else _colonyPanel.ShowColony(_session.Content, colony, view);
         if (!view.Vessels.Any(v => v.Id == _selectedVessel)) _selectedVessel = view.Vessels.Length > 0 ? view.Vessels[0].Id : null;
         _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination, _selectedPlanet);
@@ -236,7 +257,7 @@ public partial class GameScreen : VBoxContainer
         if(_latestReport is null)return;
         var view=View;
         if(view.Development is {} development)view=view with{Development=development with{PendingReport=null}};
-        _report.ShowReport(_session.Content,_latestReport,view,_preferences);
+        _report.ShowReport(_session.Content,_latestReport,view,_preferences,_crisisPreferences);
     }
 
     private void ShowMessage(string text, bool isWarning)

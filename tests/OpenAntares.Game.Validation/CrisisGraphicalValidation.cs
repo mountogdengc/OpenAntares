@@ -24,7 +24,7 @@ public partial class CrisisGraphicalValidation:Node
     public override async void _Ready()
     {
         string? error=null;
-        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Real graphical display");await Responses();}
+        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Real graphical display");await Attention();await AttentionScaleAndReload();await ResolvedReceiptReload();await FreshInterrupt();await Responses();}
         catch(Exception e){error=e.ToString();GD.PrintErr(error);}
         finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Crisis",method="Actual Godot controls/signals; labelled pre-session fixtures, no physical input or human acceptance claim.",passed=error is null,error,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
     }
@@ -36,6 +36,95 @@ public partial class CrisisGraphicalValidation:Node
         source.Crisis!.Case=new(){EpisodeId=1,Stage=CrisisStage.Active,Severity=20,AttentionRevision=2,HandledRevision=2,Origin=root};
         for(int i=1;i<count;i++){var planet=state.FindPlanet(source.PlanetId)!.Clone();planet.Id=new(state.AllocateId());planet.Orbit=state.Planets.Where(p=>p.StarId==planet.StarId).Max(p=>p.Orbit)+1;planet.Appearance=OpenAntares.Simulation.Appearance.PlanetAppearance.Create(42,planet.Id);state.Planets.Add(planet);var colony=source.Clone();colony.Id=new(state.AllocateId());colony.PlanetId=planet.Id;state.Colonies.Add(colony);}
         ObservationUpdater.Refresh(state,state.Turn);return state;
+    }
+    private async Task Attention()
+    {
+        var content=Content();var state=Labelled(content);var owner=state.Empires[0].Id;
+        state.Colonies.First(c=>c.EmpireId==owner).Crisis!.Case!.AttentionRevision=3;
+        Check(GameStateValidator.Validate(content,state).Count==0,"Urgent labelled case validates before UI session");
+        string path=Path.Combine(_output,"crisis-prefs.json");new OpenAntares.Game.Presentation.CrisisNotificationPreferences(OpenAntares.Game.Presentation.CrisisDisplayLevel.Digest,OpenAntares.Game.Presentation.NotificationLevel.Off,ImmutableArray<string>.Empty).Save(path);
+        var session=new GameSession(content,state);var screen=Screen(session,owner);AddChild(screen);await Frames();
+        Check(!One<CrisisOverviewDialog>(screen).Visible,"Digest does not interrupt for initial urgent facts");
+        Check(Descendants<Label>(screen).Any(l=>l.Name=="CrisisCriticalBadge"&&l.Visible&&l.Text.Contains("1 endangered",StringComparison.Ordinal)),"Digest retains persistent Critical badge and endangered count");
+        string initial=Snapshot(session);Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();Check(session.State.Turn==22&&Snapshot(session)==initial,"Unacknowledged emergency blocks next turn before any preparation");
+        Press(Named<Button>(screen,"OpenCrisisNotifications"));await Frames();var notification=One<CrisisNotificationDialog>(screen);
+        Check(Named<OptionButton>(notification,"CrisisDisplayLevel").Selected==2&&Named<OptionButton>(notification,"CrisisRoutineLevel").Selected==2&&Named<CheckBox>(notification,"CrisisRequireAcknowledgement").ButtonPressed,"Local Digest/Off and saved requirement appear as separate settings");
+        foreach(int level in new[]{1,0,2})
+        {
+            Named<OptionButton>(notification,"CrisisDisplayLevel").Select(level);Press(Named<Button>(notification,"CrisisApplyDisplay"));await Frames();
+            Check(Snapshot(session)==initial&&OpenAntares.Game.Presentation.CrisisNotificationPreferences.Load(path).Critical==(OpenAntares.Game.Presentation.CrisisDisplayLevel)level,$"Local display level {level} saves without touching canonical campaign");
+            Check(Descendants<Label>(screen).Any(l=>l.Name=="CrisisCriticalBadge"&&l.Visible),$"Critical badge persists at display level {level}");
+        }
+        foreach(var size in new[]{new Vector2I(800,600),new Vector2I(1920,1080)}){GetTree().Root.Size=size;notification.PopupCenteredClamped(new(660,540));await Capture("attention-digest-"+size.X);}
+        var requirement=Named<CheckBox>(notification,"CrisisRequireAcknowledgement");requirement.SetPressedNoSignal(false);requirement.EmitSignal(BaseButton.SignalName.Toggled,false);Press(Named<Button>(notification,"CrisisReviewAcknowledgement"));await Frames();
+        var confirm=One<ConfirmationDialog>(notification);Check(confirm.DialogText.Contains("waived, not read",StringComparison.Ordinal)&&Snapshot(session)==initial,"Explicit waiver consequence shown before saved change");Press(confirm.GetOkButton());await Frames();
+        Check(!session.State.FindEmpire(owner)!.Crisis!.RequireAcknowledgement&&session.State.Colonies.First(c=>c.EmpireId==owner).Crisis!.Case!.WaivedRevision==3,"Saved opt-out records waived revision, never read");
+        Press(Named<Button>(screen,"OpenCrisisNotifications"));await Frames();notification=One<CrisisNotificationDialog>(screen);requirement=Named<CheckBox>(notification,"CrisisRequireAcknowledgement");requirement.SetPressedNoSignal(true);requirement.EmitSignal(BaseButton.SignalName.Toggled,true);Press(Named<Button>(notification,"CrisisReviewAcknowledgement"));await Frames();confirm=One<ConfirmationDialog>(notification);Press(confirm.GetOkButton());await Frames();
+        Check(session.State.FindEmpire(owner)!.Crisis!.RequireAcknowledgement&&session.View(owner).Crisis!.PendingReceipts.Length==1,"Re-enable renews current urgent revision");
+        Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();var overview=One<CrisisOverviewDialog>(screen);
+        Check(Named<ItemList>(overview,"CrisisAttentionList").ItemCount==1,"Exact pending revision listed for acknowledgement");
+        long displayedRevision=session.View(owner).Crisis!.PendingReceipts.Single().Revision;Press(Named<Button>(overview,"CrisisSelectAllAttention"));Press(Named<Button>(overview,"CrisisAcknowledgeSelected"));await Frames();
+        Check(session.View(owner).Crisis!.PendingReceipts.IsEmpty&&session.State.Colonies.First(c=>c.EmpireId==owner).Crisis!.Case!.HandledRevision==displayedRevision,"Acknowledge selected handles the displayed revision once");
+        Check(Descendants<Label>(screen).Any(l=>l.Name=="CrisisCriticalBadge"&&l.Visible),"Active endangered colony remains visible after acknowledgement");
+        SaveEvidence(session,"labelled-attention-handled");RemoveChild(screen);screen.QueueFree();await Frames();
+    }
+    private async Task AttentionScaleAndReload()
+    {
+        var content=Content();var state=Labelled(content,30);var owner=state.Empires[0].Id;
+        foreach(var c in state.Colonies.Where(c=>c.EmpireId==owner))c.Crisis!.Case!.AttentionRevision=3;
+        var peer=state.Empires.Single(e=>e.Id!=owner);peer.Controller=ControllerKind.Human;peer.AiPolicyId=null;peer.Ready=true;
+        Check(GameStateValidator.Validate(content,state).Count==0,"Labelled30-case two-human attention fixture validates before session: "+string.Join("; ",GameStateValidator.Validate(content,state)));
+        string fixtureName=$"qa-{_runId}-attention-thirty-pending",fixturePath=SaveFiles.PathFor(fixtureName);SaveGame.WriteFile(fixturePath,content,state);_savePaths.Add(fixturePath);
+        var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();Press(Descendants<Button>(One<NewGameScreen>(main)).Single(b=>b.Text=="Start"));await Frames();
+        var screen=await LoadThroughDialog(main,fixtureName);var session=Session(screen);Check(session.View(owner).Crisis!.PendingReceipts.Length==30,"Actual UI load retains all30 pending revisions");
+        One<CrisisOverviewDialog>(screen).Hide();string before=Snapshot(session);Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();
+        Check(Snapshot(session)==before&&session.State.Empires.Single(e=>e.Id!=owner).Ready,"Blocked Ready preserves prior other-human Ready and all planning");
+        string pendingName=await SaveThroughDialog(screen,"attention-thirty-still-pending");screen=await LoadThroughDialog(main,pendingName);session=Session(screen);
+        Check(Snapshot(session)==before&&session.View(owner).Crisis!.PendingReceipts.Length==30,"Actual Save/Load never implicitly acknowledges thirty cases");
+        One<CrisisOverviewDialog>(screen).Hide();Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();var overview=One<CrisisOverviewDialog>(screen);
+        var itemList=Named<ItemList>(overview,"CrisisAttentionList");Check(itemList.ItemCount==30,"One grouped overview lists all30 own urgent facts");
+        foreach(var size in new[]{new Vector2I(800,600),new Vector2I(1920,1080)}){GetTree().Root.Size=size;overview.PopupCenteredClamped(new(760,600));await Frames();itemList.Select(29);itemList.EnsureCurrentIsVisible();await Reach(itemList);await Capture("attention-thirty-"+size.X);}
+        Press(Named<Button>(overview,"CrisisSelectAllAttention"));Check(itemList.GetSelectedItems().Length==30,"All30 exact revisions selected in one batch");
+        Press(Named<Button>(overview,"CrisisAcknowledgeSelected"));await Frames();
+        Check(session.View(owner).Crisis!.PendingReceipts.IsEmpty&&session.State.Colonies.Count(c=>c.EmpireId==owner&&c.Crisis!.Case!.HandledRevision==3)==30,"Grouped acknowledgement handles each displayed revision exactly once");
+        Check(session.State.Empires.Single(e=>e.Id!=owner).Ready,"Other human's accepted Ready remains intact after acknowledgement");
+        string handled=await SaveThroughDialog(screen,"attention-thirty-handled");string canonical=Snapshot(session);screen=await LoadThroughDialog(main,handled);session=Session(screen);
+        Check(Snapshot(session)==canonical&&session.View(owner).Crisis!.PendingReceipts.IsEmpty,"Actual UI reload preserves handled revisions and canonical state");
+        RemoveChild(main);main.QueueFree();await Frames();
+    }
+    private async Task ResolvedReceiptReload()
+    {
+        var content=Content();var state=Labelled(content);var owner=state.Empires[0].Id;var colony=state.Colonies.First(c=>c.EmpireId==owner);var location=CrisisQueries.Location(state,colony);
+        state.Turn=40;state.Empires[0].Crisis!.Episode=null;state.Empires[0].Crisis!.PendingReceipts.Add(new(new(owner,1,colony.Id),3,20,location,"Resolved colony crisis awaiting acknowledgement."));colony.Crisis!.Case=null;ObservationUpdater.Refresh(state,state.Turn);
+        Check(GameStateValidator.Validate(content,state).Count==0,"Labelled resolved receipt older than ten-turn history validates: "+string.Join("; ",GameStateValidator.Validate(content,state)));
+        string name=$"qa-{_runId}-resolved-old-receipt",path=SaveFiles.PathFor(name);SaveGame.WriteFile(path,content,state);_savePaths.Add(path);
+        var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();Press(Descendants<Button>(One<NewGameScreen>(main)).Single(b=>b.Text=="Start"));await Frames();var screen=await LoadThroughDialog(main,name);var session=Session(screen);
+        Check(session.View(owner).Crisis!.History.IsEmpty&&session.View(owner).Crisis!.PendingReceipts.Length==1,"Actual UI load retains resolved receipt beyond ten-turn history");
+        One<CrisisOverviewDialog>(screen).Hide();string before=Snapshot(session);Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();Check(Snapshot(session)==before&&session.State.Turn==40,"Resolved old receipt still blocks Ready after UI reload");
+        Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();var overview=One<CrisisOverviewDialog>(screen);Check(Named<ItemList>(overview,"CrisisAttentionList").ItemCount==1,"Resolved lost-history receipt remains available for deliberate acknowledgement");
+        Press(Named<Button>(overview,"CrisisSelectAllAttention"));Press(Named<Button>(overview,"CrisisAcknowledgeSelected"));await Frames();Check(session.View(owner).Crisis!.PendingReceipts.IsEmpty,"Explicit acknowledgement clears the old resolved receipt");
+        RemoveChild(main);main.QueueFree();await Frames();
+    }
+    private async Task FreshInterrupt()
+    {
+        var content=Content();var state=Labelled(content);var owner=state.Empires[0].Id;state.Colonies.First(c=>c.EmpireId==owner).Crisis!.Case!.Severity=70;
+        Check(GameStateValidator.Validate(content,state).Count==0,"Labelled threshold-crossing crisis validates before session");
+        OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults.Save(Path.Combine(_output,"crisis-prefs.json"));
+        var session=new GameSession(content,state);var screen=Screen(session,owner);AddChild(screen);await Frames();Check(!One<CrisisOverviewDialog>(screen).Visible,"Initial screen restores saved facts without treating them as a new popup");
+        Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();var report=One<TurnReportDialog>(screen);Check(session.State.Turn==23&&report.Visible&&session.View(owner).Crisis!.PendingReceipts.Length==1,"Actual turn creates a new critical revision alongside one turn report");
+        Press(report.GetOkButton());report.Hide();await Frames();var overview=One<CrisisOverviewDialog>(screen);Check(overview.Visible,"Interrupt opens one crisis overview after the report closes");
+        overview.Hide();await Frames();Press(Named<Button>(screen,"ViewLatestTurnReport"));await Frames();report=One<TurnReportDialog>(screen);report.Hide();await Frames();Check(!overview.Visible,"Reopening and closing a report does not repeat an already-shown interruption");
+        RemoveChild(screen);screen.QueueFree();await Frames();
+    }
+    private static GameSession Session(GameScreen screen)=>(GameSession)typeof(GameScreen).GetField("_session",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!.GetValue(screen)!;
+    private async Task<string> SaveThroughDialog(GameScreen screen,string label)
+    {
+        string name=$"qa-{_runId}-{label}",path=SaveFiles.PathFor(name);if(File.Exists(path))throw new InvalidOperationException("QA save collision");
+        One<CrisisOverviewDialog>(screen).Hide();await Frames();Press(Descendants<Button>(screen).Single(b=>b.Text=="Save"));await Frames();var dialog=One<SaveGameDialog>(screen);One<LineEdit>(dialog).Text=name;Press(dialog.GetOkButton());await Frames();Check(File.Exists(path),label+": UI Save writes file");_savePaths.Add(path);return name;
+    }
+    private async Task<GameScreen> LoadThroughDialog(Control main,string name)
+    {
+        var current=One<GameScreen>(main);One<CrisisOverviewDialog>(current).Hide();await Frames();Press(Descendants<Button>(current).Single(b=>b.Text=="Load"));await Frames();var dialog=One<LoadGameDialog>(main);var list=One<ItemList>(dialog);int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,index);Press(dialog.GetOkButton());await Frames();return One<GameScreen>(main);
     }
     private async Task Responses()
     {
@@ -73,7 +162,7 @@ public partial class CrisisGraphicalValidation:Node
             Check(before==Snapshot(session),$"Opening/selecting/scrolling {count} cases preserves exact state");RemoveChild(screen);screen.QueueFree();await Frames();
         }
     }
-    private GameScreen Screen(GameSession session,EmpireId owner)=>new(session,owner){NotificationPreferencesPath=Path.Combine(_output,"colony-prefs.json")};
+    private GameScreen Screen(GameSession session,EmpireId owner)=>new(session,owner){NotificationPreferencesPath=Path.Combine(_output,"colony-prefs.json"),CrisisPreferencesPath=Path.Combine(_output,"crisis-prefs.json")};
     private void SaveEvidence(GameSession session,string label){string path=SaveFiles.PathFor($"qa-{_runId}-crisis-{label}");SaveGame.WriteFile(path,session.Content,session.State);_savePaths.Add(path);}
     private static T Named<T>(Node n,string name)where T:Node=>Descendants<T>(n).Single(c=>c.Name==name);
     private async Task Reach(Control c){c.GrabFocus();await Frames();for(Node? p=c.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(c);await Frames();Check(c.IsVisibleInTree(),"Reach control "+c.Name);}
@@ -85,4 +174,5 @@ public partial class CrisisGraphicalValidation:Node
     private static T One<T>(Node n)where T:Node=>Descendants<T>(n).Single();
     private static string Snapshot(GameSession s)=>SaveGame.Serialize(s.Content,s.State);
 }
+
 

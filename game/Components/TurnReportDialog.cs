@@ -18,6 +18,7 @@ namespace OpenAntares.Game.Components;
 public partial class TurnReportDialog : AcceptDialog
 {
     private readonly VBoxContainer _body = new();
+    private OpenAntares.Game.Presentation.CrisisNotificationPreferences _crisisPreferences=OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
     private OpenAntares.Game.Presentation.ColonyNotificationPreferences _preferences = OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
 
     /// <summary>Raised when the player wants to choose a colony's next project (the colony's star).</summary>
@@ -40,7 +41,7 @@ public partial class TurnReportDialog : AcceptDialog
         AddChild(padding);
     }
 
-    public void ShowReport(ContentSet content, EmpireTurnReportView report, EmpireView? empireView = null, OpenAntares.Game.Presentation.ColonyNotificationPreferences? preferences = null)
+    public void ShowReport(ContentSet content, EmpireTurnReportView report, EmpireView? empireView = null, OpenAntares.Game.Presentation.ColonyNotificationPreferences? preferences = null,OpenAntares.Game.Presentation.CrisisNotificationPreferences? crisisPreferences = null)
     {
         foreach (Node child in _body.GetChildren())
         {
@@ -49,6 +50,7 @@ public partial class TurnReportDialog : AcceptDialog
         }
 
         _preferences = preferences ?? OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
+        _crisisPreferences=crisisPreferences??OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
         Title = "Turn report";
         _body.AddChild(new Label { Text = $"Turn {report.FromTurn} results", ThemeTypeVariation = "HeaderLabel" });
 
@@ -75,7 +77,7 @@ public partial class TurnReportDialog : AcceptDialog
             _body.AddChild(choose);
         }
 
-        foreach(var crisis in report.CrisisEvents)_body.AddChild(Wrapped($"{crisis.Location.Name} ({crisis.Location.Colony}): {crisis.Kind} — {crisis.Reason}; population lost {crisis.PopulationLost}.","WarningLabel"));
+        foreach(var crisis in report.CrisisEvents.Where(e=>e.Kind is not ("cure_progress" or "inspection_completed")||_crisisPreferences.Routine!=OpenAntares.Game.Presentation.NotificationLevel.Off))_body.AddChild(Wrapped($"{crisis.Location.Name} ({crisis.Location.Colony}): {crisis.Kind} — {crisis.Reason}; population lost {crisis.PopulationLost}.","WarningLabel"));
         foreach (var e in report.Events)
         {
             if(e.Kind=="vessel_completed"&&_preferences.LevelFor("completions")==OpenAntares.Game.Presentation.NotificationLevel.Off)continue;

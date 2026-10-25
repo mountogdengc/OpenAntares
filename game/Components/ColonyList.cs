@@ -8,6 +8,7 @@ public partial class ColonyList : VBoxContainer
 {
     public event Action<ColonyId>? ColonySelected;
     public event Action? CrisisRequested;
+    public event Action? CrisisNotificationsRequested;
     public event Action? ManageRequested;
     public event Action? NotificationsRequested;
     public event Action? LatestReportRequested;
@@ -18,7 +19,13 @@ public partial class ColonyList : VBoxContainer
         Visible = Rules.HasExpansion(view.RulesVersion);
         if (!Visible) return;
         AddChild(new Label { Text = "Your colonies", ThemeTypeVariation = "HeaderLabel" });
-        if(view.Crisis is not null)DevelopmentUi.Button(this,"Colony crises",()=>CrisisRequested?.Invoke(),"OpenCrisisOverview");
+        if(view.Crisis is {} crisis)
+        {
+            int endangered=crisis.Cases.Length,urgent=crisis.PendingReceipts.Length;
+            if(endangered>0||urgent>0){var critical=DevelopmentUi.Text($"Critical: {endangered} endangered {(endangered==1?"colony":"colonies")}; {urgent} urgent facts awaiting acknowledgement. Open Colony crises to review.","WarningLabel");critical.Name="CrisisCriticalBadge";AddChild(critical);}
+            DevelopmentUi.Button(this,"Colony crises",()=>CrisisRequested?.Invoke(),"OpenCrisisOverview");
+            DevelopmentUi.Button(this,"Crisis notifications",()=>CrisisNotificationsRequested?.Invoke(),"OpenCrisisNotifications");
+        }
         var picker = new OptionButton { SizeFlagsHorizontal = SizeFlags.ExpandFill }; AddChild(picker);
         foreach (var c in view.Colonies)
         {
