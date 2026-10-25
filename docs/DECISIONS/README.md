@@ -22,3 +22,5 @@ Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/0
 The charter remains authoritative for scope; original specs retain exact behavior. Alternative evaluations are recorded only where sources contain them. New consequential decisions need their own record and actual approval status; do not reclassify research or a proposed design-guide paragraph as accepted.
 
 [ADR-015: Scout survival/encounter-avoidance drafting](ADR-015-scout-survival-design-entry.md) records explicit owner drafting authority2026-10-25. M7-D/SCT-AC-012 In Progress; proposed gameplay rules await review. No design/plan/implementation approval, default/writer change or warfare scope is inferred.
+
+ADR-015 scope amendment: owner selected a space ameba as actual danger; the peaceful-only recommendation is superseded while rival empires remain peaceful. Exact stationary habitat/warning/escape/study/reward/authority/setup/compatibility rules are proposed for review, not fully approved or implemented.

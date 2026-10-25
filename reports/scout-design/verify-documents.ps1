@@ -18,8 +18,8 @@ function Read-TaskGit([string]$Root, [string[]]$Arguments) {
 $taskSpec = Get-Content -LiteralPath $taskSpecPath -Raw
 $taskRequirementIds = @([regex]::Matches($taskSpec, '(?m)^## \d+\. (SCT-\d{3}):') | ForEach-Object { $_.Groups[1].Value })
 $taskAcceptanceIds = @([regex]::Matches($taskSpec, '(?m)^\| (SCT-AC-\d{3}) ') | ForEach-Object { $_.Groups[1].Value })
-Assert-Task (($taskRequirementIds -join ',') -eq 'SCT-001,SCT-002,SCT-003,SCT-004,SCT-005,SCT-006') 'Requirement IDs differ'
-Assert-Task (($taskAcceptanceIds -join ',') -eq 'SCT-AC-001,SCT-AC-002,SCT-AC-003,SCT-AC-004,SCT-AC-005,SCT-AC-006,SCT-AC-007,SCT-AC-008,SCT-AC-009,SCT-AC-010,SCT-AC-011,SCT-AC-012') 'Acceptance IDs differ'
+Assert-Task (($taskRequirementIds -join ',') -eq 'SCT-001,SCT-002,SCT-003,SCT-004,SCT-005,SCT-006,SCT-007') 'Requirement IDs differ'
+Assert-Task (($taskAcceptanceIds -join ',') -eq 'SCT-AC-001,SCT-AC-002,SCT-AC-003,SCT-AC-004,SCT-AC-005,SCT-AC-006,SCT-AC-007,SCT-AC-008,SCT-AC-009,SCT-AC-010,SCT-AC-011,SCT-AC-012,SCT-AC-013,SCT-AC-014,SCT-AC-015') 'Acceptance IDs differ'
 $taskRegister = Get-Content -LiteralPath (Join-Path $taskRepo 'docs/SPECIFICATIONS.md') -Raw
 $taskOldRegister = (Read-TaskGit $taskRepo @('show', "${taskBase}:docs/SPECIFICATIONS.md")) -join "`n"
 $taskRows = @([regex]::Matches($taskRegister, '(?m)^\| REQ-\d{3} \|[^\r\n]+') | ForEach-Object { $_.Value })
@@ -46,6 +46,22 @@ foreach ($taskCase in $taskTravel) {
     while ($taskDuration * $taskDuration * $taskCase.speed * $taskCase.speed -lt $taskCase.dx * $taskCase.dx + $taskCase.dy * $taskCase.dy) { $taskDuration++ }
     Assert-Task ($taskDuration -eq $taskCase.expected) 'Independent route arithmetic differs'
 }
+$taskAmebaCases = @(
+    @{speed=300; coefficient=100; maximum=95; expected=95},
+    @{speed=300; coefficient=50; maximum=90; expected=75},
+    @{speed=200; coefficient=100; maximum=95; expected=50},
+    @{speed=200; coefficient=50; maximum=90; expected=50},
+    @{speed=100; coefficient=100; maximum=95; expected=5},
+    @{speed=100; coefficient=50; maximum=90; expected=25},
+    @{speed=600; coefficient=100; maximum=95; expected=95},
+    @{speed=600; coefficient=50; maximum=90; expected=90}
+)
+foreach ($taskCase in $taskAmebaCases) {
+    $taskPercent = [math]::Min($taskCase.maximum, [math]::Max(5, 50 + [math]::Floor([decimal]($taskCase.coefficient * ($taskCase.speed - 200)) / 200)))
+    Assert-Task ($taskPercent -eq $taskCase.expected) 'Independent ameba probability arithmetic differs'
+}
+Assert-Task ((75 * 95) -eq 7125) 'Combined study/escape fraction differs'
+Assert-Task ((600 / 100) -eq 6) 'Study research reward conversion differs'
 $taskLinkCount = 0
 $taskDocs = @($taskSpecPath, (Join-Path $taskRepo 'docs/DECISIONS/ADR-015-scout-survival-design-entry.md'), (Join-Path $taskRepo 'reports/SCOUT_DESIGN_REVIEW_2026-10-25.md'))
 foreach ($taskDoc in $taskDocs) {
@@ -97,6 +113,8 @@ $taskResult = [ordered]@{
     localLinksChecked = $taskLinkCount
     proposedCompatibilityPairs = $taskPairs.Count
     independentTravelExamples = $taskTravel.Count
+    independentAmebaArithmeticExamples = $taskAmebaCases.Count + 2
+    ownerSelectedAmebaDanger = $true
     changedPaths = $taskChangedPaths
     ownerFilesByteExact = $true
     ownerHashes = $taskOwnerHashes
@@ -105,7 +123,7 @@ $taskResult = [ordered]@{
     primaryHeadUnchanged = $true
     preservedWorktreePaths = $taskWorktreePaths
     retainedPriorBranchesChecked = $true
-    builderVerdict = 'nothing important left'
+    builderVerdict = 'One modifiability ambiguity resolved against explicit warning/single-reward invariants; no other material questions'
     gameplayDesignApproved = $false
     productImplementationStarted = $false
     applicationBuildTestsRun = $false

@@ -6,7 +6,7 @@ OpenAntares is an original turn-based space4X: C#/Godot .NET presentation, indep
 
 Current phase: all fourteen M6 colony-crisis/plague implementation tasks, independent whole-branch review and eight corrections are integrated into local `main`. Fresh post-merge main verification passed. M6-I is Verified for local automated acceptance; human and delivery acceptance remain open. New games default to rules6 Standard, retain Off, and write schema7 with22 explicit pairs. Updated2026-10-25 America/Denver.
 
-Current continuation: the owner requested a bounded scout survival/encounter-avoidance specification for gameplay review before implementation. [M7 draft](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), [drafting authority ADR-015](docs/DECISIONS/ADR-015-scout-survival-design-entry.md). M7-D/SCT-AC-012 In Progress; M7-P/M7-I Not Started. Proposed peaceful avoidance/withdrawal, Observe default/opt-in authority and rules7/writer8 are drafter choices awaiting review, not active gameplay. Product remains rules6/writer7.
+Current continuation: the owner requested bounded scout survival/encounter-avoidance gameplay review, then selected a **space ameba as an actual danger**. [Amended M7 draft](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), [ADR-015](docs/DECISIONS/ADR-015-scout-survival-design-entry.md). M7-D/SCT-AC-012 In Progress; M7-P/M7-I Not Started. Stationary habitat, warning/automatic scout withdrawal, study reward/odds, setup and rules7/writer8 are proposals awaiting full review; peaceful-only scope is superseded. Rival empires remain peaceful. Product remains rules6/writer7.
 
 ## 2. Implemented milestone
 
@@ -54,7 +54,7 @@ Preserve architecture, deterministic integer rules, command authority, JSON/vers
 
 Plague, containment and emergency acknowledgement are implemented within M6 scope on `main`. Revolts, broader culture mechanics, fleet/scout doctrine, warfare/diplomacy, peaceful mode, multiplayer and victory remain future scope.
 
-M7 proposes a bounded, non-combat scout posture/avoidance/ordinary-withdrawal contract. Current rivals remain peaceful and ordinary arrival still surveys/contacts before a next-turn response. Actual lethal danger, warning sensors, interception and escape odds remain Deferred pending explicit scope/design. Full proposed gameplay rules require owner review before separate planning. No old campaign is upgraded.
+M7 now proposes one stationary lethal space ameba with harmless arrival warning, safe prompt withdrawal, risky optional study/late escape and actual vessel/cargo loss, plus optional neutral-contact avoidance. Ordinary survey/contact and committed travel remain; rival empires stay peaceful. Roaming/colony attacks, long-range sensors, interstellar pursuit, tactical combat and warship doctrine remain Deferred. Full amended gameplay rules require owner review before separate planning. No old campaign is upgraded.
 
 ## 6. Repository and preservation
 
@@ -68,6 +68,6 @@ No open Important/Critical or Minor review finding remains after the one authori
 
 ## 8. Next concrete action
 
-Review/amend the complete [scout specification](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), particularly whether peaceful avoidance is the desired first slice or actual danger should be separately specified now. Full design approval precedes a separate implementation plan; retained Native preference applies afterward. M6 and parent statuses/17-row totals are unchanged. No application tests ran for documentation-only drafting.
+Review/amend the complete [scout/space-ameba specification](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), especially stationary habitat, warning/safe withdrawal, optional study reward/odds, late escape, actual cargo loss and default survival authority. The owner selected the danger, not every proposed numeric rule. Full design approval precedes a separate plan; Native remains retained. M6 and parent statuses/17-row totals are unchanged; no application tests ran for documentation-only drafting.
 
 Drafting checkout: the clean existing `.worktrees/colony-development-design` was reused on new `codex/scout-survival-design` from primary main42e1282; prior `codex/colony-crises` and all seven worktrees/branches remain. Primary main and all four owner files are untouched; no integration, push, release, cleanup or product change. [Draft review and preservation evidence](reports/SCOUT_DESIGN_REVIEW_2026-10-25.md) records fresh checks and limits. This branch's status updates do not copy or commit the owner's primary peaceful-mode paragraph.
