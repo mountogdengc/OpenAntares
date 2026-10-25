@@ -1,6 +1,6 @@
 # Colony development, governors and planetary identity
 
-**Status: Full design approved 2026-10-24 in [ADR-012](../../DECISIONS/ADR-012-approved-colony-development-design.md).** [ADR-011](../../DECISIONS/ADR-011-colony-development-design-entry.md) records historical direction/drafting. M5-D and COL-AC-012 are Verified for design scope. The separate [twelve-task implementation plan](../plans/2026-10-24-colony-development.md) is written/self-reviewed and awaits owner review; no M5 implementation has begun. Current product remains rules4/writer5 at main10cb0b4. The initially proposed numbers/defaults/bounds/version changes below are now accepted targets, not implemented functionality.
+**Status: Full design approved 2026-10-24 in [ADR-012](../../DECISIONS/ADR-012-approved-colony-development-design.md).** [ADR-011](../../DECISIONS/ADR-011-colony-development-design-entry.md) records historical direction/drafting. M5-D and COL-AC-012 are Verified for design scope. The separate twelve-task plan was approved by subsequent “yes” and is implemented inline. Current5/writer6 is active on the isolated branch, with passing evidence mapped in reports/COLONY_VALIDATION_2026-10-24.md; final independent review/integration remain pending. The approved contract below remains authoritative.
 
 
 ## 1. Intent and authority
@@ -144,7 +144,7 @@ Before implementation changes writer/default, capture genuine current rules4 mai
 
 ## 10. Acceptance and review gates
 
-COL-AC-012 is satisfied by full owner approval in ADR-012; COL-AC-001..011 are Not Started. Written criteria do not claim application tests or gameplay acceptance.
+COL-AC-012 is satisfied by full owner approval in ADR-012; COL-AC-001..011 are Implemented, Unverified pending final independent review; see the validation report for executed evidence and limits. Written criteria alone do not establish acceptance.
 
 | ID | Required observable evidence |
 | --- | --- |

@@ -34,7 +34,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review the separate [twelve-task colony-development plan](superpowers/plans/2026-10-24-colony-development.md). The owner approved the full specification in ADR-012; M5-D/COL-AC-012 Verified for design. M5-P In Progress for plan review, M5-I Not Started. [Plan self-review](../reports/COLONY_IMPLEMENTATION_PLAN_REVIEW_2026-10-24.md) records dependency/coverage/interface checks; no task or new application test has run. Retain Native without a new method/design question. Freeze genuine rules4 continuation first during execution, keep new behavior gated until saves/UI connect, preserve all existing edits/evidence and defer crisis/fleet systems as agreed.
+All twelve approved Native M5 tasks are implemented with982 simulation tests/all five graphical gates passing. Complete the one fresh whole-branch review, regression-first Important/Critical corrections if any, then retained authorized local main integration and fresh combined gates. Preserve owner changes/worktrees/evidence. [Evidence mapping](../reports/COLONY_VALIDATION_2026-10-24.md); future crisis/fleet systems remain later scope.
 
 ## Risks and autonomy
 

@@ -48,3 +48,7 @@ For retained Godot control/layout/save regressions, see [the opt-in graphical va
 - [Project workflow](docs/PROJECT_WORKFLOW.md), [adoption prompt](docs/MASTER_PROJECT_ADOPTION_PROMPT.md), and [implementation prompt](docs/MASTER_IMPLEMENTATION_PROMPT.md)
 
 Code and content JSON are MIT; original assets are CC0; documentation is CC BY 4.0. See [LICENSING.md](LICENSING.md).
+
+## Colony development implementation — 2026-10-24
+
+All twelve approved Native tasks are implemented on codex/colony-development-design. Rules5/writer6 new games add paid foundations/specialists, opt-in editable governors/queues/inheritance, scalable management/reports and original varied planet portraits. Genuine old campaigns remain unchanged. Fresh982 simulation tests and all five graphical gates pass (Colony582+4 provenance, Rival1146+12 provenance, Species1194, Expansion275, Legacy466+27 geometry); ordinary build0 warnings/errors and all five harnesses excluded. Final independent review/local main integration are pending; read PROJECT_STATUS.md and reports/COLONY_VALIDATION_2026-10-24.md for exact evidence/limits rather than historical counts above. Human/balance/platform/release acceptance remains open. No future crisis/fleet scope or push/release/cleanup.
