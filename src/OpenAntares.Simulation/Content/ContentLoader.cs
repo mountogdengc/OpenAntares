@@ -44,9 +44,9 @@ public static partial class ContentLoader
         return Load(sources);
     }
 
-    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false, bool requireDevelopment = false, bool requireCrises = false)
+    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false, bool requireDevelopment = false, bool requireCrises = false, bool requireScouting = false)
     {
-        var builder = new Builder(requireSpecies || requireRivals || requireDevelopment || requireCrises, requireRivals || requireDevelopment || requireCrises, requireDevelopment || requireCrises, requireCrises);
+        var builder = new Builder(requireSpecies || requireRivals || requireDevelopment || requireCrises || requireScouting, requireRivals || requireDevelopment || requireCrises || requireScouting, requireDevelopment || requireCrises || requireScouting, requireCrises || requireScouting, requireScouting);
         foreach (ContentSource source in sources.OrderBy(s => s.Name, StringComparer.Ordinal))
         {
             builder.AddFile(source);
@@ -55,7 +55,7 @@ public static partial class ContentLoader
         return builder.Build();
     }
 
-    private sealed partial class Builder(bool requireSpecies, bool requireRivals, bool requireDevelopment, bool requireCrises)
+    private sealed partial class Builder(bool requireSpecies, bool requireRivals, bool requireDevelopment, bool requireCrises, bool requireScouting)
     {
         private readonly List<ContentError> _errors = new();
         private (ExpansionDefinition Value, string File)? _expansion;
@@ -94,6 +94,9 @@ public static partial class ContentLoader
                 {
                     switch (section.Name)
                     {
+                        case "space_ameba":
+                            SetOnce(ref _spaceAmeba, ReadAmeba(section.Value,file),file,"space_ameba");
+                            break;
                         case "plagues":
                             ReadEntries(section.Value,file,section.Name,ReadPlague,_plagues);
                             break;
@@ -147,6 +150,7 @@ public static partial class ContentLoader
 
         public ContentLoadResult Build()
         {
+            CheckScouting();
             CheckCrises();
             CheckDevelopment();
             if (_rules is null)
@@ -190,6 +194,7 @@ public static partial class ContentLoader
                 _buildings.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 _technologies.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal))
             {
+                SpaceAmeba = _spaceAmeba?.Value,
                 Plagues = _plagues.ToImmutableSortedDictionary(p => p.Key,p => p.Value.Value,StringComparer.Ordinal),
                 Vessels = _vessels.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 Expansion = _expansion?.Value,

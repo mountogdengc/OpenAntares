@@ -25,7 +25,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 | 14→15 | rules7/Standard defaults/generated loops | activation after controls |
 
 ## Tasks
-- [ ] Task 1
+- [x] Task 1
 - [ ] Task 2
 - [ ] Task 3
 - [ ] Task 4
@@ -44,3 +44,4 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 Task 1: started BASE b9a39d7b25e0c60d84d2be0271ff14273fd783b6; brief task1-brief.md
 
 Task 1 evidence: semantic missing-capture RED exit1; unchanged-engine helper49 campaigns/196 futures; focused1/1 and Suite1266/1266 pass; normal Build0 warnings/errors. Initial sandbox test host stalled; native host run provides actual RED/GREEN. No src/game/content diff versus main before capture. All sources retained; capture restore succeeded with normal audit. Actual source copies/future/command hashes in fixture manifest.
+Task 1: complete (commits b9a39d7..d7063e0, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task1-completion.log)
