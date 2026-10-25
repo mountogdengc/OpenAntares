@@ -1,6 +1,6 @@
 # Master Autonomous Implementation Prompt - OpenAntares
 
-Current M5 correction gate (2026-10-24): owner explicitly authorized all three deferred presentation corrections, verification and local integration. Native Tasks1–3 are implemented at940fa73 with Suite988/full affected Colony663+4 provenance passing. Finish Task4 full branch gate, one fresh whole-branch review and authorized local integration/fresh main Suite+Colony/build/metadata. Preserve exact four owner changes/seven worktrees/recovery. Read PROJECT_STATUS and reports/COLONY_POLISH_2026-10-24.md. No repeated approvals, new feature scope or cleanup. Older milestone paragraphs below are historical.
+Current correction closure (2026-10-24): all three authorized presentation fixes and the fresh review duplicate-vessel correction are verified and locally integrated. Functional source4a2e430 passes988 simulation tests; Colony665 assertions+4 provenance; Rival1146+12 provenance; Species1194; Expansion275; Legacy466+27 geometry. Fresh main Suite/Colony/normal rebuild/five harness exclusions pass separately. All twelve COL child criteria and M5-I are Verified for local automated/design scope. Parent REQ-017 and17-row totals remain12 Verified/3 Implemented, Unverified/1 In Progress/1 Deferred. See PROJECT_STATUS.md and reports/COLONY_POLISH_INTEGRATION_2026-10-24.md. Human/platform/delivery/release limits remain open. Next is bounded milestone selection/specification; no automatic implementation or cleanup.
 
 
 

@@ -2,55 +2,53 @@
 
 ## 1. Overview
 
-OpenAntares is an original turn-based space4X, C#/Godot .NET presentation with an independent deterministic simulation. The owner-approved creative direction is a classic Master of Orion II love letter with memorable fanciful aliens, respectful of real peoples and beliefs. Existing architecture and creative decisions remain authoritative.
+OpenAntares is an original turn-based space4X: C#/Godot .NET presentation, independent deterministic simulation. The approved classic Master of Orion II love-letter direction and fanciful aliens respectful of real peoples/beliefs remain authoritative.
 
-Current phase: three authorized M5 presentation corrections implemented; full branch gate passes; review pending, then authorized local integration. Last updated2026-10-24 America/Denver. No release. Main and retained branch use rules5/writer6. Full First Playable/human and release acceptance remain open.
+Current phase: colony presentation corrections verified and integrated locally into main. Updated2026-10-24 America/Denver. Rules5/writer6 unchanged; no release.
 
 ## 2. Implemented milestone
 
-All twelve approved Native tasks are complete on codex/colony-development-design. Paid foundational/specialist buildings, four editable governor defaults/custom snapshots, finite queues, independent opt-in workforce/construction automation, manual overrides, optional new-colony inheritance, scalable colony management, ten-turn action history, local notification settings, portable presets and original varied planet portraits are connected. New colonies start manual; Balanced is only a suggestion. Governors never independently choose ships/research/movement/founding.
+All twelve approved Native colony tasks, the original replacement-preview correction and the three subsequently authorized presentation fixes are integrated. Historical reports describe recorded conditions; deletion lists owned colony names/IDs and inheritance separately; Summary/Attention/Off differ for routine actions and actual completions. Latest economic reports are explicitly session-local; governor history remains saved.
 
-Current5/writer6 supports sixteen explicit pairs; genuine rules1/2/3/4 and passive-AI continuations retain embedded content/behavior with no silent upgrades. [Validation/evidence map](reports/COLONY_VALIDATION_2026-10-24.md), [twelve-task ledger](reports/colony-execution/progress.md), [final review/disposition](reports/COLONY_FINAL_REVIEW_2026-10-24.md). Reviewed range e77b598..9487b93; one Important replacement-preview finding corrected regression-first at9db9933. No re-review or per-task agents.
+One fresh read-only whole-branch review found duplicate vessel notices and an overstated RED-evidence sentence. Both are corrected: one completion notice retains Choose next project and View vessel actions; evidence distinguishes three semantic failures from a fixture failure. No re-review. [Correction report](reports/COLONY_POLISH_2026-10-24.md), [raw review](reports/colony-polish-execution/final-review.md), [ledger](reports/colony-polish-execution/progress.md).
 
 ## 3. Milestone and acceptance state
 
 | Milestone | Status | Limit |
 | --- | --- | --- |
-| Adoption/expansion/species/rival local technical slices | Verified | Historical reports retain exact source/methods; human/release limits unchanged |
-| First Playable full human acceptance | Deferred | ADR-005 unavailable uncoached session; no recruiting requirement |
-| M5-D / M5-P | Verified | Full design ADR-012 and separate twelve-task plan approved; Native retained |
-| M5-I colony development | Implemented, Unverified | All tasks/blocking correction complete; three corrected presentation details await final gate/review and local integration |
-| Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress; no inferred new feature scope |
-| Cross-platform/release delivery | Not Started | Windows-only local execution |
+| Adoption/expansion/species/rival local technical slices | Verified | Historical sources/methods retained |
+| First Playable human acceptance | Deferred | ADR-005; unavailable uncoached session |
+| M5-D / M5-P | Verified | Approved full design and separate plan; Native retained |
+| M5-I colony development | Verified | All twelve COL child criteria within local automated/design scope |
+| Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
+| Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 
-COL-AC-001/003/004/005/006/008/009/010/011 Verified for local automated scope; COL-AC-012 Verified for design. COL-AC-002/007 Implemented, Unverified: deletion omits affected colonies/inheritance, historical condition count says unresolved, action/completion Attention equals Summary. The owner now explicitly authorized their correction; all three are implemented on the isolated branch and pending final gate/review, rather than deferred for future work. Parent17-row register remains12 Verified,3 Implemented, Unverified,1 In Progress,1 Deferred.
+COL-AC-001..011 are Verified for local automated scope; COL-AC-012 for design. The three earlier Minor deferrals are closed. Parent17-row totals remain12 Verified,3 Implemented, Unverified,1 In Progress,1 Deferred.
 
 ## 4. Verification
 
-Before review, source47eb9cb passed982 simulation tests and five sequential runtime gates: Colony582 assertions+4 provenance, Rival1146+12 provenance, Species1194, Expansion275, Legacy466+27 geometry. All195 QA paths existed,0 diagnostics. [Machine summary](reports/colony-final-20261024-run1/summary.json).
+Functional source `4a2e4302e070c22ec0f38893f99dc85e1ca12afc`:988 simulation tests,0 failed/skipped; Colony665 assertions+4 provenance, Rival1146+12 provenance, Species1194, Expansion275, Legacy466+27 geometry. All202 QA paths exist/142 PNG retained;0 engine diagnostics. Colony ran on identical product/harness files immediately before this commit; other four scenarios afterward. [Post-correction branch summary](reports/colony-polish-review-20261024-run1/summary.json).
 
-Corrected source9db9933 passes984 simulation tests and full affected Colony593 assertions+4 provenance/28 QA/57 PNG,0 diagnostics. Normal rebuild0 warnings/errors, all five harness types excluded after actual opt-in negative controls. [Correction evidence](reports/colony-correction-20261024-run1/summary.json). All24 gallery pages inspected in Task10; final representative800/1920 layouts and corrected individual/bulk previews inspected. Four generated campaigns complete paid foundations/specialists, Harl ordinary second colony/manual favorite, Wenth changing capacity/cargo, actual save/load and three future canonical turns. Two-human pending Ready is explicitly labelled.
+Fresh integrated main `fc29d0b56073752e24bd35e99f5739d8100e73a3`:988 simulation, full affected Colony665+4 provenance/33 QA/65 PNG,0 diagnostics; ordinary Rebuild0 warnings/errors; all five harnesses excluded after actual opt-in negative control. [Main summary](reports/colony-polish-main-20261024-run1/summary.json), [integration report](reports/COLONY_POLISH_INTEGRATION_2026-10-24.md). Other four scenarios remain explicitly branch evidence on identical code. Later edits are documentation/evidence only.
 
-Fresh combined main at93ffe8a passes984 simulation tests; Colony593 assertions+4 provenance, Rival1146+12 provenance, Species1194, Expansion275, Legacy466+27 geometry. All197 QA paths exist,134 PNGs retained, diagnostics0; normal rebuild0 warnings/errors, all five harness types excluded. [Integration report](reports/COLONY_INTEGRATION_2026-10-24.md), [exact main summary](reports/colony-main-20261024-run1/summary.json). This is fresh main evidence, separate from branch results. In-process signals/screenshots do not establish physical input, comfortable reading/accessibility, uncoached understanding, aesthetic approval, general balance, platform equality, clean install/export/security or release readiness.
+Actual controls/signals cover historical wording,30-colony deletion references at800/1920, notification levels, both unified vessel actions, stale-report replacement, save/load and canonical/readiness purity. Fresh vessel Attention800 PNG inspected. Original gallery/legacy/generated-campaign evidence is retained.
 
 ## 5. Decisions and boundaries
 
-Preserve architecture/determinism/JSON/versioning decisions, approved expansion/species/rival/colony designs and classic space-opera direction. [Charter](docs/CHARTER.md), [decisions](docs/DECISIONS/README.md), [approved colony spec](docs/superpowers/specs/2026-10-24-colony-development-design.md). No new dependencies or third-party art. Three implementation rulings and all reviewer declined items/costs are explicit in the ledger. No cleanup: owner retention overrides skill defaults.
+Preserve architecture, deterministic integer rules, command authority, JSON/versioning and approved subsystem contracts. Sixteen explicit compatibility pairs retain genuine rules1/2/3/4 behavior. No new content/art/dependency/rules/schema/AI/feature scope. Ledger rulings/costs cover sorted valid fixtures, finish-gate sequencing, retained evidence and every reviewer declined item.
 
-Revolts/plagues/culture/destruction, emergency acknowledgements, fleet/scout doctrine and peaceful mode remain future scope in the design notes/backlog. Do not infer implementation authorization from these ideas.
+Crises/plagues/revolts/culture/destruction, emergency acknowledgements, fleet/scout doctrine, warfare/diplomacy, peaceful mode, multiplayer and victory remain future scope.
 
 ## 6. Repository and preservation
 
-Primary F:/Projects-PCGames/OpenAntares, main fast-forwarded10cb0b4→93ffe8a; reviewed correction9db9933. Execution worktree C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/colony-development-design, codex/colony-development-design. Reuse all seven registered worktrees; old integrated branches are retained, not pending feature merges. [Prior main integration](reports/RIVAL_POLISH_INTEGRATION_2026-10-24.md), [fresh exact audit](reports/colony-execution/preservation-before-review.json).
+Primary F:/Projects-PCGames/OpenAntares, main fast-forwarded fa99cf81604e878e6bd951a85bb6658b2f7c3faf→fc29d0b56073752e24bd35e99f5739d8100e73a3. Final authored documentation/evidence commit follows; its exact SHA is in Git history and the chat final audit. Retain codex/colony-development-design at C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/colony-development-design and all seven worktrees/branches.
 
-Four owner changes remain outside this branch: PROJECT_STATUS paragraph, docs/SPECIES_ROSTER.md, docs/research/faction-survey.md, untracked docs/FEATURE_REQUESTS.md. Exact recovery backup prepared in chat .colony-integration-20261024-185920; primary index empty and all four hashes verified before review. Only status was stashed (retained cb66546d1deefd2ac184b2897113358916974161); its exact owner paragraph is restored unstaged and excluded from the authored commit. The other three files remain byte-identical/unstaged. Never apply broad old stashes. All old saves, failed/successful evidence, branches/worktrees and recovery remain; no push/release/history rewrite/cleanup.
+Exactly four original owner changes remain outside authored commits: this document's peaceful-mode paragraph, docs/SPECIES_ROSTER.md, docs/research/faction-survey.md and untracked docs/FEATURE_REQUESTS.md. Other three files byte-identical; exact owner paragraph restored unstaged. Status-only recovery `29db8cd8e96c7cc80303bacd78b66497cfbe9329` and exact four-file chat backup `.colony-polish-preservation-20261024-204739` retained. Indexed status excludes owner prose; final index empty. No broad stash application, push/release/history rewrite/cleanup. All old saves, failed/successful QA and scratch retained.
 
 ## 7. Remaining limits
 
-Deferred human playtest does not block this authorized technical work. Broader gameplay balance/enjoyment, physical input/readability/accessibility, owner aesthetics, Linux/macOS/ARM, package/export/clean-machine/security and release acceptance remain unverified. Three presentation Minors are disclosed above; full M5 child acceptance stays open.
+No open correction finding or newly deferred Minor. Physical mouse/keyboard/controller and OS focus, comfortable reading/accessibility/uncoached comprehension, subjective aesthetics, balance/long-campaign enjoyment, Linux/macOS/ARM, hostile-input fuzzing/security/dependency audits, clean installation/export and release remain unverified or deferred. Invalid unsorted campaign storage remains outside the valid-state contract. Deferred human acceptance does not block this authorized technical work.
 
 ## 8. Next concrete action
 
-Finish the correction branch five-scenario gate and one fresh whole-branch review, then retained authorized local integration and fresh combined main Suite/Colony/build/metadata checks with exact owner preservation. [Correction report](reports/COLONY_POLISH_2026-10-24.md), [ledger](reports/colony-polish-execution/progress.md). No new scope, repeated approval or cleanup.
-
-Current correction evidence: source940fa73, Suite988/988 and full affected Colony663 assertions+4 provenance/33 QA/65 PNG,0 diagnostics; ordinary build0 warnings/errors/five exclusions. Historical count wording, deletion references/names and routine Attention matrix pass. Final all-scenario gate passes; independent review remains pending. Parent counts/human/release limits unchanged.
+Select and specify the next bounded milestone with the owner. Requested fixes/verification/integration are complete; do not repeat them or infer new implementation. Preserve all owner work and recovery. [Current integration](reports/COLONY_POLISH_INTEGRATION_2026-10-24.md).
