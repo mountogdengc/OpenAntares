@@ -1,0 +1,72 @@
+{
+  "format": "OpenAntaresPlanetStyles",
+  "version": 1,
+  "patterns": [
+    "continents",
+    "archipelago",
+    "riftlands",
+    "crescent",
+    "polar",
+    "shattered",
+    "great_basin",
+    "striated"
+  ],
+  "palettes": {
+    "verdant_world": [
+      "315c45",
+      "6b9157",
+      "a5b87a",
+      "d4c995"
+    ],
+    "forge_world": [
+      "403e42",
+      "79584b",
+      "b48661",
+      "d5ad7d"
+    ],
+    "crystal_world": [
+      "424268",
+      "786e9c",
+      "aca2cf",
+      "d5d9e2"
+    ],
+    "barren_rock": [
+      "4e4d50",
+      "7f7a71",
+      "aaa08b",
+      "d0c5ad"
+    ],
+    "neutral": [
+      "55585e",
+      "727980",
+      "969da3",
+      "b8bec3"
+    ]
+  },
+  "environments": {
+    "dry": {
+      "ocean_color": "4b655e",
+      "cloud_color": "eee4d1",
+      "ocean_threshold": 0.0,
+      "cloud_coverage": 0.08
+    },
+    "shelf_sea": {
+      "ocean_color": "246f83",
+      "cloud_color": "e8f0e8",
+      "ocean_threshold": 0.49,
+      "cloud_coverage": 0.3
+    },
+    "open_ocean": {
+      "ocean_color": "173b70",
+      "cloud_color": "e2eaf3",
+      "ocean_threshold": 0.63,
+      "cloud_coverage": 0.25
+    },
+    "neutral": {
+      "ocean_color": "656e78",
+      "cloud_color": "b8bec3",
+      "ocean_threshold": 0.0,
+      "cloud_coverage": 0.0
+    }
+  }
+}

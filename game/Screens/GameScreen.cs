@@ -34,6 +34,7 @@ public partial class GameScreen : VBoxContainer
     private EmpireView View => _session.View(_viewer);
     private readonly TurnReportDialog _report = new();
     private readonly SaveGameDialog _saveDialog = new();
+    private readonly OpenAntares.Game.Presentation.PlanetPortraitCache _portraitCache = new();
     private readonly EmpireManagementDialog _management = new();
     private readonly ColonyNotificationDialog _notificationDialog = new();
     private OpenAntares.Game.Presentation.ColonyNotificationPreferences _preferences = OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
@@ -52,6 +53,8 @@ public partial class GameScreen : VBoxContainer
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        try { var styles=OpenAntares.Game.Presentation.PlanetStyleCatalog.Load("res://art/planets/planet_styles.json");_starPanel.ConfigurePortraits(styles,_portraitCache);_colonyPanel.ConfigurePortraits(styles,_portraitCache);_management.ConfigurePortraits(styles,_portraitCache); }
+        catch (System.Exception error) when(error is System.ArgumentException or System.InvalidOperationException or System.Text.Json.JsonException or System.Collections.Generic.KeyNotFoundException) { ShowMessage("Planet illustrations unavailable; colony management remains available.",true); }
 
         var topBar = new PanelContainer();
         AddChild(topBar);
@@ -216,6 +219,8 @@ public partial class GameScreen : VBoxContainer
         _message.TooltipText = text;
         _message.ThemeTypeVariation = isWarning ? "WarningLabel" : "SubtleLabel";
     }
+
+    public override void _ExitTree() => _portraitCache.Clear();
 
     private string SuggestedSaveName()
     {

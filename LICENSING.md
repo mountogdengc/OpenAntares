@@ -18,6 +18,8 @@ Third-party components keep their own licenses. There are currently none in the 
 
 The OpenAntares logo and title art in `art/branding/` are original assets under CC0 1.0, like the other game assets.
 
+The original planetary style palettes and structure catalogue in `art/planets/planet_styles.json` are CC0 assets. The procedural renderer is original MIT source; no third-party art, library or shader was added.
+
 ## Contributing
 
 By contributing, you agree that your contributions are released under the license that covers that kind of content, as described above.

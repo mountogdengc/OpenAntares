@@ -8,6 +8,9 @@ namespace OpenAntares.Game.Components;
 public partial class StarPanel : VBoxContainer
 {
     public event Action<PlanetId>? PlanetSelected;
+    private OpenAntares.Game.Presentation.PlanetStyleCatalog? _styles;
+    private OpenAntares.Game.Presentation.PlanetPortraitCache? _cache;
+    public void ConfigurePortraits(OpenAntares.Game.Presentation.PlanetStyleCatalog styles,OpenAntares.Game.Presentation.PlanetPortraitCache cache){_styles=styles;_cache=cache;}
     public void ShowStar(ContentSet content, StarView view, EmpireView? empire = null)
     {
         foreach (Node child in GetChildren()) { RemoveChild(child); child.QueueFree(); }
@@ -20,6 +23,7 @@ public partial class StarPanel : VBoxContainer
         {
             AddChild(new HSeparator()); var type = content.PlanetTypes[planet.PlanetTypeId];
             AddChild(new Label { Text = $"Orbit {planet.Orbit}: {type.Name}" });
+            if (planet.Appearance is not null) { var portrait=new PlanetPortrait(); AddChild(portrait); if(_styles is not null&&_cache is not null)portrait.Configure(_styles,_cache);portrait.ShowPlanet(planet); }
             AddChild(Wrapped($"Per worker: {Format.Points(planet.SupportPerWorker)} support, {Format.Points(planet.ProductionPerWorker)} production, {Format.Points(planet.ResearchPerWorker)} research"));
             if (planet.EnvironmentId is { } environment && content.Environments.TryGetValue(environment, out var habitat)) AddChild(Wrapped($"Environment: {habitat.Name} — {habitat.Description}"));
             if (planet.Potential is { } potential)

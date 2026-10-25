@@ -18,6 +18,9 @@ namespace OpenAntares.Game.Components;
 public partial class ColonyPanel : VBoxContainer
 {
     private OptionButton? _projectPicker;
+    private OpenAntares.Game.Presentation.PlanetStyleCatalog? _styles;
+    private OpenAntares.Game.Presentation.PlanetPortraitCache? _cache;
+    public void ConfigurePortraits(OpenAntares.Game.Presentation.PlanetStyleCatalog styles,OpenAntares.Game.Presentation.PlanetPortraitCache cache){_styles=styles;_cache=cache;}
 
     /// <summary>Raised when the player changes something. The screen executes it and refreshes.</summary>
     public event Action<Command>? CommandIssued;
@@ -31,6 +34,8 @@ public partial class ColonyPanel : VBoxContainer
         AddChild(new Label { Text = "Colony", ThemeTypeVariation = "HeaderLabel" });
 
         if (view is not null) { var orders = new ColonyOrdersPanel(); AddChild(orders); orders.CommandIssued += c => CommandIssued?.Invoke(c); orders.ShowColony(content, view, colony); }
+
+        if (view is not null && Rules.HasDevelopment(view.RulesVersion)) { var known=view.Stars.FirstOrDefault(s=>s.Chart.Id==colony.StarId)?.Planets?.FirstOrDefault(p=>p.Id==colony.PlanetId);var portrait=new PlanetPortrait();AddChild(portrait);if(_styles is not null&&_cache is not null)portrait.Configure(_styles,_cache);portrait.ShowPlanet(known); }
 
         // Population and growth.
         string unit = colony.PopulationUnitLabel;
