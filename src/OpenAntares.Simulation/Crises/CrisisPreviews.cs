@@ -19,6 +19,9 @@ public sealed record PurgePreview
     public EmpireId Owner { get; init; }
     public CrisisKey? Key { get; init; }
     public CrisisLocation? Location { get; init; }
+    public CrisisCaseFact? Case { get; init; }
+    public bool SourcePortClosedBefore { get; init; }
+    public bool SourcePortClosedAfter { get; init; }
     public long Revision { get; init; }
     public int PopulationBefore { get; init; }
     public int PopulationLost { get; init; }

@@ -23,6 +23,7 @@ public static partial class CommandProcessor
         {
             var end = s.FindStar(target); if (end is null) return CommandOutcome.Reject(s, "unknown_star", "Destination is not on the chart.");
             if (target == v!.StationaryStarId) return CommandOutcome.Reject(s, "already_there", "Vessel is already at that system.");
+            if(v.CarriedPopulation>0&&(Crises.CrisisQueries.IsHeld(s,v.Id)||Crises.CrisisQueries.PortClosed(s,c.Issuer,v.StationaryStarId!.Value)||Crises.CrisisQueries.PortClosed(s,c.Issuer,target)))return CommandOutcome.Reject(s,"population_port_closed","Own population transport is held or quarantined. Cancel orders or release the port when appropriate.");
             var start = s.FindStar(v.StationaryStarId!.Value)!;
             try { TravelCalculator.Duration(start.X, start.Y, end.X, end.Y, content.Vessels[v.RoleId].Speed); }
             catch (Exception ex) when (ex is OverflowException or ArgumentOutOfRangeException) { return CommandOutcome.Reject(s, "invalid_route", "Route exceeds supported travel limits."); }

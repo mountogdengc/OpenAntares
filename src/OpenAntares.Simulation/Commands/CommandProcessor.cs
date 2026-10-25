@@ -36,6 +36,7 @@ public static partial class CommandProcessor
 
         return command switch
         {
+            CrisisCommand c => ExecuteCrisis(content,state,issuer,c),
             DevelopmentCommand c => ExecuteDevelopment(content, state, issuer, c),
             SetProductionTargetCommand c => SetProductionTarget(content, state, issuer, c),
             SetFoundingOrderCommand c => SetFoundingOrder(content, state, c),

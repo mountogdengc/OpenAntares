@@ -33,6 +33,7 @@ public static class FoundingRules
         if(Rules.HasSpecies(state.RulesVersion) && role.FoundsSealedHabitat) mode=HabitatModes.Sealed;
         capacity=SpeciesRules.BaseCapacity(content,state,issuer,mode);
         if(vessel.StationaryStarId != planet.StarId) return Reject("wrong_system");
+        if(Crises.CrisisQueries.IsHeld(state,vesselId)||Crises.CrisisQueries.PortClosed(state,issuer,planet.StarId))return Reject("population_port_closed");
         var type=content.PlanetTypes[known.PlanetTypeId];
         if(!type.Colonizable || type.SupportPerWorker <= 0 || capacity < population) return Reject("not_colonizable");
         if(Rules.HasSpecies(state.RulesVersion))

@@ -77,7 +77,9 @@ internal static class DevelopmentStateValidator
         void Report(GovernorTurnReport r,EmpireState owner) {
             if(r.UnchangedCount<0||r.Entries.IsDefault){Error("report entries/count");return;}int last=0;
             foreach(var entry in r.Entries) {
-                if(entry.Colony.Value<=last||state.FindColony(entry.Colony)?.EmpireId!=owner.Id)Error("report entry ownership/order");last=entry.Colony.Value;
+                var live=state.FindColony(entry.Colony);
+                bool retired=live is null&&Rules.HasCrises(state.RulesVersion)&&owner.Crisis?.LostColonyLocations.Any(l=>l.Colony==entry.Colony)==true;
+                if(entry.Colony.Value<=last||live?.EmpireId!=owner.Id&&!retired)Error("report entry ownership/order");last=entry.Colony.Value;
                 if(entry.BeforeWorkforce.HasValue!=entry.AfterWorkforce.HasValue||entry.Issues.IsDefault)Error("report action/issue shape");
                 foreach(var w in new[]{entry.BeforeWorkforce,entry.AfterWorkforce})if(w is {} value&&(value.Support<0||value.Production<0||value.Research<0))Error("report workforce");
                 var issues=new HashSet<GovernorIssue>();foreach(var issue in entry.Issues)if(issue.Code is not ("support_shortage" or "construction_locked" or "embarkation_wait" or "plan_complete")||!issues.Add(issue)||issue.ContentId is {} id&&!content.Buildings.ContainsKey(id)&&!content.Vessels.ContainsKey(id))Error("unknown/duplicate report issue");

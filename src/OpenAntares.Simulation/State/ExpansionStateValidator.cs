@@ -59,8 +59,12 @@ internal static class ExpansionStateValidator
                 {
                     var truth = s.FindPlanet(p.PlanetId);
                     if (p.PlanetId.Value <= pp || truth is null || truth.StarId != o.StarId || truth.Orbit != p.Orbit || truth.PlanetTypeId != p.PlanetTypeId || !content.PlanetTypes.ContainsKey(p.PlanetTypeId) || p.ColonyId.HasValue != p.OwnerId.HasValue || (p.OwnerId is { } owner && s.FindEmpire(owner) is null)) errors.Add($"{e.Id}: invalid planet observation.");
-                    if (p.ColonyId is { } observedColony && (s.FindColony(observedColony) is not { } colony || colony.PlanetId != p.PlanetId))
-                        errors.Add($"{e.Id}: observed colony must exist on the observed planet.");
+                    if (p.ColonyId is { } observedColony)
+                    {
+                        var colony=s.FindColony(observedColony);
+                        bool retired=Rules.HasCrises(s.RulesVersion)&&colony is null&&p.OwnerId is {} recordedOwner&&s.FindEmpire(recordedOwner)?.Crisis?.LostColonyLocations.Any(l=>l.Colony==observedColony&&l.Planet==p.PlanetId&&l.Star==o.StarId)==true;
+                        if((colony is null||colony.PlanetId!=p.PlanetId)&&!retired)errors.Add($"{e.Id}: observed colony must exist on the observed planet or have certified retired metadata.");
+                    }
                     pp = p.PlanetId.Value;
                 }
             }
