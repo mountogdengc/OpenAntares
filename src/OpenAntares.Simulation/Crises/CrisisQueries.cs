@@ -20,7 +20,7 @@ public static class CrisisQueries
     }
     public static ImmutableArray<CrisisReceipt> PendingAttention(GameState state,EmpireId owner)
     {
-        if(!Rules.HasCrises(state.RulesVersion)||state.Crisis is not{Enabled:true}||state.FindEmpire(owner)?.Crisis is not {} e)return ImmutableArray<CrisisReceipt>.Empty;
+        if(!Rules.HasCrises(state.RulesVersion)||state.Crisis is not{Enabled:true}||state.FindEmpire(owner) is not{Controller:ControllerKind.Human,Crisis:{} e})return ImmutableArray<CrisisReceipt>.Empty;
         var receipts=new List<CrisisReceipt>(e.PendingReceipts);
         foreach(var colony in state.Colonies.Where(c=>c.EmpireId==owner))
         {
