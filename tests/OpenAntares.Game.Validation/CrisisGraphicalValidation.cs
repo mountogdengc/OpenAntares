@@ -16,6 +16,7 @@ using OpenAntares.Simulation.Galaxy;
 using OpenAntares.Simulation.Knowledge;
 using OpenAntares.Simulation.Saves;
 using OpenAntares.Simulation.State;
+using OpenAntares.Simulation.Turns;
 namespace OpenAntares.Game.Validation;
 public partial class CrisisGraphicalValidation:Node
 {
@@ -24,7 +25,7 @@ public partial class CrisisGraphicalValidation:Node
     public override async void _Ready()
     {
         string? error=null;
-        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Real graphical display");await CurrentSetup();await Attention();await AttentionScaleAndReload();await ResolvedReceiptReload();await FreshInterrupt();await GeneratedCampaigns();await GeneratedNeglect();await GeneratedCargoFounding();await LabelledPortWait();await Responses();}
+        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Real graphical display");await CurrentSetup();await Attention();await AttentionScaleAndReload();await ResolvedReceiptReload();await FreshInterrupt();await WaivedInterrupt();await GeneratedCampaigns();await GeneratedNeglect();await GeneratedCargoFounding();await LabelledPortWait();await ResponseReviewRegressions();await CompletionLossNavigation();await MinorReviewRegressions();await Responses();}
         catch(Exception e){error=e.ToString();GD.PrintErr(error);}
         finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Crisis",method="Actual Godot controls/signals; labelled pre-session fixtures, no physical input or human acceptance claim.",passed=error is null,error,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
     }
@@ -135,6 +136,76 @@ public partial class CrisisGraphicalValidation:Node
         Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();var report=One<TurnReportDialog>(screen);Check(session.State.Turn==23&&report.Visible&&session.View(owner).Crisis!.PendingReceipts.Length==1,"Actual turn creates a new critical revision alongside one turn report");
         Press(report.GetOkButton());report.Hide();await Frames();var overview=One<CrisisOverviewDialog>(screen);Check(overview.Visible,"Interrupt opens one crisis overview after the report closes");
         overview.Hide();await Frames();Press(Named<Button>(screen,"ViewLatestTurnReport"));await Frames();report=One<TurnReportDialog>(screen);report.Hide();await Frames();Check(!overview.Visible,"Reopening and closing a report does not repeat an already-shown interruption");
+        RemoveChild(screen);screen.QueueFree();await Frames();
+    }
+    private async Task WaivedInterrupt()
+    {
+        var content=Content();var state=Labelled(content);var owner=state.Empires[0].Id;var illness=state.Colonies.First(c=>c.EmpireId==owner).Crisis!.Case!;
+        illness.Severity=70;illness.WaivedRevision=illness.AttentionRevision;state.Empires[0].Crisis!.RequireAcknowledgement=false;
+        Check(GameStateValidator.Validate(content,state).Count==0,"Waived Interrupt fixture validates");
+        OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults.Save(Path.Combine(_output,"crisis-prefs.json"));
+        var session=new GameSession(content,state);var screen=Screen(session,owner);AddChild(screen);await Frames();
+        Check(!One<CrisisOverviewDialog>(screen).Visible,"Waived initial threat does not interrupt on load");
+        Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();var report=One<TurnReportDialog>(screen);
+        Check(report.Visible&&session.View(owner).Crisis!.PendingReceipts.IsEmpty,"New escalation is waived without a Ready blocker");
+        report.Hide();await Frames();Check(One<CrisisOverviewDialog>(screen).Visible,"New waived material still honors local Interrupt preference");
+        RemoveChild(screen);screen.QueueFree();await Frames();
+    }
+    private async Task ResponseReviewRegressions()
+    {
+        var content=Content();var state=Labelled(content,1,1);var owner=state.Empires[0].Id;var source=state.Colonies.First(c=>c.EmpireId==owner);
+        source.Crisis!.Case!.Severity=80;source.Crisis.Case.ActiveAge=3;state.Empires[0].Crisis!.Episode!.ResearchShare=0;
+        var session=new GameSession(content,state);var screen=Screen(session,owner);AddChild(screen);await Frames();Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();var overview=One<CrisisOverviewDialog>(screen);
+        Check(Named<ItemList>(overview,"CrisisCaseList").GetItemText(0).Contains("IMMINENT COLONY LOSS",StringComparison.Ordinal),"N1 overview names imminent colony loss");
+        Named<ItemList>(overview,"CrisisCaseList").Select(0);Press(Named<Button>(overview,"CrisisQuarantineKeep"));await Frames();var response=One<CrisisResponseDialog>(screen);
+        Check(Descendants<Label>(response).Any(l=>l.Text.Contains("Imminent colony loss",StringComparison.Ordinal)&&l.Text.Contains("does not reset severity",StringComparison.Ordinal)),"Late quarantine warns that the colony will be lost despite containment");
+        response.Hide();await Frames();RemoveChild(screen);screen.QueueFree();await Frames();
+
+        var plague=content.Plagues["ash_bloom"];content=content with{Plagues=content.Plagues.SetItem(plague.Id,plague with{CivicFactorLossBp=2000})};state=Labelled(content);session=new(content,state);screen=Screen(session,owner);AddChild(screen);await Frames();Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();overview=One<CrisisOverviewDialog>(screen);Named<ItemList>(overview,"CrisisCaseList").Select(0);Press(Named<Button>(overview,"CrisisPurge"));await Frames();response=One<CrisisResponseDialog>(screen);
+        Check(Descendants<Label>(response).Any(l=>l.Text.Contains("penalty: 20%",StringComparison.Ordinal)),"Edited plague civic factor is stated exactly before purge");
+        response.Hide();await Frames();RemoveChild(screen);screen.QueueFree();await Frames();
+
+        content=Content();state=Labelled(content);owner=state.Empires[0].Id;var ship=state.Vessels.Single(v=>v.EmpireId==owner);ship.RoleId="harl_settler";ship.CarriedPopulation=1;ship.StationaryStarId=state.FindPlanet(state.Colonies.First(c=>c.EmpireId==owner).PlanetId)!.StarId;ship.Transit=null;ship.Crisis!.CarrierEpisode=1;ship.PendingMove=state.Stars.First(s=>s.Id!=ship.StationaryStarId).Id;
+        Check(GameStateValidator.Validate(content,state).Count==0,"Pending infectious founder fixture validates");
+        var vesselView=CrisisQueries.Project(content,state,owner).Vessels.Single(v=>v.Id==ship.Id);
+        Check(vesselView.CanDecontaminate,$"Pending founder is inspectable at owned port: ship {ship.StationaryStarId}, port {state.FindPlanet(state.Colonies.First(c=>c.EmpireId==owner).PlanetId)!.StarId}, carrier {ship.Crisis.CarrierEpisode}, hold {ship.Crisis.InspectionDueTurn}");
+        session=new(content,state);screen=Screen(session,owner);AddChild(screen);await Frames();Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();overview=One<CrisisOverviewDialog>(screen);string before=Snapshot(session);
+        Named<ItemList>(overview,"CrisisCaseList").Select(0);Press(Named<Button>(overview,"CrisisQuarantineKeep"));await Frames();response=One<CrisisResponseDialog>(screen);
+        Check(Descendants<Label>(response).Any(l=>l.Text.Contains("Cancel vessel "+ship.Id,StringComparison.Ordinal)&&l.Text.Contains("move to system",StringComparison.Ordinal)),"Quarantine lists the exact pending cargo order it would cancel");
+        response.Hide();await Frames();Check(Snapshot(session)==before,"Cancelling quarantine preserves infectious founder order");
+        var inspect=Descendants<Button>(overview).FirstOrDefault(b=>b.Name.ToString().StartsWith("CrisisInspectVessel_",StringComparison.Ordinal));Check(inspect is not null,"Inspect control exists: "+string.Join(",",Descendants<Button>(overview).Select(b=>b.Name.ToString())));Press(inspect!);await Frames();response=One<CrisisResponseDialog>(screen);
+        Check(response.Visible&&Descendants<Label>(response).Any(l=>l.Text.Contains("Cancel pending move",StringComparison.Ordinal)),"Inspection previews exact cancelled move before mutation");
+        Check(Descendants<Label>(response).Any(l=>l.Text.Contains("contaminate the cargo again",StringComparison.Ordinal)),"Open-port inspection warns of continuing contact risk");
+        response.Hide();await Frames();Check(Snapshot(session)==before,"Cancelling inspection preserves campaign and pending order");
+        Press(Descendants<Button>(overview).Single(b=>b.Name.ToString().StartsWith("CrisisInspectVessel_",StringComparison.Ordinal)));await Frames();Press(Named<Button>(response,"CrisisConfirmInspection"));await Frames();
+        Check(session.State.FindVessel(ship.Id) is {PendingMove:null,Crisis:{InspectionDueTurn:23}},"Confirmed inspection cancels displayed move and holds full interval");
+        RemoveChild(screen);screen.QueueFree();await Frames();
+    }
+    private async Task CompletionLossNavigation()
+    {
+        var content=Content();var state=Labelled(content,2,1);var owner=state.Empires[0].Id;var lost=state.Colonies.First(c=>c.EmpireId==owner);var survivor=state.Colonies.Last(c=>c.EmpireId==owner);
+        survivor.Crisis!.Case=null;lost.Crisis!.Case!.Severity=80;lost.Crisis.Case.ActiveAge=3;
+        lost.CompletedBuildingIds.Add("fabrication_hall");state.FindEmpire(owner)!.KnownTechnologyIds=content.Technologies.Keys.ToList();lost.ProjectKind="building";lost.ProjectId="analysis_lab";lost.ProductionReserve=1200;
+        Check(GameStateValidator.Validate(content,state).Count==0,"Completion then colony-loss fixture validates");
+        var resolved=TurnResolver.Resolve(content,state);Check(resolved.Succeeded&&resolved.State.FindColony(lost.Id) is null&&resolved.State.FindColony(survivor.Id) is not null,"Real resolution completes then loses only source colony");
+        var report=EmpireViewProjector.ProjectReport(content,resolved.State,resolved.Report!,owner);Check(report.Colonies.Any(c=>c.Id==lost.Id&&c.Economy.Production.CompletedId=="analysis_lab"),"Historical report retains lost colony completion");
+        var dialog=new TurnReportDialog();AddChild(dialog);await Frames();dialog.ShowReport(content,report,EmpireViewProjector.Project(content,resolved.State,owner));await Frames();
+        Check(Descendants<Label>(dialog).Any(l=>l.Text.Contains("colony was lost after completion",StringComparison.Ordinal))&&!Descendants<Button>(dialog).Any(b=>b.Text=="Choose next project"),"Lost completion remains visible without a stale project action for surviving colony");
+        RemoveChild(dialog);dialog.QueueFree();await Frames();
+    }
+    private async Task MinorReviewRegressions()
+    {
+        var content=Content();var state=Labelled(content);var owner=state.Empires[0].Id;state.Colonies.First(c=>c.EmpireId==owner).Crisis!.Case=null;
+        var ship=state.Vessels.Single(v=>v.EmpireId==owner);ship.RoleId="harl_settler";ship.CarriedPopulation=1;ship.Crisis!.CarrierEpisode=1;
+        Check(GameStateValidator.Validate(content,state).Count==0,"Carrier-only episode validates");var session=new GameSession(content,state);var screen=Screen(session,owner);AddChild(screen);await Frames();
+        Check(Descendants<Label>(screen).Any(l=>l.Name=="CrisisCriticalBadge"&&l.Text.Contains("1 infectious cargo",StringComparison.Ordinal)),"Carrier-only episode keeps persistent Critical threat badge");
+        RemoveChild(screen);screen.QueueFree();await Frames();
+        state=Labelled(content,2);owner=state.Empires[0].Id;var source=state.Colonies.First(c=>c.EmpireId==owner);source.Crisis!.Case!.Stage=CrisisStage.Warning;source.Crisis.Case.GraceRemaining=2;source.Crisis.Case.ActiveAge=0;source.Crisis.Case.Severity=0;
+        var protectedColony=state.Colonies.Last(c=>c.EmpireId==owner);protectedColony.Crisis!.Case=null;protectedColony.Crisis.ImmunityFamilyId="ash_bloom";protectedColony.Crisis.ImmuneUntilTurn=30;
+        Check(GameStateValidator.Validate(content,state).Count==0,"Warning and immune colony view validates");session=new(content,state);screen=Screen(session,owner);AddChild(screen);await Frames();Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();var overview=One<CrisisOverviewDialog>(screen);
+        Check(Named<ItemList>(overview,"CrisisCaseList").GetItemText(0).Contains("recovery in 8 intervals including warning grace",StringComparison.Ordinal),"Warning recovery count includes grace");
+        var filter=Named<OptionButton>(overview,"CrisisFilter");filter.Select(1);filter.EmitSignal(OptionButton.SignalName.ItemSelected,1);
+        Check(Enumerable.Range(0,Named<ItemList>(overview,"CrisisCaseList").ItemCount).Any(i=>Named<ItemList>(overview,"CrisisCaseList").GetItemText(i).Contains("immune to ash_bloom until turn 30",StringComparison.Ordinal)),"All-colony overview displays current immunity expiry");
         RemoveChild(screen);screen.QueueFree();await Frames();
     }
     private static GameSession Session(GameScreen screen)=>(GameSession)typeof(GameScreen).GetField("_session",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!.GetValue(screen)!;
@@ -341,6 +412,7 @@ public partial class CrisisGraphicalValidation:Node
         Press(response.GetOkButton());response.Hide();await Frames();Check(afterPurge==Snapshot(session),"Quarantine preview cancel preserves canonical state");
         Press(Named<Button>(overview,"CrisisQuarantineKeep"));await Frames();Press(Named<Button>(response,"CrisisConfirmQuarantine"));await Frames();Check(session.State.FindColony(first.Id)!.Crisis!.Quarantined,"Actual quarantine response follows its full preview");
         Press(Named<Button>(overview,"CrisisSetAuthority"));await Frames();Check(Named<OptionButton>(overview,"CrisisAuthorityPicker").ItemCount==3,"All three explicit crisis authority choices are available");
+        Check(Named<OptionButton>(overview,"CrisisAuthorityShare").ItemCount==3&&Enumerable.Range(0,3).All(i=>Named<OptionButton>(overview,"CrisisAuthorityShare").GetItemMetadata(i).AsInt32()>0),"Automatic authority offers only valid25/50/100 research shares");
         var authority=One<CrisisAuthorityDialog>(overview);Named<OptionButton>(authority,"CrisisAuthorityPicker").Select(2);Named<OptionButton>(authority,"CrisisAuthorityShare").Select(2);Press(Named<Button>(authority,"CrisisApplyAuthority"));await Frames();
         Check(session.View(owner).Crisis!.Authority==CrisisAuthority.ContainAndResearch,"Actual authority dialog sets automatic containment and research");
         allFilter=Named<OptionButton>(overview,"CrisisFilter");allFilter.Select(0);allFilter.EmitSignal(OptionButton.SignalName.ItemSelected,0);Named<ItemList>(overview,"CrisisCaseList").Select(0);

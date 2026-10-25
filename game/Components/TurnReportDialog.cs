@@ -58,7 +58,7 @@ public partial class TurnReportDialog : AcceptDialog
 
         foreach (ColonyReportView colony in report.Colonies)
         {
-            AddColony(content, colony, report);
+            AddColony(content, colony, report, empireView?.Colonies.Any(c=>c.Id==colony.Id)??true);
         }
 
         EmpireEconomy empire = report.Research;
@@ -110,7 +110,7 @@ public partial class TurnReportDialog : AcceptDialog
         return new Label{Text=(attention?"Attention: ":"")+text,ThemeTypeVariation=attention?"WarningLabel":"",AutowrapMode=TextServer.AutowrapMode.WordSmart};
     }
 
-    private void AddColony(ContentSet content, ColonyReportView view, EmpireTurnReportView report)
+    private void AddColony(ContentSet content, ColonyReportView view, EmpireTurnReportView report, bool colonySurvives)
     {
         ColonyEconomy colony = view.Economy;
         _body.AddChild(new HSeparator());
@@ -120,13 +120,17 @@ public partial class TurnReportDialog : AcceptDialog
         if (_preferences.LevelFor("completions") != OpenAntares.Game.Presentation.NotificationLevel.Off && colony.Production.CompletedId is { } building)
         {
             _body.AddChild(CompletionNotice($"Completed {(colony.Production.TargetKind == ProductionKinds.Vessel ? content.Vessels[building].Name : content.Buildings[building].Name)}."));
-            var choose = new Button { Text = "Choose next project" };
-            choose.Pressed += () =>
+            if(colonySurvives)
             {
-                Hide();
-                ChooseProjectRequested?.Invoke(view.Id);
-            };
-            _body.AddChild(choose);
+                var choose = new Button { Text = "Choose next project" };
+                choose.Pressed += () =>
+                {
+                    Hide();
+                    ChooseProjectRequested?.Invoke(view.Id);
+                };
+                _body.AddChild(choose);
+            }
+            else _body.AddChild(Wrapped("This colony was lost after completion; no next project can be selected here.","WarningLabel"));
             if (colony.Production.TargetKind == ProductionKinds.Vessel)
             {
                 foreach (var completion in report.Events.Where(e =>

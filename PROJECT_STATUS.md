@@ -4,7 +4,7 @@
 
 OpenAntares is an original turn-based space4X: C#/Godot .NET presentation, independent deterministic simulation. The approved classic Master of Orion II love-letter direction and fanciful aliens respectful of real peoples/beliefs remain authoritative.
 
-Current phase: all fourteen M6 colony-crisis/plague implementation tasks have passed their isolated technical gates on `codex/colony-crises`; one fresh independent whole-branch review remains. Main stays at rules5/writer6. This branch defaults new games to rules6 Standard, retains Off, and writes schema7 with22 explicit pairs. No main integration or release is authorized. Updated2026-10-25 America/Denver.
+Current phase: all fourteen M6 colony-crisis/plague implementation tasks, one fresh independent whole-branch review, and one regression-first correction pass are complete on isolated `codex/colony-crises`. Local automated acceptance is Verified; human and delivery acceptance remain open. Main stays at rules5/writer6. This branch defaults new games to rules6 Standard, retains Off, and writes schema7 with22 explicit pairs. No main integration or release is authorized. Updated2026-10-25 America/Denver.
 
 ## 2. Implemented milestone
 
@@ -22,13 +22,13 @@ One fresh read-only whole-branch review found duplicate vessel notices and an ov
 | M5-I colony development | Verified | All twelve COL child criteria within local automated/design scope |
 | M6-D colony crises/plague | Verified | Full owner design approval2026-10-25, ADR-014/CRI-AC-012 |
 | M6-P | Verified | Owner approved the separate14-task plan2026-10-25; Native inline retained |
-| M6-I | Implemented, Unverified | Tasks1..14 locally gated; independent whole-branch review and disposition remain |
+| M6-I | Verified | Tasks1..14, independent review and all eight finding corrections passed local technical gates; no second review |
 | Remaining strategic systems | Deferred | Parent REQ-017 remains In Progress |
 | Cross-platform/release delivery | Not Started | Windows-only local runtime evidence |
 
 COL-AC-001..011 are Verified for local automated scope; COL-AC-012 for design. The three earlier Minor deferrals are closed. Parent17-row totals remain12 Verified,3 Implemented, Unverified,1 In Progress,1 Deferred.
 
-CRI-AC-001..011 are Implemented, Unverified pending the fresh independent review; CRI-AC-012 is Verified for approved design. The parent REQ-017 and17-row totals are unchanged.
+CRI-AC-001..011 are Verified for local automated scope after the fresh independent review and correction pass; CRI-AC-012 is Verified for approved design. The parent REQ-017 and17-row totals are unchanged.
 
 ## 4. Verification
 
@@ -39,6 +39,8 @@ Fresh integrated main `fc29d0b56073752e24bd35e99f5739d8100e73a3`:988 simulation,
 Actual controls/signals cover historical wording,30-colony deletion references at800/1920, notification levels, both unified vessel actions, stale-report replacement, save/load and canonical/readiness purity. Fresh vessel Attention800 PNG inspected. Original gallery/legacy/generated-campaign evidence is retained.
 
 M6 isolated branch checkpoint: fresh1,264/1,264 simulation suite and283/283 Crisis filter; sequential Crisis, Colony, Rival, Species, Expansion and Legacy graphical runs produced4,119 passing assertions,22 provenance and27 geometry rows,230 existing QA saves and161 PNGs, with zero Godot errors. Ordinary rebuild had zero warnings/errors; all six harness classes appeared only under opt-in validation and were absent from the ordinary assembly. Generated Standard campaigns, spontaneous onset, recovery, cargo transfer and three canonical Save/Load futures were exercised. See [criterion mapping and limits](reports/CRISIS_VALIDATION_2026-10-25.md) and [machine summary](reports/crisis-execution/final-machine-summary.json). The initial failed Species run and correction to stale current-version assertions are retained.
+
+Post-review correction gate: fresh1,265/1,265 suite; six sequential graphical scenarios produced4,145 passing assertions,22 provenance and27 geometry rows,230 existing QA saves/161 PNGs, zero Godot errors, zero ordinary-build warnings/errors and six opt-in/ordinary harness checks. [Independent findings and all eight dispositions](reports/CRISIS_REVIEW_CORRECTIONS_2026-10-25.md), [raw review](reports/crisis-execution/final-review.md), and [machine summary](reports/crisis-execution/final-correction-summary.json). Failed and focused attempts are retained; no re-review was commissioned.
 
 ## 5. Decisions and boundaries
 
@@ -54,8 +56,8 @@ Exactly four original owner changes remain on primary main outside this branch: 
 
 ## 7. Remaining limits
 
-Fresh independent M6 review is pending. Physical mouse/keyboard/controller and OS focus, comfortable reading/accessibility/uncoached comprehension, subjective aesthetics, balance/long-campaign enjoyment, Linux/macOS/ARM, hostile-input fuzzing/security/dependency audits, clean installation/export and release remain unverified or deferred. Invalid unsorted campaign storage remains outside the valid-state contract. Deferred human acceptance does not block this authorized technical work.
+No open Important/Critical or Minor review finding remains after the one authorized correction pass. Physical mouse/keyboard/controller and OS focus, comfortable reading/accessibility/uncoached comprehension, subjective aesthetics, balance/long-campaign enjoyment, Linux/macOS/ARM, hostile-input fuzzing/security/dependency audits, clean installation/export and release remain unverified or deferred. Invalid unsorted campaign storage remains outside the valid-state contract. Deferred human acceptance does not block this authorized technical work.
 
 ## 8. Next concrete action
 
-Conduct one fresh read-only whole-branch review against the approved M6 specification and Task14 evidence, then make at most one regression-first correction pass for Important/Critical findings. Preserve primary main, the four exact owner changes, all seven worktrees and every retained save/recovery/evidence file. Main integration, push/release and cleanup remain separate decisions. CRI-AC-001..011 are not yet independently verified; ADR-014 design approval remains Verified.
+Keep the verified `codex/colony-crises` branch and its evidence available for the owner's separate main-integration decision. Preserve primary main, the four exact owner changes, all seven worktrees and every retained save/recovery/evidence file. Main integration, push/release and cleanup have not occurred. CRI-AC-001..011 have local automated technical verification; ADR-014 design approval remains Verified.

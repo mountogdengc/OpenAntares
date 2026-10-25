@@ -1,5 +1,7 @@
 # OpenAntares M6 colony-crisis validation — 2026-10-25
 
+This is the pre-review Task14 checkpoint. The later [independent review and correction report](CRISIS_REVIEW_CORRECTIONS_2026-10-25.md) supersedes its pending-review status and records the final local technical gate.
+
 The approved plague slice is implemented on isolated branch `codex/colony-crises`; it has **not** been integrated into main. This report is the Task14 verification checkpoint before the required fresh independent whole-branch review. CRI-AC-001..011 are **Implemented, Unverified** pending that review and any correction disposition. CRI-AC-012 remains **Verified** for owner design approval. Automated results establish a local Windows technical baseline, not physical input, player understanding, balance, cross-platform parity or release readiness.
 
 ## Fresh final gates

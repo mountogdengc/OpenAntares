@@ -36,7 +36,8 @@ public partial class GameScreen : VBoxContainer
     private readonly CrisisResponseDialog _crisisResponse=new();
     private readonly CrisisNotificationDialog _crisisNotifications=new();
     private OpenAntares.Game.Presentation.CrisisNotificationPreferences _crisisPreferences=OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
-    private string? _interruptedCrisisSignature;
+    private readonly System.Collections.Generic.HashSet<string> _seenCrisisMaterial=new(System.StringComparer.Ordinal);
+    private bool _crisisMaterialInitialized;
     private bool _pendingCrisisInterrupt;
     public string CrisisPreferencesPath{get;set;}="user://crisis-notifications.json";
     private bool _returnToCrisisOverview;
@@ -101,6 +102,7 @@ public partial class GameScreen : VBoxContainer
         _crisisOverview.CommandRequested+=Execute;_crisisResponse.CommandRequested+=Execute;
         _crisisOverview.QuarantineRequested+=(ids,enable,release)=>{_returnToCrisisOverview=_crisisOverview.Visible;_crisisOverview.Hide();var preview=OpenAntares.Simulation.Crises.CrisisQueries.PreviewQuarantine(_session.Content,_session.State,_viewer,ids,enable,release);Callable.From(()=>_crisisResponse.ShowQuarantine(preview)).CallDeferred();};
         _crisisOverview.PurgeRequested+=id=>{_returnToCrisisOverview=_crisisOverview.Visible;_crisisOverview.Hide();var preview=OpenAntares.Simulation.Crises.CrisisQueries.PreviewPurge(_session.Content,_session.State,_viewer,id);Callable.From(()=>_crisisResponse.ShowPurge(preview)).CallDeferred();};
+        _crisisOverview.InspectionRequested+=vessel=>{_returnToCrisisOverview=_crisisOverview.Visible;_crisisOverview.Hide();var view=View.Crisis;if(view is null)return;var current=view.Vessels.FirstOrDefault(v=>v.Id==vessel.Id);if(current is null)return;Callable.From(()=>_crisisResponse.ShowInspection(view,current)).CallDeferred();};
         _crisisOverview.StarRequested+=star=>_map.Select(star);
         _colonies.CrisisRequested+=()=>{if(View.Crisis is {} crisis)_crisisOverview.ShowCrisis(_session.Content,crisis);};
         AddChild(_management); _management.CommandIssued += Execute; _management.ColonyRequested += SelectColony;
@@ -109,7 +111,7 @@ public partial class GameScreen : VBoxContainer
         _colonies.NotificationsRequested += () => _notificationDialog.Open(NotificationPreferencesPath);
         _colonies.LatestReportRequested += ShowLatestReport;
         AddChild(_report);
-        _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingCrisisInterrupt){_pendingCrisisInterrupt=false;Callable.From(()=>{if(View.Crisis is {} current&&current.PendingReceipts.Length>0)_crisisOverview.ShowCrisis(_session.Content,current);}).CallDeferred();}};
+        _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingCrisisInterrupt){_pendingCrisisInterrupt=false;Callable.From(()=>{if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}).CallDeferred();}};
         AddChild(_templateReferences);
         _report.ChooseProjectRequested += ChooseProject;
         _report.StarRequested += star => _map.Select(star);
@@ -170,10 +172,12 @@ public partial class GameScreen : VBoxContainer
 
     private async void ChooseProject(ColonyId colony)
     {
+        if(!View.Colonies.Any(c=>c.Id==colony)){ShowMessage("That colony no longer exists; its completed work remains in the historical report.",true);return;}
         SelectColony(colony);
         // Selection rebuilds the colony panel. Let containers lay out its controls before
         // focusing the picker so the scroll container reveals it and the popup aligns with it.
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        if(!IsInsideTree()||!View.Colonies.Any(c=>c.Id==colony))return;
         _colonyPanel.OpenProjectPicker();
     }
 
@@ -216,6 +220,7 @@ public partial class GameScreen : VBoxContainer
         _researchBar.ShowEmpire(_session.Content, view.Research);
         _map.ShowGalaxy(view.Galaxy);
         _contacts.Show(view);
+        RefreshCrisisAttention(view.Crisis);
         if (view.RulesVersion == Rules.LegacyVersion) ShowMessage("Legacy colony game - start a new game for exploration", false);
         if (_map.Selected is not { } selected) return;
         var star = view.Stars.Single(s => s.Chart.Id == selected);
@@ -230,20 +235,24 @@ public partial class GameScreen : VBoxContainer
         if (colony is not null) _selectedPlanet = colony.PlanetId;
         _starPanel.ShowStar(_session.Content, star, view);
         _colonies.ShowColonies(view, _selectedColony, _session.Content, _preferences, _latestReport);
-        if(view.Crisis is {} crisis)
-        {
-            string signature=string.Join(";",crisis.PendingReceipts.Select(r=>$"{r.Key.Episode}:{r.Key.Colony}:{r.Revision}"));
-            bool newMaterial=_interruptedCrisisSignature is not null&&signature.Length>0&&signature!=_interruptedCrisisSignature;
-            _interruptedCrisisSignature=signature;
-            if(newMaterial&&_crisisPreferences.Critical==OpenAntares.Game.Presentation.CrisisDisplayLevel.Interrupt)
-            {
-                if(_report.Visible)_pendingCrisisInterrupt=true;
-                else if(!_crisisOverview.Visible&&!_crisisResponse.Visible)Callable.From(()=>{if(View.Crisis is {} latest&&latest.PendingReceipts.Length>0)_crisisOverview.ShowCrisis(_session.Content,latest);}).CallDeferred();
-            }
-        }
         if (colony is null) _colonyPanel.Clear(); else _colonyPanel.ShowColony(_session.Content, colony, view);
         if (!view.Vessels.Any(v => v.Id == _selectedVessel)) _selectedVessel = view.Vessels.Length > 0 ? view.Vessels[0].Id : null;
         _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination, _selectedPlanet);
+    }
+
+    private void RefreshCrisisAttention(OpenAntares.Simulation.Crises.CrisisView? crisis)
+    {
+        if(crisis is null)return;
+        bool fresh=false;
+        foreach(var c in crisis.Cases.Where(c=>c.Key is not null))
+            if(_seenCrisisMaterial.Add($"case:{c.Key!.Episode}:{c.Location.Colony}:{c.AttentionRevision}")&&_crisisMaterialInitialized)fresh=true;
+        foreach(var entry in crisis.History.Concat(crisis.PendingDigests).SelectMany(d=>d.Entries).Where(e=>e.Disposition is "pending" or "waived"))
+            if(_seenCrisisMaterial.Add($"event:{entry.Key.Episode}:{entry.Key.Colony}:{entry.Revision}:{entry.Kind}")&&_crisisMaterialInitialized)fresh=true;
+        _crisisMaterialInitialized=true;
+        if(!fresh||_crisisPreferences.Critical!=OpenAntares.Game.Presentation.CrisisDisplayLevel.Interrupt)return;
+        if(_report.Visible)_pendingCrisisInterrupt=true;
+        else if(!_crisisOverview.Visible&&!_crisisResponse.Visible)
+            Callable.From(()=>{if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}).CallDeferred();
     }
 
     private void SelectColony(ColonyId id)

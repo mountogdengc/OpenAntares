@@ -29,7 +29,7 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M5-I | Implement approved colony-development slice | Approved M5-P; isolated execution/preserved genuine old campaigns | COL criteria and retained gates, independent whole-branch review | Verified for local automated scope; authorized corrections verified/integrated |
 | M6-D | Define bounded colony crises, beginning with plague | Owner direction/ADR-013; preserve M5 | Full design/builder check/owner review | Verified for design; ADR-014 full approval2026-10-25 |
 | M6-P | Plan colony-crisis implementation | Approved M6-D/ADR-014 | Separate14-task plan/self-review/owner review | Verified; owner approved Native inline execution |
-| M6-I | Implement approved crisis slice | Approved separate M6-P | CRI criteria, retained gates, independent review | Implemented, Unverified; fourteen task gates passed, whole-branch review pending |
+| M6-I | Implement approved crisis slice | Approved separate M6-P | CRI criteria, retained gates, independent review | Verified for local automated scope; fourteen task gates, independent review, one correction pass |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -37,7 +37,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Conduct one fresh independent whole-branch review of the approved [14-task crisis implementation plan](superpowers/plans/2026-10-25-colony-crises-plague.md) as executed on `codex/colony-crises`, using the [Task14 validation report](../reports/CRISIS_VALIDATION_2026-10-25.md). M6-D/CRI-AC-012 and M6-P are Verified; M6-I/CRI-AC-001..011 are Implemented, Unverified. Resolve Important/Critical findings with one regression-first correction pass. Preserve main and the owner's existing changes; integration is separate.
+Retain the approved [14-task crisis implementation plan](superpowers/plans/2026-10-25-colony-crises-plague.md), [Task14 validation](../reports/CRISIS_VALIDATION_2026-10-25.md) and [independent-review correction evidence](../reports/CRISIS_REVIEW_CORRECTIONS_2026-10-25.md). M6-D/CRI-AC-012, M6-P and M6-I/CRI-AC-001..011 are Verified within their stated design or local automated scopes. Preserve main and the owner's existing changes; integration is a separate owner decision. Human and delivery limits remain open.
 
 ## Risks and autonomy
 

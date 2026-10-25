@@ -21,8 +21,8 @@ public partial class ColonyList : VBoxContainer
         AddChild(new Label { Text = "Your colonies", ThemeTypeVariation = "HeaderLabel" });
         if(view.Crisis is {} crisis)
         {
-            int endangered=crisis.Cases.Length,urgent=crisis.PendingReceipts.Length;
-            if(endangered>0||urgent>0){var critical=DevelopmentUi.Text($"Critical: {endangered} endangered {(endangered==1?"colony":"colonies")}; {urgent} urgent facts awaiting acknowledgement. Open Colony crises to review.","WarningLabel");critical.Name="CrisisCriticalBadge";AddChild(critical);}
+            int endangered=crisis.Cases.Length,urgent=crisis.PendingReceipts.Length,infectious=crisis.Carriers.Count(v=>v.CarrierEpisode is not null);
+            if(endangered>0||urgent>0||infectious>0){var critical=DevelopmentUi.Text($"Critical: {endangered} endangered {(endangered==1?"colony":"colonies")}; {infectious} infectious cargo vessels; {urgent} urgent facts awaiting acknowledgement. Open Colony crises to review.","WarningLabel");critical.Name="CrisisCriticalBadge";AddChild(critical);}
             DevelopmentUi.Button(this,"Colony crises",()=>CrisisRequested?.Invoke(),"OpenCrisisOverview");
             DevelopmentUi.Button(this,"Crisis notifications",()=>CrisisNotificationsRequested?.Invoke(),"OpenCrisisNotifications");
         }

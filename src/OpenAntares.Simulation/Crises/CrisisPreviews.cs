@@ -9,7 +9,10 @@ public sealed record VesselOrderFact(VesselId Id,StarId? Station,TransitState? T
 public sealed record PurgeAssetFact(ImmutableArray<string> Buildings,ProductionTarget? Target,ImmutableArray<ProductionQueueEntry> Queue,GovernorTemplateSnapshot? Template,bool WorkforceEnabled,bool ConstructionEnabled,int GrowthProgress);
 public sealed record CrisisCaseFact(CrisisKey Key,CrisisLocation Location,int Population,CrisisStage Stage,int Grace,int Age,int Severity,long Revision,bool Quarantined,long? ReleaseEpisode,bool PolicyPaused);
 public sealed record CrisisCarrierFact(VesselId Id,string RoleId,int Population,long? Episode,int? InspectionDueTurn,StarId? Station,TransitState? Transit,StarId? Move,PlanetId? Founding);
-public sealed record QuarantineColonyFact(ColonyId Colony,CrisisLocation Location,long? Episode,long Revision,bool Before,bool After,long? ReleaseBefore,long? ReleaseAfter,bool PolicyPaused,int Population);
+public sealed record QuarantineColonyFact(ColonyId Colony,CrisisLocation Location,long? Episode,long Revision,bool Before,bool After,long? ReleaseBefore,long? ReleaseAfter,bool PolicyPaused,int Population)
+{
+    public bool NextTurnColonyLossRisk { get; init; }
+}
 public sealed record QuarantineEconomyFact(ColonyId Colony,Workforce Workforce,int Population,int GrowthProgress,long Reserve,ProductionTarget? Target,long ProductionBefore,long ProductionAfter,long ResearchBefore,long ResearchAfter,long GrowthBefore,long GrowthAfter,bool CargoHeld);
 public sealed record PurgePreview
 {
@@ -38,6 +41,7 @@ public sealed record PurgePreview
     public int CivicLevelBefore { get; init; }
     public int CivicExpiresAtBefore { get; init; }
     public int NextCivicLevel { get; init; }
+    public int CivicFactorLossBp { get; init; }
     public int NextCivicExpiresAt { get; init; }
     public PurgeAssetFact? Assets { get; init; }
     public ImmutableArray<CrisisCaseFact> OtherCases { get; init; }=ImmutableArray<CrisisCaseFact>.Empty;

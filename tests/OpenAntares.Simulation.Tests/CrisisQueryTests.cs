@@ -36,6 +36,18 @@ public sealed class CrisisQueryTests
         Assert.Equal(before,SaveGame.Serialize(g.Content,g.State));
     }
     [Fact]
+    public void EditedCivicFactorAndLateQuarantineLossAreDisclosedInPreviews()
+    {
+        var g=CrisisFixtures.Active(severity:80,age:3,population:1);
+        var plague=g.Content.Plagues["ash_bloom"];
+        var content=g.Content with{Plagues=g.Content.Plagues.SetItem(plague.Id,plague with{CivicFactorLossBp=2000})};
+        var colony=g.State.Colonies[0];var owner=colony.EmpireId;
+        var purge=CrisisQueries.PreviewPurge(content,g.State,owner,colony.Id);
+        Assert.True(purge.Allowed);Assert.Equal(2000,purge.CivicFactorLossBp);Assert.Equal(1,purge.NextCivicLevel);
+        var quarantine=CrisisQueries.PreviewQuarantine(content,g.State,owner,ImmutableArray.Create(colony.Id),true,true);
+        Assert.True(quarantine.Allowed);Assert.True(Assert.Single(quarantine.Colonies).NextTurnColonyLossRisk);
+    }
+    [Fact]
     public void PortPreviewIncludesRemotePendingArrivalAndOnlyOwnCargo()
     {
         var g=CrisisFixtures.TwoHumansAndAi();var s=g.State;var own=s.Empires[0].Id;var source=s.Colonies[0];var star=s.FindPlanet(source.PlanetId)!.StarId;
