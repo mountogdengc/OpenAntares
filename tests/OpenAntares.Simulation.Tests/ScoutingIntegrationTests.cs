@@ -19,6 +19,35 @@ using Xunit;
 namespace OpenAntares.Simulation.Tests;
 public sealed class ScoutingIntegrationTests
 {
+    [Fact] public void FinalAcceptanceMapsEveryCriterionToExecutedArtifactsAndPreservation()
+    {
+        string root=new DirectoryInfo(ContentLoaderTests.CoreContentDirectory()).Parent!.Parent!.FullName;
+        string path=Path.Combine(root,"reports/scout-execution/final-machine-summary.json");
+        Assert.True(File.Exists(path),"Final acceptance requires actual criterion, runtime and preservation artifacts.");
+        var summary=JsonNode.Parse(File.ReadAllText(path))!;
+        var criteria=summary["criteria"]!.AsArray();
+        Assert.Equal(Enumerable.Range(1,15).Select(n=>$"SCT-AC-{n:000}"),criteria.Select(c=>c!["id"]!.GetValue<string>()));
+        foreach(var criterion in criteria)
+        {
+            var evidence=criterion!["executedEvidence"]!.AsArray();Assert.NotEmpty(evidence);
+            foreach(var item in evidence)Assert.True(File.Exists(Path.Combine(root,item!.GetValue<string>())),item.GetValue<string>());
+        }
+        var runs=summary["runtime"]!.AsArray();Assert.Equal(7,runs.Count);
+        foreach(var run in runs)
+        {
+            Assert.Equal(0,run!["exitCode"]!.GetValue<int>());Assert.Empty(run["diagnostics"]!.AsArray());
+            string folder=Path.Combine(root,run["artifact"]!.GetValue<string>());
+            var result=JsonNode.Parse(File.ReadAllText(Path.Combine(folder,"results.json")))!;Assert.True(result["passed"]!.GetValue<bool>());
+            var optIn=JsonNode.Parse(File.ReadAllText(Path.Combine(folder,"opt-in-metadata.json")))!;
+            var ordinary=JsonNode.Parse(File.ReadAllText(Path.Combine(folder,"normal-metadata.json")))!;
+            Assert.Equal(7,optIn["presentScenarioTypes"]!.AsArray().Count);Assert.Empty(ordinary["presentScenarioTypes"]!.AsArray());Assert.Empty(ordinary["presentHelpers"]!.AsArray());
+            foreach(var file in run["files"]!.AsArray())Assert.Equal(file!["sha256"]!.GetValue<string>(),Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(root,file["path"]!.GetValue<string>())))).ToLowerInvariant());
+        }
+        var preservation=summary["preservation"]!;Assert.True(preservation["primaryOwnerHashesUnchanged"]!.GetValue<bool>());
+        Assert.Equal(7,preservation["worktrees"]!.AsArray().Count);Assert.Equal(4,preservation["ownerFiles"]!.AsArray().Count);
+        Assert.Equal("42e1282b9f38fd8d51d4c99ed0f7481437efcee1",preservation["main"]!.GetValue<string>());
+        Assert.True(preservation["indexEmpty"]!.GetValue<bool>());
+    }
     private static ContentSet Core()=>ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory()).Content!;
     [Fact] public void CurrentCoreStartsExplicitStandardWithSeparateObserveAndSurvivalDefaults()
     {

@@ -38,7 +38,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 11
 - [x] Task 12
 - [x] Task 13
-- [ ] Task 14
+- [x] Task 14
 - [ ] Task 15
 
 Task 1: started BASE b9a39d7b25e0c60d84d2be0271ff14273fd783b6; brief task1-brief.md
@@ -101,3 +101,7 @@ Task 13: complete (commits 63398b3..82d1c39, tests: dotnet test tests/OpenAntare
 Task 14: started BASE 82d1c390b6636d47107db27b3f166cf17a80e705; brief task14-brief.md
 
 Task 14 evidence: semantic integration3/3 RED and actual current-setup RED; GREEN3/3 and Suite1390/1390.24 generated campaigns satisfy discovery/withdrawal/build/research/cure;24 Off starts plus720 Solo futures preserve old streams. Actual current UI Scout192 passes; affected retained scenario counts/zero diagnostics and all hashes in task14-machine-summary.json. A stale Colony expected-start reference failed and was corrected/rerun; old fixtures unchanged. Native normal builds0 warnings/errors,7 opt-in/0 ordinary/0 helpers. See task14-validation.md.
+Task 14: complete (commits 82d1c39..1a74167, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task14-completion.log)
+
+Task 15: started BASE 1a74167b04470e4535e10d0d87bdb4e662a31e02; brief task15-brief.md
+Task 15 pre-review evidence: missing-artifact audit RED observed; focused4/4 and full Suite1391/1391 GREEN with TRX. Fresh sequential Scout192/Legacy493/Expansion275/Species1194/Rival1158/Colony670/Crisis454=4436 actual records, zero engine/process diagnostics, real opt-in7/ordinary0/helpers0, normal builds0 warnings/errors. Inventory234 retained QA saves/178 PNG; inspected final thirty-row800 and study-loss1920. Primary main42e1282/four hashes/empty index/seven worktrees verified from baseline. Concrete report/criterion mapping/source hashes prepared; single fresh review pending before Task15 completion.
