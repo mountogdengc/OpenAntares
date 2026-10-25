@@ -13,6 +13,7 @@ public partial class VesselPanel : VBoxContainer
     public event Action<Command>? CommandIssued;
     public event Action<VesselId>? VesselSelected;
     public event Action<StarId>? DestinationSelected;
+    public event Action? ScoutOverviewRequested;
     public void ShowVessels(ContentSet content, EmpireView view, VesselId? selected, StarId? destination, PlanetId? selectedPlanet)
     {
         foreach (Node child in GetChildren()) { RemoveChild(child); child.QueueFree(); }
@@ -25,6 +26,13 @@ public partial class VesselPanel : VBoxContainer
         picker.ItemSelected += index => VesselSelected?.Invoke(new(picker.GetItemMetadata((int)index).AsInt32()));
         var vessel = view.Vessels.FirstOrDefault(v => v.Id == selected) ?? view.Vessels[0]; var role = content.Vessels[vessel.RoleId];
         AddChild(Text(vessel.CarriedPopulation > 0 ? $"Carried {view.PopulationUnitLabel}: {vessel.CarriedPopulation}" : "Scout: surveys a system on arrival."));
+        var scouting=view.Scouting?.Vessels.FirstOrDefault(v=>v.Id==vessel.Id);
+        if(scouting is {Posture:{} posture})
+        {
+            AddChild(Text("Withdraw from ameba: enabled. Neutral contact posture is separate."));var posturePicker=new OptionButton{Name="ScoutPosturePicker",SizeFlagsHorizontal=SizeFlags.ExpandFill};posturePicker.AddItem("Observe (neutral default)");posturePicker.AddItem("Avoid encounters");posturePicker.Select((int)posture);AddChild(posturePicker);posturePicker.ItemSelected+=index=>CommandIssued?.Invoke(new SetScoutPostureCommand(view.Viewer,view.Turn,vessel.Id,(OpenAntares.Simulation.Scouting.ScoutPosture)index));
+        }
+        if(scouting is {Stage:{} stage}){AddChild(Text($"Ameba {stage}: encounter {scouting.EncounterNumber}, revision {scouting.Revision}. {(stage==OpenAntares.Simulation.Scouting.AmebaStage.Warning?"Departure this planning turn is 100% safe.":$"Late escape survival {scouting.LateEscapePercent}%.")}","WarningLabel"));var inspect=new Button{Name="InspectScoutEncounter",Text="Review ameba responses"};AddChild(inspect);inspect.Pressed+=()=>ScoutOverviewRequested?.Invoke();}
+        else if(scouting?.Blocker is {} wait)AddChild(Text(wait,"WarningLabel"));
         if (vessel.Transit is { } transit)
         {
             AddChild(Text($"In transit to {view.Stars.First(s => s.Chart.Id == transit.Destination).Chart.Name}: {transit.RemainingTurns} turns remaining."));
@@ -42,7 +50,15 @@ public partial class VesselPanel : VBoxContainer
             AddChild(Text($"Distance rounded up: {preview.CeilingDistance}; speed {preview.Speed}; travel {preview.Turns} turn(s)."));
             AddChild(Text("Launching commits this route until arrival.", "WarningLabel"));
         }
-        var move = new Button { Text = "Set course", Disabled = target is null, TooltipText = target is null ? "No other charted system." : "Travel begins on the next End Turn." }; AddChild(move); move.Pressed += () => CommandIssued?.Invoke(new SetMoveOrderCommand(view.Viewer, view.Turn, vessel.Id, target?.Chart.Id));
+        var knownAmeba=view.Scouting?.Habitats.FirstOrDefault(h=>h.Star==target?.Chart.Id);
+        bool neutralExcluded=target is not null&&(target.Planets?.Any(p=>p.OwnerId is {} owner&&owner!=view.Viewer)==true||view.ForeignVessels.Any(v=>v.StarId==target.Chart.Id));
+        bool excluded=scouting?.Posture==OpenAntares.Simulation.Scouting.ScoutPosture.AvoidEncounters&&(knownAmeba is not null||neutralExcluded)||knownAmeba is not null&&scouting?.Posture is null;
+        if(view.Scouting is not null&&target is not null)AddChild(Text(knownAmeba is not null?$"Known permanent ameba habitat, observed turn {knownAmeba.ObservedTurn}.":neutralExcluded?$"Foreign presence recorded; survey turn {target.LastObservedTurn?.ToString()??"current ship sighting"}.":"Hazard status unknown; no foreign presence recorded. An old or missing survey does not guarantee safety."));
+        var move = new Button { Name="SetVesselCourse",Text = knownAmeba is null?"Set course":"Review ameba approach…", Disabled = target is null||excluded, TooltipText = target is null ? "No other charted system." : excluded?"Standing posture or population-expedition safety excludes this known destination.":"Travel begins on the next End Turn." }; AddChild(move); move.Pressed += () =>
+        {
+            if(knownAmeba is null){CommandIssued?.Invoke(new SetMoveOrderCommand(view.Viewer,view.Turn,vessel.Id,target?.Chart.Id));return;}
+            var confirmation=new ConfirmationDialog{Name="AmebaApproachConfirmation",Title="Approach known space ameba",DialogText="This permanent habitat is dangerous. This exact unstarted route is accepted for this Observe scout only. Arrival provides one safe departure opportunity; remaining or studying risks this paid vessel. Ordinary travel still applies.",OkButtonText="Accept this exact approach"};AddChild(confirmation);confirmation.Confirmed+=()=>CommandIssued?.Invoke(new SetAmebaApproachOrderCommand(view.Viewer,view.Turn,vessel.Id,knownAmeba.Star,knownAmeba.HabitatId));confirmation.PopupCenteredClamped(new(620,380));
+        };
         if (vessel.PendingMove is { } pending) { AddChild(Text($"Pending move to {view.Stars.First(s => s.Chart.Id == pending).Chart.Name}")); var clear = new Button { Text = "Cancel move" }; clear.Pressed += () => CommandIssued?.Invoke(new SetMoveOrderCommand(view.Viewer, view.Turn, vessel.Id, null)); AddChild(clear); }
         if (role.CanFoundColony)
         {

@@ -19,6 +19,7 @@ public partial class NewGameScreen : CenterContainer
     private readonly OptionButton _rivalCountPicker = new() { Name = "RivalCountPicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly OptionButton _rivalSpeciesPicker = new() { Name = "RivalSpeciesPicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly OptionButton _crisisPicker = new() { Name = "CrisisModePicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
+    private readonly OptionButton _amebaPicker = new() { Name="AmebaModePicker",SizeFlagsHorizontal=SizeFlags.ExpandFill };
     private readonly LineEdit _seedField = new();
     private readonly Label _summary = new() { Name = "SpeciesSummary", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart, SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly Label _error = new() { ThemeTypeVariation = "WarningLabel", Visible = false, AutowrapMode = TextServer.AutowrapMode.WordSmart };
@@ -59,6 +60,8 @@ public partial class NewGameScreen : CenterContainer
         form.AddChild(new Label { Text = "Colony crises" });
         _crisisPicker.AddItem("Standard");_crisisPicker.SetItemMetadata(0,true);
         _crisisPicker.AddItem("Off");_crisisPicker.SetItemMetadata(1,false);_crisisPicker.Select(0);form.AddChild(_crisisPicker);
+        if(Rules.HasScouting(Rules.CurrentVersion)){form.AddChild(new Label{Text="Space ameba"});_amebaPicker.AddItem("Standard");_amebaPicker.SetItemMetadata(0,true);_amebaPicker.AddItem("Off");_amebaPicker.SetItemMetadata(1,false);_amebaPicker.Select(0);form.AddChild(_amebaPicker);_amebaPicker.ItemSelected+=_=>UpdateSummary();}
+        else{_amebaPicker.Hide();column.AddChild(_amebaPicker);}
         form.AddChild(new Label { Text = "Galaxy size" });
         foreach (var size in _sizes) _sizePicker.AddItem($"{size.Name} ({size.StarCount} stars)");
         _sizePicker.SizeFlagsHorizontal = SizeFlags.ExpandFill; form.AddChild(_sizePicker);
@@ -79,13 +82,14 @@ public partial class NewGameScreen : CenterContainer
         RandomizeSeed();
         if (_start.Disabled) { ShowError("Species, galaxy, rival policy, colony template or plague definitions are missing. Load an existing campaign instead."); load.GrabFocus(); } else _start.GrabFocus();
     }
-    public void Configure(string sizeId, ulong seed, string? speciesId = null, int? rivalCount = null, string? rivalSpeciesId = null, bool? crisesEnabled = null)
+    public void Configure(string sizeId, ulong seed, string? speciesId = null, int? rivalCount = null, string? rivalSpeciesId = null, bool? crisesEnabled = null,bool? amebasEnabled=null)
     {
         int size = Array.FindIndex(_sizes, s => s.Id == sizeId); if (size >= 0) _sizePicker.Select(size);
         if (speciesId is not null) _speciesPicker.Select(Array.FindIndex(_species, s => s.Id == speciesId));
         if (rivalCount is not null) _rivalCountPicker.Select(rivalCount is 0 or 1 ? rivalCount.Value : -1);
         if (rivalSpeciesId is not null) _rivalSpeciesPicker.Select(Array.FindIndex(_species,s=>s.Id==rivalSpeciesId));
         if (crisesEnabled is not null) _crisisPicker.Select(crisesEnabled.Value?0:1);
+        if(amebasEnabled is not null&&_amebaPicker.ItemCount>0)_amebaPicker.Select(amebasEnabled.Value?0:1);
         _rivalSpeciesPicker.Disabled = _rivalCountPicker.Selected == 0 || _species.Length == 0;
         _seedField.Text = seed.ToString(CultureInfo.InvariantCulture); UpdateSummary();
     }

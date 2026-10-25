@@ -20,6 +20,8 @@ public partial class GalaxyMap : Control
     private IReadOnlyList<(int X, int Y)> _backgroundPoints = Array.Empty<(int X, int Y)>();
     private System.Collections.Immutable.ImmutableArray<MapVesselMarker> _units;
     private HashSet<StarId> _homeStars = new();
+    private HashSet<StarId> _knownAmebas = new();
+    public void ShowKnownAmebas(OpenAntares.Simulation.Scouting.ScoutView? view){_knownAmebas=view?.Habitats.Select(h=>h.Star).ToHashSet()??new();QueueRedraw();}
     private StarId? _selected;
     private int _minX;
     private int _minY;
@@ -122,7 +124,7 @@ public partial class GalaxyMap : Control
             }
 
             int units = _units.Count(v => v.Station == star.Id);
-            string label = units > 0 ? $"{star.Name} [{units}]" : star.Name;
+            string label = (units > 0 ? $"{star.Name} [{units}]" : star.Name)+(_knownAmebas.Contains(star.Id)?" [ameba]":"");
             DrawString(font, position + new Vector2(-LabelWidth / 2, labelOffset), label,
                 HorizontalAlignment.Center, LabelWidth, fontSize, labelColor);
         }

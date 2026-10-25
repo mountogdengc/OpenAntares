@@ -53,6 +53,11 @@ public partial class TurnReportDialog : AcceptDialog
         _crisisPreferences=crisisPreferences??OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
         Title = "Turn report";
         _body.AddChild(new Label { Text = $"Turn {report.FromTurn} results", ThemeTypeVariation = "HeaderLabel" });
+        foreach(var entry in report.ScoutEvents)
+        {
+            _body.AddChild(new Label{Text=$"{content.Vessels[entry.RoleId].Name} {entry.Vessel.Value}: {entry.Kind.Replace('_',' ')}. {entry.Reason}"+(entry.ResearchAward>0?$" Earned {Format.Points(entry.ResearchAward)} research.":""),ThemeTypeVariation=entry.Kind=="loss"?"WarningLabel":"SubtleLabel",AutowrapMode=TextServer.AutowrapMode.WordSmart,SizeFlagsHorizontal=Control.SizeFlags.ExpandFill});
+            var star=entry.Star;var link=new Button{Text="Show recorded scout system"};_body.AddChild(link);link.Pressed+=()=>{Hide();StarRequested?.Invoke(star);};
+        }
 
         if (empireView?.Development is not null) { var governors = new GovernorReportPanel { Preferences = preferences ?? OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults }; _body.AddChild(governors); governors.ShowReports(content,empireView); }
 

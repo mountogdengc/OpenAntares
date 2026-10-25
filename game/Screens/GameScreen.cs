@@ -32,6 +32,11 @@ public partial class GameScreen : VBoxContainer
     private VesselId? _selectedVessel;
     private StarId? _courseDestination;
     private EmpireView View => _session.View(_viewer);
+    private readonly ScoutOverviewDialog _scoutOverview=new();
+    private readonly Label _scoutBadge=new(){Name="ScoutCriticalBadge",ThemeTypeVariation="WarningLabel",SizeFlagsHorizontal=SizeFlags.ExpandFill,AutowrapMode=TextServer.AutowrapMode.WordSmart};
+    private readonly System.Collections.Generic.HashSet<string> _seenScoutMaterial=new(System.StringComparer.Ordinal);
+    private bool _pendingScoutInterrupt;
+    public string ScoutPreferencesPath{get;set;}="user://scout-notifications.json";
     private readonly CrisisOverviewDialog _crisisOverview=new();
     private readonly CrisisResponseDialog _crisisResponse=new();
     private readonly CrisisNotificationDialog _crisisNotifications=new();
@@ -93,6 +98,12 @@ public partial class GameScreen : VBoxContainer
 
         AddChild(_saveDialog);
         _saveDialog.Saved += name => ShowMessage($"Saved as \"{name}\".", isWarning: false);
+        AddChild(_scoutOverview);_scoutOverview.CommandIssued+=Execute;_scoutOverview.StarRequested+=star=>{_scoutOverview.Hide();_map.Select(star);};_scoutOverview.DisplayApplied+=_=>Callable.From(Refresh).CallDeferred();
+        if(Rules.HasScouting(View.RulesVersion))
+        {
+            var scoutRow=new HBoxContainer();AddChild(scoutRow);var scouts=new Button{Name="OpenScoutOverview",Text="Scouts / ameba"};scoutRow.AddChild(scouts);scouts.Pressed+=()=>{if(View.Scouting is {} scouting)_scoutOverview.ShowScouting(_session.Content,scouting);};scoutRow.AddChild(_scoutBadge);
+        }
+        else{_scoutBadge.Hide();AddChild(_scoutBadge);}
 
         AddChild(_crisisOverview);AddChild(_crisisResponse);AddChild(_crisisNotifications);
         _crisisNotifications.Applied+=preferences=>{_crisisPreferences=preferences;Callable.From(Refresh).CallDeferred();};
@@ -112,6 +123,9 @@ public partial class GameScreen : VBoxContainer
         _colonies.LatestReportRequested += ShowLatestReport;
         AddChild(_report);
         _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingCrisisInterrupt){_pendingCrisisInterrupt=false;Callable.From(()=>{if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}).CallDeferred();}};
+        _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingScoutInterrupt)Callable.From(OpenPendingScoutInterrupt).CallDeferred();};
+        _crisisOverview.VisibilityChanged+=()=>{if(!_crisisOverview.Visible&&_pendingScoutInterrupt)Callable.From(OpenPendingScoutInterrupt).CallDeferred();};
+        _crisisResponse.VisibilityChanged+=()=>{if(!_crisisResponse.Visible&&_pendingScoutInterrupt)Callable.From(OpenPendingScoutInterrupt).CallDeferred();};
         AddChild(_templateReferences);
         _report.ChooseProjectRequested += ChooseProject;
         _report.StarRequested += star => _map.Select(star);
@@ -151,6 +165,7 @@ public partial class GameScreen : VBoxContainer
         _vessels.CommandIssued += Execute;
         _vessels.VesselSelected += vessel => { _selectedVessel = vessel; _courseDestination = null; Callable.From(Refresh).CallDeferred(); };
         _vessels.DestinationSelected += star => { _courseDestination = star; _map.Select(star); };
+        _vessels.ScoutOverviewRequested+=()=>{if(View.Scouting is {} scouting)_scoutOverview.ShowScouting(_session.Content,scouting);};
 
         _map.ShowGalaxy(View.Galaxy);
         if (HomeStar() is { } start)
@@ -219,6 +234,8 @@ public partial class GameScreen : VBoxContainer
         _endTurn.Text = view.Research.Ready ? "Waiting for others (cancel)" : "End Turn";
         _researchBar.ShowEmpire(_session.Content, view.Research);
         _map.ShowGalaxy(view.Galaxy);
+        _map.ShowKnownAmebas(view.Scouting);
+        RefreshScoutAttention(view.Scouting);
         _contacts.Show(view);
         RefreshCrisisAttention(view.Crisis);
         if (view.RulesVersion == Rules.LegacyVersion) ShowMessage("Legacy colony game - start a new game for exploration", false);
@@ -254,6 +271,25 @@ public partial class GameScreen : VBoxContainer
         else if(!_crisisOverview.Visible&&!_crisisResponse.Visible)
             Callable.From(()=>{if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}).CallDeferred();
     }
+    private void RefreshScoutAttention(OpenAntares.Simulation.Scouting.ScoutView? scouting)
+    {
+        if(scouting is null)return;
+        _scoutOverview.PreferencesPath=ScoutPreferencesPath;
+        if(_scoutOverview.Visible)_scoutOverview.ShowScouting(_session.Content,scouting);
+        int losses=scouting.History.SelectMany(d=>d.Entries).Count(e=>e.Kind=="loss");int waits=scouting.Vessels.Count(v=>v.Stage is null&&v.Blocker is not null);
+        _scoutBadge.Visible=scouting.Attention.Length>0||losses>0||waits>0;_scoutBadge.Text=scouting.Attention.Length>0?$"Emergency: {scouting.Attention.Length} ameba encounter(s); exact current responses required before End Turn.":losses>0?$"Critical: {losses} vessel loss(es) in retained own history.":$"Attention: {waits} scout(s) waiting for a known retreat.";
+        bool fresh=false;foreach(var token in scouting.Attention)if(_seenScoutMaterial.Add($"encounter:{token.Vessel}:{token.EncounterNumber}:{token.Revision}"))fresh=true;
+        foreach(var loss in scouting.History.SelectMany(d=>d.Entries).Where(e=>e.Kind=="loss"))if(_seenScoutMaterial.Add($"loss:{loss.Vessel}:{loss.Turn}"))fresh=true;
+        if(!fresh||OpenAntares.Game.Presentation.ScoutNotificationPreferences.Load(ProjectSettings.GlobalizePath(ScoutPreferencesPath)).Level!=OpenAntares.Game.Presentation.ScoutDisplayLevel.Interrupt)return;
+        _pendingScoutInterrupt=true;Callable.From(OpenPendingScoutInterrupt).CallDeferred();
+    }
+    private void OpenPendingScoutInterrupt()
+    {
+        // Visibility may change again between the signal and its deferred callback.
+        // Keep the emergency queued until the currently exclusive report/response really closes.
+        if(!IsInsideTree()||!_pendingScoutInterrupt||_report.Visible||_crisisOverview.Visible||_crisisResponse.Visible)return;
+        _pendingScoutInterrupt=false;if(View.Scouting is {} current)_scoutOverview.ShowScouting(_session.Content,current);
+    }
 
     private void SelectColony(ColonyId id)
     {
@@ -264,6 +300,7 @@ public partial class GameScreen : VBoxContainer
     private void ShowLatestReport()
     {
         if(_latestReport is null)return;
+        _scoutOverview.Hide();
         var view=View;
         if(view.Development is {} development)view=view with{Development=development with{PendingReport=null}};
         _report.ShowReport(_session.Content,_latestReport,view,_preferences,_crisisPreferences);

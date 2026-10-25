@@ -8,5 +8,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ColonyGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CrisisGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FrozenContent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScoutUiControlChecks.cs" />
   </ItemGroup>
 </Project>

@@ -35,7 +35,7 @@ Ruling: Preserve this plan workspace and every prior evidence directory rather t
 - [x] Task 8
 - [x] Task 9
 - [x] Task 10
-- [ ] Task 11
+- [x] Task 11
 - [ ] Task 12
 - [ ] Task 13
 - [ ] Task 14
@@ -86,3 +86,7 @@ Task 10: complete (commits 6c8654b..5ac455f, tests: dotnet test tests/OpenAntare
 
 Task 11: started BASE 5ac455fd05598136daf534260e0ee93ac51256b1; brief task11-brief.md
 Task 11 evidence: semantic RED11/17 (explicit missing metadata/schema), strict-proof RED5/22 then GREEN24/24 with genuine compatibility; all29 pairs tested,12 scouting shapes round-trip and each4 futures agree; all49 frozen old campaigns/196 futures remain exact except schema_version. Full Suite1386/1386; build0 warnings/errors. Current-writer assertions now8 and unsupported versions9/schema,8/rules; historical fixtures/canonical futures untouched. Missing fields including Off nulls and forged encounter age/capability/receipt/signature reject before publication. CurrentVersion remains6.
+Task 11: complete (commits 5ac455f..84aca2a, tests: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo → exit0; task11-completion.log)
+
+Task 12: started BASE 84aca2a57a539268fd739ffa943f911c1091589b; brief task12-brief.md
+Task 12 evidence: actual Crisis scene RED missing scout overview after404 retained checks; control run exposed native modal/resource issues despite450 passed assertions. Added explicit report handoff/reopen regressions and watched both fail. Verified Crisis454/454 =404 retained+50 scout checks at800/1920,0 engine/stdout diagnostics, normal rebuild0 warnings/errors/six exclusions; Suite1386/1386. Screenshots inspected; no physical-input/readability acceptance. See reports/scout-execution/task12-validation.md. Consumer audit note for Task13: test and refresh own static habitat last-observed date while present; current code only records first arrival.
