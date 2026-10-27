@@ -1,2 +1,9 @@
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
+
+# Frozen scouting saves and archived evidence use raw SHA256 hashes.
+# Preserve their exact bytes through Git checkout rather than rewriting EOLs.
+/tests/OpenAntares.Simulation.Tests/Fixtures/rules6-scout-baselines/** -text
+/reports/scout-execution/** -text
+/reports/scout-polish-*/** -text
+/reports/scout-integration-*/** -text
