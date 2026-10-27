@@ -30,3 +30,10 @@ The [scoped decision checks](fleet-design/doctrine-decision-checks.json) verify 
 The owner selected Navigator, Surveyor and Organizer and the10/30 XP promotion thresholds. This supersedes the initial Recovery specialist, ameba-only Surveyor direction and20/60 thresholds. The active proposal now gives Surveyor first-survey research and Organizer a scoped request-ship cost reduction, matching the reviewed role descriptions. Exact5/10 percent bonuses,1/2 research,2/1/8 event XP, proposed30 XP cap and accounting details remain drafter proposals for full review. Recovery probabilities/delays and cultural defaults also remain pending; no recovery-specialty modifier remains. The already-confirmed editable doctrine/recovery-equipment policy is unchanged. This scoped choice does not approve the full M8 design, separate plan or implementation.
 
 [Scoped specialty/threshold checks](fleet-design/specialty-decision-checks.json) cover active wording, reference arithmetic and owner preservation. The original builder report/document checks remain historical; no fresh builder review or C# gameplay validation is claimed for this amendment.
+
+
+## Owner-confirmed recovery numbers — 2026-10-27
+
+The owner accepted50% officer recovery,70% with recovery research, and a two-turn delay after successful recovery. These replace the provisional status of those mortal recovery values. Existing doctrine editability, equipment research and Navigator/Surveyor/Organizer10/30 XP decisions remain settled. Cultural defaults are the next review topic; the original Harl Last watch default is a drafter proposal challenged during discussion and has not been approved. Wenth-specific identity/link/equipment rules, specialty bonus magnitudes/event XP, technology cost/prerequisites and the rest of the M8 design remain pending full gameplay review. This choice does not approve the whole design or authorize planning/implementation. No code/main/owner-edit change.
+
+[Recovery decision checks](fleet-design/recovery-decision-checks.json) verify the explicit choice, draw/delay reference examples and owner preservation; no fresh builder review or C# runtime is claimed.
