@@ -51,3 +51,10 @@ The owner selected recovery-focused defaults for all four cultures and Last watc
 The owner accepted Navigator5%/10% travel speed, Surveyor1/2 displayed research per first-time survey and Organizer5%/10% production-cost reduction within their assigned construction request. They also accepted2 XP per first survey,1 XP per newly built ship in a completed assembly request, and8 XP for the successful first rewarded ameba study. Previously confirmed identities/10-30 promotions, editable doctrine/equipment research,50-70% recovery/two-turn delay and recovery-focused cultures/manual Last watch stay settled. Current review is fleet/construction operations; other unconfirmed details and full M8 approval remain pending. No implementation is authorized by this partial approval.
 
 [Bonus/XP and combat-note checks](fleet-design/bonus-and-combat-note-checks.json) verify active decisions, reference arithmetic, future-only scope and owner preservation. No additional builder review or C# build/test/runtime is claimed.
+
+
+## Fleet/construction review and request priority — 2026-10-27
+
+After the fleet/construction walkthrough, the owner retained the proposed direction including Normal/Urgent priority. Normal is the initial priority and preserves existing explicit queue order. Urgent previews moving requested ships before unstarted work while preserving the active project; replacement remains a separate direct choice. The draft spells out priority-aware estimates, atomic later reordering, stable tokens/reserve, pause/cancel behavior and persisted priority. It retains coherent slowest-member travel, finite assembly, automatic rally dispatch, manual authority and explicit missing-slot amendments from the walkthrough. No new damage/morale/combat behavior is included. Remaining commissioning/Wenth/recovery-technology and other unconfirmed details/full M8 approval remain pending; plan/implementation Not Started.
+
+[Priority decision checks](fleet-design/priority-decision-checks.json) cover active-project preservation, literal queue order, estimates, persistence and owner preservation. No additional builder review or C# gameplay validation is claimed.
