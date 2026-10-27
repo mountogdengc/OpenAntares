@@ -37,3 +37,10 @@ The owner selected Navigator, Surveyor and Organizer and the10/30 XP promotion t
 The owner accepted50% officer recovery,70% with recovery research, and a two-turn delay after successful recovery. These replace the provisional status of those mortal recovery values. Existing doctrine editability, equipment research and Navigator/Surveyor/Organizer10/30 XP decisions remain settled. Cultural defaults are the next review topic; the original Harl Last watch default is a drafter proposal challenged during discussion and has not been approved. Wenth-specific identity/link/equipment rules, specialty bonus magnitudes/event XP, technology cost/prerequisites and the rest of the M8 design remain pending full gameplay review. This choice does not approve the whole design or authorize planning/implementation. No code/main/owner-edit change.
 
 [Recovery decision checks](fleet-design/recovery-decision-checks.json) verify the explicit choice, draw/delay reference examples and owner preservation; no fresh builder review or C# runtime is claimed.
+
+
+## Owner-confirmed cultural defaults — 2026-10-27
+
+The owner selected recovery-focused defaults for all four cultures and Last watch as a manual choice. Peldra/Harl/Sulan use Recover command; Wenth use the equivalent Re-establish command link presentation. The old automatic Harl Last watch proposal is superseded. Last watch may be selected directly or through an explicitly player-chosen future-commission default; no culture chooses it automatically. Previously confirmed doctrine/research, specialties10/30 XP and recovery50%/70%/two-turn choices stay settled. The remaining-review checklist in the specification covers outstanding bonuses/event XP, fleet/request rules, commissioning/Wenth details, equipment technology and bounded AI scope. Full M8 approval, planning and implementation remain pending. No product/main/owner-file change.
+
+[Culture decision checks](fleet-design/culture-decision-checks.json) verify active defaults, manual-only Last watch, remaining-review coverage and exact owner preservation. No fresh builder/C# test/runtime result is claimed for this documentation amendment.
