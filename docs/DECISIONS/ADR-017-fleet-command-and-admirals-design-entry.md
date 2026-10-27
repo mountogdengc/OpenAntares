@@ -12,3 +12,8 @@ M8-D/FLT-AC-012 In Progress; M8-P/M8-I and functional FLT acceptance Not Started
 ## Owner-confirmed doctrine/research decision — 2026-10-27
 
 The owner selected: “Let’s keep doctrine editable from the start and have research improve recovery equipment.” Doctrine changes therefore need no technology unlock; research improves equipment. This settles only that policy, superseding the earlier open research-gate alternative. It does not approve the full M8 design, cultural defaults, recovery probabilities/delays, ability/XP values, technology cost/prerequisites, AI or rules8/writer9. M8-D/FLT-AC-012 remain In Progress; plan/implementation remain Not Started. No code or primary-main change.
+
+
+## Owner-confirmed specialties and promotions — 2026-10-27
+
+The owner selected Navigator, Surveyor and Organizer and the10/30 XP promotion thresholds. This supersedes the initial Recovery specialist, ameba-only Surveyor direction and20/60 thresholds. The active proposal now gives Surveyor first-survey research and Organizer a scoped request-ship cost reduction, matching the reviewed role descriptions. Exact5/10 percent bonuses,1/2 research,2/1/8 event XP, proposed30 XP cap and accounting details remain drafter proposals for full review. Recovery probabilities/delays and cultural defaults also remain pending; no recovery-specialty modifier remains. The already-confirmed editable doctrine/recovery-equipment policy is unchanged. This scoped choice does not approve the full M8 design, separate plan or implementation.

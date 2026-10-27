@@ -23,3 +23,10 @@ Material proposed calls for owner review: finite requests versus ongoing reinfor
 The owner selected: “Let’s keep doctrine editable from the start and have research improve recovery equipment.” Doctrine changes therefore need no technology unlock; research improves equipment. This settles only that policy, superseding the earlier open research-gate alternative. It does not approve the full M8 design, cultural defaults, recovery probabilities/delays, ability/XP values, technology cost/prerequisites, AI or rules8/writer9. M8-D/FLT-AC-012 remain In Progress; plan/implementation remain Not Started. No code or primary-main change.
 
 The [scoped decision checks](fleet-design/doctrine-decision-checks.json) verify the current wording, unchanged parent counts, documentation-only changes and exact primary owner-file preservation. No additional builder review or C# build/test/runtime was needed or claimed for recording this explicit choice.
+
+
+## Owner-confirmed specialties and promotions — 2026-10-27
+
+The owner selected Navigator, Surveyor and Organizer and the10/30 XP promotion thresholds. This supersedes the initial Recovery specialist, ameba-only Surveyor direction and20/60 thresholds. The active proposal now gives Surveyor first-survey research and Organizer a scoped request-ship cost reduction, matching the reviewed role descriptions. Exact5/10 percent bonuses,1/2 research,2/1/8 event XP, proposed30 XP cap and accounting details remain drafter proposals for full review. Recovery probabilities/delays and cultural defaults also remain pending; no recovery-specialty modifier remains. The already-confirmed editable doctrine/recovery-equipment policy is unchanged. This scoped choice does not approve the full M8 design, separate plan or implementation.
+
+[Scoped specialty/threshold checks](fleet-design/specialty-decision-checks.json) cover active wording, reference arithmetic and owner preservation. The original builder report/document checks remain historical; no fresh builder review or C# gameplay validation is claimed for this amendment.

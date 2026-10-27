@@ -80,3 +80,6 @@ Current M8 drafting2026-10-27: owner selected central fleet/shipbuilding command
 
 
 M8 scoped owner decision2026-10-27: doctrine remains editable from the start; research improves recovery equipment. Recorded in ADR-017 and FLT-006. The earlier possible research gate for doctrine changes is superseded; do not ask again. Exact recovery/technology/XP/culture defaults and the full M8 design remain pending review; this answer does not approve the entire design or authorize a plan/implementation. Keep main/owner edits/worktrees/evidence unchanged.
+
+
+M8 scoped owner choice2026-10-27: Navigator, Surveyor and Organizer; promotions at10/30 XP. The old Recovery specialist, ameba-only Surveyor proposal and20/60 thresholds are superseded in the active specification; historical review/check artifacts remain intact. Exact bonus magnitudes/event XP/proposed XP cap, Organizer accounting, recovery values/cultural defaults and full M8 acceptance remain pending review. Doctrine remains editable from the start; research improves recovery equipment. M8-D/FLT-AC-012 In Progress, plan/implementation Not Started. No code/main/owner-file change.
