@@ -44,3 +44,10 @@ The owner accepted50% officer recovery,70% with recovery research, and a two-tur
 The owner selected recovery-focused defaults for all four cultures and Last watch as a manual choice. Peldra/Harl/Sulan use Recover command; Wenth use the equivalent Re-establish command link presentation. The old automatic Harl Last watch proposal is superseded. Last watch may be selected directly or through an explicitly player-chosen future-commission default; no culture chooses it automatically. Previously confirmed doctrine/research, specialties10/30 XP and recovery50%/70%/two-turn choices stay settled. The remaining-review checklist in the specification covers outstanding bonuses/event XP, fleet/request rules, commissioning/Wenth details, equipment technology and bounded AI scope. Full M8 approval, planning and implementation remain pending. No product/main/owner-file change.
 
 [Culture decision checks](fleet-design/culture-decision-checks.json) verify active defaults, manual-only Last watch, remaining-review coverage and exact owner preservation. No fresh builder/C# test/runtime result is claimed for this documentation amendment.
+
+
+## Owner-confirmed bonus values and XP awards — 2026-10-27
+
+The owner accepted Navigator5%/10% travel speed, Surveyor1/2 displayed research per first-time survey and Organizer5%/10% production-cost reduction within their assigned construction request. They also accepted2 XP per first survey,1 XP per newly built ship in a completed assembly request, and8 XP for the successful first rewarded ameba study. Previously confirmed identities/10-30 promotions, editable doctrine/equipment research,50-70% recovery/two-turn delay and recovery-focused cultures/manual Last watch stay settled. Current review is fleet/construction operations; other unconfirmed details and full M8 approval remain pending. No implementation is authorized by this partial approval.
+
+[Bonus/XP and combat-note checks](fleet-design/bonus-and-combat-note-checks.json) verify active decisions, reference arithmetic, future-only scope and owner preservation. No additional builder review or C# build/test/runtime is claimed.

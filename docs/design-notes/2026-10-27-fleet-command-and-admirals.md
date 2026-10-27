@@ -30,3 +30,10 @@ The owner accepted50% officer recovery,70% with recovery research, and a two-tur
 ## Owner-confirmed cultural defaults — 2026-10-27
 
 The owner selected recovery-focused defaults for all four cultures and Last watch as a manual choice. Peldra/Harl/Sulan use Recover command; Wenth use the equivalent Re-establish command link presentation. The old automatic Harl Last watch proposal is superseded. Last watch may be selected directly or through an explicitly player-chosen future-commission default; no culture chooses it automatically. Previously confirmed doctrine/research, specialties10/30 XP and recovery50%/70%/two-turn choices stay settled. The remaining-review checklist in the specification covers outstanding bonuses/event XP, fleet/request rules, commissioning/Wenth details, equipment technology and bounded AI scope. Full M8 approval, planning and implementation remain pending. No product/main/owner-file change.
+
+
+## Owner-confirmed bonus values and XP awards — 2026-10-27
+
+The owner accepted Navigator5%/10% travel speed, Surveyor1/2 displayed research per first-time survey and Organizer5%/10% production-cost reduction within their assigned construction request. They also accepted2 XP per first survey,1 XP per newly built ship in a completed assembly request, and8 XP for the successful first rewarded ameba study. Previously confirmed identities/10-30 promotions, editable doctrine/equipment research,50-70% recovery/two-turn delay and recovery-focused cultures/manual Last watch stay settled. Current review is fleet/construction operations; other unconfirmed details and full M8 approval remain pending. No implementation is authorized by this partial approval.
+
+The additional [combat/retreat/morale/damaged-ship note](2026-10-27-combat-retreat-morale-and-damaged-ships.md) preserves future direction, including limping home, slow-ship separation, hit-and-run and automation/manual-control questions. It does not expand current M8 or approve combat formulas.
