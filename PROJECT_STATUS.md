@@ -2,7 +2,9 @@
 
 Updated2026-10-27 America/Denver. OpenAntares is an original turn-based space4X with C#/Godot .NET presentation and an independent deterministic simulation. The approved classic Master of Orion II love-letter direction and fanciful aliens respectful of real peoples/beliefs remain authoritative.
 
-Current continuation: the owner authorized “merge that”; completed scout survival/encounter avoidance, stationary space-ameba danger and the remaining setup explanation follow-up are now locally integrated into main. Validated product source `a52dfc61c9a16ec10e0091b52783029afac73e38`; the handoff commit updates documentation/evidence only. [Fresh main integration report](reports/SCOUT_INTEGRATION_2026-10-27.md) records1398 simulation tests and all seven native scenarios/4491 records, normal build/exclusions, checkout preservation and owner-edit recovery. No known review finding remains open. Do not repeat completed work or re-ask design, plan or Native approval.
+Completed M7 integration: the owner authorized “merge that”; completed scout survival/encounter avoidance, stationary space-ameba danger and the remaining setup explanation follow-up are now locally integrated into main. Validated product source `a52dfc61c9a16ec10e0091b52783029afac73e38`; the handoff commit updates documentation/evidence only. [Fresh main integration report](reports/SCOUT_INTEGRATION_2026-10-27.md) records1398 simulation tests and all seven native scenarios/4491 records, normal build/exclusions, checkout preservation and owner-edit recovery. No known review finding remains open. Do not repeat completed work or re-ask design, plan or Native approval.
+
+Current continuation: the owner described central fleet/shipbuilding command, named admirals with bonuses/service records/simple experience and ability unlocks, plus culture-based manually adjustable loss doctrine and possible research. [M8 draft](docs/superpowers/specs/2026-10-27-fleet-command-and-admirals-design.md), [ADR-017](docs/DECISIONS/ADR-017-fleet-command-and-admirals-design-entry.md) and [fresh builder dispositions/document checks](reports/FLEET_COMMAND_DESIGN_REVIEW_2026-10-27.md) record a proposed bounded first slice. M8-D/FLT-AC-012 In Progress; M8-P/M8-I and functional acceptance Not Started. All new formulas/defaults/rules8-writer9 are proposals awaiting full gameplay review. Broader automation notes are preserved as future directions. No code/content/default/schema or primary-main change occurred.
 
 ## Current product and scope
 
@@ -19,6 +21,8 @@ Roaming creatures, colony attacks, sensors/pursuit, tactical combat, warship doc
 | M7-D / SCT-AC-012 | Verified | Full amended design approval ADR-016 |
 | M7-P | Verified | Owner-approved15-task plan; retained Native inline execution |
 | M7-I | Verified | Local automated scope; review corrections/M1 closure and fresh main verification complete |
+| M8-D / FLT-AC-012 | In Progress | Complete proposed Fleet Command/admiral design and fresh builder dispositions; owner review pending |
+| M8-P / M8-I | Not Started | Separate plan follows full design approval; no implementation |
 
 Parent requirement totals remain17:12 Verified,3 Implemented, Unverified,1 In Progress (REQ-017),1 Deferred. This milestone does not close REQ-017 or change the register's17 rows.
 
@@ -26,7 +30,7 @@ Fresh main:1398/1398 simulation tests; Scout 237; Legacy 493; Expansion 275; Spe
 
 ## Preservation and integration
 
-Local main fast-forward integration is complete. The three separate owner files retain their original byte-exact whole-file hashes; the original peaceful-mode paragraph below remains byte-exact and uncommitted while this surrounding public status is updated. All seven worktrees, branches, old saves, recovery/QA and failed/successful evidence remain. Recovery branch `codex/scout-premerge-20261027` retains42e1282; the status-only stash and private exact backups remain available. The paragraph is already restored; do not blindly reapply the stash. Byte-preserving archive attributes fix the reproduced checkout newline issue;425/425 frozen/archive hashes match an actual checkout. No remote push, release, cleanup or history rewrite occurred. [Preservation details](reports/SCOUT_INTEGRATION_2026-10-27.md).
+Local main fast-forward integration is complete. The three separate owner files retain their original byte-exact whole-file hashes; the original peaceful-mode paragraph remains byte-exact and uncommitted in the primary checkout; it is deliberately absent from this clean design branch. All seven worktrees, branches, old saves, recovery/QA and failed/successful evidence remain. Recovery branch `codex/scout-premerge-20261027` retains42e1282; the status-only stash and private exact backups remain available. The paragraph is already restored; do not blindly reapply the stash. Byte-preserving archive attributes fix the reproduced checkout newline issue;425/425 frozen/archive hashes match an actual checkout. No remote push, release, cleanup or history rewrite occurred. [Preservation details](reports/SCOUT_INTEGRATION_2026-10-27.md).
 
 M7 authority: [ADR-016](docs/DECISIONS/ADR-016-approved-scout-survival-and-ameba-design.md), [spec](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), [plan](docs/superpowers/plans/2026-10-25-scout-survival-and-ameba.md).
 
@@ -34,4 +38,4 @@ M7 authority: [ADR-016](docs/DECISIONS/ADR-016-approved-scout-survival-and-ameba
 
 Physical input/focus, comfortable reading/accessibility/comprehension, aesthetics, balance/long campaigns, other platforms, hostile-input/security/dependency audits, clean install/export and release remain unverified or deferred. Automated local checks do not establish these.
 
-Select and specify the next bounded milestone before implementation. Preserve all owner edits, branches/worktrees and evidence. No new subsystem, remote push, release or cleanup is inferred.
+Review/amend the complete proposed M8 Fleet Command/admiral gameplay rules before a separate implementation plan. Preserve all owner edits, branches/worktrees and evidence. No implementation, remote push, release or cleanup is inferred.
