@@ -1,5 +1,7 @@
 # OpenAntares agent instructions
 
+Current authority: full M8 design approved; separate17-task plan ready for owner review. See the final dated M8 approval/planning entry below; preceding scoped decisions remain chronological history.
+
 ## Start and authority
 
 1. Read [PROJECT_STATUS.md](PROJECT_STATUS.md), inspect Git status, branches, and registered worktrees, and verify the next action against actual files.
@@ -104,3 +106,6 @@ M8 final scoped choices2026-10-27: Wenth recovery2/1 turns (basic/researched), m
 
 
 M8 complete-design handoff2026-10-27: reports/FLEET_COMMAND_GAMEPLAY_REVIEW_2026-10-27.md consolidates owner-reviewed choices and explicit remaining starter defaults (XP30 cap/fixed passive tracks,64 lifetime/history bounds, stationary request coordination, modest AI scope). Full written-design approval still pending; do not infer it from the last scoped Wenth/technology acceptance. One amended-design builder check after material changes found unsafe-rally retry ambiguity; FLT-003 now safety-pauses requests with retained surviving bindings/no retry/no free replacement, explicit legal rally/resume and ordinary live encounter consent. Raw amended questions/disposition retained. This is design planning-readiness, not an implementation/code review. No product changes, main/owner edits/worktree/evidence changes or new execution method choice. After full design approval, write the separate implementation plan; Native remains retained.
+
+
+M8 full approval/planning2026-10-27: owner “0approved” accepts the complete design and starter defaults in ADR-018. M8-D/FLT-AC-012 Verified for design only; M8-P In Progress pending review of the concrete17-task implementation plan; M8-I/functional FLT criteria Not Started. Native inline/no per-task agents/one final fresh whole-branch implementation reviewer retained; do not re-ask design/method. No product changes, baseline-future capture or new C#/native gameplay validation occurred while writing the plan. Main c554797/rules7/writer8, all four byte-exact uncommitted owner files/empty main index, seven worktrees/branches, all QA/recovery/old futures and parent17-row counts remain preserved. Future combat note remains outside M8. Review the separate plan before implementation; no main merge/push/release/cleanup authority.

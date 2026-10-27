@@ -1,6 +1,6 @@
 # Fleet Command and admirals — consolidated gameplay review
 
-2026-10-27. **Full written-design approval pending.** The owner has reviewed and accepted the major choices below in conversation. The small starter-default table remains explicit for the complete-design approval. This is a documentation handoff, not implemented gameplay or new test evidence.
+2026-10-27. **Full written design approved**, including the starter-default table, by owner “0approved” in [ADR-018](../docs/DECISIONS/ADR-018-approved-fleet-command-and-admirals-design.md). The [separate implementation plan](../docs/superpowers/plans/2026-10-27-fleet-command-and-admirals.md) is ready for review. M8-D/FLT-AC-012 Verified for design; M8-P In Progress; M8-I/functional criteria Not Started. This remains documentation, not implemented gameplay or new runtime evidence.
 
 [Complete specification](../docs/superpowers/specs/2026-10-27-fleet-command-and-admirals-design.md), [decision record](../docs/DECISIONS/ADR-017-fleet-command-and-admirals-design-entry.md), [builder questions/dispositions and document checks](FLEET_COMMAND_DESIGN_REVIEW_2026-10-27.md).
 
@@ -12,7 +12,7 @@ Finite assembly requests specify composition, participating colonies and a rally
 
 The amended builder check identified an unsafe-rally retry gap. The drafter's clarification pauses that request for direction, preserves the surviving ships/reservations and requires an explicit legal rally change/resume. It never sends withdrawing ships repeatedly back into the same danger, invents replacement hulls, redirects committed travel or grants completion XP for a blocked assembly. This applies the already-reviewed safety/manual-authority policy; see FLT-003 for exact saved-state and completion rules.
 
-Normal priority preserves existing explicit queues; Urgent previews moving request entries before unstarted work. Active projects are preserved unless directly replaced. Both preserve queue tokens/unrelated order and clear Ready only on a real edit. Initial draft bounds remain32 ships/fleet,64 named fleets,32 active requests and32 participating colonies/request; independent ships/emergency separation do not consume named-fleet slots, so construction/safety cannot fail solely at that cap.
+Normal priority preserves existing explicit queues; Urgent previews moving request entries before unstarted work. Active projects are preserved unless directly replaced. Both preserve queue tokens/unrelated order and clear Ready only on a real edit. Approved bounds remain32 ships/fleet,64 named fleets,32 active requests and32 participating colonies/request; independent ships/emergency separation do not consume named-fleet slots, so construction/safety cannot fail solely at that cap.
 
 ## Named officers and progression — scoped choices accepted
 
@@ -39,19 +39,19 @@ Doctrine is editable from the start; research improves equipment. All four cultu
 
 Mortal failed recovery or manual Last watch permanently kills the officer. Successful survivors retain XP; Wenth source bodies survive link loss and retain XP/history. Command Recovery costs24 displayed research, prerequisite Industrial Coordination. New effects use the next snapshot; existing ameba hull/cargo outcomes and once-only600 research study reward are unchanged.
 
-## Remaining starter defaults for complete-design approval
+## Approved starter defaults
 
-| Default | Recommendation |
+| Default | Approved choice |
 | --- | --- |
 | Simple progression | Cap XP at30; fixed passive tracks, no respec/active ability buttons in this slice. Career achievement counters continue. |
 | Lifetime/history bounds |64 lifetime commissions;32 recent highlights and10 detailed turn reports per officer; retain final career summaries. |
 | Construction coordinator | An officer posted at a participating colony coordinates one request, without simultaneously commanding a fleet. Organizer cost changes are previewed and follow the explicit snapshot/reserve rules. |
 | Rival AI | Same starting Navigator/rules/bonuses, ordinary costs and existing sole expansion planner; new recruitment/request strategy is deferred. |
 
-These remaining bounds/details are drafter proposals, not individually confirmed choices. The complete specification also defines ownership/knowledge filtering, atomic rollback, strict saves, legacy futures, rules8/writer9/37 explicit pairs, scale cases and acceptance criteria. These are written contracts awaiting implementation and verification, not executed results.
+These bounds/details are accepted as part of the explicit full-design approval. The complete specification also defines ownership/knowledge filtering, atomic rollback, strict saves, legacy futures, rules8/writer9/37 explicit pairs, scale cases and acceptance criteria. These are approved written contracts awaiting implementation and verification, not executed results.
 
 ## Scope and next gate
 
 [Future combat direction](../docs/design-notes/2026-10-27-combat-retreat-morale-and-damaged-ships.md) preserves retreat/morale, degrading capabilities, limping home/slow-ship separation and hit-and-run with automation/manual-control questions. No combat/damage/morale/repair mechanics, warship designs/refits, broader diplomacy or new economy enter M8. Current main remains c554797/rules7/writer8; original owner edits and all worktrees/branches/QA/recovery stay preserved.
 
-Full approval of this summary together with the complete specification closes M8-D/FLT-AC-012 for design only. Next is the separate implementation plan, retaining Native inline execution after its approval. Parent REQ-017/17-row counts and human/platform/security/export/release limits remain unchanged.
+Full approval of this summary and complete specification closes M8-D/FLT-AC-012 for design only. Next is owner review of the separate17-task implementation plan, retaining Native inline execution after its approval. Parent REQ-017/17-row counts and human/platform/security/export/release limits remain unchanged.

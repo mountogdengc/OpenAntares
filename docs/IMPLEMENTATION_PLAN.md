@@ -33,8 +33,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M7-D | Scout survival and space-ameba design | ADR-015 drafting/amendment, full approval ADR-016 | SCT-AC-012 full gameplay approval | Verified for design only |
 | M7-P | Plan scout/ameba implementation | Approved M7-D; retained Native inline | Separate15-task plan/self-review/owner review | Verified; owner-approved Native inline execution |
 | M7-I | Implement approved scout/ameba slice | Approved M7-P;49 frozen rules6 baselines/196 futures | Functional criteria, retained gates, single review/corrections plus M1 follow-up | Verified for local automated scope;2026-10-26 M1 closure |
-| M8-D | Fleet Command and named-admiral gameplay specification | ADR-017 owner direction; FLT-001..009 draft | FLT-AC-012 full gameplay review and fresh builder dispositions | In Progress |
-| M8-P | Plan approved fleet/admiral design | Full M8-D approval required | Separate implementation plan review; Native retained | Not Started |
+| M8-D | Fleet Command and named-admiral gameplay specification | ADR-018 full design approval | FLT-AC-012 full design/starter-default approval | Verified |
+| M8-P | Plan approved fleet/admiral design | Full M8-D approved | Separate17-task implementation-plan review; Native retained | In Progress |
 | M8-I | Implement bounded Fleet Command/admiral slice | Approved separate M8-P | Functional FLT criteria and retained regressions/one final fresh review | Not Started |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
@@ -43,7 +43,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review/amend the complete proposed M8 Fleet Command/admiral gameplay rules. Full design approval precedes a separate implementation plan. M7 integration is complete; do not repeat it. Retain Native after those gates; no automatic implementation.
+Review the separate17-task M8 implementation plan; full design/starter defaults and Native method are already approved. M7 integration is complete; do not repeat it. Product work follows plan review.
 
 ## Risks and autonomy
 
@@ -85,9 +85,13 @@ The remaining omitted-habitat setup explanation is corrected on codex/scout-poli
 The owner's “merge that” authorized local integration of the completed scout/space-ameba work and final M1 follow-up. Main now contains validated source `a52dfc61c9a16ec10e0091b52783029afac73e38`: rules7/writer8/29 pairs. [Fresh merged-main evidence](../reports/SCOUT_INTEGRATION_2026-10-27.md) passes1398/1398 simulation tests and all seven native scenarios/4491 records (Scout 237; Legacy 493; Expansion 275; Species 1194; Rival 1158; Colony 670; Crisis 464), with0 diagnostics, normal builds0 warnings/errors and actual7-scenario/2-helper exclusions. SCT functional criteria/M7-I remain Verified for local automated scope; prior pending-integration statements are historical. Checkout preservation is verified425/425; original owner edits remain uncommitted and all branches/seven worktrees/recovery/QA remain retained. No new review, push, release or cleanup. REQ-017/17-row totals and human/platform/security/export/release limits remain unchanged. Next is bounded milestone selection/specification before implementation.
 
 
-## M8 Fleet Command and named admirals — design review pending
+## M8 Fleet Command and named admirals — design approved, plan review pending
 
-The owner selected centralized fleet/shipbuilding control, named officers/bonuses/service records/simple XP and unlocks, with culture-based manually adjustable loss defaults and possible research. [ADR-017](DECISIONS/ADR-017-fleet-command-and-admirals-design-entry.md) records drafting direction; [FLT-001..009 / FLT-AC-001..012](superpowers/specs/2026-10-27-fleet-command-and-admirals-design.md) propose the complete bounded rules. M8-D/FLT-AC-012 In Progress; M8-P/M8-I and functional criteria Not Started. [Fresh builder report/dispositions and document checks](../reports/FLEET_COMMAND_DESIGN_REVIEW_2026-10-27.md) are documentation evidence only. Exact fleet/request authority, officer XP/bonuses, cultural defaults, Wenth embodiment, recovery/research and future rules8/writer9 await full gameplay approval before a separate plan. Current product/main remains rules7/writer8/29 pairs; parent REQ-017/17-row counts, M7/M6 acceptance and human/platform/release limits are unchanged. Original owner files and all seven worktrees/branches/QA/recovery remain preserved. No implementation, fresh C# gameplay validation or primary integration/push/release/cleanup is claimed.
+Owner “0approved” accepts the complete [design and starter defaults](superpowers/specs/2026-10-27-fleet-command-and-admirals-design.md) in [ADR-018](DECISIONS/ADR-018-approved-fleet-command-and-admirals-design.md). M8-D/FLT-AC-012 Verified for full design only. The separate [17-task plan](superpowers/plans/2026-10-27-fleet-command-and-admirals.md) is drafted/self-reviewed; M8-P In Progress pending owner review; M8-I/functional FLT-AC-001..011 Not Started. Native inline/no per-task agents/one final fresh whole-branch implementation reviewer remains chosen. No product code/content/default/schema or primary-main change, new baseline capture or fleet gameplay run occurred. Main rules7/writer8/29 pairs, parent REQ-017/17-row totals (12 Verified,3 Implemented, Unverified,1 In Progress,1 Deferred), M7/M6/human/platform/security/export/release limits and every owner file/worktree/branch/QA/recovery remain unchanged. No main integration/push/release/cleanup is inferred.
+
+### Historical scoped decisions before complete approval
+
+The chronological notes below retain their original checkpoint status; ADR-018 and the current plan-review gate supersede their earlier pending-design language.
 
 
 M8 scoped decision2026-10-27: the owner confirms doctrine editable from the start and research improving recovery equipment (ADR-017/FLT-006). No research gate for doctrine changes remains open. Exact equipment/bonus/XP/culture values and the rest of the full M8 design remain pending gameplay review; M8-D/FLT-AC-012 In Progress, plan/implementation Not Started. Documentation only; current main/product and owner edits remain unchanged.

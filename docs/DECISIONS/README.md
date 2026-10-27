@@ -53,3 +53,9 @@ M8 availability decision2026-10-27: starting Navigator with Surveyor/Organizer c
 
 
 M8 final scoped choices2026-10-27: Wenth recovery2/1 turns (basic/researched), manual Last watch4/3, and Command Recovery24 displayed research after Industrial Coordination confirmed. Read reports/FLEET_COMMAND_GAMEPLAY_REVIEW_2026-10-27.md and the complete specification for remaining starter defaults and full-design approval; do not re-ask settled gameplay numbers. M8-D/FLT-AC-012 In Progress; plan/implementation Not Started until their gates. Preserve main/four owner files, seven worktrees/branches and evidence; future combat direction remains a note.
+
+
+[ADR-018: Approve complete Fleet Command/admiral design](ADR-018-approved-fleet-command-and-admirals-design.md) records full owner approval including starter defaults; the separate17-task plan is ready for review, with Native retained.
+
+
+M8 full approval/planning2026-10-27: owner “0approved” accepts the complete design and starter defaults in ADR-018. M8-D/FLT-AC-012 Verified for design only; M8-P In Progress pending review of the concrete17-task implementation plan; M8-I/functional FLT criteria Not Started. Native inline/no per-task agents/one final fresh whole-branch implementation reviewer retained; do not re-ask design/method. No product changes, baseline-future capture or new C#/native gameplay validation occurred while writing the plan. Main c554797/rules7/writer8, all four byte-exact uncommitted owner files/empty main index, seven worktrees/branches, all QA/recovery/old futures and parent17-row counts remain preserved. Future combat note remains outside M8. Review the separate plan before implementation; no main merge/push/release/cleanup authority.
