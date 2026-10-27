@@ -29,3 +29,6 @@ ADR-015 scope amendment: owner selected a space ameba as actual danger; the peac
 
 
 [ADR-017: Fleet Command and named-admiral design entry](ADR-017-fleet-command-and-admirals-design-entry.md) records owner direction2026-10-27 and the complete proposed draft. M8-D/FLT-AC-012 In Progress; separate plan/implementation Not Started. Numeric bonuses/XP, fleet/request authority, cultural loss defaults, Wenth identity, recovery/research and rules8/writer9 await full gameplay review. Main remains rules7/writer8; all owner edits/worktrees/evidence preserved.
+
+
+M8 scoped decision2026-10-27: the owner confirms doctrine editable from the start and research improving recovery equipment (ADR-017/FLT-006). No research gate for doctrine changes remains open. Exact equipment/bonus/XP/culture values and the rest of the full M8 design remain pending gameplay review; M8-D/FLT-AC-012 In Progress, plan/implementation Not Started. Documentation only; current main/product and owner edits remain unchanged.

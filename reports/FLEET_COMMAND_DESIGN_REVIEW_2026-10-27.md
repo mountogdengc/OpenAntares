@@ -16,3 +16,10 @@ Additional drafter checks make four new-hull requests and one four-hull request 
 Main remains c554797/rules7/writer8 and the four owner files remain byte-exact against this turn's before hashes; primary status/index and all seven worktrees/retained branches/QA/recovery remain. The source worktree moved from the retained scout-polish branch to the new design branch; no worktree was created/deleted. [Document checks/preservation hashes](fleet-design/document-checks.json) record actual results. The1398 simulation and seven native/4491-record main results are historical evidence from the completed M7 merge; no fresh C# build/test/runtime or officer validation is claimed. REQ-017/17-row totals and human/platform/security/export/release limits are unchanged.
 
 Material proposed calls for owner review: finite requests versus ongoing reinforcement; slowest-speed coherent fleets; capped passive specialties and event XP; immediate doctrine editing with research improving equipment; provisional culture defaults; mortal recovery versus the Wenth whole-body link; bounded commissioning and modest AI scope. Full gameplay approval precedes a separate plan; no product/default/writer change or main merge/push/release/cleanup here.
+
+
+## Owner-confirmed doctrine/research decision — 2026-10-27
+
+The owner selected: “Let’s keep doctrine editable from the start and have research improve recovery equipment.” Doctrine changes therefore need no technology unlock; research improves equipment. This settles only that policy, superseding the earlier open research-gate alternative. It does not approve the full M8 design, cultural defaults, recovery probabilities/delays, ability/XP values, technology cost/prerequisites, AI or rules8/writer9. M8-D/FLT-AC-012 remain In Progress; plan/implementation remain Not Started. No code or primary-main change.
+
+The [scoped decision checks](fleet-design/doctrine-decision-checks.json) verify the current wording, unchanged parent counts, documentation-only changes and exact primary owner-file preservation. No additional builder review or C# build/test/runtime was needed or claimed for recording this explicit choice.
