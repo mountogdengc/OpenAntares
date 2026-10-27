@@ -1,8 +1,10 @@
 # Fleet Command and admirals design review — 2026-10-27
 
+Current checkpoint: the owner-reviewed choices are consolidated in the [gameplay review summary](FLEET_COMMAND_GAMEPLAY_REVIEW_2026-10-27.md), with remaining starter defaults explicit for full written-design approval. A materially amended design check returned one unsafe-rally retry question; FLT-003 now safety-pauses requests, preserves surviving reservations and requires explicit legal resume. [Raw amended check](fleet-design/amended-builder-questions.md). This was a design planning-readiness check, not an implementation review or new runtime evidence. Initial and scoped checkpoints below retain their historical findings/results; later owner decisions supersede their earlier provisional choices.
+
 Documentation-only design entry on isolated `codex/fleet-command-design` from integrated main c554797. [Full draft](../docs/superpowers/specs/2026-10-27-fleet-command-and-admirals-design.md), [ADR-017](../docs/DECISIONS/ADR-017-fleet-command-and-admirals-design-entry.md), [owner direction](../docs/design-notes/2026-10-27-fleet-command-and-admirals.md). M8-D/FLT-AC-012 In Progress, plan/implementation/functional acceptance Not Started. The named officers/bonuses/service/XP and cultural-default direction are owner statements; numeric mechanics, unlocks, recovery/Wenth treatment and research relationship remain proposals for full review.
 
-One fresh read-only builder check returned four questions; [raw report](fleet-design/builder-questions.md) is retained. No per-task agents or second review were commissioned. The drafter resolved each with explicit proposed behavior:
+At the initial draft checkpoint, one fresh read-only builder check returned four questions; [raw report](fleet-design/builder-questions.md) is retained. No per-task agents or second review had been commissioned at that checkpoint. The later amended-design check is tracked above. The drafter resolved each initial question with explicit proposed behavior:
 
 | Question | Disposition in the draft |
 | --- | --- |
@@ -65,3 +67,15 @@ After the fleet/construction walkthrough, the owner retained the proposed direct
 The owner accepted one starting Navigator, Surveyor/Organizer candidates, two-turn commissioning and four active admirals initially. Fleet controls/standing orders work without an officer; officers supply bonuses/progression. Ship-based travel and co-located transfers remain part of the reviewed availability direction, with Wenth availability tied to colony bodies. The additional proposed64-lifetime-commission bound was not separately confirmed by this answer. Remaining Wenth link-loss/equipment details, recovery technology, other unreviewed starter/accounting details and full M8 approval remain pending; no plan/implementation or main change.
 
 [Availability decision checks](fleet-design/availability-decision-checks.json) cover active wording, unapproved lifetime bound, unchanged parent counts and owner preservation. No fresh builder review or C# gameplay validation is claimed.
+
+
+## Owner-confirmed Wenth recovery and technology — 2026-10-27
+
+The owner accepted Wenth link-restoration delays of2 turns normally and1 with recovery research; manually selected Last watch takes4/3 turns. The source body retains XP/history. Command Recovery costs24 displayed research and requires Industrial Coordination. Previously confirmed mortal50/70% recovery/two-turn delay and all other scoped choices remain settled. The consolidated gameplay review summary includes the remaining proposed XP/history/lifetime/coordination/AI defaults for one full written-design approval before a separate plan. This answer does not by itself approve the complete specification or authorize implementation. Main and all four owner edits remain unchanged.
+
+
+## Amended-design planning check and handoff
+
+After material owner amendments (Organizer cost/survey rewards, request priority and final recovery choices), one new read-only builder checked the amended full design. Its [raw question](fleet-design/amended-builder-questions.md) identifies one unsafe-rally retry gap; the other amended accounting/priority/authority rules supplied enough detail for planning. Drafter disposition: before request preparation/dispatch and after new arrival knowledge, a known-forbidden rally safety-pauses the request. Preserve surviving ship bindings and actual committed travel, block completion/assembly XP, issue deduplicated Attention, and require an explicit legal rally change/resume. Never repeatedly dispatch the same ship back into danger or invent a replacement. Existing live encounter consent remains; the paused request adds no extra Ready blocker.
+
+This is an explicit application of the reviewed safety/manual-authority policy for the complete-design approval. No third builder check or implementation review/runtime was claimed. The [final handoff checks](fleet-design/gameplay-handoff-checks.json) cover current owner-confirmed choices, remaining unapproved defaults, written state/phase/loop prevention, links, reference arithmetic and exact preservation. Current M8-D/FLT-AC-012 remains In Progress until full written-design approval; plan/implementation remain Not Started.

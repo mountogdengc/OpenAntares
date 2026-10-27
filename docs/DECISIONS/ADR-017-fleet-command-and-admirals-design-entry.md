@@ -42,3 +42,8 @@ After the fleet/construction walkthrough, the owner retained the proposed direct
 ## Owner-confirmed initial admiral availability — 2026-10-27
 
 The owner accepted one starting Navigator, Surveyor/Organizer candidates, two-turn commissioning and four active admirals initially. Fleet controls/standing orders work without an officer; officers supply bonuses/progression. Ship-based travel and co-located transfers remain part of the reviewed availability direction, with Wenth availability tied to colony bodies. The additional proposed64-lifetime-commission bound was not separately confirmed by this answer. Remaining Wenth link-loss/equipment details, recovery technology, other unreviewed starter/accounting details and full M8 approval remain pending; no plan/implementation or main change.
+
+
+## Owner-confirmed Wenth recovery and technology — 2026-10-27
+
+The owner accepted Wenth link-restoration delays of2 turns normally and1 with recovery research; manually selected Last watch takes4/3 turns. The source body retains XP/history. Command Recovery costs24 displayed research and requires Industrial Coordination. Previously confirmed mortal50/70% recovery/two-turn delay and all other scoped choices remain settled. The consolidated gameplay review summary includes the remaining proposed XP/history/lifetime/coordination/AI defaults for one full written-design approval before a separate plan. This answer does not by itself approve the complete specification or authorize implementation. Main and all four owner edits remain unchanged.

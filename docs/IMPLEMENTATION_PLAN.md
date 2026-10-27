@@ -109,3 +109,6 @@ M8 fleet/construction review2026-10-27: owner retains the reviewed proposal and 
 
 
 M8 availability decision2026-10-27: starting Navigator with Surveyor/Organizer candidates,2-turn commissioning,4-active-admiral limit and co-located ship-based transfers confirmed; fleet controls remain usable without an officer and Wenth availability stays colony-body based. Do not re-ask those choices. The64-lifetime-commission bound remains a proposal. Next review covers Wenth link/equipment recovery, technology and remaining draft details before full M8 approval/separate plan. M8-D/FLT-AC-012 In Progress; plan/implementation Not Started. Main/four owner edits/worktrees unchanged.
+
+
+M8 final scoped choices2026-10-27: Wenth recovery2/1 turns (basic/researched), manual Last watch4/3, and Command Recovery24 displayed research after Industrial Coordination confirmed. Read reports/FLEET_COMMAND_GAMEPLAY_REVIEW_2026-10-27.md and the complete specification for remaining starter defaults and full-design approval; do not re-ask settled gameplay numbers. M8-D/FLT-AC-012 In Progress; plan/implementation Not Started until their gates. Preserve main/four owner files, seven worktrees/branches and evidence; future combat direction remains a note.
