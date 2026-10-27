@@ -42,3 +42,8 @@ The additional [combat/retreat/morale/damaged-ship note](2026-10-27-combat-retre
 ## Fleet/construction review and request priority — 2026-10-27
 
 After the fleet/construction walkthrough, the owner retained the proposed direction including Normal/Urgent priority. Normal is the initial priority and preserves existing explicit queue order. Urgent previews moving requested ships before unstarted work while preserving the active project; replacement remains a separate direct choice. The draft spells out priority-aware estimates, atomic later reordering, stable tokens/reserve, pause/cancel behavior and persisted priority. It retains coherent slowest-member travel, finite assembly, automatic rally dispatch, manual authority and explicit missing-slot amendments from the walkthrough. No new damage/morale/combat behavior is included. Remaining commissioning/Wenth/recovery-technology and other unconfirmed details/full M8 approval remain pending; plan/implementation Not Started.
+
+
+## Owner-confirmed initial admiral availability — 2026-10-27
+
+The owner accepted one starting Navigator, Surveyor/Organizer candidates, two-turn commissioning and four active admirals initially. Fleet controls/standing orders work without an officer; officers supply bonuses/progression. Ship-based travel and co-located transfers remain part of the reviewed availability direction, with Wenth availability tied to colony bodies. The additional proposed64-lifetime-commission bound was not separately confirmed by this answer. Remaining Wenth link-loss/equipment details, recovery technology, other unreviewed starter/accounting details and full M8 approval remain pending; no plan/implementation or main change.
