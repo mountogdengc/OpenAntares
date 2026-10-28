@@ -9,6 +9,12 @@ using Xunit;
 namespace OpenAntares.Simulation.Tests;
 public sealed class FleetRequestTests
 {
+    [Fact]
+    public void ExplicitContributionPauseRetainsPaidProjectQueueAndBindings()
+    {
+        var g=FleetEconomyTests.Organizer();var col=g.State.Colonies[0];col.ProductionReserve=700;var request=g.State.Empires[0].Fleets!.Requests[0];var token=col.Development!.ActiveQueueToken;var paused=Run(g,new AssemblyAction.SetContributionPaused(request.Id,request.Revision,col.Id,true));Assert.True(paused.Accepted,paused.Rejection?.Message);Assert.Equal(700,paused.State.Colonies[0].ProductionReserve);Assert.Equal(token,paused.State.Colonies[0].Development!.ActiveQueueToken);Assert.Equal(col.ProjectId,paused.State.Colonies[0].ProjectId);Assert.Equal(request.Slots[0].QueueToken,paused.State.Empires[0].Fleets!.Requests[0].Slots[0].QueueToken);Assert.Contains(col.Id,paused.State.Empires[0].Fleets!.Requests[0].PausedContributions);Assert.Equal(800,OfficerBonuses.RequestShipCost(g.Content,paused.State,col.Id,"scout"));
+        g=new(g.Content,paused.State);request=g.State.Empires[0].Fleets!.Requests[0];var resumed=Run(g,new AssemblyAction.SetContributionPaused(request.Id,request.Revision,col.Id,false));Assert.True(resumed.Accepted);Assert.Empty(resumed.State.Empires[0].Fleets!.Requests[0].PausedContributions);Assert.Equal(760,OfficerBonuses.RequestShipCost(g.Content,resumed.State,col.Id,"scout"));
+    }
     internal static CommandOutcome Run(Saves.LoadedGame g,AssemblyAction action)=>CommandProcessor.Execute(g.Content,g.State,new AssemblyCommand(g.State.Empires[0].Id,g.State.Turn,action));
     internal static Saves.LoadedGame Accept(Saves.LoadedGame g,AssemblyDraft? draft=null)
     {

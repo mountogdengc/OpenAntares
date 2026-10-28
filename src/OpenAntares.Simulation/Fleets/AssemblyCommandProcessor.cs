@@ -71,6 +71,10 @@ public static class AssemblyCommandProcessor
                     var id=new RequestId(f.NextRequestId);f.NextRequestId=checked(f.NextRequestId+1);request=new(){Id=id,Status=RequestStatus.Active};f.Requests.Add(request);Install(request,a.Draft,accepted);break;
                 case AssemblyAction.Pause:
                     if(request!.Status==RequestStatus.Active)request.Status=RequestStatus.Paused;break;
+                case AssemblyAction.SetContributionPaused a:
+                    Require(request!.Colonies.Contains(a.Colony)&&candidate.FindColony(a.Colony)?.EmpireId==e.Id,"Choose a currently participating own shipyard.");
+                    if(a.Paused){if(!request.PausedContributions.Contains(a.Colony)){request.PausedContributions.Add(a.Colony);request.PausedContributions.Sort();}}else request.PausedContributions.Remove(a.Colony);
+                    break;
                 case AssemblyAction.Resume a:
                     var resumed=AssemblyPlanner.PreviewRetained(context,request!.Id);Check(resumed,a.Fingerprint);
                     request.Status=RequestStatus.Active;request.PausedContributions.Clear();request.Attention=request.Slots.Any(s=>s.Status==SlotStatus.Missing)?"Missing ships require an explicit finite amendment.":null;

@@ -10,5 +10,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)FrozenContent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScoutUiControlChecks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScoutGraphicalValidation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FleetGraphicalValidation.cs" />
   </ItemGroup>
 </Project>

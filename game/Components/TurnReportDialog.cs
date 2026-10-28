@@ -18,6 +18,7 @@ namespace OpenAntares.Game.Components;
 public partial class TurnReportDialog : AcceptDialog
 {
     private readonly VBoxContainer _body = new();
+    public string FleetPreferencesPath{get;set;}="user://fleet-notifications.json";
     private OpenAntares.Game.Presentation.CrisisNotificationPreferences _crisisPreferences=OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
     private OpenAntares.Game.Presentation.ColonyNotificationPreferences _preferences = OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
 
@@ -29,6 +30,7 @@ public partial class TurnReportDialog : AcceptDialog
     public event Action<StarId>? StarRequested;
     public event Action<ColonyId>? ColonyRequested;
     public event Action<VesselId>? VesselRequested;
+    public event Action? FleetCommandRequested;
 
     public override void _Ready()
     {
@@ -53,6 +55,13 @@ public partial class TurnReportDialog : AcceptDialog
         _crisisPreferences=crisisPreferences??OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
         Title = "Turn report";
         _body.AddChild(new Label { Text = $"Turn {report.FromTurn} results", ThemeTypeVariation = "HeaderLabel" });
+        if(empireView?.Fleets is not null)
+        {
+            var command=new Button{Name="ReportOpenFleetCommand",Text="Fleet command and service records"};_body.AddChild(command);command.Pressed+=()=>FleetCommandRequested?.Invoke();
+            bool routine=OpenAntares.Game.Presentation.FleetNotificationPreferences.Load(ProjectSettings.GlobalizePath(FleetPreferencesPath)).ShowRoutine;
+            foreach(var group in report.FleetEvents.Where(e=>routine||e.Importance==OpenAntares.Simulation.Fleets.FleetImportance.Attention).GroupBy(e=>(e.Kind,e.Importance)))
+                _body.AddChild(new Label{Text=$"{group.Key.Kind.Replace('_',' ')}: {group.Count()} outcome(s). "+string.Join(" ",group.Take(4).Select(e=>e.Reason))+(group.Count()>4?" Open fleet command for all own details.":""),ThemeTypeVariation=group.Key.Importance==OpenAntares.Simulation.Fleets.FleetImportance.Attention?"WarningLabel":"SubtleLabel",AutowrapMode=TextServer.AutowrapMode.WordSmart,SizeFlagsHorizontal=Control.SizeFlags.ExpandFill});
+        }
         foreach(var entry in report.ScoutEvents)
         {
             _body.AddChild(new Label{Text=$"{content.Vessels[entry.RoleId].Name} {entry.Vessel.Value}: {entry.Kind.Replace('_',' ')}. {entry.Reason}"+(entry.ResearchAward>0?$" Earned {Format.Points(entry.ResearchAward)} research.":""),ThemeTypeVariation=entry.Kind=="loss"?"WarningLabel":"SubtleLabel",AutowrapMode=TextServer.AutowrapMode.WordSmart,SizeFlagsHorizontal=Control.SizeFlags.ExpandFill});

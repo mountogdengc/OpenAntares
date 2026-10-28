@@ -29,6 +29,9 @@ public static class FleetTravel
         if(consequence.OfficerAboard&&officer is not null)
         {
             var d=content.FleetCommand!;bool study=vessel.AmebaEncounter?.RiskOrder?.Action==Scouting.AmebaRiskAction.Study;
+            bool researched=state.FindEmpire(owner)!.KnownTechnologyIds.Contains(d.RecoveryTechnologyId);int delay=officer.Embodiment==CommandEmbodiment.ColonyBody?System.Math.Max(1,(officer.Doctrine==OfficerDoctrine.LastWatch?d.LastWatchLinkTurns:d.LinkRecoveryTurns)-(researched?d.ResearchedLinkReduction:0)):d.MortalRecoveryTurns;
+            int percent=officer.Embodiment==CommandEmbodiment.ColonyBody?100:officer.Doctrine==OfficerDoctrine.LastWatch?0:researched?d.ResearchedRecoveryPercent:d.MortalRecoveryPercent;
+            consequence=consequence with{Recovery=new(officer.Name,officer.Embodiment,officer.Doctrine,percent,delay)};
             bool survey=!study&&departures.GetValueOrDefault(id) is {} surveyTarget&&!f.SurveyCredits.Contains(surveyTarget)&&!state.FindEmpire(owner)!.Surveys.Any(s=>s.StarId==surveyTarget);
             if(study||survey)
             {

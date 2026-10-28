@@ -9,6 +9,12 @@ namespace OpenAntares.Simulation.Tests;
 public sealed class FleetCommandTests
 {
     [Fact]
+    public void ConfirmationFingerprintRejectsAChangedSameTurnViewAtomically()
+    {
+        var g=FleetFixtures.Game();var owner=g.State.Empires[0].Id;var action=new FleetAction.MoveSelection(ImmutableArray.Create(g.State.Vessels[0].Id),ImmutableArray<FleetId>.Empty,g.State.Stars.First(s=>s.Id!=g.State.Vessels[0].StationaryStarId).Id);var preview=FleetQueries.PreviewAction(g.Content,Knowledge.EmpireViewProjector.Project(g.Content,g.State,owner),action);Assert.True(preview.Allowed);
+        var change=FleetOfficerTests.Run(g,new OfficerAction.SetDoctrine(new(1),OfficerDoctrine.LastWatch));Assert.True(change.Accepted);g=new(g.Content,change.State);var command=new FleetCommand(owner,g.State.Turn,action){Fingerprint=preview.Fingerprint};var rejected=CommandProcessor.Execute(g.Content,g.State,command);Assert.False(rejected.Accepted);Assert.Same(g.State,rejected.State);
+    }
+    [Fact]
     public void SplitMergeFlagshipAndLateBulkFailureAreAtomic()
     {
         var g=FleetFixtures.Game();var s=g.State;var first=s.Vessels[0];var second=first.Clone();second.Id=new(s.NextEntityId++);s.Vessels.Add(second);

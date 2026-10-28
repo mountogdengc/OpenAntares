@@ -2,7 +2,10 @@ using System.Collections.Immutable;
 using OpenAntares.Simulation.Commands;
 namespace OpenAntares.Simulation.Fleets;
 
-public sealed record FleetCommand(EmpireId Issuer, int ExpectedTurn, FleetAction Action) : Command(Issuer, ExpectedTurn);
+public sealed record FleetCommand(EmpireId Issuer, int ExpectedTurn, FleetAction Action) : Command(Issuer, ExpectedTurn)
+{
+    public string? Fingerprint {get;init;}
+}
 public abstract record FleetAction
 {
     public sealed record Create(string Name, ImmutableArray<VesselId> Members, VesselId? Flagship = null) : FleetAction;

@@ -86,6 +86,7 @@ public static class FleetCommandProcessor
         try
         {
             var preview=FleetQueries.PreviewAction(content,EmpireViewProjector.Project(content,state,command.Issuer),command.Action);
+            if(command.Fingerprint is not null&&command.Fingerprint!=preview.Fingerprint)return CommandOutcome.Reject(state,"fleet_stale","Fleet preview changed; review the current selection and consequences again.");
             if(!preview.Allowed)return CommandOutcome.Reject(state,"fleet_illegal",preview.Rejection!);
             var candidate=state.Clone();var f=candidate.FindEmpire(command.Issuer)!.Fleets!;
             string Facts(GameState s)=>JsonSerializer.Serialize(new{Fleet=s.FindEmpire(command.Issuer)!.Fleets,Ships=s.Vessels.Where(v=>v.EmpireId==command.Issuer)});
