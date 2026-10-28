@@ -19,7 +19,7 @@ public sealed class CrisisGenerationTests
         Assert.True(content.Succeeded,string.Join("; ",content.Errors));
         var game=GalaxyGenerator.CreateNewGame(content.Content!,new("small",42,6,"harl"));
         Assert.True(game.Succeeded,game.Error);
-        Assert.Equal(7,Rules.CurrentVersion);
+        Assert.Equal(8,Rules.CurrentVersion);
         var standard=GalaxyGenerator.CreateNewGame(content.Content!,new("small",42,6,"harl",1,"peldra"));
         var off=GalaxyGenerator.CreateNewGame(content.Content!,new("small",42,6,"harl",1,"peldra",CrisesEnabled:false));
         Assert.True(standard.Succeeded,standard.Error);Assert.True(off.Succeeded,off.Error);

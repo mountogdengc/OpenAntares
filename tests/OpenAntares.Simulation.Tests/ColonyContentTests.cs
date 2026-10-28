@@ -15,7 +15,7 @@ public sealed class ColonyContentTests
         Assert.Equal(SupportTargetMode.CappedGrowth,c.GovernorTemplates["growth"].SupportTarget);
         Assert.Equal(3200,c.Buildings["production_complex"].Cost);Assert.Equal(300,c.Buildings["production_complex"].Effects.Single().Amount);
         Assert.Equal(2400,c.Technologies["adaptive_habitats"].Cost);Assert.Equal(2,c.Buildings["habitat_network"].Effects.Single(e=>e.Kind=="capacity").Amount);
-        Assert.Equal(7,Rules.CurrentVersion);
+        Assert.Equal(8,Rules.CurrentVersion);
     }
     [Theory][InlineData("production_weight","101")][InlineData("production_weight","-1")][InlineData("name","\"\"")][InlineData("support_target","\"future\"")][InlineData("foundation_ids","[\"missing\"]")][InlineData("development_ids","[\"fabrication_hall\"]")]
     public void InvalidDefaultsHaveLocatedErrors(string field,string json) {
@@ -52,7 +52,7 @@ public sealed class ColonyContentTests
     }
     [Theory][MemberData(nameof(PlanetAppearanceTests.SpeciesPairs),MemberType=typeof(PlanetAppearanceTests))]
     public void CurrentSpeciesPairsStartManualWithDisabledAiGovernors(string size,string human,string rival) {
-        var content=ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory()).Content!;var result=OpenAntares.Simulation.Galaxy.GalaxyGenerator.CreateNewGame(content,new(size,42,SpeciesId:human,RivalCount:1,RivalSpeciesId:rival,CrisesEnabled:false,AmebasEnabled:true));Assert.True(result.Succeeded,result.Error);Assert.Equal(7,result.State!.RulesVersion);Assert.False(result.State.Crisis!.Enabled);
+        var content=ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory()).Content!;var result=OpenAntares.Simulation.Galaxy.GalaxyGenerator.CreateNewGame(content,new(size,42,SpeciesId:human,RivalCount:1,RivalSpeciesId:rival,CrisesEnabled:false,AmebasEnabled:true));Assert.True(result.Succeeded,result.Error);Assert.Equal(8,result.State!.RulesVersion);Assert.False(result.State.Crisis!.Enabled);
         foreach(var c in result.State.Colonies){Assert.NotNull(c.Development);Assert.False(c.Development!.WorkforceEnabled);Assert.False(c.Development.ConstructionEnabled);Assert.Empty(c.Development.Queue);Assert.Empty(c.CompletedBuildingIds);Assert.Null(c.ProjectId);}
         var ai=result.State.Empires.Single(e=>e.Controller==OpenAntares.Simulation.State.ControllerKind.Ai);Assert.Empty(ai.Development!.CustomTemplates);Assert.Empty(ai.Development.CompletedReports);Assert.Null(ai.Development.NewColonyPlan);
     }

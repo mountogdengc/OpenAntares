@@ -52,7 +52,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         Check(picker!.GetSelectedMetadata().AsString()=="harl","Harl is visibly selected by default");
         Check(Descendants<Label>(setup).Any(l=>l.Name=="SpeciesSummary" && l.Text.Length>60),"Starting tradeoffs and flavor appear before Start");
         Press(Button(setup,"Start"));await Frames();var screen=One<GameScreen>(main);var session=Session(screen);
-        Check(session.State.RulesVersion==7 && session.State.Crisis!.Enabled && session.State.Scouting!.Enabled && session.State.Empires[0].SpeciesId=="harl","Actual current Start launches a rules7 Standard plague/ameba Harl campaign");
+        Check(session.State.RulesVersion==8 && session.State.Crisis!.Enabled && session.State.Scouting!.Enabled && session.State.Empires[0].SpeciesId=="harl","Actual current Start launches a rules8 Standard plague/ameba Harl campaign");
         await Capture("default-harl-start");RemoveChild(main);main.QueueFree();await Frames();
     }
     private async Task AlternativeContent()

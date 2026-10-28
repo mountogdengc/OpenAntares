@@ -51,7 +51,7 @@ public sealed class ScoutingIntegrationTests
     private static ContentSet Core()=>ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory()).Content!;
     [Fact] public void CurrentCoreStartsExplicitStandardWithSeparateObserveAndSurvivalDefaults()
     {
-        Assert.Equal(7,Rules.CurrentVersion);var c=Core();Assert.NotNull(c.SpaceAmeba);Assert.Equal(200,c.SpaceAmeba.PursuitSpeed);Assert.Equal(600,c.SpaceAmeba.ResearchReward);
+        Assert.Equal(8,Rules.CurrentVersion);var c=Core();Assert.NotNull(c.SpaceAmeba);Assert.Equal(200,c.SpaceAmeba.PursuitSpeed);Assert.Equal(600,c.SpaceAmeba.ResearchReward);
         var result=GalaxyGenerator.CreateNewGame(c,new("small",42,SpeciesId:"harl",RivalCount:1,RivalSpeciesId:"peldra",AmebasEnabled:true));Assert.True(result.Succeeded,result.Error);var s=result.State!;Assert.True(s.Scouting!.Enabled);Assert.Equal(1,s.Scouting.SelectionCount);
         Assert.All(s.Vessels,v=>{Assert.Equal(ScoutPosture.Observe,v.Scout!.Posture);Assert.True(v.Scout.WithdrawFromAmeba);});var session=new GameSession(c,s);string before=SaveGame.Serialize(c,s);for(int n=0;n<3;n++){var view=session.View(s.Empires[0].Id);Assert.Empty(view.Scouting!.Habitats);Assert.Empty(view.Scouting.Attention);session.Forecast();}Assert.Equal(before,SaveGame.Serialize(c,s));
         foreach(bool enabled in new[]{false,true})Assert.False(GalaxyGenerator.CreateNewGame(c with{SpaceAmeba=null},new("small",42,7,"harl",AmebasEnabled:enabled)).Succeeded);

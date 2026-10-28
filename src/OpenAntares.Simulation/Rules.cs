@@ -20,7 +20,7 @@ public static class Rules
     public static bool HasFleets(int version) => version == FleetVersion;
     public static bool HasScouting(int version) => version is ScoutVersion or FleetVersion;
     public static bool HasCrises(int version) => version is CrisisVersion or ScoutVersion or FleetVersion;
-    public const int CurrentVersion = ScoutVersion;
+    public const int CurrentVersion = FleetVersion;
     public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion;
     public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion;
     public static bool HasSpecies(int version) => version is SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion;
