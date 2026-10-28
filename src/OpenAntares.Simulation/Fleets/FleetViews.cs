@@ -13,6 +13,11 @@ public sealed record FleetEmpireView(EmpireId Owner, int Turn, ImmutableArray<Fl
     public OfficerDoctrine? FutureDoctrine { get; init; }
 }
 public sealed record FleetRouteConsequence(VesselId Vessel,FleetId? Fleet,StarId Origin,StarId Destination,int Turns);
+public sealed record AssemblyDraft(string Name,StarId Rally,FleetId? RallyFleet,ImmutableArray<string> Roles,ImmutableArray<ColonyId> Colonies,RequestPriority Priority,ImmutableArray<VesselId> AcceptedIdleVessels,bool AuthorizeCargo,OfficerId? Coordinator);
+public sealed record AssemblySlotPlan(int Ordinal,string RoleId,VesselId? Vessel,ColonyId? Colony,int? QueuePosition,long Cost,int Cargo,long? CompletionTurns,long? ArrivalTurns);
+public sealed record AssemblyQueueItem(int? Token,State.ProductionTarget Target,int? SlotOrdinal,long? CompletionTurns=null);
+public sealed record AssemblyColonyPreview(ColonyId Colony,State.ProductionTarget? ActiveProject,int? ActiveQueueToken,long Reserve,long ProductionPerTurn,int CargoTotal,ImmutableArray<Development.ProductionQueueEntry> PriorQueue,ImmutableArray<AssemblyQueueItem> ProposedQueue);
+public sealed record AssemblyPreview(bool Allowed,string Fingerprint,ImmutableArray<AssemblySlotPlan> Slots,ImmutableArray<AssemblyColonyPreview> Colonies,ImmutableArray<FleetShipView> IdleCandidates,ImmutableArray<string> Warnings,ImmutableArray<string> Rejections);
 public sealed record FleetActionPreview(bool Allowed, string? Rejection, string Consequences, string Fingerprint)
 {
     public ImmutableArray<FleetRouteConsequence> Routes { get; init; }=ImmutableArray<FleetRouteConsequence>.Empty;
