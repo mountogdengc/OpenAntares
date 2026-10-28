@@ -15,6 +15,12 @@ public static partial class CommandProcessor
 {
     public static CommandOutcome Execute(ContentSet content, GameState state, Command command)
     {
+        try{return ExecuteTransaction(content,state,command);}
+        catch(OverflowException)when(Rules.HasFleets(state.RulesVersion))
+        {return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The order exceeds supported production or command limits.");}
+    }
+    private static CommandOutcome ExecuteTransaction(ContentSet content, GameState state, Command command)
+    {
         var result = ExecuteCore(content, state, command);
         if (result.Changed && Rules.HasDevelopment(state.RulesVersion)) ApplyManualIntervention(result.State, command);
         if(result.Changed&&result.State.Turn==state.Turn&&Rules.HasScouting(state.RulesVersion))

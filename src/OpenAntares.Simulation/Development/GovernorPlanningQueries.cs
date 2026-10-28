@@ -54,10 +54,23 @@ public static class GovernorPlanningQueries
             var frame=new GameState {
                 RulesVersion=view.RulesVersion,Turn=view.Turn,Random=new Pcg32{State=0,Increment=1},Empires=new(){owner},
                 Planets=view.Stars.Where(s=>s.Planets.HasValue).SelectMany(s=>s.Planets!.Value.Where(p=>view.Colonies.Any(c=>c.PlanetId==p.Id)).Select(p=>new PlanetState{Id=p.Id,StarId=s.Chart.Id,Orbit=p.Orbit,PlanetTypeId=p.PlanetTypeId,EnvironmentId=p.EnvironmentId})).ToList(),
-                Colonies=view.Colonies.Select(c=>new ColonyState{Id=c.Id,EmpireId=view.Viewer,PlanetId=c.PlanetId,Population=c.Population,Workforce=c.Workforce,GrowthProgress=c.GrowthProgress,ProductionReserve=c.ProductionReserve,ProjectId=c.ProjectId,ProjectKind=c.ProjectKind,HabitatMode=c.HabitatMode,CompletedBuildingIds=c.CompletedBuildingIds.ToList()}).ToList()
+                Colonies=view.Colonies.Select(OwnColony).ToList()
             };
+            // Calculator-only own metadata: retain exact existing bindings, without
+            // allocating hypothetical IDs/tokens or holding a world reference.
+            if(Rules.HasFleets(view.RulesVersion)&&view.Fleets is {} fleets)
+                owner.Fleets=new()
+                {
+                    Officers=fleets.Officers.Select(o=>new Fleets.OfficerRecord{Id=o.Id,Specialty=o.Specialty,Xp=o.Xp,Rank=o.Rank,Status=o.Status,PostedColony=o.PostedColony,Request=o.Request}).ToList(),
+                    Requests=fleets.Requests.Select(r=>new Fleets.AssemblyRequest{Id=r.Id,Status=r.Status,Colonies=r.Colonies.ToList(),PausedContributions=r.PausedContributions.ToList(),Coordinator=r.Coordinator,Slots=r.Slots.Select(s=>new Fleets.AssemblySlot{Ordinal=s.Ordinal,RoleId=s.RoleId,Colony=s.Colony,QueueToken=s.QueueToken,Status=s.Status,ResumeStatus=s.ResumeStatus}).ToList()}).ToList()
+                };
             Crises.CrisisForecastFrame.Apply(frame,view);
             return frame;
         }
+        private static ColonyState OwnColony(OwnedColonyView c)=>new()
+        {
+            Id=c.Id,EmpireId=c.EmpireId,PlanetId=c.PlanetId,Population=c.Population,Workforce=c.Workforce,GrowthProgress=c.GrowthProgress,ProductionReserve=c.ProductionReserve,ProjectId=c.ProjectId,ProjectKind=c.ProjectKind,HabitatMode=c.HabitatMode,CompletedBuildingIds=c.CompletedBuildingIds.ToList(),
+            Development=c.Development is {} d?new(){Template=d.Template,WorkforceEnabled=d.WorkforceEnabled,ConstructionEnabled=d.ConstructionEnabled,Queue=d.Queue.ToList(),NextQueueToken=d.NextQueueToken??checked(d.Queue.Select(q=>q.Token).DefaultIfEmpty().Max()+1),ActiveQueueToken=d.ActiveQueueToken,Origin=d.Origin}:null
+        };
     }
 }
