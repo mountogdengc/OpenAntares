@@ -84,6 +84,6 @@ public static class EmpireViewProjector
             var species = contact is not null && content.Species.TryGetValue(contact.SpeciesId, out var known) ? known : null;
             return e with { SpeciesId = contact?.SpeciesId, SpeciesName = species?.Name, CultureName = species?.CultureName };
         }).ToImmutableArray() : ImmutableArray<Turns.EncounterEvent>.Empty;
-        return new(report.FromTurn, report.ToTurn, colonies, report.Economy.Empire(viewer), report.ExpansionEvents.Where(e => e.Owner == viewer).ToImmutableArray(), state.Stars.ToImmutableDictionary(s => s.Id, s => s.Name)) { EncounterEvents = encounters, CrisisEvents=report.CrisisEvents.Where(e=>e.Key.Owner==viewer).ToImmutableArray(),ScoutEvents=report.ScoutEvents.Where(e=>e.Owner==viewer).ToImmutableArray(),Scouting=Rules.HasScouting(state.RulesVersion)?Scouting.ScoutQueries.Project(content,state,viewer):null };
+        return new(report.FromTurn, report.ToTurn, colonies, report.Economy.Empire(viewer), report.ExpansionEvents.Where(e => e.Owner == viewer).ToImmutableArray(), state.Stars.ToImmutableDictionary(s => s.Id, s => s.Name)) { FleetEvents=report.FleetEvents.Where(e=>e.Owner==viewer).ToImmutableArray(), EncounterEvents = encounters, CrisisEvents=report.CrisisEvents.Where(e=>e.Key.Owner==viewer).ToImmutableArray(),ScoutEvents=report.ScoutEvents.Where(e=>e.Owner==viewer).ToImmutableArray(),Scouting=Rules.HasScouting(state.RulesVersion)?Scouting.ScoutQueries.Project(content,state,viewer):null };
     }
 }

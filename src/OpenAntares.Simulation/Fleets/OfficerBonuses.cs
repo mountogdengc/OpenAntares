@@ -6,6 +6,14 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Fleets;
 public static class OfficerBonuses
 {
+    public static long SurveyResearch(ContentSet content,GameState state,EmpireId owner,FleetId fleet)
+    {
+        if(!Rules.HasFleets(state.RulesVersion))return 0;
+        var f=state.FindEmpire(owner)!.Fleets!;var group=f.Fleets.Single(x=>x.Id==fleet);var officer=f.Officers.SingleOrDefault(o=>o.Id==group.Officer&&o.Status==OfficerStatus.Commanding&&o.Flagship==group.Flagship);
+        return SurveyResearch(content,officer?.Specialty,officer?.Rank??0);
+    }
+    internal static long SurveyResearch(ContentSet content,OfficerSpecialty? specialty,int rank)
+        =>specialty==OfficerSpecialty.Surveyor&&rank>0?content.FleetCommand!.SurveyResearchBonuses[rank-1]:0;
     public static long RequestShipCost(ContentSet content,GameState state,ColonyId colony,string roleId)
     {
         long basis=content.Vessels[roleId].Cost;

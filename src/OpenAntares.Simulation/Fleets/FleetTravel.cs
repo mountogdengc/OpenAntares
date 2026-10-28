@@ -24,7 +24,19 @@ public static class FleetTravel
             int speed=named?members.Min(member=>OfficerBonuses.EffectiveSpeed(content,state,member)):content.Vessels[vessel.RoleId].Speed;
             var a=state.FindStar(station)!;var b=state.FindStar(target)!;duration=TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,speed);
         }
-        return new(group.Id,named?group.Id:null,group.Flagship,members,original.Except(compatible).OrderBy(x=>x).ToImmutableArray(),named?group.Officer:null,named&&id==group.Flagship&&group.Officer is not null,duration);
+        var consequence=new FleetDepartureConsequence(group.Id,named?group.Id:null,group.Flagship,members,original.Except(compatible).OrderBy(x=>x).ToImmutableArray(),named?group.Officer:null,named&&id==group.Flagship&&group.Officer is not null,duration);
+        var officer=f.Officers.SingleOrDefault(o=>o.Id==consequence.Officer&&o.Status==OfficerStatus.Commanding);
+        if(consequence.OfficerAboard&&officer is not null)
+        {
+            var d=content.FleetCommand!;bool study=vessel.AmebaEncounter?.RiskOrder?.Action==Scouting.AmebaRiskAction.Study;
+            bool survey=!study&&departures.GetValueOrDefault(id) is {} surveyTarget&&!f.SurveyCredits.Contains(surveyTarget)&&!state.FindEmpire(owner)!.Surveys.Any(s=>s.StarId==surveyTarget);
+            if(study||survey)
+            {
+                int xp=System.Math.Min(d.XpCap,checked(officer.Xp+(study?d.StudyXp:d.FirstSurveyXp)));int rank=xp>=d.RankThresholds[1]?2:xp>=d.RankThresholds[0]?1:0;
+                consequence=consequence with{Reward=new(study?"If first study succeeds":"If this flagship earns the first survey",xp-officer.Xp,xp,rank,survey?OfficerBonuses.SurveyResearch(content,officer.Specialty,officer.Rank):0,officer.Specialty==OfficerSpecialty.Navigator&&rank>0?d.NavigatorBonuses[rank-1]:0,officer.Specialty==OfficerSpecialty.Organizer&&rank>0?d.OrganizerDiscounts[rank-1]:0,OfficerBonuses.SurveyResearch(content,officer.Specialty,rank))};
+            }
+        }
+        return consequence;
     }
     internal static string? ConsequenceFingerprint(ContentSet content, GameState state, EmpireId owner, VesselId id, StarId? destination,IReadOnlyDictionary<VesselId,StarId?> departures)
     {

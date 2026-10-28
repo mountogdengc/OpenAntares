@@ -30,7 +30,7 @@ public sealed record HullBuildOrigin(RequestId Request, int Slot, ColonyId Colon
 public sealed record FleetEvent(EmpireId Owner, long Id, int Turn, string Kind, string Reason, FleetImportance Importance = FleetImportance.Summary, FleetId? Fleet = null, RequestId? Request = null, OfficerId? Officer = null, VesselId? Vessel = null);
 public sealed record OfficerHighlight(long Event, int Turn, string Kind, string Reason);
 public sealed record OfficerTurnDetail(int Turn, ImmutableArray<OfficerHighlight> Entries);
-public sealed record OfficerCareerTotals(long FirstSurveys = 0, long Studies = 0, long NewHulls = 0, long ShipsLost = 0, long FlagshipsLost = 0, long Recoveries = 0, long XpEarned = 0);
+public sealed record OfficerCareerTotals(long FirstSurveys = 0, long Studies = 0, long NewHulls = 0, long ShipsLost = 0, long FlagshipsLost = 0, long Recoveries = 0, long XpEarned = 0, long CompletedRequests = 0);
 
 public sealed class FleetRecord
 {
