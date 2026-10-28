@@ -33,6 +33,12 @@ public static class FleetInitializer
                 ProfileCommissions = new(StringComparer.Ordinal) { [profile.Id] = 1 },
                 SurveyCredits = new(e.Surveys.Select(o => o.StarId))
             };
+            if(e.Controller==ControllerKind.Ai&&state.Vessels.Where(v=>v.EmpireId==e.Id&&v.Scout is not null).OrderBy(v=>v.Id).FirstOrDefault() is {} scout)
+            {
+                var f=e.Fleets;var officer=f.Officers[0];var fleet=new FleetId(f.NextFleetId);f.NextFleetId=checked(f.NextFleetId+1);
+                scout.Fleet=fleet;officer.Status=OfficerStatus.Commanding;officer.PostedColony=null;officer.Flagship=scout.Id;
+                f.Fleets.Add(new(){Id=fleet,Name="Exploration command",Members=new(){scout.Id},Flagship=scout.Id,Officer=officer.Id});
+            }
         }
     }
 }

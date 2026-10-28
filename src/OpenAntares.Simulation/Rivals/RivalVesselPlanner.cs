@@ -74,14 +74,15 @@ internal static class RivalVesselPlanner
     private static Command? Scout(IRivalPlanningContext context, OwnedVesselView vessel)
     {
         var view = context.View;
+        int? Travel(StarId target)=>Rules.HasFleets(view.RulesVersion)&&view.Fleets!.Ships.Single(s=>s.Id==vessel.Id).Fleet is not null?Fleets.FleetTravel.PreviewDuration(context.Content,view,vessel,target):context.TravelTurns(vessel.StationaryStarId!.Value,target,vessel.RoleId);
         bool Excluded(StarId star)=>Rules.HasScouting(view.RulesVersion)&&(view.Scouting?.Habitats.Any(h=>h.Star==star)==true||Scouting.ScoutQueries.NeutralExcluded(view,star));
-        if(Rules.HasScouting(view.RulesVersion)&&vessel.PendingMove is {} pending&&!Excluded(pending)&&context.TravelTurns(vessel.StationaryStarId!.Value,pending,vessel.RoleId).HasValue)return null;
+        if(Rules.HasScouting(view.RulesVersion)&&vessel.PendingMove is {} pending&&!Excluded(pending)&&Travel(pending).HasValue)return null;
         var claimed = view.Vessels.Where(v => v.Id != vessel.Id && !context.Content.Vessels[v.RoleId].CanFoundColony)
             .Select(v => v.Transit?.Destination ?? v.PendingMove).Where(id => id.HasValue).Select(id => id!.Value).ToHashSet();
         var unknown = view.Stars.Where(s => s.Planets is null && s.Chart.Id != vessel.StationaryStarId&&!Excluded(s.Chart.Id)).ToArray();
         var candidates = (unknown.Length > 0 ? unknown : view.Stars.Where(s => !s.Current && s.Chart.Id != vessel.StationaryStarId &&
             s.LastObservedTurn.HasValue && (long)view.Turn-s.LastObservedTurn.Value >= context.Policy.ResurveyMinAge&&!Excluded(s.Chart.Id)).ToArray())
-            .Select(s => (Star:s,Travel:context.TravelTurns(vessel.StationaryStarId!.Value,s.Chart.Id,vessel.RoleId))).Where(x => x.Travel.HasValue).ToArray();
+            .Select(s => (Star:s,Travel:Travel(s.Chart.Id))).Where(x => x.Travel.HasValue).ToArray();
         var unclaimed = candidates.Where(x => !claimed.Contains(x.Star.Chart.Id)).ToArray();
         if (unclaimed.Length > 0) candidates = unclaimed;
         var chosen = candidates.OrderBy(x => unknown.Length > 0 ? 0 : x.Star.LastObservedTurn!.Value).ThenBy(x => x.Travel).ThenBy(x => x.Star.Chart.Id).FirstOrDefault();

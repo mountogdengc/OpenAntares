@@ -21,7 +21,14 @@ public static partial class CommandProcessor
         catch(InvalidOperationException)when(Rules.HasFleets(state.RulesVersion))
         {return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The order could not be prepared from the current state.");}
     }
-    private static CommandOutcome ExecuteTransaction(ContentSet content, GameState state, Command command)
+    internal static CommandOutcome ExecuteRivalFleetMove(ContentSet content,GameState state,SetMoveOrderCommand command)
+    {
+        var issuer=state.FindEmpire(command.Issuer);var vessel=state.FindVessel(command.Vessel);
+        if(!Rules.HasFleets(state.RulesVersion)||issuer?.Controller!=ControllerKind.Ai||vessel?.EmpireId!=issuer.Id||vessel.Fleet is not {} id||issuer.Fleets!.Fleets.SingleOrDefault(f=>f.Id==id) is not {} fleet||fleet.Members.Count!=1||fleet.Flagship!=vessel.Id)
+            return CommandOutcome.Reject(state,"rival_fleet_unavailable","The existing rival adapter requires its own one-ship fleet.");
+        return ExecuteTransaction(content,state,new Fleets.FleetCommand(command.Issuer,command.ExpectedTurn,new Fleets.FleetAction.MoveSelection(System.Collections.Immutable.ImmutableArray<VesselId>.Empty,System.Collections.Immutable.ImmutableArray.Create(id),command.Destination)),allowAllHumansReady:true);
+    }
+    private static CommandOutcome ExecuteTransaction(ContentSet content, GameState state, Command command,bool allowAllHumansReady=false)
     {
         var result = ExecuteCore(content, state, command);
         if (result.Changed && Rules.HasDevelopment(state.RulesVersion)) ApplyManualIntervention(result.State, command);
@@ -33,7 +40,7 @@ public static partial class CommandProcessor
         }
         // New commands may change an encounter's material consequences. Validate only
         // after the shared receipt reconciliation has removed the obsolete consent.
-        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand)&&GameStateValidator.Validate(content,result.State).Count!=0)
+        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand)&&GameStateValidator.Validate(content,result.State,allowAllHumansReady).Count!=0)
             return CommandOutcome.Reject(state,"fleet_invalid","The complete fleet or officer action could not be applied coherently.");
         return result;
     }
