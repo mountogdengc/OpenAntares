@@ -81,6 +81,7 @@ public static class AssemblyCommandProcessor
                     foreach(var slot in request.Slots.Where(s=>s.Status==SlotStatus.BlockedSafety)){slot.Status=slot.ResumeStatus!.Value;slot.ResumeStatus=null;slot.BlockedReason=null;}break;
                 case AssemblyAction.SetPriority a:
                     Require(Enum.IsDefined(a.Priority),"Choose Normal or Urgent priority.");
+                    if(a.Fingerprint is not null)Check(AssemblyPlanner.PreviewRetained(context,request!.Id,priority:a.Priority),a.Fingerprint);
                     if(request!.Priority==a.Priority)break;
                     foreach(var colony in request.Colonies)
                     {
@@ -113,6 +114,7 @@ public static class AssemblyCommandProcessor
                     if(a.Choice==RequestCancellation.RemoveUnstarted)
                         foreach(var slot in request!.Slots.Where(s=>s.Colony is not null&&s.QueueToken is not null))
                         {var controls=candidate.FindColony(slot.Colony!.Value)!.Development!;if(controls.ActiveQueueToken!=slot.QueueToken)controls.Queue.RemoveAll(q=>q.Token==slot.QueueToken);}
+                    foreach(var slot in request!.Slots.Where(s=>s.Status==SlotStatus.BlockedSafety)){slot.Status=slot.ResumeStatus!.Value;slot.ResumeStatus=null;slot.BlockedReason=null;}
                     Coordinator(request!,null);request!.Status=RequestStatus.Cancelled;request.ReservedFleetSlot=false;request.CoordinatorXpForfeited=true;break;
                 default: throw new InvalidOperationException("Unknown finite request action.");
             }

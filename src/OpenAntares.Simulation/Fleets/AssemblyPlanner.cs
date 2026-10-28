@@ -174,6 +174,11 @@ public static class AssemblyPlanner
                 var row=view.Scouting?.Vessels.SingleOrDefault(ship=>ship.Id==slot.Vessel);
                 if(row?.Posture==Scouting.ScoutPosture.AvoidEncounters&&Scouting.ScoutQueries.NeutralExcluded(view,draft.Rally))return Fail("Rally is forbidden by a retained member's current posture.");
             }
+            // Retargeting must not silently strand a retained hull in its previous fleet,
+            // displace a commander, or break a committed cohort. Ordinary disbanding keeps
+            // request bindings, unlike explicitly detaching a request slot (which makes Missing).
+            if((draft.Rally!=request.Rally||draft.RallyFleet!=request.RallyFleet)&&kept.Any(slot=>slot.Vessel is {} vessel&&own.Ships.Any(ship=>ship.Id==vessel&&ship.Fleet is {} fleet&&fleet!=draft.RallyFleet)))
+                return Fail("First release retained ships from their existing fleet: wait for committed travel to arrive, then disband that fleet to retain request bindings. Transfer or remove its admiral first if commanded; review the new rally and resume separately.");
             var keptTokens=kept.Where(slot=>slot.Colony is not null&&slot.QueueToken is not null).Select(slot=>(slot.Colony!.Value,slot.QueueToken!.Value)).ToHashSet();
             var oldTokens=request.Slots.Where(slot=>slot.Colony is not null&&slot.QueueToken is not null).Select(slot=>(slot.Colony!.Value,slot.QueueToken!.Value)).ToHashSet();
             var modified=view.Colonies.Select(col=>col.Development is not {} dev?col:col with{Development=dev with{Queue=dev.Queue.Where(q=>!oldTokens.Contains((col.Id,q.Token))||keptTokens.Contains((col.Id,q.Token))||q.Token==dev.ActiveQueueToken).ToImmutableArray()}}).ToImmutableArray();

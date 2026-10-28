@@ -101,9 +101,9 @@ public static class FleetStateValidator
                         else if (slot.NewHull && (vessel!.BuildOrigin!.Request != request.Id || vessel.BuildOrigin.Slot != slot.Ordinal)) Error("new hull belongs to another original reservation.");
                     }
                     else if (progress is SlotStatus.Built or SlotStatus.Travelling or SlotStatus.Arrived) Error("built slot is missing its live hull.");
-                    if (progress == SlotStatus.Queued && slot.QueueToken is { } token)
+                    if (progress == SlotStatus.Queued)
                     {
-                        if (slot.Colony is not { } colony || !request.Colonies.Contains(colony) || !queueBindings.Add((colony, token)) || state.FindColony(colony)?.Development?.Queue.Any(q => q.Token == token && q.Target.Kind == ProductionKinds.Vessel && q.Target.ContentId == slot.RoleId) != true) Error("request queue binding is missing, duplicated or mismatched.");
+                        if (slot.Vessel is not null || slot.QueueToken is not { } token || token < 1 || slot.Colony is not { } colony || !request.Colonies.Contains(colony) || !queueBindings.Add((colony, token)) || state.FindColony(colony)?.Development?.Queue.Any(q => q.Token == token && q.Target.Kind == ProductionKinds.Vessel && q.Target.ContentId == slot.RoleId) != true) Error("request queue binding is missing, duplicated or mismatched.");
                     }
                 }
             }

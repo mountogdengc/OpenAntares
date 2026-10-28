@@ -28,9 +28,17 @@ public static partial class CommandProcessor
             return CommandOutcome.Reject(state,"rival_fleet_unavailable","The existing rival adapter requires its own one-ship fleet.");
         return ExecuteTransaction(content,state,new Fleets.FleetCommand(command.Issuer,command.ExpectedTurn,new Fleets.FleetAction.MoveSelection(System.Collections.Immutable.ImmutableArray<VesselId>.Empty,System.Collections.Immutable.ImmutableArray.Create(id),command.Destination)),allowAllHumansReady:true);
     }
-    private static CommandOutcome ExecuteTransaction(ContentSet content, GameState state, Command command,bool allowAllHumansReady=false)
+    // Only the scout coordinator can pass its already-validated finite preparation plan here.
+    // Public manual movement retains the explicit detachment gate; route/consent handling is shared.
+    internal static CommandOutcome ExecuteScoutPreparationMove(ContentSet content,GameState state,SetMoveOrderCommand command,Scouting.ScoutPlan validatedPlan)
     {
-        var result = ExecuteCore(content, state, command);
+        if(!Rules.HasFleets(state.RulesVersion)||state.FindVessel(command.Vessel) is not {Scout:not null} vessel||vessel.EmpireId!=command.Issuer||!validatedPlan.Commands.Contains(command))
+            return CommandOutcome.Reject(state,"scout_preparation_unavailable","Move is outside the validated scout preparation.");
+        return ExecuteTransaction(content,state,command,scoutPreparationMove:true);
+    }
+    private static CommandOutcome ExecuteTransaction(ContentSet content, GameState state, Command command,bool allowAllHumansReady=false,bool scoutPreparationMove=false)
+    {
+        var result = ExecuteCore(content, state, command,scoutPreparationMove);
         if (result.Changed && Rules.HasDevelopment(state.RulesVersion)) ApplyManualIntervention(result.State, command);
         if(result.Changed&&result.State.Turn==state.Turn&&Rules.HasScouting(state.RulesVersion))
         {
@@ -45,7 +53,7 @@ public static partial class CommandProcessor
         return result;
     }
 
-    private static CommandOutcome ExecuteCore(ContentSet content, GameState state, Command command)
+    private static CommandOutcome ExecuteCore(ContentSet content, GameState state, Command command,bool scoutPreparationMove=false)
     {
         EmpireState? issuer = state.FindEmpire(command.Issuer);
         if (issuer is null)
@@ -69,7 +77,7 @@ public static partial class CommandProcessor
             DevelopmentCommand c => ExecuteDevelopment(content, state, issuer, c),
             SetProductionTargetCommand c => SetProductionTarget(content, state, issuer, c),
             SetFoundingOrderCommand c => SetFoundingOrder(content, state, c),
-            SetMoveOrderCommand c => SetMoveOrder(content, state, c),
+            SetMoveOrderCommand c => SetMoveOrder(content, state, c,group:scoutPreparationMove),
             SetWorkforceCommand c => SetWorkforce(state, c),
             SetProjectCommand c => SetProject(content, state, issuer, c),
             SetResearchTargetCommand c => SetResearchTarget(content, state, issuer, c),

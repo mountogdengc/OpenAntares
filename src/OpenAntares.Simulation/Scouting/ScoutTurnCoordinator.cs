@@ -25,7 +25,7 @@ public static class ScoutTurnCoordinator
             foreach(var command in plan.Commands)
             {
                 if(command.Issuer!=owner||command.ExpectedTurn!=s.Turn||command is not(SetMoveOrderCommand or SetScoutRetreatOrderCommand))return Failed();
-                var result=CommandProcessor.Execute(c,working,command);if(!result.Accepted)return Failed();working=result.State;
+                var result=Rules.HasFleets(working.RulesVersion)&&command is SetMoveOrderCommand move?CommandProcessor.ExecuteScoutPreparationMove(c,working,move,plan):CommandProcessor.Execute(c,working,command);if(!result.Accepted)return Failed();working=result.State;
             }
             if(ScoutReports.NeedsPreparationRecord(working,owner,plan))
             {

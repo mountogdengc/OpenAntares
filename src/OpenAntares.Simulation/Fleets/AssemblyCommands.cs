@@ -8,7 +8,7 @@ public abstract record AssemblyAction
     public abstract record Edit(RequestId Request,long Revision):AssemblyAction;
     public sealed record Pause(RequestId Request,long Revision):Edit(Request,Revision);
     public sealed record Resume(RequestId Request,long Revision,string Fingerprint):Edit(Request,Revision);
-    public sealed record SetPriority(RequestId Request,long Revision,RequestPriority Priority):Edit(Request,Revision);
+    public sealed record SetPriority(RequestId Request,long Revision,RequestPriority Priority,string? Fingerprint=null):Edit(Request,Revision);
     public sealed record SetContributionPaused(RequestId Request,long Revision,ColonyId Colony,bool Paused):Edit(Request,Revision);
     public sealed record ChangeRally(RequestId Request,long Revision,StarId Rally,FleetId? RallyFleet,string Fingerprint):Edit(Request,Revision);
     public sealed record DetachSlot(RequestId Request,long Revision,int Ordinal):Edit(Request,Revision);
