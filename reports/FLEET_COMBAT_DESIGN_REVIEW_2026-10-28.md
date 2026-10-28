@@ -36,3 +36,8 @@ Fresh result: **25 scoped checks passed; 21 new local documentation links resolv
 No application build, simulation/gameplay suite, Godot launch, graphical check, physical-input test, new old-engine-future capture or dependency audit ran for this documentation-only change. Existing M8's1,547-test result and native evidence are historical product validation, not fresh evidence for the proposal. Parent requirement totals and deferred human/platform/security/export/release limits remain unchanged. No product source/content/theme/default/schema changed.
 
 Next action: review the full gameplay proposal, especially opponent/stakes, automatic versus tactical control, new stats, persistent cohesion, interception/detachment and time-only repair. Full approval leads to a separate implementation plan. No such plan or implementation is authorized by this drafting turn.
+
+
+## Subsequent full gameplay approval
+
+The owner replied “looks good” to the full document at e457166. [ADR-020](../docs/DECISIONS/ADR-020-approved-fleet-combat-design.md) records approval and its preapproval hash. M9-D/CBT-AC-012 are now Verified for design only; earlier pending-review language above is historical. The [separate implementation plan/self-review](FLEET_COMBAT_IMPLEMENTATION_PLAN_REVIEW_2026-10-28.md) is ready for plan review; product implementation has not started.

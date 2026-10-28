@@ -1,12 +1,12 @@
 # Fleet combat, damage and withdrawal design
 
-2026-10-28. **Status: Draft for owner review. M9-D In Progress; M9-P and M9-I Not Started.** The owner authorized this written proposal after M8 was merged and pushed at `63ec608`. This authorizes drafting, not the gameplay defaults below or implementation. Every new rule and number below is a drafter recommendation unless explicitly identified as existing owner direction. Full design approval precedes a separate implementation plan.
+2026-10-28. **Status: Approved full gameplay design in [ADR-020](../../DECISIONS/ADR-020-approved-fleet-combat-design.md). M9-D/CBT-AC-012 Verified for design; M9-P In Progress; M9-I Not Started.** The owner replied “looks good” to the full document at e457166, accepting its gameplay choices and numeric defaults. The original drafter-proposal wording below records their origin; those defaults are now approved, not unresolved questions. The separate [16-task implementation plan](../plans/2026-10-28-fleet-combat-damage-and-withdrawal.md) awaits review. Design approval does not implement product changes or approve an unread plan.
 
 ## Intent and authority
 
 Make deciding when to fight, withdraw and repair interesting. Ships should become less effective before they die; a damaged ship can slow its companions, and surviving ships should carry consequences home. Routine execution should follow understandable fleet orders rather than demand repeated per-ship input.
 
-The owner's [combat direction](../../design-notes/2026-10-27-combat-retreat-morale-and-damaged-ships.md) calls for capability degradation, morale/retreat, limping home, possible detachment, hit-and-run and substantial automation with a possible manual option. Those goals are established; the exact combat/control model remains open. [Fleet intent](../../design-notes/2026-10-24-delegation-crises-and-fleet-intent.md), [approved M8](2026-10-27-fleet-command-and-admirals-design.md), the [charter](../../CHARTER.md) and [engineering rules](../../../CLAUDE.md) govern the proposal.
+The owner's [combat direction](../../design-notes/2026-10-27-combat-retreat-morale-and-damaged-ships.md) calls for capability degradation, morale/retreat, limping home, possible detachment, hit-and-run and substantial automation with a possible manual option. Those goals are established; full approval accepts the automatic control model below for this slice, with any later tactical option separately scoped. [Fleet intent](../../design-notes/2026-10-24-delegation-crises-and-fleet-intent.md), [approved M8](2026-10-27-fleet-command-and-admirals-design.md), the [charter](../../CHARTER.md) and [engineering rules](../../../CLAUDE.md) govern the proposal.
 
 Current product facts: rules8, writer9, 37 accepted schema/rules pairs; peaceful rival expansion, stationary ameba, ordinary scout/settlement hulls, named fleets and admirals. There are no warships, damage statistics or combat phases. The M8 integration report records 1,547 passing simulation tests; this design does not claim a new application test run or balanced combat.
 
@@ -191,7 +191,7 @@ These are specification arithmetic fixtures, not claims that product code implem
 
 ## Acceptance criteria and review gates
 
-All proposed functional criteria below are **Not Started** until implementation. CBT-AC-012 is **In Progress** for this draft/design review, not an implementation result. Parent REQ-017 remains In Progress; the 17-row parent totals stay unchanged.
+Functional criteria CBT-AC-001..011 below remain **Not Started** until implementation. CBT-AC-012 is **Verified for full design** by ADR-020; this is not an implementation result. Parent REQ-017 remains In Progress; the 17-row parent totals stay unchanged.
 
 | ID | Required evidence before claiming acceptance |
 | --- | --- |
@@ -208,9 +208,9 @@ All proposed functional criteria below are **Not Started** until implementation.
 | CBT-AC-011 Runtime/usability | Actual new-game Standard/Off, build/assemble, observe, attack, change orders, withdraw both policies, repair and save/load/continue through UI; small/large-window/focus evidence; forced rare cases separately labelled from generated campaigns. Human comprehension/balance/platform/export remain separately unverified. |
 | CBT-AC-012 Full design | Fresh builder check/disposition, owner reviews the complete draft and explicitly accepts/amends opponent/control model, numbers, scopes and compatibility; separate implementation-plan review follows. |
 
-## Material decisions for the owner
+## Approved gameplay choices
 
-The owner has approved drafting only. The following are the drafter's calls for full gameplay review, not approvals inferred from silence:
+The owner's full-document approval in ADR-020 accepts the following originally proposed calls. They are no longer open decisions; any material amendment must be explicit:
 
 | Topic | Proposed default |
 | --- | --- |
@@ -225,3 +225,6 @@ The owner has approved drafting only. The following are the drafter's calls for 
 | Scope/legacy | Rules9/writer10/46 pairs for later implementation; no migration, empire warfare, combat XP, new culture penalties or compulsory tactical UI |
 
 Builder discretion covers names/layout within these controls, query/index/DTO organization, efficient bounded report storage and test grouping. Builder discretion does not change targeting, time/consent semantics, opponent/control model, economics, compatibility or existing owner-approved culture/Wenth behavior. After owner approval, a separate implementation plan pins exact files/interfaces, valid fixtures, phase hooks, genuine-future capture and all regression/runtime evidence before product changes.
+
+
+Full design approval2026-10-28: owner “looks good” accepts this complete gameplay description and the two resolved builder-check details. See ADR-020 and the separate implementation plan; preserve Native after plan review. No new gameplay validation is claimed here.

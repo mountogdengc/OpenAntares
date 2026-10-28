@@ -226,3 +226,6 @@ M8 local integration2026-10-28: owner “merge” explicitly authorizes local ma
 ## M9 combat design criteria
 
 The [proposed CBT acceptance table](superpowers/specs/2026-10-28-fleet-combat-damage-and-withdrawal-design.md#acceptance-criteria-and-review-gates) defines CBT-AC-001..012 under REQ-017. CBT-AC-001..011 are Not Started; CBT-AC-012 is In Progress for owner gameplay review after the [fresh builder check](../reports/FLEET_COMBAT_DESIGN_REVIEW_2026-10-28.md). A criterion written here is not an executed test or an approved mechanic. M8 acceptance and parent totals remain unchanged.
+
+
+M9 design approval2026-10-28 supersedes the earlier drafting status: CBT-AC-012 Verified for full design in [ADR-020](DECISIONS/ADR-020-approved-fleet-combat-design.md). CBT-AC-001..011 remain Not Started. The [implementation plan](superpowers/plans/2026-10-28-fleet-combat-damage-and-withdrawal.md) and [self-review](../reports/FLEET_COMBAT_IMPLEMENTATION_PLAN_REVIEW_2026-10-28.md) do not claim executed combat tests.

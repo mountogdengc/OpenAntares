@@ -183,3 +183,6 @@ M8 local integration2026-10-28: owner “merge” explicitly authorizes local ma
 ## M9 bounded combat draft
 
 [ADR-019](DECISIONS/ADR-019-fleet-combat-design-entry.md) records owner-authorized [combat drafting](superpowers/specs/2026-10-28-fleet-combat-damage-and-withdrawal-design.md) after M8 integration/push. CBT-001..013 are proposed child contracts of REQ-017; functional CBT-AC-001..011 are Not Started and CBT-AC-012/full design is In Progress. No new gameplay defaults are approved or active. The 17 parent rows and their12 Verified/3 Implemented, Unverified/1 In Progress/1 Deferred totals are unchanged.
+
+
+M9 full gameplay approval2026-10-28: [ADR-020](DECISIONS/ADR-020-approved-fleet-combat-design.md) accepts all CBT-001..013 contracts and defaults in the full design. CBT-AC-012/M9-D Verified for design only; CBT-AC-001..011/M9-I Not Started. [Separate16-task plan](superpowers/plans/2026-10-28-fleet-combat-damage-and-withdrawal.md) written/self-reviewed; M9-P In Progress pending confirmation. Parent17-row totals unchanged; gameplay remains8/9/37.

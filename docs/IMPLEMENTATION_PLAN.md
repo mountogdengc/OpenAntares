@@ -36,8 +36,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M8-D | Fleet Command and named-admiral gameplay specification | ADR-018 full design approval | FLT-AC-012 full design/starter-default approval | Verified |
 | M8-P | Plan approved fleet/admiral design | Full M8-D approved | Owner-approved17-task plan; Native retained | Verified |
 | M8-I | Implement bounded Fleet Command/admiral slice | Owner approved separate M8-P | All17tasks/review complete; authorized3-Minor follow-up verified | Verified for local automated scope |
-| M9-D | Draft bounded fleet combat/damage/withdrawal | ADR-019 owner drafting authority; M8 integrated | Full proposal, fresh builder check, then owner gameplay review | In Progress |
-| M9-P | Plan the reviewed combat slice | Full M9-D approval required | Separate implementation plan and review | Not Started |
+| M9-D | Approve bounded fleet combat/damage/withdrawal | Full owner “looks good” approval in ADR-020 | CBT-AC-012 full design gate | Verified for design |
+| M9-P | Plan the reviewed combat slice | M9-D approved | Separate16-task plan/self-review; owner review pending | In Progress |
 | M9-I | Implement approved bounded combat | Approved M9-P required | CBT-AC-001..011 and retained regressions | Not Started |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
@@ -46,7 +46,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review the complete [M9 combat proposal](superpowers/specs/2026-10-28-fleet-combat-damage-and-withdrawal-design.md) and [fresh builder-check disposition](../reports/FLEET_COMBAT_DESIGN_REVIEW_2026-10-28.md). The owner selected drafting, not the proposed opponent/control model, numbers or compatibility changes. Full gameplay approval precedes a separate implementation plan. M8 is complete, merged and pushed; do not replay its tasks.
+Review the [separate16-task combat implementation plan](superpowers/plans/2026-10-28-fleet-combat-damage-and-withdrawal.md) and [author self-review](../reports/FLEET_COMBAT_IMPLEMENTATION_PLAN_REVIEW_2026-10-28.md). The full gameplay design is approved in ADR-020; Native method is retained. After plan confirmation, establish isolation and capture genuine current rules8 futures before product changes. M8 is complete; do not repeat its work or reopen approved combat choices.
 
 ## Risks and autonomy
 
@@ -135,3 +135,6 @@ M8 local integration2026-10-28: owner “merge” explicitly authorizes local ma
 
 
 M9 design entry2026-10-28: owner “ok do that” authorizes the complete bounded combat proposal under ADR-019. M9-D/CBT-AC-012 In Progress; plan/implementation/functional criteria Not Started. See the current Next concrete action above. Automatic fixed-sentry encounters and all new values remain drafter proposals; product8/writer9/37pairs and parent requirement totals remain unchanged.
+
+
+M9 full approval2026-10-28: owner “looks good” accepts complete combat design in ADR-020. M9-D/CBT-AC-012 Verified for design only; separate16-task plan written/self-reviewed, M9-P In Progress awaiting review. M9-I/functional criteria Not Started. Native retained; actual baseline capture/product execution has not begun.

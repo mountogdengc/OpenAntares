@@ -245,3 +245,8 @@ M8 local integration2026-10-28: owner “merge” explicitly authorizes local ma
 ## M9 combat design review 2026-10-28
 
 [Design review and documentation verification](FLEET_COMBAT_DESIGN_REVIEW_2026-10-28.md) records this documentation-only continuation and fresh builder-check disposition. M9-D/CBT-AC-012 In Progress; functional criteria/plan/implementation Not Started. No new application build, simulation/gameplay test, graphical acceptance, balanced-combat claim or old-engine future capture is made. Existing M8 integration evidence remains historical product validation.
+
+
+## M9 full design approval and implementation planning 2026-10-28
+
+[ADR-020](../docs/DECISIONS/ADR-020-approved-fleet-combat-design.md) records full gameplay approval; [16-task plan self-review](FLEET_COMBAT_IMPLEMENTATION_PLAN_REVIEW_2026-10-28.md) records this documentation-only continuation. M9-D/CBT-AC-012 Verified for design; M9-P In Progress pending plan review; M9-I/functional CBT criteria Not Started. No fresh application build/test/runtime/future-capture evidence is claimed; parent counts/product8/9/37 and deferred limits unchanged.

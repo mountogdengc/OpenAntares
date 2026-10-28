@@ -1,6 +1,6 @@
 # OpenAntares agent instructions
 
-Current authority2026-10-28: M8 implementation/review/follow-up are complete, merged and pushed at63ec608. The owner authorized M9 combat specification drafting only (ADR-019). Read current PROJECT_STATUS and the full proposed combat design; full gameplay approval and separate implementation planning are pending. Earlier M8-in-progress instructions below are chronological history, not tasks to repeat.
+Current authority2026-10-28: M8 complete/merged/pushed; full M9 combat gameplay design approved by owner “looks good” in ADR-020. Read the separate16-task implementation plan and planning self-review. M9-D/CBT-AC-012 Verified for design, M9-P In Progress pending plan review; M9-I/functional criteria Not Started. Retain Native/no per-task agents/one final implementation reviewer after plan review. Earlier drafting-only and M8-in-progress statements below are chronological history, not tasks to repeat.
 
 ## Start and authority
 
@@ -125,3 +125,6 @@ M8 local integration2026-10-28: owner “merge” explicitly authorizes local ma
 
 
 Current M9 design continuation2026-10-28: draft docs/superpowers/specs/2026-10-28-fleet-combat-damage-and-withdrawal-design.md and ADR-019 record explicit owner drafting authority. M9-D/CBT-AC-012 In Progress; M9-P/M9-I/functional CBT criteria Not Started. Read reports/FLEET_COMBAT_DESIGN_REVIEW_2026-10-28.md for the fresh builder check and disposition. Sentry opponent/founding block, automatic battles, stats, cohesion, withdrawal/repair/setup defaults and rules9/writer10/46 pairs are unapproved proposals. Product remains8/9/37; preserve existing peaceful rivals, ameba, Wenth/approved officer choices, all owner files/worktrees/old QA/recovery. Do not implement, write a separate implementation plan or infer full design approval before owner review. Native preference is retained after later gates. No automatic new gameplay test/baseline capture, push/release/cleanup.
+
+
+Current M9 approval/planning2026-10-28: ADR-020 accepts the full combat design at e457166 (preapproval SHA256 e61fe489e5c318dfea49621a24b3771dc4acb2e590d73ba32bc7dcf2c1e95f06). M9-D/CBT-AC-012 Verified for design only. Read docs/superpowers/plans/2026-10-28-fleet-combat-damage-and-withdrawal.md and reports/FLEET_COMBAT_IMPLEMENTATION_PLAN_REVIEW_2026-10-28.md. M9-P In Progress pending owner plan review; M9-I/CBT-AC-001..011 Not Started. Preserve Native inline, no per-task agents and one final fresh whole-branch reviewer after execution. Do not re-ask gameplay/opponent/numbers/method. Task1 genuine rules8 future capture precedes any product change; it has not run during planning. Current main remains8/9/37; no new worktree/product/default/schema/engine validation/push/release/cleanup here. Preserve all7 existing worktrees, owner prose/backlog/QA/old futures/recovery and parent totals.

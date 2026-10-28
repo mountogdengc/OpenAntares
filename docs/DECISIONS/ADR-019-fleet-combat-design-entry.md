@@ -9,3 +9,6 @@ The [earlier combat note](../design-notes/2026-10-27-combat-retreat-morale-and-d
 M9-D and CBT-AC-012 are In Progress. M9-P/M9-I and CBT-AC-001..011 are Not Started. Parent REQ-017 and the 17-row requirement totals are unchanged. A fresh read-only builder check and its disposition accompany the draft. The owner reviews the complete gameplay description before a separate implementation plan; retain Native execution preference after those later gates, without re-asking settled M8 decisions.
 
 Main product remains rules8/writer9/37 explicit schema-rules pairs. This is a documentation-only continuation, with no product changes, gameplay test run, legacy-future capture, implementation plan, new worktree, push, release or cleanup. Preserve all existing branches/worktrees, owner prose, prior reports, QA saves and recovery evidence.
+
+
+Subsequent owner approval2026-10-28: [ADR-020](ADR-020-approved-fleet-combat-design.md) records “looks good” as acceptance of the complete written gameplay design at e457166. Earlier drafting-only status is historical. The separate implementation plan awaits review; product work is Not Started.
