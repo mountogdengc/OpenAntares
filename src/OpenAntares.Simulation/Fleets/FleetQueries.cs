@@ -35,7 +35,7 @@ public static class FleetQueries
         var requests = f.Requests.OrderBy(x => x.Id).Select(x => new AssemblyRequestView(x.Id, x.Revision, x.Name, x.Rally, x.RallyFleet, x.ReservedFleetSlot, x.Priority, x.Status, x.Colonies.ToImmutableArray(), x.PausedContributions.ToImmutableArray(), x.Slots.Select(s => new AssemblySlotView(s.Ordinal, s.RoleId, s.Colony, s.QueueToken, s.Vessel, s.Status, s.ResumeStatus, s.NewHull, s.BlockedReason)).ToImmutableArray(), x.AuthorizeCargo, x.Coordinator, x.Attention)).ToImmutableArray();
         var officers = f.Officers.OrderBy(x => x.Id).Select(x => new OfficerView(x.Id, x.Name, x.Pronouns, x.Personality, x.ProfileId, x.CultureId, x.Embodiment, x.Specialty, x.Doctrine, x.Status, x.Xp, x.Rank, x.SourceBody, x.PostedColony, x.Flagship, x.Request, x.RecoveryColony, x.AvailableAtTurn, x.Career, x.Highlights.ToImmutableArray(), x.Details.ToImmutableArray(), x.FinalSummary)).ToImmutableArray();
         var candidates = f.CandidateProfiles.Select(id => content.FleetCommand!.Profiles.Single(p => p.Id == id)).Select(p => new OfficerCandidateView(p.Id, CandidateName(f, p), p.Pronouns, p.Specialty, p.Personality)).ToImmutableArray();
-        return new(owner, state.Turn, ships, fleets, requests, officers, candidates, f.RecentEvents.Concat(f.PendingEvents).OrderBy(x => x.Id).ToImmutableArray());
+        return new(owner, state.Turn, ships, fleets, requests, officers, candidates, f.RecentEvents.Concat(f.PendingEvents).OrderBy(x => x.Id).ToImmutableArray()){FutureDoctrine=f.FutureDoctrine};
     }
 
     public static bool IsActive(RequestStatus status) => status is RequestStatus.Active or RequestStatus.Paused or RequestStatus.SafetyPaused;

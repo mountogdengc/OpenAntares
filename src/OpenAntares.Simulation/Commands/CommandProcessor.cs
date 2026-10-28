@@ -23,6 +23,10 @@ public static partial class CommandProcessor
             catch(OverflowException){return CommandOutcome.Reject(state,"ameba_encounter_stale","Encounter revision limit reached.");}
             Scouting.ScoutReports.RecordCommand(state,result.State,command);
         }
+        // New commands may change an encounter's material consequences. Validate only
+        // after the shared receipt reconciliation has removed the obsolete consent.
+        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand)&&GameStateValidator.Validate(content,result.State).Count!=0)
+            return CommandOutcome.Reject(state,"fleet_invalid","The complete fleet or officer action could not be applied coherently.");
         return result;
     }
 
@@ -43,6 +47,7 @@ public static partial class CommandProcessor
         return command switch
         {
             Fleets.FleetCommand c => Fleets.FleetCommandProcessor.Execute(content,state,c),
+            Fleets.OfficerCommand c => Fleets.OfficerCommandProcessor.Execute(content,state,c),
             ScoutCommand c => ExecuteScout(content,state,issuer,c),
             CrisisCommand c => ExecuteCrisis(content,state,issuer,c),
             DevelopmentCommand c => ExecuteDevelopment(content, state, issuer, c),

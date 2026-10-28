@@ -117,7 +117,6 @@ public static class FleetCommandProcessor
             }
             if(before==Facts(candidate))return CommandOutcome.NoChange(state);
             candidate.FindEmpire(command.Issuer)!.Ready=false;
-            if(GameStateValidator.Validate(content,candidate).Count!=0)return CommandOutcome.Reject(state,"fleet_invalid","The complete fleet action could not be applied coherently.");
             return new(candidate,null,true,null);
         }
         catch(Exception e)when(e is OverflowException or ArgumentException or InvalidOperationException){return CommandOutcome.Reject(state,"fleet_illegal","Fleet action is unavailable: "+e.Message);}

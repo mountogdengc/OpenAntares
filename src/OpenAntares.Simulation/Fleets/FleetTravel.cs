@@ -11,7 +11,10 @@ public static class FleetTravel
         var group=f.Fleets.SingleOrDefault(x=>x.Id==vessel.Fleet);
         var officer=f.Officers.SingleOrDefault(x=>x.Id==group?.Officer&&x.Status==OfficerStatus.Commanding);
         if(group is null&&officer is null)return null;
-        var facts=new{Group=group?.Id,Members=group?.Members.OrderBy(x=>x).ToArray(),Flagship=group?.Flagship,Commander=group?.Officer,Officer=officer is null?null:new{officer.Id,officer.Xp,officer.Rank,officer.Specialty,officer.Doctrine},Equipment=state.FindEmpire(owner)!.KnownTechnologyIds.Contains(content.FleetCommand!.RecoveryTechnologyId),Destination=destination,Duration=destination is {} target?LaunchDuration(content,state,vessel,target):(int?)null};
+        var d=content.FleetCommand!;bool researched=state.FindEmpire(owner)!.KnownTechnologyIds.Contains(d.RecoveryTechnologyId);
+        int delay=officer?.Embodiment==CommandEmbodiment.ColonyBody?System.Math.Max(1,(officer.Doctrine==OfficerDoctrine.LastWatch?d.LastWatchLinkTurns:d.LinkRecoveryTurns)-(researched?d.ResearchedLinkReduction:0)):d.MortalRecoveryTurns;
+        int chance=officer?.Embodiment==CommandEmbodiment.ColonyBody?100:officer?.Doctrine==OfficerDoctrine.LastWatch?0:researched?d.ResearchedRecoveryPercent:d.MortalRecoveryPercent;
+        var facts=new{Group=group?.Id,Members=group?.Members.OrderBy(x=>x).ToArray(),Flagship=group?.Flagship,Commander=group?.Officer,Officer=officer is null?null:new{officer.Id,officer.Xp,officer.Rank,officer.Specialty,officer.Doctrine,officer.Embodiment},Equipment=researched,RecoveryPercent=officer is null?(int?)null:chance,RecoveryDelay=officer is null?(int?)null:delay,Destination=destination,Duration=destination is {} target?LaunchDuration(content,state,vessel,target):(int?)null};
         return System.Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(facts)));
     }
     public static int Duration(ContentSet content, GameState state, EmpireId owner, FleetId fleet, StarId destination)
