@@ -7,6 +7,13 @@ using Xunit;
 namespace OpenAntares.Simulation.Tests;
 public sealed class FleetOfficerTests
 {
+    [Fact]
+    public void CommissionAcceptedAtTenPostsAtTwelveWithoutAnyRecoveryDraw()
+    {
+        var g=FleetFixtures.Game();g.State.Turn=10;Knowledge.ObservationUpdater.Refresh(g.State,10);var f=g.State.Empires[0].Fleets!;var accepted=Run(g,new OfficerAction.Commission(f.CandidateProfiles[0],g.State.Colonies[0].Id));Assert.True(accepted.Accepted);var o=accepted.State.Empires[0].Fleets!.Officers.Last();Assert.Equal(12,o.AvailableAtTurn);
+        var middle=Turns.TurnResolver.Resolve(g.Content,accepted.State);Assert.True(middle.Succeeded,string.Join(";",middle.Errors));Assert.Equal(OfficerStatus.Commissioning,middle.State.Empires[0].Fleets!.Officers.Last().Status);
+        var complete=Turns.TurnResolver.Resolve(g.Content,middle.State);Assert.True(complete.Succeeded,string.Join(";",complete.Errors));o=complete.State.Empires[0].Fleets!.Officers.Last();Assert.Equal(OfficerStatus.Posted,o.Status);Assert.Equal(12,complete.State.Turn);Assert.Null(o.AvailableAtTurn);Assert.Equal(0,complete.State.Empires[0].Fleets!.RecoveryRollCount);Assert.Equal(f.RecoveryRandom!.State,complete.State.Empires[0].Fleets!.RecoveryRandom!.State);
+    }
     internal static CommandOutcome Run(Saves.LoadedGame g,OfficerAction action)=>CommandProcessor.Execute(g.Content,g.State,new OfficerCommand(g.State.Empires[0].Id,g.State.Turn,action));
     internal static ColonyState AddColony(Saves.LoadedGame g)
     {

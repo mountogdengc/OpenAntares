@@ -199,6 +199,7 @@ public static class TurnResolver
             if(scouting is not null)Scouting.AmebaResolver.DepositResearch(content,candidate,scouting);
             if(fleet is not null)OfficerProgression.Apply(content,snapshot,candidate,fleet,scouting);
             fleetHook?.Invoke(FleetResolutionPhase.Rewards);
+            if(fleet is not null)OfficerRecovery.Apply(content,snapshot,candidate,fleet);
             fleetHook?.Invoke(FleetResolutionPhase.Recovery);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Reward);
             if(scouting is not null)
