@@ -74,6 +74,7 @@ public static partial class CommandProcessor
         if(retreat&&ScoutQueries.Project(content,state,vessel.EmpireId).Vessels.First(v=>v.Id==vessel.Id).EffectiveDestination!=destination)return CommandOutcome.Reject(state,"scout_destination_excluded","Retreat must match the current survival preview.");
         return null;
     }
+    internal static void ReconcileFleetConsent(ContentSet content,GameState before,GameState after,EmpireId owner)=>ReconcileScoutConsent(content,before,after,owner);
     private static void ReconcileScoutConsent(ContentSet content,GameState before,GameState after,EmpireId owner)
     {
         var old=ScoutQueries.Project(content,before,owner).Attention;var current=ScoutQueries.Project(content,after,owner).Attention;var e=after.FindEmpire(owner)!.Scouting!;

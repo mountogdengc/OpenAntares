@@ -31,8 +31,8 @@ public partial class ScoutGraphicalValidation:Node
         try
         {
             _output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Real graphical display");
-            string[] types={"GraphicalValidation","ExpansionGraphicalValidation","SpeciesGraphicalValidation","RivalGraphicalValidation","ColonyGraphicalValidation","CrisisGraphicalValidation","ScoutGraphicalValidation"};
-            Check(typeof(GameScreen).Assembly.GetTypes().Count(t=>types.Contains(t.Name))==7,"Actual opt-in assembly contains all seven scenario classes");
+            string[] types={"GraphicalValidation","ExpansionGraphicalValidation","SpeciesGraphicalValidation","RivalGraphicalValidation","ColonyGraphicalValidation","CrisisGraphicalValidation","ScoutGraphicalValidation","FleetGraphicalValidation"};
+            Check(typeof(GameScreen).Assembly.GetTypes().Count(t=>types.Contains(t.Name))==8,"Actual opt-in assembly contains all eight scenario classes");
             Check(File.ReadAllText(Path.Combine(_output,"opt-in-metadata.log")).Contains("ScoutGraphicalValidation",StringComparison.Ordinal),"Normal-assembly negative control explicitly detects the seventh scout type");
             await CurrentSetup();await CustomHabitatSetup();await GeneratedCampaign();await Thresholds();await ScaleAndNoFallback();await ScoutUiControlChecks.Run(this,Check,_output,_run);
         }
@@ -47,8 +47,8 @@ public partial class ScoutGraphicalValidation:Node
     private async Task CurrentSetup()
     {
         var content=CompleteContent();var setup=new NewGameScreen(content);AddChild(setup);await Frames(this);
-        Check(Rules.CurrentVersion==7&&Named<OptionButton>(setup,"AmebaModePicker").IsVisibleInTree(),"Actual current setup visibly exposes rules7 ameba choice");Check(Named<OptionButton>(setup,"AmebaModePicker").Selected==0,"Actual ameba choice defaults to Standard");
-        NewGameSettings? chosen=null;setup.StartRequested+=settings=>chosen=settings;setup.Configure("small",42);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));Check(chosen is{RulesVersion:7,AmebasEnabled:true,CrisesEnabled:true,RivalCount:1,RivalSpeciesId:"peldra",SpeciesId:"harl"},"Actual default controls submit independent Standard ameba/plague and One Peldra");setup.Configure("small",42,"harl",0,crisesEnabled:false,amebasEnabled:false);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));Check(chosen is{AmebasEnabled:false,CrisesEnabled:false,RivalCount:0},"Actual visible Off/Solo choices remain independent");RemoveChild(setup);setup.QueueFree();await Frames(this);
+        Check(Rules.CurrentVersion==8&&Named<OptionButton>(setup,"AmebaModePicker").IsVisibleInTree(),"Actual current setup visibly exposes rules8 ameba choice");Check(Named<OptionButton>(setup,"AmebaModePicker").Selected==0,"Actual ameba choice defaults to Standard");
+        NewGameSettings? chosen=null;setup.StartRequested+=settings=>chosen=settings;setup.Configure("small",42);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));Check(chosen is{RulesVersion:8,AmebasEnabled:true,CrisesEnabled:true,RivalCount:1,RivalSpeciesId:"peldra",SpeciesId:"harl"},"Actual default controls submit independent Standard ameba/plague and One Peldra");setup.Configure("small",42,"harl",0,crisesEnabled:false,amebasEnabled:false);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));Check(chosen is{AmebasEnabled:false,CrisesEnabled:false,RivalCount:0},"Actual visible Off/Solo choices remain independent");RemoveChild(setup);setup.QueueFree();await Frames(this);
         setup=new NewGameScreen(content with{SpaceAmeba=null});AddChild(setup);await Frames(this);Check(Descendants<Button>(setup).Single(b=>b.Text=="Start").Disabled,"Missing current hazard blocks new campaigns including Off");bool load=false;setup.LoadRequested+=()=>load=true;Press(Descendants<Button>(setup).Single(b=>b.Text=="Load Game"));Check(load,"Missing current hazard retains usable Load Game recovery");RemoveChild(setup);setup.QueueFree();await Frames(this);
     }
     private async Task CustomHabitatSetup()
@@ -74,14 +74,14 @@ public partial class ScoutGraphicalValidation:Node
     }
     private async Task GeneratedCampaign()
     {
-        var content=CompleteContent();var opening=GalaxyGenerator.CreateNewGame(content,new("small",42,7,"harl",0,CrisesEnabled:false,AmebasEnabled:true));Check(opening.Succeeded,"Explicit complete-core rules7 generated campaign starts");string canonical=SaveGame.Serialize(content,opening.State!);
+        var content=CompleteContent();var opening=GalaxyGenerator.CreateNewGame(content,new("small",42,8,"harl",0,CrisesEnabled:false,AmebasEnabled:true));Check(opening.Succeeded,"Explicit complete-core rules8 generated campaign starts");string canonical=SaveGame.Serialize(content,opening.State!);
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames(this);var setup=Descendants<NewGameScreen>(main).Single();setup.Configure("small",42,"harl",0,crisesEnabled:false,amebasEnabled:true);Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames(this);
         GameScreen screen=Descendants<GameScreen>(main).Single();string source;
         if(!Rules.HasScouting(Rules.CurrentVersion))
         {
             string name=$"qa-{_run}-generated-scout-turn0";string path=SaveFiles.PathFor(name);SaveGame.WriteFile(path,content,opening.State!);_saves.Add(path);screen=await Load(main,name);source="Generated pre-session rules7 complete core plus approved hazard, actual UI Load; current New Game remains historical rules6";
         }
-        else source="Actual untouched rules7 New Game UI, complete content/core, Solo/plague Off/ameba Standard";
+        else source="Actual untouched rules8 New Game UI, complete content/core, Solo/plague Off/ameba Standard";
         ConfigurePaths(screen);var session=Session(screen);var owner=session.State.Empires[0].Id;Check(Snapshot(session)==canonical,"Generated initial state is untouched through actual Start/Load");_provenance.Add(new{source,seed=42,size="small",species="harl",rivals=0,crises=false,amebas=true,initialHash=Hash(canonical),liveOutcomeInjections=0});
         await Save(screen,"generated-scout-initial");
         while(session.View(owner).Scouting!.Attention.IsEmpty&&session.State.Turn<160)

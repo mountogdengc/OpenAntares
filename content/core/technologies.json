@@ -42,6 +42,14 @@
         "cultivation_methods",
         "habitat_methods"
       ]
+    },
+    {
+      "id": "command_recovery",
+      "name": "Command Recovery",
+      "cost": 2400,
+      "prerequisites": [
+        "industrial_coordination"
+      ]
     }
   ]
 }

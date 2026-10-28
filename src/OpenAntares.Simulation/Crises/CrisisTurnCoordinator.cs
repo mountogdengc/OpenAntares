@@ -8,6 +8,11 @@ namespace OpenAntares.Simulation.Crises;
 public sealed record CrisisPreparationResult(GameState State,bool Succeeded);
 public static class CrisisTurnCoordinator
 {
+    internal static CrisisPreparationResult PreviewForFleetConsent(ContentSet content,GameState state,EmpireId owner)
+    {
+        if(!Rules.HasFleets(state.RulesVersion)||state.Crisis is not{Enabled:true}||state.FindEmpire(owner) is not{Controller:ControllerKind.Human,Crisis:{Authority:not CrisisAuthority.Manual}})return new(state,true);
+        return PrepareOwner(content,state,owner,CrisisPlanner.Plan,false,forecast:true);
+    }
     public static CrisisPreparationResult Prepare(ContentSet content,GameState state,EmpireId owner)=>Prepare(content,state,owner,CrisisPlanner.Plan);
     public static CrisisPreparationResult PrepareAi(ContentSet content,GameState state)=>PrepareAi(content,state,CrisisPlanner.Plan);
     internal static CrisisPreparationResult Prepare(ContentSet content,GameState state,EmpireId owner,CrisisPlanningPolicy planner)
@@ -27,9 +32,10 @@ public static class CrisisTurnCoordinator
         }
         return new(working,true);
     }
-    private static CrisisPreparationResult PrepareOwner(ContentSet content,GameState state,EmpireId owner,CrisisPlanningPolicy planner,bool ai)
+    private static CrisisPreparationResult PrepareOwner(ContentSet content,GameState state,EmpireId owner,CrisisPlanningPolicy planner,bool ai,bool forecast=false)
     {
-        if(GameStateValidator.Validate(content,state,allowAllHumansReady:true).Count!=0)return new(state,false);
+        IReadOnlyList<string> Validate(GameState value)=>forecast?GameStateValidator.ValidateFleetForecast(content,value):GameStateValidator.Validate(content,value,allowAllHumansReady:true);
+        if(Validate(state).Count!=0)return new(state,false);
         var working=state.Clone();long accepted=0;bool failed=false,changed=false;
         long budget=(long)state.Colonies.Count(c=>c.EmpireId==owner)+state.Vessels.Count(v=>v.EmpireId==owner)+4;
         try
@@ -37,11 +43,11 @@ public static class CrisisTurnCoordinator
             var result=planner(()=>CrisisPlanningQueries.Create(content,working,owner),command=>
             {
                 if(failed||accepted>=budget||command.Issuer!=owner||command.ExpectedTurn!=state.Turn||command is not(SetQuarantineCommand or SetCureShareCommand or DecontaminateVesselCommand)){failed=true;return false;}
-                var outcome=CommandProcessor.ExecuteCrisisAutomatic(content,working,(CrisisCommand)command);
+                var outcome=CommandProcessor.ExecuteCrisisAutomatic(content,working,(CrisisCommand)command,forecast);
                 if(!outcome.Accepted){failed=true;return false;}
                 accepted++;changed|=outcome.Changed;working=outcome.State;return true;
             },ai);
-            if(failed||!result.Succeeded||accepted!=result.CommandCount||GameStateValidator.Validate(content,working,allowAllHumansReady:true).Count!=0)return new(state,false);
+            if(failed||!result.Succeeded||accepted!=result.CommandCount||Validate(working).Count!=0)return new(state,false);
             return new(changed?working:state,true);
         }
         catch(Exception error) when(error is OverflowException or ArgumentException or InvalidOperationException or KeyNotFoundException){return new(state,false);}

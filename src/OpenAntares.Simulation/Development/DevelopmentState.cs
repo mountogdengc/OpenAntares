@@ -32,5 +32,9 @@ public sealed class EmpireDevelopmentState
 public sealed record GovernorIssue(string Code,string? ContentId);
 public sealed record GovernorReportEntry(ColonyId Colony,Workforce? BeforeWorkforce,Workforce? AfterWorkforce,ProductionTarget? BeforeTarget,ProductionTarget? AfterTarget,ImmutableArray<GovernorIssue> Issues,bool WorkforceOverridden,bool ConstructionOverridden);
 public sealed record GovernorTurnReport(int Turn,ImmutableArray<GovernorReportEntry> Entries,int UnchangedCount);
-public sealed record ColonyDevelopmentView(GovernorTemplateSnapshot? Template,bool WorkforceEnabled,bool ConstructionEnabled,ImmutableArray<ProductionQueueEntry> Queue,int? ActiveQueueToken,ProductionOrigin Origin);
+public sealed record ColonyDevelopmentView(GovernorTemplateSnapshot? Template,bool WorkforceEnabled,bool ConstructionEnabled,ImmutableArray<ProductionQueueEntry> Queue,int? ActiveQueueToken,ProductionOrigin Origin)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public int? NextQueueToken {get;init;}
+}
 public sealed record EmpireDevelopmentView(ImmutableArray<GovernorTemplateSnapshot> CustomTemplates,NewColonyPlan? NewColonyPlan,GovernorTurnReport? PendingReport,ImmutableArray<GovernorTurnReport> CompletedReports);

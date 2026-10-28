@@ -15,7 +15,30 @@ public static partial class CommandProcessor
 {
     public static CommandOutcome Execute(ContentSet content, GameState state, Command command)
     {
-        var result = ExecuteCore(content, state, command);
+        try{return ExecuteTransaction(content,state,command);}
+        catch(OverflowException)when(Rules.HasFleets(state.RulesVersion))
+        {return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The order exceeds supported production or command limits.");}
+        catch(InvalidOperationException)when(Rules.HasFleets(state.RulesVersion))
+        {return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The order could not be prepared from the current state.");}
+    }
+    internal static CommandOutcome ExecuteRivalFleetMove(ContentSet content,GameState state,SetMoveOrderCommand command)
+    {
+        var issuer=state.FindEmpire(command.Issuer);var vessel=state.FindVessel(command.Vessel);
+        if(!Rules.HasFleets(state.RulesVersion)||issuer?.Controller!=ControllerKind.Ai||vessel?.EmpireId!=issuer.Id||vessel.Fleet is not {} id||issuer.Fleets!.Fleets.SingleOrDefault(f=>f.Id==id) is not {} fleet||fleet.Members.Count!=1||fleet.Flagship!=vessel.Id)
+            return CommandOutcome.Reject(state,"rival_fleet_unavailable","The existing rival adapter requires its own one-ship fleet.");
+        return ExecuteTransaction(content,state,new Fleets.FleetCommand(command.Issuer,command.ExpectedTurn,new Fleets.FleetAction.MoveSelection(System.Collections.Immutable.ImmutableArray<VesselId>.Empty,System.Collections.Immutable.ImmutableArray.Create(id),command.Destination)),allowAllHumansReady:true);
+    }
+    // Only the scout coordinator can pass its already-validated finite preparation plan here.
+    // Public manual movement retains the explicit detachment gate; route/consent handling is shared.
+    internal static CommandOutcome ExecuteScoutPreparationMove(ContentSet content,GameState state,SetMoveOrderCommand command,Scouting.ScoutPlan validatedPlan)
+    {
+        if(!Rules.HasFleets(state.RulesVersion)||state.FindVessel(command.Vessel) is not {Scout:not null} vessel||vessel.EmpireId!=command.Issuer||!validatedPlan.Commands.Contains(command))
+            return CommandOutcome.Reject(state,"scout_preparation_unavailable","Move is outside the validated scout preparation.");
+        return ExecuteTransaction(content,state,command,scoutPreparationMove:true);
+    }
+    private static CommandOutcome ExecuteTransaction(ContentSet content, GameState state, Command command,bool allowAllHumansReady=false,bool scoutPreparationMove=false)
+    {
+        var result = ExecuteCore(content, state, command,scoutPreparationMove);
         if (result.Changed && Rules.HasDevelopment(state.RulesVersion)) ApplyManualIntervention(result.State, command);
         if(result.Changed&&result.State.Turn==state.Turn&&Rules.HasScouting(state.RulesVersion))
         {
@@ -23,10 +46,14 @@ public static partial class CommandProcessor
             catch(OverflowException){return CommandOutcome.Reject(state,"ameba_encounter_stale","Encounter revision limit reached.");}
             Scouting.ScoutReports.RecordCommand(state,result.State,command);
         }
+        // New commands may change an encounter's material consequences. Validate only
+        // after the shared receipt reconciliation has removed the obsolete consent.
+        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand)&&GameStateValidator.Validate(content,result.State,allowAllHumansReady).Count!=0)
+            return CommandOutcome.Reject(state,"fleet_invalid","The complete fleet or officer action could not be applied coherently.");
         return result;
     }
 
-    private static CommandOutcome ExecuteCore(ContentSet content, GameState state, Command command)
+    private static CommandOutcome ExecuteCore(ContentSet content, GameState state, Command command,bool scoutPreparationMove=false)
     {
         EmpireState? issuer = state.FindEmpire(command.Issuer);
         if (issuer is null)
@@ -42,12 +69,15 @@ public static partial class CommandProcessor
 
         return command switch
         {
+            Fleets.FleetCommand c => Fleets.FleetCommandProcessor.Execute(content,state,c),
+            Fleets.OfficerCommand c => Fleets.OfficerCommandProcessor.Execute(content,state,c),
+            Fleets.AssemblyCommand c => Fleets.AssemblyCommandProcessor.Execute(content,state,c),
             ScoutCommand c => ExecuteScout(content,state,issuer,c),
             CrisisCommand c => ExecuteCrisis(content,state,issuer,c),
             DevelopmentCommand c => ExecuteDevelopment(content, state, issuer, c),
             SetProductionTargetCommand c => SetProductionTarget(content, state, issuer, c),
             SetFoundingOrderCommand c => SetFoundingOrder(content, state, c),
-            SetMoveOrderCommand c => SetMoveOrder(content, state, c),
+            SetMoveOrderCommand c => SetMoveOrder(content, state, c,group:scoutPreparationMove),
             SetWorkforceCommand c => SetWorkforce(state, c),
             SetProjectCommand c => SetProject(content, state, issuer, c),
             SetResearchTargetCommand c => SetResearchTarget(content, state, issuer, c),
@@ -125,7 +155,7 @@ public static partial class CommandProcessor
         string? technologyId = command.TechnologyId;
         if (technologyId is not null)
         {
-            if (!content.Technologies.TryGetValue(technologyId, out TechnologyDefinition? technology))
+            if (!Rules.TechnologyAvailable(content, state.RulesVersion, technologyId) || !content.Technologies.TryGetValue(technologyId, out TechnologyDefinition? technology))
             {
                 return CommandOutcome.Reject(state, RejectionCodes.UnknownTechnology, $"Technology '{technologyId}' is not defined.");
             }
@@ -165,19 +195,24 @@ public static partial class CommandProcessor
         if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCrises(state.RulesVersion)&&issuer.Crisis!.RequireAcknowledgement&&!Crises.CrisisQueries.PendingAttention(state,issuer.Id).IsEmpty)
             return CommandOutcome.Reject(state,"crisis_acknowledgement_required","Review and acknowledge this empire's current crisis facts before Ready, or explicitly change the saved acknowledgement requirement.");
         GameState prepared = state;
-        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCrises(state.RulesVersion))
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasFleets(state.RulesVersion))
+        {
+            var fleet=Fleets.FleetTurnCoordinator.PrepareHuman(content,state,issuer.Id);
+            if(!fleet.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"Fleet and survival preparation could not be completed. Review current responses.");prepared=fleet.State;
+        }
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCrises(state.RulesVersion)&&!Rules.HasFleets(state.RulesVersion))
         {
             var crisis=Crises.CrisisTurnCoordinator.Prepare(content,state,issuer.Id);
             if(!crisis.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The turn could not be completed.");
             prepared=crisis.State;
         }
-        if (command.Ready && issuer.Controller == ControllerKind.Human && Rules.HasDevelopment(state.RulesVersion))
+        if (command.Ready && issuer.Controller == ControllerKind.Human && Rules.HasDevelopment(state.RulesVersion)&&!Rules.HasFleets(state.RulesVersion))
         {
             var preparation = Development.GovernorTurnCoordinator.Prepare(content, prepared, issuer.Id);
             if (!preparation.Succeeded) return CommandOutcome.Reject(state, RejectionCodes.ResolutionFailed, "The turn could not be completed.");
             prepared = preparation.State;
         }
-        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasScouting(state.RulesVersion))
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasScouting(state.RulesVersion)&&!Rules.HasFleets(state.RulesVersion))
         {
             var scouting=Scouting.ScoutTurnCoordinator.Prepare(content,prepared,issuer.Id);
             if(!scouting.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"Scout survival preparation could not be completed. Review current legal responses.");

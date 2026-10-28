@@ -50,7 +50,7 @@ public partial class ResearchBar : HBoxContainer
         _picker.Clear();
         _picker.AddItem("No target");
         _picker.SetItemMetadata(0, string.Empty);
-        var unknown = content.Technologies.Values.Where(t => !empire.KnownTechnologyIds.Contains(t.Id)).ToList();
+        var unknown = content.Technologies.Values.Where(t => Rules.TechnologyAvailable(content, empire.RulesVersion, t.Id) && !empire.KnownTechnologyIds.Contains(t.Id)).ToList();
         foreach (TechnologyDefinition technology in unknown.Where(t => t.PrerequisiteTechnologyIds.All(id => empire.KnownTechnologyIds.Contains(id))))
         {
             _picker.AddItem($"{technology.Name} ({Format.Points(technology.Cost)})");

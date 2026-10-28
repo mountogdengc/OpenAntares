@@ -70,6 +70,7 @@ public static partial class CommandProcessor
             library.CustomTemplates.Sort((a,b)=>StringComparer.Ordinal.Compare(a.Id,b.Id));
             bool changed=!EmpireEqual(issuer.Development,library)||state.Colonies.Where(c=>c.EmpireId==issuer.Id).Any(c=>!ColonyEqual(c,candidate.FindColony(c.Id)!));
             if(!changed)return CommandOutcome.NoChange(state);
+            Fleets.RequestQueueAuthority.ReconcileManualQueues(state,candidate,issuer.Id);
             owner.Ready=false;
             var errors=GameStateValidator.Validate(content,candidate);Require(errors.Count==0,string.Join("; ",errors));
             return new(candidate,null,true,null);
@@ -102,7 +103,7 @@ public static partial class CommandProcessor
         var colony=candidate.FindColony(id.Value)!;var d=colony.Development;if(d is null)return;
         bool workforce=command is SetWorkforceCommand;
         if(workforce)d.WorkforceEnabled=false;
-        else {d.ConstructionEnabled=false;d.ActiveQueueToken=null;d.Origin=colony.ProjectId is null?ProductionOrigin.None:ProductionOrigin.Manual;}
+        else {Fleets.RequestQueueAuthority.ManualTakeover(candidate,colony.Id);d.ConstructionEnabled=false;d.ActiveQueueToken=null;d.Origin=colony.ProjectId is null?ProductionOrigin.None:ProductionOrigin.Manual;}
         MarkOverride(candidate,colony,workforce);
     }
     private static void MarkOverride(GameState candidate,ColonyState colony,bool workforce)
@@ -119,9 +120,10 @@ public static partial class CommandProcessor
         ColonyId? id=command switch{SetWorkforceCommand c=>c.Colony,SetProductionTargetCommand c=>c.Colony,_=>null};
         if(id is null||state.FindColony(id.Value) is not {} colony||colony.EmpireId!=command.Issuer||colony.Development is not {} d)
             return CommandOutcome.Reject(state,"invalid_governor","Invalid governor command scope.");
-        if(command is SetWorkforceCommand&&!d.WorkforceEnabled||command is SetProductionTargetCommand&&!d.ConstructionEnabled)
+        if(command is SetWorkforceCommand&&!d.WorkforceEnabled||command is SetProductionTargetCommand&&!d.ConstructionEnabled&&!Fleets.RequestQueueAuthority.MayExecute(content,state,colony.Id,queueToken))
             return CommandOutcome.Reject(state,"invalid_governor","Automation channel is paused.");
         if(command is SetProductionTargetCommand target) {
+            if(queueToken is {} reservedToken&&Rules.HasFleets(state.RulesVersion)&&!Fleets.RequestQueueAuthority.MaySelect(Knowledge.EmpireViewProjector.ProjectBase(content,state,command.Issuer),colony.Id,reservedToken))return CommandOutcome.Reject(state,"invalid_governor","Request contribution is paused.");
             bool bound=target.Target is null?origin==ProductionOrigin.None&&queueToken is null:
                 origin==ProductionOrigin.Queue?queueToken is {} token&&d.Queue.Any(q=>q.Token==token&&q.Target==target.Target):
                 origin==ProductionOrigin.Template&&queueToken is null&&target.Target.Kind==ProductionKinds.Building&&d.Template is {} t&&t.Definition.FoundationIds.Concat(t.Definition.DevelopmentIds).Contains(target.Target.ContentId);

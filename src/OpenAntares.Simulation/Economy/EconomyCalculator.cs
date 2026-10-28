@@ -117,7 +117,7 @@ public static class EconomyCalculator
             .Select(c => new BreakdownLine(BreakdownKinds.Colony, c.Colony.ToString(), null, c.NetResearch.Total))
             .ToImmutableArray());
 
-        TechnologyDefinition? target = empire.ResearchTargetId is { } targetId && content.Technologies.TryGetValue(targetId, out var definition)
+        TechnologyDefinition? target = empire.ResearchTargetId is { } targetId && Rules.TechnologyAvailable(content, state.RulesVersion, targetId) && content.Technologies.TryGetValue(targetId, out var definition)
             ? definition
             : null;
         bool targetLegal = target is not null

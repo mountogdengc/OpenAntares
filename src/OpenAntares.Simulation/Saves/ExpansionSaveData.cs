@@ -17,6 +17,7 @@ internal static class ExpansionSaveData
             if (v.Transit is { } t) { w.WriteStartObject("transit"); w.WriteNumber("origin", t.Origin.Value); w.WriteNumber("destination", t.Destination.Value); w.WriteNumber("total_turns", t.TotalTurns); w.WriteNumber("remaining_turns", t.RemainingTurns); w.WriteEndObject(); } else w.WriteNull("transit");
             CrisisSaveData.WriteVessel(w,v.Crisis,s.RulesVersion);
             ScoutSaveData.WriteVessel(w,v,s.RulesVersion);
+            FleetSaveData.WriteVessel(w,v,s.RulesVersion);
             w.WriteEndObject();
         }
         w.WriteEndArray();
@@ -41,6 +42,7 @@ internal static class ExpansionSaveData
             if (v.RequiredNullableObject("transit") is { } t) { vessel.Transit = new(new(t.RequiredInt("origin", 1, int.MaxValue)), new(t.RequiredInt("destination", 1, int.MaxValue)), t.RequiredInt("total_turns", 1, int.MaxValue), t.RequiredInt("remaining_turns", 1, int.MaxValue)); t.RejectUnknownFields(); }
             vessel.Crisis=CrisisSaveData.ReadVessel(v,s.RulesVersion);
             ScoutSaveData.ReadVessel(v,vessel,s.RulesVersion);
+            FleetSaveData.ReadVessel(v,vessel,s.RulesVersion);
             s.Vessels.Add(vessel);
         });
     }

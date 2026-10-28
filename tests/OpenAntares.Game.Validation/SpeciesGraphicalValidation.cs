@@ -52,7 +52,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         Check(picker!.GetSelectedMetadata().AsString()=="harl","Harl is visibly selected by default");
         Check(Descendants<Label>(setup).Any(l=>l.Name=="SpeciesSummary" && l.Text.Length>60),"Starting tradeoffs and flavor appear before Start");
         Press(Button(setup,"Start"));await Frames();var screen=One<GameScreen>(main);var session=Session(screen);
-        Check(session.State.RulesVersion==7 && session.State.Crisis!.Enabled && session.State.Scouting!.Enabled && session.State.Empires[0].SpeciesId=="harl","Actual current Start launches a rules7 Standard plague/ameba Harl campaign");
+        Check(session.State.RulesVersion==8 && session.State.Crisis!.Enabled && session.State.Scouting!.Enabled && session.State.Empires[0].SpeciesId=="harl","Actual current Start launches a rules8 Standard plague/ameba Harl campaign");
         await Capture("default-harl-start");RemoveChild(main);main.QueueFree();await Frames();
     }
     private async Task AlternativeContent()
@@ -63,7 +63,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         var picker=Descendants<OptionButton>(setup).Single(p=>p.Name=="SpeciesPicker");
         Check(picker.ItemCount==3 && picker.GetSelectedMetadata().AsString()=="peldra","Valid content without Harl selects the ordinal first species");
         NewGameSettings? selected=null;setup.StartRequested+=settings=>selected=settings;setup.Configure("small",42);Press(Button(setup,"Start"));await Frames();
-        Check(selected is {SpeciesId:"peldra",RulesVersion:7,CrisesEnabled:true},"Alternative-content Start passes its actual species identity and current Standard rules");
+        Check(selected is {SpeciesId:"peldra",RulesVersion:8,CrisesEnabled:true},"Alternative-content Start passes its actual species identity and current Standard rules");
         RemoveChild(setup);setup.QueueFree();await Frames();
         var empty=new NewGameScreen(core with{Species=ImmutableSortedDictionary<string,SpeciesDefinition>.Empty}){Theme=GD.Load<Theme>("res://game/theme/openantares_theme.tres")};AddChild(empty);await Frames();
         Check(Button(empty,"Start").Disabled,"Missing species disables New Game");bool load=false;empty.LoadRequested+=()=>load=true;Press(Button(empty,"Load Game"));Check(load,"Missing species still permits Load Game");

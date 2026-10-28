@@ -26,3 +26,36 @@ The charter remains authoritative for scope; original specs retain exact behavio
 ADR-015 scope amendment: owner selected a space ameba as actual danger; the peaceful-only recommendation is superseded while rival empires remain peaceful. Exact stationary habitat/warning/escape/study/reward/authority/setup/compatibility rules are proposed for review, not fully approved or implemented.
 
 [ADR-016: Approve full scout survival and space-ameba design](ADR-016-approved-scout-survival-and-ameba-design.md) records owner “approved”2026-10-25. M7-D/SCT-AC-012 Verified for full design; the separate15-task plan is ready for review, M7-P In Progress, implementation Not Started. ADR-015 remains historical drafting/amendment authority; retained Native follows plan review.
+
+
+[ADR-017: Fleet Command and named-admiral design entry](ADR-017-fleet-command-and-admirals-design-entry.md) records owner direction2026-10-27 and the complete proposed draft. M8-D/FLT-AC-012 In Progress; separate plan/implementation Not Started. Numeric bonuses/XP, fleet/request authority, cultural loss defaults, Wenth identity, recovery/research and rules8/writer9 await full gameplay review. Main remains rules7/writer8; all owner edits/worktrees/evidence preserved.
+
+
+M8 scoped decision2026-10-27: the owner confirms doctrine editable from the start and research improving recovery equipment (ADR-017/FLT-006). No research gate for doctrine changes remains open. Exact equipment/bonus/XP/culture values and the rest of the full M8 design remain pending gameplay review; M8-D/FLT-AC-012 In Progress, plan/implementation Not Started. Documentation only; current main/product and owner edits remain unchanged.
+
+
+M8 scoped owner choice2026-10-27: Navigator, Surveyor and Organizer; promotions at10/30 XP. The old Recovery specialist, ameba-only Surveyor proposal and20/60 thresholds are superseded in the active specification; historical review/check artifacts remain intact. Exact bonus magnitudes/event XP/proposed XP cap, Organizer accounting, recovery values/cultural defaults and full M8 acceptance remain pending review. Doctrine remains editable from the start; research improves recovery equipment. M8-D/FLT-AC-012 In Progress, plan/implementation Not Started. No code/main/owner-file change.
+
+
+M8 scoped owner decision2026-10-27:50% officer recovery,70% with recovery research and a two-turn successful-recovery delay are confirmed. Current review topic is cultural defaults; do not treat provisional Harl Last watch as approved. Other unreviewed rules/values and full M8 acceptance remain pending; M8-D/FLT-AC-012 In Progress, plan/implementation Not Started. Main and four owner files remain unchanged.
+
+
+M8 cultural-default decision2026-10-27: all four cultures begin recovery-focused; Wenth present Re-establish command link. Last watch is manual-only; the original Harl default is superseded. Do not reopen settled doctrine/research, specialties/10-30 XP,50-70% recovery/two-turn delay or cultural defaults. Use the specification's remaining-review checklist for unconfirmed details. M8-D/FLT-AC-012 In Progress; plan/implementation Not Started. Main/four owner files/worktrees/evidence remain preserved.
+
+
+M8 bonus/XP decision2026-10-27: Navigator5/10%, Surveyor1/2 research per first survey, Organizer5/10% scoped request-ship cost reduction and2/1/8 XP awards are owner-confirmed; do not re-ask. Current review is fleet/construction operations, with other unconfirmed details/full design approval still pending. Preserve docs/design-notes/2026-10-27-combat-retreat-morale-and-damaged-ships.md as future owner direction (degrading capabilities, retreat/morale, limping home/detachment/hit-and-run, automation with possible manual control), not M8 damage/combat scope. Plan/implementation remain Not Started; main/four owner files/worktrees/evidence unchanged.
+
+
+M8 fleet/construction review2026-10-27: owner retains the reviewed proposal and Normal/Urgent request priority. Normal preserves explicit queues; Urgent previews moving before unstarted work, never silently replacing the active project. Preserve finite authority, priority-aware estimates, tokens/reserve/manual control and current combat-note future-only scope. Next review: commissioning/Wenth details/recovery technology and other unconfirmed details, then full M8 approval before separate planning. M8-D/FLT-AC-012 In Progress; plan/implementation Not Started. Main/four owner files/worktrees unchanged.
+
+
+M8 availability decision2026-10-27: starting Navigator with Surveyor/Organizer candidates,2-turn commissioning,4-active-admiral limit and co-located ship-based transfers confirmed; fleet controls remain usable without an officer and Wenth availability stays colony-body based. Do not re-ask those choices. The64-lifetime-commission bound remains a proposal. Next review covers Wenth link/equipment recovery, technology and remaining draft details before full M8 approval/separate plan. M8-D/FLT-AC-012 In Progress; plan/implementation Not Started. Main/four owner edits/worktrees unchanged.
+
+
+M8 final scoped choices2026-10-27: Wenth recovery2/1 turns (basic/researched), manual Last watch4/3, and Command Recovery24 displayed research after Industrial Coordination confirmed. Read reports/FLEET_COMMAND_GAMEPLAY_REVIEW_2026-10-27.md and the complete specification for remaining starter defaults and full-design approval; do not re-ask settled gameplay numbers. M8-D/FLT-AC-012 In Progress; plan/implementation Not Started until their gates. Preserve main/four owner files, seven worktrees/branches and evidence; future combat direction remains a note.
+
+
+[ADR-018: Approve complete Fleet Command/admiral design](ADR-018-approved-fleet-command-and-admirals-design.md) records full owner approval including starter defaults; the separate17-task plan is ready for review, with Native retained.
+
+
+M8 full approval/planning2026-10-27: owner “0approved” accepts the complete design and starter defaults in ADR-018. M8-D/FLT-AC-012 Verified for design only; M8-P In Progress pending review of the concrete17-task implementation plan; M8-I/functional FLT criteria Not Started. Native inline/no per-task agents/one final fresh whole-branch implementation reviewer retained; do not re-ask design/method. No product changes, baseline-future capture or new C#/native gameplay validation occurred while writing the plan. Main c554797/rules7/writer8, all four byte-exact uncommitted owner files/empty main index, seven worktrees/branches, all QA/recovery/old futures and parent17-row counts remain preserved. Future combat note remains outside M8. Review the separate plan before implementation; no main merge/push/release/cleanup authority.

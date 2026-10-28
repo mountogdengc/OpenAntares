@@ -16,13 +16,15 @@ public static class GovernorPlanner
                 var issues=ImmutableArray.CreateBuilder<GovernorIssue>();
                 ProductionTarget? target=c.ProjectId is {} id?new(c.ProjectKind,id):null;
                 int? token=d.ActiveQueueToken;var origin=d.Origin;
-                if(target is null&&d.ConstructionEnabled) {
+                int requestLimit=Fleets.RequestQueueAuthority.LastAuthorizedQueueIndex(context.View,c.Id);
+                if(target is null&&(d.ConstructionEnabled||requestLimit>=0)) {
                     string? locked=null;
-                    foreach(var entry in d.Queue) {
+                    foreach(var entry in d.Queue.Take(d.ConstructionEnabled?d.Queue.Length:requestLimit+1)) {
+                        if(!Fleets.RequestQueueAuthority.MaySelect(context.View,c.Id,entry.Token))continue;
                         if(Legal(entry.Target)){target=entry.Target;token=entry.Token;origin=ProductionOrigin.Queue;break;}
                         locked??=entry.Target.ContentId;
                     }
-                    if(target is null&&d.Template is {} template)foreach(string building in template.Definition.FoundationIds.Concat(template.Definition.DevelopmentIds)) {
+                    if(target is null&&d.ConstructionEnabled&&d.Template is {} template)foreach(string building in template.Definition.FoundationIds.Concat(template.Definition.DevelopmentIds)) {
                         if(c.CompletedBuildingIds.Contains(building))continue;
                         var proposed=new ProductionTarget(ProductionKinds.Building,building);
                         if(Legal(proposed)){target=proposed;origin=ProductionOrigin.Template;break;}

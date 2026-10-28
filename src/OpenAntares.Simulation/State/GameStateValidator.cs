@@ -13,6 +13,12 @@ namespace OpenAntares.Simulation.State;
 public static class GameStateValidator
 {
     public static IReadOnlyList<string> Validate(ContentSet content, GameState state, bool allowAllHumansReady = false)
+        =>ValidateCore(content,state,allowAllHumansReady,false);
+    // Private look-ahead validates all references while deferring effective consent:
+    // evaluating that consent is the caller's purpose and would recurse here.
+    internal static IReadOnlyList<string> ValidateFleetForecast(ContentSet content,GameState state)
+        =>ValidateCore(content,state,true,true);
+    private static IReadOnlyList<string> ValidateCore(ContentSet content,GameState state,bool allowAllHumansReady,bool skipEffectiveScoutConsent)
     {
         var errors = new List<string>();
 
@@ -42,7 +48,10 @@ public static class GameStateValidator
         RivalStateValidator.Validate(content, state, errors);
         Development.DevelopmentStateValidator.Validate(content, state, errors);
         Crises.CrisisStateValidator.Validate(content,state,errors);
-        Scouting.ScoutStateValidator.Validate(content,state,errors);
+        if(Rules.HasFleets(state.RulesVersion))Fleets.FleetStateValidator.Validate(content,state,errors);
+        if(skipEffectiveScoutConsent)Scouting.ScoutStateValidator.ValidateFleetForecast(content,state,errors);
+        else Scouting.ScoutStateValidator.Validate(content,state,errors);
+        if(!Rules.HasFleets(state.RulesVersion))Fleets.FleetStateValidator.Validate(content, state, errors);
         return errors;
     }
 
@@ -140,11 +149,11 @@ public static class GameStateValidator
                 errors.Add($"{empire.Id}: research reserve {empire.ResearchReserve} is negative.");
             }
 
-            CheckContentIdSet($"{empire.Id}: known technologies", empire.KnownTechnologyIds, content.Technologies.ContainsKey, errors);
+            CheckContentIdSet($"{empire.Id}: known technologies", empire.KnownTechnologyIds, id => Rules.TechnologyAvailable(content, state.RulesVersion, id), errors);
 
             if (empire.ResearchTargetId is { } target)
             {
-                if (!content.Technologies.ContainsKey(target))
+                if (!Rules.TechnologyAvailable(content, state.RulesVersion, target))
                 {
                     errors.Add($"{empire.Id}: research target '{target}' is not defined.");
                 }

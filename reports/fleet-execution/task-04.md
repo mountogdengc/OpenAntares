@@ -1,0 +1,7 @@
+# Task4 atomic fleet control and group travel
+
+Base fb10f36. Create, rename, disband, merge, split, flagship, standing-order selection, bulk movement, explicit detachment and marker dismissal enter the shared command processor. Own-view previews expose selected routes/durations and detachments. Complete selection is validated before private-candidate publication. Checked local IDs and64 active/reserved cap; independent construction/withdrawal does not allocate fleets. Incompatible individual move/founding requires explicit detachment. Commanded source-fleet removal requires explicit officer handling.
+
+Group movement launches at minimum effective member speed and stores shared committed provenance. Navigator315/330 speed changes leave base ameba odds and already-launched durations unchanged. Rules8 encounter tokens have stable canonical own group/officer/equipment/route consequences; old-rule token bytes remain unchanged. Recovery/XP details extend in their planned tasks.
+
+Semantic RED5/5 observed after correcting test-only StarState/ameba-content API compilation. Expanded test found raw-count-before-dedup rejection; corrected. Focused7/7 green covers atomic late-member failure, split/merge/flagship, reference/Ready no-ops, construction at fleet cap, mixed300/200 distance301 launch, promotion during transit and receipt purity/change detection. Full Suite and build raw results recorded beside this report. No rules/default/writer activation; no M8 native UI acceptance yet.

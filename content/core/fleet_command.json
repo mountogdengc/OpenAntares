@@ -1,0 +1,180 @@
+{
+  "fleet_command": {
+    "recovery_technology_id": "command_recovery",
+    "member_limit": 32,
+    "fleet_limit": 64,
+    "request_limit": 32,
+    "participating_colony_limit": 32,
+    "active_officer_limit": 4,
+    "lifetime_commission_limit": 64,
+    "commission_turns": 2,
+    "xp_cap": 30,
+    "highlight_limit": 32,
+    "detail_turn_limit": 10,
+    "mortal_recovery_percent": 50,
+    "researched_recovery_percent": 70,
+    "mortal_recovery_turns": 2,
+    "link_recovery_turns": 2,
+    "last_watch_link_turns": 4,
+    "researched_link_reduction": 1,
+    "first_survey_xp": 2,
+    "assembly_hull_xp": 1,
+    "study_xp": 8,
+    "rank_thresholds": [
+      10,
+      30
+    ],
+    "navigator_bonuses": [
+      5,
+      10
+    ],
+    "survey_research_bonuses": [
+      100,
+      200
+    ],
+    "organizer_discounts": [
+      5,
+      10
+    ],
+    "cultures": [
+      {
+        "id": "estates",
+        "name": "Estates",
+        "default_doctrine": "recover_command",
+        "profile_ids": [
+          "estates_navigator",
+          "estates_surveyor",
+          "estates_organizer"
+        ]
+      },
+      {
+        "id": "schools",
+        "name": "League of Schools",
+        "default_doctrine": "recover_command",
+        "profile_ids": [
+          "schools_navigator",
+          "schools_surveyor",
+          "schools_organizer"
+        ]
+      },
+      {
+        "id": "harbors",
+        "name": "Harbor Houses",
+        "default_doctrine": "recover_command",
+        "profile_ids": [
+          "harbors_navigator",
+          "harbors_surveyor",
+          "harbors_organizer"
+        ]
+      },
+      {
+        "id": "kinship",
+        "name": "Seed Kinship",
+        "default_doctrine": "recover_command",
+        "profile_ids": [
+          "kinship_navigator",
+          "kinship_surveyor",
+          "kinship_organizer"
+        ]
+      }
+    ],
+    "profiles": [
+      {
+        "id": "estates_navigator",
+        "name": "Vara Eshen",
+        "pronouns": "they/them",
+        "culture_id": "estates",
+        "specialty": "navigator",
+        "personality": "Deliberate route planner."
+      },
+      {
+        "id": "estates_surveyor",
+        "name": "Oren Tal",
+        "pronouns": "he/him",
+        "culture_id": "estates",
+        "specialty": "surveyor",
+        "personality": "Patient observer."
+      },
+      {
+        "id": "estates_organizer",
+        "name": "Mira Vell",
+        "pronouns": "she/her",
+        "culture_id": "estates",
+        "specialty": "organizer",
+        "personality": "Careful coordinator."
+      },
+      {
+        "id": "schools_navigator",
+        "name": "Tavi Sen",
+        "pronouns": "they/them",
+        "culture_id": "schools",
+        "specialty": "navigator",
+        "personality": "Methodical pilot."
+      },
+      {
+        "id": "schools_surveyor",
+        "name": "Relo Iven",
+        "pronouns": "he/him",
+        "culture_id": "schools",
+        "specialty": "surveyor",
+        "personality": "Curious recorder."
+      },
+      {
+        "id": "schools_organizer",
+        "name": "Sera Venn",
+        "pronouns": "she/her",
+        "culture_id": "schools",
+        "specialty": "organizer",
+        "personality": "Practical scheduler."
+      },
+      {
+        "id": "harbors_navigator",
+        "name": "Neri Vale",
+        "pronouns": "she/her",
+        "culture_id": "harbors",
+        "specialty": "navigator",
+        "personality": "Cautious pilot."
+      },
+      {
+        "id": "harbors_surveyor",
+        "name": "Taren Oss",
+        "pronouns": "they/them",
+        "culture_id": "harbors",
+        "specialty": "surveyor",
+        "personality": "Attentive chart maker."
+      },
+      {
+        "id": "harbors_organizer",
+        "name": "Olan Riss",
+        "pronouns": "he/him",
+        "culture_id": "harbors",
+        "specialty": "organizer",
+        "personality": "Steady coordinator."
+      },
+      {
+        "id": "kinship_navigator",
+        "name": "Command appointment",
+        "pronouns": "they/them",
+        "culture_id": "kinship",
+        "specialty": "navigator",
+        "personality": "The source colony body maintains this command link."
+      },
+      {
+        "id": "kinship_surveyor",
+        "name": "Command appointment",
+        "pronouns": "they/them",
+        "culture_id": "kinship",
+        "specialty": "surveyor",
+        "personality": "The source colony body maintains this command link."
+      },
+      {
+        "id": "kinship_organizer",
+        "name": "Command appointment",
+        "pronouns": "they/them",
+        "culture_id": "kinship",
+        "specialty": "organizer",
+        "personality": "The source colony body maintains this command link."
+      }
+    ]
+  }
+}

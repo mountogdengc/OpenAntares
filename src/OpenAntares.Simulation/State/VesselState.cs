@@ -4,6 +4,9 @@ namespace OpenAntares.Simulation.State;
 public sealed record TransitState(StarId Origin, StarId Destination, int TotalTurns, int RemainingTurns);
 public sealed class VesselState
 {
+    public Fleets.FleetId? Fleet { get; set; }
+    public bool NewlyCompleted { get; set; }
+    public Fleets.HullBuildOrigin? BuildOrigin { get; set; }
     public Scouting.ScoutVesselState? Scout { get; set; }
     public Scouting.AmebaEncounterState? AmebaEncounter { get; set; }
     public VesselCrisisState? Crisis { get; set; }

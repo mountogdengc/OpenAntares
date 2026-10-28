@@ -1,0 +1,4861 @@
+{
+  "runId": "20261027-082031-034",
+  "scenario": "Species",
+  "method": "Actual controls/signals/commands; no physical OS input or human-comprehension claim.",
+  "passed": true,
+  "error": null,
+  "results": [
+    {
+      "name": "Species validation requires a graphical display",
+      "passed": true
+    },
+    {
+      "name": "New Game exposes four species choices",
+      "passed": true
+    },
+    {
+      "name": "Harl is visibly selected by default",
+      "passed": true
+    },
+    {
+      "name": "Starting tradeoffs and flavor appear before Start",
+      "passed": true
+    },
+    {
+      "name": "Actual current Start launches a rules7 Standard plague/ameba Harl campaign",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: default-harl-start",
+      "passed": true
+    },
+    {
+      "name": "Valid content without Harl selects the ordinal first species",
+      "passed": true
+    },
+    {
+      "name": "Alternative-content Start passes its actual species identity and current Standard rules",
+      "passed": true
+    },
+    {
+      "name": "Missing species disables New Game",
+      "passed": true
+    },
+    {
+      "name": "Missing species still permits Load Game",
+      "passed": true
+    },
+    {
+      "name": "Labelled alternative-content UI fixture is structurally valid",
+      "passed": true
+    },
+    {
+      "name": "Role picker uses edited names and requirements",
+      "passed": true
+    },
+    {
+      "name": "Blocked conditions use edited cargo and actual support workers",
+      "passed": true
+    },
+    {
+      "name": "Founding description uses edited carried population",
+      "passed": true
+    },
+    {
+      "name": "Prepared expedition eligibility comes from its shared permitted preview",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: alternative-content-harbor",
+      "passed": true
+    },
+    {
+      "name": "Reduced production: alternative-content UI state validates",
+      "passed": true
+    },
+    {
+      "name": "Reduced production: combined worker contribution has a truthful tooltip label",
+      "passed": true
+    },
+    {
+      "name": "Reduced research: alternative-content UI state validates",
+      "passed": true
+    },
+    {
+      "name": "Reduced research: combined worker contribution has a truthful tooltip label",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: setup controls fit the smaller window",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-peldra-small-setup-800",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: forecast production matches at turn3",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: forecast production matches at turn4",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: forecast production matches at turn6",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: report warns of post-embark support",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: Peldra source shows its actual support tradeoff",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-peldra-small-two-colonies-800",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-peldra-small-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-small: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: forecast production matches at turn4",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: forecast production matches at turn6",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: report warns of post-embark support",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: Peldra source shows its actual support tradeoff",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-peldra-medium-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-medium: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: forecast production matches at turn6",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: report warns of post-embark support",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: Peldra source shows its actual support tradeoff",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-peldra-large-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-peldra-large: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: setup controls fit the smaller window",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-harl-small-setup-800",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: forecast production matches at turn3",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: forecast production matches at turn4",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: report warns of post-embark support",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: Harl launches a one-unit daughter",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: Harl daughter recovers through real economic turns",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-harl-small-two-colonies-800",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-harl-small-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-small: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: forecast production matches at turn4",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: report warns of post-embark support",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: Harl launches a one-unit daughter",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: Harl daughter recovers through real economic turns",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-harl-medium-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-medium: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: report warns of post-embark support",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: Harl launches a one-unit daughter",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: Harl daughter recovers through real economic turns",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-harl-large-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-harl-large: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: setup controls fit the smaller window",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-sulan-small-setup-800",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: forecast production matches at turn3",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: forecast production matches at turn4",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: forecast production matches at turn6",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: forecast production matches at turn7",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: forecast production matches at turn8",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: forecast production matches at turn9",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: report warns of post-embark support",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: actual founded habitat mode",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-sulan-small-two-colonies-800",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-sulan-small-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: forecast production matches at turn4",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: forecast production matches at turn6",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: report warns of post-embark support",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: actual founded habitat mode",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-sulan-medium-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-medium: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: forecast production matches at turn6",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: report warns of post-embark support",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: actual founded habitat mode",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-sulan-large-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-large: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: setup controls fit the smaller window",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-wenth-small-setup-800",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: Wenth maturity is explained",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-immature-seed: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-immature-seed: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-immature-seed: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: banked immature target remains valid on load",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: forecast production matches at turn3",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: blocked project banks without ship or allocated ID",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: forecast production matches at turn4",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: blocked project banks without ship or allocated ID",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: blocked project banks without ship or allocated ID",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: forecast production matches at turn6",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: blocked project banks without ship or allocated ID",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: forecast production matches at turn7",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: full six-lobe body becomes parent3 plus seed3",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: Wenth daughter has unbuilt capacity6",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-wenth-small-two-colonies-800",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-wenth-small-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-small: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: Wenth maturity is explained",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-immature-seed: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-immature-seed: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-immature-seed: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: banked immature target remains valid on load",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: forecast production matches at turn4",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: blocked project banks without ship or allocated ID",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: blocked project banks without ship or allocated ID",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: forecast production matches at turn6",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: blocked project banks without ship or allocated ID",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: forecast production matches at turn7",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: full six-lobe body becomes parent3 plus seed3",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: Wenth daughter has unbuilt capacity6",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-wenth-medium-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-medium: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: Wenth maturity is explained",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-immature-seed: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-immature-seed: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-immature-seed: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: banked immature target remains valid on load",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: blocked project banks without ship or allocated ID",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: forecast production matches at turn6",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: blocked project banks without ship or allocated ID",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: forecast production matches at turn7",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: full six-lobe body becomes parent3 plus seed3",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: Wenth daughter has unbuilt capacity6",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-wenth-large-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-wenth-large: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "Invalid QA name is unique",
+      "passed": true
+    },
+    {
+      "name": "Corrupt UI load retains the current screen and state",
+      "passed": true
+    },
+    {
+      "name": "Corrupt UI load shows an error",
+      "passed": true
+    },
+    {
+      "name": "Legacy schema-1 UI load preserves original state/layout",
+      "passed": true
+    },
+    {
+      "name": "Legacy UI load does not invent galaxy metadata",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: legacy-v1-loaded",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Legacy UI load can continue a turn",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: frozen save is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: actual selected species starts",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: unknown planet/environment facts remain hidden",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: queued route survives UI reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: committed transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: scout arrives and surveys",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: surveyed target offers a colonizable world",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: role selected through actual project control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: forecast production matches at turn3",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: forecast production matches at turn4",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: forecast production matches at turn5",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: forecast production matches at turn6",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: forecast production matches at turn7",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: forecast production matches at turn8",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: forecast production matches at turn9",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: report warns of post-embark support",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: expedition completes within the core budget",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: new vessel waits for another planning order",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: actual workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: exact travel arrives without automatic founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: shared permitted eligibility enables founding",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: explicit founding intent survives reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: founding creates one colony and consumes exactly its vessel",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: daughter starts with conserved all-support cargo and no founding-turn economy",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: actual founded habitat mode",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: exact colony controls keep independent typed projects",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: both owned colonies contribute once to shared research",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: resize800x600 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: critical controls remain in bounds at800x600",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: resize1152x648 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: critical controls remain in bounds at1152x648",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: resize1280x720 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: critical controls remain in bounds at1280x720",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: resize1600x900 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: critical controls remain in bounds at1600x900",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: resize1920x1080 preserves authoritative state",
+      "passed": true
+    },
+    {
+      "name": "Already-focused control remains visible after resize",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: critical controls remain in bounds at1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: species-sulan-small-harbor-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: uninterrupted reference continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "species-sulan-small-harbor: UI reload continuation equals uninterrupted play",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-a: labelled initial fixture validates: ",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-a: QA path is new",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-a: native expedition cannot found on dry ground",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: sulan-contrasting-a-native-blocked",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-a: native expedition can choose the shelf world",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-a: native daughter has capacity12 and waits for next snapshot",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-a: harbor expedition can choose the dry world",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-a: harbor daughter has capacity8 and waits for next snapshot",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-a: founding preserves physical environments",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-a: both actual founding orders conserve the initial ten units",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: sulan-contrasting-a-both-daughters",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-b: labelled initial fixture validates: ",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-b: QA path is new",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-b: native expedition cannot found on dry ground",
+      "passed": true
+    },
+    {
+      "name": "Focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: sulan-contrasting-b-native-blocked",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-b: native expedition can choose the shelf world",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-b: native daughter has capacity12 and waits for next snapshot",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-b: harbor expedition can choose the dry world",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-b: harbor daughter has capacity8 and waits for next snapshot",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-b: founding preserves physical environments",
+      "passed": true
+    },
+    {
+      "name": "sulan-contrasting-b: both actual founding orders conserve the initial ten units",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: sulan-contrasting-b-both-daughters",
+      "passed": true
+    },
+    {
+      "name": "Both Sulan habitat modes executed",
+      "passed": true
+    },
+    {
+      "name": "Changed hidden species fixture remains structurally valid",
+      "passed": true
+    },
+    {
+      "name": "Hidden environments/species/cargo/overflowing foreign economy do not change own visible text actions or tooltips",
+      "passed": true
+    },
+    {
+      "name": "wenth-extended: labelled initial fixture validates: ",
+      "passed": true
+    },
+    {
+      "name": "wenth-extended: QA path is new",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth initial full-capacity threshold is eight",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth UI explains the actual maturity threshold",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth bank follows actual snapshot forecast",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth cannot complete on a growth-to-maturity snapshot",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth bank follows actual snapshot forecast",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth cannot complete on a growth-to-maturity snapshot",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth bank follows actual snapshot forecast",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth cannot complete on a growth-to-maturity snapshot",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth bank follows actual snapshot forecast",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth cannot complete on a growth-to-maturity snapshot",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth bank follows actual snapshot forecast",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth conserves eight as parent5 plus seed3",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth seed can found on the surveyed dry world",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth daughter starts with three all-support lobes and no inherited building or economy",
+      "passed": true
+    },
+    {
+      "name": "Extended Wenth daughter capacity6 remains independent of parent capacity8",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: wenth-extended-daughter",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "wenth-extended-daughter: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "wenth-extended-daughter: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "wenth-extended-daughter: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "Extended daughter capacity survives the real save/load dialogs",
+      "passed": true
+    }
+  ],
+  "retainedQaSavePaths": [
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-small-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-small-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-small-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-small-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-small-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-medium-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-medium-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-medium-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-medium-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-medium-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-large-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-large-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-large-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-large-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-peldra-large-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-small-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-small-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-small-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-small-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-small-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-medium-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-medium-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-medium-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-medium-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-medium-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-large-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-large-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-large-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-large-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-harl-large-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-small-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-small-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-small-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-small-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-small-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-medium-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-medium-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-medium-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-medium-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-medium-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-large-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-large-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-large-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-large-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-large-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-small-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-small-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-small-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-small-immature-seed.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-small-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-small-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-medium-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-medium-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-medium-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-medium-immature-seed.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-medium-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-medium-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-large-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-large-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-large-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-large-immature-seed.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-large-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-wenth-large-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-invalid.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-legacy-v1.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-small-harbor-rules3.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-small-harbor-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-small-harbor-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-small-harbor-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-species-sulan-small-harbor-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-labelled-sulan-contrasting-a.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-labelled-sulan-contrasting-b.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-labelled-wenth-extended.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-082031-034-wenth-extended-daughter.json"
+  ]
+}

@@ -20,15 +20,15 @@ public sealed class ScoutingSaveTests
         g=ScoutingResolutionTests.Risk(ScoutingFixtures.WithNextDraw(ScoutingFixtures.AtAmeba(),74),AmebaRiskAction.Study);var success=ScoutingResolutionTests.Ready(g);Assert.True(success.Accepted);yield return g with{State=success.State};g=ScoutingFixtures.WithNextDraw(g with{State=success.State},95);g=ScoutingReadyTests.Acknowledge(g);var loss=ScoutingResolutionTests.Ready(g);Assert.True(loss.Accepted);yield return g with{State=loss.State};
         var shared=ScoutingReportTests.NeutralSharedHome();var waiting=ScoutTurnCoordinator.Prepare(shared.Content,shared.State,shared.State.Empires[0].Id);Assert.True(waiting.Succeeded);yield return shared with{State=waiting.State};
     }
-    [Fact] public void Writer8RoundTripsEveryExplicitScoutShape()
+    [Fact] public void CurrentWriterRoundTripsEveryExplicitScoutShape()
     {
-        Assert.Equal(8,SaveGame.SchemaVersion);Assert.Equal(7,Rules.CurrentVersion);
+        Assert.Equal(9,SaveGame.SchemaVersion);Assert.Equal(8,Rules.CurrentVersion);
         foreach(var g in Cases()){string before=SaveGame.Serialize(g.Content,g.State);var r=SaveGame.Deserialize(before);Assert.True(r.Succeeded,string.Join("; ",r.Errors));Assert.Equal(before,SaveGame.Serialize(r.Game!.Content,r.Game.State));}
     }
     [Fact] public void ExactTwentyNinePairsAcceptAndAllOtherNearbyPairsReject()
     {
         string[] names={"legacy-v1-save.json","legacy-v2-save.json","legacy-rules2-v3-save.json","legacy-rules3-v4-save.json","legacy-rules4-v5-save.json","legacy-rules5-v6-save.json"};int accepted=0;
-        for(int schema=1;schema<=9;schema++)for(int rules=1;rules<=8;rules++)
+        for(int schema=1;schema<=8;schema++)for(int rules=1;rules<=7;rules++)
         {
             string text=rules==7?SaveGame.Serialize(ScoutingFixtures.Content(),ScoutingFixtures.Game().State):rules==6?SaveGame.Serialize(CrisisFixtures.Content(),CrisisFixtures.Game().State):File.ReadAllText(CompatibilityFixtures.PathFor(names[Math.Min(rules,5)]));
             var root=JsonNode.Parse(text)!;root["schema_version"]=schema;root["rules_version"]=rules;

@@ -27,6 +27,11 @@ public static class ScoutQueries
     {var a=view.Galaxy.Stars.Single(s=>s.Id==vessel.StationaryStarId);var b=view.Galaxy.Stars.Single(s=>s.Id==target);return TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,c.Vessels[vessel.RoleId].Speed);}
     private static (ScoutView View,ScoutPreparationPreview Preview) Evaluate(ContentSet c,GameState s,EmpireId owner)
     {
+        if(Rules.HasFleets(s.RulesVersion))
+        {
+            var safety=Crises.CrisisTurnCoordinator.PreviewForFleetConsent(c,s,owner);
+            if(!safety.Succeeded)throw new InvalidOperationException("Own containment preparation could not be forecast.");s=safety.State;
+        }
         var e=s.FindEmpire(owner)?.Scouting;
         if(e is null||!Rules.HasScouting(s.RulesVersion)||c.SpaceAmeba is not {} d)return (new(owner,s.Turn,ImmutableArray<ScoutVesselView>.Empty,ImmutableArray<KnownAmebaView>.Empty,ImmutableArray<AmebaAttentionToken>.Empty,ImmutableArray<ScoutTurnDigest>.Empty),new(ImmutableArray<Command>.Empty,ImmutableArray<AmebaAttentionToken>.Empty,ImmutableArray<ScoutOrderEvent>.Empty,ImmutableArray<string>.Empty));
         var frame=EmpireViewProjector.ProjectBase(c,s,owner);
@@ -100,6 +105,16 @@ public static class ScoutQueries
                 if(scout is not null&&encounter.Stage==AmebaStage.Warning&&!e.SuccessfulStudies.Any(claim=>claim.HabitatId==encounter.HabitatId)&&!frame.Vessels.Any(other=>other.Id!=v.Id&&s.FindVessel(other.Id)?.AmebaEncounter?.RiskOrder?.Action==AmebaRiskAction.Study))actions.Add(new SetAmebaRiskOrderCommand(owner,s.Turn,v.Id,encounter.Number,encounter.Revision,AmebaRiskAction.Study));
             }
             rows.Add(new(v.Id,v.RoleId,v.CarriedPopulation,scout?.Posture,v.StationaryStarId,v.Transit,v.PendingMove,departure,encounter?.RiskOrder?.Action,encounter?.Stage,encounter?.Number,encounter?.Revision,c.Vessels[v.RoleId].Speed,d.PursuitSpeed,late,study,late*study,d.ResearchReward,encounter?.Stage==AmebaStage.Warning?s.Turn:null,v.Crisis?.Held==true,blocker,acknowledged,actions.ToImmutable(),Route(departure)));
+        }
+        if(Rules.HasFleets(s.RulesVersion))
+        {
+            var departures=rows.ToDictionary(row=>row.Id,row=>row.EffectiveDestination);
+            for(int i=0;i<tokens.Count;i++)tokens[i]=tokens[i] with{FleetConsequenceFingerprint=Fleets.FleetTravel.ConsequenceFingerprint(c,s,owner,tokens[i].Vessel,tokens[i].Destination,departures)};
+            for(int i=0;i<rows.Count;i++)
+            {
+                var row=rows[i];var consequence=Fleets.FleetTravel.DepartureConsequence(c,s,owner,row.Id,departures);
+                rows[i]=row with{Acknowledged=tokens.Any(t=>t.Vessel==row.Id&&e.Receipts.Any(receipt=>receipt.Token==t)),FleetConsequence=consequence,DepartureRoute=row.DepartureRoute is {} route&&consequence?.Duration is {} turns?route with{Duration=turns}:row.DepartureRoute};
+            }
         }
         var attention=tokens.ToImmutable();
         return(new(owner,s.Turn,rows.ToImmutable(),e.KnownHabitats.Select(h=>new KnownAmebaView(h.HabitatId,h.Star,h.ObservedTurn)).ToImmutableArray(),attention,e.CompletedDigests.Concat(e.PendingDigest is {} pendingDigest?new[]{pendingDigest}:Array.Empty<ScoutTurnDigest>()).ToImmutableArray()),new(commands.ToImmutable(),attention,outcomes.ToImmutable(),blockers.ToImmutable()));

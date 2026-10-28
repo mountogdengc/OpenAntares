@@ -32,6 +32,8 @@ public static class GalaxyGenerator
 
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
+        if (Rules.HasFleets(settings.RulesVersion) && (content.FleetCommand is null || content.Species.Values.Any(sp => sp.CommandEmbodiment is null || sp.CommandCultureId is null)))
+            return Fail("Fleet campaigns require explicit command content and species command identities.");
         if (Rules.HasScouting(settings.RulesVersion))
         {
             if(settings.AmebasEnabled is null||content.SpaceAmeba is null)return Fail("Scout campaigns require an explicit ameba choice and hazard content, including Off.");
@@ -162,6 +164,7 @@ public static class GalaxyGenerator
 
         Crises.CrisisInitializer.Initialize(content,state,settings.CrisesEnabled);
         if(Rules.HasScouting(state.RulesVersion))Scouting.ScoutInitializer.Initialize(content,state,settings.AmebasEnabled!.Value);
+        if (Rules.HasFleets(state.RulesVersion)) Fleets.FleetInitializer.Initialize(content, state);
         IReadOnlyList<string> errors = GameStateValidator.Validate(content, state);
         return errors.Count > 0
             ? Fail("Generated an invalid game: " + string.Join("; ", errors))

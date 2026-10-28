@@ -32,6 +32,11 @@ public partial class GameScreen : VBoxContainer
     private VesselId? _selectedVessel;
     private StarId? _courseDestination;
     private EmpireView View => _session.View(_viewer);
+    private readonly FleetCommandDialog _fleetCommand=new();
+    private readonly AssemblyRequestDialog _assemblyRequest=new();
+    private readonly OfficerDetailDialog _officerDetails=new();
+    private readonly Label _fleetBadge=new(){Name="FleetAttentionBadge",ThemeTypeVariation="WarningLabel",AutowrapMode=TextServer.AutowrapMode.WordSmart,SizeFlagsHorizontal=SizeFlags.ExpandFill};
+    public string FleetPreferencesPath{get;set;}="user://fleet-notifications.json";
     private readonly ScoutOverviewDialog _scoutOverview=new();
     private readonly Label _scoutBadge=new(){Name="ScoutCriticalBadge",ThemeTypeVariation="WarningLabel",SizeFlagsHorizontal=SizeFlags.ExpandFill,AutowrapMode=TextServer.AutowrapMode.WordSmart};
     private readonly System.Collections.Generic.HashSet<string> _seenScoutMaterial=new(System.StringComparer.Ordinal);
@@ -98,6 +103,16 @@ public partial class GameScreen : VBoxContainer
 
         AddChild(_saveDialog);
         _saveDialog.Saved += name => ShowMessage($"Saved as \"{name}\".", isWarning: false);
+        AddChild(_fleetCommand);AddChild(_assemblyRequest);AddChild(_officerDetails);
+        _fleetCommand.CommandIssued+=Execute;_assemblyRequest.CommandIssued+=Execute;_officerDetails.CommandIssued+=Execute;
+        _fleetCommand.DisplayApplied+=()=>Callable.From(Refresh).CallDeferred();
+        foreach(var dialog in new Window[]{_fleetCommand,_assemblyRequest,_officerDetails})dialog.VisibilityChanged+=()=>Callable.From(OpenPendingCommandInterrupt).CallDeferred();
+        _fleetCommand.RequestRequested+=request=>{_fleetCommand.Hide();Callable.From(()=>_assemblyRequest.ShowEditor(_session.Content,View,request)).CallDeferred();};
+        _fleetCommand.OfficersRequested+=()=>{_fleetCommand.Hide();Callable.From(()=>_officerDetails.ShowOfficers(_session.Content,View)).CallDeferred();};
+        _fleetCommand.StarRequested+=star=>{_fleetCommand.Hide();_map.Select(star);};
+        _fleetCommand.InspectRequested+=id=>{_selectedVessel=id;_selectedPlanet=null;_courseDestination=null;var ship=View.Vessels.Single(v=>v.Id==id);_map.Select(ship.StationaryStarId??ship.Transit!.Destination);Callable.From(Refresh).CallDeferred();};
+        _assemblyRequest.ColonyRequested+=SelectColony;
+        if(Rules.HasFleets(View.RulesVersion)){var commandRow=new HBoxContainer();AddChild(commandRow);var entry=new Button{Name="OpenFleetCommand",Text="Fleet command"};entry.Pressed+=OpenFleetCommand;commandRow.AddChild(entry);commandRow.AddChild(_fleetBadge);}else{AddChild(_fleetBadge);_fleetBadge.Hide();}
         AddChild(_scoutOverview);_scoutOverview.CommandIssued+=Execute;_scoutOverview.StarRequested+=star=>{_scoutOverview.Hide();_map.Select(star);};_scoutOverview.DisplayApplied+=_=>Callable.From(Refresh).CallDeferred();
         if(Rules.HasScouting(View.RulesVersion))
         {
@@ -122,7 +137,7 @@ public partial class GameScreen : VBoxContainer
         _colonies.NotificationsRequested += () => _notificationDialog.Open(NotificationPreferencesPath);
         _colonies.LatestReportRequested += ShowLatestReport;
         AddChild(_report);
-        _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingCrisisInterrupt){_pendingCrisisInterrupt=false;Callable.From(()=>{if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}).CallDeferred();}};
+        _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingCrisisInterrupt)Callable.From(OpenPendingCommandInterrupt).CallDeferred();};
         _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingScoutInterrupt)Callable.From(OpenPendingScoutInterrupt).CallDeferred();};
         _crisisOverview.VisibilityChanged+=()=>{if(!_crisisOverview.Visible&&_pendingScoutInterrupt)Callable.From(OpenPendingScoutInterrupt).CallDeferred();};
         _crisisResponse.VisibilityChanged+=()=>{if(!_crisisResponse.Visible&&_pendingScoutInterrupt)Callable.From(OpenPendingScoutInterrupt).CallDeferred();};
@@ -132,6 +147,7 @@ public partial class GameScreen : VBoxContainer
         _report.ColonyRequested += SelectColony;
         _report.VesselRequested += vessel => { _selectedVessel = vessel; _courseDestination = null; Callable.From(Refresh).CallDeferred(); };
         _report.ChooseResearchRequested += _researchBar.OpenPicker;
+        _report.FleetCommandRequested+=()=>{_report.Hide();OpenFleetCommand();};
 
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
         AddChild(body);
@@ -166,6 +182,7 @@ public partial class GameScreen : VBoxContainer
         _vessels.VesselSelected += vessel => { _selectedVessel = vessel; _courseDestination = null; Callable.From(Refresh).CallDeferred(); };
         _vessels.DestinationSelected += star => { _courseDestination = star; _map.Select(star); };
         _vessels.ScoutOverviewRequested+=()=>{if(View.Scouting is {} scouting)_scoutOverview.ShowScouting(_session.Content,scouting);};
+        _vessels.FleetCommandRequested+=OpenFleetCommand;
 
         _map.ShowGalaxy(View.Galaxy);
         if (HomeStar() is { } start)
@@ -200,6 +217,11 @@ public partial class GameScreen : VBoxContainer
     {
         CommandOutcome outcome = _session.Execute(command);
         ShowMessage(outcome.Rejection?.Message ?? string.Empty, isWarning: true);
+        if(_fleetCommand.Visible)_fleetCommand.ShowError(outcome.Rejection?.Message??"");
+        if(_assemblyRequest.Visible)_assemblyRequest.ShowError(outcome.Rejection?.Message??"");
+        if(_officerDetails.Visible)_officerDetails.ShowError(outcome.Rejection?.Message??"");
+        if(outcome.Changed&&command is OpenAntares.Simulation.Fleets.AssemblyCommand{Action:OpenAntares.Simulation.Fleets.AssemblyAction.Accept}&&View.Fleets is {} accepted)
+        {var id=accepted.Requests.MaxBy(r=>r.Id)!.Id;Callable.From(()=>_assemblyRequest.ShowEditor(_session.Content,View,id)).CallDeferred();}
         if (outcome.Rejection?.TemplateReferences is { } references)
             _templateReferences.ShowReferences(View, references);
 
@@ -226,6 +248,12 @@ public partial class GameScreen : VBoxContainer
     private void Refresh()
     {
         var view = View;
+        _fleetCommand.PreferencesPath=FleetPreferencesPath;
+        _report.FleetPreferencesPath=FleetPreferencesPath;
+        if(_fleetCommand.Visible)_fleetCommand.ShowEmpire(_session.Content,view);
+        if(_assemblyRequest.Visible)_assemblyRequest.UpdateView(_session.Content,view);
+        if(_officerDetails.Visible)_officerDetails.ShowOfficers(_session.Content,view);
+        RefreshFleetAttention(view);
         _preferences = OpenAntares.Game.Presentation.ColonyNotificationPreferences.Load(ProjectSettings.GlobalizePath(NotificationPreferencesPath));
         _crisisPreferences=OpenAntares.Game.Presentation.CrisisNotificationPreferences.Load(ProjectSettings.GlobalizePath(CrisisPreferencesPath));
         if (_management.Visible) { _management.Preferences = _preferences; _management.ShowEmpire(_session.Content,view); }
@@ -257,6 +285,16 @@ public partial class GameScreen : VBoxContainer
         _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination, _selectedPlanet);
     }
 
+    private void OpenFleetCommand(){if(Rules.HasFleets(View.RulesVersion)){_fleetCommand.PreferencesPath=FleetPreferencesPath;_fleetCommand.ShowEmpire(_session.Content,View);}}
+    private void RefreshFleetAttention(EmpireView view)
+    {
+        if(view.Fleets is not {} fleets){_fleetBadge.Hide();return;}
+        int requests=fleets.Requests.Count(r=>OpenAntares.Simulation.Fleets.FleetQueries.IsActive(r.Status)&&(r.Status==OpenAntares.Simulation.Fleets.RequestStatus.SafetyPaused||r.Slots.Any(s=>s.Status==OpenAntares.Simulation.Fleets.SlotStatus.Missing)));
+        int officers=fleets.Officers.Count(o=>o.Status is OpenAntares.Simulation.Fleets.OfficerStatus.Recovering or OpenAntares.Simulation.Fleets.OfficerStatus.Missing or OpenAntares.Simulation.Fleets.OfficerStatus.Dead);
+        int fresh=fleets.Ships.Count(s=>s.NewlyCompleted);bool routine=OpenAntares.Game.Presentation.FleetNotificationPreferences.Load(ProjectSettings.GlobalizePath(FleetPreferencesPath)).ShowRoutine;
+        int standing=fleets.Fleets.Count(f=>f.Attention is not null);
+        _fleetBadge.Visible=requests+officers+standing>0||routine&&fresh>0;_fleetBadge.Text=requests+officers+standing>0?$"Attention: {standing} blocked standing orders; {requests} blocked / missing requests; {officers} recovering, missing or final loss records.":$"Summary: {fresh} newly completed independent ships.";
+    }
     private void RefreshCrisisAttention(OpenAntares.Simulation.Crises.CrisisView? crisis)
     {
         if(crisis is null)return;
@@ -267,7 +305,7 @@ public partial class GameScreen : VBoxContainer
             if(_seenCrisisMaterial.Add($"event:{entry.Key.Episode}:{entry.Key.Colony}:{entry.Revision}:{entry.Kind}")&&_crisisMaterialInitialized)fresh=true;
         _crisisMaterialInitialized=true;
         if(!fresh||_crisisPreferences.Critical!=OpenAntares.Game.Presentation.CrisisDisplayLevel.Interrupt)return;
-        if(_report.Visible)_pendingCrisisInterrupt=true;
+        if(_report.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible)_pendingCrisisInterrupt=true;
         else if(!_crisisOverview.Visible&&!_crisisResponse.Visible)
             Callable.From(()=>{if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}).CallDeferred();
     }
@@ -287,8 +325,13 @@ public partial class GameScreen : VBoxContainer
     {
         // Visibility may change again between the signal and its deferred callback.
         // Keep the emergency queued until the currently exclusive report/response really closes.
-        if(!IsInsideTree()||!_pendingScoutInterrupt||_report.Visible||_crisisOverview.Visible||_crisisResponse.Visible)return;
+        if(!IsInsideTree()||!_pendingScoutInterrupt||_report.Visible||_crisisOverview.Visible||_crisisResponse.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible)return;
         _pendingScoutInterrupt=false;if(View.Scouting is {} current)_scoutOverview.ShowScouting(_session.Content,current);
+    }
+    private void OpenPendingCommandInterrupt()
+    {
+        if(!IsInsideTree()||_report.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_crisisOverview.Visible||_crisisResponse.Visible)return;
+        if(_pendingCrisisInterrupt){_pendingCrisisInterrupt=false;if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}else OpenPendingScoutInterrupt();
     }
 
     private void SelectColony(ColonyId id)

@@ -1,0 +1,7 @@
+# Task12 — Loss, recovery and appointment clocks
+
+Actual designated-loss semantic RED10/10 preceded implementation. Final recovery17+officer8=25/25; preliminary full1508/1508 plus committed-transit case; build0 warnings/errors. Formal final suite recorded separately.
+
+Only actual mortal Recover flagship loss draws once, sorted by owner/OfficerId from the captured snapshot;50/70 thresholds and exact independent PCG advancement are tested. Cargo remains destroyed. Last watch/failure are permanent. Wenth source-body link2/1 and4/3 never draws. Loss10→11 returns13, new clocks never tick immediately, commissioning10→12, successful no-colony recovery is Missing, and losing a selected destination clears the clock without reroll; later actual founding restarts the full delay. Ordinary nonflagship loss and committed transit do not draw officer randomness. Research completed on the loss boundary cannot affect its captured equipment.
+
+All12 phases including late Recovery/Validation roll back exact entire original and all streams after real loss. Pure preview/invalid/no-op paths do not draw; the reload proof belongs to strict writer9 Task13 (ledgered dependency ruling). Labelled reachable rare PCG states are never described as generated campaigns. Existing plague cargo episode references remain strict. Rules7 default/writer8/main and old futures remain unchanged; no whole-feature completion claim.

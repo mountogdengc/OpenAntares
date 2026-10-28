@@ -51,7 +51,7 @@ public sealed class ScoutingIntegrationTests
     private static ContentSet Core()=>ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory()).Content!;
     [Fact] public void CurrentCoreStartsExplicitStandardWithSeparateObserveAndSurvivalDefaults()
     {
-        Assert.Equal(7,Rules.CurrentVersion);var c=Core();Assert.NotNull(c.SpaceAmeba);Assert.Equal(200,c.SpaceAmeba.PursuitSpeed);Assert.Equal(600,c.SpaceAmeba.ResearchReward);
+        Assert.Equal(8,Rules.CurrentVersion);var c=Core();Assert.NotNull(c.SpaceAmeba);Assert.Equal(200,c.SpaceAmeba.PursuitSpeed);Assert.Equal(600,c.SpaceAmeba.ResearchReward);
         var result=GalaxyGenerator.CreateNewGame(c,new("small",42,SpeciesId:"harl",RivalCount:1,RivalSpeciesId:"peldra",AmebasEnabled:true));Assert.True(result.Succeeded,result.Error);var s=result.State!;Assert.True(s.Scouting!.Enabled);Assert.Equal(1,s.Scouting.SelectionCount);
         Assert.All(s.Vessels,v=>{Assert.Equal(ScoutPosture.Observe,v.Scout!.Posture);Assert.True(v.Scout.WithdrawFromAmeba);});var session=new GameSession(c,s);string before=SaveGame.Serialize(c,s);for(int n=0;n<3;n++){var view=session.View(s.Empires[0].Id);Assert.Empty(view.Scouting!.Habitats);Assert.Empty(view.Scouting.Attention);session.Forecast();}Assert.Equal(before,SaveGame.Serialize(c,s));
         foreach(bool enabled in new[]{false,true})Assert.False(GalaxyGenerator.CreateNewGame(c with{SpaceAmeba=null},new("small",42,7,"harl",AmebasEnabled:enabled)).Succeeded);
@@ -115,7 +115,7 @@ public sealed class ScoutingIntegrationTests
         var owner=session.State.Empires[0].Id;var view=session.View(owner);int turn=view.Turn;
         if(view.Research.TargetId is null)
         {
-            var next=session.Content.Technologies.Values.Where(t=>!view.Research.KnownTechnologyIds.Contains(t.Id)&&t.PrerequisiteTechnologyIds.All(view.Research.KnownTechnologyIds.Contains)).OrderBy(t=>t.Cost).ThenBy(t=>t.Id,StringComparer.Ordinal).FirstOrDefault();if(next is not null)Apply(session,new SetResearchTargetCommand(owner,turn,next.Id),commands);
+            var next=session.Content.Technologies.Values.Where(t=>Rules.TechnologyAvailable(session.Content,session.State.RulesVersion,t.Id)&&!view.Research.KnownTechnologyIds.Contains(t.Id)&&t.PrerequisiteTechnologyIds.All(view.Research.KnownTechnologyIds.Contains)).OrderBy(t=>t.Cost).ThenBy(t=>t.Id,StringComparer.Ordinal).FirstOrDefault();if(next is not null)Apply(session,new SetResearchTargetCommand(owner,turn,next.Id),commands);
         }
         var crisis=session.View(owner).Crisis;
         if(crisis?.Episode is not null)foreach(var colony in session.View(owner).Colonies.Where(col=>col.Development?.Template?.Id!="research"))Apply(session,new AssignGovernorTemplateCommand(owner,turn,ImmutableArray.Create(colony.Id),"research",true,true),commands);

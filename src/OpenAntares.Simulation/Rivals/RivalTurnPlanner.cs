@@ -36,7 +36,8 @@ public static class RivalTurnPlanner
                         command is not (SetWorkforceCommand or SetProductionTargetCommand or SetResearchTargetCommand or SetMoveOrderCommand or SetFoundingOrderCommand)&&!(Rules.HasScouting(snapshot.RulesVersion)&&command is SetScoutPostureCommand or SetScoutRetreatOrderCommand))
                     { failed = true; return false; }
                     submitted++;
-                    var outcome = CommandProcessor.Execute(content,working,command);
+                    var outcome = Rules.HasFleets(working.RulesVersion)&&command is SetMoveOrderCommand move&&working.FindVessel(move.Vessel)?.Fleet is not null
+                        ?CommandProcessor.ExecuteRivalFleetMove(content,working,move):CommandProcessor.Execute(content,working,command);
                     if (!outcome.Accepted) { failed = true; return false; }
                     working = outcome.State;
                     return true;
