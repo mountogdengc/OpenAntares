@@ -42,6 +42,8 @@ public static class FleetStateValidator
                 foreach (var vessel in members)
                     if (vessel is null || vessel.EmpireId != empire.Id || vessel.Fleet != fleet.Id || !memberIds.Add(vessel.Id)) Error("member is missing, foreign, duplicated or linked to another fleet.");
                 if (members.Any(v => v is null || v.EmpireId != empire.Id)) continue;
+                if(fleet.Order.Kind==FleetOrderKind.Explore&&members.Any(v=>v!.Scout is null))Error("Explore contains a non-scout member.");
+                if(empire.Ready&&members.Select(v=>v!.PendingMove).Distinct().Count()>1)Error("ready fleet has incompatible pending departures.");
                 var first = members[0]!;
                 if (members.Any(v => v!.StationaryStarId != first.StationaryStarId || v.Transit != first.Transit)) Error("members are not co-located in one transit cohort.");
                 if (first.Transit is { } transit)

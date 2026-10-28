@@ -51,10 +51,17 @@ public static class FleetCommandProcessor
             case FleetAction.SetOrder a:
                 Require(!a.Fleets.IsDefaultOrEmpty&&a.Fleets.Length<=f.Fleets.Length,"Choose fleets.");Require(a.Order is not null&&Enum.IsDefined(a.Order.Kind),"Choose a valid order.");
                 if(a.Order!.Kind is FleetOrderKind.Assemble or FleetOrderKind.Return) Require(a.Order.Destination is {} star&&view.Galaxy.Stars.Any(x=>x.Id==star),"Choose a charted destination.");else Require(a.Order.Destination is null,"This order has no destination.");
-                foreach(var id in a.Fleets.Distinct()) {var ordered=Fleet(id);Stationary(ordered.Members,false);if(a.Order.Kind==FleetOrderKind.Explore)Require(ordered.Members.All(id=>f.Ships.Single(v=>v.Id==id).RoleId=="scout"),"Explore requires scout-only members.");}break;
+                if(a.Order.Kind==FleetOrderKind.Return)Require(view.Colonies.Any(col=>col.StarId==a.Order.Destination),"Return requires a selected owned colony system.");
+                foreach(var id in a.Fleets.Distinct())
+                {
+                    var ordered=Fleet(id);Stationary(ordered.Members,false);
+                    if(ordered.Order!=a.Order&&a.Order.Kind!=FleetOrderKind.Hold)Require(!f.Requests.Any(r=>r.Status==RequestStatus.Active&&r.RallyFleet==id),"Pause the rally request before changing its movement goal.");
+                    if(a.Order.Kind==FleetOrderKind.Explore)Require(ordered.Members.All(id=>{var role=content.Vessels[f.Ships.Single(v=>v.Id==id).RoleId];return !role.CanFoundColony&&role.EmbarkPopulation==0;}),"Explore requires scout-only members.");
+                }break;
             case FleetAction.MoveSelection a:
                 Require(!a.Vessels.IsDefault&&!a.Fleets.IsDefault,"Selection is missing.");var selected=a.Vessels.Concat(a.Fleets.Distinct().SelectMany(id=>Fleet(id).Members)).Distinct().ToImmutableArray();var moving=Ships(selected);Stationary(moving,false);
                 Require(a.Destination is null||view.Galaxy.Stars.Any(x=>x.Id==a.Destination),"Choose a charted destination.");
+                if(a.Destination is not null&&moving.Any(id=>f.Ships.Single(ship=>ship.Id==id).PendingMove!=a.Destination))Require(!moving.Any(id=>f.Ships.Single(ship=>ship.Id==id).Fleet is {} group&&f.Requests.Any(r=>r.Status==RequestStatus.Active&&r.RallyFleet==group)),"Pause the rally request before departing.");
                 foreach(var id in moving)
                 {
                     var ship=f.Ships.Single(v=>v.Id==id);Require(ship.Request is null,"Explicitly detach request ships first.");if(ship.Fleet is {} group)Require(Fleet(group).Members.All(moving.Contains),"Select the complete fleet or explicitly detach ships first.");

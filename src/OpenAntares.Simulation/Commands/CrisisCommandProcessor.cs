@@ -10,13 +10,13 @@ namespace OpenAntares.Simulation.Commands;
 
 public static partial class CommandProcessor
 {
-    internal static CommandOutcome ExecuteCrisisAutomatic(ContentSet content,GameState state,CrisisCommand command)
+    internal static CommandOutcome ExecuteCrisisAutomatic(ContentSet content,GameState state,CrisisCommand command,bool forecast=false)
     {
         if(command is not(SetQuarantineCommand or SetCureShareCommand or DecontaminateVesselCommand)||state.FindEmpire(command.Issuer) is not {} issuer||command.ExpectedTurn!=state.Turn)
             return CommandOutcome.Reject(state,"invalid_crisis","Automatic crisis order is outside its response scope.");
-        return ExecuteCrisis(content,state,issuer,command,automatic:true);
+        return ExecuteCrisis(content,state,issuer,command,automatic:true,forecast:forecast);
     }
-    private static CommandOutcome ExecuteCrisis(ContentSet content,GameState state,EmpireState issuer,CrisisCommand command,bool automatic=false)
+    private static CommandOutcome ExecuteCrisis(ContentSet content,GameState state,EmpireState issuer,CrisisCommand command,bool automatic=false,bool forecast=false)
     {
         CommandOutcome Reject()=>CommandOutcome.Reject(state,"invalid_crisis","Crisis order is invalid, stale, or outside this empire's authority. Refresh its own crisis overview.");
         if(!Rules.HasCrises(state.RulesVersion)||state.Crisis is not{Enabled:true}||issuer.Crisis is null)return Reject();
@@ -142,8 +142,8 @@ public static partial class CommandProcessor
             owner.Ready=false;
             // Crisis actions can close/cancel the exact departure the owner acknowledged.
             // Reconcile before validating this candidate, including automatic preparation.
-            if(Rules.HasScouting(state.RulesVersion))ReconcileScoutConsent(content,state,candidate,issuer.Id);
-            Require(GameStateValidator.Validate(content,candidate,allowAllHumansReady:automatic).Count==0,"Candidate validation failed.");
+            if(Rules.HasScouting(state.RulesVersion)&&!forecast)ReconcileScoutConsent(content,state,candidate,issuer.Id);
+            Require((forecast?GameStateValidator.ValidateFleetForecast(content,candidate):GameStateValidator.Validate(content,candidate,allowAllHumansReady:automatic)).Count==0,"Candidate validation failed.");
             return new(candidate,null,true,null);
         }
         catch(Exception ex) when(ex is InvalidOperationException or ArgumentException or OverflowException or KeyNotFoundException){return Reject();}

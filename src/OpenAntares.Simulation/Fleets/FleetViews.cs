@@ -16,6 +16,7 @@ public sealed record FleetEmpireView(EmpireId Owner, int Turn, ImmutableArray<Fl
     public OfficerDoctrine? FutureDoctrine { get; init; }
 }
 public sealed record FleetRouteConsequence(VesselId Vessel,FleetId? Fleet,StarId Origin,StarId Destination,int Turns);
+public sealed record FleetDepartureConsequence(FleetId SourceFleet,FleetId? RetainedFleet,VesselId Flagship,ImmutableArray<VesselId> Members,ImmutableArray<VesselId> Detachments,OfficerId? Officer,bool OfficerAboard,int? Duration);
 public sealed record AssemblyDraft(string Name,StarId Rally,FleetId? RallyFleet,ImmutableArray<string> Roles,ImmutableArray<ColonyId> Colonies,RequestPriority Priority,ImmutableArray<VesselId> AcceptedIdleVessels,bool AuthorizeCargo,OfficerId? Coordinator);
 public sealed record AssemblySlotPlan(int Ordinal,string RoleId,VesselId? Vessel,ColonyId? Colony,int? QueuePosition,long Cost,int Cargo,long? CompletionTurns,long? ArrivalTurns)
 {

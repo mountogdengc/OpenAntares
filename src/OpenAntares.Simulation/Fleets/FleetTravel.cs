@@ -1,20 +1,41 @@
 using System.Linq;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.State;
 using OpenAntares.Simulation.Movement;
 namespace OpenAntares.Simulation.Fleets;
 public static class FleetTravel
 {
-    internal static string? ConsequenceFingerprint(ContentSet content, GameState state, EmpireId owner, VesselId id, StarId? destination)
+    internal static FleetDepartureConsequence? DepartureConsequence(ContentSet content,GameState state,EmpireId owner,VesselId id,IReadOnlyDictionary<VesselId,StarId?> departures)
     {
         var vessel=state.FindVessel(id)!;var f=state.FindEmpire(owner)!.Fleets!;
-        var group=f.Fleets.SingleOrDefault(x=>x.Id==vessel.Fleet);
-        var officer=f.Officers.SingleOrDefault(x=>x.Id==group?.Officer&&x.Status==OfficerStatus.Commanding);
-        if(group is null&&officer is null)return null;
+        var provenance=f.PendingEvents.Where(e=>e.Turn==state.Turn&&e.Kind=="fleet_safety_detached"&&e.Vessel is not null).ToArray();
+        var source=vessel.Fleet??provenance.LastOrDefault(e=>e.Vessel==id)?.Fleet;
+        var group=f.Fleets.SingleOrDefault(x=>x.Id==source);if(group is null)return null;
+        var detached=provenance.Where(e=>e.Fleet==group.Id&&state.FindVessel(e.Vessel!.Value)?.Fleet!=group.Id).Select(e=>e.Vessel!.Value).ToHashSet();
+        var original=group.Members.Concat(detached).Distinct().OrderBy(x=>x).ToArray();
+        var route=departures.GetValueOrDefault(group.Flagship);
+        var compatible=original.Where(member=>!detached.Contains(member)&&departures.GetValueOrDefault(member)==route).ToImmutableArray();
+        bool named=compatible.Contains(id);var members=named?compatible:ImmutableArray.Create(id);
+        int? duration=null;
+        if(departures.GetValueOrDefault(id) is {} target&&vessel.StationaryStarId is {} station)
+        {
+            int speed=named?members.Min(member=>OfficerBonuses.EffectiveSpeed(content,state,member)):content.Vessels[vessel.RoleId].Speed;
+            var a=state.FindStar(station)!;var b=state.FindStar(target)!;duration=TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,speed);
+        }
+        return new(group.Id,named?group.Id:null,group.Flagship,members,original.Except(compatible).OrderBy(x=>x).ToImmutableArray(),named?group.Officer:null,named&&id==group.Flagship&&group.Officer is not null,duration);
+    }
+    internal static string? ConsequenceFingerprint(ContentSet content, GameState state, EmpireId owner, VesselId id, StarId? destination,IReadOnlyDictionary<VesselId,StarId?> departures)
+    {
+        var consequence=DepartureConsequence(content,state,owner,id,departures);if(consequence is null)return null;
+        var f=state.FindEmpire(owner)!.Fleets!;
+        var group=f.Fleets.Single(x=>x.Id==consequence.SourceFleet);
+        var officer=consequence.RetainedFleet is null?null:f.Officers.SingleOrDefault(x=>x.Id==group.Officer&&x.Status==OfficerStatus.Commanding);
         var d=content.FleetCommand!;bool researched=state.FindEmpire(owner)!.KnownTechnologyIds.Contains(d.RecoveryTechnologyId);
         int delay=officer?.Embodiment==CommandEmbodiment.ColonyBody?System.Math.Max(1,(officer.Doctrine==OfficerDoctrine.LastWatch?d.LastWatchLinkTurns:d.LinkRecoveryTurns)-(researched?d.ResearchedLinkReduction:0)):d.MortalRecoveryTurns;
         int chance=officer?.Embodiment==CommandEmbodiment.ColonyBody?100:officer?.Doctrine==OfficerDoctrine.LastWatch?0:researched?d.ResearchedRecoveryPercent:d.MortalRecoveryPercent;
-        var facts=new{Group=group?.Id,Members=group?.Members.OrderBy(x=>x).ToArray(),Flagship=group?.Flagship,Commander=group?.Officer,Officer=officer is null?null:new{officer.Id,officer.Xp,officer.Rank,officer.Specialty,officer.Doctrine,officer.Embodiment},Equipment=researched,RecoveryPercent=officer is null?(int?)null:chance,RecoveryDelay=officer is null?(int?)null:delay,Destination=destination,Duration=destination is {} target?LaunchDuration(content,state,vessel,target):(int?)null};
+        var facts=new{Consequence=consequence,Officer=officer is null?null:new{officer.Id,officer.Xp,officer.Rank,officer.Specialty,officer.Doctrine,officer.Embodiment},Equipment=researched,RecoveryPercent=consequence.OfficerAboard?(int?)chance:null,RecoveryDelay=consequence.OfficerAboard?(int?)delay:null,Destination=destination};
         return System.Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(facts)));
     }
     public static int Duration(ContentSet content, GameState state, EmpireId owner, FleetId fleet, StarId destination)

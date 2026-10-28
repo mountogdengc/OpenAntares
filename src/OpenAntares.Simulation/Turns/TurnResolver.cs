@@ -68,6 +68,10 @@ public static class TurnResolver
                         if(Scouting.ScoutReadyQueries.ValidateResponse(content,snapshot,human.Id).Length!=0)return Failed(original,RivalTurnPlanner.FailureMessage);
                         continue;
                     }
+                    if(Rules.HasFleets(snapshot.RulesVersion))
+                    {
+                        var fleet=Fleets.FleetTurnCoordinator.PrepareHuman(content,snapshot,human.Id);if(!fleet.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);snapshot=fleet.State;continue;
+                    }
                     var health=CrisisTurnCoordinator.Prepare(content,snapshot,human.Id);if(!health.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);
                     var governor=Development.GovernorTurnCoordinator.Prepare(content,health.State,human.Id);if(!governor.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);
                     var scoutPreparation=Scouting.ScoutTurnCoordinator.Prepare(content,governor.State,human.Id);if(!scoutPreparation.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);

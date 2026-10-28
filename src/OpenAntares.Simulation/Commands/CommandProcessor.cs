@@ -18,6 +18,8 @@ public static partial class CommandProcessor
         try{return ExecuteTransaction(content,state,command);}
         catch(OverflowException)when(Rules.HasFleets(state.RulesVersion))
         {return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The order exceeds supported production or command limits.");}
+        catch(InvalidOperationException)when(Rules.HasFleets(state.RulesVersion))
+        {return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The order could not be prepared from the current state.");}
     }
     private static CommandOutcome ExecuteTransaction(ContentSet content, GameState state, Command command)
     {
@@ -178,19 +180,24 @@ public static partial class CommandProcessor
         if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCrises(state.RulesVersion)&&issuer.Crisis!.RequireAcknowledgement&&!Crises.CrisisQueries.PendingAttention(state,issuer.Id).IsEmpty)
             return CommandOutcome.Reject(state,"crisis_acknowledgement_required","Review and acknowledge this empire's current crisis facts before Ready, or explicitly change the saved acknowledgement requirement.");
         GameState prepared = state;
-        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCrises(state.RulesVersion))
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasFleets(state.RulesVersion))
+        {
+            var fleet=Fleets.FleetTurnCoordinator.PrepareHuman(content,state,issuer.Id);
+            if(!fleet.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"Fleet and survival preparation could not be completed. Review current responses.");prepared=fleet.State;
+        }
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCrises(state.RulesVersion)&&!Rules.HasFleets(state.RulesVersion))
         {
             var crisis=Crises.CrisisTurnCoordinator.Prepare(content,state,issuer.Id);
             if(!crisis.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The turn could not be completed.");
             prepared=crisis.State;
         }
-        if (command.Ready && issuer.Controller == ControllerKind.Human && Rules.HasDevelopment(state.RulesVersion))
+        if (command.Ready && issuer.Controller == ControllerKind.Human && Rules.HasDevelopment(state.RulesVersion)&&!Rules.HasFleets(state.RulesVersion))
         {
             var preparation = Development.GovernorTurnCoordinator.Prepare(content, prepared, issuer.Id);
             if (!preparation.Succeeded) return CommandOutcome.Reject(state, RejectionCodes.ResolutionFailed, "The turn could not be completed.");
             prepared = preparation.State;
         }
-        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasScouting(state.RulesVersion))
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasScouting(state.RulesVersion)&&!Rules.HasFleets(state.RulesVersion))
         {
             var scouting=Scouting.ScoutTurnCoordinator.Prepare(content,prepared,issuer.Id);
             if(!scouting.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"Scout survival preparation could not be completed. Review current legal responses.");

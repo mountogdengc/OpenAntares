@@ -7,7 +7,9 @@ namespace OpenAntares.Simulation.Scouting;
 
 public static class ScoutStateValidator
 {
-    public static void Validate(ContentSet content,GameState state,List<string> errors)
+    public static void Validate(ContentSet content,GameState state,List<string> errors)=>ValidateCore(content,state,errors,false);
+    internal static void ValidateFleetForecast(ContentSet content,GameState state,List<string> errors)=>ValidateCore(content,state,errors,true);
+    private static void ValidateCore(ContentSet content,GameState state,List<string> errors,bool skipEffectiveConsent)
     {
         void Error(string message)=>errors.Add("scouting: "+message);
         if(!Rules.HasScouting(state.RulesVersion))
@@ -100,7 +102,7 @@ public static class ScoutStateValidator
         }
         // Effective consent is evaluated only after the ordinary state and references are sound.
         // ProjectBase never invokes validation, so this check cannot recurse through this validator.
-        if(errors.Count==0)foreach(var owner in state.Empires)
+        if(!skipEffectiveConsent&&errors.Count==0)foreach(var owner in state.Empires)
         {
             var e=owner.Scouting!;
             if(e.Receipts.Count==0&&!owner.Ready)continue;
