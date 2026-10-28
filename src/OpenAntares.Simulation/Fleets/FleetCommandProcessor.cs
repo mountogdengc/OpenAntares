@@ -38,7 +38,7 @@ public static class FleetCommandProcessor
                 Require(a.Flagship is null||members.Contains(a.Flagship.Value),"Flagship must be a selected member.");Require(members.Select(id=>f.Ships.Single(v=>v.Id==id).PendingMove).Distinct().Count()==1,"Resolve incompatible pending routes before grouping.");break;
             case FleetAction.Rename a: Fleet(a.Fleet);Name(a.Name);break;
             case FleetAction.Disband a:
-                var disband=Fleet(a.Fleet);Stationary(disband.Members,false);Ungarrisoned(disband);Require(!f.Requests.Any(r=>FleetQueries.IsActive(r.Status)&&r.RallyFleet==a.Fleet),"Release the rally request before disbanding.");break;
+                var disband=Fleet(a.Fleet);Stationary(disband.Members,false);Ungarrisoned(disband);break;
             case FleetAction.Merge a:
                 Require(!a.Sources.IsDefaultOrEmpty,"Choose source fleets.");var target=Fleet(a.Target);var sources=a.Sources.Distinct().Where(id=>id!=a.Target).Select(Fleet).ToArray();Require(sources.Length>0,"Choose another source fleet.");
                 var merged=target.Members.Concat(sources.SelectMany(x=>x.Members)).ToArray();Require(merged.Length<=content.FleetCommand!.MemberLimit,"Fleet exceeds its member limit.");Stationary(merged,true);Require(merged.Select(id=>f.Ships.Single(x=>x.Id==id).PendingMove).Distinct().Count()==1,"Resolve incompatible pending routes before merging.");
@@ -92,7 +92,7 @@ public static class FleetCommandProcessor
             void Detach(VesselId id)
             {
                 var ship=candidate.FindVessel(id)!;
-                if(ship.Fleet is {} group){var fleet=Find(group);fleet.Members.Remove(id);if(fleet.Members.Count==0)f.Fleets.Remove(fleet);else if(fleet.Flagship==id)fleet.Flagship=fleet.Members.Min();ship.Fleet=null;}
+                if(ship.Fleet is {} group){var fleet=Find(group);fleet.Members.Remove(id);if(fleet.Members.Count==0){f.Fleets.Remove(fleet);RequestQueueAuthority.RallyDisbanded(candidate,command.Issuer,group);}else if(fleet.Flagship==id)fleet.Flagship=fleet.Members.Min();ship.Fleet=null;}
                 foreach(var request in f.Requests.Where(r=>FleetQueries.IsActive(r.Status)))foreach(var slot in request.Slots.Where(x=>x.Vessel==id))
                 {slot.FormerVessel=id;slot.Vessel=null;slot.Status=SlotStatus.Missing;slot.ResumeStatus=null;slot.BlockedReason="Manually detached; finite amendment required.";request.Status=RequestStatus.Paused;request.Revision=checked(request.Revision+1);}
             }
@@ -100,7 +100,15 @@ public static class FleetCommandProcessor
             {
                 case FleetAction.Create a:Add(a.Name,a.Members,a.Flagship);break;
                 case FleetAction.Rename a:Find(a.Fleet).Name=a.Name;break;
-                case FleetAction.Disband a:foreach(var id in Find(a.Fleet).Members.ToArray())Detach(id);break;
+                case FleetAction.Disband a:
+                    var disbanded=Find(a.Fleet);
+                    foreach(var id in disbanded.Members)
+                    {
+                        candidate.FindVessel(id)!.Fleet=null;
+                        foreach(var r in f.Requests.Where(r=>FleetQueries.IsActive(r.Status)))foreach(var slot in r.Slots.Where(s=>s.Vessel==id))
+                        {if(slot.Status==SlotStatus.BlockedSafety&&slot.ResumeStatus==SlotStatus.Arrived)slot.ResumeStatus=SlotStatus.Built;else if(slot.Status==SlotStatus.Arrived)slot.Status=SlotStatus.Built;}
+                    }
+                    f.Fleets.Remove(disbanded);RequestQueueAuthority.RallyDisbanded(candidate,command.Issuer,a.Fleet);break;
                 case FleetAction.Merge a:
                     var target=Find(a.Target);foreach(var id in a.Sources.Distinct().Where(id=>id!=a.Target).OrderBy(id=>id)){var source=Find(id);foreach(var ship in source.Members){target.Members.Add(ship);candidate.FindVessel(ship)!.Fleet=target.Id;}f.Fleets.Remove(source);}target.Members.Sort();break;
                 case FleetAction.Split a:foreach(var id in a.Members.Distinct())Detach(id);Add(a.Name,a.Members,a.Flagship);break;

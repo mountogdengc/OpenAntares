@@ -61,11 +61,14 @@ public static class FleetStateValidator
             {
                 if (request.Id.Value < 1 || request.Revision < 1 || !Text(request.Name, 80) || !Enum.IsDefined(request.Priority) || !Enum.IsDefined(request.Status) || state.FindStar(request.Rally) is null || request.Colonies is null || request.PausedContributions is null || request.Slots is null || request.Colonies.Count < 1 || request.Colonies.Count > d.ParticipatingColonyLimit || request.Colonies.Distinct().Count() != request.Colonies.Count || request.Slots.Count < 1 || request.Slots.Count > d.MemberLimit || request.Slots.Any(s => s is null) || request.Slots.Select(s => s.Ordinal).Distinct().Count() != request.Slots.Count) { Error("request shape/priority/quota is invalid."); continue; }
                 bool active = FleetQueries.IsActive(request.Status);
+                if(request.NextSlotOrdinal<1||request.NextSlotOrdinal<=request.Slots.Max(s=>s.Ordinal))Error("request slot counter is stale.");
+                if(request.Status!=RequestStatus.Complete&&request.CompletedTurn is not null)Error("unfinished request has a completion date.");
                 if (request.PausedContributions.Distinct().Count() != request.PausedContributions.Count || request.PausedContributions.Any(id => !request.Colonies.Contains(id))) Error("paused contribution is invalid.");
                 if (active)
                 {
                     foreach (var colony in request.Colonies) if (state.FindColony(colony)?.EmpireId != empire.Id || !participating.Add(colony)) Error("participating colony is foreign, missing or already reserved.");
                     if (request.RallyFleet is { } rally && (!f.Fleets.Any(x => x.Id == rally) || !rallies.Add(rally) || request.ReservedFleetSlot)) Error("rally fleet reservation is invalid.");
+                    if(request.RallyFleet is {} reserved&&f.Fleets.SingleOrDefault(x=>x.Id==reserved) is {} target&&target.Members.Count+request.Slots.Count(s=>s.Vessel is not {} id||!target.Members.Contains(id))>d.MemberLimit)Error("rally fleet lacks its full reserved quota capacity.");
                     if (request.Status == RequestStatus.Active && request.RallyFleet is null && !request.ReservedFleetSlot) Error("active request has no rally fleet capacity reservation.");
                     if (request.Status == RequestStatus.SafetyPaused && !Text(request.Attention, 1000)) Error("safety pause requires its observed reason.");
                     if (request.Coordinator is { } coordinator && !f.Officers.Any(o => o.Id == coordinator && o.Status == OfficerStatus.Coordinating && o.Request == request.Id)) Error("request coordinator is invalid.");
@@ -83,6 +86,8 @@ public static class FleetStateValidator
                     {
                         var vessel = state.FindVessel(id);
                         if (vessel?.EmpireId != empire.Id || vessel.RoleId != slot.RoleId || progress == SlotStatus.Missing || !reservedShips.Add(id)) Error("slot hull is foreign, missing, duplicated or incorrectly reserved.");
+                        if(progress==SlotStatus.Arrived&&(request.RallyFleet is null||vessel?.Fleet!=request.RallyFleet||vessel.StationaryStarId!=request.Rally))Error("arrived slot is not at its actual rally fleet.");
+                        if(progress==SlotStatus.Travelling&&vessel?.Transit is null||progress==SlotStatus.Built&&vessel?.Transit is not null)Error("slot transit progress is incoherent.");
                         if (slot.NewHull && vessel?.BuildOrigin is not { } origin) Error("new hull lacks original construction provenance.");
                         else if (slot.NewHull && (vessel!.BuildOrigin!.Request != request.Id || vessel.BuildOrigin.Slot != slot.Ordinal)) Error("new hull belongs to another original reservation.");
                     }

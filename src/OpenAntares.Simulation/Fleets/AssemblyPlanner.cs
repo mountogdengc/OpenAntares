@@ -11,17 +11,37 @@ using OpenAntares.Simulation.Economy;
 namespace OpenAntares.Simulation.Fleets;
 public static class AssemblyPlanner
 {
+    public static AssemblyDraft DraftFor(AssemblyRequestView request)=>new(request.Name,request.Rally,request.RallyFleet,request.Slots.OrderBy(s=>s.Ordinal).Select(s=>s.RoleId).ToImmutableArray(),request.Colonies,request.Priority,ImmutableArray<VesselId>.Empty,request.AuthorizeCargo,request.Coordinator);
+    public static AssemblyPreview PreviewRetained(IFleetPlanningContext context,RequestId request,StarId? rally=null,FleetId? rallyFleet=null,RequestPriority? priority=null)
+    {
+        var current=context.View.Fleets?.Requests.SingleOrDefault(r=>r.Id==request);
+        if(current is null)return Empty("Request is unavailable.");
+        var draft=DraftFor(current) with{Rally=rally??current.Rally,RallyFleet=rally is null?rallyFleet??current.RallyFleet:rallyFleet,Priority=priority??current.Priority};
+        return PreviewAmend(context,draft,current,true,priority is null);
+    }
     public static AssemblyPreview Preview(IFleetPlanningContext context,AssemblyDraft draft,RequestId? replacing=null)
     {
+        if(replacing is null)return PreviewCore(context,draft,null);
+        var current=context.View.Fleets?.Requests.SingleOrDefault(r=>r.Id==replacing);
+        return current is null?Empty("Request is unavailable."):PreviewAmend(context,draft,current,false,false);
+    }
+    private static AssemblyPreview Empty(string reason)=>new(false,"",ImmutableArray<AssemblySlotPlan>.Empty,ImmutableArray<AssemblyColonyPreview>.Empty,ImmutableArray<FleetShipView>.Empty,ImmutableArray<string>.Empty,ImmutableArray.Create(reason));
+    private static string Fingerprint(IFleetPlanningContext context,AssemblyDraft draft,RequestId? replacing,bool retained=false)
+    {
         var c=context.Content;var v=context.View;
-        string fingerprint=Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(JsonSerializer.SerializeToUtf8Bytes(new{Draft=draft,Replacing=replacing,v.Turn,v.Viewer,v.RulesVersion,Galaxy=v.Galaxy with{Seed=null},v.Stars,v.Colonies,v.Fleets,v.Scouting,v.ForeignVessels,v.Research.KnownTechnologyIds,c.Vessels,c.Buildings,c.Species,c.FleetCommand})));
+        return Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(JsonSerializer.SerializeToUtf8Bytes(new{Draft=draft,Replacing=replacing,Retained=retained,v.Turn,v.Viewer,v.RulesVersion,Galaxy=v.Galaxy with{Seed=null},v.Stars,v.Colonies,v.Fleets,v.Scouting,v.ForeignVessels,v.Research.KnownTechnologyIds,c.Vessels,c.Buildings,c.Species,c.FleetCommand})));
+    }
+    private static AssemblyPreview PreviewCore(IFleetPlanningContext context,AssemblyDraft draft,RequestId? replacing,int retainedSlots=0,int retainedFleetAddition=0,HashSet<(ColonyId,int)>? retainedTokens=null,bool preserveQueueOrder=false)
+    {
+        var c=context.Content;var v=context.View;
+        string fingerprint=Fingerprint(context,draft,replacing);
         var warnings=ImmutableArray.CreateBuilder<string>();var errors=ImmutableArray.CreateBuilder<string>();
         AssemblyPreview Failed(string reason)=>new(false,fingerprint,ImmutableArray<AssemblySlotPlan>.Empty,ImmutableArray<AssemblyColonyPreview>.Empty,ImmutableArray<FleetShipView>.Empty,warnings.ToImmutable(),ImmutableArray.Create(reason));
         try
         {
             if(!Rules.HasFleets(v.RulesVersion)||c.FleetCommand is not {} d||v.Fleets is not {} f)return Failed("Assembly requires fleet command rules.");
             if(string.IsNullOrWhiteSpace(draft.Name)||draft.Name.Length>80||draft.Name.Any(char.IsControl)||!Enum.IsDefined(draft.Priority))return Failed("Choose a printable1..80 character name and valid priority.");
-            if(draft.Roles.IsDefaultOrEmpty||draft.Roles.Length>d.MemberLimit||draft.Colonies.IsDefaultOrEmpty||draft.Colonies.Length>d.ParticipatingColonyLimit||draft.Colonies.Distinct().Count()!=draft.Colonies.Length||draft.AcceptedIdleVessels.IsDefault||draft.AcceptedIdleVessels.Distinct().Count()!=draft.AcceptedIdleVessels.Length)return Failed("Choose a bounded finite quota, distinct own colonies and distinct idle ships.");
+            if(draft.Roles.IsDefault||draft.Roles.Length+retainedSlots<1||draft.Roles.Length+retainedSlots>d.MemberLimit||draft.Colonies.IsDefaultOrEmpty||draft.Colonies.Length>d.ParticipatingColonyLimit||draft.Colonies.Distinct().Count()!=draft.Colonies.Length||draft.AcceptedIdleVessels.IsDefault||draft.AcceptedIdleVessels.Distinct().Count()!=draft.AcceptedIdleVessels.Length)return Failed("Choose a bounded finite quota, distinct own colonies and distinct idle ships.");
             if(!v.Galaxy.Stars.Any(s=>s.Id==draft.Rally)||v.Scouting?.Habitats.Any(h=>h.Star==draft.Rally)==true)return Failed("Rally must be charted and free of known ameba danger.");
             if(draft.Roles.Any(id=>id is null||!c.Vessels.ContainsKey(id)||!v.AvailableVesselRoleIds.Contains(id)))return Failed("A requested role is unavailable to this empire.");
             if(draft.Roles.Any(id=>c.Vessels[id].EmbarkPopulation>0)&&!draft.AuthorizeCargo)return Failed("Explicit population cargo authorization is required.");
@@ -33,7 +53,7 @@ public static class AssemblyPlanner
             if(colonies.Any(col=>col?.Development is null))return Failed("Every participating colony must be owned and available.");
             if(f.Fleets.Length+others.Count(r=>r.ReservedFleetSlot)+(draft.RallyFleet is null?1:0)>d.FleetLimit)return Failed("No named rally-fleet slot is available.");
             var rally=draft.RallyFleet is {} fleet?f.Fleets.SingleOrDefault(x=>x.Id==fleet):null;
-            if(draft.RallyFleet is not null&&(rally is null||others.Any(r=>r.RallyFleet==rally.Id)||rally.Members.Any(id=>f.Ships.Single(x=>x.Id==id) is not {Transit:null,PendingMove:null} ship||ship.Station!=draft.Rally)||rally.Members.Length+draft.Roles.Length-draft.AcceptedIdleVessels.Count(rally.Members.Contains)>d.MemberLimit))return Failed("The rally fleet is unavailable, departing, reserved or lacks capacity.");
+            if(draft.RallyFleet is not null&&(rally is null||others.Any(r=>r.RallyFleet==rally.Id)||rally.Members.Any(id=>f.Ships.Single(x=>x.Id==id) is not {Transit:null,PendingMove:null} ship||ship.Station!=draft.Rally)||rally.Members.Length+draft.Roles.Length+retainedFleetAddition-draft.AcceptedIdleVessels.Count(rally.Members.Contains)>d.MemberLimit))return Failed("The rally fleet is unavailable, departing, reserved or lacks capacity.");
             bool Forbidden(VesselId id)=>v.Scouting?.Vessels.Any(row=>row.Id==id&&row.Posture==Scouting.ScoutPosture.AvoidEncounters)==true&&Scouting.ScoutQueries.NeutralExcluded(v,draft.Rally);
             if(rally?.Members.Any(Forbidden)==true)return Failed("Rally is forbidden by a member's current posture.");
             if(draft.Coordinator is {} coordinator)
@@ -57,6 +77,14 @@ public static class AssemblyPlanner
             List<AssemblyQueueItem> Queue(OwnedColonyView col,List<AssemblyQueueItem> additions)
             {
                 var old=col.Development!.Queue.Select(q=>new AssemblyQueueItem(q.Token,q.Target,null)).ToList();
+                if(preserveQueueOrder)return old.Concat(additions).ToList();
+                if(retainedTokens is not null)
+                {
+                    var pinned=old.Where(q=>q.Token==col.Development.ActiveQueueToken).ToList();
+                    var bound=old.Where(q=>q.Token!=col.Development.ActiveQueueToken&&q.Token is {} token&&retainedTokens.Contains((col.Id,token))).ToList();
+                    var other=old.Where(q=>q.Token!=col.Development.ActiveQueueToken&&(q.Token is not {} token||!retainedTokens.Contains((col.Id,token)))).ToList();
+                    return draft.Priority==RequestPriority.Urgent?pinned.Concat(bound).Concat(additions).Concat(other).ToList():pinned.Concat(other).Concat(bound).Concat(additions).ToList();
+                }
                 if(draft.Priority==RequestPriority.Normal)return old.Concat(additions).ToList();
                 var active=old.Where(q=>q.Token==col.Development.ActiveQueueToken).ToList();return active.Concat(additions).Concat(old.Where(q=>q.Token!=col.Development.ActiveQueueToken)).ToList();
             }
@@ -117,5 +145,64 @@ public static class AssemblyPlanner
             return new(true,fingerprint,slots.OrderBy(s=>s.Ordinal).ToImmutableArray(),colonyPreviews.ToImmutable(),idle.Where(ship=>draft.Roles.Contains(ship.RoleId)).ToImmutableArray(),warnings.ToImmutable(),errors.ToImmutable());
         }
         catch(Exception error)when(error is OverflowException or ArgumentException or InvalidOperationException){return Failed("Preview cannot estimate this finite request: "+error.Message);}
+    }
+
+    private static AssemblyPreview PreviewAmend(IFleetPlanningContext context,AssemblyDraft draft,AssemblyRequestView request,bool retainAll,bool preserveQueueOrder)
+    {
+        string fingerprint=Fingerprint(context,draft,request.Id,retainAll);
+        AssemblyPreview Fail(string reason)=>Empty(reason) with{Fingerprint=fingerprint};
+        try
+        {
+            if(!FleetQueries.IsActive(request.Status)||draft.Roles.IsDefaultOrEmpty||draft.AcceptedIdleVessels.IsDefault)return Fail("Request/quota is unavailable.");
+            var c=context.Content;var view=context.View;var own=view.Fleets!;
+            if(draft.Roles.Any(role=>!c.Vessels.ContainsKey(role)))return Fail("Requested role is unavailable.");
+            if(draft.Roles.Any(role=>c.Vessels[role].EmbarkPopulation>0)&&!draft.AuthorizeCargo)return Fail("Retained population cargo still requires explicit authorization.");
+            var kept=new List<AssemblySlotView>();var freshRoles=new List<string>();var freshAccepted=new List<VesselId>();var accepted=draft.AcceptedIdleVessels.ToList();
+            foreach(string role in draft.Roles)
+            {
+                var acceptedId=accepted.FirstOrDefault(id=>own.Ships.Any(ship=>ship.Id==id&&ship.RoleId==role));
+                var old=request.Slots.Where(slot=>!kept.Contains(slot)&&slot.RoleId==role).OrderBy(slot=>slot.Ordinal).FirstOrDefault(slot=>
+                    retainAll||(slot.Status!=SlotStatus.Missing&&slot.ResumeStatus!=SlotStatus.Missing&&(acceptedId.Value>0?slot.Vessel==acceptedId:slot.QueueToken is null||slot.Colony is {} colony&&draft.Colonies.Contains(colony))));
+                if(old is not null){kept.Add(old);if(acceptedId.Value>0&&old.Vessel==acceptedId)accepted.Remove(acceptedId);}
+                else {freshRoles.Add(role);if(acceptedId.Value>0){accepted.Remove(acceptedId);freshAccepted.Add(acceptedId);}}
+            }
+            if(accepted.Count>0)return Fail("An accepted idle ship does not fit the amended quota.");
+            if(retainAll&&kept.Count!=request.Slots.Length)return Fail("Retained review cannot change the authorized quota.");
+            foreach(var slot in kept.Where(slot=>slot.Vessel is not null))
+            {
+                var row=view.Scouting?.Vessels.SingleOrDefault(ship=>ship.Id==slot.Vessel);
+                if(row?.Posture==Scouting.ScoutPosture.AvoidEncounters&&Scouting.ScoutQueries.NeutralExcluded(view,draft.Rally))return Fail("Rally is forbidden by a retained member's current posture.");
+            }
+            var keptTokens=kept.Where(slot=>slot.Colony is not null&&slot.QueueToken is not null).Select(slot=>(slot.Colony!.Value,slot.QueueToken!.Value)).ToHashSet();
+            var oldTokens=request.Slots.Where(slot=>slot.Colony is not null&&slot.QueueToken is not null).Select(slot=>(slot.Colony!.Value,slot.QueueToken!.Value)).ToHashSet();
+            var modified=view.Colonies.Select(col=>col.Development is not {} dev?col:col with{Development=dev with{Queue=dev.Queue.Where(q=>!oldTokens.Contains((col.Id,q.Token))||keptTokens.Contains((col.Id,q.Token))||q.Token==dev.ActiveQueueToken).ToImmutableArray()}}).ToImmutableArray();
+            var altered=view with{Colonies=modified};
+            var rallyMembers=draft.RallyFleet is {} id?own.Fleets.SingleOrDefault(f=>f.Id==id)?.Members??ImmutableArray<VesselId>.Empty:ImmutableArray<VesselId>.Empty;
+            int added=kept.Count(slot=>slot.Vessel is not {} ship||!rallyMembers.Contains(ship));
+            bool unchangedWork=freshRoles.Count==0&&kept.Count==request.Slots.Length&&draft.Priority==request.Priority&&draft.Colonies.OrderBy(x=>x).SequenceEqual(request.Colonies.OrderBy(x=>x));
+            var result=PreviewCore(FleetPlanningQueries.Create(c,altered),draft with{Roles=freshRoles.ToImmutableArray(),AcceptedIdleVessels=freshAccepted.ToImmutableArray()},request.Id,kept.Count,added,keptTokens,preserveQueueOrder||unchangedWork);
+            if(!result.Allowed)return result with{Fingerprint=fingerprint};
+            int next=Math.Max(request.NextSlotOrdinal,checked(request.Slots.Max(slot=>slot.Ordinal)+1));
+            var ordinalMap=result.Slots.ToDictionary(slot=>slot.Ordinal,_=>{int ordinal=next;next=checked(next+1);return ordinal;});
+            var slots=result.Slots.Select(slot=>slot with{Ordinal=ordinalMap[slot.Ordinal]}).ToList();
+            long Travel(StarId origin,string role)
+            {if(origin==draft.Rally)return 0;var a=view.Galaxy.Stars.Single(s=>s.Id==origin);var b=view.Galaxy.Stars.Single(s=>s.Id==draft.Rally);return Movement.TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,c.Vessels[role].Speed);}
+            var colonyResults=result.Colonies.Select(col=>col with{PriorQueue=view.Colonies.Single(x=>x.Id==col.Colony).Development!.Queue,ProposedQueue=col.ProposedQueue.Select(q=>q.SlotOrdinal is {} fresh?q with{SlotOrdinal=ordinalMap[fresh]}:q.Token is {} token&&kept.FirstOrDefault(slot=>slot.Colony==col.Colony&&slot.QueueToken==token) is {} old?q with{SlotOrdinal=old.Ordinal}:q).ToImmutableArray()}).ToList();
+            foreach(var original in view.Colonies.Where(col=>request.Colonies.Contains(col.Id)&&!draft.Colonies.Contains(col.Id)))
+                colonyResults.Add(new(original.Id,original.ProjectId is {} project?new(original.ProjectKind,project):null,original.Development!.ActiveQueueToken,original.ProductionReserve,original.Economy.NetProduction.Total,0,original.Development.Queue,modified.Single(col=>col.Id==original.Id).Development!.Queue.Select(q=>new AssemblyQueueItem(q.Token,q.Target,null)).ToImmutableArray()));
+            foreach(var old in kept)
+            {
+                var source=old.Colony is {} colony?colonyResults.FirstOrDefault(col=>col.Colony==colony):null;
+                var queued=source?.ProposedQueue.FirstOrDefault(q=>q.Token==old.QueueToken&&q.Token is not null);
+                long? completion=queued?.CompletionTurns,arrival=null;
+                if(queued is not null&&old.Colony is {} yard&&completion is {} turns)arrival=checked(turns+Travel(view.Colonies.Single(col=>col.Id==yard).StarId,old.RoleId));
+                if(old.Vessel is {} vessel&&own.Ships.SingleOrDefault(ship=>ship.Id==vessel) is {} ship)
+                {completion=0;arrival=ship.Transit is {} transit?checked(transit.RemainingTurns+Travel(transit.Destination,old.RoleId)):ship.Station is {} station?Travel(station,old.RoleId):(long?)null;}
+                slots.Add(new(old.Ordinal,old.RoleId,old.Vessel,old.Colony,queued is null?null:source!.ProposedQueue.IndexOf(queued),old.QueueToken is null?0:c.Vessels[old.RoleId].Cost,c.Vessels[old.RoleId].EmbarkPopulation,completion,arrival){RetainedSlotOrdinal=old.Ordinal});
+            }
+            var warnings=result.Warnings;if(kept.Any(slot=>slot.Status==SlotStatus.Missing))warnings=warnings.Add("Missing slots remain missing; only an explicit finite amendment may authorize replacements.");
+            return result with{Fingerprint=fingerprint,Slots=slots.OrderBy(slot=>slot.Ordinal).ToImmutableArray(),Colonies=colonyResults.OrderBy(col=>col.Colony).ToImmutableArray(),Warnings=warnings};
+        }
+        catch(Exception error)when(error is OverflowException or InvalidOperationException or ArgumentException){return Fail("Retained request review failed: "+error.Message);}
     }
 }

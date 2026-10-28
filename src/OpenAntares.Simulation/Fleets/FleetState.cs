@@ -62,6 +62,7 @@ public sealed class AssemblySlot
 
 public sealed class AssemblyRequest
 {
+    public int NextSlotOrdinal { get; set; } = 1;
     public RequestId Id { get; set; }
     public long Revision { get; set; } = 1;
     public string Name { get; set; } = string.Empty;

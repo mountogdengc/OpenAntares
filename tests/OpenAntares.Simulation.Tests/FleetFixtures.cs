@@ -53,7 +53,7 @@ internal static class FleetFixtures
         vessel.Fleet = new(1);
         f.Fleets.Add(new() { Id = new(1), Name = "Home fleet", Members = new() { vessel.Id }, Flagship = vessel.Id }); f.NextFleetId = 2;
         col.Development!.Queue.Add(new(1, new(ProductionKinds.Vessel, "scout"))); col.Development.NextQueueToken = 2;
-        f.Requests.Add(new() { Id = new(1), Name = "Finite request", Rally = vessel.StationaryStarId!.Value, ReservedFleetSlot = true, Colonies = new() { col.Id }, HasAllocated = true, Slots = new() { new() { Ordinal = 1, RoleId = "scout", Colony = col.Id, QueueToken = 1, Status = SlotStatus.Queued } } }); f.NextRequestId = 2;
+        f.Requests.Add(new() { Id = new(1), NextSlotOrdinal = 2, Name = "Finite request", Rally = vessel.StationaryStarId!.Value, ReservedFleetSlot = true, Colonies = new() { col.Id }, HasAllocated = true, Slots = new() { new() { Ordinal = 1, RoleId = "scout", Colony = col.Id, QueueToken = 1, Status = SlotStatus.Queued } } }); f.NextRequestId = 2;
         return g;
     }
 
