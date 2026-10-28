@@ -49,6 +49,7 @@ public sealed record ForeignVesselView(VesselId Id, EmpireId EmpireId, string Ro
 public sealed record ContactView(EmpireId OtherEmpireId, string SpeciesId, string SpeciesName, string CultureName, int FirstObservedTurn);
 public sealed record EmpireView(int Turn, EmpireId Viewer, int RulesVersion, GalaxyMapView Galaxy, ImmutableArray<StarView> Stars, ImmutableArray<OwnedColonyView> Colonies, ImmutableArray<OwnedVesselView> Vessels, ImmutableArray<ForeignVesselView> ForeignVessels, OwnResearchView Research)
 {
+    public Fleets.FleetEmpireView? Fleets { get; init; }
     public Scouting.ScoutView? Scouting { get; init; }
     public CrisisView? Crisis { get; init; }
     public EmpireDevelopmentView? Development { get; init; }

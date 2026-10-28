@@ -43,6 +43,7 @@ public static class GameStateValidator
         Development.DevelopmentStateValidator.Validate(content, state, errors);
         Crises.CrisisStateValidator.Validate(content,state,errors);
         Scouting.ScoutStateValidator.Validate(content,state,errors);
+        Fleets.FleetStateValidator.Validate(content, state, errors);
         return errors;
     }
 

@@ -1,0 +1,5 @@
+# Task3 state, own views and initial appointments
+
+Source base c6856cf. Deep-cloned per-empire IDs, fleets, finite requests, officers, bounded career records and independent recovery streams. Central validator checks legacy absence, membership/cohort/assignment coherence, limits, queue bindings and counters. Immutable own projections include all own independent hulls and no foreign commander/habitat identities. Galaxy initialization adds one posted Navigator, two mortal candidates or the declared whole-body appointment, without old-stream draws/global IDs/named fleets. New ordinary completions carry an independent marker.
+
+Semantic RED: state/query5/5 failures and separate completion-marker1/1 failure. An intermediate test import-placement compile failure is retained separately and is not counted as semantic RED. GREEN: focused7/7 including alternative body identity and projector integration. Prior full Suite1409/1409; final suite and build recorded separately. Genuine rules7 futures replay unchanged. Product current7/writer8 remains unchanged. AI boarding belongs Task14; command/resolution/save integration follows later tasks.

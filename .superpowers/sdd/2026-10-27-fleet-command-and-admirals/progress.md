@@ -23,14 +23,16 @@
 |15 →16/17| Actual Fleet controls/scenario and8-type/helper inventory | Explicit generated rules8 session before default activation; default UI workflow follows16. |
 |16 →17| Current8 activation/generated and labelled rare/scale evidence | Preserve setup choices; all8 sequential native gates and final Normal proof. |
 
+Pre-flight refinement, producers4/11 → consumers9/10/14/15: Ruling: FleetTravel.Duration and OfficerBonuses.SurveyResearch omitted the owner despite per-empire local IDs — add explicit EmpireId to those signatures and all consumers, never find the first global matching local ID — spec ownership/privacy is binding — cost if wrong: one extra owner argument; prevents cross-empire bonus/route mistakes.
+
 Ruling: Keep this plan's ledger/workspace and all evidence after execution — the approved plan/owner requires preservation, overriding skill scratch-cleanup advice — cost if wrong: retained disk space only.
 Ruling: The skill creates a self-ignored workspace, so plain planned git-add cannot stage its ledger — force-add only this plan's progress.md/briefs when recording progress, never other plans or broad ignored folders — cost if wrong: extra bounded execution evidence in Git.
 
 ## Tasks
 
 Task 1: complete (commits7617b30..95a0231, final task-done gate: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers →1399/1399 pass; task-01-final-suite.log/json).
-Task2: in progress; BASE ed749a9bca8a2ec9a2a5575bbe81ba5aa8029c22; actual task-2-brief.md read.
-Task3..17: pending.
+Task2: complete; source c6856cf; formal gate1403/1403.
+Task3: implementation verified; BASE c6856cf4c3e341b4f8d088578c3e1a348416290b; formal completion gate next. Tasks4..17 pending.
 
 Task2: semantic RED4/4 observed: missing fleet content and incorrect seed vectors. Embedded12 original profiles,4 declared cultures/embodiments, fixed approved bounds/thresholds/bonuses/XP/recovery and Command Recovery2400 after Industrial Coordination. Focused final4/4 passes, including malformed/missing references, alternative chorus/colony-body identity and old-rule unavailable research even with prerequisites; exact independent vectors match. First full suite1400/1403 passes; three old QA assumptions surfaced (prototype projection retained a new field, M5 core count included inactive research, M7 protocol chose inactive research).
 Task2: Ruling: Older core-projection/QA protocols assumed every newly loaded definition belonged to their old rules — explicitly clear FleetCommand in the prototype-only test projection, count the six M5-available technologies, and filter M7 QA research orders through actual rules availability; preserve every old frozen source/future/hash — cost if wrong: QA could omit a valid research choice, independently covered by the new positive rules8/negative rules7 research test and all genuine old futures.
@@ -43,4 +45,5 @@ Task1: Ruling: Raw captured JSON and QA logs include original CRLF/trailing whit
 
 ## Current continuation
 
-Task1 complete (95a0231 plus formal1399/1399 final suite gate); source capture140 cases/560 futures and234 raw UI originals committed. Actual2431-file staged checkout hashes pass. Current7/writer8 unchanged. NextTask2: read fresh brief, implement approved content/independent recovery vectors and version filtering. Never rerun the genuine capture after product changes.
+Tasks1/2 complete. Task3 state/views/initialization implemented: semantic state/query RED5/5 and marker RED1/1 observed; focused7/7 green including declared alternative body species and projector integration. Prior full Suite1409/1409 passes; final suite follows source commit. Current7/writer8 unchanged. NextTask4 direct fleet commands after formal Task3 gate. Never rerun old-engine capture or rewrite frozen futures.
+Task 2: complete (commits ed749a9..c6856cf, tests: python C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.fleet-design-20261027/run_gate.py task-02-final-suite -- dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers → {"gate": "task-02-final-suite", "exitCode": 0, "seconds": 31.372})

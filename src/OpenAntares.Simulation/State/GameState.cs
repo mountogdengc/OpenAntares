@@ -81,6 +81,7 @@ public enum ControllerKind
 
 public sealed class EmpireState
 {
+    public Fleets.FleetEmpireState? Fleets { get; set; }
     public Scouting.EmpireScoutState? Scouting { get; set; }
     public EmpireCrisisState? Crisis { get; set; }
     public EmpireDevelopmentState? Development { get; set; }
@@ -105,6 +106,7 @@ public sealed class EmpireState
 
     public EmpireState Clone() => new()
     {
+        Fleets = Fleets?.Clone(),
         Scouting = Scouting?.Clone(),
         Id = Id,
         Controller = Controller,
