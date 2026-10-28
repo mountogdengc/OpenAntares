@@ -43,7 +43,7 @@ The series is driven by its campaign, so its peoples are story roles: exiles ret
 ## 5. Lessons for OpenAntares
 
 - **A structural limit beats a percentage.** Across all four series the factions players remember change what you can do, not how much. This supports the [species roster](../SPECIES_ROSTER.md) choice of one structural limit per people.
-- **Avoid the animal-archetype checklist.** Bird, bear, cat, insect, reptile and rock races are a shared genre shorthand. Reusing it makes a game read as a clone even when no names are copied.
+- **Use animal inspiration without an animal-archetype checklist.** Recognizable, expressive silhouettes can evoke the appeal of classic space 4X rosters. Give each people its own culture and a strategic choice rooted in its biology or circumstances, rather than pairing an animal type with a single stat bonus. The Sulan's shark-like appearance is one example, not a restriction on other animal-inspired designs.
 - **A small roster can be enough.** *Sins* gets years of variety from three founding factions. Four peoples is a reasonable start if each has a different job.
 - **Splits and clans are cheap depth.** Splitting one people into factions with different doctrines adds variety later without new biology. This fits the roster's choice to keep culture separable from body.
 - **Non-playable presences give the setting scale.** Pirates, neutral traders, minor one-planet civilizations, precursors, and an endgame threat appear in almost every series. They are later-milestone content. The charter's first playable milestone needs none of them.

@@ -14,6 +14,7 @@ Ages in the sheets are there so a reader can picture a life. They are not turn c
 | How alien the bodies are | Three peoples you could sit with, and one life that is a single body. | The singular life is the Wenth. It can grow a limb that sits and speaks. The colony is still one body, and the limb is not a person. |
 | How many | Four. | A larger pick list was set aside so each entry can keep a different job. |
 | Kind of difference | One structural limit each. The limit closes an ordinary plan and opens another. | A species whose identity is a percentage bonus does not satisfy this roster. |
+| Visual direction | Recognizable animal-inspired features are welcome. | A familiar silhouette can make a people inviting at first glance; its culture and strategic choices give it an identity beyond the animal. |
 | Narrow habitat | Kept. The Sulan home colony is comfortable. Their real choice arrives with other worlds. | That limit is quiet during the one-colony game, and the sheet says so. |
 | Culture | Each sheet records the culture that reaches the Verge. | Biology stays separable. A later custom setup may pair a body with another culture. This roster does not define that setup. |
 
@@ -77,7 +78,7 @@ Under the current economy, a colony with no support deficit still gains the ordi
 
 A green world is a home only where the water is right.
 
-They are upright and long-limbed, with skin that has to stay damp and a lung helped by a fold that draws oxygen from wet air. They walk, sit, and use tools. A dry room will do for a meeting. A dry continent is a visit.
+They are upright, shark-like people: tapered snouts, rows of teeth, visible gill slits, a dorsal fin, and broad hands that can handle tools. Their skin has to stay damp. A lung helped by a fold that draws oxygen from wet air lets them work and speak above water for a time. A dry room will do for a meeting. A dry continent is a visit.
 
 Home is shallow, mineral-heavy water on a broad shelf, with tides that refresh it. Their cities are harbors grown back into the marsh. Open prairie feeds the eye and fails the Sulan.
 

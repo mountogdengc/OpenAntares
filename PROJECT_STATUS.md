@@ -30,6 +30,8 @@ Local main fast-forward integration is complete. The three separate owner files 
 
 M7 authority: [ADR-016](docs/DECISIONS/ADR-016-approved-scout-survival-and-ameba-design.md), [spec](docs/superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md), [plan](docs/superpowers/plans/2026-10-25-scout-survival-and-ameba.md).
 
+Deferred owner feature request (2026-10-24): [FR-001: Peaceful mode](docs/FEATURE_REQUESTS.md#fr-001-peaceful-mode) records either the regular game without combat or a solo empire-building experience with a SimCity-like appeal. The direction and how it stays interesting remain open. This is a future backlog item, outside current scope; next-milestone selection remains unchanged. Documentation only; entry/link/diff checked, with no gameplay tests run.
+
 ## Remaining limits and next action
 
 Physical input/focus, comfortable reading/accessibility/comprehension, aesthetics, balance/long campaigns, other platforms, hostile-input/security/dependency audits, clean install/export and release remain unverified or deferred. Automated local checks do not establish these.
