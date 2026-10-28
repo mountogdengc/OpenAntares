@@ -203,17 +203,19 @@ M8 final exact-acceptance disposition (localautomated/design scope):
 
 | Criterion | Status |
 | --- | --- |
-| FLT-AC-001 | Implemented, Unverified |
+| FLT-AC-001 | Verified |
 | FLT-AC-002 | Verified |
 | FLT-AC-003 | Verified |
 | FLT-AC-004 | Verified |
-| FLT-AC-005 | Implemented, Unverified |
+| FLT-AC-005 | Verified |
 | FLT-AC-006 | Verified |
 | FLT-AC-007 | Verified |
 | FLT-AC-008 | Verified |
 | FLT-AC-009 | Verified |
 | FLT-AC-010 | Verified |
-| FLT-AC-011 | Implemented, Unverified |
+| FLT-AC-011 | Verified |
 | FLT-AC-012 | Verified |
 
-See the final validation report for every criterion's evidence and the3explicit minor exceptions; parent requirement counts are unchanged.
+See the final validation report for the original checkpoint and the2026-10-28 follow-up report for closure of all3minor exceptions; parent requirement counts are unchanged.
+
+M8 remaining-gap closure2026-10-28: owner explicitly requested fixing all3 remaining Minors before merge. Source `035877a40d45b39b1e764980e386023f706dd1dd` closes M1 lost-Return Attention (including persisted reason/report/badge with routineOff), M3 owned-role filtering, M4 bounded32-row assembly idle paging with explicit cross-page selections/stale-removal disclosure. FullSuite1547/1547, fresh Fleet 1666 result records + 39 separate provenance entries, Scout 237 result records + 9 separate provenance entries, Crisis 464 result records (including inline provenance); normalbuild0warnings/errors/actual8+2exclusions. M8-I/FLT-AC-001/005/011 now Verified for localautomated scope; all12FLT criteria Verified within automated/design limits. Read reports/FLEET_COMMAND_FOLLOWUP_2026-10-28.md and fleet-execution/minor-summary.json; earlier3-Minor deferrals/final-summary are historical. Original17tasks stay complete; no second reviewer. Mainc554797/four ownerfiles/index/all7worktrees/unrelatedrefs/6053 oldreports/346 recordedQA saves preserved. Branch remains unmerged; no push/release/cleanup or new subsystem. Parentcounts/human/platform/security/export/balance limits unchanged. Next: local integration when requested.
