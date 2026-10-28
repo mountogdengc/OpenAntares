@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.State;
 using OpenAntares.Simulation.Turns;
@@ -16,7 +17,13 @@ public static class MovementResolver
             if (before.PendingMove is { } dest)
             {
                 var start = snapshot.FindStar(before.StationaryStarId!.Value)!; var end = snapshot.FindStar(dest)!;
-                int turns = TravelCalculator.Duration(start.X, start.Y, end.X, end.Y, content.Vessels[before.RoleId].Speed);
+                int turns = Rules.HasFleets(snapshot.RulesVersion)?Fleets.FleetTravel.LaunchDuration(content,snapshot,before,dest):TravelCalculator.Duration(start.X, start.Y, end.X, end.Y, content.Vessels[before.RoleId].Speed);
+                if(Rules.HasFleets(snapshot.RulesVersion)&&before.Fleet is {} group)
+                {
+                    var fleet=candidate.FindEmpire(before.EmpireId)!.Fleets!.Fleets.Single(f=>f.Id==group);
+                    int speed=fleet.Members.Min(id=>Fleets.OfficerBonuses.EffectiveSpeed(content,snapshot,id));
+                    fleet.Cohort=new(start.Id,end.Id,turns,snapshot.Turn,speed);
+                }
                 t = new(start.Id, end.Id, turns, turns); v.PendingMove = null; v.StationaryStarId = null;
                 if(v.Scout is {} scout)scout.ApproachAcceptance=null;
             }
@@ -26,6 +33,7 @@ public static class MovementResolver
             else
             {
                 v.Transit = null; v.StationaryStarId = t.Destination;
+                if(Rules.HasFleets(snapshot.RulesVersion)&&v.Fleet is {} group)candidate.FindEmpire(v.EmpireId)!.Fleets!.Fleets.Single(f=>f.Id==group).Cohort=null;
                 context?.ArrivedVessels.Add(v.Id);
                 events.Add(new("arrived", v.EmpireId, v.Id, t.Destination));
                 if (!snapshot.FindEmpire(v.EmpireId)!.Surveys.Exists(o => o.StarId == t.Destination)) events.Add(new("discovered", v.EmpireId, v.Id, t.Destination));

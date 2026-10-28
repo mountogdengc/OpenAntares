@@ -24,7 +24,7 @@ public static class ScoutQueries
         try{_=TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,role.Speed);return true;}catch(Exception ex)when(ex is OverflowException or ArgumentOutOfRangeException){return false;}
     }
     internal static int Duration(ContentSet c,EmpireView view,OwnedVesselView vessel,StarId target)
-    {var a=view.Galaxy.Stars.Single(s=>s.Id==vessel.StationaryStarId);var b=view.Galaxy.Stars.Single(s=>s.Id==target);return TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,c.Vessels[vessel.RoleId].Speed);}
+    {if(Rules.HasFleets(view.RulesVersion))return Fleets.FleetTravel.PreviewDuration(c,view,vessel,target);var a=view.Galaxy.Stars.Single(s=>s.Id==vessel.StationaryStarId);var b=view.Galaxy.Stars.Single(s=>s.Id==target);return TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,c.Vessels[vessel.RoleId].Speed);}
     private static (ScoutView View,ScoutPreparationPreview Preview) Evaluate(ContentSet c,GameState s,EmpireId owner)
     {
         var e=s.FindEmpire(owner)?.Scouting;
@@ -94,6 +94,7 @@ public static class ScoutQueries
                 string action=encounter.RiskOrder?.Action switch{AmebaRiskAction.Study=>"study",AmebaRiskAction.Remain=>"remain",_=>departure is null?"response_required":"depart"};
                 int percent=action=="study"?study:action=="depart"?(encounter.Stage==AmebaStage.Warning?100:late):0;
                 var token=new AmebaAttentionToken(v.Id,encounter.Number,encounter.Revision,encounter.Stage,action,action=="depart"?departure:null,c.Vessels[v.RoleId].Speed,v.CarriedPopulation,percent,action=="study"?d.ResearchReward:0);
+                if(Rules.HasFleets(s.RulesVersion))token=token with{FleetConsequenceFingerprint=Fleets.FleetTravel.ConsequenceFingerprint(c,s,owner,v.Id,action=="depart"?departure:null)};
                 tokens.Add(token);acknowledged=e.Receipts.Any(r=>r.Token==token);
                 if(action=="response_required"){blocker=$"{v.Id}: choose a legal departure or explicit risk response.";blockers.Add(blocker);}
                 actions.Add(new SetAmebaRiskOrderCommand(owner,s.Turn,v.Id,encounter.Number,encounter.Revision,AmebaRiskAction.Remain));

@@ -16,9 +16,11 @@ public static partial class CommandProcessor
         if (v.Transit is not null) return CommandOutcome.Reject(s, "vessel_in_transit", "Travel is committed until arrival.");
         return null;
     }
-    private static CommandOutcome SetMoveOrder(ContentSet content, GameState s, SetMoveOrderCommand c,Scouting.AmebaApproach? acceptance=null,bool retreat=false)
+    internal static CommandOutcome SetFleetMoveOrder(ContentSet content,GameState s,SetMoveOrderCommand c) => SetMoveOrder(content,s,c,group:true);
+    private static CommandOutcome SetMoveOrder(ContentSet content, GameState s, SetMoveOrderCommand c,Scouting.AmebaApproach? acceptance=null,bool retreat=false,bool group=false)
     {
         var rejection = CheckVessel(s, c.Issuer, c.Vessel, out var v); if (rejection is not null) return rejection;
+        if(Rules.HasFleets(s.RulesVersion)&&!group&&!retreat&&(v!.Fleet is not null||s.FindEmpire(c.Issuer)!.Fleets!.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&r.Slots.Any(slot=>slot.Vessel==v.Id)))&&v.PendingMove!=c.Destination)return CommandOutcome.Reject(s,"fleet_detachment_required","Explicitly detach this ship from its fleet/request first.");
         if (c.Destination is { } target)
         {
             var end = s.FindStar(target); if (end is null) return CommandOutcome.Reject(s, "unknown_star", "Destination is not on the chart.");
@@ -46,6 +48,7 @@ public static partial class CommandProcessor
     private static CommandOutcome SetFoundingOrder(ContentSet content, GameState s, SetFoundingOrderCommand c)
     {
         var rejection = CheckVessel(s, c.Issuer, c.Vessel, out var v); if (rejection is not null) return rejection;
+        if(Rules.HasFleets(s.RulesVersion)&&c.Planet is not null&&(v!.Fleet is not null||s.FindEmpire(c.Issuer)!.Fleets!.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&r.Slots.Any(slot=>slot.Vessel==v.Id))))return CommandOutcome.Reject(s,"fleet_detachment_required","Explicitly detach this ship from its fleet/request before founding.");
         if (c.Planet is { } target)
         {
             var preview = Colonization.FoundingRules.Preview(content,s,c.Issuer,c.Vessel,target);

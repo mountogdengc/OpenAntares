@@ -42,6 +42,7 @@ public static partial class CommandProcessor
 
         return command switch
         {
+            Fleets.FleetCommand c => Fleets.FleetCommandProcessor.Execute(content,state,c),
             ScoutCommand c => ExecuteScout(content,state,issuer,c),
             CrisisCommand c => ExecuteCrisis(content,state,issuer,c),
             DevelopmentCommand c => ExecuteDevelopment(content, state, issuer, c),
