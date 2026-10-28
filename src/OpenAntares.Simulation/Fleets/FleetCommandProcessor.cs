@@ -123,11 +123,11 @@ public static class FleetCommandProcessor
                 case FleetAction.SetFlagship a:
                     var fleet=Find(a.Fleet);fleet.Flagship=a.Flagship;if(fleet.Officer is {} officer)f.Officers.Single(x=>x.Id==officer).Flagship=a.Flagship;break;
                 case FleetAction.SetOrder a:
-                    foreach(var id in a.Fleets.Distinct()){var ordered=Find(id);ordered.Order=a.Order;if(a.Order.Kind==FleetOrderKind.Hold)foreach(var member in ordered.Members)candidate.FindVessel(member)!.PendingMove=null;}break;
+                    foreach(var id in a.Fleets.Distinct()){var ordered=Find(id);ordered.Order=a.Order;ordered.Attention=null;if(a.Order.Kind==FleetOrderKind.Hold)foreach(var member in ordered.Members)candidate.FindVessel(member)!.PendingMove=null;}break;
                 case FleetAction.MoveSelection a:
                     var selected=a.Vessels.Concat(a.Fleets.Distinct().SelectMany(id=>Find(id).Members)).Distinct().OrderBy(id=>id).ToArray();
                     foreach(var id in selected){var outcome=CommandProcessor.SetFleetMoveOrder(content,candidate,new(command.Issuer,command.ExpectedTurn,id,a.Destination));if(!outcome.Accepted)return CommandOutcome.Reject(state,outcome.Rejection!.Code,outcome.Rejection.Message);candidate=outcome.State;}
-                    f=candidate.FindEmpire(command.Issuer)!.Fleets!;foreach(var group in selected.Select(id=>candidate.FindVessel(id)!.Fleet).OfType<FleetId>().Distinct())Find(group).Order=new(FleetOrderKind.Hold);break;
+                    f=candidate.FindEmpire(command.Issuer)!.Fleets!;foreach(var group in selected.Select(id=>candidate.FindVessel(id)!.Fleet).OfType<FleetId>().Distinct()){var ordered=Find(group);ordered.Order=new(FleetOrderKind.Hold);ordered.Attention=null;}break;
                 case FleetAction.DetachSelection a:foreach(var id in a.Vessels.Distinct().OrderBy(id=>id))Detach(id);break;
                 case FleetAction.DismissNewMarker a:foreach(var id in a.Vessels.Distinct())candidate.FindVessel(id)!.NewlyCompleted=false;break;
             }

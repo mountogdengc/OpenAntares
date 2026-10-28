@@ -39,8 +39,8 @@ public static class FleetPlanner
                     .OrderBy(star=>star.LastObservedTurn is null?0:1).ThenBy(star=>FleetTravel.PreviewDuration(c,view,ships[0],star.Chart.Id)).ThenBy(star=>star.Chart.Id).Select(star=>(StarId?)star.Chart.Id).FirstOrDefault();
                 if(target is null){orders.Add(new(fleet.Id,new(FleetOrderKind.Hold),"No currently eligible unsurveyed or five-turn resurvey destination."));continue;}
             }
-            if(target==ships[0].StationaryStarId){orders.Add(new(fleet.Id,new(FleetOrderKind.Hold)));continue;}
             if(fleet.Order.Kind==FleetOrderKind.Return&&!view.Colonies.Any(col=>col.StarId==target))attention="Return destination is no longer an owned colony system.";
+            if(attention is null&&target==ships[0].StationaryStarId){orders.Add(new(fleet.Id,new(FleetOrderKind.Hold)));continue;}
             if(target is null||ships.Any(ship=>!Legal(ship,target.Value)))attention??="Standing destination is unavailable under current safety or port rules.";
             if(attention is not null){if(attention!=fleet.Attention)orders.Add(new(fleet.Id,fleet.Order,attention));continue;}
             foreach(var ship in ships)moves.Add(ship.Id,new(ship.Id,target!.Value,fleet.Id));

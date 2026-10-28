@@ -292,7 +292,8 @@ public partial class GameScreen : VBoxContainer
         int requests=fleets.Requests.Count(r=>OpenAntares.Simulation.Fleets.FleetQueries.IsActive(r.Status)&&(r.Status==OpenAntares.Simulation.Fleets.RequestStatus.SafetyPaused||r.Slots.Any(s=>s.Status==OpenAntares.Simulation.Fleets.SlotStatus.Missing)));
         int officers=fleets.Officers.Count(o=>o.Status is OpenAntares.Simulation.Fleets.OfficerStatus.Recovering or OpenAntares.Simulation.Fleets.OfficerStatus.Missing or OpenAntares.Simulation.Fleets.OfficerStatus.Dead);
         int fresh=fleets.Ships.Count(s=>s.NewlyCompleted);bool routine=OpenAntares.Game.Presentation.FleetNotificationPreferences.Load(ProjectSettings.GlobalizePath(FleetPreferencesPath)).ShowRoutine;
-        _fleetBadge.Visible=requests+officers>0||routine&&fresh>0;_fleetBadge.Text=requests+officers>0?$"Attention: {requests} blocked / missing requests; {officers} recovering, missing or final loss records.":$"Summary: {fresh} newly completed independent ships.";
+        int standing=fleets.Fleets.Count(f=>f.Attention is not null);
+        _fleetBadge.Visible=requests+officers+standing>0||routine&&fresh>0;_fleetBadge.Text=requests+officers+standing>0?$"Attention: {standing} blocked standing orders; {requests} blocked / missing requests; {officers} recovering, missing or final loss records.":$"Summary: {fresh} newly completed independent ships.";
     }
     private void RefreshCrisisAttention(OpenAntares.Simulation.Crises.CrisisView? crisis)
     {

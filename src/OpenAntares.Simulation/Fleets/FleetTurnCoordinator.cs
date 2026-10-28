@@ -39,7 +39,7 @@ public static class FleetTurnCoordinator
             foreach(var order in plan.Orders)
             {
                 var fleet=f.Fleets.Single(fleet=>fleet.Id==order.Fleet);if(fleet.Order==order.Order&&fleet.Attention==order.Attention)continue;fleet.Order=order.Order;fleet.Attention=order.Attention;
-                long id=f.NextEventId;f.NextEventId=checked(id+1);f.PendingEvents.RemoveAll(e=>e.Turn==state.Turn&&e.Kind=="fleet_order"&&e.Fleet==fleet.Id);f.PendingEvents.Add(new(owner,id,state.Turn,"fleet_order",order.Attention??"Standing destination reached; Holding.",Fleet:fleet.Id));
+                long id=f.NextEventId;f.NextEventId=checked(id+1);f.PendingEvents.RemoveAll(e=>e.Turn==state.Turn&&e.Kind=="fleet_order"&&e.Fleet==fleet.Id);f.PendingEvents.Add(new(owner,id,state.Turn,"fleet_order",order.Attention??"Standing destination reached; Holding.",Fleet:fleet.Id,Importance:order.Attention is null?FleetImportance.Summary:FleetImportance.Attention));
             }
             return new(candidate,true);
         }
