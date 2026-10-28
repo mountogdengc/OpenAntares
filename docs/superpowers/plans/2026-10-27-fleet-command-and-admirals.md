@@ -10,7 +10,7 @@
 
 **Spec:** [Approved complete gameplay specification](../specs/2026-10-27-fleet-command-and-admirals-design.md), [ADR-018 full owner approval](../../DECISIONS/ADR-018-approved-fleet-command-and-admirals-design.md), [readable gameplay summary](../../../reports/FLEET_COMMAND_GAMEPLAY_REVIEW_2026-10-27.md).
 
-**Gate:** Owner “0approved” on2026-10-27 approves the full design, including the starter defaults. M8-D/FLT-AC-012 Verified for design only; M8-P In Progress pending review of this separate plan; M8-I/functional acceptance Not Started. Use **superpowers:executing-plans, Native inline**, with **no per-task agents** and **one final fresh whole-branch implementation reviewer**. The method is already chosen; do not ask again. Plan review precedes implementation. No main merge, push, release or cleanup is authorized.
+**Gate:** Owner “0approved” on2026-10-27 approves the full design, including the starter defaults. M8-D/FLT-AC-012 Verified for design only; M8-P Verified after owner approval of this separate plan at7d175ad; M8-I In Progress and functional acceptance pending. Use **superpowers:executing-plans, Native inline**, with **no per-task agents** and **one final fresh whole-branch implementation reviewer**. The method is already chosen; do not ask again. Plan review is complete; execute continuously from the ledger. No main merge, push, release or cleanup is authorized.
 
 ## Global Constraints
 

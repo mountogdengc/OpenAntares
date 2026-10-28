@@ -34,8 +34,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M7-P | Plan scout/ameba implementation | Approved M7-D; retained Native inline | Separate15-task plan/self-review/owner review | Verified; owner-approved Native inline execution |
 | M7-I | Implement approved scout/ameba slice | Approved M7-P;49 frozen rules6 baselines/196 futures | Functional criteria, retained gates, single review/corrections plus M1 follow-up | Verified for local automated scope;2026-10-26 M1 closure |
 | M8-D | Fleet Command and named-admiral gameplay specification | ADR-018 full design approval | FLT-AC-012 full design/starter-default approval | Verified |
-| M8-P | Plan approved fleet/admiral design | Full M8-D approved | Separate17-task implementation-plan review; Native retained | In Progress |
-| M8-I | Implement bounded Fleet Command/admiral slice | Approved separate M8-P | Functional FLT criteria and retained regressions/one final fresh review | Not Started |
+| M8-P | Plan approved fleet/admiral design | Full M8-D approved | Owner-approved17-task plan; Native retained | Verified |
+| M8-I | Implement bounded Fleet Command/admiral slice | Owner approved separate M8-P | Execute17 tasks; retained regressions/one final fresh review | In Progress |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -116,3 +116,6 @@ M8 availability decision2026-10-27: starting Navigator with Surveyor/Organizer c
 
 
 M8 final scoped choices2026-10-27: Wenth recovery2/1 turns (basic/researched), manual Last watch4/3, and Command Recovery24 displayed research after Industrial Coordination confirmed. Read reports/FLEET_COMMAND_GAMEPLAY_REVIEW_2026-10-27.md and the complete specification for remaining starter defaults and full-design approval; do not re-ask settled gameplay numbers. M8-D/FLT-AC-012 In Progress; plan/implementation Not Started until their gates. Preserve main/four owner files, seven worktrees/branches and evidence; future combat direction remains a note.
+
+
+Current M8 implementation authorization2026-10-27: owner “approved” accepts the separate17-task plan at7d175ad. M8-P Verified; M8-I In Progress on isolated codex/fleet-command. Native inline continuously executes all17 tasks, no per-task agents and one final fresh whole-branch implementation reviewer. Follow .superpowers/sdd/2026-10-27-fleet-command-and-admirals/progress.md; completed tasks must not repeat. Task1 must freeze genuine rules7 futures before any product/content change. Fresh unchanged baseline Suite1398/1398 passes. Full gameplay approval remains ADR-018; earlier planning-only restrictions are historical. Main c554797/four owner files/seven worktrees/all old QA/recovery remain preserved. No main integration/push/release/cleanup authority.

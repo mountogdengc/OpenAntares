@@ -1,6 +1,6 @@
 # OpenAntares agent instructions
 
-Current authority: full M8 design approved; separate17-task plan ready for owner review. See the final dated M8 approval/planning entry below; preceding scoped decisions remain chronological history.
+Current authority: full M8 design and separate17-task plan approved; Native implementation in progress on codex/fleet-command. Follow this plan’s execution ledger; preceding scoped decisions remain chronological history.
 
 ## Start and authority
 
@@ -109,3 +109,6 @@ M8 complete-design handoff2026-10-27: reports/FLEET_COMMAND_GAMEPLAY_REVIEW_2026
 
 
 M8 full approval/planning2026-10-27: owner “0approved” accepts the complete design and starter defaults in ADR-018. M8-D/FLT-AC-012 Verified for design only; M8-P In Progress pending review of the concrete17-task implementation plan; M8-I/functional FLT criteria Not Started. Native inline/no per-task agents/one final fresh whole-branch implementation reviewer retained; do not re-ask design/method. No product changes, baseline-future capture or new C#/native gameplay validation occurred while writing the plan. Main c554797/rules7/writer8, all four byte-exact uncommitted owner files/empty main index, seven worktrees/branches, all QA/recovery/old futures and parent17-row counts remain preserved. Future combat note remains outside M8. Review the separate plan before implementation; no main merge/push/release/cleanup authority.
+
+
+Current M8 implementation authorization2026-10-27: owner “approved” accepts the separate17-task plan at7d175ad. M8-P Verified; M8-I In Progress on isolated codex/fleet-command. Native inline continuously executes all17 tasks, no per-task agents and one final fresh whole-branch implementation reviewer. Follow .superpowers/sdd/2026-10-27-fleet-command-and-admirals/progress.md; completed tasks must not repeat. Task1 must freeze genuine rules7 futures before any product/content change. Fresh unchanged baseline Suite1398/1398 passes. Full gameplay approval remains ADR-018; earlier planning-only restrictions are historical. Main c554797/four owner files/seven worktrees/all old QA/recovery remain preserved. No main integration/push/release/cleanup authority.

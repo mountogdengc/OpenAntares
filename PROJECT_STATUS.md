@@ -4,7 +4,7 @@ Updated2026-10-27 America/Denver. OpenAntares is an original turn-based space4X 
 
 Completed M7 integration: the owner authorized “merge that”; completed scout survival/encounter avoidance, stationary space-ameba danger and the remaining setup explanation follow-up are now locally integrated into main. Validated product source `a52dfc61c9a16ec10e0091b52783029afac73e38`; the handoff commit updates documentation/evidence only. [Fresh main integration report](reports/SCOUT_INTEGRATION_2026-10-27.md) records1398 simulation tests and all seven native scenarios/4491 records, normal build/exclusions, checkout preservation and owner-edit recovery. No known review finding remains open. Do not repeat completed work or re-ask design, plan or Native approval.
 
-Current continuation: the owner’s “0approved” accepts the complete M8 Fleet Command/admiral specification, including the final starter defaults. [ADR-018](docs/DECISIONS/ADR-018-approved-fleet-command-and-admirals-design.md) records full design approval; M8-D/FLT-AC-012 Verified for design only. The separate [17-task implementation plan](docs/superpowers/plans/2026-10-27-fleet-command-and-admirals.md) is drafted and self-reviewed, with exact source seams, pre-change genuine rules7 capture, shared construction/Ready authority, safety-paused requests, officer/recovery/XP accounting, strict compatibility and actual native validation. [Plan-review evidence](reports/FLEET_COMMAND_IMPLEMENTATION_PLAN_REVIEW_2026-10-27.md) distinguishes documentation checks from gameplay tests. M8-P In Progress pending owner plan review; M8-I/functional acceptance Not Started. Retain Native inline, no per-task agents and one final fresh whole-branch implementation reviewer; do not re-ask the design or method. Future combat/retreat/morale/damaged-ship direction remains a note. No product changes, new baseline-future capture or gameplay runs occurred. Main and all owner edits remain unchanged.
+Current continuation: the owner approved the separate17-task M8 Fleet Command/admiral implementation plan at7d175ad. M8-D/FLT-AC-012 and M8-P Verified; M8-I In Progress on isolated codex/fleet-command. Execute Native inline continuously, no per-task agents and one final fresh whole-branch implementation reviewer. Read [the plan](docs/superpowers/plans/2026-10-27-fleet-command-and-admirals.md) and .superpowers/sdd/2026-10-27-fleet-command-and-admirals/progress.md; never repeat completed tasks. Fresh unchanged Suite1398/1398 passes. First capture genuine rules7 sources/four old-engine futures before any product/content/default/writer change. Main c554797 and all four owner edits remain unchanged; seven worktrees/branches/QA/recovery retained. No main integration/push/release/cleanup authority. Future combat direction remains outside M8.
 
 ## Current product and scope
 
@@ -22,8 +22,8 @@ Roaming creatures, colony attacks, sensors/pursuit, tactical combat, warship doc
 | M7-P | Verified | Owner-approved15-task plan; retained Native inline execution |
 | M7-I | Verified | Local automated scope; review corrections/M1 closure and fresh main verification complete |
 | M8-D / FLT-AC-012 | Verified | Full owner approval of complete design/starter defaults, ADR-018; design only |
-| M8-P | In Progress | Separate17-task plan drafted/self-reviewed; owner plan review pending |
-| M8-I | Not Started | No product implementation or fresh fleet gameplay validation |
+| M8-P | Verified | Owner approved separate17-task plan at7d175ad; Native retained |
+| M8-I | In Progress | Native execution begins with genuine rules7 preservation; functional acceptance still pending |
 
 Parent requirement totals remain17:12 Verified,3 Implemented, Unverified,1 In Progress (REQ-017),1 Deferred. This milestone does not close REQ-017 or change the register's17 rows.
 
@@ -39,4 +39,7 @@ M7 authority: [ADR-016](docs/DECISIONS/ADR-016-approved-scout-survival-and-ameba
 
 Physical input/focus, comfortable reading/accessibility/comprehension, aesthetics, balance/long campaigns, other platforms, hostile-input/security/dependency audits, clean install/export and release remain unverified or deferred. Automated local checks do not establish these.
 
-Review the concrete17-task M8 implementation plan before product work. Design and Native execution method are already approved. Preserve all owner edits, branches/worktrees and evidence; no main integration, remote push, release or cleanup is inferred.
+Execute Task1 of the approved17-task M8 plan, capturing genuine rules7 futures before product work. Design/plan/Native method are already approved. Preserve all owner edits, branches/worktrees and evidence; no main integration, remote push, release or cleanup is inferred.
+
+
+Current M8 implementation authorization2026-10-27: owner “approved” accepts the separate17-task plan at7d175ad. M8-P Verified; M8-I In Progress on isolated codex/fleet-command. Native inline continuously executes all17 tasks, no per-task agents and one final fresh whole-branch implementation reviewer. Follow .superpowers/sdd/2026-10-27-fleet-command-and-admirals/progress.md; completed tasks must not repeat. Task1 must freeze genuine rules7 futures before any product/content change. Fresh unchanged baseline Suite1398/1398 passes. Full gameplay approval remains ADR-018; earlier planning-only restrictions are historical. Main c554797/four owner files/seven worktrees/all old QA/recovery remain preserved. No main integration/push/release/cleanup authority.
