@@ -61,7 +61,7 @@ public static class FleetStateValidator
             var participating = new HashSet<ColonyId>(); var rallies = new HashSet<FleetId>(); var reservedShips = new HashSet<VesselId>(); var queueBindings = new HashSet<(ColonyId, int)>();
             foreach (var request in f.Requests)
             {
-                if (request.Id.Value < 1 || request.Revision < 1 || !Text(request.Name, 80) || !Enum.IsDefined(request.Priority) || !Enum.IsDefined(request.Status) || state.FindStar(request.Rally) is null || request.Colonies is null || request.PausedContributions is null || request.Slots is null || request.Colonies.Count < 1 || request.Colonies.Count > d.ParticipatingColonyLimit || request.Colonies.Distinct().Count() != request.Colonies.Count || request.Slots.Count < 1 || request.Slots.Count > d.MemberLimit || request.Slots.Any(s => s is null) || request.Slots.Select(s => s.Ordinal).Distinct().Count() != request.Slots.Count) { Error("request shape/priority/quota is invalid."); continue; }
+                if (request.Id.Value < 1 || request.Revision < 1 || !Text(request.Name, 80) || !Enum.IsDefined(request.Priority) || !Enum.IsDefined(request.Status) || state.FindStar(request.Rally) is null || request.Colonies is null || request.PausedContributions is null || request.Slots is null || request.Colonies.Count < (request.Status == RequestStatus.SafetyPaused ? 0 : 1) || request.Colonies.Count > d.ParticipatingColonyLimit || request.Colonies.Distinct().Count() != request.Colonies.Count || request.Slots.Count < 1 || request.Slots.Count > d.MemberLimit || request.Slots.Any(s => s is null) || request.Slots.Select(s => s.Ordinal).Distinct().Count() != request.Slots.Count) { Error("request shape/priority/quota is invalid."); continue; }
                 bool active = FleetQueries.IsActive(request.Status);
                 if(request.NextSlotOrdinal<1||request.NextSlotOrdinal<=request.Slots.Max(s=>s.Ordinal))Error("request slot counter is stale.");
                 if(request.Status!=RequestStatus.Complete&&request.CompletedTurn is not null)Error("unfinished request has a completion date.");
@@ -107,7 +107,7 @@ public static class FleetStateValidator
                 bool live = FleetQueries.IsActive(officer.Status);
                 if (officer.Embodiment == CommandEmbodiment.ColonyBody)
                 {
-                    if (officer.SourceBody is not { } source || state.FindColony(source)?.EmpireId != empire.Id || live && !bodies.Add(source) || officer.Status is OfficerStatus.Dead or OfficerStatus.Missing) Error("colony-body appointment/source identity is invalid.");
+                    if (officer.SourceBody is not { } source || live && state.FindColony(source)?.EmpireId != empire.Id || live && !bodies.Add(source) || officer.Status is OfficerStatus.Dead or OfficerStatus.Missing) Error("colony-body appointment/source identity is invalid.");
                 }
                 else if (officer.SourceBody is not null) Error("mortal officer has a colony-body source.");
                 if (officer.Status is OfficerStatus.Posted or OfficerStatus.Commissioning or OfficerStatus.Coordinating)

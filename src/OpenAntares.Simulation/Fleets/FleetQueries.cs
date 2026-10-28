@@ -38,6 +38,16 @@ public static class FleetQueries
         return new(owner, state.Turn, ships, fleets, requests, officers, candidates, f.RecentEvents.Concat(f.PendingEvents).OrderBy(x => x.Id).ToImmutableArray()){FutureDoctrine=f.FutureDoctrine};
     }
 
+    internal static bool RallyUnsafe(ContentSet content,GameState state,EmpireId owner,AssemblyRequest request)
+    {
+        var e=state.FindEmpire(owner)!;var f=e.Fleets!;
+        var ships=request.Slots.Where(s=>s.Vessel is not null).Select(s=>s.Vessel!.Value)
+            .Concat(f.Fleets.SingleOrDefault(fleet=>fleet.Id==request.RallyFleet)?.Members??Enumerable.Empty<VesselId>())
+            .Distinct().Select(state.FindVessel).Where(v=>v is not null).ToArray();
+        if(e.Scouting!.KnownHabitats.Any(h=>h.Star==request.Rally))return true;
+        if(ships.Any(v=>v!.Scout?.Posture==Scouting.ScoutPosture.AvoidEncounters)&&Scouting.ScoutQueries.NeutralExcluded(Knowledge.EmpireViewProjector.ProjectBase(content,state,owner),request.Rally))return true;
+        return (request.Slots.Any(s=>content.Vessels[s.RoleId].EmbarkPopulation>0)||ships.Any(v=>v!.CarriedPopulation>0))&&Crises.CrisisQueries.PortClosed(state,owner,request.Rally);
+    }
     public static bool IsActive(RequestStatus status) => status is RequestStatus.Active or RequestStatus.Paused or RequestStatus.SafetyPaused;
     public static bool IsActive(OfficerStatus status) => status is not (OfficerStatus.Dead or OfficerStatus.Retired);
     internal static string CandidateName(FleetEmpireState state, OfficerProfileDefinition profile)

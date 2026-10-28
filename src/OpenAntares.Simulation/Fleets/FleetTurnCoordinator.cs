@@ -13,12 +13,11 @@ public static class FleetTurnCoordinator
         if(!Rules.HasFleets(state.RulesVersion))return new(state,true);
         try
         {
-            var view=EmpireViewProjector.Project(content,state,owner);var candidate=state.Clone();var f=candidate.FindEmpire(owner)!.Fleets!;int visited=0;
+            var candidate=state.Clone();var f=candidate.FindEmpire(owner)!.Fleets!;int visited=0;
             foreach(var r in f.Requests.Where(r=>FleetQueries.IsActive(r.Status)).OrderBy(r=>r.Id))
             {
                 foreach(var slot in r.Slots)if(++visited>1024)return new(state,false);
-                bool unsafeRally=view.Scouting?.Habitats.Any(h=>h.Star==r.Rally)==true||r.Slots.Any(slot=>slot.Vessel is {} id&&view.Scouting?.Vessels.Any(row=>row.Id==id&&row.Posture==Scouting.ScoutPosture.AvoidEncounters)==true&&Scouting.ScoutQueries.NeutralExcluded(view,r.Rally))||
-                    r.Slots.Any(slot=>content.Vessels[slot.RoleId].EmbarkPopulation>0)&&view.Colonies.Any(col=>col.StarId==r.Rally&&col.Crisis?.Quarantined==true);
+                bool unsafeRally=FleetQueries.RallyUnsafe(content,candidate,owner,r);
                 if(unsafeRally)RequestQueueAuthority.SafetyPause(candidate,owner,r.Id,"Rally is unsafe under current own knowledge or population port restrictions.");
             }
             return new(candidate,true);
@@ -59,7 +58,7 @@ public static class FleetTurnCoordinator
                 foreach(var id in fleet.Members.Where(id=>candidate.FindVessel(id)!.PendingMove!=route).OrderBy(id=>id).ToArray())
                 {
                     var vessel=candidate.FindVessel(id)!;vessel.Fleet=null;fleet.Members.Remove(id);
-                    foreach(var r in f.Requests.Where(r=>FleetQueries.IsActive(r.Status)&&r.Slots.Any(s=>s.Vessel==id)))
+                    foreach(var r in f.Requests.Where(r=>FleetQueries.IsActive(r.Status)&&(r.RallyFleet==fleet.Id||r.Slots.Any(s=>s.Vessel==id))))
                     {
                         foreach(var slot in r.Slots.Where(s=>s.Vessel==id)){if(slot.Status==SlotStatus.Arrived)slot.Status=SlotStatus.Built;else if(slot.Status==SlotStatus.BlockedSafety&&slot.ResumeStatus==SlotStatus.Arrived)slot.ResumeStatus=SlotStatus.Built;}
                         RequestQueueAuthority.SafetyPause(candidate,owner,r.Id,"A reserved ship withdrew for safety; living bindings are retained.");

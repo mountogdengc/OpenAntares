@@ -7,7 +7,7 @@ namespace OpenAntares.Simulation.Movement;
 
 public static class MovementResolver
 {
-    public static void Apply(ContentSet content, GameState snapshot, GameState candidate, List<ExpansionEvent> events,Crises.CrisisResolutionContext? context=null,Scouting.AmebaResolutionContext? scouting=null)
+    public static void Apply(ContentSet content, GameState snapshot, GameState candidate, List<ExpansionEvent> events,Crises.CrisisResolutionContext? context=null,Scouting.AmebaResolutionContext? scouting=null,Fleets.FleetResolutionContext? fleetContext=null)
     {
         foreach (var before in snapshot.Vessels)
         {
@@ -17,11 +17,11 @@ public static class MovementResolver
             if (before.PendingMove is { } dest)
             {
                 var start = snapshot.FindStar(before.StationaryStarId!.Value)!; var end = snapshot.FindStar(dest)!;
-                int turns = Rules.HasFleets(snapshot.RulesVersion)?Fleets.FleetTravel.LaunchDuration(content,snapshot,before,dest):TravelCalculator.Duration(start.X, start.Y, end.X, end.Y, content.Vessels[before.RoleId].Speed);
+                int turns = fleetContext?.Launches.GetValueOrDefault(before.Id)?.TotalTurns ?? (Rules.HasFleets(snapshot.RulesVersion)?Fleets.FleetTravel.LaunchDuration(content,snapshot,before,dest):TravelCalculator.Duration(start.X, start.Y, end.X, end.Y, content.Vessels[before.RoleId].Speed));
                 if(Rules.HasFleets(snapshot.RulesVersion)&&before.Fleet is {} group)
                 {
                     var fleet=candidate.FindEmpire(before.EmpireId)!.Fleets!.Fleets.Single(f=>f.Id==group);
-                    int speed=fleet.Members.Min(id=>Fleets.OfficerBonuses.EffectiveSpeed(content,snapshot,id));
+                    int speed=fleetContext?.Launches.GetValueOrDefault(before.Id)?.EffectiveSpeed??fleet.Members.Min(id=>Fleets.OfficerBonuses.EffectiveSpeed(content,snapshot,id));
                     fleet.Cohort=new(start.Id,end.Id,turns,snapshot.Turn,speed);
                 }
                 t = new(start.Id, end.Id, turns, turns); v.PendingMove = null; v.StationaryStarId = null;

@@ -1,3 +1,4 @@
+using OpenAntares.Simulation.Fleets;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -37,6 +38,7 @@ public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 /// </summary>
 public static class TurnResolver
 {
+    internal static TurnResolution ResolveFleet(ContentSet content,GameState snapshot,Action<FleetResolutionPhase> hook)=>ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null,null,hook);
     internal static TurnResolution ResolveScouting(ContentSet content,GameState snapshot,Action<Scouting.ScoutResolutionPhase> hook)=>ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null,hook);
     public static TurnResolution Resolve(ContentSet content, GameState snapshot) => ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null);
 
@@ -45,7 +47,7 @@ public static class TurnResolver
     internal static TurnResolution Resolve(ContentSet content, GameState snapshot, Func<ContentSet,GameState,RivalPlanningOutcome> prepare)
         => ResolveCore(content,snapshot,prepare,null);
 
-    private static TurnResolution ResolveCore(ContentSet content,GameState snapshot,Func<ContentSet,GameState,RivalPlanningOutcome> prepare,Action<CrisisResolutionPhase>? hook,Action<Scouting.ScoutResolutionPhase>? scoutHook=null)
+    private static TurnResolution ResolveCore(ContentSet content,GameState snapshot,Func<ContentSet,GameState,RivalPlanningOutcome> prepare,Action<CrisisResolutionPhase>? hook,Action<Scouting.ScoutResolutionPhase>? scoutHook=null,Action<FleetResolutionPhase>? fleetHook=null)
     {
         GameState original = snapshot;
         var inputErrors = GameStateValidator.Validate(content, snapshot, allowAllHumansReady: true);
@@ -70,7 +72,7 @@ public static class TurnResolver
                     }
                     if(Rules.HasFleets(snapshot.RulesVersion))
                     {
-                        var fleet=Fleets.FleetTurnCoordinator.PrepareHuman(content,snapshot,human.Id);if(!fleet.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);snapshot=fleet.State;continue;
+                        var preparedFleet=Fleets.FleetTurnCoordinator.PrepareHuman(content,snapshot,human.Id);if(!preparedFleet.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);snapshot=preparedFleet.State;continue;
                     }
                     var health=CrisisTurnCoordinator.Prepare(content,snapshot,human.Id);if(!health.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);
                     var governor=Development.GovernorTurnCoordinator.Prepare(content,health.State,human.Id);if(!governor.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);
@@ -90,7 +92,10 @@ public static class TurnResolver
                 if (!planned.Succeeded) return Failed(original,RivalTurnPlanner.FailureMessage);
                 snapshot = planned.State;
             }
+            fleetHook?.Invoke(FleetResolutionPhase.Preparation);
             candidate = snapshot.Clone();
+            var fleet=Rules.HasFleets(snapshot.RulesVersion)?FleetResolutionContext.Capture(content,snapshot):null;
+            fleetHook?.Invoke(FleetResolutionPhase.Snapshot);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Preparation);
             var scouting=Rules.HasScouting(snapshot.RulesVersion)?Scouting.AmebaResolutionContext.Capture(content,snapshot):null;
             var crisis=Rules.HasCrises(snapshot.RulesVersion)?CrisisResolutionContext.Capture(content,snapshot):null;
@@ -112,6 +117,7 @@ public static class TurnResolver
                 {
                     var vessel = new VesselState { Id = new(candidate.AllocateId()), EmpireId = colony.EmpireId, RoleId = vesselPlan.RoleId, CarriedPopulation = vesselPlan.Cargo, StationaryStarId = vesselPlan.Star };
                     candidate.Vessels.Add(vessel);
+                    if(fleet is not null)FleetResolver.BindCompletion(content,snapshot,candidate,fleet,colony.Id,vessel);
                     if (Rules.HasFleets(candidate.RulesVersion)) vessel.NewlyCompleted = true;
                     Scouting.ScoutInitializer.InitializeVessel(content,candidate.RulesVersion,vessel);
                     if(crisis is not null)CrisisTransport.TagCompletion(content,snapshot,candidate,crisis,colony.Id,vessel);
@@ -137,6 +143,7 @@ public static class TurnResolver
                 }
             }
 
+            fleetHook?.Invoke(FleetResolutionPhase.Economy);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Economy);
             if(crisis is not null)
             {
@@ -144,16 +151,22 @@ public static class TurnResolver
                 CrisisProgression.Apply(content,snapshot,candidate,economy,crisis);
                 hook?.Invoke(CrisisResolutionPhase.Health);
             }
+            fleetHook?.Invoke(FleetResolutionPhase.Health);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Health);
             if(scouting is not null)Scouting.AmebaResolver.ResolveExisting(content,snapshot,candidate,scouting);
+            if(fleet is not null)FleetResolver.NormalizeAfterLosses(content,snapshot,candidate,fleet);
+            fleetHook?.Invoke(FleetResolutionPhase.Loss);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Encounter);
             if(crisis is not null)CrisisTransport.PrepareDepartures(content,snapshot,candidate,crisis);
             if (Rules.HasExpansion(snapshot.RulesVersion))
             {
-                MovementResolver.Apply(content, snapshot, candidate, events,crisis,scouting);
+                MovementResolver.Apply(content, snapshot, candidate, events,crisis,scouting,fleet);
                 if(crisis is not null)CrisisTransport.HandleArrivals(content,snapshot,candidate,crisis);
+                fleetHook?.Invoke(FleetResolutionPhase.Transport);
                 Colonization.ColonizationResolver.Apply(content, snapshot, candidate, events,crisis,scouting);
             }
+            if(fleet is not null)FleetResolver.AfterFounding(candidate,fleet,events);
+            fleetHook?.Invoke(FleetResolutionPhase.Founding);
             if(scouting is not null)Scouting.AmebaResolver.ValidateDepartures(snapshot,candidate,scouting);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Transport);
             if(crisis is not null)
@@ -179,14 +192,19 @@ public static class TurnResolver
             ObservationUpdater.Refresh(candidate, candidate.Turn);
             encounters = ContactUpdater.Refresh(snapshot, candidate);
             if(scouting is not null)Scouting.AmebaResolver.ObserveArrivals(content,candidate,scouting);
+            if(fleet is not null)FleetResolver.ObserveAssembly(content,candidate,fleet);
+            fleetHook?.Invoke(FleetResolutionPhase.Observation);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Observation);
             if(scouting is not null)Scouting.AmebaResolver.DepositResearch(content,candidate,scouting);
+            fleetHook?.Invoke(FleetResolutionPhase.Rewards);
+            fleetHook?.Invoke(FleetResolutionPhase.Recovery);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Reward);
             if(scouting is not null)
             {
                 Scouting.ScoutReports.RecordMovement(snapshot,candidate,scouting,events);
                 Scouting.ScoutReports.Finalize(snapshot,candidate,scouting);
             }
+            fleetHook?.Invoke(FleetResolutionPhase.Reports);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Reports);
             if(crisis is not null)
             {
@@ -195,6 +213,7 @@ public static class TurnResolver
                 crisisValidation=GameStateValidator.Validate(content,candidate);
                 if(crisisValidation.Count>0)return Failed(original,RivalTurnPlanner.FailureMessage);
                 hook?.Invoke(CrisisResolutionPhase.Validation);
+                fleetHook?.Invoke(FleetResolutionPhase.Validation);
                 scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Validation);
                 var locations=crisis.Locations.SetItems(candidate.Colonies.Where(c=>!crisis.Locations.ContainsKey(c.Id)).Select(c=>new KeyValuePair<ColonyId,CrisisLocation>(c.Id,CrisisQueries.Location(candidate,c))));
                 crisisReport=new(snapshot.Turn,candidate.Turn,economy){ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations,ScoutEvents=scouting?.Events.ToImmutableArray()??ImmutableArray<Scouting.ScoutOrderEvent>.Empty};

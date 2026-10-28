@@ -48,7 +48,8 @@ public static partial class CommandProcessor
     private static CommandOutcome SetFoundingOrder(ContentSet content, GameState s, SetFoundingOrderCommand c)
     {
         var rejection = CheckVessel(s, c.Issuer, c.Vessel, out var v); if (rejection is not null) return rejection;
-        if(Rules.HasFleets(s.RulesVersion)&&c.Planet is not null&&(v!.Fleet is not null||s.FindEmpire(c.Issuer)!.Fleets!.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&r.Slots.Any(slot=>slot.Vessel==v.Id))))return CommandOutcome.Reject(s,"fleet_detachment_required","Explicitly detach this ship from its fleet/request before founding.");
+        if(Rules.HasFleets(s.RulesVersion)&&c.Planet is not null&&s.FindEmpire(c.Issuer)!.Fleets!.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&r.Slots.Any(slot=>slot.Vessel==v!.Id)))return CommandOutcome.Reject(s,"fleet_detachment_required","Explicitly detach this request ship before founding.");
+        if(Rules.HasFleets(s.RulesVersion)&&c.Planet is not null&&v!.Fleet is {} group&&s.FindEmpire(c.Issuer)!.Fleets!.Fleets.Single(f=>f.Id==group).Members.Any(id=>s.FindVessel(id)!.PendingMove is not null))return CommandOutcome.Reject(s,"fleet_detachment_required","Cancel incompatible fleet departures before founding.");
         if (c.Planet is { } target)
         {
             var preview = Colonization.FoundingRules.Preview(content,s,c.Issuer,c.Vessel,target);
