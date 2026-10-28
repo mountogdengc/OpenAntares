@@ -1,5 +1,7 @@
 # OpenAntares — project status
 
+**Current continuation, 2026-10-28:** The owner authorized the [M9 fleet-combat draft](docs/superpowers/specs/2026-10-28-fleet-combat-damage-and-withdrawal-design.md) in [ADR-019](docs/DECISIONS/ADR-019-fleet-combat-design-entry.md). M9-D/CBT-AC-012 In Progress; M9-P/M9-I and functional CBT criteria Not Started. Automatic sentry encounters, damage/cohesion, withdrawal, repair and rules9/writer10 are proposals awaiting full gameplay review. M8 is complete and pushed at63ec608; product remains rules8/writer9/37 pairs. [Builder check and documentation verification](reports/FLEET_COMBAT_DESIGN_REVIEW_2026-10-28.md) accompany the proposal.
+
 2026-10-28. The owner authorized local integration of Fleet Command and named admirals, including all three remaining review-gap fixes. Main combines owner documentation `a58cc67` and fleet branch `6bcdc2d`; validated product source `035877a40d45b39b1e764980e386023f706dd1dd`. **M8-I and all12FLT criteria are Verified within local automated/design scope.** The original17tasks and single whole-branch review are complete. No known review finding remains open.
 
 Main now uses **rules8 / writer9 /37explicit schema-rules pairs**. Fleet Command centralizes ships, role/status filtering, named fleets and finite Normal/Urgent shipyard requests. The assembly chooser pages32 candidates with explicit cross-page selections. Lost Return destinations stop with persistent Attention after committed travel, and manual overrides clear the warning. Named Navigator/Surveyor/Organizer admirals retain approved bonuses,10/30XP tracks, service records, cultural recovery defaults and editable doctrine. Research improves recovery equipment. Wenth source-body identity remains intact. Future combat retreat/morale/damage remains a design note.
@@ -12,4 +14,4 @@ Deferred owner feature request (2026-10-24): [FR-001: Peaceful mode](docs/FEATUR
 
 Parent REQ-017/17-row totals remain12Verified/3Implemented,Unverified/1InProgress/1Deferred. Physical input/focus, comfortable reading/accessibility/comprehension, aesthetics, balance/long campaigns, measured performance, other platforms, security/dependency audits and install/export/release remain unverified/deferred. Earlier branch-only and pending-integration checkpoints are historical.
 
-Next: choose the next bounded milestone, then review its design before implementation. No push/release/cleanup or new subsystem is inferred.
+Next: review the complete M9 combat proposal, especially the fixed-sentry opponent, automatic control model, damage/cohesion/retreat values and time-only repair. Accept or amend gameplay before a separate implementation plan. No implementation or approval of the draft defaults is inferred.

@@ -59,3 +59,6 @@ M8 final scoped choices2026-10-27: Wenth recovery2/1 turns (basic/researched), m
 
 
 M8 full approval/planning2026-10-27: owner “0approved” accepts the complete design and starter defaults in ADR-018. M8-D/FLT-AC-012 Verified for design only; M8-P In Progress pending review of the concrete17-task implementation plan; M8-I/functional FLT criteria Not Started. Native inline/no per-task agents/one final fresh whole-branch implementation reviewer retained; do not re-ask design/method. No product changes, baseline-future capture or new C#/native gameplay validation occurred while writing the plan. Main c554797/rules7/writer8, all four byte-exact uncommitted owner files/empty main index, seven worktrees/branches, all QA/recovery/old futures and parent17-row counts remain preserved. Future combat note remains outside M8. Review the separate plan before implementation; no main merge/push/release/cleanup authority.
+
+
+[ADR-019: Fleet combat design entry](ADR-019-fleet-combat-design-entry.md) records owner “ok do that”2026-10-28 as combat-specification drafting authority. M9-D In Progress; full gameplay approval, a separate implementation plan and product work remain pending. Proposed sentries/automatic exchanges/damage/cohesion/retreat/repairs/rules9-writer10 are not yet approved.
