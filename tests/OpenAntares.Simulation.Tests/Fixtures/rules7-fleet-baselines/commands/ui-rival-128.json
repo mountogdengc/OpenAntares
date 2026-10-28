@@ -1,0 +1,26 @@
+[
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:1}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:2}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:3}"
+    }
+  ]
+]

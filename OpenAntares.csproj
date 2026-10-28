@@ -9,6 +9,8 @@
     <!-- The simulation library and tests are separate projects; don't compile them twice. -->
     <Compile Remove="src/**" />
     <Compile Remove="tests/**" />
+    <!-- Standalone evidence tools (and their generated obj files) are never game code. -->
+    <Compile Remove="tools/**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="src/OpenAntares.Simulation/OpenAntares.Simulation.csproj" />

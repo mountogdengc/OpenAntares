@@ -7,3 +7,5 @@
 /reports/scout-execution/** -text
 /reports/scout-polish-*/** -text
 /reports/scout-integration-*/** -text
+/tests/OpenAntares.Simulation.Tests/Fixtures/rules7-fleet-baselines/** -text -whitespace
+/reports/fleet-execution/** -text -whitespace

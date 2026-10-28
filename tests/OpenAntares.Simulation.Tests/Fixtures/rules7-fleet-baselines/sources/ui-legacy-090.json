@@ -1,0 +1,680 @@
+{
+  "format": "openantares-save",
+  "schema_version": 8,
+  "rules_version": 1,
+  "content": {
+    "rules": {
+      "support_per_population": 100,
+      "base_growth": 10,
+      "max_surplus_growth": 40,
+      "base_colony_capacity": 10
+    },
+    "starting_colony": {
+      "planet_type": "verdant_world",
+      "population": 6,
+      "workforce": {
+        "support": 2,
+        "production": 2,
+        "research": 2
+      }
+    },
+    "galaxy": {
+      "min_star_distance": 120,
+      "min_planets_per_star": 1,
+      "max_planets_per_star": 4,
+      "star_names": [
+        "Aldrane",
+        "Ambrel",
+        "Bessaro",
+        "Calloran",
+        "Corvane",
+        "Dellith",
+        "Dunmere",
+        "Esmorra",
+        "Evandry",
+        "Faldis",
+        "Gethra",
+        "Hollin",
+        "Ismere",
+        "Javeth",
+        "Kestra",
+        "Lorvan",
+        "Mirrin",
+        "Nesh",
+        "Oberra",
+        "Pallis",
+        "Quillon",
+        "Rhoven",
+        "Savett",
+        "Tarrow",
+        "Ulvane",
+        "Vessar",
+        "Wardel",
+        "Xandre",
+        "Yollis",
+        "Zerith"
+      ],
+      "regions": {
+        "arm": {
+          "name": "Arm",
+          "description": "The star-rich spiral arms."
+        },
+        "core": {
+          "name": "Core",
+          "description": "The dense galactic center."
+        },
+        "rim": {
+          "name": "Rim",
+          "description": "The sparse outer galaxy."
+        }
+      }
+    },
+    "galaxy_sizes": [
+      {
+        "id": "large",
+        "name": "Large",
+        "star_count": 20,
+        "width": 1400,
+        "height": 980
+      },
+      {
+        "id": "medium",
+        "name": "Medium",
+        "star_count": 16,
+        "width": 1200,
+        "height": 840
+      },
+      {
+        "id": "small",
+        "name": "Small",
+        "star_count": 12,
+        "width": 1000,
+        "height": 700
+      }
+    ],
+    "planet_types": [
+      {
+        "id": "barren_rock",
+        "name": "Barren Rock",
+        "colonizable": false,
+        "support_per_worker": 100,
+        "production_per_worker": 200,
+        "research_per_worker": 100,
+        "generation_weight": 3,
+        "region_generation_weights": {
+          "arm": 2,
+          "core": 1,
+          "rim": 3
+        }
+      },
+      {
+        "id": "crystal_world",
+        "name": "Crystal World",
+        "colonizable": false,
+        "support_per_worker": 200,
+        "production_per_worker": 200,
+        "research_per_worker": 300,
+        "generation_weight": 2,
+        "region_generation_weights": {
+          "arm": 2,
+          "core": 3,
+          "rim": 2
+        }
+      },
+      {
+        "id": "forge_world",
+        "name": "Forge World",
+        "colonizable": false,
+        "support_per_worker": 200,
+        "production_per_worker": 300,
+        "research_per_worker": 200,
+        "generation_weight": 2,
+        "region_generation_weights": {
+          "arm": 2,
+          "core": 3,
+          "rim": 4
+        }
+      },
+      {
+        "id": "verdant_world",
+        "name": "Verdant World",
+        "colonizable": false,
+        "support_per_worker": 300,
+        "production_per_worker": 200,
+        "research_per_worker": 200,
+        "generation_weight": 2,
+        "region_generation_weights": {
+          "arm": 3,
+          "core": 1,
+          "rim": 1
+        }
+      }
+    ],
+    "buildings": [
+      {
+        "id": "analysis_lab",
+        "name": "Analysis Lab",
+        "cost": 1200,
+        "prerequisites": [
+          "measurement_methods"
+        ],
+        "effects": [
+          {
+            "kind": "research",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "cultivation_hub",
+        "name": "Cultivation Hub",
+        "cost": 1000,
+        "prerequisites": [
+          "cultivation_methods"
+        ],
+        "effects": [
+          {
+            "kind": "support",
+            "amount": 200
+          }
+        ]
+      },
+      {
+        "id": "fabrication_hall",
+        "name": "Fabrication Hall",
+        "cost": 1200,
+        "prerequisites": [],
+        "effects": [
+          {
+            "kind": "production",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "habitat_extension",
+        "name": "Habitat Extension",
+        "cost": 1600,
+        "prerequisites": [
+          "habitat_methods"
+        ],
+        "effects": [
+          {
+            "kind": "capacity",
+            "amount": 2
+          }
+        ]
+      }
+    ],
+    "technologies": [
+      {
+        "id": "cultivation_methods",
+        "name": "Cultivation Methods",
+        "cost": 1200,
+        "prerequisites": []
+      },
+      {
+        "id": "habitat_methods",
+        "name": "Habitat Methods",
+        "cost": 1600,
+        "prerequisites": []
+      },
+      {
+        "id": "measurement_methods",
+        "name": "Measurement Methods",
+        "cost": 1200,
+        "prerequisites": []
+      }
+    ]
+  },
+  "state": {
+    "turn": 2,
+    "next_entity_id": 67,
+    "random": {
+      "state": 10176348935103393099,
+      "increment": 11448373301212932291
+    },
+    "galaxy_seed": 42,
+    "galaxy_shape": "spiral",
+    "galaxy_width": 1400,
+    "galaxy_height": 980,
+    "empires": [
+      {
+        "id": 1,
+        "controller": "human",
+        "research_reserve": 800,
+        "research_target": "cultivation_methods",
+        "known_technologies": [],
+        "ready": false,
+        "surveys": []
+      }
+    ],
+    "stars": [
+      {
+        "id": 2,
+        "name": "Faldis",
+        "x": 797,
+        "y": 513,
+        "region": "core"
+      },
+      {
+        "id": 3,
+        "name": "Xandre",
+        "x": 539,
+        "y": 566,
+        "region": "core"
+      },
+      {
+        "id": 4,
+        "name": "Quillon",
+        "x": 941,
+        "y": 489,
+        "region": "core"
+      },
+      {
+        "id": 5,
+        "name": "Savett",
+        "x": 331,
+        "y": 335,
+        "region": "arm"
+      },
+      {
+        "id": 6,
+        "name": "Dellith",
+        "x": 957,
+        "y": 664,
+        "region": "arm"
+      },
+      {
+        "id": 7,
+        "name": "Ambrel",
+        "x": 841,
+        "y": 350,
+        "region": "arm"
+      },
+      {
+        "id": 8,
+        "name": "Javeth",
+        "x": 1181,
+        "y": 348,
+        "region": "arm"
+      },
+      {
+        "id": 9,
+        "name": "Kestra",
+        "x": 692,
+        "y": 337,
+        "region": "arm"
+      },
+      {
+        "id": 10,
+        "name": "Vessar",
+        "x": 143,
+        "y": 281,
+        "region": "arm"
+      },
+      {
+        "id": 11,
+        "name": "Oberra",
+        "x": 961,
+        "y": 275,
+        "region": "arm"
+      },
+      {
+        "id": 12,
+        "name": "Hollin",
+        "x": 418,
+        "y": 486,
+        "region": "arm"
+      },
+      {
+        "id": 13,
+        "name": "Zerith",
+        "x": 744,
+        "y": 860,
+        "region": "arm"
+      },
+      {
+        "id": 14,
+        "name": "Esmorra",
+        "x": 273,
+        "y": 204,
+        "region": "arm"
+      },
+      {
+        "id": 15,
+        "name": "Bessaro",
+        "x": 505,
+        "y": 855,
+        "region": "arm"
+      },
+      {
+        "id": 16,
+        "name": "Lorvan",
+        "x": 1340,
+        "y": 480,
+        "region": "arm"
+      },
+      {
+        "id": 17,
+        "name": "Wardel",
+        "x": 795,
+        "y": 666,
+        "region": "arm"
+      },
+      {
+        "id": 18,
+        "name": "Pallis",
+        "x": 1139,
+        "y": 225,
+        "region": "arm"
+      },
+      {
+        "id": 19,
+        "name": "Ulvane",
+        "x": 129,
+        "y": 456,
+        "region": "rim"
+      },
+      {
+        "id": 20,
+        "name": "Corvane",
+        "x": 754,
+        "y": 160,
+        "region": "rim"
+      },
+      {
+        "id": 21,
+        "name": "Evandry",
+        "x": 180,
+        "y": 615,
+        "region": "rim"
+      }
+    ],
+    "planets": [
+      {
+        "id": 22,
+        "star": 2,
+        "orbit": 1,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 23,
+        "star": 2,
+        "orbit": 2,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 24,
+        "star": 3,
+        "orbit": 1,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 25,
+        "star": 3,
+        "orbit": 2,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 26,
+        "star": 3,
+        "orbit": 3,
+        "planet_type": "verdant_world"
+      },
+      {
+        "id": 27,
+        "star": 4,
+        "orbit": 1,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 28,
+        "star": 4,
+        "orbit": 2,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 29,
+        "star": 4,
+        "orbit": 3,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 30,
+        "star": 4,
+        "orbit": 4,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 31,
+        "star": 5,
+        "orbit": 1,
+        "planet_type": "barren_rock"
+      },
+      {
+        "id": 32,
+        "star": 5,
+        "orbit": 2,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 33,
+        "star": 5,
+        "orbit": 3,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 34,
+        "star": 5,
+        "orbit": 4,
+        "planet_type": "verdant_world"
+      },
+      {
+        "id": 35,
+        "star": 6,
+        "orbit": 1,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 36,
+        "star": 6,
+        "orbit": 2,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 37,
+        "star": 6,
+        "orbit": 3,
+        "planet_type": "verdant_world"
+      },
+      {
+        "id": 38,
+        "star": 6,
+        "orbit": 4,
+        "planet_type": "barren_rock"
+      },
+      {
+        "id": 39,
+        "star": 7,
+        "orbit": 1,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 40,
+        "star": 8,
+        "orbit": 1,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 41,
+        "star": 9,
+        "orbit": 1,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 42,
+        "star": 9,
+        "orbit": 2,
+        "planet_type": "verdant_world"
+      },
+      {
+        "id": 43,
+        "star": 9,
+        "orbit": 3,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 44,
+        "star": 10,
+        "orbit": 1,
+        "planet_type": "verdant_world"
+      },
+      {
+        "id": 45,
+        "star": 11,
+        "orbit": 1,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 46,
+        "star": 11,
+        "orbit": 2,
+        "planet_type": "barren_rock"
+      },
+      {
+        "id": 47,
+        "star": 11,
+        "orbit": 3,
+        "planet_type": "verdant_world"
+      },
+      {
+        "id": 48,
+        "star": 12,
+        "orbit": 1,
+        "planet_type": "barren_rock"
+      },
+      {
+        "id": 49,
+        "star": 13,
+        "orbit": 1,
+        "planet_type": "barren_rock"
+      },
+      {
+        "id": 50,
+        "star": 14,
+        "orbit": 1,
+        "planet_type": "barren_rock"
+      },
+      {
+        "id": 51,
+        "star": 15,
+        "orbit": 1,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 52,
+        "star": 15,
+        "orbit": 2,
+        "planet_type": "barren_rock"
+      },
+      {
+        "id": 53,
+        "star": 16,
+        "orbit": 1,
+        "planet_type": "barren_rock"
+      },
+      {
+        "id": 54,
+        "star": 16,
+        "orbit": 2,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 55,
+        "star": 16,
+        "orbit": 3,
+        "planet_type": "barren_rock"
+      },
+      {
+        "id": 56,
+        "star": 16,
+        "orbit": 4,
+        "planet_type": "verdant_world"
+      },
+      {
+        "id": 57,
+        "star": 17,
+        "orbit": 1,
+        "planet_type": "verdant_world"
+      },
+      {
+        "id": 58,
+        "star": 18,
+        "orbit": 1,
+        "planet_type": "verdant_world"
+      },
+      {
+        "id": 59,
+        "star": 18,
+        "orbit": 2,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 60,
+        "star": 18,
+        "orbit": 3,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 61,
+        "star": 18,
+        "orbit": 4,
+        "planet_type": "crystal_world"
+      },
+      {
+        "id": 62,
+        "star": 19,
+        "orbit": 1,
+        "planet_type": "barren_rock"
+      },
+      {
+        "id": 63,
+        "star": 20,
+        "orbit": 1,
+        "planet_type": "verdant_world"
+      },
+      {
+        "id": 64,
+        "star": 20,
+        "orbit": 2,
+        "planet_type": "forge_world"
+      },
+      {
+        "id": 65,
+        "star": 21,
+        "orbit": 1,
+        "planet_type": "barren_rock"
+      }
+    ],
+    "colonies": [
+      {
+        "id": 66,
+        "planet": 34,
+        "empire": 1,
+        "population": 6,
+        "workforce": {
+          "support": 2,
+          "production": 2,
+          "research": 2
+        },
+        "growth_progress": 20,
+        "production_reserve": 800,
+        "project": "fabrication_hall",
+        "project_kind": "building",
+        "completed_buildings": []
+      }
+    ],
+    "vessels": []
+  }
+}

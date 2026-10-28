@@ -1,0 +1,2238 @@
+{
+  "runId": "20261027-081915-953",
+  "godot": "4.7.2-stable (official)",
+  "display": "Windows",
+  "method": "In-process real UI control signals/handlers, graphical layout and framebuffer assertions; no OS input claims",
+  "passed": true,
+  "error": null,
+  "results": [
+    {
+      "name": "A graphical display is required",
+      "passed": true
+    },
+    {
+      "name": "Actual default window is 1920x1080",
+      "passed": true
+    },
+    {
+      "name": "small: old-loop fixture is legacy rules 1",
+      "passed": true
+    },
+    {
+      "name": "small: exact selectable system count 12",
+      "passed": true
+    },
+    {
+      "name": "small: starting population",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Pallis",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Pallis",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Vessar",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Vessar",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Oberra",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Oberra",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Tarrow",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Tarrow",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Evandry",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Evandry",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Zerith",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Zerith",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Javeth",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Javeth",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Nesh",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Nesh",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Bessaro",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Bessaro",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Dellith",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Dellith",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Wardel",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Wardel",
+      "passed": true
+    },
+    {
+      "name": "small: map handler selects Xandre",
+      "passed": true
+    },
+    {
+      "name": "small: inspector updates for Xandre",
+      "passed": true
+    },
+    {
+      "name": "small: background point cannot be selected",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: small-initial",
+      "passed": true
+    },
+    {
+      "name": "small: live resize to 800x600",
+      "passed": true
+    },
+    {
+      "name": "small: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "small: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: small-resize-800x600",
+      "passed": true
+    },
+    {
+      "name": "small: live resize to 1152x648",
+      "passed": true
+    },
+    {
+      "name": "small: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "small: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "small: live resize to 1600x900",
+      "passed": true
+    },
+    {
+      "name": "small: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "small: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: small-resize-1600x900",
+      "passed": true
+    },
+    {
+      "name": "small: live resize to 1920x1080",
+      "passed": true
+    },
+    {
+      "name": "small: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "small: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "small: shortage forecast",
+      "passed": true
+    },
+    {
+      "name": "small: visible shortage warning",
+      "passed": true
+    },
+    {
+      "name": "small: supported allocation increases growth",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: end turn 1",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: end turn 2",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "small-pre: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "small-pre: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "small-pre: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: building completes",
+      "passed": true
+    },
+    {
+      "name": "small: research completes",
+      "passed": true
+    },
+    {
+      "name": "small: building applies to next snapshot",
+      "passed": true
+    },
+    {
+      "name": "small: completed targets clear",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "small-post: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "small-post: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "small-post: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "small: UI reload before completion preserves state/content",
+      "passed": true
+    },
+    {
+      "name": "small: UI reload preserves map bounds",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: continuation after UI reload matches uninterrupted result",
+      "passed": true
+    },
+    {
+      "name": "small: UI reload after completion preserves state/content",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: population advances through real End Turn control",
+      "passed": true
+    },
+    {
+      "name": "Invalid QA name is unique",
+      "passed": true
+    },
+    {
+      "name": "Corrupt UI load retains the current screen and state",
+      "passed": true
+    },
+    {
+      "name": "Corrupt UI load shows an error",
+      "passed": true
+    },
+    {
+      "name": "Legacy schema-1 UI load preserves original state/layout",
+      "passed": true
+    },
+    {
+      "name": "Legacy UI load does not invent galaxy metadata",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: legacy-v1-loaded",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Legacy UI load can continue a turn",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 326,
+      "normalX": 1475,
+      "normalY": 326,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 292
+    },
+    {
+      "name": "small-800x600-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 274,
+      "normalX": 1475,
+      "normalY": 274,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 240
+    },
+    {
+      "name": "Screenshot saved: small-800x600-other-native-construction-parent",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 326,
+      "normalX": 1475,
+      "normalY": 326,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 292
+    },
+    {
+      "name": "small-1152x648-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "small-1152x648-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 274,
+      "normalX": 1475,
+      "normalY": 274,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 240
+    },
+    {
+      "name": "small-1152x648-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 326,
+      "normalX": 1475,
+      "normalY": 326,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 292
+    },
+    {
+      "name": "small-1600x900-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "small-1600x900-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 274,
+      "normalX": 1475,
+      "normalY": 274,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 240
+    },
+    {
+      "name": "small-1600x900-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 326,
+      "normalX": 1475,
+      "normalY": 326,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 292
+    },
+    {
+      "name": "small-1920x1080-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "small-1920x1080-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 274,
+      "normalX": 1475,
+      "normalY": 274,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 240
+    },
+    {
+      "name": "small-1920x1080-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-embedded: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-embedded: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-embedded: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-embedded: home selected",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-embedded: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-embedded: popup geometry",
+      "passed": true,
+      "requestedEmbedded": true,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 274,
+      "normalX": 1475,
+      "normalY": 274,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 240
+    },
+    {
+      "name": "small-800x600-other-embedded: supplementary visual popup is actually embedded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: small-800x600-other-embedded-construction-parent",
+      "passed": true
+    },
+    {
+      "name": "small-800x600-other-embedded: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: research follow-up opens picker",
+      "passed": true
+    },
+    {
+      "name": "medium: old-loop fixture is legacy rules 1",
+      "passed": true
+    },
+    {
+      "name": "medium: exact selectable system count 16",
+      "passed": true
+    },
+    {
+      "name": "medium: starting population",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Pallis",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Pallis",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Vessar",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Vessar",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Oberra",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Oberra",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Tarrow",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Tarrow",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Evandry",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Evandry",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Zerith",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Zerith",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Javeth",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Javeth",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Nesh",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Nesh",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Bessaro",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Bessaro",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Dellith",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Dellith",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Wardel",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Wardel",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Xandre",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Xandre",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Ulvane",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Ulvane",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Savett",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Savett",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Faldis",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Faldis",
+      "passed": true
+    },
+    {
+      "name": "medium: map handler selects Corvane",
+      "passed": true
+    },
+    {
+      "name": "medium: inspector updates for Corvane",
+      "passed": true
+    },
+    {
+      "name": "medium: background point cannot be selected",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: medium-initial",
+      "passed": true
+    },
+    {
+      "name": "medium: live resize to 800x600",
+      "passed": true
+    },
+    {
+      "name": "medium: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "medium: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: medium-resize-800x600",
+      "passed": true
+    },
+    {
+      "name": "medium: live resize to 1152x648",
+      "passed": true
+    },
+    {
+      "name": "medium: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "medium: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "medium: live resize to 1600x900",
+      "passed": true
+    },
+    {
+      "name": "medium: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "medium: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: medium-resize-1600x900",
+      "passed": true
+    },
+    {
+      "name": "medium: live resize to 1920x1080",
+      "passed": true
+    },
+    {
+      "name": "medium: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "medium: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "medium: shortage forecast",
+      "passed": true
+    },
+    {
+      "name": "medium: visible shortage warning",
+      "passed": true
+    },
+    {
+      "name": "medium: supported allocation increases growth",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: end turn 1",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: end turn 2",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "medium-pre: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "medium-pre: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "medium-pre: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: building completes",
+      "passed": true
+    },
+    {
+      "name": "medium: research completes",
+      "passed": true
+    },
+    {
+      "name": "medium: building applies to next snapshot",
+      "passed": true
+    },
+    {
+      "name": "medium: completed targets clear",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "medium-post: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "medium-post: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "medium-post: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "medium: UI reload before completion preserves state/content",
+      "passed": true
+    },
+    {
+      "name": "medium: UI reload preserves map bounds",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: continuation after UI reload matches uninterrupted result",
+      "passed": true
+    },
+    {
+      "name": "medium: UI reload after completion preserves state/content",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: population advances through real End Turn control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1374,
+      "automaticY": 291,
+      "normalX": 1374,
+      "normalY": 291,
+      "pickerScreenX": 1374.5833,
+      "pickerScreenY": 277.66666
+    },
+    {
+      "name": "medium-800x600-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1374,
+      "automaticY": 270,
+      "normalX": 1374,
+      "normalY": 270,
+      "pickerScreenX": 1374.5833,
+      "pickerScreenY": 256
+    },
+    {
+      "name": "Screenshot saved: medium-800x600-other-native-construction-parent",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1645,
+      "automaticY": 351,
+      "normalX": 1645,
+      "normalY": 351,
+      "pickerScreenX": 1645,
+      "pickerScreenY": 331.2
+    },
+    {
+      "name": "medium-1152x648-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "medium-1152x648-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1645,
+      "automaticY": 320,
+      "normalX": 1645,
+      "normalY": 320,
+      "pickerScreenX": 1645,
+      "pickerScreenY": 300
+    },
+    {
+      "name": "medium-1152x648-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1989,
+      "automaticY": 427,
+      "normalX": 1989,
+      "normalY": 427,
+      "pickerScreenX": 1989.1666,
+      "pickerScreenY": 399.3333
+    },
+    {
+      "name": "medium-1600x900-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "medium-1600x900-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1989,
+      "automaticY": 384,
+      "normalX": 1989,
+      "normalY": 384,
+      "pickerScreenX": 1989.1666,
+      "pickerScreenY": 356
+    },
+    {
+      "name": "medium-1600x900-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 2235,
+      "automaticY": 482,
+      "normalX": 2235,
+      "normalY": 482,
+      "pickerScreenX": 2235,
+      "pickerScreenY": 448
+    },
+    {
+      "name": "medium-1920x1080-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "medium-1920x1080-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 2235,
+      "automaticY": 430,
+      "normalX": 2235,
+      "normalY": 430,
+      "pickerScreenX": 2235,
+      "pickerScreenY": 396
+    },
+    {
+      "name": "medium-1920x1080-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-embedded: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-embedded: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-embedded: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-embedded: home selected",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-embedded: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-embedded: popup geometry",
+      "passed": true,
+      "requestedEmbedded": true,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 274,
+      "normalX": 1475,
+      "normalY": 274,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 240
+    },
+    {
+      "name": "medium-800x600-other-embedded: supplementary visual popup is actually embedded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: medium-800x600-other-embedded-construction-parent",
+      "passed": true
+    },
+    {
+      "name": "medium-800x600-other-embedded: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: research follow-up opens picker",
+      "passed": true
+    },
+    {
+      "name": "large: old-loop fixture is legacy rules 1",
+      "passed": true
+    },
+    {
+      "name": "large: exact selectable system count 20",
+      "passed": true
+    },
+    {
+      "name": "large: starting population",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Faldis",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Faldis",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Xandre",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Xandre",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Quillon",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Quillon",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Savett",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Savett",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Dellith",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Dellith",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Ambrel",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Ambrel",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Javeth",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Javeth",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Kestra",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Kestra",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Vessar",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Vessar",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Oberra",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Oberra",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Hollin",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Hollin",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Zerith",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Zerith",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Esmorra",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Esmorra",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Bessaro",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Bessaro",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Lorvan",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Lorvan",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Wardel",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Wardel",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Pallis",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Pallis",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Ulvane",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Ulvane",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Corvane",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Corvane",
+      "passed": true
+    },
+    {
+      "name": "large: map handler selects Evandry",
+      "passed": true
+    },
+    {
+      "name": "large: inspector updates for Evandry",
+      "passed": true
+    },
+    {
+      "name": "large: background point cannot be selected",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: large-initial",
+      "passed": true
+    },
+    {
+      "name": "large: live resize to 800x600",
+      "passed": true
+    },
+    {
+      "name": "large: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "large: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: large-resize-800x600",
+      "passed": true
+    },
+    {
+      "name": "large: live resize to 1152x648",
+      "passed": true
+    },
+    {
+      "name": "large: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "large: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "large: live resize to 1600x900",
+      "passed": true
+    },
+    {
+      "name": "large: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "large: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: large-resize-1600x900",
+      "passed": true
+    },
+    {
+      "name": "large: live resize to 1920x1080",
+      "passed": true
+    },
+    {
+      "name": "large: resize leaves authoritative state unchanged",
+      "passed": true
+    },
+    {
+      "name": "large: map remains laid out after resize",
+      "passed": true
+    },
+    {
+      "name": "large: shortage forecast",
+      "passed": true
+    },
+    {
+      "name": "large: visible shortage warning",
+      "passed": true
+    },
+    {
+      "name": "large: supported allocation increases growth",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: end turn 1",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: end turn 2",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "large-pre: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "large-pre: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "large-pre: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: building completes",
+      "passed": true
+    },
+    {
+      "name": "large: research completes",
+      "passed": true
+    },
+    {
+      "name": "large: building applies to next snapshot",
+      "passed": true
+    },
+    {
+      "name": "large: completed targets clear",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "large-post: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "large-post: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "large-post: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "large: UI reload before completion preserves state/content",
+      "passed": true
+    },
+    {
+      "name": "large: UI reload preserves map bounds",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: continuation after UI reload matches uninterrupted result",
+      "passed": true
+    },
+    {
+      "name": "large: UI reload after completion preserves state/content",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: population advances through real End Turn control",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1374,
+      "automaticY": 291,
+      "normalX": 1374,
+      "normalY": 291,
+      "pickerScreenX": 1374.5833,
+      "pickerScreenY": 277.66666
+    },
+    {
+      "name": "large-800x600-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1374,
+      "automaticY": 270,
+      "normalX": 1374,
+      "normalY": 270,
+      "pickerScreenX": 1374.5833,
+      "pickerScreenY": 256
+    },
+    {
+      "name": "Screenshot saved: large-800x600-other-native-construction-parent",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1645,
+      "automaticY": 351,
+      "normalX": 1645,
+      "normalY": 351,
+      "pickerScreenX": 1645,
+      "pickerScreenY": 331.2
+    },
+    {
+      "name": "large-1152x648-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "large-1152x648-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1645,
+      "automaticY": 320,
+      "normalX": 1645,
+      "normalY": 320,
+      "pickerScreenX": 1645,
+      "pickerScreenY": 300
+    },
+    {
+      "name": "large-1152x648-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1989,
+      "automaticY": 427,
+      "normalX": 1989,
+      "normalY": 427,
+      "pickerScreenX": 1989.1666,
+      "pickerScreenY": 399.3333
+    },
+    {
+      "name": "large-1600x900-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "large-1600x900-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 1989,
+      "automaticY": 384,
+      "normalX": 1989,
+      "normalY": 384,
+      "pickerScreenX": 1989.1666,
+      "pickerScreenY": 356
+    },
+    {
+      "name": "large-1600x900-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-home-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-home-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-home-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-home-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-home-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-home-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 2235,
+      "automaticY": 482,
+      "normalX": 2235,
+      "normalY": 482,
+      "pickerScreenX": 2235,
+      "pickerScreenY": 448
+    },
+    {
+      "name": "large-1920x1080-home-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-other-native: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-other-native: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-other-native: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-other-native: home selected",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-other-native: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "large-1920x1080-other-native: popup geometry",
+      "passed": true,
+      "requestedEmbedded": false,
+      "actualEmbedded": false,
+      "forceNative": false,
+      "automaticX": 2235,
+      "automaticY": 430,
+      "normalX": 2235,
+      "normalY": 430,
+      "pickerScreenX": 2235,
+      "pickerScreenY": 396
+    },
+    {
+      "name": "large-1920x1080-other-native: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-embedded: FP-001 popup opens",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-embedded: focus-scroll path exercised",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-embedded: picker is inside the visible scroll region",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-embedded: home selected",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-embedded: FP-002 position equals normal reopening",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-embedded: popup geometry",
+      "passed": true,
+      "requestedEmbedded": true,
+      "actualEmbedded": true,
+      "forceNative": false,
+      "automaticX": 1475,
+      "automaticY": 274,
+      "normalX": 1475,
+      "normalY": 274,
+      "pickerScreenX": 1475,
+      "pickerScreenY": 240
+    },
+    {
+      "name": "large-800x600-other-embedded: supplementary visual popup is actually embedded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: large-800x600-other-embedded-construction-parent",
+      "passed": true
+    },
+    {
+      "name": "large-800x600-other-embedded: selected project reaches command path",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: research follow-up opens picker",
+      "passed": true
+    }
+  ],
+  "retainedQaSavePaths": [
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-small-legacy-loop.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-small-pre.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-small-post.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-invalid.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-legacy-v1.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-medium-legacy-loop.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-medium-pre.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-medium-post.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-large-legacy-loop.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-large-pre.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261027-081915-953-large-post.json"
+  ]
+}
