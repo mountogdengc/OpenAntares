@@ -1,6 +1,6 @@
 # Implementation decisions and costs
 
-All ledgered rulings, in recorded order. Original prose retained for review; no new gameplay authority inferred.
+Every ledgered ruling, in recorded order, including final reviewer dispositions.
 
 - Pre-flight refinement, producers4/11 → consumers9/10/14/15: Ruling: FleetTravel.Duration and OfficerBonuses.SurveyResearch omitted the owner despite per-empire local IDs — add explicit EmpireId to those signatures and all consumers, never find the first global matching local ID — spec ownership/privacy is binding — cost if wrong: one extra owner argument; prevents cross-empire bonus/route mistakes.
 
@@ -61,3 +61,13 @@ All ledgered rulings, in recorded order. Original prose retained for review; no 
 - Task16: Ruling: default activation changes current-form reference campaigns and current-version assertions in older QA protocols, but never their embedded/frozen older-rule cases — update only live-default8 references and available technology count7 after actual rollout failures — cost if wrong: a live protocol could miss a default regression, separately covered by exact actual New Game canonical equality and untouched-choice checks; genuine rules1..7 futures remain immutable.
 
 - Task16: Ruling: scale's no-unbounded-list requirement needs UI paging beyond the named activation files — bound visible ship rows100, request rows32 and report events100 with Previous/Next navigation, retain every campaign record and normal authority — semantic151-row RED then full native GREEN, no new gameplay quota/history truncation — cost if wrong: users navigate pages for larger rosters;100-ship acceptance still fits one page and all records remain reachable.
+
+- Final: Ruling: Reviewer set aside future combat/damage/morale/retreat, patrol/escort, refits/design policies and automatic replenishment — these are explicitly deferred owner-approved scope; M8 retains its bounded orders and future combat note — cost if wrong: those mechanics require a separate design/implementation before play.
+
+- Final: Ruling: Reviewer set aside new AI commissioning/request strategy and network transport — modest existing-controller AI and local command parity are the approved slice, not a new strategic AI/network layer — cost if wrong: advanced automation/multiplayer delivery remains future work.
+
+- Final: Ruling: Reviewer set aside physical input, human comprehension/comfortable800x600 reading, performance targets, balance and broader platform/export/release assurance — report exactly local controls/signals/canonical scope, never infer those assurances — cost if wrong: manual/platform/release validation remains required.
+
+- Final: Ruling: neutral safety preparation is an authorized existing controller, not a manual detachment request — add one internal transaction entry accepting the coordinator's already-validated finite immutable plan, bypass only manual fleet-binding guard while retaining ownership/turn/scout/plan membership and all ordinary movement/consent checks; public manual path unchanged — cost if wrong: one private capability/context flag whose caller must continue validating the plan;4 Ready/direct/manual regressions cover the boundary.
+
+- Final: Ruling: do not automatically dismantle an arrived fleet or move its officer to satisfy a changed rally — reject material rally changes/amendments with retained wrong-fleet members until the player explicitly releases that fleet through ordinary disband (and existing officer/committed-arrival requirements), retain bindings and require legal resume — cost if wrong: an extra visible release/arrival step; prevents silent stranding, officer displacement or unauthorized unrelated-ship movement.

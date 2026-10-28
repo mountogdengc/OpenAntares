@@ -1,47 +1,51 @@
-# Fleet command and named admirals — M8 validation
+# Fleet command and named admirals — final M8 validation
 
-2026-10-28, Windows/.NET8/Godot4.7.2 .NET Compatibility/NVIDIA3090. Source `d60c7fe4da8d5480cbdded715f2b2e109e203238`. Owner approved complete design ADR-018 and separate17-task plan. Native inline tasks1..16 formally complete; combined Task17 gates pass, one fresh whole-branch review remains pending. M8-I and FLT functional acceptance remain In Progress until disposition. No merge/push/release/cleanup authority.
+2026-10-28. Validated implementation source `36e6ec4144269f59d4056fc5ac834af03d76236d`, isolated `codex/fleet-command`. Approved ADR-018 design and17-task plan implemented; single fresh full-branch review and one regression-first correction pass complete. No open Critical/Important finding. M8-I is **Implemented, Unverified** for exact acceptance because three disclosed Minor contract gaps remain. No main merge/push/release/cleanup.
 
-## Result and provenance
+## Delivered behavior and verification
 
-Rules8/writer9/37 explicit accepted schema/rules pairs active for new games, preserving Harl/One Peldra/Standard plague/Standard ameba. Older loaded campaigns retain their original rules/content; no(8,8) or implicit upgrade. Full Suite1529/1529, build0 warnings/errors. Every native runner performs real opt-in metadata negative control and normal rebuild0 warnings/errors, excluding all8 scenarios and both actual helpers. Both engine and process logs audited for errors/unhandled exceptions; zero on final successful runs. Native protocols dispatch actual controls/signals in process; they do not prove physical device input or player understanding.
+Central own Ships/Fleets/Requests/Reports, finite Normal/Urgent multi-yard requests, named Navigator/Surveyor/Organizer appointments,10/30XP passive unlocks/service records, editable recovery doctrine and equipment research are implemented. Wenth preserve whole-source-body identity. New campaigns rules8/writer9/37explicit schema/rules pairs retain Harl/One Peldra/Standard plague/Standard ameba; loaded rules1..7 do not upgrade. No(8,8). Future combat morale/retreat/damage remains a design note.
 
-| Fresh native scenario | Passed records | Separate provenance records | Evidence |
-| --- | ---: | ---: | --- |
-| Legacy | 493 | 0 | [legacy-01](fleet-execution/final/legacy-01/results.json) |
-| Expansion | 275 | 0 | [expansion-01](fleet-execution/final/expansion-01/results.json) |
-| Species | 1194 | 0 | [species-02](fleet-execution/final/species-02/results.json) |
-| Rival | 1158 | 0 | [rival-01](fleet-execution/final/rival-01/results.json) |
-| Colony | 670 | 0 | [colony-01](fleet-execution/final/colony-01/results.json) |
-| Crisis | 464 | 0 | [crisis-01](fleet-execution/final/crisis-01/results.json) |
-| Scout | 237 | 9 | [scout-02](fleet-execution/final/scout-02/results.json) |
-| Fleet | 1338 | 27 | [fleet-01](fleet-execution/final/fleet-01/results.json) |
+Corrected full Suite1545/1545, focused compatibility/late rollback73/73, normal Rebuild0warnings/errors and actual metadata8scenario+2helper exclusions pass. Five substantive fixes each have actual behavioral RED→GREEN: four neutral named/request Ready/direct cases, six safetyCancel cases, four partial-rally release/amendment cases, two malformed queued-token load cases, and the native priority before/after/conditional ETA/stale-confirmation case. See [verbatim review](fleet-execution/final-review-raw.md), [Root grading/disposition](fleet-execution/final-review.md), [machine summary](fleet-execution/final-summary.json). Reviewer initial technicalNo is retained; corrections are self-verified, no second independent review.
 
-Total 5829 records in the eight final results arrays; separately named provenance rows are not extra assertions. Per-run source fingerprints and exact commands are in final-summary.json. Earlier failed runs remain retained. Task17 changed only stale current-default expectations in Species/Scout QA; unaffected Legacy/Expansion source/runtime behavior is unchanged. No product rules changed during combined validation.
+| Native scenario | Passed results-array records | Separate provenance records | Source scope | Evidence |
+| --- | ---: | ---: | --- | --- |
+| Legacy | 493 | 0 | Unchanged earlier combined | [legacy-01](fleet-execution/final/legacy-01/results.json) |
+| Expansion | 275 | 0 | Unchanged earlier combined | [expansion-01](fleet-execution/final/expansion-01/results.json) |
+| Species | 1194 | 0 | Unchanged earlier combined | [species-02](fleet-execution/final/species-02/results.json) |
+| Rival | 1158 | 0 | Corrected fresh | [rival-green-01](fleet-execution/review/rival-green-01/results.json) |
+| Colony | 670 | 0 | Unchanged earlier combined | [colony-01](fleet-execution/final/colony-01/results.json) |
+| Crisis | 464 | 0 | Corrected fresh | [crisis-green-01](fleet-execution/review/crisis-green-01/results.json) |
+| Scout | 237 | 9 | Corrected fresh | [scout-green-01](fleet-execution/review/scout-green-01/results.json) |
+| Fleet | 1482 | 33 | Corrected fresh | [fleet-green-01](fleet-execution/review/fleet-green-01/results.json) |
 
-Actual generated Fleet New Game workflows at800/1920 pay two Harl settlers, legally found3 colonies, grow all3 productive and pay/assemble4 new scouts across3 yards. Pending/completed quotas use actual Main Save/Load, followed by3 future boundaries equal to independent continuations cloned from the real save. All4 species separately pay/assemble a scout, pause/resume a contribution, inspect cultural defaults and use Explore, with UI reload/futures. Untouched default setup is independently checked. No live outcome injection, reroll or artificially granted resources.
+Total 5973 results-array records in the selected8 gates; inline provenance is explicitly counted in machine summary and is not an extra assertion. Separate provenance rows likewise are not assertions. Initial pre-review combined8gates/1529Suite/5829records remain retained. Corrected Fleet1482checks+33provenance, Scout237, Crisis464 and Rival1158 are fresh after the simulation fix; unchanged Legacy493/Expansion275/Species1194/Colony670 remain earlier combined evidence. Exact per-run byte fingerprints and commands prevent claiming a same-head rerun of all8. Engine/process logs audited with no unexpected errors/unhandled exceptions in successful gates. Every runner verifies actual opt-in metadata rejection then normal rebuild0warnings/errors/8+2 absent; separate final normal check also passes.
 
-Rare recovery thresholds/ranks, labelled pre-session Warning/officer/Wenth founding, retained unsafe-rally resume,30col/100ship/20fleet scale and151ship/70ordinary-cancelled-request pagination remain explicitly labelled. They are functional supplements, not generated economy, earned luck, balance or performance evidence. Scale mixes actual manual/governor controls and retains living request authority across3 reload futures. UI rows are bounded100 ships/32 requests/100 events per page; campaign history is retained. Career bounds32 highlights/10 completed-turn details/64 lifetime officers remain strict. Representative PNGs inspected at both sizes; the existing1920 canvas scales down at800, so comfortable reading is not claimed.
+Actual Fleet New Game workflows at800/1920 pay two Harl settlers, legally found3 colonies, grow3 productive shipyards and pay/assemble4 scouts across all3. Pending/completed requests use real Main Save/Load and compare3 future boundaries with an independent continuation cloned from the real save. All4 species separately complete paid construction/contribution pause-resume/culture/Explore and UI reload/futures. Untouched default setup independently checked. No live outcomes/resources injected or rerolled.
 
-## Exact acceptance evidence map
+Labelled pre-session rare recovery/rank/Warning/officer/Wenth-founding cases,30col/100ship/20fleet mixed manual/governor scale,151ship/70ordinary-cancelled-request paging and partial-rally/safety cancellation supplements remain separate from generated economy/luck. Central visible pages100ships/32requests/100events and careers32highlights/10completed-turn details/64lifetime officers are verified. Assembly idle candidates remain the disclosed unpaged exception. Corrected native controls actually cancel both safety choices, reject a partial-rally retarget until explicit ordinary disband retains its hull, then resume and fulfill the quota with original+paid new hulls. Priority edits show before/after work/reserve/population/queues/conditional ETA and reject a stale same-turn confirmation atomically. Representative PNGs inspected atbothsizes; functional scroll geometry does not establish comfortable reading/physical input.
 
-| Criterion | Evidence checked | Status before review |
+## Exact acceptance disposition
+
+| Criterion | Evidence | Status |
 | --- | --- | --- |
-| FLT-AC-001 central command/direct authority | FleetCommandTests, FleetQueryTests; native central entry/filters/sort/stale atomic confirmations/inspection | Implemented, Unverified |
-| FLT-AC-002 persistent fleets/cohorts/founding | FleetStateTests/TravelTests/CommandTests/ResolutionTests/RecoveryTests/SaveTests; native explicit separate Wenth founding | Implemented, Unverified |
-| FLT-AC-003 finite requests/safety/priority | FleetPlanningTests/RequestTests/EconomyTests/ReadyTests/ResolutionTests/SaveTests; actual3yard4scout quota and retained safety resume | Implemented, Unverified |
-| FLT-AC-004 cargo/manual/governor authority | FleetOfficerTests/PlanningTests/RequestTests/EconomyTests; cargo consent, paused yards, active token/reserve/manual takeover and mixed scale controls | Implemented, Unverified |
-| FLT-AC-005 standing orders/knowledge/consent | FleetQueryTests/ReadyTests/ResolutionTests/ProgressionTests; all-species Explore, material officer/hull consequences and exact acknowledgement | Implemented, Unverified |
-| FLT-AC-006 named availability/identity | FleetContentTests/StateTests/OfficerTests/RecoveryTests/SaveTests; commissions, co-located transfers, Wenth source-body founding/history | Implemented, Unverified |
-| FLT-AC-007 XP/bonuses/dedup | FleetTravelTests/EconomyTests/ProgressionTests/AiTests; pre-event ranks, once-only surveys/study/original hull XP, no reuse/cancel farming | Implemented, Unverified |
-| FLT-AC-008 culture/loss/research | FleetContentTests/OfficerTests/RecoveryTests/SaveTests; basic/researched snapshot thresholds/deadlines, no-colony Missing, Last watch/Wenth no draw, displayed risk | Implemented, Unverified |
-| FLT-AC-009 atomic readiness/resolution | FleetCommandTests/OfficerTests/RequestTests/ReadyTests/ResolutionTests/ProgressionTests/RecoveryTests;12 late fault phases,2humans/direct parity, exact original rollback | Implemented, Unverified |
-| FLT-AC-010 saves/legacy/RNG | FleetCompatibilityTests/GenerationTests/SaveTests/AiTests;37pairs,560 genuine rules7 future boundaries, original rules1..6 futures, strict bad-load/write preservation, separate recovery PCG | Implemented, Unverified |
-| FLT-AC-011 combined integration/scale | Suite1529; eight final native scenarios; generated and labelled provenance above; bounded UI/careers, source/hash/log/metadata audits | Implemented, Unverified |
-| FLT-AC-012 full gameplay approval | ADR-018, full design/starter-default approval | Verified (design only) |
+| FLT-AC-001 central command | Command/query tests and native all-own/status/sort/bulk/stale controls; role filter absent M3 | Implemented, Unverified |
+| FLT-AC-002 fleets/cohorts/founding | State/travel/commands/resolution/recovery/save tests; native separate founding and retained-rally workflow | Verified |
+| FLT-AC-003 finite requests | Planning/request/economy/ready/resolution/save tests; paid3yard4scout quota, priority preview, bothCancel/safety/explicitrelease/resume | Verified |
+| FLT-AC-004 cargo/manual/governors | Officer/planning/request/economy tests; cargo consent, paid active work/tokens/reserve, manual override, mixed scale | Verified |
+| FLT-AC-005 standing orders/knowledge | Query/ready/resolution/progression; corrected neutralReady/direct; missing lost-Return destination Attention M1 | Implemented, Unverified |
+| FLT-AC-006 officers/identity | Content/state/officer/recovery/save; fixed commissions/physicaltransfer/Wenth source identity/founding/history | Verified |
+| FLT-AC-007 XP/bonuses | Travel/economy/progression/AI; snapshot ranks, original once-only survey/study/hull awards, no farming | Verified |
+| FLT-AC-008 loss/culture/research | Content/officer/recovery/save; thresholds/snapshot equipment/clocks/Missing/Lastwatch/Wenth no-draw; native consequences | Verified |
+| FLT-AC-009 transactions | Command/officer/request/Ready/12phase faults/progression/recovery; exact enclosing original and direct/finalReady parity | Verified |
+| FLT-AC-010 persistence/legacy/RNG | Strict37pairs/bad-load/write/futures; effectiveQueued binding required, unchanged560 genuine rules7 future boundaries and earlier rules1..6 | Verified |
+| FLT-AC-011 combined/scale | All8 selected native gates/1545suite; generated and labelled evidence; unpaged separate idlechooser M4 | Implemented, Unverified |
+| FLT-AC-012 full design | ADR-018 owner full gameplay/starter-default approval | Verified (design only) |
 
-## Preservation and limitations
+Verified means local automated/design scope, not the human/platform/release limits below. M8-I stays Implemented, Unverified; parent REQ-017 and17-row totals remain12Verified/3Implemented,Unverified/1InProgress/1Deferred. [All implementation rulings/costs](fleet-execution/implementation-decisions.md) include factual administrative retirement after existing colony/source-body loss, not an invented biological fate; and explicit rally release, not automatic commander displacement.
 
-Real isolated-index checkout proves2431 historical files:2430 original pre-source proof hashes plus Task1's documentation-only completion note exactly as committed ated749a9 (its appended gate followed the initial checkout proof; original note remains95a0231). Every frozen source/future/raw archive is byte-exact. A first audit correctly stopped on that note's older checksum; the corrected audit proves the already-committed update rather than changing any historical artifact. Primary main remainsc554797; four owner whole-file hashes/status and empty main index unchanged; all7 worktrees, unrelated branches, recovery/stashes/old QA retained. See final-preservation.json. No primary write or historical expectation regeneration.
+## Preservation and remaining limits
 
-Parent REQ-017/17-row totals remain12 Verified/3 Implemented, Unverified/1 In Progress/1 Deferred. Physical input/focus, comfortable reading/accessibility/comprehension, aesthetics, balance/long campaigns, other platforms, hostile-input/security/dependency audits, clean install/export and release remain unverified/deferred. Future combat morale/retreat/degraded ships remains a design note, outside M8. Next: single fresh independent implementation review and one regression-first correction pass if required; then owner disposition of isolated branch.
+Primary main remainsc554797/rules7/writer8/29pairs. Four owner files retain exact SHA256/status, empty main index,7worktrees/unrelatedbranches/stashes retained. Actual isolated-index checkout2431historicalfiles:2430original pre-source checksums plus Task1's already committeded749a9completion prose note; all frozen sources/futures/raw archives unchanged. Fresh closing recheck passes, with 346 retained initial+corrected QA save files hashed, including deliberate invalid fixtures. [Original checkout proof](fleet-execution/final-preservation.json), [closing preservation](fleet-execution/closing-preservation.json), [QA hashes](fleet-execution/closing-qa-file-hashes.json), [corrected native hashes](fleet-execution/review-evidence-hashes.json).
+
+Physical device input/focus, comfortable reading/accessibility/comprehension, aesthetics, balance/long campaigns, measured performance targets, other platforms, hostile-input/security/dependency audits, clean install/export and release remain unverified/deferred. No restore or vulnerability-audit claim from --no-restore builds. No main integration/push/release/cleanup inferred. Next action is owner disposition of the isolated branch and three disclosed Minor gaps before exact M8 closure/integration.

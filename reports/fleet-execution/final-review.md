@@ -23,3 +23,10 @@ Deferred Minor M4: assembly idle candidates remain unpaged, despite central page
 Reviewed-but-set-aside behaviors all have explicit Root rulings in the ledger: future combat/patrol/escort/refit/replenishment remains approved deferred scope; new strategicAI/network transport outside slice; physical/human/performance/balance/platform/export/release assurance unproven. Costs are future functionality/validation, not waived delivered defects. Administrative retirement after actualexisting colony/bodyloss was evaluated as a real gameplay tradeoff, not excluded from review.
 
 No main integration/push/release/cleanup authority or action. Source and ordinary verification will be finalized after affected gates; handoff is for owner disposition with3 disclosed minor gaps.
+
+
+## Final correction verification
+
+Validated implementation source36e6ec4. All five substantive findings closed by actual regression-first tests in the single pass:16/16 focused new regressions, full1545/1545, focused compatibility/rollback73/73. Corrected Fleet native1482checks+33provenance, Scout237, Crisis464 and Rival1158 all pass with0diagnostics; normal builds0warnings/errors and actual8+2 exclusions. Unaffected earlier Legacy/Expansion/Species/Colony combined gates retained explicitly, not represented as post-fix reruns. Corrected PNGs inspected at800/1920. Final Suite/Build/Normal and closing preservation/QA hashes pass. No openCritical/Important, no second reviewer or automatic re-review.
+
+Root self-check covers each finding and every FLT criterion in the final validation report. M1/M3/M4 remain deferred, so FLT-AC-005/001/011 and M8-I remain Implemented, Unverified for exact acceptance. Other eight functional criteria Verified for local automated scope,012design Verified. The owner can decide the bounded follow-up; no main integration/push/release/cleanup performed or authorized.
