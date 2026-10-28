@@ -44,9 +44,9 @@ public static partial class ContentLoader
         return Load(sources);
     }
 
-    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false, bool requireDevelopment = false, bool requireCrises = false, bool requireScouting = false)
+    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false, bool requireDevelopment = false, bool requireCrises = false, bool requireScouting = false, bool requireFleets = false)
     {
-        var builder = new Builder(requireSpecies || requireRivals || requireDevelopment || requireCrises || requireScouting, requireRivals || requireDevelopment || requireCrises || requireScouting, requireDevelopment || requireCrises || requireScouting, requireCrises || requireScouting, requireScouting);
+        var builder = new Builder(requireSpecies || requireRivals || requireDevelopment || requireCrises || requireScouting || requireFleets, requireRivals || requireDevelopment || requireCrises || requireScouting || requireFleets, requireDevelopment || requireCrises || requireScouting || requireFleets, requireCrises || requireScouting || requireFleets, requireScouting || requireFleets, requireFleets);
         foreach (ContentSource source in sources.OrderBy(s => s.Name, StringComparer.Ordinal))
         {
             builder.AddFile(source);
@@ -55,7 +55,7 @@ public static partial class ContentLoader
         return builder.Build();
     }
 
-    private sealed partial class Builder(bool requireSpecies, bool requireRivals, bool requireDevelopment, bool requireCrises, bool requireScouting)
+    private sealed partial class Builder(bool requireSpecies, bool requireRivals, bool requireDevelopment, bool requireCrises, bool requireScouting, bool requireFleets)
     {
         private readonly List<ContentError> _errors = new();
         private (ExpansionDefinition Value, string File)? _expansion;
@@ -94,6 +94,9 @@ public static partial class ContentLoader
                 {
                     switch (section.Name)
                     {
+                        case "fleet_command":
+                            SetOnce(ref _fleetCommand, ReadFleetCommand(section.Value, file), file, "fleet_command");
+                            break;
                         case "space_ameba":
                             SetOnce(ref _spaceAmeba, ReadAmeba(section.Value,file),file,"space_ameba");
                             break;
@@ -150,6 +153,7 @@ public static partial class ContentLoader
 
         public ContentLoadResult Build()
         {
+            CheckFleets();
             CheckScouting();
             CheckCrises();
             CheckDevelopment();
@@ -194,6 +198,7 @@ public static partial class ContentLoader
                 _buildings.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 _technologies.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal))
             {
+                FleetCommand = _fleetCommand?.Value,
                 SpaceAmeba = _spaceAmeba?.Value,
                 Plagues = _plagues.ToImmutableSortedDictionary(p => p.Key,p => p.Value.Value,StringComparer.Ordinal),
                 Vessels = _vessels.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),

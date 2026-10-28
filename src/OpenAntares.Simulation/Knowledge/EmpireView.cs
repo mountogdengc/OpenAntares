@@ -40,6 +40,7 @@ public sealed record OwnedVesselView(VesselId Id, EmpireId EmpireId, string Role
 }
 public sealed record OwnResearchView(EmpireId Id, long Reserve, string? TargetId, ImmutableArray<string> KnownTechnologyIds, EmpireEconomy Economy)
 {
+    public int RulesVersion { get; init; } = Rules.LegacyVersion;
     public int Turn { get; init; }
     public bool Ready { get; init; }
     public ImmutableDictionary<string, string> ColonyNames { get; init; } = ImmutableDictionary<string, string>.Empty;

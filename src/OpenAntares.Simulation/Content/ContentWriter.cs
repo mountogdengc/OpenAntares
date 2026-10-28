@@ -9,11 +9,16 @@ namespace OpenAntares.Simulation.Content;
 /// </summary>
 public static partial class ContentWriter
 {
-    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null, !content.GovernorTemplates.IsEmpty, !content.Plagues.IsEmpty, content.SpaceAmeba is not null);
-    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), Rules.HasRivals(rulesVersion), Rules.HasDevelopment(rulesVersion), Rules.HasCrises(rulesVersion), Rules.HasScouting(rulesVersion));
-    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals, bool includeDevelopment, bool includeCrises, bool includeScouting)
+    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null, !content.GovernorTemplates.IsEmpty, !content.Plagues.IsEmpty, content.SpaceAmeba is not null, content.FleetCommand is not null);
+    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), Rules.HasRivals(rulesVersion), Rules.HasDevelopment(rulesVersion), Rules.HasCrises(rulesVersion), Rules.HasScouting(rulesVersion), Rules.HasFleets(rulesVersion));
+    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals, bool includeDevelopment, bool includeCrises, bool includeScouting, bool includeFleets)
     {
         writer.WriteStartObject();
+        if (includeFleets)
+        {
+            writer.WritePropertyName("fleet_command");
+            JsonSerializer.Serialize(writer, content.FleetCommand, ContentLoader.FleetJsonOptions);
+        }
         if(includeScouting) WriteScouting(writer,content.SpaceAmeba!);
         if(includeCrises) WriteCrises(writer,content);
 
@@ -124,6 +129,7 @@ public static partial class ContentWriter
         writer.WriteStartArray("technologies");
         foreach (TechnologyDefinition technology in content.Technologies.Values)
         {
+            if (!includeFleets && content.FleetCommand?.RecoveryTechnologyId == technology.Id) continue;
             writer.WriteStartObject();
             writer.WriteString("id", technology.Id);
             writer.WriteString("name", technology.Name);
@@ -153,7 +159,7 @@ public static partial class ContentWriter
             }
             writer.WriteEndArray();
         }
-        if (includeSpecies) WriteSpecies(writer,content);
+        if (includeSpecies) WriteSpecies(writer,content,includeFleets);
         if (includeRivals) WriteRivals(writer,content.RivalAi!);
         if (includeDevelopment) WriteDevelopment(writer,content);
         writer.WriteEndObject();

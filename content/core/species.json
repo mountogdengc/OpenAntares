@@ -29,7 +29,9 @@
       "allowed_vessel_ids": [
         "peldra_settler",
         "scout"
-      ]
+      ],
+      "command_culture_id": "estates",
+      "command_embodiment": "mortal"
     },
     {
       "id": "harl",
@@ -60,7 +62,9 @@
       "allowed_vessel_ids": [
         "harl_settler",
         "scout"
-      ]
+      ],
+      "command_culture_id": "schools",
+      "command_embodiment": "mortal"
     },
     {
       "id": "sulan",
@@ -90,7 +94,9 @@
         "harbor_settler",
         "scout",
         "settler"
-      ]
+      ],
+      "command_culture_id": "harbors",
+      "command_embodiment": "mortal"
     },
     {
       "id": "wenth",
@@ -121,7 +127,9 @@
       "allowed_vessel_ids": [
         "daughter_seed",
         "scout"
-      ]
+      ],
+      "command_culture_id": "kinship",
+      "command_embodiment": "colony_body"
     }
   ]
 }

@@ -161,7 +161,9 @@ public static class SaveGame
                     errors.Add(new(SaveLocation,null,"content.plagues","Old campaigns cannot contain crisis content."));
                 if (!Rules.HasScouting((int)rulesVersion) && document.RootElement.GetProperty("content").TryGetProperty("space_ameba", out _))
                     errors.Add(new(SaveLocation,null,"content.space_ameba","Old campaigns cannot contain scout hazard content."));
-                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion), requireDevelopment: Rules.HasDevelopment((int)rulesVersion), requireCrises: Rules.HasCrises((int)rulesVersion),requireScouting:Rules.HasScouting((int)rulesVersion));
+                if (!Rules.HasFleets((int)rulesVersion) && document.RootElement.GetProperty("content").TryGetProperty("fleet_command", out _))
+                    errors.Add(new(SaveLocation, null, "content.fleet_command", "Old campaigns cannot contain fleet command content."));
+                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion), requireDevelopment: Rules.HasDevelopment((int)rulesVersion), requireCrises: Rules.HasCrises((int)rulesVersion),requireScouting:Rules.HasScouting((int)rulesVersion),requireFleets:Rules.HasFleets((int)rulesVersion));
                 errors.AddRange(loaded.Errors);
                 content = loaded.Content;
             }

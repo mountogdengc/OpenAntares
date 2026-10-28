@@ -17,6 +17,7 @@ public sealed record ContentSet(
     ImmutableSortedDictionary<string, BuildingDefinition> Buildings,
     ImmutableSortedDictionary<string, TechnologyDefinition> Technologies)
 {
+    public Fleets.FleetCommandDefinition? FleetCommand { get; init; }
     public AmebaDefinition? SpaceAmeba { get; init; }
     public ImmutableSortedDictionary<string, PlagueDefinition> Plagues { get; init; } = ImmutableSortedDictionary<string, PlagueDefinition>.Empty.WithComparers(System.StringComparer.Ordinal);
     public ImmutableSortedDictionary<string, VesselDefinition> Vessels { get; init; } = ImmutableSortedDictionary<string, VesselDefinition>.Empty.WithComparers(System.StringComparer.Ordinal);

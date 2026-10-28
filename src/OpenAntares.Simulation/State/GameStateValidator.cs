@@ -140,11 +140,11 @@ public static class GameStateValidator
                 errors.Add($"{empire.Id}: research reserve {empire.ResearchReserve} is negative.");
             }
 
-            CheckContentIdSet($"{empire.Id}: known technologies", empire.KnownTechnologyIds, content.Technologies.ContainsKey, errors);
+            CheckContentIdSet($"{empire.Id}: known technologies", empire.KnownTechnologyIds, id => Rules.TechnologyAvailable(content, state.RulesVersion, id), errors);
 
             if (empire.ResearchTargetId is { } target)
             {
-                if (!content.Technologies.ContainsKey(target))
+                if (!Rules.TechnologyAvailable(content, state.RulesVersion, target))
                 {
                     errors.Add($"{empire.Id}: research target '{target}' is not defined.");
                 }

@@ -28,8 +28,12 @@ Ruling: The skill creates a self-ignored workspace, so plain planned git-add can
 
 ## Tasks
 
-Task1: pending; no new future capture or product edit has run.
-Task2..17: pending.
+Task 1: complete (commits7617b30..95a0231, final task-done gate: dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --nologo --disable-build-servers →1399/1399 pass; task-01-final-suite.log/json).
+Task2: in progress; BASE ed749a9bca8a2ec9a2a5575bbe81ba5aa8029c22; actual task-2-brief.md read.
+Task3..17: pending.
+
+Task2: semantic RED4/4 observed: missing fleet content and incorrect seed vectors. Embedded12 original profiles,4 declared cultures/embodiments, fixed approved bounds/thresholds/bonuses/XP/recovery and Command Recovery2400 after Industrial Coordination. Focused final4/4 passes, including malformed/missing references, alternative chorus/colony-body identity and old-rule unavailable research even with prerequisites; exact independent vectors match. First full suite1400/1403 passes; three old QA assumptions surfaced (prototype projection retained a new field, M5 core count included inactive research, M7 protocol chose inactive research).
+Task2: Ruling: Older core-projection/QA protocols assumed every newly loaded definition belonged to their old rules — explicitly clear FleetCommand in the prototype-only test projection, count the six M5-available technologies, and filter M7 QA research orders through actual rules availability; preserve every old frozen source/future/hash — cost if wrong: QA could omit a valid research choice, independently covered by the new positive rules8/negative rules7 research test and all genuine old futures.
 
 Task1: RED observed: GenuineRules7SourcesAndFuturesAreFrozen fails on absent manifest; no product code/content change. Capture succeeded on source7617b30:48 normally generated +92 actual UI rules7 sources,140 cases/560 genuine future boundaries. All234 UI source files copied byte-exact, including earlier rules and intentionally invalid QA files; all required state classes covered. Replay including reload passes1/1; full Suite1399/1399 passes.
 Task1: Ruling: Older native gates include rules1..6 and intentionally invalid files — preserve all234 source bytes/catalogs, capture four futures only for the92 valid rules7 UI sources plus48 generated cases — spec requires genuine rules7 futures without upgrading old campaigns — cost if wrong: redundant archived source bytes, with all original older compatibility gates retained.

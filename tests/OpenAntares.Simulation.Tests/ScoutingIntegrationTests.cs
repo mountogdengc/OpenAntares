@@ -115,7 +115,7 @@ public sealed class ScoutingIntegrationTests
         var owner=session.State.Empires[0].Id;var view=session.View(owner);int turn=view.Turn;
         if(view.Research.TargetId is null)
         {
-            var next=session.Content.Technologies.Values.Where(t=>!view.Research.KnownTechnologyIds.Contains(t.Id)&&t.PrerequisiteTechnologyIds.All(view.Research.KnownTechnologyIds.Contains)).OrderBy(t=>t.Cost).ThenBy(t=>t.Id,StringComparer.Ordinal).FirstOrDefault();if(next is not null)Apply(session,new SetResearchTargetCommand(owner,turn,next.Id),commands);
+            var next=session.Content.Technologies.Values.Where(t=>Rules.TechnologyAvailable(session.Content,session.State.RulesVersion,t.Id)&&!view.Research.KnownTechnologyIds.Contains(t.Id)&&t.PrerequisiteTechnologyIds.All(view.Research.KnownTechnologyIds.Contains)).OrderBy(t=>t.Cost).ThenBy(t=>t.Id,StringComparer.Ordinal).FirstOrDefault();if(next is not null)Apply(session,new SetResearchTargetCommand(owner,turn,next.Id),commands);
         }
         var crisis=session.View(owner).Crisis;
         if(crisis?.Episode is not null)foreach(var colony in session.View(owner).Colonies.Where(col=>col.Development?.Template?.Id!="research"))Apply(session,new AssignGovernorTemplateCommand(owner,turn,ImmutableArray.Create(colony.Id),"research",true,true),commands);

@@ -125,7 +125,7 @@ public static partial class CommandProcessor
         string? technologyId = command.TechnologyId;
         if (technologyId is not null)
         {
-            if (!content.Technologies.TryGetValue(technologyId, out TechnologyDefinition? technology))
+            if (!Rules.TechnologyAvailable(content, state.RulesVersion, technologyId) || !content.Technologies.TryGetValue(technologyId, out TechnologyDefinition? technology))
             {
                 return CommandOutcome.Reject(state, RejectionCodes.UnknownTechnology, $"Technology '{technologyId}' is not defined.");
             }

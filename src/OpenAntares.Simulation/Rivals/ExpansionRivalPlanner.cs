@@ -17,7 +17,7 @@ public static class ExpansionRivalPlanner
             count++;
             return apply(command);
         }
-        bool LegalResearch(string id) => initial.Content.Technologies.TryGetValue(id, out var definition)
+        bool LegalResearch(string id) => Rules.TechnologyAvailable(initial.Content, initial.View.RulesVersion, id) && initial.Content.Technologies.TryGetValue(id, out var definition)
             && !initial.View.Research.KnownTechnologyIds.Contains(id)
             && definition.PrerequisiteTechnologyIds.All(initial.View.Research.KnownTechnologyIds.Contains);
         string? research = initial.View.Research.TargetId is { } selected && LegalResearch(selected) ? selected :

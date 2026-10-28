@@ -29,7 +29,21 @@ public static partial class ContentLoader
                 reader.RequiredLong("support_per_population", 1, long.MaxValue), reader.RequiredLong("support_per_growth_point", 1, long.MaxValue),
                 reader.RequiredInt("production_basis_points", 1, int.MaxValue), reader.RequiredInt("research_basis_points", 1, int.MaxValue),
                 reader.RequiredInt("base_growth", 0, int.MaxValue), reader.RequiredInt("max_surplus_growth", 0, int.MaxValue),
-                reader.RequiredStringArray("natural_environment_ids"), reader.RequiredStringArray("allowed_vessel_ids"), reader.RequiredBool("allows_sealed_habitats"));
+                reader.RequiredStringArray("natural_environment_ids"), reader.RequiredStringArray("allowed_vessel_ids"), reader.RequiredBool("allows_sealed_habitats"))
+            {
+                CommandEmbodiment = ReadCommandEmbodiment(reader),
+                CommandCultureId = reader.HasField("command_culture_id") ? reader.RequiredString("command_culture_id") : null
+            };
+        }
+
+        private static Fleets.CommandEmbodiment? ReadCommandEmbodiment(EntryReader reader)
+        {
+            if (!reader.HasField("command_embodiment")) return null;
+            string value = reader.RequiredString("command_embodiment");
+            if (value == "mortal") return Fleets.CommandEmbodiment.Mortal;
+            if (value == "colony_body") return Fleets.CommandEmbodiment.ColonyBody;
+            reader.Error("command_embodiment", "Expected mortal or colony_body.");
+            return null;
         }
         private static ImmutableSortedDictionary<string, int> ReadEnvironmentWeights(EntryReader reader)
         {
