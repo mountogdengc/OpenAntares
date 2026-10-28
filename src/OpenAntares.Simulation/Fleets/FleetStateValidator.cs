@@ -22,16 +22,18 @@ public static class FleetStateValidator
             if (empire.Fleets is not { } f) { Error("state is missing."); continue; }
             if (f.Fleets is null || f.Requests is null || f.Officers is null || f.CandidateProfiles is null || f.ProfileCommissions is null || f.SurveyCredits is null || f.StudyCredits is null || f.HullCredits is null || f.PendingEvents is null || f.RecentEvents is null || f.Fleets.Any(x => x is null) || f.Requests.Any(x => x is null) || f.Officers.Any(x => x is null)) { Error("collections cannot be null."); continue; }
             if (f.NextFleetId < 1 || f.NextRequestId < 1 || f.NextOfficerId < 1 || f.NextEventId < 1 || f.NextFleetId <= f.Fleets.Select(x => x.Id.Value).DefaultIfEmpty().Max() || f.NextRequestId <= f.Requests.Select(x => x.Id.Value).DefaultIfEmpty().Max() || f.NextOfficerId <= f.Officers.Select(x => x.Id.Value).DefaultIfEmpty().Max()) Error("local counters are stale or invalid.");
-            if (f.Fleets.Select(x => x.Id).Distinct().Count() != f.Fleets.Count || f.Requests.Select(x => x.Id).Distinct().Count() != f.Requests.Count || f.Officers.Select(x => x.Id).Distinct().Count() != f.Officers.Count) Error("local identifiers are duplicated.");
+            if (f.Fleets.Select(x => x.Id).Distinct().Count() != f.Fleets.Count || f.Requests.Select(x => x.Id).Distinct().Count() != f.Requests.Count || f.Officers.Select(x => x.Id).Distinct().Count() != f.Officers.Count) { Error("local identifiers are duplicated."); continue; }
             var random = FleetInitializer.RecoveryRandom(seed, empire.Id);
             if (f.RecoveryAlgorithmVersion != 1 || f.RecoveryRandom is null || f.RecoveryRandom.Increment != random.Increment || f.RecoveryRollCount < 0 || f.RecoveryRollCount == 0 && f.RecoveryRandom.State != random.State) Error("recovery stream/version/count is invalid.");
             if (f.LifetimeCommissions != f.Officers.Count || f.LifetimeCommissions is < 1 || f.LifetimeCommissions > d.LifetimeCommissionLimit || f.Officers.Count(o => FleetQueries.IsActive(o.Status)) > d.ActiveOfficerLimit) Error("officer lifetime/active bound is invalid.");
             if (f.FutureDoctrine is { } doctrine && !Enum.IsDefined(doctrine)) Error("future doctrine is invalid.");
             if (f.Fleets.Count + f.Requests.Count(r => FleetQueries.IsActive(r.Status) && r.ReservedFleetSlot) > d.FleetLimit || f.Requests.Count(r => FleetQueries.IsActive(r.Status)) > d.RequestLimit) Error("active/reserved fleet or request limit exceeded.");
-            if (f.SurveyCredits.Any(id => state.FindStar(id) is null) || f.StudyCredits.Any(id => id < 1) || f.HullCredits.Any(id => id.Value < 1)) Error("reward credit key is invalid.");
+            if (f.SurveyCredits.Any(id => state.FindStar(id) is null||!empire.Surveys.Any(s=>s.StarId==id)) || f.StudyCredits.Any(id => id < 1||!empire.Scouting!.SuccessfulStudies.Any(s=>s.HabitatId==id)) || f.HullCredits.Any(id => id.Value < 1||id.Value>=state.NextEntityId)) Error("reward credit key is invalid.");
             if (!content.Species.TryGetValue(empire.SpeciesId ?? "", out var species)) { Error("species is missing."); continue; }
             var profiles = d.Profiles.Where(p => p.CultureId == species.CommandCultureId).ToDictionary(p => p.Id, StringComparer.Ordinal);
             if (f.ProfileCommissions.Any(p => !profiles.ContainsKey(p.Key) || p.Value < 1 || p.Value > d.LifetimeCommissionLimit) || f.ProfileCommissions.Values.Sum(v => (long)v) != f.LifetimeCommissions) Error("profile commission catalog is invalid.");
+            if(f.ProfileCommissions.Any(p=>f.Officers.Count(o=>o.ProfileId==p.Key)!=p.Value))Error("profile commission totals do not match retained careers.");
+            bool HistoricalColony(ColonyId id)=>id.Value>0&&id.Value<state.NextEntityId&&(state.FindColony(id) is {} colony?colony.EmpireId==empire.Id:!state.Stars.Any(s=>s.Id.Value==id.Value)&&!state.Planets.Any(p=>p.Id.Value==id.Value)&&!state.Empires.Any(e=>e.Id.Value==id.Value)&&!state.Vessels.Any(v=>v.Id.Value==id.Value)&&!state.Empires.Where(e=>e.Id!=empire.Id).Any(e=>e.Crisis!.LostColonyLocations.Any(l=>l.Colony==id)));
             if (f.CandidateProfiles.Distinct(StringComparer.Ordinal).Count() != f.CandidateProfiles.Count || f.CandidateProfiles.Any(id => id is null || !profiles.ContainsKey(id)) || species.CommandEmbodiment == CommandEmbodiment.ColonyBody && f.CandidateProfiles.Count != 0) Error("candidate catalog is invalid.");
             var memberIds = new HashSet<VesselId>();
             foreach (var fleet in f.Fleets)
@@ -49,6 +51,11 @@ public static class FleetStateValidator
                 if (first.Transit is { } transit)
                 {
                     if (fleet.Cohort is not { } cohort || cohort.Origin != transit.Origin || cohort.Destination != transit.Destination || cohort.TotalTurns != transit.TotalTurns || cohort.EffectiveSpeed < 1 || cohort.LaunchTurn < 0 || cohort.LaunchTurn > state.Turn) Error("committed cohort provenance is invalid.");
+                    else if(state.FindStar(cohort.Origin) is {} origin&&state.FindStar(cohort.Destination) is {} destination)
+                    {
+                        try {if(Movement.TravelCalculator.Duration(origin.X,origin.Y,destination.X,destination.Y,cohort.EffectiveSpeed)!=cohort.TotalTurns||(long)state.Turn-cohort.LaunchTurn!=(long)transit.TotalTurns-transit.RemainingTurns)Error("committed cohort duration/speed/launch timing is inconsistent.");}
+                        catch(Exception error)when(error is OverflowException or ArgumentOutOfRangeException){Error("committed cohort exceeds route limits.");}
+                    }
                 }
                 else if (fleet.Cohort is not null) Error("stationary fleet has committed transit provenance.");
                 if (fleet.Officer is { } officer && !f.Officers.Any(o => o.Id == officer && o.Status == OfficerStatus.Commanding && o.Flagship == fleet.Flagship)) Error("commander assignment does not match the flagship.");
@@ -56,12 +63,12 @@ public static class FleetStateValidator
             foreach (var vessel in state.Vessels.Where(v => v.EmpireId == empire.Id))
             {
                 if (vessel.Fleet is { } fleet && !f.Fleets.Any(x => x.Id == fleet && x.Members.Contains(vessel.Id))) Error("vessel has an orphan fleet reference.");
-                if (vessel.BuildOrigin is { } origin && (origin.Request.Value < 1 || origin.Slot < 1 || origin.QueueToken < 1 || origin.Colony.Value < 1 || !f.Requests.Any(r => r.Id == origin.Request))) Error("hull construction provenance is invalid.");
+                if (vessel.BuildOrigin is { } origin && (origin.Request.Value < 1 || origin.Slot < 1 || origin.QueueToken < 1 || !HistoricalColony(origin.Colony) || !f.Requests.Any(r => r.Id == origin.Request&&origin.Slot<r.NextSlotOrdinal))) Error("hull construction provenance is invalid.");
             }
             var participating = new HashSet<ColonyId>(); var rallies = new HashSet<FleetId>(); var reservedShips = new HashSet<VesselId>(); var queueBindings = new HashSet<(ColonyId, int)>();
             foreach (var request in f.Requests)
             {
-                if (request.Id.Value < 1 || request.Revision < 1 || !Text(request.Name, 80) || !Enum.IsDefined(request.Priority) || !Enum.IsDefined(request.Status) || state.FindStar(request.Rally) is null || request.Colonies is null || request.PausedContributions is null || request.Slots is null || request.Colonies.Count < (request.Status == RequestStatus.SafetyPaused ? 0 : 1) || request.Colonies.Count > d.ParticipatingColonyLimit || request.Colonies.Distinct().Count() != request.Colonies.Count || request.Slots.Count < 1 || request.Slots.Count > d.MemberLimit || request.Slots.Any(s => s is null) || request.Slots.Select(s => s.Ordinal).Distinct().Count() != request.Slots.Count) { Error("request shape/priority/quota is invalid."); continue; }
+                if (request.Id.Value < 1 || request.Revision < 1 || !Text(request.Name, 80) || !Enum.IsDefined(request.Priority) || !Enum.IsDefined(request.Status) || state.FindStar(request.Rally) is null || request.Colonies is null || request.PausedContributions is null || request.Slots is null || request.Colonies.Count < (request.Status is RequestStatus.SafetyPaused or RequestStatus.Cancelled ? 0 : 1) || request.Colonies.Count > d.ParticipatingColonyLimit || request.Colonies.Distinct().Count() != request.Colonies.Count || request.Slots.Count < 1 || request.Slots.Count > d.MemberLimit || request.Slots.Any(s => s is null) || request.Slots.Select(s => s.Ordinal).Distinct().Count() != request.Slots.Count) { Error("request shape/priority/quota is invalid."); continue; }
                 bool active = FleetQueries.IsActive(request.Status);
                 if(request.NextSlotOrdinal<1||request.NextSlotOrdinal<=request.Slots.Max(s=>s.Ordinal))Error("request slot counter is stale.");
                 if(request.Status!=RequestStatus.Complete&&request.CompletedTurn is not null)Error("unfinished request has a completion date.");
@@ -107,7 +114,7 @@ public static class FleetStateValidator
                 bool live = FleetQueries.IsActive(officer.Status);
                 if (officer.Embodiment == CommandEmbodiment.ColonyBody)
                 {
-                    if (officer.SourceBody is not { } source || live && state.FindColony(source)?.EmpireId != empire.Id || live && !bodies.Add(source) || officer.Status is OfficerStatus.Dead or OfficerStatus.Missing) Error("colony-body appointment/source identity is invalid.");
+                    if (officer.SourceBody is not { } source || !HistoricalColony(source) || live && state.FindColony(source)?.EmpireId != empire.Id || live && !bodies.Add(source) || officer.Status is OfficerStatus.Dead or OfficerStatus.Missing) Error("colony-body appointment/source identity is invalid.");
                 }
                 else if (officer.SourceBody is not null) Error("mortal officer has a colony-body source.");
                 if (officer.Status is OfficerStatus.Posted or OfficerStatus.Commissioning or OfficerStatus.Coordinating)
@@ -132,10 +139,19 @@ public static class FleetStateValidator
                 else if (officer.AvailableAtTurn is not null) Error("officer has a stale availability deadline.");
                 if (officer.Status == OfficerStatus.Recovering && (officer.RecoveryColony is not { } recovery || state.FindColony(recovery)?.EmpireId != empire.Id)) Error("recovery destination is unavailable.");
                 if (officer.Status != OfficerStatus.Recovering && officer.RecoveryColony is not null) Error("officer has a stale recovery destination.");
+                if(officer.RecoveryStartedTurn is {} started&&(started<0||started>state.Turn))Error("recovery start is invalid.");
+                if(officer.RecoveryPercentAtLoss is {} percent&&(officer.Embodiment==CommandEmbodiment.ColonyBody?percent!=100:percent!=0&&percent!=d.MortalRecoveryPercent&&percent!=d.ResearchedRecoveryPercent))Error("snapshot recovery equipment is invalid.");
+                if(officer.Status==OfficerStatus.Recovering)
+                {
+                    if(officer.RecoveryStartedTurn is not {} start||officer.AvailableAtTurn is not {} due||officer.RecoveryPercentAtLoss is null||officer.Embodiment==CommandEmbodiment.Mortal&&(officer.RecoveryPercentAtLoss==0||(long)due-start!=d.MortalRecoveryTurns)||officer.Embodiment==CommandEmbodiment.ColonyBody&&((long)due-start<1||(long)due-start>Math.Max(d.LinkRecoveryTurns,d.LastWatchLinkTurns)||officer.RecoveryColony!=officer.SourceBody))Error("recovery clock/provenance is invalid.");
+                }
+                if(officer.Status==OfficerStatus.Missing&&(officer.RecoveryStartedTurn is not null||officer.RecoveryPercentAtLoss is null or 0))Error("Missing officer lacks a successful recovery fact.");
+                if(officer.Status==OfficerStatus.Commissioning&&(officer.AvailableAtTurn>(long)state.Turn+d.CommissionTurns||officer.RecoveryStartedTurn is not null||officer.RecoveryPercentAtLoss is not null))Error("commissioning deadline/provenance is invalid.");
+                if(officer.Status is OfficerStatus.Dead or OfficerStatus.Retired&&!Text(officer.FinalSummary,2000))Error("final career summary is missing.");
                 if (officer.Highlights is null || officer.Details is null || officer.Career is null || officer.Highlights.Count > d.HighlightLimit || officer.Details.Count > d.DetailTurnLimit || officer.Highlights.Any(h => h.Event < 1 || h.Event >= f.NextEventId || h.Turn < 0 || h.Turn > state.Turn) || officer.Highlights.Select(h => h.Event).Distinct().Count() != officer.Highlights.Count || officer.Details.Any(t => t.Turn < 0 || t.Turn > state.Turn || t.Entries.IsDefault) || officer.Career.FirstSurveys < 0 || officer.Career.Studies < 0 || officer.Career.NewHulls < 0 || officer.Career.ShipsLost < 0 || officer.Career.FlagshipsLost < 0 || officer.Career.Recoveries < 0 || officer.Career.XpEarned < 0 || officer.Career.CompletedRequests < 0) Error("officer career/history is invalid.");
             }
             var events = f.PendingEvents.Concat(f.RecentEvents).ToArray();
-            if (events.Any(x => x.Owner != empire.Id || x.Id < 1 || x.Id >= f.NextEventId || x.Turn < 0 || x.Turn > state.Turn || !Enum.IsDefined(x.Importance)) || events.Select(x => x.Id).Distinct().Count() != events.Length) Error("events/owner/event counter are invalid.");
+            if (events.Any(x => x is null || x.Owner != empire.Id || x.Id < 1 || x.Id >= f.NextEventId || x.Turn < 0 || x.Turn > state.Turn || !Enum.IsDefined(x.Importance)||!Text(x.Kind,80)||!Text(x.Reason,2000)) || events.Where(x=>x is not null).Select(x => x.Id).Distinct().Count() != events.Length) Error("events/owner/event counter are invalid.");
         }
     }
 

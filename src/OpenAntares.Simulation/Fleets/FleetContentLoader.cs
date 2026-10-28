@@ -25,6 +25,7 @@ public static partial class ContentLoader
         {
             try
             {
+                RejectDuplicateFleetFields(element);
                 var result = element.Deserialize<FleetCommandDefinition>(FleetJsonOptions);
                 if (result is null) _errors.Add(new(file, null, "fleet_command", "Expected a command definition object."));
                 return result;
@@ -34,6 +35,13 @@ public static partial class ContentLoader
                 _errors.Add(new(file, null, "fleet_command." + (error.Path ?? "").TrimStart('$', '.'), error.Message));
                 return null;
             }
+        }
+
+        private static void RejectDuplicateFleetFields(JsonElement element)
+        {
+            if(element.ValueKind==JsonValueKind.Object)
+            {var seen=new HashSet<string>(StringComparer.Ordinal);foreach(var field in element.EnumerateObject()){if(!seen.Add(field.Name))throw new JsonException($"Duplicate fleet command field '{field.Name}'.");RejectDuplicateFleetFields(field.Value);}}
+            else if(element.ValueKind==JsonValueKind.Array)foreach(var child in element.EnumerateArray())RejectDuplicateFleetFields(child);
         }
 
         private void CheckFleets()

@@ -27,7 +27,7 @@ public sealed class FleetResolutionTests
         var context=FleetResolutionContext.Capture(g.Content,g.State);var candidate=g.State.Clone();candidate.Vessels.Remove(candidate.FindVessel(first.Id)!);
         FleetResolver.NormalizeAfterLosses(g.Content,g.State,candidate,context);var retained=Assert.Single(candidate.Empires[0].Fleets!.Fleets);Assert.Equal(new FleetId(1),retained.Id);Assert.Equal(second.Id,retained.Flagship);Assert.Equal(2,candidate.Empires[0].Fleets!.NextFleetId);
         var events=new System.Collections.Generic.List<ExpansionEvent>();var scouting=AmebaResolutionContext.Capture(g.Content,g.State);scouting.ConsumedVessels.Add(first.Id);Movement.MovementResolver.Apply(g.Content,g.State,candidate,events,scouting:scouting,fleetContext:context);
-        Assert.Equal(context.Launches[second.Id],retained.Cohort);Assert.Equal(context.Launches[second.Id].TotalTurns-1,candidate.FindVessel(second.Id)!.Transit!.RemainingTurns);FleetFixtures.Valid(new(g.Content,candidate));
+        Assert.Equal(context.Launches[second.Id],retained.Cohort);Assert.Equal(context.Launches[second.Id].TotalTurns-1,candidate.FindVessel(second.Id)!.Transit!.RemainingTurns);candidate.Turn++;ObservationUpdater.Refresh(candidate,candidate.Turn);FleetFixtures.Valid(new(g.Content,candidate));
     }
     [Fact]
     public void EveryPhaseFailureRollsBackTheEnclosingOriginalIncludingReadyHuman()
@@ -53,7 +53,7 @@ public sealed class FleetResolutionTests
         r=g.State.Empires[0].Fleets!.Requests[0];var resume=FleetRequestTests.Run(g,new AssemblyAction.Resume(r.Id,r.Revision,FleetRequestTests.Retained(g,r).Fingerprint));Assert.True(resume.Accepted,resume.Rejection?.Message);g=new(g.Content,resume.State);
         var result=TurnResolver.Resolve(g.Content,g.State);Assert.True(result.Succeeded,string.Join(";",result.Errors));r=result.State.Empires[0].Fleets!.Requests[0];Assert.Equal(RequestStatus.Active,r.Status);Assert.Equal(SlotStatus.Arrived,r.Slots.Single(s=>s.Vessel==first.Id).Status);Assert.Contains(r.Slots,s=>s.Status==SlotStatus.Missing);Assert.Null(r.CompletedTurn);Assert.Empty(result.State.Colonies[0].Development!.Queue);
         // Committed travel retains its stored timing despite changed current technology/rank.
-        var live=result.State.FindVessel(first.Id)!;live.StationaryStarId=null;live.Transit=new(home,away,3,2);r.Slots.Single(s=>s.Vessel==first.Id).Status=SlotStatus.Travelling;
+        result.State.FindStar(home)!.X=0;result.State.FindStar(home)!.Y=0;result.State.FindStar(away)!.X=601;result.State.FindStar(away)!.Y=0;var live=result.State.FindVessel(first.Id)!;live.StationaryStarId=null;live.Transit=new(home,away,3,2);r.Slots.Single(s=>s.Vessel==first.Id).Status=SlotStatus.Travelling;
         var fleet=result.State.Empires[0].Fleets!.Fleets.Single();fleet.Cohort=new(home,away,3,0,300);
         var later=TurnResolver.Resolve(g.Content,result.State);Assert.True(later.Succeeded,string.Join(";",later.Errors));Assert.Equal(1,later.State.FindVessel(first.Id)!.Transit!.RemainingTurns);Assert.Equal(fleet.Cohort,later.State.Empires[0].Fleets!.Fleets.Single().Cohort);
     }

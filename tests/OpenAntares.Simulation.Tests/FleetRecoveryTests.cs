@@ -96,7 +96,7 @@ public sealed class FleetRecoveryTests
     [Fact]
     public void CommittedTransitDoesNotConsumeOfficerRandomness()
     {
-        var g=Loss();var s=g.State;var v=s.Vessels[0];var origin=v.StationaryStarId!.Value;var home=s.FindPlanet(s.Colonies[0].PlanetId)!.StarId;v.StationaryStarId=null;v.PendingMove=null;v.AmebaEncounter=null;v.Transit=new(origin,home,3,2);s.Empires[0].Scouting!.Receipts.Clear();var f=s.Empires[0].Fleets!;f.Fleets[0].Cohort=new(origin,home,3,9,315);long rolls=f.RecoveryRollCount;ulong random=f.RecoveryRandom!.State;FleetFixtures.Valid(g);
+        var g=Loss();var s=g.State;var v=s.Vessels[0];var origin=v.StationaryStarId!.Value;var home=s.FindPlanet(s.Colonies[0].PlanetId)!.StarId;s.FindStar(origin)!.X=0;s.FindStar(origin)!.Y=0;s.FindStar(home)!.X=631;s.FindStar(home)!.Y=0;v.StationaryStarId=null;v.PendingMove=null;v.AmebaEncounter=null;v.Transit=new(origin,home,3,2);s.Empires[0].Scouting!.Receipts.Clear();var f=s.Empires[0].Fleets!;f.Fleets[0].Cohort=new(origin,home,3,9,315);long rolls=f.RecoveryRollCount;ulong random=f.RecoveryRandom!.State;FleetFixtures.Valid(g);
         var result=TurnResolver.Resolve(g.Content,s);Assert.True(result.Succeeded,string.Join(";",result.Errors));Assert.Equal(1,result.State.FindVessel(v.Id)!.Transit!.RemainingTurns);Assert.Equal(rolls,result.State.Empires[0].Fleets!.RecoveryRollCount);Assert.Equal(random,result.State.Empires[0].Fleets!.RecoveryRandom!.State);Assert.Equal(OfficerStatus.Commanding,result.State.Empires[0].Fleets!.Officers[0].Status);
     }
     [Theory]

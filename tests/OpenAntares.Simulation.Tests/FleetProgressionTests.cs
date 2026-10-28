@@ -74,7 +74,7 @@ public sealed class FleetProgressionTests
     internal static StarId Arriving(Saves.LoadedGame g)
     {
         var s=g.State;var destination=s.Stars.First(star=>!s.Empires[0].Surveys.Any(ob=>ob.StarId==star.Id)&&star.Id!=s.Scouting?.Habitat?.Star).Id;var fleet=s.Empires[0].Fleets!.Fleets[0];var ship=s.FindVessel(fleet.Flagship)!;var origin=ship.StationaryStarId!.Value;
-        ship.Transit=new(origin,destination,1,1);ship.StationaryStarId=null;fleet.Cohort=new(origin,destination,1,s.Turn,300);return destination;
+        int turns=FleetTravel.Duration(g.Content,s,s.Empires[0].Id,fleet.Id,destination);int launch=Math.Max(0,s.Turn-turns+1);s.Turn=checked(launch+turns-1);ship.Transit=new(origin,destination,turns,1);ship.StationaryStarId=null;fleet.Cohort=new(origin,destination,turns,launch,300);return destination;
     }
     [Theory]
     [InlineData(8,10,0)]
