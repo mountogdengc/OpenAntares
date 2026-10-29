@@ -15,7 +15,7 @@ public static class CombatRepair
         var command=state.FindEmpire(vessel.EmpireId)?.Fleets;var group=command?.Fleets.SingleOrDefault(f=>f.Id==vessel.Fleet);
         return vessel.PendingMove is not null||vessel.PendingFounding is not null||vessel.AmebaEncounter is not null||state.Combat!.Encounters.Any(e=>e.Members.Contains(vessel.Id))||group is not null&&group.Order.Kind!=FleetOrderKind.Hold||command?.Requests.Any(r=>FleetQueries.IsActive(r.Status)&&(group is not null&&r.RallyFleet==group.Id||r.Slots.Any(s=>s.Vessel==vessel.Id&&s.Status!=SlotStatus.Missing)))==true;
     }
-    private static bool Eligible(GameState state,VesselState vessel)
+    internal static bool Eligible(GameState state,VesselState vessel)
     {
         if(vessel.Combat is not {} c||c.ReturnColony is not {} destination||c.OnArrival!=CombatArrivalOrder.Repair||vessel.Transit is not null||Conflict(state,vessel))return false;
         var port=state.FindColony(destination);return port?.EmpireId==vessel.EmpireId&&state.FindPlanet(port.PlanetId)?.StarId==vessel.StationaryStarId&&!(vessel.CarriedPopulation>0&&(Crises.CrisisQueries.IsHeld(state,vessel.Id)||Crises.CrisisQueries.PortClosed(state,vessel.EmpireId,vessel.StationaryStarId!.Value)));
@@ -36,6 +36,13 @@ public static class CombatRepair
             if(ship.ReturnColony is {} destination&&candidate.FindColony(destination)?.EmpireId!=vessel.EmpireId)
             {Clear(ship);Record(definition,candidate,vessel,"repair_unavailable","The selected return colony is unavailable; finite repair authority ended without retargeting.");}
             else if(ship.Repairing&&Conflict(candidate,vessel)){Clear(ship);Record(definition,candidate,vessel,"repair_stopped","An accepted movement, founding, combat or finite request order took priority over Repair.");}
+        }
+        foreach(var vessel in candidate.Vessels)
+        {
+            var ship=vessel.Combat!;
+            bool waiting=ship.OnArrival==CombatArrivalOrder.Repair&&ship.ReturnColony is {} destination&&candidate.FindColony(destination) is {} port&&candidate.FindPlanet(port.PlanetId)?.StarId==vessel.StationaryStarId&&vessel.Transit is null;
+            if(!waiting||Eligible(candidate,vessel)||ship.LastRepairBlockedTurn==context.FromTurn)continue;
+            ship.LastRepairBlockedTurn=context.FromTurn;Record(definition,candidate,vessel,"repair_blocked","Repair paused at the selected owned port because current cargo/port conditions prevent an eligible stationary interval. No hull or cohesion was restored.");
         }
         foreach(var id in context.RepairCapture)
         {

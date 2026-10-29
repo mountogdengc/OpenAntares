@@ -53,7 +53,7 @@ internal static class CombatSaveData
             foreach(var p in e.EnumerateObject())
             {
                 if(!names.Add(p.Name))throw new JsonException($"Duplicate field '{p.Name}'.");
-                if(p.Value.ValueKind==JsonValueKind.Null&&p.Name is not ("return_colony" or "on_arrival" or "last_repair_turn" or "last_resolved_turn" or "last_resolved_phase" or "consent_revision" or "continue_risk_turn" or "encounter" or "vessel" or "encounter_id" or "route" or "after"))throw new JsonException($"Null required field '{p.Name}'.");
+                if(p.Value.ValueKind==JsonValueKind.Null&&p.Name is not ("return_colony" or "on_arrival" or "last_repair_turn" or "last_repair_blocked_turn" or "last_resolved_turn" or "last_resolved_phase" or "consent_revision" or "continue_risk_turn" or "encounter" or "vessel" or "encounter_id" or "route" or "after"))throw new JsonException($"Null required field '{p.Name}'.");
                 Unique(p.Value);
             }
         }

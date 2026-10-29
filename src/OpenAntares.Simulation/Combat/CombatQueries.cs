@@ -11,13 +11,34 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Combat;
 public static class CombatQueries
 {
-    public static CombatEmpireView? Project(ContentSet content,GameState state,EmpireId viewer)=>Project(state,viewer);
-    internal static CombatEmpireView? Project(GameState state,EmpireId viewer)
+    public static CombatEmpireView? Project(ContentSet content,GameState state,EmpireId viewer)
     {
         if(!Rules.HasCombat(state.RulesVersion)||state.FindEmpire(viewer)?.Combat is not {} c)return null;
-        return new(state.Vessels.Where(v=>v.EmpireId==viewer).OrderBy(v=>v.Id).Select(v=>new ShipCombatView(v.Id,v.Combat!.Hull,v.Combat.Cohesion,v.Combat.ReturnColony,v.Combat.OnArrival,v.Combat.Repairing)).ToImmutableArray(),
-            c.Observations.OrderBy(o=>o.Pocket).Select(o=>new CombatPocketView(o.Pocket,o.Star,o.Turn,o.Cleared,ObservationUpdater.IsCurrent(state,viewer,o.Star),ObservationUpdater.IsCurrent(state,viewer,o.Star)&&state.Combat!.Encounters.Any(e=>e.Pocket==o.Pocket&&e.Owner!=viewer),o.Sentries)).ToImmutableArray(),
-            state.Combat!.Encounters.Where(e=>e.Owner==viewer).OrderBy(e=>e.Id).Select(e=>new CombatEncounterView(e.Id,e.Fleet,e.Pocket,e.Revision,e.Members.ToImmutableArray(),e.Orders,e.Phase,e.Round,e.ConsentRevision,e.CivilianRiskAuthorized,e.ContinueRiskTurn)).ToImmutableArray(),c.Responses.ToImmutableArray());
+        var d=content.Combat!;var notices=ImmutableArray.CreateBuilder<CombatNotice>();
+        var ships=state.Vessels.Where(v=>v.EmpireId==viewer).OrderBy(v=>v.Id).Select(v=>
+        {
+            var own=v.Combat!;var profile=d.RoleProfiles[v.RoleId];var stats=CombatMath.Stats(profile,own.Hull,content.Vessels[v.RoleId].Speed,OfficerBonuses.NavigatorBonus(content,state,v),d);
+            var encounter=state.Combat!.Encounters.SingleOrDefault(e=>e.Owner==viewer&&e.Members.Contains(v.Id));
+            bool atPort=own.ReturnColony is {} port&&state.FindColony(port) is {} colony&&state.FindPlanet(colony.PlanetId)?.StarId==v.StationaryStarId;
+            var status=encounter is not null?encounter.Phase switch{CombatPhase.Pending=>CombatShipStatus.AttackCommitted,CombatPhase.Active=>CombatShipStatus.InCombat,CombatPhase.WithdrawalQueued=>CombatShipStatus.WithdrawalQueued,_=>CombatShipStatus.ResponseRequired}:v.Transit is not null&&own.ReturnColony is not null?CombatShipStatus.Returning:own.PendingRepairBlocked(state,v,atPort)?CombatShipStatus.RepairBlocked:own.Repairing?CombatShipStatus.Repairing:own.ReturnColony is not null?CombatShipStatus.ReturnOrdered:own.Hull<profile.MaxHull||own.Cohesion<100?CombatShipStatus.Damaged:CombatShipStatus.Hold;
+            if(own.Hull<profile.MaxHull||own.Cohesion<100)notices.Add(new("damage/"+v.Id.Value,CombatNoticeLevel.Attention,"Persistent hull damage or command cohesion needs attention; Repair requires a legal owned port.",v.Id));
+            if(status is CombatShipStatus.Returning or CombatShipStatus.ReturnOrdered or CombatShipStatus.WithdrawalQueued)notices.Add(new("return/"+v.Id.Value,CombatNoticeLevel.Attention,"Authorized return/withdrawal retains this ship, cargo and its selected arrival order.",v.Id));
+            if(status==CombatShipStatus.RepairBlocked)notices.Add(new("repair/"+v.Id.Value,CombatNoticeLevel.Attention,"Repair is blocked by the current port or cargo conditions; no healing is applied.",v.Id));
+            return new ShipCombatView(v.Id,own.Hull,own.Cohesion,own.ReturnColony,own.OnArrival,own.Repairing){MaxHull=profile.MaxHull,DamageBand=CombatMath.Band(profile,own.Hull,d),Firepower=stats.Firepower,Armor=stats.Armor,EffectiveSpeed=stats.Speed,Status=status,RepairIntervals=RepairIntervals(d,profile.MaxHull,own.Hull,own.Cohesion),HullLost=own.HullLost,HullRepaired=own.HullRepaired};
+        }).ToImmutableArray();
+        foreach(var e in state.Combat!.Encounters.Where(e=>e.Owner==viewer).OrderBy(e=>e.Id))
+            if(c.Responses.Any(r=>r.Encounter==e.Id)||e.ConsentRevision!=e.Revision||e.ContinueRiskTurn!=state.Turn&&CombatWithdrawal.ReturnBlocked(state,e))notices.Add(new("response/"+e.Id.Value,CombatNoticeLevel.Emergency,"Review this encounter and revision before Ready: changed force, civilian risk, or blocked return requires its specific response.",Encounter:e.Id,Revision:e.Revision));
+        foreach(var o in state.FindEmpire(viewer)!.Fleets!.Officers.Where(o=>o.Career.FlagshipsLost>0&&o.Status is OfficerStatus.Recovering or OfficerStatus.Dead or OfficerStatus.Missing))notices.Add(new("officer/"+o.Id.Value,CombatNoticeLevel.Attention,o.Name+": "+o.Status+" after flagship loss. Existing recovery doctrine and equipment apply."));
+        return new(ships,c.Observations.OrderBy(o=>o.Pocket).Select(o=>new CombatPocketView(o.Pocket,o.Star,o.Turn,o.Cleared,ObservationUpdater.IsCurrent(state,viewer,o.Star),ObservationUpdater.IsCurrent(state,viewer,o.Star)&&state.Combat.Encounters.Any(e=>e.Pocket==o.Pocket&&e.Owner!=viewer),o.Sentries)).ToImmutableArray(),
+            state.Combat.Encounters.Where(e=>e.Owner==viewer).OrderBy(e=>e.Id).Select(e=>new CombatEncounterView(e.Id,e.Fleet,e.Pocket,e.Revision,e.Members.ToImmutableArray(),e.Orders,e.Phase,e.Round,e.ConsentRevision,e.CivilianRiskAuthorized,e.ContinueRiskTurn)).ToImmutableArray(),c.Responses.ToImmutableArray())
+            {Notices=notices.ToImmutable(),History=c.History.ToImmutableArray(),Events=c.RecentEvents.Concat(c.PendingEvents).OrderBy(e=>e.Id).TakeLast(d.HistoryLimit).ToImmutableArray(),Totals=new(c.LifetimeEncounters,c.LifetimeShipsLost,c.LifetimeHullLost,c.LifetimeCargoLost,c.LifetimeHullRepaired)};
+    }
+    private static bool PendingRepairBlocked(this ShipCombatState own,GameState state,VesselState vessel,bool atPort)=>atPort&&own.OnArrival==CombatArrivalOrder.Repair&&!CombatRepair.Eligible(state,vessel);
+    internal static int RepairIntervals(CombatDefinition d,int maximum,int hull,int cohesion)
+    {
+        Int128 gain=((Int128)maximum+d.RepairHullDivisor-1)/d.RepairHullDivisor;
+        Int128 hullTurns=((Int128)maximum-hull+gain-1)/gain;Int128 cohesionTurns=((Int128)100-cohesion+d.RepairCohesion-1)/d.RepairCohesion;
+        return checked((int)Int128.Max(hullTurns,cohesionTurns));
     }
     public static CombatPreview Preview(ContentSet content,EmpireView view,CombatAction action)
     {
@@ -42,7 +63,7 @@ public static class CombatQueries
                 else if(action is CombatAction.WithdrawCombat)withdrawal=true;
                 else if(action is CombatAction.RespondCombat response)
                 {
-                    var pending=combat.Responses.SingleOrDefault(r=>r.Encounter==id&&r.Revision==revision)??(ReturnBlocked(view,existing)?new CombatPendingResponse(id,revision,"Known blocked return",CombatResponseNeed.BlockedReturn):null);
+                    var pending=PendingResponse(view,existing);
                     if(!Enum.IsDefined(response.Response)||pending is null)return Reject();
                     remain=response.Response==CombatResponse.RemainWithBlockedReturn;
                     if(!pending.Need.HasFlag(remain?CombatResponseNeed.BlockedReturn:CombatResponseNeed.RevisedForce))return Reject();
@@ -76,8 +97,17 @@ public static class CombatQueries
             var departures=CombatWithdrawal.Preview(content,frame);bool fired=existing is {Round:>0};
             var exposed=(!withdrawal||fired)&&sentries.Length>0?departures.Where(g=>g.Speed<=sentries.Max(s=>s.PursuitSpeed)).SelectMany(g=>g.Members).OrderBy(id=>id).ToImmutableArray():ImmutableArray<VesselId>.Empty;
             var exchange=CombatExchange.Calculate(frame,withdrawal,withdrawal?exposed:ImmutableArray<VesselId>.Empty);
-            var explanations=ImmutableArray.Create("A return route that closes during resolution prevents departure, permits one defensive exchange, and requires a new response.","Departure estimates use current hull bands and the displayed observation; later damage can change travel speed.");
-            var preview=new CombatPreview(allowed,code,string.Empty){Frame=frame,Exchange=exchange,AffectedShips=members,Cargo=checked((int)members.Aggregate((Int128)0,(sum,s)=>checked(sum+s.Cargo))),Departures=departures,Exposed=exposed,Explanations=explanations,Forecasts=withdrawal?Forecast(frame,exchange,exposed):Forecast(frame,exchange)};
+            OfficerLossConsequence? risk=null;
+            if(officer is not null)
+            {
+                var command=content.FleetCommand!;bool equipment=view.Research.KnownTechnologyIds.Contains(command.RecoveryTechnologyId);
+                int percent=officer.Embodiment==CommandEmbodiment.ColonyBody?100:officer.Doctrine==OfficerDoctrine.LastWatch?0:equipment?command.ResearchedRecoveryPercent:command.MortalRecoveryPercent;
+                int delay=officer.Embodiment==CommandEmbodiment.ColonyBody?Math.Max(1,(officer.Doctrine==OfficerDoctrine.LastWatch?command.LastWatchLinkTurns:command.LinkRecoveryTurns)-(equipment?command.ResearchedLinkReduction:0)):command.MortalRecoveryTurns;
+                risk=new(officer.Name,officer.Embodiment,officer.Doctrine,percent,delay);
+            }
+            var repairs=members.Where(s=>exchange.Ships.Single(a=>a.Id==s.VesselId).After>0).Select(s=>{int hull=exchange.Ships.Single(a=>a.Id==s.VesselId).After;int cohesion=(withdrawal?Forecast(frame,exchange,exposed):Forecast(frame,exchange)).Single(a=>a.Id==s.VesselId).CohesionAfter;return new CombatRepairForecast(s.VesselId,hull,cohesion,RepairIntervals(d,s.MaxHull,hull,cohesion));}).ToImmutableArray();
+            var explanations=ImmutableArray.Create("No combat XP, ownership or loot is awarded. Officer loss uses the displayed existing recovery doctrine; cargo remains at risk.","Repair estimates count full eligible stationary intervals after arrival; arrival itself earns no healing.","A return route that closes during resolution prevents departure, permits one defensive exchange, and requires a new response.","Departure estimates use current hull bands and the displayed observation; later damage can change travel speed.");
+            var preview=new CombatPreview(allowed,code,string.Empty){OfficerRisk=risk,RepairForecasts=repairs,Frame=frame,Exchange=exchange,AffectedShips=members,Cargo=checked((int)members.Aggregate((Int128)0,(sum,s)=>checked(sum+s.Cargo))),Departures=departures,Exposed=exposed,Explanations=explanations,Forecasts=withdrawal?Forecast(frame,exchange,exposed):Forecast(frame,exchange)};
             var material=new{view.Turn,view.Viewer,ActionKind=action.GetType().Name,Action=JsonSerializer.SerializeToElement(action,action.GetType()),Frame=frame,Pocket=pocket with {Sentries=pocket.Sentries.OrderBy(s=>s.Id).ToImmutableArray()},Officer=officer,Equipment=view.Research.KnownTechnologyIds.Contains(content.FleetCommand!.RecoveryTechnologyId),Port=orders.ReturnColony,PortStar=port?.StarId,Closed=closed,CargoConsent=cargoConsent,Continuation=existing?.ContinueRiskTurn,Response=combat.Responses.FirstOrDefault(r=>r.Encounter==existing?.Id),Preview=preview};
             return preview with {Token=Token(material)};
         }
@@ -101,10 +131,17 @@ public static class CombatQueries
             }
             var profile=content.Combat!.RoleProfiles[vessel.RoleId];ships.Add(new(id,vessel.RoleId,own.Hull,profile.MaxHull,own.Cohesion,profile.Attack,profile.Armor,CombatMath.Stats(profile,own.Hull,content.Vessels[vessel.RoleId].Speed,0,content.Combat).Speed,false,vessel.CarriedPopulation));
         }
-        var preview=new CombatPreview(true,null,string.Empty){AffectedShips=ships.ToImmutable(),RepairPorts=ports.ToImmutable()};
+        var preview=new CombatPreview(true,null,string.Empty){AffectedShips=ships.ToImmutable(),RepairPorts=ports.ToImmutable(),RepairForecasts=ships.Select(s=>new CombatRepairForecast(s.VesselId,s.Hull,s.Cohesion,repair.Enabled?RepairIntervals(content.Combat!,s.MaxHull,s.Hull,s.Cohesion):0)).ToImmutableArray()};
         return preview with {Token=Token(new{view.Turn,view.Viewer,repair.Enabled,Ships=preview.AffectedShips,Ports=preview.RepairPorts.OrderBy(x=>x.Key).Select(x=>new{x.Key,x.Value}),Orders=repair.Vessels.OrderBy(id=>id).Select(id=>view.Vessels.Single(v=>v.Id==id)),Current=repair.Vessels.OrderBy(id=>id).Select(id=>view.Combat!.Ships.Single(v=>v.Id==id))})};
     }
     private static string Token<T>(T facts)=>Convert.ToHexString(SHA256.HashData(JsonSerializer.SerializeToUtf8Bytes(facts)));
+    internal static CombatPendingResponse? PendingResponse(EmpireView view,CombatEncounterView encounter)
+    {
+        var saved=view.Combat!.Responses.SingleOrDefault(r=>r.Encounter==encounter.Id&&r.Revision==encounter.Revision);
+        if(!ReturnBlocked(view,encounter))return saved;
+        if(saved is null)return new(encounter.Id,encounter.Revision,"Known blocked return",CombatResponseNeed.BlockedReturn);
+        return encounter.ContinueRiskTurn==view.Turn?saved:saved with{Need=saved.Need|CombatResponseNeed.BlockedReturn};
+    }
     internal static bool ReturnBlocked(EmpireView view,CombatEncounterView encounter)
     {
         var port=view.Colonies.SingleOrDefault(c=>c.Id==encounter.Orders.ReturnColony);if(port is null)return true;

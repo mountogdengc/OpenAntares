@@ -57,7 +57,7 @@ public static class CombatStateValidator
             bool armed=encounter.Members.Any(id=>state.FindVessel(id) is {} vessel&&d.RoleProfiles.TryGetValue(vessel.RoleId,out var profile)&&profile.Attack>0);
             if(!armed&&(encounter.Phase==CombatPhase.Pending||encounter.Phase==CombatPhase.Active&&!(encounter.ContinueRiskTurn==state.Turn&&CombatWithdrawal.ReturnBlocked(state,encounter))))Error("unarmed encounter requires withdrawal or explicit blocked-route defensive consent");
             bool response=owner?.Combat?.Responses.Any(r=>r.Encounter==encounter.Id&&r.Revision==encounter.Revision)==true;
-            if((encounter.Phase==CombatPhase.BlockedResponse)!=response)Error("blocked phase requires exactly its current response");
+            if((encounter.Phase==CombatPhase.BlockedResponse)!=response&&!(encounter.Phase==CombatPhase.WithdrawalQueued&&!armed&&response))Error("blocked phase requires exactly its current response");
         }
         foreach(var owner in state.Empires)
         {
@@ -77,7 +77,7 @@ public static class CombatStateValidator
                 }
             }
             Sorted(c.Responses.Select(r=>r.Encounter.Value),"response IDs");
-            if(c.Responses.Any(r=>!game.Encounters.Any(e=>e.Id==r.Encounter&&e.Owner==owner.Id&&e.Revision==r.Revision&&e.Phase==CombatPhase.BlockedResponse)||string.IsNullOrWhiteSpace(r.Reason)||(int)r.Need is <1 or >3))Error("invalid pending response");
+            if(c.Responses.Any(r=>!game.Encounters.Any(e=>e.Id==r.Encounter&&e.Owner==owner.Id&&e.Revision==r.Revision&&(e.Phase==CombatPhase.BlockedResponse||e.Phase==CombatPhase.WithdrawalQueued&&e.Members.All(id=>state.FindVessel(id) is {} v&&d.RoleProfiles[v.RoleId].Attack==0)))||string.IsNullOrWhiteSpace(r.Reason)||(int)r.Need is <1 or >3))Error("invalid pending response");
             if(c.History.Count>d.HistoryLimit||c.History.Select(h=>h.Encounter).Distinct().Count()!=c.History.Count)Error("history bound/duplicates");
             foreach(var h in c.History)
             {
@@ -95,6 +95,7 @@ public static class CombatStateValidator
             if(vessel.Combat is not {} c){Error($"{vessel.Id} missing hull/cohesion");continue;}
             if(!d.RoleProfiles.TryGetValue(vessel.RoleId,out var profile)||c.Hull<=0||c.Hull>profile.MaxHull||c.Cohesion is <0 or >100)Error("invalid live hull/cohesion");
             if(vessel.PendingFounding is {} founding&&state.FindPlanet(founding) is {} planet&&game.Pockets.Any(p=>!p.Cleared&&p.Star==planet.StarId))Error("guarded pocket cannot hold a founding intent");
+            if(c.LastRepairBlockedTurn is {} blockedTurn&&(blockedTurn<0||blockedTurn>state.Turn))Error("invalid blocked repair clock");
             if(c.HullLost is <0 or long.MaxValue||c.HullRepaired is <0 or long.MaxValue||c.LastRepairTurn is {} lastRepair&&(lastRepair<0||lastRepair>state.Turn))Error("invalid ship damage/repair totals or clock");
             if((c.ReturnColony is null)!=(c.OnArrival is null)||c.OnArrival is {} arrival&&!Enum.IsDefined(arrival)||c.ReturnColony is {} port&&state.FindColony(port)?.EmpireId!=vessel.EmpireId)Error("invalid ship return/arrival authority");
             var command=state.FindEmpire(vessel.EmpireId)?.Fleets;var group=command?.Fleets.FirstOrDefault(f=>f.Id==vessel.Fleet);

@@ -24,6 +24,9 @@ public sealed record TurnResolution(GameState State, TurnReport? Report, IReadOn
 /// <summary>What happened during one turn resolution: the turn transition and the economy that was applied.</summary>
 public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 {
+    public ImmutableArray<Combat.OwnedCombatDeparture> CombatDepartures {get;init;}=ImmutableArray<Combat.OwnedCombatDeparture>.Empty;
+    public ImmutableArray<Combat.OwnedCombatEvent> CombatEvents {get;init;}=ImmutableArray<Combat.OwnedCombatEvent>.Empty;
+    public ImmutableArray<Combat.CombatRoundReceipt> CombatRounds {get;init;}=ImmutableArray<Combat.CombatRoundReceipt>.Empty;
     public ImmutableArray<FleetEvent> FleetEvents {get;init;}=ImmutableArray<FleetEvent>.Empty;
     public ImmutableArray<Scouting.ScoutOrderEvent> ScoutEvents { get; init; }=ImmutableArray<Scouting.ScoutOrderEvent>.Empty;
     public ImmutableArray<Crises.CrisisEvent> CrisisEvents { get; init; } = ImmutableArray<Crises.CrisisEvent>.Empty;
@@ -225,6 +228,7 @@ public static class TurnResolver
                 Scouting.ScoutReports.Finalize(snapshot,candidate,scouting);
             }
             if(fleet is not null)FleetReports.Finalize(content,candidate,fleet);
+            if(combat is not null)Combat.CombatReports.Finalize(content,snapshot,candidate,combat);
             fleetHook?.Invoke(FleetResolutionPhase.Reports);combatHook?.Invoke(Combat.CombatResolutionPhase.Reports);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Reports);
             if(crisis is not null)
@@ -237,7 +241,7 @@ public static class TurnResolver
                 fleetHook?.Invoke(FleetResolutionPhase.Validation);
                 scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Validation);
                 var locations=crisis.Locations.SetItems(candidate.Colonies.Where(c=>!crisis.Locations.ContainsKey(c.Id)).Select(c=>new KeyValuePair<ColonyId,CrisisLocation>(c.Id,CrisisQueries.Location(candidate,c))));
-                crisisReport=new(snapshot.Turn,candidate.Turn,economy){ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations,ScoutEvents=scouting?.Events.ToImmutableArray()??ImmutableArray<Scouting.ScoutOrderEvent>.Empty,FleetEvents=fleet?.Events.ToImmutableArray()??ImmutableArray<FleetEvent>.Empty};
+                crisisReport=new(snapshot.Turn,candidate.Turn,economy){CombatDepartures=combat?.ReportDepartures??ImmutableArray<Combat.OwnedCombatDeparture>.Empty,CombatEvents=combat?.ReportEvents??ImmutableArray<Combat.OwnedCombatEvent>.Empty,CombatRounds=combat?.Rounds??ImmutableArray<Combat.CombatRoundReceipt>.Empty,ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations,ScoutEvents=scouting?.Events.ToImmutableArray()??ImmutableArray<Scouting.ScoutOrderEvent>.Empty,FleetEvents=fleet?.Events.ToImmutableArray()??ImmutableArray<FleetEvent>.Empty};
             }
         }
         catch (OverflowException exception)

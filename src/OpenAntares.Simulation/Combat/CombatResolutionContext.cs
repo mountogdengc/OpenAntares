@@ -16,6 +16,9 @@ public sealed class CombatResolutionContext
     public ImmutableArray<EncounterId> Encounters {get;private init;}
     internal FleetResolutionContext FleetContext {get;private init;}=null!;
     internal CombatDefinition? Definition {get;private init;}
+    internal bool ReportsFinalized {get;set;}
+    public ImmutableArray<OwnedCombatDeparture> ReportDepartures {get;internal set;}=ImmutableArray<OwnedCombatDeparture>.Empty;
+    public ImmutableArray<OwnedCombatEvent> ReportEvents {get;internal set;}=ImmutableArray<OwnedCombatEvent>.Empty;
     internal bool RepairsApplied {get;set;}
     internal GameState Snapshot {get;private init;}=null!;
     internal bool WithdrawalsResolved {get;set;}

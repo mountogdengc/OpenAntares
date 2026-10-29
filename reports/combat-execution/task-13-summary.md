@@ -1,0 +1,11 @@
+# Task 13: combat forecasts, reports and required responses
+
+Own immutable views now include bands/firepower/armor/effective speed, finite return/repair status and intervals, per-ship damage/repair totals, bounded histories/events, checked lifetime totals, and persistent Attention/Emergency notices. Previews expose exact post-volley repair estimates and existing officer loss doctrine/equipment risk. Querying does not mutate state or add per-volley consent.
+
+Turn reports publish owned event wrappers, actual immutable volley receipts and actual surviving return cohorts. Projection filters all of them by owner. Reports explain doctrine-triggered withdrawal, detached finite returns, and clearing access without ownership. Normal progress and repair completion remain report summaries; live risk/blocked repair/officer status survive detail trimming.
+
+Losing the last warship retains mandatory WithdrawalQueued and adds an encounter/revision-specific force response before Ready. Confirming withdrawal clears it; accepting the revised unarmed force also queues withdrawal unless a blocked route has its separate one-turn defensive consent. A newly closed known port composes that consent with an already pending force response. Neither response substitutes for the other or legalizes a blocked departure.
+
+Ordinary pre-volley cancellations now retain bounded zero-round encounter summaries. Twenty-one accepted attack/cancel/Hold cycles retain20 summaries and all monotonic lifetime counters; an independent live response survives save/load. Blocked repair has a per-ship last-reported boundary key, so31 blocked ships can trim their event rows without repeating them on replay. No healing or cargo cure occurs.
+
+Behavioral RED covered missing views/reports/repair estimates, missing cancellation history/last-warship response, silent blocked repair, missing doctrine/departure facts, and a newly closed-port response deadlock. Ten query/report tests pass. Combined relevant gates34/34 and42/42; fullSuite1685/1685. The existing carrier-loss test now explicitly confirms mandatory withdrawal before its second boundary; its cargo/source-population/cure assertions remain intact. Raw old futures and generated reports are retained.

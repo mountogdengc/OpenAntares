@@ -54,6 +54,7 @@ public sealed class ShipCombatState
     public long HullLost {get;set;}
     public long HullRepaired {get;set;}
     public int? LastRepairTurn {get;set;}
+    public int? LastRepairBlockedTurn {get;set;}
     public ShipCombatState Clone()=>(ShipCombatState)MemberwiseClone();
 }
 public sealed class PocketState

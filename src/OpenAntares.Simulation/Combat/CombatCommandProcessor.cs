@@ -42,7 +42,7 @@ public static class CombatCommandProcessor
                 var departing=Encounter(withdraw.Encounter);
                 if(departing.Round==0)
                 {
-                    c.Encounters.Remove(departing);ClearResponse(departing.Id);e.Ready=false;
+                    CombatResolver.Finish(content,candidate,departing,"Cancelled before exchange");ClearResponse(departing.Id);e.Ready=false;
                     var destination=candidate.FindPlanet(candidate.FindColony(departing.Orders.ReturnColony)!.PlanetId)!.StarId;
                     // Cancel the reservation first, then use the ordinary fleet route validator.
                     var flagship=e.Fleets!.Fleets.Single(f=>f.Id==departing.Fleet).Flagship;
@@ -57,14 +57,14 @@ public static class CombatCommandProcessor
                 }
                 else
                 {
-                    if(departing.Phase==CombatPhase.WithdrawalQueued)return CommandOutcome.NoChange(state);
+                    if(departing.Phase==CombatPhase.WithdrawalQueued&&!ownCombat.Responses.Any(r=>r.Encounter==departing.Id))return CommandOutcome.NoChange(state);
                     departing.Phase=CombatPhase.WithdrawalQueued;departing.Revision=checked(departing.Revision+1);departing.ConsentRevision=departing.Revision;ClearResponse(departing.Id);
                 }
                 break;
             case CombatAction.RespondCombat response:
                 var responding=Encounter(response.Encounter);
                 if(response.Response==CombatResponse.RemainWithBlockedReturn&&responding.ContinueRiskTurn==state.Turn&&!ownCombat.Responses.Any(r=>r.Encounter==responding.Id&&r.Need.HasFlag(CombatResponseNeed.BlockedReturn)))return CommandOutcome.NoChange(state);
-                var pending=ownCombat.Responses.SingleOrDefault(r=>r.Encounter==responding.Id)??new CombatPendingResponse(responding.Id,responding.Revision,"Known blocked return",CombatResponseNeed.BlockedReturn);
+                var pending=CombatQueries.PendingResponse(view,view.Combat!.Encounters.Single(e=>e.Id==responding.Id))!;
                 var accepted=response.Response==CombatResponse.AcceptRevisedForce?CombatResponseNeed.RevisedForce:CombatResponseNeed.BlockedReturn;
                 if(accepted==CombatResponseNeed.RevisedForce)responding.ConsentRevision=responding.Revision;else responding.ContinueRiskTurn=state.Turn;
                 var outstanding=pending.Need&~accepted;ClearResponse(responding.Id);

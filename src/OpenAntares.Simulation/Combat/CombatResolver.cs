@@ -63,14 +63,19 @@ internal static class CombatResolver
         bool crippled=survivors.Any(v=>CombatMath.Band(definition.RoleProfiles[v.RoleId],v.Combat!.Hull,definition)==CombatDamageBand.Crippled);
         bool withdraw=!armed||encounter.Orders.Doctrine switch {CombatDoctrine.Cautious=>crippled||result.DestroyedVessels.Length>0||cohesion<=definition.RetreatCohesionThreshold,CombatDoctrine.Press=>cohesion<=definition.RetreatCohesionThreshold,CombatDoctrine.HitAndRun=>true,_=>false};
         encounter.Phase=withdraw?CombatPhase.WithdrawalQueued:CombatPhase.Active;
-        if(!armed)Event(content,candidate,encounter,"emergency","No armed ship survives. Civilians require withdrawal at the next boundary and remain exposed if their authorized route is blocked.");
+        if(withdraw)Event(content,candidate,encounter,"withdrawal_queued",armed?encounter.Orders.Doctrine+" triggered withdrawal after the actual losses, damage bands and cohesion. Departure occurs at the next boundary under the selected return and straggler orders.":"The last warship was destroyed. Civilian survivors require explicit withdrawal review before Ready and remain at risk until departure.");
+        if(!armed)
+        {
+            encounter.ConsentRevision=null;own.Responses.RemoveAll(r=>r.Encounter==encounter.Id);own.Responses.Add(new(encounter.Id,encounter.Revision,"No armed ship survives. Confirm withdrawal or review the revised civilian force; blocked return permits only explicitly accepted defensive combat."));own.Responses=own.Responses.OrderBy(r=>r.Encounter).ToList();
+            Event(content,candidate,encounter,"emergency","No armed ship survives. Civilians require withdrawal at the next boundary and remain exposed if their authorized route is blocked.");
+        }
     }
     internal static void Finish(ContentSet content,GameState candidate,EncounterState encounter,string outcome)
     {
         var owner=candidate.FindEmpire(encounter.Owner)!;var c=owner.Combat!;candidate.Combat!.Encounters.Remove(encounter);c.Responses.RemoveAll(r=>r.Encounter==encounter.Id);
         c.History.Add(new(encounter.Id,encounter.Pocket,candidate.Turn,outcome,encounter.DestroyedMembers.OrderBy(v=>v).ToImmutableArray(),encounter.Round){Details=encounter.Rounds.ToImmutableArray(),HullLost=encounter.HullLost,CargoLost=encounter.CargoLost});while(c.History.Count>content.Combat!.HistoryLimit)c.History.RemoveAt(0);
         var fleet=owner.Fleets!.Fleets.SingleOrDefault(f=>f.Id==encounter.Fleet);if(fleet is not null)fleet.Order=new(FleetOrderKind.Hold);
-        Event(content,candidate,encounter,"encounter_closed",outcome);
+        Event(content,candidate,encounter,"encounter_closed",outcome+(outcome is "Victory" or "Mutual destruction"?". Sentries are cleared; the system remains unclaimed. Founding requires a separate valid order.":outcome=="Withdrawn"?". Surviving main and detached cohorts keep cargo and the selected finite arrival order; no automatic reinforcement or resend.":". The encounter reservation ended; ownership and ordinary orders remain separate."));
     }
     internal static void Event(ContentSet content,GameState candidate,EncounterState encounter,string kind,string reason)
     {
