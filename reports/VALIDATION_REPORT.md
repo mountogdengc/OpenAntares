@@ -1,5 +1,7 @@
 # OpenAntares validation report
 
+**Documentation continuation,2026-10-29:** [Ship-design gameplay proposal/check](SHIP_DESIGN_GAMEPLAY_REVIEW_2026-10-29.md). Complete M10 draft and builder disposition; document links/IDs/arithmetic and exact preservation checked. No product change, build/gameplay test, runtime validation or genuine rules9 future capture in this turn. Product stays rules9/writer10/46 pairs; [M9 integration](COMBAT_INTEGRATION_2026-10-29.md) remains the latest executed gameplay evidence.
+
 **Latest local integration,2026-10-29:** [Combat main integration](COMBAT_INTEGRATION_2026-10-29.md): owner-selected fast-forward; fresh1733 simulation tests,3271 Combat checks+93 separate provenance/12 generated campaigns,0diagnostics/build warnings/errors and actual9+2 opt-in/ordinary exclusions. Main rules9/writer10/46pairs. Owner files/raw evidence/QA/all8 worktrees preserved; no push/release/cleanup. Earlier checkpoints below are historical. Human/platform/balance/security/export/release limits remain open.
 
 **Latest local integration,2026-10-24:** [Species main integration](SPECIES_INTEGRATION_2026-10-24.md): owner-selected fast-forward complete; fresh445 simulation,1181 Species,275 Expansion,466 Legacy assertions plus27 geometry observations; zero final diagnostics, normal rebuild0warnings/errors. Owner edits and recovery/QA evidence retained exactly. Earlier branch-only integration limits below are historical; human/platform/release acceptance remains open.

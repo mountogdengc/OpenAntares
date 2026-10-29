@@ -210,3 +210,21 @@ M9 final product verification2026-10-29 supersedes prior pending checkpoints: so
 
 
 M9 local integration, 2026-10-29: the owner selected option1, authorizing a local fast-forward of `codex/fleet-combat` (`fa11f96e2e35973d533c0a85630348461bae07a9`) into main from `dc190937ab94a464ba81823d25738164db538e73`. Product source remains `4176996fbda516849a9f5e24691c451e89960019`; main now uses rules9/writer10/46 explicit pairs. Fresh main Suite1733/1733 and native Combat3271 checks+93 separate provenance/12 generated campaigns pass; both builds have0 warnings/errors,0 engine diagnostics, actual opt-in9+2 detection and ordinary9+2 exclusions. All72 generated stage saves match the corrected branch byte-exactly. One fresh implementation review/one correction pass remains complete with no open findings; no second review. M9-I and functional CBT criteria remain Verified for local automated scope, design/plan approvals remain Verified, and the17 parent rows/totals are unchanged. Four protected owner files, exact peaceful paragraph, all8 worktrees/branches/stashes and prior raw evidence/QA saves remain. Recovery: `codex/combat-premerge-20261029`. See [integration evidence](../reports/COMBAT_INTEGRATION_2026-10-29.md) and [machine summary](../reports/combat-integration-20261029/summary.json). Earlier pending/branch-only statements are historical. No push, release or cleanup. Next: choose the next bounded milestone before further design or implementation.
+
+
+## M10 ship design and refitting proposal
+
+M10 drafting,2026-10-29: owner “use your own judgement” delegates the full ship-design/refitting proposal after local M9 integration. Read [the complete design](../docs/superpowers/specs/2026-10-29-ship-design-and-refitting-design.md), [ADR-021](../docs/DECISIONS/ADR-021-ship-design-and-refitting-design-entry.md) and [builder-check disposition](../reports/SHIP_DESIGN_GAMEPLAY_REVIEW_2026-10-29.md). Two frames, limited weapon/armor/engine choices, four research unlocks, immutable saved designs, exact-design queues/requests and paid same-frame full-condition refits are drafter defaults for full review. The starting Standard Escort matches M9 exactly. M10-D/SHP-AC-012 In Progress; M10-P/M10-I and functional SHP-AC-001..011 Not Started. Product remains rules9/writer10/46 pairs; proposed10/11/56 is inactive. No product changes, gameplay test run, genuine rules9 future capture, separate implementation plan, new worktree, push/release/cleanup or repeated M9 review. Native/no per-task implementation agents/one final implementation reviewer retained after later plan approval. Parent17-row totals, four owner files, exact peaceful paragraph, all8 worktrees/branches, old saves/QA/reports/recovery remain preserved. Next: review the complete proposal before its separate implementation plan.
+
+| Child contract | Proposed scope | Status |
+| --- | --- | --- |
+| SHP-001 | Catalogue and immutable design identity; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Proposed |
+| SHP-002 | Frames/components and exact calculations; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Proposed |
+| SHP-003 | Manual research unlocks; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Proposed |
+| SHP-004 | Pinned production and colony queues; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Proposed |
+| SHP-005 | Exact-design fleet requests and existing officers; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Proposed |
+| SHP-006 | Refit acceptance and price; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Proposed |
+| SHP-007 | Refit resolution, cancellation and interaction; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Proposed |
+| SHP-008 | Presentation, scale and privacy; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Proposed |
+| SHP-009 | Compatibility, determinism and transactions; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Proposed |
+| SHP-010 | Acceptance and handoff; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Proposed |

@@ -65,3 +65,6 @@ M8 full approval/planning2026-10-27: owner “0approved” accepts the complete 
 
 
 [ADR-020: Approve fleet combat design](ADR-020-approved-fleet-combat-design.md) records owner “looks good”2026-10-28 accepting the full M9 combat description/defaults. M9-D/CBT-AC-012 Verified for design; separate16-task plan/self-review complete, M9-P In Progress pending plan confirmation. Native retained; implementation Not Started.
+
+
+[ADR-021: Ship design and refitting design entry](ADR-021-ship-design-and-refitting-design-entry.md) records delegated drafting choices after M9 integration. The complete proposal and fresh builder check are ready for review; M10-D In Progress, plan/implementation Not Started. Current product remains9/10/46.
