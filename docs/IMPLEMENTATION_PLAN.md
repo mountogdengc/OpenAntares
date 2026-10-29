@@ -38,7 +38,7 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M8-I | Implement bounded Fleet Command/admiral slice | Owner approved separate M8-P | All17tasks/review complete; authorized3-Minor follow-up verified | Verified for local automated scope |
 | M9-D | Approve bounded fleet combat/damage/withdrawal | Full owner “looks good” approval in ADR-020 | CBT-AC-012 full design gate | Verified for design |
 | M9-P | Plan the reviewed combat slice | M9-D approved | Separate16-task plan/self-review; owner “Approve” | Verified |
-| M9-I | Implement approved bounded combat | M9-P approved | CBT-AC-001..011 and retained regressions; task16 final review pending | Implemented, Unverified |
+| M9-I | Implement approved bounded combat | M9-P approved | CBT-AC-001..011; one review/one correction pass;1733 simulation and affected native gates | Verified for local automated scope |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -46,7 +46,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Finish task16 combined validation and the one fresh whole-branch review on isolated `codex/fleet-combat`; see [combat validation](../reports/COMBAT_VALIDATION_2026-10-28.md) and the canonical execution ledger. Tasks1..15 are complete; new campaigns use9/writer10/46 pairs on this branch. Main remains8/writer9/37 pairs. Do not repeat completed work, reopen approved gameplay or integrate without owner disposition.
+Record the final task16 completion gate, then obtain owner disposition of verified `codex/fleet-combat`; see [final combat validation](../reports/COMBAT_VALIDATION_2026-10-28.md). One fresh review/one correction pass are complete with no open Critical/Important or deferred Minors. Branch9/10/46; main8/9/37. Do not repeat completed implementation, reopen gameplay, dispatch another review or merge/push/clean without the next owner decision.
 
 ## Risks and autonomy
 

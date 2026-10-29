@@ -232,3 +232,20 @@ M9 design approval2026-10-28 supersedes the earlier drafting status: CBT-AC-012 
 
 
 M9 implementation checkpoint2026-10-28: the owner approved the separate16-task plan; M9-P Verified. Tasks1..15 are complete on isolated codex/fleet-combat, rules9/writer10/46 pairs. M9-I and functional CBT-AC-001..011 are Implemented, Unverified pending task16 combined native gates and the ONE fresh whole-branch review. FullSuite1688/1688 includes exact compatibility/frozen futures and alternate embedded-role continuation. CBT-AC-012 remains design-only Verified in ADR-020. See reports/COMBAT_VALIDATION_2026-10-28.md; all earlier planning-only checkpoints are historical. Parent17-row totals and human/platform/security/export/release limits unchanged. Main and all owner prose/evidence/worktrees retained; no integration/push/cleanup.
+
+M9 final product verification2026-10-29 supersedes prior pending checkpoints: source `4176996fbda516849a9f5e24691c451e89960019`, one fresh review/one correction pass, all3 Important findings closed, no Critical/Minor. FullSuite1733/1733,45 review regressions, initial all9 native9403 records and corrected Combat3271/93 provenance/generated12 pass. M9-I and functional CBT-AC-001..011 Verified for local automated scope; CBT-AC-012 remains full-design Verified in ADR-020. Task16 final gate pending. [Final evidence](../reports/COMBAT_VALIDATION_2026-10-28.md) records exact sources, limitations and preservation;17 parent rows/totals unchanged. No integration/push/release/cleanup.
+
+| Criterion | Status | Evidence |
+| --- | --- | --- |
+| CBT-AC-001 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-002 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-003 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-004 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-005 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-006 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-007 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-008 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-009 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-010 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-011 | Verified for local automated scope | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
+| CBT-AC-012 | Verified for design only | [Executed mapping and limits](../reports/COMBAT_VALIDATION_2026-10-28.md#acceptance-mapping) |
