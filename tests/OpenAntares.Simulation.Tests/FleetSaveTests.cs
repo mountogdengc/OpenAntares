@@ -97,14 +97,14 @@ public sealed class FleetSaveTests
     public void ExactThirtySevenPairsAndNoEightEight()
     {
         string[] old={"legacy-v2-save.json","legacy-rules2-v3-save.json","legacy-rules3-v4-save.json","legacy-rules4-v5-save.json","legacy-rules5-v6-save.json"};int accepted=0;
-        for(int schema=1;schema<=10;schema++)for(int rules=1;rules<=9;rules++)
+        for(int schema=1;schema<=9;schema++)for(int rules=1;rules<=9;rules++)
         {
             string text=rules==8?SaveGame.Serialize(FleetContentTests.Core(),FleetFixtures.Game().State):rules==7?SaveGame.Serialize(ScoutingFixtures.Content(),ScoutingFixtures.Game().State):rules==6?SaveGame.Serialize(CrisisFixtures.Content(),CrisisFixtures.Game().State):File.ReadAllText(CompatibilityFixtures.PathFor(old[Math.Min(rules,5)-1]));
             var root=JsonNode.Parse(text)!;root["schema_version"]=schema;root["rules_version"]=rules;if(schema==1&&rules==1)root=JsonNode.Parse(File.ReadAllText(CompatibilityFixtures.PathFor("legacy-v1-save.json")))!;
             bool expected=(schema,rules) is (1,1) or (2,1)||schema is >=3 and <=8&&rules>=1&&rules<=schema-1||schema==9&&rules is >=1 and <=8;
             var loaded=SaveGame.Deserialize(root.ToJsonString());Assert.True(expected==loaded.Succeeded,$"({schema},{rules}) expected {expected}: {string.Join(";",loaded.Errors)}");if(loaded.Succeeded)accepted++;
         }
-        Assert.Equal(37,accepted);Assert.Equal(9,SaveGame.SchemaVersion);Assert.Equal(8,Rules.CurrentVersion);
+        Assert.Equal(37,accepted);Assert.Equal(10,SaveGame.SchemaVersion);Assert.Equal(8,Rules.CurrentVersion);
     }
     [Fact]
     public void EveryPendingPhaseRoundTripsToIdenticalFuture()

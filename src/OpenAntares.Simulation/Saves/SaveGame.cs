@@ -28,7 +28,7 @@ public sealed record SaveLoadResult(LoadedGame? Game, IReadOnlyList<string> Erro
 public static class SaveGame
 {
     public const string FormatName = "openantares-save";
-    public const int SchemaVersion = 9;
+    public const int SchemaVersion = 10;
 
     private const string SaveLocation = "save";
 
@@ -138,14 +138,14 @@ public static class SaveGame
                 return Fail($"This is not an OpenAntares save (format '{format}').");
             }
 
-            if (schema is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9))
+            if (schema is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10))
             {
                 return Fail($"The save uses unsupported schema version {schema}.");
             }
 
-            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5) or (7,1) or (7,2) or (7,3) or (7,4) or (7,5) or (7,6) or (8,1) or (8,2) or (8,3) or (8,4) or (8,5) or (8,6) or (8,7) or (9,1) or (9,2) or (9,3) or (9,4) or (9,5) or (9,6) or (9,7) or (9,8)))
+            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5) or (7,1) or (7,2) or (7,3) or (7,4) or (7,5) or (7,6) or (8,1) or (8,2) or (8,3) or (8,4) or (8,5) or (8,6) or (8,7) or (9,1) or (9,2) or (9,3) or (9,4) or (9,5) or (9,6) or (9,7) or (9,8) or (10,1) or (10,2) or (10,3) or (10,4) or (10,5) or (10,6) or (10,7) or (10,8) or (10,9)))
             {
-                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1 through 8 with explicit schema compatibility. Saves are not migrated automatically.");
+                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1 through 9 with explicit schema compatibility. Saves are not migrated automatically.");
             }
 
             // Embedded content goes through the same loader and validation as content files.
@@ -161,11 +161,12 @@ public static class SaveGame
                     errors.Add(new(SaveLocation,null,"content.plagues","Old campaigns cannot contain crisis content."));
                 if (!Rules.HasScouting((int)rulesVersion) && document.RootElement.GetProperty("content").TryGetProperty("space_ameba", out _))
                     errors.Add(new(SaveLocation,null,"content.space_ameba","Old campaigns cannot contain scout hazard content."));
+                if(!Rules.HasCombat((int)rulesVersion)&&document.RootElement.GetProperty("content").TryGetProperty("combat",out _))errors.Add(new(SaveLocation,null,"content.combat","Old campaigns cannot contain combat content."));
                 if (!Rules.HasFleets((int)rulesVersion) && document.RootElement.GetProperty("content").TryGetProperty("fleet_command", out _))
                     errors.Add(new(SaveLocation, null, "content.fleet_command", "Old campaigns cannot contain fleet command content."));
                 if(!Rules.HasFleets((int)rulesVersion)&&document.RootElement.GetProperty("content").TryGetProperty("species",out var speciesContent)&&speciesContent.ValueKind==JsonValueKind.Array)
                     foreach(var species in speciesContent.EnumerateArray())if(species.ValueKind==JsonValueKind.Object&&(species.TryGetProperty("command_culture_id",out _)||species.TryGetProperty("command_embodiment",out _)))errors.Add(new(SaveLocation,null,"content.species","Old campaigns cannot contain command capability metadata."));
-                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion), requireDevelopment: Rules.HasDevelopment((int)rulesVersion), requireCrises: Rules.HasCrises((int)rulesVersion),requireScouting:Rules.HasScouting((int)rulesVersion),requireFleets:Rules.HasFleets((int)rulesVersion));
+                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion), requireDevelopment: Rules.HasDevelopment((int)rulesVersion), requireCrises: Rules.HasCrises((int)rulesVersion),requireScouting:Rules.HasScouting((int)rulesVersion),requireFleets:Rules.HasFleets((int)rulesVersion),requireCombat:Rules.HasCombat((int)rulesVersion));
                 errors.AddRange(loaded.Errors);
                 content = loaded.Content;
             }
@@ -179,6 +180,7 @@ public static class SaveGame
                 return Fail(errors);
             }
 
+            CombatSaveData.AttachDefinition(content,state);
             IReadOnlyList<string> stateErrors = GameStateValidator.Validate(content, state);
             if (stateErrors.Count > 0)
             {
@@ -196,6 +198,7 @@ public static class SaveGame
         writer.WriteStartObject();
         CrisisSaveData.WriteGame(writer,state.Crisis,state.RulesVersion);
         ScoutSaveData.WriteGame(writer,state.Scouting,state.RulesVersion);
+        CombatSaveData.WriteGame(writer,state);
         writer.WriteNumber("turn", state.Turn);
         writer.WriteNumber("next_entity_id", state.NextEntityId);
         writer.WriteStartObject("random");
@@ -227,6 +230,7 @@ public static class SaveGame
             ScoutSaveData.WriteEmpire(writer,empire.Scouting,state.RulesVersion);
             DevelopmentSaveData.WriteEmpire(writer, empire.Development, state.RulesVersion);
             FleetSaveData.WriteEmpire(writer,empire.Fleets,state.RulesVersion);
+            CombatSaveData.WriteEmpire(writer,empire.Combat,state.RulesVersion);
             writer.WriteEndObject();
         }
 
@@ -297,6 +301,7 @@ public static class SaveGame
             RulesVersion = rulesVersion,
             Crisis = CrisisSaveData.ReadGame(reader,rulesVersion),
             Scouting = ScoutSaveData.ReadGame(reader,rulesVersion),
+            Combat = CombatSaveData.ReadGame(reader,rulesVersion),
             Turn = reader.RequiredInt("turn", 0, int.MaxValue),
             NextEntityId = reader.RequiredInt("next_entity_id", 1, int.MaxValue),
         };
@@ -342,6 +347,7 @@ public static class SaveGame
             empire.Scouting = ScoutSaveData.ReadEmpire(item,rulesVersion);
             empire.Development = DevelopmentSaveData.ReadEmpire(item, rulesVersion);
             empire.Fleets = FleetSaveData.ReadEmpire(item,rulesVersion);
+            empire.Combat = CombatSaveData.ReadEmpire(item,rulesVersion);
             state.Empires.Add(empire);
         });
 

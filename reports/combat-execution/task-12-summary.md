@@ -1,0 +1,9 @@
+# Task 12: writer10 and strict combat persistence
+
+Writer10 accepts the original37 explicit pairs plus (10,1)..(10,9), exactly46. (9,9), nearby unsupported pairs and old-rule combat fields/content reject. Old rules omit combat state/content/escort roles. Current default remains rules8 until task15.
+
+The strict rules9 codec requires every serialized member, including null leaves; rejects duplicate/unknown members, null required objects/collections, noncanonical or numeric enums, invalid IDs, references, ranges and authority. Historical frames use the one embedded effective combat definition, reattached without executing gameplay. No duplicate editable definition is serialized per receipt. Frozen profiles, shared Navigator speed, routes, participants, exact shots/results and cohesion forecasts are validated from that definition.
+
+Nine save tests cover the matrix, pending civilian consent, live/queued/blocked phases, post-interception cohorts, detached Repair/Hold, recovery, bounded history, malformed fields and atomic failed read/write. Recursive removal verifies every combat member is required. A 25-round alternative-content battle loads with its20 retained rounds, counters/event IDs and next-round outcome intact. Deep validation also rejects forged guarded founding and unarmed Active authority.
+
+Meaningful RED: missing writer10/state; forged profile accepted; illegal guarded intent accepted. Focused saves/frozen compatibility74/74. Full suite1675/1675. First full run exposed16 metadata assertions expecting writer9; only those writer expectations/unsupported-version cases were updated. Original behavior and raw fixtures/futures remain unchanged. All58 genuine source saves/116 command cases/232 checkpoints (including the generated48/192 matrix) replay under the new writer.

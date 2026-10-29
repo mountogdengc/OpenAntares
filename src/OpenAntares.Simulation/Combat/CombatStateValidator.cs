@@ -37,7 +37,7 @@ public static class CombatStateValidator
             if(encounter.Id.Value<=0||encounter.Id.Value>=game.NextEncounterId||owner is null||fleet is null||pocket is null||pocket.Cleared)Error("invalid encounter references/local ID");
             if(encounter.HullLost<0||encounter.CargoLost<0||encounter.DestroyedMembers.Count>32||encounter.Members.Count+encounter.DestroyedMembers.Count>32||encounter.DestroyedMembers.Any(v=>v.Value<=0||v.Value>=state.NextEntityId||state.FindVessel(v) is not null))Error("invalid encounter loss counters/actors");
             Sorted(encounter.DestroyedMembers.Select(v=>(long)v.Value),"destroyed member IDs");
-            Details(encounter.Rounds,encounter.Id,encounter.Round);
+            Details(encounter.Rounds,encounter.Id,encounter.Round,encounter.Owner,encounter.Pocket);
             if(encounter.Round>0&&encounter.Rounds.Count==0)Error("resolved encounter missing its bounded latest receipt");
             if(encounter.ContinueRiskTurn is {} continued&&(continued<0||continued>state.Turn))Error("invalid continued-risk authorization turn");
             if(!Enum.IsDefined(encounter.Phase)||encounter.Revision is <1 or long.MaxValue||encounter.Round<0||encounter.Round>(long)state.Turn+1||encounter.ConsentRevision is {} consent&&(consent<1||consent>encounter.Revision))Error("encounter phase/revision/round/consent bounds");
@@ -54,6 +54,8 @@ public static class CombatStateValidator
                 var v=state.FindVessel(id);
                 if(v is null||v.EmpireId!=encounter.Owner||v.Fleet!=encounter.Fleet||v.Transit is not null||v.StationaryStarId!=pocket?.Star||v.PendingMove is not null||v.PendingFounding is not null||v.Combat?.Repairing==true)Error("invalid participating vessel/order conflict");
             }
+            bool armed=encounter.Members.Any(id=>state.FindVessel(id) is {} vessel&&d.RoleProfiles.TryGetValue(vessel.RoleId,out var profile)&&profile.Attack>0);
+            if(!armed&&(encounter.Phase==CombatPhase.Pending||encounter.Phase==CombatPhase.Active&&!(encounter.ContinueRiskTurn==state.Turn&&CombatWithdrawal.ReturnBlocked(state,encounter))))Error("unarmed encounter requires withdrawal or explicit blocked-route defensive consent");
             bool response=owner?.Combat?.Responses.Any(r=>r.Encounter==encounter.Id&&r.Revision==encounter.Revision)==true;
             if((encounter.Phase==CombatPhase.BlockedResponse)!=response)Error("blocked phase requires exactly its current response");
         }
@@ -79,7 +81,7 @@ public static class CombatStateValidator
             if(c.History.Count>d.HistoryLimit||c.History.Select(h=>h.Encounter).Distinct().Count()!=c.History.Count)Error("history bound/duplicates");
             foreach(var h in c.History)
             {
-                Details(h.Details,h.Encounter,h.Rounds);
+                Details(h.Details,h.Encounter,h.Rounds,owner.Id,h.Pocket);
                 if(h.HullLost<0||h.CargoLost<0)Error("invalid retained loss totals");
                 if(h.Encounter.Value<=0||h.Encounter.Value>=game.NextEncounterId||!game.Pockets.Any(p=>p.Id==h.Pocket)||game.Encounters.Any(e=>e.Id==h.Encounter)||h.Turn<0||h.Turn>state.Turn||h.Rounds<0||h.Rounds>(long)h.Turn+1||string.IsNullOrWhiteSpace(h.Outcome)||h.Destroyed.IsDefault||h.Destroyed.Any(v=>v.Value<=0||v.Value>=state.NextEntityId)||h.Destroyed.Distinct().Count()!=h.Destroyed.Length)Error("invalid encounter history");
             }
@@ -92,6 +94,7 @@ public static class CombatStateValidator
         {
             if(vessel.Combat is not {} c){Error($"{vessel.Id} missing hull/cohesion");continue;}
             if(!d.RoleProfiles.TryGetValue(vessel.RoleId,out var profile)||c.Hull<=0||c.Hull>profile.MaxHull||c.Cohesion is <0 or >100)Error("invalid live hull/cohesion");
+            if(vessel.PendingFounding is {} founding&&state.FindPlanet(founding) is {} planet&&game.Pockets.Any(p=>!p.Cleared&&p.Star==planet.StarId))Error("guarded pocket cannot hold a founding intent");
             if(c.HullLost is <0 or long.MaxValue||c.HullRepaired is <0 or long.MaxValue||c.LastRepairTurn is {} lastRepair&&(lastRepair<0||lastRepair>state.Turn))Error("invalid ship damage/repair totals or clock");
             if((c.ReturnColony is null)!=(c.OnArrival is null)||c.OnArrival is {} arrival&&!Enum.IsDefined(arrival)||c.ReturnColony is {} port&&state.FindColony(port)?.EmpireId!=vessel.EmpireId)Error("invalid ship return/arrival authority");
             var command=state.FindEmpire(vessel.EmpireId)?.Fleets;var group=command?.Fleets.FirstOrDefault(f=>f.Id==vessel.Fleet);
@@ -101,13 +104,14 @@ public static class CombatStateValidator
         if(checkReady&&errors.Count==0)foreach(var owner in state.Empires.Where(e=>e.Controller==ControllerKind.Human&&e.Ready))
             if(!CombatReadyQueries.ValidateResponse(content,state,owner.Id).IsEmpty)Error("ready human has unresolved combat consent or return authority");
         return errors;
-        void Details(IEnumerable<CombatRoundReceipt> records,EncounterId id,long total)
+        void Details(IEnumerable<CombatRoundReceipt> records,EncounterId id,long total,EmpireId owner,PocketId pocket)
         {
             var receipts=records.ToArray();if(receipts.Length>d.RoundDetailLimit)Error("round detail limit");long previous=0;int previousTurn=-1;
             foreach(var r in receipts)
             {
                 if(r.Encounter!=id||r.Round<=previous||r.Round>total||r.Round<1||r.Turn<=previousTurn||r.Turn<0||r.Turn>state.Turn||r.Round>(long)r.Turn+1)Error("invalid round receipt identity/order/turn");
                 previous=r.Round;previousTurn=r.Turn;
+                if(!CombatReceiptValidator.Valid(content,state,r,owner,pocket))Error("invalid derived round receipt");
                 if(r.Before.EncounterId!=id||r.Before.Turn!=r.Turn||r.Before.Revision is <1 or long.MaxValue||r.Before.Ships.IsDefault||r.Before.Sentries.IsDefault||r.Before.Ships.Length>32||r.Before.Sentries.Length>2||r.Result.Ships.IsDefault||r.Result.Sentries.IsDefault||r.Result.Shots.IsDefault||r.Result.DestroyedVessels.IsDefault||r.Result.DestroyedSentries.IsDefault||r.Forecasts.IsDefault)Error("invalid round receipt frame/result");
             }
         }
