@@ -27,7 +27,7 @@ public partial class CombatReportPanel:VBoxContainer
         var rounds=_report?.CombatRounds??view.History.SelectMany(h=>h.Details).Concat(view.Encounters.SelectMany(e=>e.Details)).ToImmutableArray();
         foreach(var round in rounds.TakeLast(20))
         {
-            AddChild(DevelopmentUi.Text($"Encounter {round.Encounter.Value}, round {round.Round}, {(round.Interception?"enemy-only interception":"simultaneous exchange")}; {round.Before.Orders.Doctrine}. Frozen targets; no spill or combat XP."));
+            AddChild(DevelopmentUi.Text($"Encounter {round.Encounter.Value}, round {round.Round}, {(round.Interception?"enemy-only interception":"simultaneous exchange")}; {(round.Before.Orders.Doctrine==CombatDoctrine.Hold?"Hold despite losses":round.Before.Orders.Doctrine==CombatDoctrine.HitAndRun?"Hit and run":round.Before.Orders.Doctrine.ToString())}. Frozen targets; no spill or combat XP."));
             foreach(var shot in round.Result.Shots)AddChild(DevelopmentUi.Text($"{(shot.Source.Sentry?"Sentry":"Ship")} {shot.Source.Id} → {(shot.Target.Sentry?"sentry":"ship")} {shot.Target.Id}: {shot.Damage} damage."));
             foreach(var f in round.Forecasts){var hull=round.Result.Ships.Single(s=>s.Id==f.Id);AddChild(DevelopmentUi.Text($"Ship {f.Id.Value}: hull {hull.Before} → {hull.After}, actual loss {hull.ActualLoss}; band {f.Before} → {f.After?.ToString()??"destroyed"}; cohesion {f.CohesionBefore} → {f.CohesionAfter}."));}
         }

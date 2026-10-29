@@ -34,9 +34,8 @@ public static class CombatCommandProcessor
             case CombatAction.ChangeCombatOrders change:
                 var encounter=Encounter(change.Encounter);
                 if(encounter.Orders==change.Orders&&encounter.CivilianRiskAuthorized==change.AuthorizeCivilianRisk&&!ownCombat.Responses.Any(r=>r.Encounter==encounter.Id))return CommandOutcome.NoChange(state);
+                encounter.Phase=CombatOrderRules.AfterChange(view.Combat!.Encounters.Single(e=>e.Id==encounter.Id),change.Orders,change.AuthorizeCivilianRisk,preview.AffectedShips,ownCombat.Responses.Any(r=>r.Encounter==encounter.Id),content.Combat!);
                 encounter.Orders=change.Orders;encounter.CivilianRiskAuthorized=change.AuthorizeCivilianRisk;encounter.Revision=checked(encounter.Revision+1);encounter.ConsentRevision=encounter.Revision;encounter.ContinueRiskTurn=null;
-                if(encounter.Phase==CombatPhase.BlockedResponse)encounter.Phase=!preview.AffectedShips.Any(s=>s.Attack>0)?CombatPhase.WithdrawalQueued:encounter.Round==0?CombatPhase.Pending:CombatPhase.Active;
-                else if(encounter.Phase==CombatPhase.WithdrawalQueued&&preview.AffectedShips.Any(s=>s.Attack>0)&&(change.Orders.Doctrine==CombatDoctrine.Hold||change.Orders.Doctrine==CombatDoctrine.Press&&preview.AffectedShips.Min(s=>s.Cohesion)>content.Combat!.RetreatCohesionThreshold))encounter.Phase=CombatPhase.Active;
                 ClearResponse(encounter.Id);break;
             case CombatAction.WithdrawCombat withdraw:
                 var departing=Encounter(withdraw.Encounter);

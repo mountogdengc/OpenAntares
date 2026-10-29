@@ -30,12 +30,27 @@ public partial class CombatGraphicalValidation:Node
         {
             _output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Actual graphical Godot display");
             await CurrentSetup();await LegacyAndInvalidSetup();
+            foreach(var size in new[]{new Vector2I(800,600),new Vector2I(1920,1080)})await ReviewedOrders(size);
             foreach(string species in CompleteContent().Species.Keys.OrderBy(id=>id,StringComparer.Ordinal))foreach(var size in CompleteContent().GalaxySizes.Values.OrderBy(d=>d.StarCount))await GeneratedCampaign(species,size.Id);
             Check(_generatedCases==12,"All4 species ×3 galaxy sizes completed genuine paid combat campaigns");
             foreach(var size in new[]{new Vector2I(800,600),new Vector2I(1920,1080)}){await Primary(size);await CivilianResponse(size);await BulkRepair(size);await Privacy(size);}
         }
         catch(Exception failure){error=failure.ToString();GD.PrintErr(error);}
         finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{scenario="Combat",passed=error is null,error,method="Actual graphical Godot controls/signals; no physical input or player-comprehension claim",generatedCampaigns=_generatedCases,checks=_checks,provenance=_provenance},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
+    }
+    private async Task ReviewedOrders(Vector2I size)
+    {
+        GetTree().Root.Size=size;var (main,screen)=await Mount(Board(),"review-orders-"+size.X);var session=Live(screen);var combat=await Combat(screen);
+        Check(Named<OptionButton>(combat,"CombatDoctrine").GetItemText(3)=="Hold despite losses","Combat Hold explicitly names its dangerous behavior");
+        await Pick(Named<OptionButton>(combat,"CombatDoctrine"),3);await PickId(Named<OptionButton>(combat,"CombatReturnColony"),session.State.Colonies[0].Id.Value);await Click(combat,"CombatPreview");
+        string text=Named<Label>(combat,"CombatPreviewDetails").Text;Check(text.Contains("Hold despite losses")&&text.Contains("ignores losses and cohesion"),"Actual attack preview warns that manual Hold ignores retreat thresholds");await Shot(combat,"review-hold-warning-"+size.X);await Click(combat,"CombatApply");await End(screen);await Close(Descendants<TurnReportDialog>(screen).Single());
+        combat=await Combat(screen);await Click(combat,"CombatWithdraw");await Click(combat,"CombatApply");combat=await Combat(screen);await Click(combat,"CombatPreview");text=Named<Label>(combat,"CombatPreviewDetails").Text;
+        Check(!text.Contains(" fires at ")&&!text.Contains("overrides the queued withdrawal"),"Unchanged queued Hold previews its clean withdrawal without falsely claiming override");
+        await Pick(Named<OptionButton>(combat,"CombatOnArrival"),1);await Click(combat,"CombatPreview");text=Named<Label>(combat,"CombatPreviewDetails").Text;
+        Check(text.Contains("Hold despite losses")&&text.Contains("ignores losses and cohesion")&&text.Contains("overrides the queued withdrawal"),"Actual changed Hold preview explains cancellation of queued withdrawal before Apply");await Click(combat,"CombatApply");Check(session.State.Combat!.Encounters[0].Phase==CombatPhase.Active,"Explicit reviewed Hold edit resumes the battle");await End(screen);Check(session.State.Vessels[0].Combat!.Hull==44,"Resumed Hold fires the ordinary second exchange");await Close(Descendants<TurnReportDialog>(screen).Single());
+        combat=await Combat(screen);await Click(combat,"CombatWithdraw");await Click(combat,"CombatApply");combat=await Combat(screen);await Pick(Named<OptionButton>(combat,"CombatDoctrine"),0);await Pick(Named<OptionButton>(combat,"CombatOnArrival"),0);await Click(combat,"CombatPreview");text=Named<Label>(combat,"CombatPreviewDetails").Text;
+        Check(!text.Contains("Ship "+session.State.Vessels[0].Id.Value+" fires at ")&&text.Contains("withdrawal remains queued"),"Changed queued Cautious/arrival order previews enemy-only interception and retained withdrawal");await Shot(combat,"review-queued-preview-"+size.X);await Click(combat,"CombatApply");Check(session.State.Combat!.Encounters[0].Phase==CombatPhase.WithdrawalQueued,"Cautious edit retains queued withdrawal");await End(screen);
+        var round=session.State.Empires[0].Combat!.History.Last().Details.Last();Check(round.Interception&&round.Result.Shots.All(s=>s.Source.Sentry)&&session.State.Vessels[0].Combat!.Hull==25,"Actual next boundary matches the edited withdrawal forecast without friendly shots");await Close(Descendants<TurnReportDialog>(screen).Single());RemoveChild(main);main.QueueFree();await Frames(this);
     }
     private LoadedGame Board(bool cargo=false,int hull=100,bool secondHuman=false)
     {

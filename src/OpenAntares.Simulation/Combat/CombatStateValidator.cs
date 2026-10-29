@@ -55,6 +55,8 @@ public static class CombatStateValidator
                 if(v is null||v.EmpireId!=encounter.Owner||v.Fleet!=encounter.Fleet||v.Transit is not null||v.StationaryStarId!=pocket?.Star||v.PendingMove is not null||v.PendingFounding is not null||v.Combat?.Repairing==true)Error("invalid participating vessel/order conflict");
             }
             bool armed=encounter.Members.Any(id=>state.FindVessel(id) is {} vessel&&d.RoleProfiles.TryGetValue(vessel.RoleId,out var profile)&&profile.Attack>0);
+            bool civilian=encounter.Members.Any(id=>state.FindVessel(id) is {} vessel&&(vessel.CarriedPopulation>0||d.RoleProfiles.TryGetValue(vessel.RoleId,out var profile)&&profile.Attack==0));
+            if(civilian&&!encounter.CivilianRiskAuthorized)Error("participating civilian/cargo hull requires saved civilian-risk authorization");
             if(!armed&&(encounter.Phase==CombatPhase.Pending||encounter.Phase==CombatPhase.Active&&!(encounter.ContinueRiskTurn==state.Turn&&CombatWithdrawal.ReturnBlocked(state,encounter))))Error("unarmed encounter requires withdrawal or explicit blocked-route defensive consent");
             bool response=owner?.Combat?.Responses.Any(r=>r.Encounter==encounter.Id&&r.Revision==encounter.Revision)==true;
             if((encounter.Phase==CombatPhase.BlockedResponse)!=response&&!(encounter.Phase==CombatPhase.WithdrawalQueued&&!armed&&response))Error("blocked phase requires exactly its current response");
