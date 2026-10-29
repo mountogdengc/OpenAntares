@@ -45,7 +45,7 @@ public static class CombatStateValidator
             if(owner?.Fleets is {} command&&command.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&(r.RallyFleet==encounter.Fleet||r.Slots.Any(slot=>slot.Vessel is {} member&&encounter.Members.Contains(member)&&slot.Status!=Fleets.SlotStatus.Missing))))Error("combat and finite request authorities conflict");
             if(fleet is not null&&(fleet.Order is not {Kind:Fleets.FleetOrderKind.Hold}||fleet.Cohort is not null))Error("combat conflicts with persistent fleet orders/transit");
             var orders=encounter.Orders;var port=state.FindColony(orders.ReturnColony);
-            if(!Enum.IsDefined(orders.Doctrine)||!Enum.IsDefined(orders.Stragglers)||!Enum.IsDefined(orders.OnArrival)||port?.EmpireId!=encounter.Owner||state.FindPlanet(port.PlanetId)?.StarId==pocket?.Star)Error("invalid return orders");
+            if(!Enum.IsDefined(orders.Doctrine)||!Enum.IsDefined(orders.Stragglers)||!Enum.IsDefined(orders.OnArrival)||port?.EmpireId!=encounter.Owner&&encounter.Phase!=CombatPhase.BlockedResponse&&encounter.ContinueRiskTurn!=state.Turn||port is not null&&state.FindPlanet(port.PlanetId)?.StarId==pocket?.Star)Error("invalid return orders");
             Sorted(encounter.Members.Select(v=>(long)v.Value),"encounter member IDs");
             if(encounter.Members.Count==0||fleet is not null&&!fleet.Members.SequenceEqual(encounter.Members))Error("encounter membership differs from committed fleet");
             foreach(var id in encounter.Members)

@@ -45,7 +45,13 @@ public static class CombatCommandProcessor
                     c.Encounters.Remove(departing);ClearResponse(departing.Id);e.Ready=false;
                     var destination=candidate.FindPlanet(candidate.FindColony(departing.Orders.ReturnColony)!.PlanetId)!.StarId;
                     // Cancel the reservation first, then use the ordinary fleet route validator.
-                    var move=FleetCommandProcessor.Execute(content,candidate,new(owner.Id,state.Turn,new FleetAction.MoveSelection(ImmutableArray<VesselId>.Empty,ImmutableArray.Create(departing.Fleet),destination)));
+                    var flagship=e.Fleets!.Fleets.Single(f=>f.Id==departing.Fleet).Flagship;
+                    var detached=preview.Departures.Where(g=>!g.Members.Contains(flagship)).SelectMany(g=>g.Members).OrderBy(id=>id).ToImmutableArray();
+                    if(detached.Length>0)
+                    {
+                        var detach=FleetCommandProcessor.Execute(content,candidate,new(owner.Id,state.Turn,new FleetAction.DetachSelection(detached)));if(!detach.Accepted)return Reject(CombatRejectionCodes.Unavailable);candidate=detach.State;
+                    }
+                    var move=FleetCommandProcessor.Execute(content,candidate,new(owner.Id,state.Turn,new FleetAction.MoveSelection(detached,ImmutableArray.Create(departing.Fleet),destination)));
                     if(!move.Accepted)return Reject(CombatRejectionCodes.Unavailable);candidate=move.State;
                     foreach(var member in departing.Members){var ship=candidate.FindVessel(member)!.Combat!;ship.ReturnColony=departing.Orders.ReturnColony;ship.OnArrival=departing.Orders.OnArrival;ship.Repairing=false;}
                 }
@@ -56,7 +62,9 @@ public static class CombatCommandProcessor
                 }
                 break;
             case CombatAction.RespondCombat response:
-                var responding=Encounter(response.Encounter);var pending=ownCombat.Responses.Single(r=>r.Encounter==responding.Id);
+                var responding=Encounter(response.Encounter);
+                if(response.Response==CombatResponse.RemainWithBlockedReturn&&responding.ContinueRiskTurn==state.Turn&&!ownCombat.Responses.Any(r=>r.Encounter==responding.Id&&r.Need.HasFlag(CombatResponseNeed.BlockedReturn)))return CommandOutcome.NoChange(state);
+                var pending=ownCombat.Responses.SingleOrDefault(r=>r.Encounter==responding.Id)??new CombatPendingResponse(responding.Id,responding.Revision,"Known blocked return",CombatResponseNeed.BlockedReturn);
                 var accepted=response.Response==CombatResponse.AcceptRevisedForce?CombatResponseNeed.RevisedForce:CombatResponseNeed.BlockedReturn;
                 if(accepted==CombatResponseNeed.RevisedForce)responding.ConsentRevision=responding.Revision;else responding.ContinueRiskTurn=state.Turn;
                 var outstanding=pending.Need&~accepted;ClearResponse(responding.Id);

@@ -6,13 +6,17 @@ using OpenAntares.Simulation.Fleets;
 using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Combat;
 public sealed record CombatDestruction(EncounterId Encounter,VesselId Vessel,EmpireId Owner,string RoleId,int Cargo,bool Flagship,StarId Star);
-public sealed record CombatRoundReceipt(EncounterId Encounter,int Turn,long Round,bool Interception,CombatFrame Before,CombatExchangeResult Result,ImmutableArray<CombatShipForecast> Forecasts);
+public sealed record CombatRoundReceipt(EncounterId Encounter,int Turn,long Round,bool Interception,CombatFrame Before,CombatExchangeResult Result,ImmutableArray<CombatShipForecast> Forecasts)
+{
+    public ImmutableArray<VesselId> Participants {get;init;}=ImmutableArray<VesselId>.Empty;
+}
 public sealed class CombatResolutionContext
 {
     public int FromTurn {get;private init;}
     public ImmutableArray<EncounterId> Encounters {get;private init;}
     internal FleetResolutionContext FleetContext {get;private init;}=null!;
     internal GameState Snapshot {get;private init;}=null!;
+    internal bool WithdrawalsResolved {get;set;}
     internal bool ExchangesResolved {get;set;}
     internal HashSet<VesselId> ConsumedSet {get;}=new();
     internal List<CombatDestruction> DestructionFacts {get;}=new();

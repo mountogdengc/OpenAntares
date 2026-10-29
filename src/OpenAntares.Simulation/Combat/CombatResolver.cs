@@ -31,11 +31,11 @@ internal static class CombatResolver
             var frame=CombatQueries.Frame(content,candidate,e.Id);var result=CombatExchange.Calculate(frame,false,ImmutableArray<VesselId>.Empty);ApplyExchange(content,candidate,e,frame,result,context);
         }
     }
-    internal static void ApplyExchange(ContentSet content,GameState candidate,EncounterState encounter,CombatFrame frame,CombatExchangeResult result,CombatResolutionContext context,bool interception=false)
+    internal static void ApplyExchange(ContentSet content,GameState candidate,EncounterState encounter,CombatFrame frame,CombatExchangeResult result,CombatResolutionContext context,bool interception=false,ImmutableArray<VesselId> participants=default)
     {
         if(encounter.LastResolvedTurn==context.FromTurn)throw new InvalidOperationException("Encounter already resolved at this boundary.");
         var definition=content.Combat!;var own=candidate.FindEmpire(encounter.Owner)!.Combat!;var pocket=candidate.Combat!.Pockets.Single(p=>p.Id==encounter.Pocket);
-        var forecasts=CombatQueries.Forecast(frame,result);
+        var forecasts=participants.IsDefault?CombatQueries.Forecast(frame,result):CombatQueries.Forecast(frame,result,participants);
         long round=checked(encounter.Round+1);if(round>(long)context.FromTurn+1)throw new OverflowException("Combat round exceeds its boundary count.");
         foreach(var damage in result.Ships.OrderBy(d=>d.Id))
         {
@@ -53,7 +53,7 @@ internal static class CombatResolver
         foreach(var damage in result.Sentries)pocket.Sentries.Single(s=>s.Id==damage.Id).Hull=damage.After;
         pocket.Cleared=pocket.Sentries.All(s=>s.Hull==0);encounter.DestroyedMembers.Sort();encounter.Round=round;encounter.LastResolvedTurn=context.FromTurn;encounter.LastResolvedPhase=interception?CombatPhase.WithdrawalQueued:CombatPhase.Active;
         encounter.Revision=checked(encounter.Revision+1);encounter.ConsentRevision=encounter.Revision;encounter.ContinueRiskTurn=null;
-        var receipt=new CombatRoundReceipt(encounter.Id,context.FromTurn,round,interception,frame,result,forecasts);encounter.Rounds.Add(receipt);while(encounter.Rounds.Count>definition.RoundDetailLimit)encounter.Rounds.RemoveAt(0);context.RoundFacts.Add(receipt);
+        var receipt=new CombatRoundReceipt(encounter.Id,context.FromTurn,round,interception,frame,result,forecasts){Participants=participants.IsDefault?frame.Ships.Select(s=>s.VesselId).ToImmutableArray():participants};encounter.Rounds.Add(receipt);while(encounter.Rounds.Count>definition.RoundDetailLimit)encounter.Rounds.RemoveAt(0);context.RoundFacts.Add(receipt);
         Event(content,candidate,encounter,interception?"interception":"exchange","A frozen simultaneous volley resolved; actual hull loss and destruction are retained in the encounter receipt.");
         FleetResolver.NormalizeAfterLosses(content,context.Snapshot,candidate,context.FleetContext);
         if(pocket.Cleared||encounter.Members.Count==0)
