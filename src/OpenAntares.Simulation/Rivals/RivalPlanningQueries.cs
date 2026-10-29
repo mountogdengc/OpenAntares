@@ -79,6 +79,7 @@ public static class RivalPlanningQueries
                 ResearchReserve = view.Research.Reserve, ResearchTargetId = view.Research.TargetId,
                 KnownTechnologyIds = view.Research.KnownTechnologyIds.ToList() };
             if(view.Scouting is {} scouting)owner.Scouting=new(){KnownHabitats=scouting.Habitats.Select(h=>new Scouting.KnownAmeba(h.HabitatId,h.Star,h.ObservedTurn)).ToList()};
+            if(view.Combat is {} combat)owner.Combat=new(){Observations=combat.Pockets.Select(p=>new Combat.PocketObservation(p.Id,p.Star,p.ObservedTurn,p.Cleared,p.Sentries)).ToList()};
             foreach (var star in view.Stars.Where(s => s.Planets.HasValue))
                 owner.Surveys.Add(new SystemObservation { StarId = star.Chart.Id, LastObservedTurn = star.LastObservedTurn!.Value,
                     Planets = star.Planets!.Value.Select(p => new PlanetObservation(p.Id,p.Orbit,p.PlanetTypeId,p.ColonyId,p.OwnerId) { EnvironmentId = p.EnvironmentId }).ToList() });

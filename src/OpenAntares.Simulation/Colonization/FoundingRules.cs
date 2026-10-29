@@ -34,6 +34,7 @@ public static class FoundingRules
         capacity=SpeciesRules.BaseCapacity(content,state,issuer,mode);
         if(vessel.StationaryStarId != planet.StarId) return Reject("wrong_system");
         if(Rules.HasScouting(state.RulesVersion)&&owner!.Scouting!.KnownHabitats.Any(h=>h.Star==planet.StarId))return Reject("ameba_habitat_guarded");
+        if(Rules.HasCombat(state.RulesVersion)&&(owner!.Combat?.Observations.Any(o=>o.Star==planet.StarId&&!o.Cleared)==true||state.Combat?.Pockets.Any(p=>p.Star==planet.StarId&&!p.Cleared)==true))return Reject("sentry_pocket_guarded");
         if(Crises.CrisisQueries.IsHeld(state,vesselId)||Crises.CrisisQueries.PortClosed(state,issuer,planet.StarId))return Reject("population_port_closed");
         var type=content.PlanetTypes[known.PlanetTypeId];
         if(!type.Colonizable || type.SupportPerWorker <= 0 || capacity < population) return Reject("not_colonizable");
@@ -62,6 +63,7 @@ public static class FoundingRules
         "habitat_mode_not_available"=>"This habitat mode is not available to the selected species.",
         "target_occupied"=>"Planet is already colonized.",
         "target_reserved"=>"Another settler already has a founding order here.",
+        "sentry_pocket_guarded"=>"Automated sentries guard this system. Clear the pocket before founding.",
         "ameba_habitat_guarded"=>"A space ameba guards this system. This expedition cannot found here.",
         _=>"This vessel cannot found at the selected planet."
     };

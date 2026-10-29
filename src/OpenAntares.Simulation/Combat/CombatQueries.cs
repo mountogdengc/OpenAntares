@@ -11,11 +11,12 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Combat;
 public static class CombatQueries
 {
+    public static CombatEmpireView? Project(ContentSet content,GameState state,EmpireId viewer)=>Project(state,viewer);
     internal static CombatEmpireView? Project(GameState state,EmpireId viewer)
     {
         if(!Rules.HasCombat(state.RulesVersion)||state.FindEmpire(viewer)?.Combat is not {} c)return null;
         return new(state.Vessels.Where(v=>v.EmpireId==viewer).OrderBy(v=>v.Id).Select(v=>new ShipCombatView(v.Id,v.Combat!.Hull,v.Combat.Cohesion,v.Combat.ReturnColony,v.Combat.OnArrival,v.Combat.Repairing)).ToImmutableArray(),
-            c.Observations.OrderBy(o=>o.Pocket).Select(o=>new CombatPocketView(o.Pocket,o.Star,o.Turn,o.Cleared,ObservationUpdater.IsCurrent(state,viewer,o.Star),state.Combat!.Encounters.Any(e=>e.Pocket==o.Pocket&&e.Owner!=viewer),o.Sentries)).ToImmutableArray(),
+            c.Observations.OrderBy(o=>o.Pocket).Select(o=>new CombatPocketView(o.Pocket,o.Star,o.Turn,o.Cleared,ObservationUpdater.IsCurrent(state,viewer,o.Star),ObservationUpdater.IsCurrent(state,viewer,o.Star)&&state.Combat!.Encounters.Any(e=>e.Pocket==o.Pocket&&e.Owner!=viewer),o.Sentries)).ToImmutableArray(),
             state.Combat!.Encounters.Where(e=>e.Owner==viewer).OrderBy(e=>e.Id).Select(e=>new CombatEncounterView(e.Id,e.Fleet,e.Pocket,e.Revision,e.Members.ToImmutableArray(),e.Orders,e.Phase,e.Round,e.ConsentRevision,e.CivilianRiskAuthorized,e.ContinueRiskTurn)).ToImmutableArray(),c.Responses.ToImmutableArray());
     }
     public static CombatPreview Preview(ContentSet content,EmpireView view,CombatAction action)

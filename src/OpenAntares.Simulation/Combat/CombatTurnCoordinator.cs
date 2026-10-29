@@ -22,19 +22,15 @@ public static class CombatTurnCoordinator
         }
         catch(Exception error)when(error is OverflowException or ArgumentException or InvalidOperationException){return new(state,false);}
     }
-    // Complete discovery/privacy/founding integration belongs to CombatObservations in Task11.
+    // A departing or destroyed participant retains only its own resolved battle facts.
     internal static void RefreshKnownObservations(ContentSet content,GameState candidate,CombatResolutionContext context)
     {
+        CombatObservations.Refresh(content,candidate,candidate.Turn);
         foreach(var owner in candidate.Empires)
+        foreach(var pocket in candidate.Combat!.Pockets)
         {
-            var known=owner.Combat!.Observations;
-            for(int i=0;i<known.Count;i++)
-            {
-                var observation=known[i];var pocket=candidate.Combat!.Pockets.Single(p=>p.Id==observation.Pocket);
-                bool ownReceipt=context.Rounds.Any(r=>r.Before.Owner==owner.Id&&context.Snapshot.Combat!.Encounters.Any(e=>e.Id==r.Encounter&&e.Pocket==pocket.Id));
-                if(!ownReceipt&&!ObservationUpdater.IsCurrent(candidate,owner.Id,pocket.Star))continue;
-                known[i]=new(pocket.Id,pocket.Star,candidate.Turn,pocket.Cleared,pocket.Sentries.Select(s=>new ObservedSentry(s.Id,s.Profile,s.Hull,content.Combat!.SentryPursuitSpeed)).ToImmutableArray());
-            }
+            bool ownReceipt=context.Rounds.Any(r=>r.Before.Owner==owner.Id&&context.Snapshot.Combat!.Encounters.Any(e=>e.Id==r.Encounter&&e.Pocket==pocket.Id));
+            if(ownReceipt)CombatObservations.Observe(content,owner,pocket,candidate.Turn);
         }
     }
 }
