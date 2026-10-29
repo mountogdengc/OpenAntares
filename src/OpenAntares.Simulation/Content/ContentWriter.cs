@@ -9,11 +9,12 @@ namespace OpenAntares.Simulation.Content;
 /// </summary>
 public static partial class ContentWriter
 {
-    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null, !content.GovernorTemplates.IsEmpty, !content.Plagues.IsEmpty, content.SpaceAmeba is not null, content.FleetCommand is not null);
-    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), Rules.HasRivals(rulesVersion), Rules.HasDevelopment(rulesVersion), Rules.HasCrises(rulesVersion), Rules.HasScouting(rulesVersion), Rules.HasFleets(rulesVersion));
-    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals, bool includeDevelopment, bool includeCrises, bool includeScouting, bool includeFleets)
+    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null, !content.GovernorTemplates.IsEmpty, !content.Plagues.IsEmpty, content.SpaceAmeba is not null, content.FleetCommand is not null, content.Combat is not null);
+    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), Rules.HasRivals(rulesVersion), Rules.HasDevelopment(rulesVersion), Rules.HasCrises(rulesVersion), Rules.HasScouting(rulesVersion), Rules.HasFleets(rulesVersion), Rules.HasCombat(rulesVersion));
+    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals, bool includeDevelopment, bool includeCrises, bool includeScouting, bool includeFleets, bool includeCombat)
     {
         writer.WriteStartObject();
+        if (includeCombat) Combat.CombatContentWriter.Write(writer, content.Combat ?? throw new System.ArgumentException("Missing combat content."));
         if (includeFleets)
         {
             writer.WritePropertyName("fleet_command");
@@ -146,10 +147,12 @@ public static partial class ContentWriter
             writer.WriteStartArray("vessels");
             foreach (VesselDefinition vessel in content.Vessels.Values)
             {
+                if (vessel.CombatOnly && !includeCombat) continue;
                 writer.WriteStartObject(); writer.WriteString("id", vessel.Id); writer.WriteString("name", vessel.Name);
                 writer.WriteNumber("cost", vessel.Cost); writer.WriteNumber("speed", vessel.Speed);
                 writer.WriteNumber("embark_population", vessel.EmbarkPopulation); writer.WriteNumber("minimum_source_population", vessel.MinimumSourcePopulation);
                 writer.WriteBoolean("can_found_colony", vessel.CanFoundColony);
+                if (includeCombat && vessel.CombatOnly) writer.WriteBoolean("combat_only", true);
                 if (includeSpecies)
                 {
                     writer.WriteBoolean("requires_full_colony",vessel.RequiresFullColony);

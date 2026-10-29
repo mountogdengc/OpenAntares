@@ -24,7 +24,8 @@ public static class EmpireViewProjector
         var crisis=Rules.HasCrises(state.RulesVersion)?CrisisQueries.Project(content,owned,viewer):null;
         var profile = EconomyProfile.For(content,owned,viewer);
         var roles = Rules.HasSpecies(state.RulesVersion) ? content.Species[e.SpeciesId!].AllowedVesselIds :
-            Rules.HasExpansion(state.RulesVersion) ? content.Vessels.Keys.ToImmutableArray() : ImmutableArray<string>.Empty;
+            Rules.HasExpansion(state.RulesVersion) ? content.Vessels.Keys.Where(id => Rules.VesselAvailable(content, state.RulesVersion, id)).ToImmutableArray() : ImmutableArray<string>.Empty;
+        if (Rules.HasCombat(state.RulesVersion)) roles = roles.Concat(content.Vessels.Values.Where(v => v.CombatOnly).Select(v => v.Id)).Distinct(StringComparer.Ordinal).ToImmutableArray();
         var charts = state.Stars.Select(s => new ChartedStar(s.Id, s.Name, s.X, s.Y, s.RegionId)).ToImmutableArray();
         bool legacy = state.RulesVersion == Rules.LegacyVersion;
         var stars = charts.Select(star =>

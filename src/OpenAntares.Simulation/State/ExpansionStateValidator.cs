@@ -17,12 +17,16 @@ internal static class ExpansionStateValidator
         if (!Rules.HasExpansion(s.RulesVersion)) return;
         if (content.Expansion is null || content.Vessels.Count == 0) errors.Add("Expansion rules require embedded expansion content.");
         foreach (var c in s.Colonies)
+        {
             if (c.ProjectKind is not (ProductionKinds.Building or ProductionKinds.Vessel) || (c.ProjectId is null && c.ProjectKind != ProductionKinds.Building)) errors.Add($"{c.Id}: invalid production kind.");
+            if (c.ProjectKind == ProductionKinds.Vessel && c.ProjectId is {} project && !Rules.VesselAvailable(content, s.RulesVersion, project)) errors.Add($"{c.Id}: vessel project unavailable for campaign rules.");
+        }
         foreach (var v in s.Vessels)
         {
             string label = v.Id.ToString();
             if (s.FindEmpire(v.EmpireId) is null) errors.Add($"{label}: owner not defined.");
             if (!content.Vessels.TryGetValue(v.RoleId, out var role)) errors.Add($"{label}: role not defined.");
+            else if (!Rules.VesselAvailable(content, s.RulesVersion, v.RoleId)) errors.Add($"{label}: vessel role unavailable for campaign rules.");
             else if (role.Speed <= 0 || v.CarriedPopulation != role.EmbarkPopulation) errors.Add($"{label}: invalid speed or cargo.");
             if (v.StationaryStarId.HasValue == (v.Transit is not null)) errors.Add($"{label}: must be stationary XOR in transit.");
             if (v.StationaryStarId is { } star && s.FindStar(star) is null) errors.Add($"{label}: stationary star missing.");

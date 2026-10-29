@@ -17,6 +17,7 @@ public sealed record ContentSet(
     ImmutableSortedDictionary<string, BuildingDefinition> Buildings,
     ImmutableSortedDictionary<string, TechnologyDefinition> Technologies)
 {
+    public Combat.CombatDefinition? Combat { get; init; }
     public Fleets.FleetCommandDefinition? FleetCommand { get; init; }
     public AmebaDefinition? SpaceAmeba { get; init; }
     public ImmutableSortedDictionary<string, PlagueDefinition> Plagues { get; init; } = ImmutableSortedDictionary<string, PlagueDefinition>.Empty.WithComparers(System.StringComparer.Ordinal);
@@ -113,6 +114,7 @@ public sealed record TechnologyDefinition(
 
 public sealed record VesselDefinition(string Id, string Name, long Cost, int Speed, int EmbarkPopulation, int MinimumSourcePopulation, bool CanFoundColony)
 {
+    public bool CombatOnly { get; init; }
     public bool RequiresFullColony { get; init; }
     public bool FoundsSealedHabitat { get; init; }
 }

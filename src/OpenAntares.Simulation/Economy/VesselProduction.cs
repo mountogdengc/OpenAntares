@@ -14,6 +14,7 @@ internal static class VesselProduction
     internal static ColonyEconomy Calculate(ContentSet content, GameState state, ColonyState colony, PlanetState planet, PlanetTypeDefinition type, List<BuildingDefinition> buildings, ColonyEconomy result)
     {
         if (!Rules.HasExpansion(state.RulesVersion) || colony.ProjectKind != ProductionKinds.Vessel || colony.ProjectId is not { } id || !content.Vessels.TryGetValue(id, out var role)) return result;
+        if (!Rules.VesselAvailable(content, state.RulesVersion, id)) throw new System.InvalidOperationException("Vessel role is unavailable for these campaign rules.");
         var eligibility = EmbarkationRules.Evaluate(content, state, colony, role);
         bool eligible = eligibility.Eligible;
         long price=Fleets.OfficerBonuses.RequestShipCost(content,state,colony.Id,id);

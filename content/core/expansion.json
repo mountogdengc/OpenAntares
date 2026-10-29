@@ -65,6 +65,18 @@
       "can_found_colony": true,
       "requires_full_colony": true,
       "founds_sealed_habitat": false
+    },
+    {
+      "id": "escort",
+      "name": "Escort",
+      "cost": 2400,
+      "speed": 300,
+      "embark_population": 0,
+      "minimum_source_population": 0,
+      "can_found_colony": false,
+      "requires_full_colony": false,
+      "founds_sealed_habitat": false,
+      "combat_only": true
     }
   ],
   "expansion": {

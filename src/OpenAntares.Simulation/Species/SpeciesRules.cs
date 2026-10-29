@@ -18,8 +18,8 @@ public static class SpeciesRules
         return sp is null ? content.Rules.BaseColonyCapacity : habitatMode == HabitatModes.Sealed ? sp.SealedBaseCapacity ?? 0 : sp.BaseCapacity;
     }
     public static bool CanBuildVessel(ContentSet content, GameState state, EmpireId owner, string roleId) =>
-        Rules.HasExpansion(state.RulesVersion) && content.Vessels.ContainsKey(roleId) &&
-        (!Rules.HasSpecies(state.RulesVersion) || Definition(content,state,owner)?.AllowedVesselIds.Contains(roleId) == true);
+        Rules.VesselAvailable(content, state.RulesVersion, roleId) &&
+        (!Rules.HasSpecies(state.RulesVersion) || Rules.HasCombat(state.RulesVersion) && content.Vessels[roleId].CombatOnly || Definition(content,state,owner)?.AllowedVesselIds.Contains(roleId) == true);
     public static bool HabitatAllowed(ContentSet content, GameState state, EmpireId owner, string environmentId, string habitatMode)
     {
         var sp = Definition(content,state,owner);

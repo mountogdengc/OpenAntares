@@ -1,0 +1,29 @@
+{
+  "combat": {
+    "role_profiles": {
+      "scout": { "max_hull": 60, "attack": 0, "armor": 0 },
+      "peldra_settler": { "max_hull": 100, "attack": 0, "armor": 0 },
+      "harl_settler": { "max_hull": 100, "attack": 0, "armor": 0 },
+      "settler": { "max_hull": 100, "attack": 0, "armor": 0 },
+      "harbor_settler": { "max_hull": 100, "attack": 0, "armor": 0 },
+      "daughter_seed": { "max_hull": 100, "attack": 0, "armor": 0 },
+      "escort": { "max_hull": 100, "attack": 24, "armor": 4 }
+    },
+    "sentry_role_id": "raider_sentry",
+    "sentry_profile": { "max_hull": 80, "attack": 18, "armor": 2 },
+    "sentry_pursuit_speed": 250,
+    "pocket_limit": 1,
+    "sentries_per_pocket": 2,
+    "history_limit": 20,
+    "round_detail_limit": 20,
+    "hull_thresholds": [50, 25],
+    "attack_percent": [100, 50, 25],
+    "speed_percent": [100, 75, 50],
+    "destroyed_cohesion_loss": 20,
+    "crippled_cohesion_loss": 10,
+    "flagship_cohesion_loss": 10,
+    "retreat_cohesion_threshold": 40,
+    "repair_hull_divisor": 4,
+    "repair_cohesion": 20
+  }
+}
