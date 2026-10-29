@@ -229,3 +229,6 @@ The [proposed CBT acceptance table](superpowers/specs/2026-10-28-fleet-combat-da
 
 
 M9 design approval2026-10-28 supersedes the earlier drafting status: CBT-AC-012 Verified for full design in [ADR-020](DECISIONS/ADR-020-approved-fleet-combat-design.md). CBT-AC-001..011 remain Not Started. The [implementation plan](superpowers/plans/2026-10-28-fleet-combat-damage-and-withdrawal.md) and [self-review](../reports/FLEET_COMBAT_IMPLEMENTATION_PLAN_REVIEW_2026-10-28.md) do not claim executed combat tests.
+
+
+M9 implementation checkpoint2026-10-28: the owner approved the separate16-task plan; M9-P Verified. Tasks1..15 are complete on isolated codex/fleet-combat, rules9/writer10/46 pairs. M9-I and functional CBT-AC-001..011 are Implemented, Unverified pending task16 combined native gates and the ONE fresh whole-branch review. FullSuite1688/1688 includes exact compatibility/frozen futures and alternate embedded-role continuation. CBT-AC-012 remains design-only Verified in ADR-020. See reports/COMBAT_VALIDATION_2026-10-28.md; all earlier planning-only checkpoints are historical. Parent17-row totals and human/platform/security/export/release limits unchanged. Main and all owner prose/evidence/worktrees retained; no integration/push/cleanup.

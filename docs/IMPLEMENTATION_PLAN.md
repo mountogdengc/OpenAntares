@@ -37,8 +37,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M8-P | Plan approved fleet/admiral design | Full M8-D approved | Owner-approved17-task plan; Native retained | Verified |
 | M8-I | Implement bounded Fleet Command/admiral slice | Owner approved separate M8-P | All17tasks/review complete; authorized3-Minor follow-up verified | Verified for local automated scope |
 | M9-D | Approve bounded fleet combat/damage/withdrawal | Full owner “looks good” approval in ADR-020 | CBT-AC-012 full design gate | Verified for design |
-| M9-P | Plan the reviewed combat slice | M9-D approved | Separate16-task plan/self-review; owner review pending | In Progress |
-| M9-I | Implement approved bounded combat | Approved M9-P required | CBT-AC-001..011 and retained regressions | Not Started |
+| M9-P | Plan the reviewed combat slice | M9-D approved | Separate16-task plan/self-review; owner “Approve” | Verified |
+| M9-I | Implement approved bounded combat | M9-P approved | CBT-AC-001..011 and retained regressions; task16 final review pending | Implemented, Unverified |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
@@ -46,7 +46,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review the [separate16-task combat implementation plan](superpowers/plans/2026-10-28-fleet-combat-damage-and-withdrawal.md) and [author self-review](../reports/FLEET_COMBAT_IMPLEMENTATION_PLAN_REVIEW_2026-10-28.md). The full gameplay design is approved in ADR-020; Native method is retained. After plan confirmation, establish isolation and capture genuine current rules8 futures before product changes. M8 is complete; do not repeat its work or reopen approved combat choices.
+Finish task16 combined validation and the one fresh whole-branch review on isolated `codex/fleet-combat`; see [combat validation](../reports/COMBAT_VALIDATION_2026-10-28.md) and the canonical execution ledger. Tasks1..15 are complete; new campaigns use9/writer10/46 pairs on this branch. Main remains8/writer9/37 pairs. Do not repeat completed work, reopen approved gameplay or integrate without owner disposition.
 
 ## Risks and autonomy
 

@@ -186,3 +186,6 @@ M8 local integration2026-10-28: owner “merge” explicitly authorizes local ma
 
 
 M9 full gameplay approval2026-10-28: [ADR-020](DECISIONS/ADR-020-approved-fleet-combat-design.md) accepts all CBT-001..013 contracts and defaults in the full design. CBT-AC-012/M9-D Verified for design only; CBT-AC-001..011/M9-I Not Started. [Separate16-task plan](superpowers/plans/2026-10-28-fleet-combat-damage-and-withdrawal.md) written/self-reviewed; M9-P In Progress pending confirmation. Parent17-row totals unchanged; gameplay remains8/9/37.
+
+
+M9 implementation checkpoint2026-10-28: the owner approved the separate16-task plan; M9-P Verified. Tasks1..15 are complete on isolated codex/fleet-combat, rules9/writer10/46 pairs. M9-I and functional CBT-AC-001..011 are Implemented, Unverified pending task16 combined native gates and the ONE fresh whole-branch review. FullSuite1688/1688 includes exact compatibility/frozen futures and alternate embedded-role continuation. CBT-AC-012 remains design-only Verified in ADR-020. See reports/COMBAT_VALIDATION_2026-10-28.md; all earlier planning-only checkpoints are historical. Parent17-row totals and human/platform/security/export/release limits unchanged. Main and all owner prose/evidence/worktrees retained; no integration/push/cleanup.

@@ -124,6 +124,41 @@ public sealed class CombatSaveTests
             else if(n is JsonArray a)for(int i=0;i<a.Count;i++)foreach(var field in Fields(a[i],path.Append(i.ToString(System.Globalization.CultureInfo.InvariantCulture)).ToArray()))yield return field;
         }
     }
+    [Fact] public void RenamedCombatRolesContinueEverySavedPhaseFromEmbeddedContent()
+    {
+        // Explicit pre-session alternate-content supplement; no generated gameplay claim.
+        static string Rename(string text) => text
+            .Replace("\"escort\"", "\"guardian\"", StringComparison.Ordinal)
+            .Replace("\"raider_sentry\"", "\"gate_machine\"", StringComparison.Ordinal);
+        foreach (var source in Cases())
+        {
+            string alternate = Rename(SaveGame.Serialize(source.Content, source.State));
+            var loaded = SaveGame.Deserialize(alternate);
+            Assert.True(loaded.Succeeded, string.Join(";", loaded.Errors));
+            var direct = loaded.Game!;
+            Assert.True(direct.Content.Vessels.ContainsKey("guardian"));
+            Assert.False(direct.Content.Vessels.ContainsKey("escort"));
+            Assert.Equal("gate_machine", direct.Content.Combat!.SentryRoleId);
+            var copy = SaveGame.Deserialize(SaveGame.Serialize(direct.Content, direct.State)).Game!;
+            var reference = source;
+            for (int i = 0; i < 3; i++)
+            {
+                var expected = TurnResolver.Resolve(reference.Content, reference.State);
+                var a = TurnResolver.Resolve(direct.Content, direct.State);
+                var b = TurnResolver.Resolve(copy.Content, copy.State);
+                Assert.Equal(expected.Succeeded, a.Succeeded);
+                Assert.Equal(a.Succeeded, b.Succeeded);
+                Assert.Equal(CombatFixtures.Bytes(a.State), CombatFixtures.Bytes(b.State));
+                var normalized = SaveGame.Deserialize(Rename(SaveGame.Serialize(reference.Content, expected.State))).Game!;
+                Assert.Equal(SaveGame.Serialize(normalized.Content, normalized.State), SaveGame.Serialize(direct.Content, a.State));
+                if (!a.Succeeded) break; // Explicit response remains blocking on both continuations.
+                direct = new(direct.Content, a.State);
+                copy = new(copy.Content, b.State);
+                reference = new(reference.Content, expected.State);
+                Assert.Empty(GameStateValidator.Validate(direct.Content, direct.State));
+            }
+        }
+    }
     [Fact] public void TrimmedRoundAndEventHistoryLoadsWithoutResetOrReplay()
     {
         var g=CombatTurnTests.Pending(doctrine:CombatDoctrine.Hold);var d=g.Content.Combat! with{RoleProfiles=g.Content.Combat.RoleProfiles.SetItem("escort",new(int.MaxValue,1,0)),SentryProfile=new(int.MaxValue,1,0)};g=new(g.Content with{Combat=d},g.State);g.State.Vessels[0].Combat!.Hull=int.MaxValue;
