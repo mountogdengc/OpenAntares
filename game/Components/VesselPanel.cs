@@ -27,7 +27,8 @@ public partial class VesselPanel : VBoxContainer
         foreach (var unit in view.Vessels) { picker.AddItem($"{content.Vessels[unit.RoleId].Name} {unit.Id.Value}"); picker.SetItemMetadata(picker.ItemCount - 1, unit.Id.Value); if (unit.Id == selected) picker.Select(picker.ItemCount - 1); }
         picker.ItemSelected += index => VesselSelected?.Invoke(new(picker.GetItemMetadata((int)index).AsInt32()));
         var vessel = view.Vessels.FirstOrDefault(v => v.Id == selected) ?? view.Vessels[0]; var role = content.Vessels[vessel.RoleId];
-        AddChild(Text(vessel.CarriedPopulation > 0 ? $"Carried {view.PopulationUnitLabel}: {vessel.CarriedPopulation}" : "Scout: surveys a system on arrival."));
+        if(view.Combat?.Ships.FirstOrDefault(v=>v.Id==vessel.Id) is {} combat)AddChild(Text($"{CombatReportPanel.Status(combat)} — hull {combat.Hull}/{combat.MaxHull}, cohesion {combat.Cohesion}, {combat.DamageBand}; attack {combat.Firepower}, armor {combat.Armor}, effective speed {combat.EffectiveSpeed}."));
+        AddChild(Text(view.Combat is not null&&content.Combat!.RoleProfiles[vessel.RoleId].Attack>0?"Warship: combat requires a separate named-fleet attack order.":vessel.CarriedPopulation > 0 ? $"Carried {view.PopulationUnitLabel}: {vessel.CarriedPopulation}" : "Scout: surveys a system on arrival."));
         var scouting=view.Scouting?.Vessels.FirstOrDefault(v=>v.Id==vessel.Id);
         if(scouting is {Posture:{} posture})
         {
@@ -48,7 +49,8 @@ public partial class VesselPanel : VBoxContainer
         destinations.ItemSelected += index => DestinationSelected?.Invoke(new(destinations.GetItemMetadata((int)index).AsInt32()));
         if (target is not null)
         {
-            var preview = TravelCalculator.Preview(at.Id, target.Chart.Id, at.X, at.Y, target.Chart.X, target.Chart.Y, role.Speed);
+            int speed=role.Speed;if(view.Combat is {} combatView){speed=combatView.Ships.Single(s=>s.Id==vessel.Id).EffectiveSpeed;var fleet=view.Fleets!.Ships.Single(s=>s.Id==vessel.Id).Fleet;if(fleet is {} f)speed=view.Fleets.Fleets.Single(g=>g.Id==f).Members.Min(id=>combatView.Ships.Single(s=>s.Id==id).EffectiveSpeed);}
+            var preview = TravelCalculator.Preview(at.Id, target.Chart.Id, at.X, at.Y, target.Chart.X, target.Chart.Y, speed);
             AddChild(Text($"Distance rounded up: {preview.CeilingDistance}; speed {preview.Speed}; travel {preview.Turns} turn(s)."));
             AddChild(Text("Launching commits this route until arrival.", "WarningLabel"));
         }

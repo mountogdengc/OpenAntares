@@ -8,11 +8,15 @@ using OpenAntares.Simulation;
 using OpenAntares.Simulation.Commands;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Fleets;
+using OpenAntares.Simulation.Combat;
 using OpenAntares.Simulation.Knowledge;
 namespace OpenAntares.Game.Components;
 public partial class FleetCommandDialog:AcceptDialog
 {
     public event Action<Command>? CommandIssued;
+    public event Action<CombatAction>? CombatRequested;
+    public string CombatPreferencesPath {get;set;}="user://combat-notifications.json";
+    private readonly CombatReportPanel _combatReport=new(){Name="FleetCombatReport"};
     public event Action<VesselId>? InspectRequested;
     public event Action<StarId>? StarRequested;
     public event Action<RequestId?>? RequestRequested;
@@ -46,6 +50,8 @@ public partial class FleetCommandDialog:AcceptDialog
         DevelopmentUi.Button(shipActions,"Clear new markers",()=>Review(new FleetAction.DismissNewMarker(Ships())),"FleetDismissNew");
         DevelopmentUi.Button(shipActions,"Inspect ship / choose founding planet",()=>{if(Ships().Length==1){Hide();InspectRequested?.Invoke(Ships()[0]);}else _error.Text="Select one ship to inspect its separate planet choices.";},"FleetInspectShip");
         DevelopmentUi.Button(ships,"Locate selected ship",()=>{if(Ships().Length!=1)return;var ship=_view.Vessels.Single(v=>v.Id==Ships()[0]);StarRequested?.Invoke(ship.StationaryStarId??ship.Transit!.Destination);},"FleetLocateShip");
+        DevelopmentUi.Button(ships,"Preview Repair for selected ships",()=>CombatRequested?.Invoke(new CombatAction.SetRepair(Ships(),true)),"FleetRepair");
+        DevelopmentUi.Button(ships,"Preview Hold / stop finite repair",()=>CombatRequested?.Invoke(new CombatAction.SetRepair(Ships(),false)),"FleetStopRepair");
         var groups=Page("Fleets");groups.AddChild(_fleets);groups.AddChild(_groupDetail);groups.AddChild(_groupDestination);groups.AddChild(_order);foreach(var order in Enum.GetValues<FleetOrderKind>())_order.AddItem(order.ToString());groups.AddChild(_groupName);var groupActions=new GridContainer{Columns=2};groups.AddChild(groupActions);
         DevelopmentUi.Button(groupActions,"Preview fleet move",()=>Review(new FleetAction.MoveSelection(ImmutableArray<VesselId>.Empty,Groups(),Target(_groupDestination))),"FleetPreviewGroupMove");
         DevelopmentUi.Button(groupActions,"Apply standing order",()=>Review(new FleetAction.SetOrder(Groups(),new((FleetOrderKind)_order.Selected,_order.Selected is 0 or 2?null:Target(_groupDestination)))),"FleetSetStandingOrder");
@@ -55,8 +61,11 @@ public partial class FleetCommandDialog:AcceptDialog
         groups.AddChild(DevelopmentUi.Text("Selected fleet members; choose a flagship or an explicit subset to split."));groups.AddChild(_members);groups.AddChild(_flagship);
         DevelopmentUi.Button(groups,"Set flagship",()=>SingleGroup(id=>{if(_flagship.ItemCount>0)Review(new FleetAction.SetFlagship(id,new(_flagship.GetSelectedMetadata().AsInt32())));}),"FleetSetFlagship");
         DevelopmentUi.Button(groups,"Split selected members into named fleet",()=>SingleGroup(id=>Review(new FleetAction.Split(id,_groupName.Text,_members.GetSelectedItems().Select(i=>_memberRows[i]).ToImmutableArray()))),"FleetSplit");
+        DevelopmentUi.Button(groups,"Attack / combat orders / Withdraw",()=>SingleGroup(CombatOrder),"FleetCombatOrders");
         var requests=Page("Requests");requests.AddChild(_requests);Navigation(requests,"FleetRequests",_requestPages,delta=>{_requestPage+=delta;RequestRows();});requests.AddChild(_requestDetail);DevelopmentUi.Button(requests,"Review selected finite request",()=>{int i=_requests.GetSelectedItems().FirstOrDefault(-1);if(i>=0)RequestRequested?.Invoke(_requestRows[i]);},"FleetEditRequest");
         var history=Page("Reports");history.AddChild(DevelopmentUi.Text("Attention remains visible in the command badge and service/request records. Routine display is local to this computer."));var levels=new OptionButton{Name="FleetRoutineDisplay"};levels.AddItem("Routine: Summary");levels.AddItem("Routine: Off");history.AddChild(levels);DevelopmentUi.Button(history,"Apply local display",()=>{try{new FleetNotificationPreferences(levels.Selected==0).Save(ProjectSettings.GlobalizePath(PreferencesPath));Events();DisplayApplied?.Invoke();}catch(Exception e)when(e is System.IO.IOException or UnauthorizedAccessException or ArgumentException){_error.Text="Display setting was not saved: "+e.Message;}},"FleetApplyDisplay");Navigation(history,"FleetEvents",_eventPages,delta=>{_eventPage+=delta;Events();});history.AddChild(_events);
+        history.AddChild(_combatReport);var combatLevel=new OptionButton{Name="CombatRoutineDisplay"};combatLevel.AddItem("Combat routine: Summary");combatLevel.AddItem("Combat routine: Off");history.AddChild(combatLevel);
+        DevelopmentUi.Button(history,"Apply local combat display",()=>{try{new CombatNotificationPreferences(combatLevel.Selected==0).Save(ProjectSettings.GlobalizePath(CombatPreferencesPath));CombatReport();DisplayApplied?.Invoke();}catch(Exception e)when(e is System.IO.IOException or UnauthorizedAccessException or ArgumentException){_error.Text="Combat display was not saved: "+e.Message;}},"CombatApplyDisplay");
         _error.Name="FleetError";_confirmationText.Name="FleetConfirmationDetails";_body.AddChild(_error);AddChild(_confirm);DevelopmentUi.DialogBody(_confirm).AddChild(_confirmationText);_confirm.Confirmed+=()=>{if(_pending is {} command)CommandIssued?.Invoke(command);_pending=null;};
         _filter.ItemSelected+=_=>{_shipPage=0;Rows();};_roleFilter.ItemSelected+=_=>{_shipPage=0;Rows();};_sort.ItemSelected+=_=>{_shipPage=0;Rows();};_ships.MultiSelected+=(_,_)=>Details();_fleets.MultiSelected+=(_,_)=>GroupDetails();_requests.ItemSelected+=_=>RequestDetails();
     }
@@ -65,7 +74,20 @@ public partial class FleetCommandDialog:AcceptDialog
     private VBoxContainer Page(string name){var page=new VBoxContainer{Name=name,SizeFlagsHorizontal=Control.SizeFlags.ExpandFill};_tabs.AddChild(page);return page;}
     public void ShowEmpire(ContentSet content,EmpireView view)
     {
-        _content=content;_view=view;if(view.Fleets is null)return;FillRoles();FillDestinations(_destination);FillDestinations(_groupDestination);Rows();GroupRows();RequestRows();Events();PopupCenteredClamped(new(760,560));
+        _content=content;_view=view;if(view.Fleets is null)return;
+        if(view.Combat is not null&&_filter.ItemCount==7)foreach(var label in new[]{"Warships","In combat","Withdrawing","Damaged","Crippled","Repairing"})_filter.AddItem(label);
+        if(view.Combat is null)while(_filter.ItemCount>7)_filter.RemoveItem(_filter.ItemCount-1);
+        foreach(var id in new[]{"FleetCombatOrders","FleetRepair","FleetStopRepair","CombatRoutineDisplay","CombatApplyDisplay"})FindChild(id,true,false)?.Set("visible",view.Combat is not null);
+        CombatReport();FillRoles();FillDestinations(_destination);FillDestinations(_groupDestination);Rows();GroupRows();RequestRows();Events();PopupCenteredClamped(new(760,560));
+    }
+    private void CombatReport(){_combatReport.ShowRoutine=CombatNotificationPreferences.Load(ProjectSettings.GlobalizePath(CombatPreferencesPath)).ShowRoutine;if(FindChild("CombatRoutineDisplay",true,false) is OptionButton picker)picker.Select(_combatReport.ShowRoutine?0:1);_combatReport.SetView(_view.Combat);}
+    private void CombatOrder(FleetId fleet)
+    {
+        if(_view.Combat is not {} combat)return;var existing=combat.Encounters.SingleOrDefault(e=>e.Fleet==fleet);
+        if(existing is not null){CombatRequested?.Invoke(new CombatAction.ChangeCombatOrders(existing.Id,existing.Revision,existing.Orders,existing.CivilianRiskAuthorized));return;}
+        var group=_view.Fleets!.Fleets.Single(f=>f.Id==fleet);var station=_view.Vessels.Single(v=>v.Id==group.Flagship).StationaryStarId;var pocket=combat.Pockets.FirstOrDefault(p=>p.Star==station&&p.Current&&!p.Cleared);
+        if(pocket is null){_error.Text="Select a stationary own fleet at a currently observed active pocket. Arrival and movement never start combat.";return;}
+        CombatRequested?.Invoke(new CombatAction.AttackPocket(fleet,pocket.Id,new(CombatDoctrine.Cautious,default,StragglerPolicy.KeepTogether,CombatArrivalOrder.Repair),false));
     }
     private void FillRoles()
     {
@@ -78,17 +100,17 @@ public partial class FleetCommandDialog:AcceptDialog
     private ImmutableArray<VesselId> Ships()=>_ships.GetSelectedItems().Select(i=>_shipRows[i]).OrderBy(id=>id).ToImmutableArray();
     private ImmutableArray<FleetId> Groups()=>_fleets.GetSelectedItems().Select(i=>_fleetRows[i]).OrderBy(id=>id).ToImmutableArray();
     private void SingleGroup(Action<FleetId> action){var groups=Groups();if(groups.Length==1)action(groups[0]);else _error.Text="Select exactly one fleet.";}
-    private bool Attention(VesselId id)=>_view.Scouting?.Vessels.Any(s=>s.Id==id&&(s.Stage is not null||s.Blocker is not null||s.Held))==true||_view.Fleets!.Fleets.Any(f=>f.Attention is not null&&f.Members.Contains(id))||_view.Fleets.Requests.Any(r=>FleetQueries.IsActive(r.Status)&&r.Slots.Any(s=>s.Vessel==id&&(s.Status==SlotStatus.BlockedSafety||s.BlockedReason is not null)));
+    private bool Attention(VesselId id)=>_view.Combat?.Notices.Any(n=>n.Vessel==id&&n.Level!=CombatNoticeLevel.Summary)==true||_view.Scouting?.Vessels.Any(s=>s.Id==id&&(s.Stage is not null||s.Blocker is not null||s.Held))==true||_view.Fleets!.Fleets.Any(f=>f.Attention is not null&&f.Members.Contains(id))||_view.Fleets.Requests.Any(r=>FleetQueries.IsActive(r.Status)&&r.Slots.Any(s=>s.Vessel==id&&(s.Status==SlotStatus.BlockedSafety||s.BlockedReason is not null)));
     private string Location(FleetShipView ship)=>ship.Transit is {} t?$"Travelling to {Star(t.Destination)}, {t.RemainingTurns} turns":Star(ship.Station!.Value);
     private string Star(StarId id)=>_view.Stars.FirstOrDefault(s=>s.Chart.Id==id)?.Chart.Name??id.ToString();
     private void Rows()
     {
-        var selected=Ships().ToHashSet();_ships.Clear();_shipRows.Clear();var rows=_view.Fleets!.Ships.Where(s=>_filter.Selected switch{1=>s.Transit is null&&s.PendingMove is null&&_view.Vessels.Single(v=>v.Id==s.Id).PendingFounding is null,2=>s.Fleet is null&&s.Request is null,3=>s.NewlyCompleted,4=>s.Transit is not null,5=>s.Request is not null,6=>Attention(s.Id),_=>true});
+        var selected=Ships().ToHashSet();_ships.Clear();_shipRows.Clear();var rows=_view.Fleets!.Ships.Where(s=>_filter.Selected switch{1=>s.Transit is null&&s.PendingMove is null&&_view.Vessels.Single(v=>v.Id==s.Id).PendingFounding is null,2=>s.Fleet is null&&s.Request is null,3=>s.NewlyCompleted,4=>s.Transit is not null,5=>s.Request is not null,6=>Attention(s.Id),7=>_content.Combat!.RoleProfiles[s.RoleId].Attack>0,8=>_view.Combat!.Encounters.Any(e=>e.Members.Contains(s.Id)),9=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.Status is CombatShipStatus.WithdrawalQueued or CombatShipStatus.ReturnOrdered or CombatShipStatus.Returning),10=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.Hull<v.MaxHull),11=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.DamageBand==CombatDamageBand.Crippled),12=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.Status is CombatShipStatus.Repairing or CombatShipStatus.RepairBlocked),_=>true});
         string role=_roleFilter.GetSelectedMetadata().AsString();if(role.Length>0)rows=rows.Where(s=>s.RoleId==role);
         rows=_sort.Selected switch{1=>rows.OrderBy(s=>_content.Vessels[s.RoleId].Name,StringComparer.Ordinal).ThenBy(s=>s.Id),2=>rows.OrderBy(Location,StringComparer.Ordinal).ThenBy(s=>s.Id),_=>rows.OrderBy(s=>s.Id)};
-        foreach(var ship in VisiblePage(rows,ref _shipPage,100,_shipPages)){_shipRows.Add(ship.Id);string text=$"{_content.Vessels[ship.RoleId].Name} #{ship.Id.Value} | {Location(ship)} | {(ship.Fleet is {} f?$"fleet {f.Value}":"independent")}{(ship.Request is {} r?$" / request {r.Value}":"")}{(ship.NewlyCompleted?" / NEW":"")}{(Attention(ship.Id)?" / ATTENTION":"")}";_ships.AddItem(text);_ships.SetItemMetadata(_ships.ItemCount-1,ship.Id.Value);_ships.SetItemTooltip(_ships.ItemCount-1,text);if(selected.Contains(ship.Id))_ships.Select(_ships.ItemCount-1,_ships.GetSelectedItems().Length==0);}Details();Callable.From(()=>{if(IsInstanceValid(_ships)&&_ships.IsInsideTree()&&_ships.GetSelectedItems().Length>0)_ships.EnsureCurrentIsVisible();}).CallDeferred();
+        foreach(var ship in VisiblePage(rows,ref _shipPage,100,_shipPages)){_shipRows.Add(ship.Id);string text=$"{_content.Vessels[ship.RoleId].Name} #{ship.Id.Value} | {Location(ship)} | {(ship.Fleet is {} f?$"fleet {f.Value}":"independent")}{(ship.Request is {} r?$" / request {r.Value}":"")}{(ship.NewlyCompleted?" / NEW":"")}{(Attention(ship.Id)?" / ATTENTION":"")}";if(_view.Combat?.Ships.FirstOrDefault(s=>s.Id==ship.Id) is {} combat)text+=$" | {CombatReportPanel.Status(combat)} | hull {combat.Hull}/{combat.MaxHull}, cohesion {combat.Cohesion}, {combat.DamageBand}, speed {combat.EffectiveSpeed}";_ships.AddItem(text);_ships.SetItemMetadata(_ships.ItemCount-1,ship.Id.Value);_ships.SetItemTooltip(_ships.ItemCount-1,text);if(selected.Contains(ship.Id))_ships.Select(_ships.ItemCount-1,_ships.GetSelectedItems().Length==0);}Details();Callable.From(()=>{if(IsInstanceValid(_ships)&&_ships.IsInsideTree()&&_ships.GetSelectedItems().Length>0)_ships.EnsureCurrentIsVisible();}).CallDeferred();
     }
-    private void Details(){var ids=Ships();_detail.Text=$"{ids.Length} selected; {_shipRows.Count} shown / {_view.Fleets!.Ships.Length} owned. Named/request ships need explicit detachment for incompatible individual orders. New ships remain independent until you assign them.";}
+    private void Details(){var ids=Ships();_detail.Text=$"{ids.Length} selected; {_shipRows.Count} shown / {_view.Fleets!.Ships.Length} owned. Named/request ships need explicit detachment for incompatible individual orders. New ships remain independent until you assign them.";if(_view.Combat is {} combat)_detail.Text+="\n"+string.Join("\n",combat.Ships.Where(s=>ids.Contains(s.Id)).Select(s=>$"Ship {s.Id.Value}: {CombatReportPanel.Status(s)}; hull {s.Hull}/{s.MaxHull}, cohesion {s.Cohesion}, {s.DamageBand}; attack {s.Firepower}, armor {s.Armor}, speed {s.EffectiveSpeed}; repair {s.RepairIntervals} eligible interval(s)."));}
     private void GroupRows(){var selected=Groups().ToHashSet();_fleets.Clear();_fleetRows.Clear();foreach(var f in _view.Fleets!.Fleets.OrderBy(f=>f.Id)){_fleetRows.Add(f.Id);_fleets.AddItem($"{f.Name} [{f.Id.Value}] — {f.Members.Length} ships, {f.Order.Kind}, flagship {f.Flagship.Value}");if(selected.Contains(f.Id))_fleets.Select(_fleets.ItemCount-1,_fleets.GetSelectedItems().Length==0);}GroupDetails();}
     private void GroupDetails(){_members.Clear();_memberRows.Clear();_flagship.Clear();var ids=Groups();_groupDetail.Text=$"{ids.Length} selected fleet(s). Mixed-speed groups travel at their slowest effective member speed; launched transit is committed.";if(ids.Length!=1)return;var f=_view.Fleets!.Fleets.Single(f=>f.Id==ids[0]);_groupDetail.Text+=$" {f.Attention}";foreach(var id in f.Members){_memberRows.Add(id);_members.AddItem($"{_content.Vessels[_view.Fleets.Ships.Single(s=>s.Id==id).RoleId].Name} #{id.Value}");_flagship.AddItem($"Flagship #{id.Value}");_flagship.SetItemMetadata(_flagship.ItemCount-1,id.Value);if(id==f.Flagship)_flagship.Select(_flagship.ItemCount-1);}}
     private void RequestRows(){int old=_requests.GetSelectedItems().FirstOrDefault(-1);RequestId? selected=old>=0?_requestRows[old]:null;_requests.Clear();_requestRows.Clear();foreach(var r in VisiblePage(_view.Fleets!.Requests.OrderBy(r=>r.Id),ref _requestPage,32,_requestPages)){_requestRows.Add(r.Id);_requests.AddItem($"{r.Name} [{r.Id.Value}] — {r.Status}, {r.Priority}, {r.Slots.Count(s=>s.Status==SlotStatus.Arrived)}/{r.Slots.Length} arrived");if(r.Id==selected)_requests.Select(_requests.ItemCount-1);}RequestDetails();}

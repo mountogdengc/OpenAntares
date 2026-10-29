@@ -32,6 +32,9 @@ public partial class GameScreen : VBoxContainer
     private VesselId? _selectedVessel;
     private StarId? _courseDestination;
     private EmpireView View => _session.View(_viewer);
+    private readonly CombatOrdersDialog _combatOrders=new();
+    private readonly Label _combatBadge=new(){Name="CombatAttentionBadge",ThemeTypeVariation="WarningLabel",AutowrapMode=TextServer.AutowrapMode.WordSmart};
+    public string CombatPreferencesPath{get;set;}="user://combat-notifications.json";
     private readonly FleetCommandDialog _fleetCommand=new();
     private readonly AssemblyRequestDialog _assemblyRequest=new();
     private readonly OfficerDetailDialog _officerDetails=new();
@@ -103,10 +106,12 @@ public partial class GameScreen : VBoxContainer
 
         AddChild(_saveDialog);
         _saveDialog.Saved += name => ShowMessage($"Saved as \"{name}\".", isWarning: false);
-        AddChild(_fleetCommand);AddChild(_assemblyRequest);AddChild(_officerDetails);
+        AddChild(_fleetCommand);AddChild(_assemblyRequest);AddChild(_officerDetails);AddChild(_combatOrders);
+        _fleetCommand.CombatRequested+=action=>{_fleetCommand.Hide();Callable.From(()=>OpenCombat(action)).CallDeferred();};
+        if(Rules.HasCombat(View.RulesVersion)){var row=new VBoxContainer();AddChild(row);row.AddChild(_combatBadge);var response=new Button{Name="OpenCombatResponses",Text="Review combat response / orders"};row.AddChild(response);response.Pressed+=OpenCombatResponse;}else{AddChild(_combatBadge);_combatBadge.Hide();}
         _fleetCommand.CommandIssued+=Execute;_assemblyRequest.CommandIssued+=Execute;_officerDetails.CommandIssued+=Execute;
         _fleetCommand.DisplayApplied+=()=>Callable.From(Refresh).CallDeferred();
-        foreach(var dialog in new Window[]{_fleetCommand,_assemblyRequest,_officerDetails})dialog.VisibilityChanged+=()=>Callable.From(OpenPendingCommandInterrupt).CallDeferred();
+        foreach(var dialog in new Window[]{_fleetCommand,_assemblyRequest,_officerDetails,_combatOrders})dialog.VisibilityChanged+=()=>Callable.From(OpenPendingCommandInterrupt).CallDeferred();
         _fleetCommand.RequestRequested+=request=>{_fleetCommand.Hide();Callable.From(()=>_assemblyRequest.ShowEditor(_session.Content,View,request)).CallDeferred();};
         _fleetCommand.OfficersRequested+=()=>{_fleetCommand.Hide();Callable.From(()=>_officerDetails.ShowOfficers(_session.Content,View)).CallDeferred();};
         _fleetCommand.StarRequested+=star=>{_fleetCommand.Hide();_map.Select(star);};
@@ -217,6 +222,7 @@ public partial class GameScreen : VBoxContainer
     {
         CommandOutcome outcome = _session.Execute(command);
         ShowMessage(outcome.Rejection?.Message ?? string.Empty, isWarning: true);
+        if(_combatOrders.Visible&&command is OpenAntares.Simulation.Combat.CombatActionCommand){if(outcome.Accepted)_combatOrders.Hide();else _combatOrders.ShowError(outcome.Rejection?.Message??"");}
         if(_fleetCommand.Visible)_fleetCommand.ShowError(outcome.Rejection?.Message??"");
         if(_assemblyRequest.Visible)_assemblyRequest.ShowError(outcome.Rejection?.Message??"");
         if(_officerDetails.Visible)_officerDetails.ShowError(outcome.Rejection?.Message??"");
@@ -248,6 +254,8 @@ public partial class GameScreen : VBoxContainer
     private void Refresh()
     {
         var view = View;
+        _fleetCommand.CombatPreferencesPath=CombatPreferencesPath;_report.CombatPreferencesPath=CombatPreferencesPath;
+        if(_combatOrders.Visible)_combatOrders.UpdateView(view);RefreshCombatAttention(view);
         _fleetCommand.PreferencesPath=FleetPreferencesPath;
         _report.FleetPreferencesPath=FleetPreferencesPath;
         if(_fleetCommand.Visible)_fleetCommand.ShowEmpire(_session.Content,view);
@@ -285,6 +293,18 @@ public partial class GameScreen : VBoxContainer
         _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination, _selectedPlanet);
     }
 
+    private void OpenCombat(OpenAntares.Simulation.Combat.CombatAction action)=>_combatOrders.Open(_session.Content,View,action,command=>Execute(command));
+    private void OpenCombatResponse()
+    {
+        var combat=View.Combat;if(combat is null)return;var e=combat.Encounters.FirstOrDefault(e=>combat.Notices.Any(n=>n.Encounter==e.Id&&n.Level==OpenAntares.Simulation.Combat.CombatNoticeLevel.Emergency))??combat.Encounters.FirstOrDefault();
+        if(e is null){OpenFleetCommand();return;}OpenCombat(new OpenAntares.Simulation.Combat.CombatAction.ChangeCombatOrders(e.Id,e.Revision,e.Orders,e.CivilianRiskAuthorized));
+    }
+    private void RefreshCombatAttention(EmpireView view)
+    {
+        var combat=view.Combat;_combatBadge.Visible=combat is not null&&!combat.Notices.IsEmpty;if(combat is null)return;
+        int emergency=combat.Notices.Count(n=>n.Level==OpenAntares.Simulation.Combat.CombatNoticeLevel.Emergency),attention=combat.Notices.Count(n=>n.Level==OpenAntares.Simulation.Combat.CombatNoticeLevel.Attention);
+        _combatBadge.Text=emergency>0?$"Combat Emergency: {emergency} encounter response(s) required before Ready. Review the exact fleet and revision.":$"Combat Attention: {attention} damage, return, repair or officer conditions. Routine display cannot hide these facts.";
+    }
     private void OpenFleetCommand(){if(Rules.HasFleets(View.RulesVersion)){_fleetCommand.PreferencesPath=FleetPreferencesPath;_fleetCommand.ShowEmpire(_session.Content,View);}}
     private void RefreshFleetAttention(EmpireView view)
     {
@@ -305,7 +325,7 @@ public partial class GameScreen : VBoxContainer
             if(_seenCrisisMaterial.Add($"event:{entry.Key.Episode}:{entry.Key.Colony}:{entry.Revision}:{entry.Kind}")&&_crisisMaterialInitialized)fresh=true;
         _crisisMaterialInitialized=true;
         if(!fresh||_crisisPreferences.Critical!=OpenAntares.Game.Presentation.CrisisDisplayLevel.Interrupt)return;
-        if(_report.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible)_pendingCrisisInterrupt=true;
+        if(_report.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_combatOrders.Visible)_pendingCrisisInterrupt=true;
         else if(!_crisisOverview.Visible&&!_crisisResponse.Visible)
             Callable.From(()=>{if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}).CallDeferred();
     }
@@ -325,12 +345,12 @@ public partial class GameScreen : VBoxContainer
     {
         // Visibility may change again between the signal and its deferred callback.
         // Keep the emergency queued until the currently exclusive report/response really closes.
-        if(!IsInsideTree()||!_pendingScoutInterrupt||_report.Visible||_crisisOverview.Visible||_crisisResponse.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible)return;
+        if(!IsInsideTree()||!_pendingScoutInterrupt||_report.Visible||_crisisOverview.Visible||_crisisResponse.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_combatOrders.Visible)return;
         _pendingScoutInterrupt=false;if(View.Scouting is {} current)_scoutOverview.ShowScouting(_session.Content,current);
     }
     private void OpenPendingCommandInterrupt()
     {
-        if(!IsInsideTree()||_report.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_crisisOverview.Visible||_crisisResponse.Visible)return;
+        if(!IsInsideTree()||_report.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_combatOrders.Visible||_crisisOverview.Visible||_crisisResponse.Visible)return;
         if(_pendingCrisisInterrupt){_pendingCrisisInterrupt=false;if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}else OpenPendingScoutInterrupt();
     }
 

@@ -38,7 +38,10 @@ public sealed record ShipCombatView(VesselId Id,int Hull,int Cohesion,ColonyId? 
     public long HullRepaired {get;init;}
 }
 public sealed record CombatPocketView(PocketId Id,StarId Star,int ObservedTurn,bool Cleared,bool Current,bool Unavailable,ImmutableArray<ObservedSentry> Sentries);
-public sealed record CombatEncounterView(EncounterId Id,FleetId Fleet,PocketId Pocket,long Revision,ImmutableArray<VesselId> Members,CombatOrders Orders,CombatPhase Phase,long Round,long? ConsentRevision,bool CivilianRiskAuthorized,int? ContinueRiskTurn=null);
+public sealed record CombatEncounterView(EncounterId Id,FleetId Fleet,PocketId Pocket,long Revision,ImmutableArray<VesselId> Members,CombatOrders Orders,CombatPhase Phase,long Round,long? ConsentRevision,bool CivilianRiskAuthorized,int? ContinueRiskTurn=null)
+{
+    public ImmutableArray<CombatRoundReceipt> Details {get;init;}=ImmutableArray<CombatRoundReceipt>.Empty;
+}
 public sealed record CombatEmpireView(ImmutableArray<ShipCombatView> Ships,ImmutableArray<CombatPocketView> Pockets,ImmutableArray<CombatEncounterView> Encounters,ImmutableArray<CombatPendingResponse> Responses)
 {
     public ImmutableArray<CombatNotice> Notices {get;init;}=ImmutableArray<CombatNotice>.Empty;

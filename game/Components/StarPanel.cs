@@ -16,6 +16,7 @@ public partial class StarPanel : VBoxContainer
         foreach (Node child in GetChildren()) { RemoveChild(child); child.QueueFree(); }
         AddChild(new Label { Text = view.Chart.Name, ThemeTypeVariation = "HeaderLabel" });
         if(empire?.Scouting is {} scouting)AddChild(Wrapped(scouting.Habitats.FirstOrDefault(h=>h.Star==view.Chart.Id) is {} habitat?$"Known stationary space ameba; observed turn {habitat.ObservedTurn}. Founding and automatic fallback exclude this habitat.":"Ameba status unknown. No additional sensor coverage."));
+        if(empire?.Combat?.Pockets.FirstOrDefault(p=>p.Star==view.Chart.Id) is {} pocket)AddChild(Wrapped($"Automated sentries: {(pocket.Current?"current observation":"last observed turn "+pocket.ObservedTurn)}. {(pocket.Cleared?"Cleared; access is open, but no ownership is granted.":"Founding blocked; ordinary passage and survey stay safe.")} Observed hulls: {string.Join(", ",pocket.Sentries.Select(s=>$"{s.Hull}/{s.Profile.MaxHull}"))}."));
         if (view.Chart.RegionId is { } regionId && content.RegionDefinitions.TryGetValue(regionId, out var region)) AddChild(Wrapped($"{region.Name} — {region.Description}"));
         if (view.Planets is not { } planets) { AddChild(Wrapped("Not surveyed")); return; }
         AddChild(Wrapped(view.Current ? "Current observation" : $"Last seen turn {view.LastObservedTurn}"));

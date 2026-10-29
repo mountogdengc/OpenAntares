@@ -11,5 +11,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ScoutUiControlChecks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScoutGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FleetGraphicalValidation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CombatGraphicalValidation.cs" />
   </ItemGroup>
 </Project>

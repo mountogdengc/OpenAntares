@@ -18,6 +18,7 @@ namespace OpenAntares.Game.Components;
 public partial class TurnReportDialog : AcceptDialog
 {
     private readonly VBoxContainer _body = new();
+    public string CombatPreferencesPath{get;set;}="user://combat-notifications.json";
     public string FleetPreferencesPath{get;set;}="user://fleet-notifications.json";
     private OpenAntares.Game.Presentation.CrisisNotificationPreferences _crisisPreferences=OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
     private OpenAntares.Game.Presentation.ColonyNotificationPreferences _preferences = OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
@@ -55,6 +56,7 @@ public partial class TurnReportDialog : AcceptDialog
         _crisisPreferences=crisisPreferences??OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
         Title = "Turn report";
         _body.AddChild(new Label { Text = $"Turn {report.FromTurn} results", ThemeTypeVariation = "HeaderLabel" });
+        if(report.Combat is not null){var combat=new CombatReportPanel{Name="TurnCombatReport",ShowRoutine=OpenAntares.Game.Presentation.CombatNotificationPreferences.Load(ProjectSettings.GlobalizePath(CombatPreferencesPath)).ShowRoutine};_body.AddChild(combat);combat.SetReport(report);}
         if(empireView?.Fleets is not null)
         {
             var command=new Button{Name="ReportOpenFleetCommand",Text="Fleet command and service records"};_body.AddChild(command);command.Pressed+=()=>FleetCommandRequested?.Invoke();

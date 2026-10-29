@@ -33,4 +33,8 @@ public sealed class CombatQueryTests
         for(int i=0;i<3;i++){Assert.Empty(CombatReadyQueries.ValidateResponse(g.Content,g.State,owner));var view=EmpireViewProjector.Project(g.Content,g.State,owner);Assert.Empty(view.Combat!.Responses);var material=JsonSerializer.SerializeToElement(view.Combat);Assert.True(material.TryGetProperty("Notices",out var notices));Assert.DoesNotContain(notices.EnumerateArray(),n=>n.GetProperty("Level").GetInt32()==2);}
         Assert.Equal(before,CombatFixtures.Bytes(g.State));
     }
+    [Fact] public void ActiveEncounterCalculationsRemainAvailableAfterClosingTurnReport()
+    {
+        var g=CombatSaveTests.Next(CombatTurnTests.Pending(doctrine:CombatDoctrine.Hold));var view=CombatQueries.Project(g.Content,g.State,g.State.Empires[0].Id)!;var json=JsonSerializer.SerializeToElement(view.Encounters[0]);Assert.True(json.TryGetProperty("Details",out var details));Assert.Single(details.EnumerateArray());Assert.Equal(3,details[0].GetProperty("Result").GetProperty("Shots").GetArrayLength());
+    }
 }
