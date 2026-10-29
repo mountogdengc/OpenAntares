@@ -12,6 +12,7 @@ public sealed class FleetResolutionContext
     internal ImmutableArray<OfficerSnapshot> Officers { get; private init; }
     internal ImmutableDictionary<VesselId,FleetTransitProvenance> Launches { get; private init; } = ImmutableDictionary<VesselId,FleetTransitProvenance>.Empty;
     internal HashSet<VesselId> Completed { get; } = new();
+    internal HashSet<VesselId> IntegratedLosses {get;}=new();
     internal List<FlagshipLoss> Losses { get; } = new();
     internal List<(EmpireId Owner,RequestId Request)> Fulfilled { get; } = new();
     internal List<FleetEvent> Events { get; } = new();

@@ -69,6 +69,7 @@ public static class CombatQueries
             var origin=view.Galaxy.Stars.Single(s=>s.Id==pocket.Star);var target=port is null?null:view.Galaxy.Stars.Single(s=>s.Id==port.StarId);
             var frame=new CombatFrame(existing?.Id,view.Turn,existing?.Revision??1,view.Viewer,fleet.Id,members,sentries,orders){Definition=d,Route=target is null?null:new(pocket.Star,origin.X,origin.Y,target.Id,target.X,target.Y)};
             bool civilian=members.Any(s=>s.Attack==0||s.Cargo>0);bool closed=port is null||members.Any(s=>s.Cargo>0)&&(PortClosed(view,port!.StarId)||PortClosed(view,pocket.Star));
+            if(existing is not null&&!members.Any(s=>s.Attack>0)&&!closed)withdrawal=true;
             bool allowed=(!civilian||cargoConsent)&&(!closed||action is CombatAction.RespondCombat&&(remain||existing?.ContinueRiskTurn==view.Turn));
             string? code=allowed?null:closed?CombatRejectionCodes.PortClosed:CombatRejectionCodes.Unavailable;
             var departures=CombatWithdrawal.Preview(content,frame);bool fired=existing is {Round:>0};

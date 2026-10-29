@@ -35,7 +35,7 @@ public static class CombatCommandProcessor
                 var encounter=Encounter(change.Encounter);
                 if(encounter.Orders==change.Orders&&encounter.CivilianRiskAuthorized==change.AuthorizeCivilianRisk&&!ownCombat.Responses.Any(r=>r.Encounter==encounter.Id))return CommandOutcome.NoChange(state);
                 encounter.Orders=change.Orders;encounter.CivilianRiskAuthorized=change.AuthorizeCivilianRisk;encounter.Revision=checked(encounter.Revision+1);encounter.ConsentRevision=encounter.Revision;encounter.ContinueRiskTurn=null;
-                if(encounter.Phase==CombatPhase.BlockedResponse)encounter.Phase=encounter.Round==0?CombatPhase.Pending:CombatPhase.Active;
+                if(encounter.Phase==CombatPhase.BlockedResponse)encounter.Phase=!preview.AffectedShips.Any(s=>s.Attack>0)?CombatPhase.WithdrawalQueued:encounter.Round==0?CombatPhase.Pending:CombatPhase.Active;
                 else if(encounter.Phase==CombatPhase.WithdrawalQueued&&preview.AffectedShips.Any(s=>s.Attack>0)&&(change.Orders.Doctrine==CombatDoctrine.Hold||change.Orders.Doctrine==CombatDoctrine.Press&&preview.AffectedShips.Min(s=>s.Cohesion)>content.Combat!.RetreatCohesionThreshold))encounter.Phase=CombatPhase.Active;
                 ClearResponse(encounter.Id);break;
             case CombatAction.WithdrawCombat withdraw:
@@ -68,7 +68,11 @@ public static class CombatCommandProcessor
                 var accepted=response.Response==CombatResponse.AcceptRevisedForce?CombatResponseNeed.RevisedForce:CombatResponseNeed.BlockedReturn;
                 if(accepted==CombatResponseNeed.RevisedForce)responding.ConsentRevision=responding.Revision;else responding.ContinueRiskTurn=state.Turn;
                 var outstanding=pending.Need&~accepted;ClearResponse(responding.Id);
-                if(outstanding!=0)ownCombat.Responses.Add(pending with {Need=outstanding});else responding.Phase=responding.Round==0?CombatPhase.Pending:CombatPhase.Active;
+                if(outstanding!=0)ownCombat.Responses.Add(pending with {Need=outstanding});else
+                {
+                    bool armed=preview.AffectedShips.Any(s=>s.Attack>0);var displayed=view.Combat!.Encounters.Single(e=>e.Id==responding.Id);bool defensive=responding.ContinueRiskTurn==state.Turn&&CombatQueries.ReturnBlocked(view,displayed);
+                    responding.Phase=!armed&&!defensive?CombatPhase.WithdrawalQueued:responding.Round==0?CombatPhase.Pending:CombatPhase.Active;if(responding.Phase==CombatPhase.WithdrawalQueued)responding.ContinueRiskTurn=null;
+                }
                 ownCombat.Responses=ownCombat.Responses.OrderBy(r=>r.Encounter).ToList();break;
             case CombatAction.SetRepair repair:
                 changed=false;

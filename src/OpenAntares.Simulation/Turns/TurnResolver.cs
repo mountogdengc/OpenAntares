@@ -169,7 +169,7 @@ public static class TurnResolver
             {
                 Combat.CombatResolver.ResolveExchanges(content,snapshot,candidate,combat);combatHook?.Invoke(Combat.CombatResolutionPhase.Exchange);
                 FleetResolver.NormalizeAfterLosses(content,snapshot,candidate,fleet!);combatHook?.Invoke(Combat.CombatResolutionPhase.LossNormalization);
-                Combat.CombatWithdrawal.Resolve(content,snapshot,candidate,combat);combatHook?.Invoke(Combat.CombatResolutionPhase.Withdrawal);
+                Combat.CombatWithdrawal.Resolve(content,snapshot,candidate,combat);Combat.CombatLossIntegration.Apply(content,snapshot,candidate,fleet!,combat);combatHook?.Invoke(Combat.CombatResolutionPhase.Withdrawal);
             }
             if(crisis is not null)CrisisTransport.PrepareDepartures(content,snapshot,candidate,crisis);
             if (Rules.HasExpansion(snapshot.RulesVersion))
