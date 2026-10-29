@@ -1,0 +1,5 @@
+# Generated campaign proof protocol
+
+The generated directory contains twelve untouched turn0 Main New Game saves and their hashes, actual pending/active/return/repair/cleared saves, commands and deterministic continuation proofs. All campaigns use seed42, Solo, crises Off, amebas Off and Sentries Standard. Warships are capability-selected, paid through ordinary production, and controlled through ordinary Main controls. Scout routing consumes public own knowledge; it does not inspect a hidden pocket to choose its route.
+
+Every recorded UI command is independently replayed against its prior state and compared to the actual resulting UI state. Each of four actual Main reloads also retains an uninterrupted private continuation and compares at least three subsequent resolved turns, including RNG. No state mutation is used to arrange live outcomes. generated-proof-summary.json audits the twelve source hashes, versions, paid costs, repair totals, surviving force and future comparisons. Other scenario sections explicitly label pre-session rare/scale supplements; they are not generated campaign evidence.

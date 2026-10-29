@@ -7,9 +7,9 @@ namespace OpenAntares.Simulation.Tests;
 public sealed class FleetIntegrationTests
 {
     [Fact]
-    public void NewDefaultUsesRulesEightWithoutChangingSetupChoices()
+    public void ExplicitRulesEightKeepsItsOriginalSetupChoices()
     {
-        var c=FleetContentTests.Core();var settings=new NewGameSettings("small",42,SpeciesId:"harl",RivalCount:1,RivalSpeciesId:"peldra",AmebasEnabled:true);
+        var c=FleetContentTests.Core();var settings=new NewGameSettings("small",42,8,SpeciesId:"harl",RivalCount:1,RivalSpeciesId:"peldra",AmebasEnabled:true);
         var made=GalaxyGenerator.CreateNewGame(c,settings);Assert.True(made.Succeeded,made.Error);var s=made.State!;
         Assert.Equal(8,s.RulesVersion);Assert.Equal("harl",s.Empires[0].SpeciesId);Assert.Equal("peldra",s.Empires[1].SpeciesId);
         Assert.True(settings.CrisesEnabled);Assert.NotNull(s.Crisis);Assert.NotNull(s.Scouting!.Habitat);Assert.All(s.Empires,e=>Assert.NotNull(e.Fleets));

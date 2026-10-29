@@ -137,7 +137,8 @@ public partial class Main : Control
         {
             string[] parts = newGameOption.Split(':');
             ulong seed = parts.Length > 1 ? ulong.Parse(parts[1], CultureInfo.InvariantCulture) : 1;
-            newGame.Configure(parts[0], seed);
+            string? sentries=Option("sentries");if(sentries is not (null or "standard" or "off")){newGame.ShowError("Choose --sentries=standard or --sentries=off.");return;}
+            newGame.Configure(parts[0], seed,sentriesEnabled:Rules.HasCombat(Rules.CurrentVersion)?sentries!="off":null);
             newGame.Start();
         }
 

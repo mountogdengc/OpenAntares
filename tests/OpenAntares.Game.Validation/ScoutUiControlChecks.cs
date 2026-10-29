@@ -94,4 +94,14 @@ internal static class ScoutUiControlChecks
     internal static async Task Frames(Node root){await root.ToSignal(root.GetTree(),SceneTree.SignalName.ProcessFrame);await root.ToSignal(root.GetTree(),SceneTree.SignalName.ProcessFrame);}
     internal static string Snapshot(GameSession s)=>SaveGame.Serialize(s.Content,s.State);
     internal static async Task Capture(Node root,Window window,string file){window.Hide();window.ForceNative=false;window.PopupCenteredClamped(new(740,540));await Frames(root);await root.ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);using var image=root.GetViewport().GetTexture().GetImage();image.SavePng(file);}
+    internal static async Task<GameScreen> LoadGeneratedRules8(Node root,Control main,NewGameSettings settings,string folder,string label,Action<bool,string> check)
+    {
+        check(settings.RulesVersion==8&&settings.SentriesEnabled is null,"Historical graphical source explicitly selects rules8");
+        var content=CompleteContent();var generated=GalaxyGenerator.CreateNewGame(content,settings);check(generated.Succeeded,"Explicit rules8 graphical source generates without reinterpretation");string canonical=SaveGame.Serialize(content,generated.State!);
+        string name="qa-explicit8-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-"+label;string path=SaveFiles.PathFor(name);SaveGame.WriteFile(path,content,generated.State!);
+        var setup=Descendants<NewGameScreen>(main).Single();Press(Descendants<Button>(setup).Single(b=>b.Text=="Load Game"));await Frames(root);var load=Descendants<LoadGameDialog>(main).Single();var list=Descendants<ItemList>(load).Single();int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,(long)index);Press(load.GetOkButton());await Frames(root);var screen=Descendants<GameScreen>(main).Single();
+        var session=(GameSession)typeof(GameScreen).GetField("_session",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!.GetValue(screen)!;check(Snapshot(session)==canonical,"Actual Main Load preserves explicit8 source and embedded old roles");
+        File.AppendAllText(Path.Combine(folder,"explicit-rules8-starts.jsonl"),JsonSerializer.Serialize(new{source="Explicit rules8 source replacing the former current8 Start path; ordinary Main Load, no live state injection",settings,path,sha256=Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(canonical))).ToLowerInvariant()})+"\n");return screen;
+    }
+
 }
