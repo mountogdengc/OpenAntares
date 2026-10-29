@@ -9,7 +9,7 @@ namespace OpenAntares.Simulation.Galaxy;
 
 /// <summary>Choices made on the new-game screen.</summary>
 public sealed record NewGameSettings(string GalaxySizeId, ulong Seed, int RulesVersion = Rules.CurrentVersion, string? SpeciesId = null,
-    int RivalCount = 0, string? RivalSpeciesId = null, bool CrisesEnabled = true, bool? AmebasEnabled = null);
+    int RivalCount = 0, string? RivalSpeciesId = null, bool CrisesEnabled = true, bool? AmebasEnabled = null, bool? SentriesEnabled = null);
 
 /// <summary>The outcome of creating a new game. <see cref="State"/> is set only on success.</summary>
 public sealed record NewGameResult(GameState? State, string? Error)
@@ -32,6 +32,11 @@ public static class GalaxyGenerator
 
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
+        if(Rules.HasCombat(settings.RulesVersion))
+        {
+            if(settings.SentriesEnabled is null||content.Combat is null)return Fail("Combat campaigns require explicit Sentries Standard / Off and combat content.");
+        }
+        else if(settings.SentriesEnabled is not null)return Fail("Old campaign rules cannot select Sentries settings.");
         if (Rules.HasFleets(settings.RulesVersion) && (content.FleetCommand is null || content.Species.Values.Any(sp => sp.CommandEmbodiment is null || sp.CommandCultureId is null)))
             return Fail("Fleet campaigns require explicit command content and species command identities.");
         if (Rules.HasScouting(settings.RulesVersion))
@@ -165,6 +170,7 @@ public static class GalaxyGenerator
         Crises.CrisisInitializer.Initialize(content,state,settings.CrisesEnabled);
         if(Rules.HasScouting(state.RulesVersion))Scouting.ScoutInitializer.Initialize(content,state,settings.AmebasEnabled!.Value);
         if (Rules.HasFleets(state.RulesVersion)) Fleets.FleetInitializer.Initialize(content, state);
+        if(Rules.HasCombat(state.RulesVersion)&&Combat.CombatInitializer.Initialize(content,state,settings.SentriesEnabled!.Value) is {} combatError)return Fail(combatError);
         IReadOnlyList<string> errors = GameStateValidator.Validate(content, state);
         return errors.Count > 0
             ? Fail("Generated an invalid game: " + string.Join("; ", errors))

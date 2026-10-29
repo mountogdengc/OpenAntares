@@ -13,6 +13,7 @@ namespace OpenAntares.Simulation.State;
 /// </summary>
 public sealed class GameState
 {
+    public Combat.CombatGameState? Combat {get;set;}
     public Scouting.ScoutGameState? Scouting { get; set; }
     public GameCrisisState? Crisis { get; set; }
     /// <summary>The rules implementation version that produced this state.</summary>
@@ -54,6 +55,7 @@ public sealed class GameState
 
     public GameState Clone() => new()
     {
+        Combat = Combat?.Clone(),
         Scouting = Scouting?.Clone(),
         Crisis = Crisis?.Clone(),
         RulesVersion = RulesVersion,
@@ -81,6 +83,7 @@ public enum ControllerKind
 
 public sealed class EmpireState
 {
+    public Combat.CombatEmpireState? Combat {get;set;}
     public Fleets.FleetEmpireState? Fleets { get; set; }
     public Scouting.EmpireScoutState? Scouting { get; set; }
     public EmpireCrisisState? Crisis { get; set; }
@@ -107,6 +110,7 @@ public sealed class EmpireState
     public EmpireState Clone() => new()
     {
         Fleets = Fleets?.Clone(),
+        Combat = Combat?.Clone(),
         Scouting = Scouting?.Clone(),
         Id = Id,
         Controller = Controller,

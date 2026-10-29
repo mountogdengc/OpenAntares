@@ -121,6 +121,7 @@ public static class TurnResolver
                     if(fleet is not null)FleetResolver.BindCompletion(content,snapshot,candidate,fleet,colony.Id,vessel);
                     if (Rules.HasFleets(candidate.RulesVersion)) vessel.NewlyCompleted = true;
                     Scouting.ScoutInitializer.InitializeVessel(content,candidate.RulesVersion,vessel);
+                    Combat.CombatInitializer.InitializeVessel(content,candidate.RulesVersion,vessel);
                     if(crisis is not null)CrisisTransport.TagCompletion(content,snapshot,candidate,crisis,colony.Id,vessel);
                     if (result.EmbarkOutcome is { } embark) { colony.Population = embark.PopulationAfter; colony.Workforce = embark.WorkforceAfter; }
                     colony.ProjectId = null; colony.ProjectKind = ProductionKinds.Building;
