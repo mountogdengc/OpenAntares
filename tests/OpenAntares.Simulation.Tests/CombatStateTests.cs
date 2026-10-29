@@ -14,6 +14,11 @@ public sealed class CombatStateTests
         var ship=Assert.Single(session.State.Vessels,v=>v.RoleId=="escort");Assert.NotNull(ship.Combat);Assert.Equal(100,ship.Combat.Hull);Assert.Equal(100,ship.Combat.Cohesion);Assert.Null(ship.Fleet);
         CombatFixtures.Valid(CombatFixtures.Convoy());
     }
+    [Fact] public void ReadyStateWithMissingCombatFieldsRejectsBeforeConsentProjection()
+    {
+        var g=CombatFixtures.Duel();foreach(var mutate in new Action<GameState>[] {s=>s.Combat=null,s=>s.Empires[0].Combat=null,s=>s.Vessels[0].Combat=null})
+        {var state=g.State.Clone();state.Empires[0].Ready=true;mutate(state);Assert.NotEmpty(GameStateValidator.Validate(g.Content,state,allowAllHumansReady:true));}
+    }
     [Fact] public void CloneDoesNotShareCombatListsOrMutableActors()
     {
         var g=CombatFixtures.Duel();var s=g.State;var v=s.Vessels[0];var p=s.Combat!.Pockets[0];

@@ -11,7 +11,8 @@ public readonly record struct EncounterId(long Value) : IComparable<EncounterId>
 public enum CombatPhase { Pending, Active, WithdrawalQueued, BlockedResponse }
 public sealed record PocketObservation(PocketId Pocket, StarId Star, int Turn, bool Cleared, ImmutableArray<ObservedSentry> Sentries);
 public sealed record ObservedSentry(SentryId Id, CombatProfile Profile, int Hull, int PursuitSpeed);
-public sealed record CombatPendingResponse(EncounterId Encounter, long Revision, string Reason);
+[Flags] public enum CombatResponseNeed { RevisedForce=1, BlockedReturn=2 }
+public sealed record CombatPendingResponse(EncounterId Encounter, long Revision, string Reason, CombatResponseNeed Need=CombatResponseNeed.RevisedForce);
 public sealed record CombatHistoryEntry(EncounterId Encounter, PocketId Pocket, int Turn, string Outcome, ImmutableArray<VesselId> Destroyed, long Rounds);
 public sealed record CombatEvent(long Id, int Turn, string Kind, string Reason, EncounterId? Encounter = null, VesselId? Vessel = null);
 public sealed class CombatGameState
@@ -74,6 +75,7 @@ public sealed class EncounterState
     public int? LastResolvedTurn {get;set;}
     public CombatPhase? LastResolvedPhase {get;set;}
     public long? ConsentRevision {get;set;}
+    public int? ContinueRiskTurn {get;set;}
     public bool CivilianRiskAuthorized {get;set;}
     public EncounterState Clone(){var c=(EncounterState)MemberwiseClone();c.Members=new(Members);return c;}
 }

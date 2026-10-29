@@ -48,7 +48,7 @@ public static partial class CommandProcessor
         }
         // New commands may change an encounter's material consequences. Validate only
         // after the shared receipt reconciliation has removed the obsolete consent.
-        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand)&&GameStateValidator.Validate(content,result.State,allowAllHumansReady).Count!=0)
+        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand or Combat.CombatActionCommand)&&GameStateValidator.Validate(content,result.State,allowAllHumansReady).Count!=0)
             return CommandOutcome.Reject(state,"fleet_invalid","The complete fleet or officer action could not be applied coherently.");
         return result;
     }
@@ -67,8 +67,11 @@ public static partial class CommandProcessor
                 $"Command was issued for turn {command.ExpectedTurn}, but the current turn is {state.Turn}.");
         }
 
+        if(Rules.HasCombat(state.RulesVersion)&&Combat.CombatCommandGuards.Conflicts(Knowledge.EmpireViewProjector.Project(content,state,command.Issuer),command))
+            return CommandOutcome.Reject(state,Combat.CombatRejectionCodes.Unavailable,"Committed combat members require combat orders or completed withdrawal.");
         return command switch
         {
+            Combat.CombatActionCommand c => Combat.CombatCommandProcessor.Execute(content,state,c),
             Fleets.FleetCommand c => Fleets.FleetCommandProcessor.Execute(content,state,c),
             Fleets.OfficerCommand c => Fleets.OfficerCommandProcessor.Execute(content,state,c),
             Fleets.AssemblyCommand c => Fleets.AssemblyCommandProcessor.Execute(content,state,c),
@@ -187,6 +190,11 @@ public static partial class CommandProcessor
             return CommandOutcome.NoChange(state);
         }
 
+        if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCombat(state.RulesVersion))
+        {
+            var blockers=Combat.CombatReadyQueries.ValidateResponse(content,state,issuer.Id);
+            if(!blockers.IsEmpty)return CommandOutcome.Reject(state,blockers[0],"Choose the displayed combat response or a legal return destination before Ready.");
+        }
         if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasScouting(state.RulesVersion))
         {
             if(!Scouting.ScoutReadyQueries.HasConsent(content,state,issuer.Id))return CommandOutcome.Reject(state,"ameba_acknowledgement_required","Review and acknowledge the current ameba responses before Ready.");

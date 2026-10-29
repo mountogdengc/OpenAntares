@@ -34,9 +34,12 @@ public static class CombatStateValidator
         {
             var owner=state.FindEmpire(encounter.Owner);var fleet=owner?.Fleets?.Fleets.FirstOrDefault(f=>f.Id==encounter.Fleet);var pocket=game.Pockets.FirstOrDefault(p=>p.Id==encounter.Pocket);
             if(encounter.Id.Value<=0||encounter.Id.Value>=game.NextEncounterId||owner is null||fleet is null||pocket is null||pocket.Cleared)Error("invalid encounter references/local ID");
+            if(encounter.ContinueRiskTurn is {} continued&&(continued<0||continued>state.Turn))Error("invalid continued-risk authorization turn");
             if(!Enum.IsDefined(encounter.Phase)||encounter.Revision is <1 or long.MaxValue||encounter.Round<0||encounter.Round>(long)state.Turn+1||encounter.ConsentRevision is {} consent&&(consent<1||consent>encounter.Revision))Error("encounter phase/revision/round/consent bounds");
             if((encounter.LastResolvedTurn is null)!=(encounter.LastResolvedPhase is null)||encounter.LastResolvedTurn is {} turn&&(turn<0||turn>state.Turn)||encounter.LastResolvedPhase is {} phase&&!Enum.IsDefined(phase))Error("last resolution phase/turn");
             if(encounter.Round==0&&encounter.LastResolvedTurn is not null||encounter.Round>0&&encounter.LastResolvedTurn is null||encounter.Phase==CombatPhase.Pending&&encounter.Round!=0)Error("round and resolution state conflict");
+            if(owner?.Fleets is {} command&&command.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&(r.RallyFleet==encounter.Fleet||r.Slots.Any(slot=>slot.Vessel is {} member&&encounter.Members.Contains(member)&&slot.Status!=Fleets.SlotStatus.Missing))))Error("combat and finite request authorities conflict");
+            if(fleet is not null&&(fleet.Order is not {Kind:Fleets.FleetOrderKind.Hold}||fleet.Cohort is not null))Error("combat conflicts with persistent fleet orders/transit");
             var orders=encounter.Orders;var port=state.FindColony(orders.ReturnColony);
             if(!Enum.IsDefined(orders.Doctrine)||!Enum.IsDefined(orders.Stragglers)||!Enum.IsDefined(orders.OnArrival)||port?.EmpireId!=encounter.Owner||state.FindPlanet(port.PlanetId)?.StarId==pocket?.Star)Error("invalid return orders");
             Sorted(encounter.Members.Select(v=>(long)v.Value),"encounter member IDs");
@@ -66,7 +69,7 @@ public static class CombatStateValidator
                 }
             }
             Sorted(c.Responses.Select(r=>r.Encounter.Value),"response IDs");
-            if(c.Responses.Any(r=>!game.Encounters.Any(e=>e.Id==r.Encounter&&e.Owner==owner.Id&&e.Revision==r.Revision&&e.Phase==CombatPhase.BlockedResponse)||string.IsNullOrWhiteSpace(r.Reason)))Error("invalid pending response");
+            if(c.Responses.Any(r=>!game.Encounters.Any(e=>e.Id==r.Encounter&&e.Owner==owner.Id&&e.Revision==r.Revision&&e.Phase==CombatPhase.BlockedResponse)||string.IsNullOrWhiteSpace(r.Reason)||(int)r.Need is <1 or >3))Error("invalid pending response");
             if(c.History.Count>d.HistoryLimit||c.History.Select(h=>h.Encounter).Distinct().Count()!=c.History.Count)Error("history bound/duplicates");
             foreach(var h in c.History)
                 if(h.Encounter.Value<=0||h.Encounter.Value>=game.NextEncounterId||!game.Pockets.Any(p=>p.Id==h.Pocket)||game.Encounters.Any(e=>e.Id==h.Encounter)||h.Turn<0||h.Turn>state.Turn||h.Rounds<0||h.Rounds>(long)h.Turn+1||string.IsNullOrWhiteSpace(h.Outcome)||h.Destroyed.IsDefault||h.Destroyed.Any(v=>v.Value<=0||v.Value>=state.NextEntityId)||h.Destroyed.Distinct().Count()!=h.Destroyed.Length)Error("invalid encounter history");
@@ -80,7 +83,9 @@ public static class CombatStateValidator
             if(vessel.Combat is not {} c){Error($"{vessel.Id} missing hull/cohesion");continue;}
             if(!d.RoleProfiles.TryGetValue(vessel.RoleId,out var profile)||c.Hull<=0||c.Hull>profile.MaxHull||c.Cohesion is <0 or >100)Error("invalid live hull/cohesion");
             if((c.ReturnColony is null)!=(c.OnArrival is null)||c.OnArrival is {} arrival&&!Enum.IsDefined(arrival)||c.ReturnColony is {} port&&state.FindColony(port)?.EmpireId!=vessel.EmpireId)Error("invalid ship return/arrival authority");
-            if(c.Repairing&&(c.ReturnColony is not {} destination||vessel.Transit is not null||vessel.PendingMove is not null||vessel.PendingFounding is not null||state.FindColony(destination) is not {} repairColony||state.FindPlanet(repairColony.PlanetId)?.StarId!=vessel.StationaryStarId||c.OnArrival!=CombatArrivalOrder.Repair||game.Encounters.Any(e=>e.Members.Contains(vessel.Id))))Error("repair state conflicts with location/orders");
+            var command=state.FindEmpire(vessel.EmpireId)?.Fleets;var group=command?.Fleets.FirstOrDefault(f=>f.Id==vessel.Fleet);
+            bool authorityConflict=group is not null&&group.Order is not {Kind:Fleets.FleetOrderKind.Hold}||command?.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&(group is not null&&r.RallyFleet==group.Id||r.Slots.Any(s=>s.Vessel==vessel.Id&&s.Status!=Fleets.SlotStatus.Missing)))==true;
+            if(c.Repairing&&(authorityConflict||c.ReturnColony is not {} destination||vessel.Transit is not null||vessel.PendingMove is not null||vessel.PendingFounding is not null||state.FindColony(destination) is not {} repairColony||state.FindPlanet(repairColony.PlanetId)?.StarId!=vessel.StationaryStarId||c.OnArrival!=CombatArrivalOrder.Repair||game.Encounters.Any(e=>e.Members.Contains(vessel.Id))))Error("repair state conflicts with location/orders");
         }
         return errors;
         void Sorted(IEnumerable<long> ids,string name){long last=0;foreach(long id in ids){if(id<=last){Error("unsorted/duplicate "+name);break;}last=id;}}

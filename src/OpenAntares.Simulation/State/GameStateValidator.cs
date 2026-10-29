@@ -48,6 +48,7 @@ public static class GameStateValidator
         RivalStateValidator.Validate(content, state, errors);
         Development.DevelopmentStateValidator.Validate(content, state, errors);
         Crises.CrisisStateValidator.Validate(content,state,errors);
+        errors.AddRange(Combat.CombatStateValidator.Validate(content,state));
         if(Rules.HasFleets(state.RulesVersion))Fleets.FleetStateValidator.Validate(content,state,errors);
         if(skipEffectiveScoutConsent)Scouting.ScoutStateValidator.ValidateFleetForecast(content,state,errors);
         else Scouting.ScoutStateValidator.Validate(content,state,errors);

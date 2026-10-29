@@ -62,7 +62,7 @@ public sealed class CombatMathTests
     [Fact] public void TokensBindExactResponseAndCanonicalPermittedInputs()
     {
         var g=CombatFixtures.Duel();var state=g.State;var owner=state.Empires[0];var orders=new CombatOrders(CombatDoctrine.Cautious,state.Colonies[0].Id,StragglerPolicy.KeepTogether,CombatArrivalOrder.Repair);
-        state.Combat!.Encounters.Add(new(){Id=new(1),Owner=owner.Id,Fleet=new(1),Pocket=new(1),Members=new(){state.Vessels[0].Id},Orders=orders,Phase=CombatPhase.BlockedResponse});state.Combat.NextEncounterId=2;owner.Combat!.Responses.Add(new(new(1),1,"Revised force"));CombatFixtures.Valid(g);
+        state.Combat!.Encounters.Add(new(){Id=new(1),Owner=owner.Id,Fleet=new(1),Pocket=new(1),Members=new(){state.Vessels[0].Id},Orders=orders,Phase=CombatPhase.BlockedResponse});state.Combat.NextEncounterId=2;owner.Combat!.Responses.Add(new(new(1),1,"Revised force and return",CombatResponseNeed.RevisedForce|CombatResponseNeed.BlockedReturn));CombatFixtures.Valid(g);
         var view=EmpireViewProjector.Project(g.Content,state,owner.Id);var accept=new CombatAction.RespondCombat(new(1),1,CombatResponse.AcceptRevisedForce);var remain=accept with {Response=CombatResponse.RemainWithBlockedReturn};
         var first=CombatQueries.Preview(g.Content,view,accept);var second=CombatQueries.Preview(g.Content,view,remain);Assert.True(first.Allowed);Assert.True(second.Allowed);Assert.NotEqual(first.Token,second.Token);
         var reordered=view with {Combat=view.Combat! with {Ships=view.Combat.Ships.Reverse().ToImmutableArray(),Pockets=view.Combat.Pockets.Select(p=>p with {Sentries=p.Sentries.Reverse().ToImmutableArray()}).ToImmutableArray()},Vessels=view.Vessels.Reverse().ToImmutableArray()};

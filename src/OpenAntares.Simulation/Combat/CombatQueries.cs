@@ -16,7 +16,7 @@ public static class CombatQueries
         if(!Rules.HasCombat(state.RulesVersion)||state.FindEmpire(viewer)?.Combat is not {} c)return null;
         return new(state.Vessels.Where(v=>v.EmpireId==viewer).OrderBy(v=>v.Id).Select(v=>new ShipCombatView(v.Id,v.Combat!.Hull,v.Combat.Cohesion,v.Combat.ReturnColony,v.Combat.OnArrival,v.Combat.Repairing)).ToImmutableArray(),
             c.Observations.OrderBy(o=>o.Pocket).Select(o=>new CombatPocketView(o.Pocket,o.Star,o.Turn,o.Cleared,ObservationUpdater.IsCurrent(state,viewer,o.Star),state.Combat!.Encounters.Any(e=>e.Pocket==o.Pocket&&e.Owner!=viewer),o.Sentries)).ToImmutableArray(),
-            state.Combat!.Encounters.Where(e=>e.Owner==viewer).OrderBy(e=>e.Id).Select(e=>new CombatEncounterView(e.Id,e.Fleet,e.Pocket,e.Revision,e.Members.ToImmutableArray(),e.Orders,e.Phase,e.Round,e.ConsentRevision,e.CivilianRiskAuthorized)).ToImmutableArray(),c.Responses.ToImmutableArray());
+            state.Combat!.Encounters.Where(e=>e.Owner==viewer).OrderBy(e=>e.Id).Select(e=>new CombatEncounterView(e.Id,e.Fleet,e.Pocket,e.Revision,e.Members.ToImmutableArray(),e.Orders,e.Phase,e.Round,e.ConsentRevision,e.CivilianRiskAuthorized,e.ContinueRiskTurn)).ToImmutableArray(),c.Responses.ToImmutableArray());
     }
     public static CombatPreview Preview(ContentSet content,EmpireView view,CombatAction action)
     {
@@ -29,7 +29,7 @@ public static class CombatQueries
             if(action is CombatAction.AttackPocket attack)
             {
                 fleetId=attack.Fleet;pocketId=attack.Pocket;orders=attack.Orders;cargoConsent=attack.AuthorizeCivilianRisk;
-                if(combat.Encounters.Any(e=>e.Fleet==fleetId))return Reject();
+                if(combat.Encounters.Any(e=>e.Fleet==fleetId)||fleets.Requests.Any(r=>FleetQueries.IsActive(r.Status)&&r.RallyFleet==fleetId))return Reject();
             }
             else
             {
@@ -41,8 +41,10 @@ public static class CombatQueries
                 else if(action is CombatAction.WithdrawCombat)withdrawal=true;
                 else if(action is CombatAction.RespondCombat response)
                 {
-                    if(!Enum.IsDefined(response.Response)||!combat.Responses.Any(r=>r.Encounter==id&&r.Revision==revision))return Reject();
+                    var pending=combat.Responses.SingleOrDefault(r=>r.Encounter==id&&r.Revision==revision);
+                    if(!Enum.IsDefined(response.Response)||pending is null)return Reject();
                     remain=response.Response==CombatResponse.RemainWithBlockedReturn;
+                    if(!pending.Need.HasFlag(remain?CombatResponseNeed.BlockedReturn:CombatResponseNeed.RevisedForce))return Reject();
                 }
                 else return Reject();
             }
@@ -50,7 +52,7 @@ public static class CombatQueries
             if(fleet is null||pocket is null||pocket.Cleared||!pocket.Current||pocket.ObservedTurn!=view.Turn)return Reject();
             if(pocket.Unavailable)return Reject(CombatRejectionCodes.Reserved);
             if(fleet.Members.IsDefaultOrEmpty||fleet.Members.Length>32||!fleet.Members.Contains(fleet.Flagship)||fleet.Cohort is not null||fleet.Order.Kind!=FleetOrderKind.Hold)return Reject();
-            if(!Enum.IsDefined(orders.Doctrine)||!Enum.IsDefined(orders.Stragglers)||!Enum.IsDefined(orders.OnArrival))return Reject();
+            if(orders is null||!Enum.IsDefined(orders.Doctrine)||!Enum.IsDefined(orders.Stragglers)||!Enum.IsDefined(orders.OnArrival))return Reject();
             var port=view.Colonies.SingleOrDefault(c=>c.Id==orders.ReturnColony);if(port is null||port.StarId==pocket.Star)return Reject();
             var officer=fleets.Officers.SingleOrDefault(o=>o.Id==fleet.Officer&&o.Flagship==fleet.Flagship&&o.Status==OfficerStatus.Commanding);
             int bonus=officer is {Specialty:OfficerSpecialty.Navigator,Rank:>0}?content.FleetCommand!.NavigatorBonuses[officer.Rank-1]:0;
@@ -58,7 +60,7 @@ public static class CombatQueries
             foreach(var id in fleet.Members.OrderBy(id=>id))
             {
                 var vessel=view.Vessels.SingleOrDefault(v=>v.Id==id);var own=combat.Ships.SingleOrDefault(s=>s.Id==id);
-                if(vessel is null||own is null||vessel.StationaryStarId!=pocket.Star||vessel.Transit is not null||vessel.PendingMove is not null||vessel.PendingFounding is not null||own.Repairing||vessel.Crisis?.Held==true)return Reject();
+                if(fleets.Ships.Single(s=>s.Id==id).Request is not null||vessel is null||own is null||vessel.StationaryStarId!=pocket.Star||vessel.Transit is not null||vessel.PendingMove is not null||vessel.PendingFounding is not null||own.Repairing||vessel.Crisis?.Held==true)return Reject();
                 var profile=d.RoleProfiles[vessel.RoleId];ships.Add(new(id,vessel.RoleId,own.Hull,profile.MaxHull,own.Cohesion,profile.Attack,profile.Armor,CombatMath.Stats(profile,own.Hull,content.Vessels[vessel.RoleId].Speed,bonus,d).Speed,id==fleet.Flagship,vessel.CarriedPopulation));
             }
             var members=ships.ToImmutable();if(!members.Any(s=>s.Attack>0)&&existing is null)return Reject();
@@ -67,14 +69,14 @@ public static class CombatQueries
             var origin=view.Galaxy.Stars.Single(s=>s.Id==pocket.Star);var target=view.Galaxy.Stars.Single(s=>s.Id==port.StarId);
             var frame=new CombatFrame(existing?.Id,view.Turn,existing?.Revision??1,view.Viewer,fleet.Id,members,sentries,orders){Definition=d,Route=new(pocket.Star,origin.X,origin.Y,target.Id,target.X,target.Y)};
             bool civilian=members.Any(s=>s.Attack==0||s.Cargo>0);bool closed=members.Any(s=>s.Cargo>0)&&(PortClosed(view,port.StarId)||PortClosed(view,pocket.Star));
-            bool allowed=(!civilian||cargoConsent)&&(!closed||remain);
+            bool allowed=(!civilian||cargoConsent)&&(!closed||remain||existing?.ContinueRiskTurn==view.Turn);
             string? code=allowed?null:closed?CombatRejectionCodes.PortClosed:CombatRejectionCodes.Unavailable;
             var departures=DepartureForecast(frame);bool fired=existing is {Round:>0};
             var exposed=fired&&sentries.Length>0?departures.Where(g=>g.Speed<=sentries.Max(s=>s.PursuitSpeed)).SelectMany(g=>g.Members).OrderBy(id=>id).ToImmutableArray():ImmutableArray<VesselId>.Empty;
             var exchange=CombatExchange.Calculate(frame,withdrawal,withdrawal?exposed:ImmutableArray<VesselId>.Empty);
             var explanations=ImmutableArray.Create("A return route that closes during resolution prevents departure, permits one defensive exchange, and requires a new response.","Departure estimates use current hull bands and the displayed observation; later damage can change travel speed.");
             var preview=new CombatPreview(allowed,code,string.Empty){Frame=frame,Exchange=exchange,AffectedShips=members,Cargo=checked((int)members.Aggregate((Int128)0,(sum,s)=>checked(sum+s.Cargo))),Departures=departures,Exposed=exposed,Explanations=explanations,Forecasts=Forecast(frame,exchange)};
-            var material=new{view.Turn,view.Viewer,ActionKind=action.GetType().Name,Action=JsonSerializer.SerializeToElement(action,action.GetType()),Frame=frame,Pocket=pocket with {Sentries=pocket.Sentries.OrderBy(s=>s.Id).ToImmutableArray()},Officer=officer,Equipment=view.Research.KnownTechnologyIds.Contains(content.FleetCommand!.RecoveryTechnologyId),Port=port.Id,PortStar=port.StarId,Closed=closed,CargoConsent=cargoConsent,Response=combat.Responses.FirstOrDefault(r=>r.Encounter==existing?.Id),Preview=preview};
+            var material=new{view.Turn,view.Viewer,ActionKind=action.GetType().Name,Action=JsonSerializer.SerializeToElement(action,action.GetType()),Frame=frame,Pocket=pocket with {Sentries=pocket.Sentries.OrderBy(s=>s.Id).ToImmutableArray()},Officer=officer,Equipment=view.Research.KnownTechnologyIds.Contains(content.FleetCommand!.RecoveryTechnologyId),Port=port.Id,PortStar=port.StarId,Closed=closed,CargoConsent=cargoConsent,Continuation=existing?.ContinueRiskTurn,Response=combat.Responses.FirstOrDefault(r=>r.Encounter==existing?.Id),Preview=preview};
             return preview with {Token=Token(material)};
         }
         catch(Exception ex)when(ex is OverflowException or ArgumentException or InvalidOperationException or System.Collections.Generic.KeyNotFoundException){return Reject();}
@@ -89,6 +91,8 @@ public static class CombatQueries
             var vessel=view.Vessels.SingleOrDefault(v=>v.Id==id);var own=view.Combat!.Ships.SingleOrDefault(v=>v.Id==id);if(vessel is null||own is null)return new(false,CombatRejectionCodes.Unavailable,string.Empty);
             if(repair.Enabled)
             {
+                var fleetShip=view.Fleets!.Ships.Single(v=>v.Id==id);var fleet=view.Fleets.Fleets.SingleOrDefault(f=>f.Id==fleetShip.Fleet);
+                if(fleetShip.Request is not null||fleet is not null&&(fleet.Order.Kind!=FleetOrderKind.Hold||view.Fleets.Requests.Any(r=>FleetQueries.IsActive(r.Status)&&r.RallyFleet==fleet.Id)))return new(false,CombatRejectionCodes.Unavailable,string.Empty);
                 var port=view.Colonies.Where(c=>c.StarId==vessel.StationaryStarId).OrderBy(c=>c.Id).FirstOrDefault();
                 if(port is null||vessel.Transit is not null||vessel.PendingMove is not null||vessel.PendingFounding is not null||view.Combat.Encounters.Any(e=>e.Members.Contains(id))||vessel.Crisis?.Held==true||vessel.CarriedPopulation>0&&PortClosed(view,port.StarId))return new(false,CombatRejectionCodes.PortClosed,string.Empty);
                 ports.Add(id,port.Id);

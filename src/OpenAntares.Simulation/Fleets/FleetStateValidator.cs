@@ -85,7 +85,7 @@ public static class FleetStateValidator
                 if (request.Status == RequestStatus.Complete && (request.CompletedTurn is not { } completed || completed < 0 || completed > state.Turn || request.Slots.Any(s => s.Status != SlotStatus.Arrived))) Error("completed request does not have its full arrived quota.");
                 foreach (var slot in request.Slots)
                 {
-                    if (slot.Ordinal < 1 || !Enum.IsDefined(slot.Status) || slot.RoleId is null || !content.Vessels.TryGetValue(slot.RoleId, out var role) || !species.AllowedVesselIds.Contains(slot.RoleId)) { Error("request slot/role is invalid."); continue; }
+                    if (slot.Ordinal < 1 || !Enum.IsDefined(slot.Status) || slot.RoleId is null || !content.Vessels.TryGetValue(slot.RoleId, out var role) || !Species.SpeciesRules.CanBuildVessel(content,state,empire.Id,slot.RoleId)) { Error("request slot/role is invalid."); continue; }
                     if (role.EmbarkPopulation > 0 && !request.AuthorizeCargo) Error("request lacks explicit population cargo authorization.");
                     if (slot.Status == SlotStatus.BlockedSafety && (request.Status != RequestStatus.SafetyPaused || slot.ResumeStatus is null or SlotStatus.Missing or SlotStatus.BlockedSafety || !Enum.IsDefined(slot.ResumeStatus.Value))) Error("blocked-safety slot must preserve its previous progress.");
                     if (slot.Status != SlotStatus.BlockedSafety && slot.ResumeStatus is not null) Error("unblocked slot has stale safety progress.");

@@ -13,6 +13,7 @@ public static class FleetCommandProcessor
     internal static void ValidateAction(ContentSet content, EmpireView view, FleetAction action)
     {
         if (!Rules.HasFleets(view.RulesVersion) || view.Fleets is not { } f) throw new InvalidOperationException("Fleet command requires a fleet campaign.");
+        if(Combat.CombatCommandGuards.Conflicts(view,new FleetCommand(view.Viewer,view.Turn,action)))throw new InvalidOperationException("Committed combat members require combat orders or completed withdrawal.");
         void Require(bool condition, string reason) { if (!condition) throw new InvalidOperationException(reason); }
         FleetView Fleet(FleetId id) => f.Fleets.SingleOrDefault(x => x.Id == id) ?? throw new InvalidOperationException("Fleet is unavailable to this empire.");
         VesselId[] Ships(ImmutableArray<VesselId> ids)
