@@ -13,7 +13,12 @@ public sealed record PocketObservation(PocketId Pocket, StarId Star, int Turn, b
 public sealed record ObservedSentry(SentryId Id, CombatProfile Profile, int Hull, int PursuitSpeed);
 [Flags] public enum CombatResponseNeed { RevisedForce=1, BlockedReturn=2 }
 public sealed record CombatPendingResponse(EncounterId Encounter, long Revision, string Reason, CombatResponseNeed Need=CombatResponseNeed.RevisedForce);
-public sealed record CombatHistoryEntry(EncounterId Encounter, PocketId Pocket, int Turn, string Outcome, ImmutableArray<VesselId> Destroyed, long Rounds);
+public sealed record CombatHistoryEntry(EncounterId Encounter, PocketId Pocket, int Turn, string Outcome, ImmutableArray<VesselId> Destroyed, long Rounds)
+{
+    public ImmutableArray<CombatRoundReceipt> Details {get;init;}=ImmutableArray<CombatRoundReceipt>.Empty;
+    public long HullLost {get;init;}
+    public long CargoLost {get;init;}
+}
 public sealed record CombatEvent(long Id, int Turn, string Kind, string Reason, EncounterId? Encounter = null, VesselId? Vessel = null);
 public sealed class CombatGameState
 {
@@ -29,6 +34,8 @@ public sealed class CombatEmpireState
     public long NextEventId {get;set;}=1;
     public long LifetimeEncounters {get;set;}
     public long LifetimeShipsLost {get;set;}
+    public long LifetimeHullLost {get;set;}
+    public long LifetimeCargoLost {get;set;}
     public List<PocketObservation> Observations {get;set;}=new();
     public List<CombatPendingResponse> Responses {get;set;}=new();
     public List<CombatHistoryEntry> History {get;set;}=new();
@@ -72,10 +79,14 @@ public sealed class EncounterState
     public CombatOrders Orders {get;set;}=new(CombatDoctrine.Cautious,default,StragglerPolicy.KeepTogether,CombatArrivalOrder.Repair);
     public CombatPhase Phase {get;set;}
     public long Round {get;set;}
+    public long HullLost {get;set;}
+    public long CargoLost {get;set;}
+    public List<VesselId> DestroyedMembers {get;set;}=new();
+    public List<CombatRoundReceipt> Rounds {get;set;}=new();
     public int? LastResolvedTurn {get;set;}
     public CombatPhase? LastResolvedPhase {get;set;}
     public long? ConsentRevision {get;set;}
     public int? ContinueRiskTurn {get;set;}
     public bool CivilianRiskAuthorized {get;set;}
-    public EncounterState Clone(){var c=(EncounterState)MemberwiseClone();c.Members=new(Members);return c;}
+    public EncounterState Clone(){var c=(EncounterState)MemberwiseClone();c.Members=new(Members);c.DestroyedMembers=new(DestroyedMembers);c.Rounds=new(Rounds);return c;}
 }
