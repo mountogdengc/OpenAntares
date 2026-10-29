@@ -40,6 +40,7 @@ internal static class CombatResolver
         foreach(var damage in result.Ships.OrderBy(d=>d.Id))
         {
             var ship=candidate.FindVessel(damage.Id)??throw new InvalidOperationException("Combat participant already consumed.");var actor=frame.Ships.Single(s=>s.VesselId==damage.Id);
+            ship.Combat!.HullLost=checked(ship.Combat.HullLost+damage.ActualLoss);
             encounter.HullLost=checked(encounter.HullLost+damage.ActualLoss);own.LifetimeHullLost=checked(own.LifetimeHullLost+damage.ActualLoss);
             if(damage.After==0)
             {

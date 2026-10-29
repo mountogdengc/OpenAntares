@@ -36,6 +36,7 @@ public sealed class CombatEmpireState
     public long LifetimeShipsLost {get;set;}
     public long LifetimeHullLost {get;set;}
     public long LifetimeCargoLost {get;set;}
+    public long LifetimeHullRepaired {get;set;}
     public List<PocketObservation> Observations {get;set;}=new();
     public List<CombatPendingResponse> Responses {get;set;}=new();
     public List<CombatHistoryEntry> History {get;set;}=new();
@@ -50,6 +51,9 @@ public sealed class ShipCombatState
     public ColonyId? ReturnColony {get;set;}
     public CombatArrivalOrder? OnArrival {get;set;}
     public bool Repairing {get;set;}
+    public long HullLost {get;set;}
+    public long HullRepaired {get;set;}
+    public int? LastRepairTurn {get;set;}
     public ShipCombatState Clone()=>(ShipCombatState)MemberwiseClone();
 }
 public sealed class PocketState

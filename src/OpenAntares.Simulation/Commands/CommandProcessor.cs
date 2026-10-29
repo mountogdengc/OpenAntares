@@ -39,6 +39,7 @@ public static partial class CommandProcessor
     private static CommandOutcome ExecuteTransaction(ContentSet content, GameState state, Command command,bool allowAllHumansReady=false,bool scoutPreparationMove=false)
     {
         var result = ExecuteCore(content, state, command,scoutPreparationMove);
+        if(Rules.HasCombat(state.RulesVersion))result=Combat.CombatRepair.Override(content,state,result,command);
         if (result.Changed && Rules.HasDevelopment(state.RulesVersion)) ApplyManualIntervention(result.State, command);
         if(result.Changed&&result.State.Turn==state.Turn&&Rules.HasScouting(state.RulesVersion))
         {

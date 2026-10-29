@@ -59,7 +59,7 @@ public static class CombatStateValidator
         foreach(var owner in state.Empires)
         {
             if(owner.Combat is not {} c){Error($"{owner.Id} missing combat metadata");continue;}
-            if(c.LifetimeHullLost is <0 or long.MaxValue||c.LifetimeCargoLost is <0 or long.MaxValue)Error("lifetime loss counter outside bounds");
+            if(c.LifetimeHullRepaired is <0 or long.MaxValue||c.LifetimeHullLost is <0 or long.MaxValue||c.LifetimeCargoLost is <0 or long.MaxValue)Error("lifetime loss counter outside bounds");
             if(c.NextEventId is <1 or long.MaxValue||c.LifetimeEncounters is <0 or long.MaxValue||c.LifetimeShipsLost is <0 or long.MaxValue)Error("owner counter outside bounds");
             if(!game.SentriesEnabled&&(c.Observations.Count!=0||c.Responses.Count!=0||c.History.Count!=0||c.LifetimeEncounters!=0||c.LifetimeShipsLost!=0))Error("Off has encounter metadata");
             Sorted(c.Observations.Select(o=>(long)o.Pocket.Value),"observation IDs");
@@ -91,6 +91,7 @@ public static class CombatStateValidator
         {
             if(vessel.Combat is not {} c){Error($"{vessel.Id} missing hull/cohesion");continue;}
             if(!d.RoleProfiles.TryGetValue(vessel.RoleId,out var profile)||c.Hull<=0||c.Hull>profile.MaxHull||c.Cohesion is <0 or >100)Error("invalid live hull/cohesion");
+            if(c.HullLost is <0 or long.MaxValue||c.HullRepaired is <0 or long.MaxValue||c.LastRepairTurn is {} lastRepair&&(lastRepair<0||lastRepair>state.Turn))Error("invalid ship damage/repair totals or clock");
             if((c.ReturnColony is null)!=(c.OnArrival is null)||c.OnArrival is {} arrival&&!Enum.IsDefined(arrival)||c.ReturnColony is {} port&&state.FindColony(port)?.EmpireId!=vessel.EmpireId)Error("invalid ship return/arrival authority");
             var command=state.FindEmpire(vessel.EmpireId)?.Fleets;var group=command?.Fleets.FirstOrDefault(f=>f.Id==vessel.Fleet);
             bool authorityConflict=group is not null&&group.Order is not {Kind:Fleets.FleetOrderKind.Hold}||command?.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&(group is not null&&r.RallyFleet==group.Id||r.Slots.Any(s=>s.Vessel==vessel.Id&&s.Status!=Fleets.SlotStatus.Missing)))==true;
