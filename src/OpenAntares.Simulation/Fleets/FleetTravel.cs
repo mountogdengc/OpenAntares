@@ -65,11 +65,15 @@ public static class FleetTravel
     {
         var a=view.Galaxy.Stars.Single(s=>s.Id==vessel.StationaryStarId);var b=view.Galaxy.Stars.Single(s=>s.Id==target);
         int speed=content.Vessels[vessel.RoleId].Speed;
+        if(Rules.HasCombat(view.RulesVersion))
+        {
+            var own=view.Combat!.Ships.Single(s=>s.Id==vessel.Id);speed=Combat.CombatMath.Stats(content.Combat!.RoleProfiles[vessel.RoleId],own.Hull,speed,0,content.Combat).Speed;
+        }
         if(Rules.HasFleets(view.RulesVersion)&&view.Fleets is {} f&&f.Ships.Single(x=>x.Id==vessel.Id).Fleet is {} id)
         {
             var fleet=f.Fleets.Single(x=>x.Id==id);var officer=f.Officers.SingleOrDefault(o=>o.Id==fleet.Officer&&o.Status==OfficerStatus.Commanding);
             int bonus=officer is {Specialty:OfficerSpecialty.Navigator,Rank:>0}?content.FleetCommand!.NavigatorBonuses[officer.Rank-1]:0;
-            speed=fleet.Members.Min(member=>checked((int)((long)content.Vessels[f.Ships.Single(x=>x.Id==member).RoleId].Speed*(100+bonus)/100)));
+            speed=fleet.Members.Min(member=>Rules.HasCombat(view.RulesVersion)?Combat.CombatMath.Stats(content.Combat!.RoleProfiles[f.Ships.Single(x=>x.Id==member).RoleId],view.Combat!.Ships.Single(s=>s.Id==member).Hull,content.Vessels[f.Ships.Single(x=>x.Id==member).RoleId].Speed,bonus,content.Combat).Speed:checked((int)((long)content.Vessels[f.Ships.Single(x=>x.Id==member).RoleId].Speed*(100+bonus)/100)));
         }
         return TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,speed);
     }

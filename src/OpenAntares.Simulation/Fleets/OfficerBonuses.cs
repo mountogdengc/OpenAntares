@@ -40,10 +40,18 @@ public static class OfficerBonuses
         int discount=d.OrganizerDiscounts[rank-1];
         return Math.Max(1,checked((long)(((Int128)basis*(100-discount)+99)/100)));
     }
+    internal static int NavigatorBonus(ContentSet content,GameState state,VesselState ship)
+    {
+        if(!Rules.HasFleets(state.RulesVersion)||ship.Fleet is not {} id)return 0;
+        var f=state.FindEmpire(ship.EmpireId)!.Fleets!;var fleet=f.Fleets.Single(x=>x.Id==id);
+        var officer=f.Officers.SingleOrDefault(o=>o.Id==fleet.Officer&&o.Flagship==fleet.Flagship&&o.Status==OfficerStatus.Commanding);
+        return officer is {Specialty:OfficerSpecialty.Navigator,Rank:>0}?content.FleetCommand!.NavigatorBonuses[officer.Rank-1]:0;
+    }
     public static int EffectiveSpeed(ContentSet content, GameState state, VesselId vessel)
     {
         var ship = state.FindVessel(vessel)!;
         int speed = content.Vessels[ship.RoleId].Speed;
+        if(Rules.HasCombat(state.RulesVersion))return Combat.CombatMath.Stats(content.Combat!.RoleProfiles[ship.RoleId],ship.Combat!.Hull,speed,NavigatorBonus(content,state,ship),content.Combat).Speed;
         if (!Rules.HasFleets(state.RulesVersion) || ship.Fleet is not { } id || state.FindEmpire(ship.EmpireId)!.Fleets is not { } f) return speed;
         var fleet = f.Fleets.Single(x => x.Id == id);
         var officer = f.Officers.SingleOrDefault(o => o.Id == fleet.Officer && o.Flagship == fleet.Flagship && o.Status == OfficerStatus.Commanding);
