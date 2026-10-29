@@ -206,8 +206,15 @@ public static partial class CommandProcessor
         GameState prepared = state;
         if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasFleets(state.RulesVersion))
         {
-            var fleet=Fleets.FleetTurnCoordinator.PrepareHuman(content,state,issuer.Id);
-            if(!fleet.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"Fleet and survival preparation could not be completed. Review current responses.");prepared=fleet.State;
+            if(Rules.HasCombat(state.RulesVersion))
+            {
+                var combat=Combat.CombatTurnCoordinator.PrepareHuman(content,state,issuer.Id);if(!combat.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"Combat, fleet and survival preparation could not be completed. Review current responses.");prepared=combat.State;
+            }
+            else
+            {
+                var fleet=Fleets.FleetTurnCoordinator.PrepareHuman(content,state,issuer.Id);
+                if(!fleet.Succeeded)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"Fleet and survival preparation could not be completed. Review current responses.");prepared=fleet.State;
+            }
         }
         if(command.Ready&&issuer.Controller==ControllerKind.Human&&Rules.HasCrises(state.RulesVersion)&&!Rules.HasFleets(state.RulesVersion))
         {

@@ -15,7 +15,7 @@ namespace OpenAntares.Simulation.Tests;
 public sealed class CombatWithdrawalTests
 {
     // Labelled pre-session supplements with ordinary first volleys, not generated/earned fleet claims.
-    static LoadedGame Battle(int[] hulls,bool[]? armed=null,int flagship=0,int navigator=0,bool two=false,Func<CombatDefinition,CombatDefinition>? configure=null,bool crises=false)
+    internal static LoadedGame Battle(int[] hulls,bool[]? armed=null,int flagship=0,int navigator=0,bool two=false,Func<CombatDefinition,CombatDefinition>? configure=null,bool crises=false)
     {
         var g=CombatFixtures.Game();var c=configure is null?g.Content:g.Content with {Combat=configure(g.Content.Combat!)};var s=g.State;CrisisInitializer.Initialize(c,s,crises);var e=s.Empires[0];var pocket=s.Combat!.Pockets[0];
         for(int i=0;i<pocket.Sentries.Count;i++){pocket.Sentries[i].Profile=c.Combat!.SentryProfile;pocket.Sentries[i].Hull=i==0||two?c.Combat.SentryProfile.MaxHull:0;}
@@ -35,12 +35,12 @@ public sealed class CombatWithdrawalTests
         ObservationUpdater.Refresh(g.State,g.State.Turn);var p=g.State.Combat!.Pockets[0];var owner=g.State.Empires[0];Assert.Contains(g.State.Vessels,v=>v.EmpireId==owner.Id&&v.StationaryStarId==p.Star);
         owner.Combat!.Observations.Clear();owner.Combat.Observations.Add(new(p.Id,p.Star,g.State.Turn,p.Cleared,p.Sentries.Select(s=>new ObservedSentry(s.Id,s.Profile,s.Hull,g.Content.Combat!.SentryPursuitSpeed)).ToImmutableArray()));
     }
-    static LoadedGame Queued(LoadedGame g,StragglerPolicy policy)
+    internal static LoadedGame Queued(LoadedGame g,StragglerPolicy policy)
     {
         var context=CombatResolutionContext.Capture(g.Content,g.State);var s=g.State.Clone();CombatResolver.ResolveExchanges(g.Content,g.State,s,context);s.Turn++;g=new(g.Content,s);Refresh(g);var e=Assert.Single(s.Combat!.Encounters);
         s=CombatCommandTests.Commit(g,new CombatAction.ChangeCombatOrders(e.Id,e.Revision,e.Orders with {Stragglers=policy},e.CivilianRiskAuthorized));g=new(g.Content,s);e=s.Combat!.Encounters[0];return new(g.Content,CombatCommandTests.Commit(g,new CombatAction.WithdrawCombat(e.Id,e.Revision)));
     }
-    static (GameState State,CombatResolutionContext Context) Depart(LoadedGame g,Action<GameState>? health=null)
+    internal static (GameState State,CombatResolutionContext Context) Depart(LoadedGame g,Action<GameState>? health=null)
     {
         var c=g.State.Clone();var context=CombatResolutionContext.Capture(g.Content,g.State);health?.Invoke(c);CombatResolver.ResolveExchanges(g.Content,g.State,c,context);CombatWithdrawal.Resolve(g.Content,g.State,c,context);return(c,context);
     }

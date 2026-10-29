@@ -6,7 +6,8 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Combat;
 public static class CombatStateValidator
 {
-    public static IReadOnlyList<string> Validate(ContentSet content,GameState state)
+    public static IReadOnlyList<string> Validate(ContentSet content,GameState state)=>Validate(content,state,true);
+    internal static IReadOnlyList<string> Validate(ContentSet content,GameState state,bool checkReady)
     {
         var errors=new List<string>();void Error(string message)=>errors.Add("combat: "+message);
         if(!Rules.HasCombat(state.RulesVersion))
@@ -97,6 +98,8 @@ public static class CombatStateValidator
             bool authorityConflict=group is not null&&group.Order is not {Kind:Fleets.FleetOrderKind.Hold}||command?.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&(group is not null&&r.RallyFleet==group.Id||r.Slots.Any(s=>s.Vessel==vessel.Id&&s.Status!=Fleets.SlotStatus.Missing)))==true;
             if(c.Repairing&&(authorityConflict||c.ReturnColony is not {} destination||vessel.Transit is not null||vessel.PendingMove is not null||vessel.PendingFounding is not null||state.FindColony(destination) is not {} repairColony||state.FindPlanet(repairColony.PlanetId)?.StarId!=vessel.StationaryStarId||c.OnArrival!=CombatArrivalOrder.Repair||game.Encounters.Any(e=>e.Members.Contains(vessel.Id))))Error("repair state conflicts with location/orders");
         }
+        if(checkReady&&errors.Count==0)foreach(var owner in state.Empires.Where(e=>e.Controller==ControllerKind.Human&&e.Ready))
+            if(!CombatReadyQueries.ValidateResponse(content,state,owner.Id).IsEmpty)Error("ready human has unresolved combat consent or return authority");
         return errors;
         void Details(IEnumerable<CombatRoundReceipt> records,EncounterId id,long total)
         {

@@ -11,13 +11,13 @@ public static class CombatReadyQueries
         var result=ImmutableArray.CreateBuilder<string>();var c=state.FindEmpire(owner)?.Combat;
         if(c is null){result.Add(CombatRejectionCodes.ResponseRequired);return result.ToImmutable();}
         if(c.Responses.Count!=0)result.Add(CombatRejectionCodes.ResponseRequired);
-        foreach(var encounter in state.Combat!.Encounters.Where(e=>e.Owner==owner))
+        var encounters=state.Combat!.Encounters.Where(e=>e.Owner==owner).ToArray();
+        var forecast=encounters.Any(e=>e.ContinueRiskTurn!=state.Turn)?Crises.CrisisTurnCoordinator.PreviewForFleetConsent(content,state,owner):new Crises.CrisisPreparationResult(state,true);
+        if(!forecast.Succeeded){if(!result.Contains(CombatRejectionCodes.ResponseRequired))result.Add(CombatRejectionCodes.ResponseRequired);return result.ToImmutable();}
+        foreach(var encounter in encounters)
         {
             if(encounter.ConsentRevision!=encounter.Revision&&!result.Contains(CombatRejectionCodes.ResponseRequired))result.Add(CombatRejectionCodes.ResponseRequired);
-            var port=state.FindColony(encounter.Orders.ReturnColony);
-            bool cargo=encounter.Members.Any(id=>state.FindVessel(id)?.CarriedPopulation>0);
-            if(encounter.ContinueRiskTurn!=state.Turn&&(port?.EmpireId!=owner||cargo&&(Crises.CrisisQueries.PortClosed(state,owner,state.FindPlanet(port.PlanetId)!.StarId)||encounter.Members.Any(id=>Crises.CrisisQueries.IsHeld(state,id)))))
-                if(!result.Contains(CombatRejectionCodes.PortClosed))result.Add(CombatRejectionCodes.PortClosed);
+            if(encounter.ContinueRiskTurn!=state.Turn&&CombatWithdrawal.ReturnBlocked(forecast.State,encounter)&&!result.Contains(CombatRejectionCodes.PortClosed))result.Add(CombatRejectionCodes.PortClosed);
         }
         return result.ToImmutable();
     }

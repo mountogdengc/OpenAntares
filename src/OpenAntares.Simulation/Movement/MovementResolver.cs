@@ -7,14 +7,22 @@ namespace OpenAntares.Simulation.Movement;
 
 public static class MovementResolver
 {
-    public static void Apply(ContentSet content, GameState snapshot, GameState candidate, List<ExpansionEvent> events,Crises.CrisisResolutionContext? context=null,Scouting.AmebaResolutionContext? scouting=null,Fleets.FleetResolutionContext? fleetContext=null)
+    public static void Apply(ContentSet content, GameState snapshot, GameState candidate, List<ExpansionEvent> events,Crises.CrisisResolutionContext? context=null,Scouting.AmebaResolutionContext? scouting=null,Fleets.FleetResolutionContext? fleetContext=null,Combat.CombatResolutionContext? combat=null)
     {
         foreach (var before in snapshot.Vessels)
         {
             if(scouting?.ConsumedVessels.Contains(before.Id)==true)continue;
-            var v = candidate.FindVessel(before.Id)??throw new System.InvalidOperationException("Unexpected missing movement vessel."); var t = before.Transit;
-            if(context is not null&&before.CarriedPopulation>0&&before.Transit is null&&(Crises.CrisisQueries.IsHeld(snapshot,before.Id)||(before.StationaryStarId is {} port&&context.ClosedPorts.Contains((before.EmpireId,port)))||(before.PendingMove is {} target&&context.ClosedPorts.Contains((before.EmpireId,target)))))continue;
-            if (before.PendingMove is { } dest)
+            var v = candidate.FindVessel(before.Id);
+            if(v is null){if(combat is not null)continue;throw new System.InvalidOperationException("Unexpected missing movement vessel.");}
+            var t = before.Transit;var departure=combat?.Departures.GetValueOrDefault(before.Id);
+            if(context is not null&&before.CarriedPopulation>0&&before.Transit is null&&(Crises.CrisisQueries.IsHeld(snapshot,before.Id)||(before.StationaryStarId is {} port&&context.ClosedPorts.Contains((before.EmpireId,port)))||((departure?.Destination??before.PendingMove) is {} target&&context.ClosedPorts.Contains((before.EmpireId,target)))))continue;
+            if(departure is not null)
+            {
+                int turns=departure.TotalTurns;
+                if(v.Fleet is {} group)candidate.FindEmpire(v.EmpireId)!.Fleets!.Fleets.Single(f=>f.Id==group).Cohort=new(departure.Origin,departure.Destination,turns,snapshot.Turn,departure.Speed);
+                t=new(departure.Origin,departure.Destination,turns,turns);v.PendingMove=null;v.StationaryStarId=null;if(v.Scout is {} scout)scout.ApproachAcceptance=null;
+            }
+            else if (before.PendingMove is { } dest)
             {
                 var start = snapshot.FindStar(before.StationaryStarId!.Value)!; var end = snapshot.FindStar(dest)!;
                 int turns = fleetContext?.Launches.GetValueOrDefault(before.Id)?.TotalTurns ?? (Rules.HasFleets(snapshot.RulesVersion)?Fleets.FleetTravel.LaunchDuration(content,snapshot,before,dest):TravelCalculator.Duration(start.X, start.Y, end.X, end.Y, content.Vessels[before.RoleId].Speed));

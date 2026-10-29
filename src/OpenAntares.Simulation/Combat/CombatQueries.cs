@@ -81,7 +81,7 @@ public static class CombatQueries
         }
         catch(Exception ex)when(ex is OverflowException or ArgumentException or InvalidOperationException or System.Collections.Generic.KeyNotFoundException){return Reject();}
     }
-    internal static bool PortClosed(EmpireView view,StarId star)=>view.Colonies.Any(c=>c.StarId==star&&c.Crisis?.Quarantined==true);
+    internal static bool PortClosed(EmpireView view,StarId star)=>view.Colonies.Any(c=>c.StarId==star&&c.Crisis?.Quarantined==true)||view.Crisis is {Enabled:true,Authority:not Crises.CrisisAuthority.Manual,ContainmentPreview:{Allowed:true} policy}&&policy.ClosedPortsAfter.Contains(star);
     private static CombatPreview RepairPreview(ContentSet content,EmpireView view,CombatAction.SetRepair repair)
     {
         if(repair.Vessels.IsDefaultOrEmpty||repair.Vessels.Length>32||repair.Vessels.Distinct().Count()!=repair.Vessels.Length)return new(false,CombatRejectionCodes.Unavailable,string.Empty);
