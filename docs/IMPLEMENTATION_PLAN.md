@@ -46,7 +46,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Record the final task16 completion gate, then obtain owner disposition of verified `codex/fleet-combat`; see [final combat validation](../reports/COMBAT_VALIDATION_2026-10-28.md). One fresh review/one correction pass are complete with no open Critical/Important or deferred Minors. Branch9/10/46; main8/9/37. Do not repeat completed implementation, reopen gameplay, dispatch another review or merge/push/clean without the next owner decision.
+Obtain owner disposition of verified `codex/fleet-combat`; see [final combat validation](../reports/COMBAT_VALIDATION_2026-10-28.md). One fresh review/one correction pass are complete with no open Critical/Important or deferred Minors. Branch9/10/46; main8/9/37. Do not repeat completed implementation, reopen gameplay, dispatch another review or merge/push/clean without the next owner decision.
 
 ## Risks and autonomy
 

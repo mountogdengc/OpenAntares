@@ -2,7 +2,7 @@
 
 The approved implementation and review corrections are verified on isolated `codex/fleet-combat`. New campaigns now use rules9, writer10 and46 explicitly supported schema/rules pairs. Main remains at `dc190937`, rules8/writer9/37 pairs. Automatic sentry battles, standing orders, persistent damage/cohesion, withdrawal cohorts and finite port repair are implemented. Optional tactical controls remain later scope.
 
-Final product source: `4176996fbda516849a9f5e24691c451e89960019`. Final gates ran2026-10-29 America/Denver; the filename follows the approved plan date. One fresh review found three Important issues, all closed by one regression-first correction pass; no Critical findings or deferred Minors. Task16 final gate pending. Integration, release and human usability acceptance remain separate.
+Final product source: `4176996fbda516849a9f5e24691c451e89960019`. Final gates ran2026-10-29 America/Denver; the filename follows the approved plan date. One fresh review found three Important issues, all closed by one regression-first correction pass; no Critical findings or deferred Minors. All16 approved tasks are complete; final task gate1733/1733 passed. Integration, release and human usability acceptance remain separate.
 
 ## Executed evidence
 
@@ -51,3 +51,5 @@ Each functional row is Verified for local automated scope after the correction g
 UI signals exercise real controls/handlers, focus, scrolling and geometry. Embedded screenshots are supplementary and inherit canvas scaling. They do not prove physical input, player comprehension, accessibility, aesthetics, balance or long campaigns. Cross-platform determinism, dependency/security audits and export/release remain unverified. No new dependency was introduced. Parent REQ-017 and17 parent-row totals remain unchanged.
 
 Main integration requires the owner's next disposition. No merge, push, release, evidence deletion or worktree cleanup is authorized by this implementation approval.
+
+Final completion: [task16 gate](combat-execution/gates/task16-done-01.log) passes1733/1733. [Final ledger](combat-execution/progress-final.md), [all36 rulings with reasons/costs](combat-execution/rulings.md). Deferred minors: none. The isolated branch/worktree and all evidence remain; no integration/push/release/cleanup.
