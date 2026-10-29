@@ -1,5 +1,17 @@
 # OpenAntares — project status
 
+**M9 locally integrated, 2026-10-29.** Main now contains the completed combat implementation at `fa11f96e2e35973d533c0a85630348461bae07a9`, product source `4176996fbda516849a9f5e24691c451e89960019`, rules9/writer10/46 explicit schema-rules pairs. The owner selected option1 for local integration. Fresh main verification passes **1733/1733 simulation tests** and **3271 native Combat checks +93 separate provenance entries**, across12 genuine paid campaigns. All72 generated stage saves match the corrected branch exactly. Both builds have0 warnings/errors,0 engine diagnostics and actual opt-in/ordinary9+2 exclusion checks pass.
+
+Automatic sentry battles, standing fleet orders, persistent hull/cohesion, withdrawal cohorts and finite own-port repair are implemented. Optional tactical controls remain later scope. All16 approved tasks, one fresh review and one correction pass are complete with no open findings or deferred Minors. M9-I/CBT-AC-001..011 remain Verified for local automated scope; M9-D/M9-P/CBT-AC-012 remain Verified for their approval scope. Parent17-row statuses/totals and human/platform/security/balance/release limits are unchanged.
+
+[Integration report](reports/COMBAT_INTEGRATION_2026-10-29.md), [machine summary](reports/combat-integration-20261029/summary.json), [original validation and source scopes](reports/COMBAT_VALIDATION_2026-10-28.md). Other eight native scenarios retain scoped branch evidence. Four protected owner files, the exact peaceful-mode paragraph below, all8 worktrees, combat branch, unrelated refs/stashes and prior raw evidence/QA saves remain. Premerge recovery: `codex/combat-premerge-20261029`. No push, release or cleanup.
+
+Next: choose the next bounded milestone before new design or implementation. Do not repeat completed combat tasks or dispatch another implementation review.
+
+## Historical checkpoints
+
+Earlier next-action, branch-only and integration-pending statements below describe their original checkpoints and are superseded by the current status above.
+
 **M9 verified implementation/review, 2026-10-29:** Product source `4176996fbda516849a9f5e24691c451e89960019` on isolated `codex/fleet-combat` uses9/writer10/46 pairs. One fresh review and one regression-first correction pass close all3 Important findings; no Critical/Minor remains. FullSuite1733/1733, review regressions45/45, initial all9 native9403 records and corrected Combat3271/93 provenance/generated12 pass with0 diagnostics/build warnings/errors and actual9+2 exclusions. M9-I/CBT-AC-001..011 Verified for local automated scope; M9-D/M9-P/CBT-AC-012 Verified for approval scope. All16 approved tasks are complete; final task gate1733/1733 passed. [Final validation](reports/COMBAT_VALIDATION_2026-10-28.md) and [machine summary](reports/combat-execution/final-summary.json) state exact source scopes and human/platform/security/export/release limits. Main remains clean atdc190937/8/9/37; all owner prose/evidence/worktrees/refs retained. No integration/push/release/cleanup. Earlier checkpoints below are historical.
 
 2026-10-28. The owner authorized local integration of Fleet Command and named admirals, including all three remaining review-gap fixes. Main combines owner documentation `a58cc67` and fleet branch `6bcdc2d`; validated product source `035877a40d45b39b1e764980e386023f706dd1dd`. **M8-I and all12FLT criteria are Verified within local automated/design scope.** The original17tasks and single whole-branch review are complete. No known review finding remains open.

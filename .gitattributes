@@ -12,3 +12,5 @@
 
 /tests/OpenAntares.Simulation.Tests/Fixtures/rules8-combat-baselines/** -text -whitespace
 /reports/combat-execution/** -text -whitespace
+
+/reports/combat-integration-20261029/** -text -whitespace
