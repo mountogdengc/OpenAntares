@@ -1,0 +1,138 @@
+[
+  [
+    {
+      "kind": "SetResearchTargetCommand",
+      "json": "{\u0022TechnologyId\u0022:\u0022cultivation_methods\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:44},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F70D6D1950C162C850BB66E174D94980EA198CC5C97496A50C98A04AEE978F07\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:45}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:2}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    }
+  ],
+  [
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B5D473AD2E1C6B7F3269F6006C154E08BFF21E9112B1CA196E0B08BB6B04B8A8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:1}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:45}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:4}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:1}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:2}"
+    }
+  ],
+  [
+    {
+      "kind": "SetResearchTargetCommand",
+      "json": "{\u0022TechnologyId\u0022:\u0022habitat_methods\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:3}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:44},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022cultivation_hub\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:3}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A8C045F4514CB291D991CB969CF1C990065F79928FD91A26EB9E0B0C26F110BB\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:3}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:45}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:5}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:3}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}"
+    }
+  ],
+  [
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:44},\u0022Target\u0022:{\u0022Kind\u0022:\u0022vessel\u0022,\u0022ContentId\u0022:\u0022scout\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:5}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002225545E4C7903232D51DE8ACCB29CBAB1ABA8D6572070FEF9C0BE5553A1258C33\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:5}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:45}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:6}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:5}"
+    }
+  ],
+  [
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00221C115E308A5ECC80BA1A0F3F86DE5F91277D91E1343567634046AD56BE9F2269\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:45}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:7}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}"
+    }
+  ],
+  [
+    {
+      "kind": "SetResearchTargetCommand",
+      "json": "{\u0022TechnologyId\u0022:\u0022adaptive_habitats\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:7}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:44},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022habitat_extension\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:7}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220CE56028735F3E546371BD526EE480DCE9B5C8CE0BB8670D4A76C3DF6104385E\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:7}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:45}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:8}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224C53F1A1E61856E5509FC0FA54FA5BFD00ABB0D824FE83A876D9E785B81072DE\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:7}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:50}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:8}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:7}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}"
+    }
+  ],
+  [
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F075947CC16E10C2D9FE058AF903A836AD46E7D14DD8ECBC80E161B10EEF0834\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:9}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:50}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:9}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:9}"
+    }
+  ]
+]

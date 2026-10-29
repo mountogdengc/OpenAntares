@@ -1,0 +1,1196 @@
+{
+  "rulesVersion": 8,
+  "writerVersion": 9,
+  "generatedSources": 48,
+  "generatedCheckpoints": 192,
+  "sourceCommit": "dc190937ab94a464ba81823d25738164db538e73",
+  "approvedPlanCommit": "dc190937ab94a464ba81823d25738164db538e73",
+  "productTree": "c85a05104647a2337db905e683c5216b8f60a901",
+  "compiler": "8.0.32",
+  "engineSha256": "5fc94a2a830767e8c8fda941fc5de5fb99c21749a9715f4a71cf7c68255a3cb1",
+  "programSha256": "09dcf58e81ec6a1645d67e313fb9ecfe863c3ea6fc1979cbd9ed0e19ddb3393e",
+  "supplementalSources": 10,
+  "origins": [
+    {
+      "source": "reports/fleet-integration-20261028/fleet/generated-ui-800.json",
+      "copy": "sources/retained-000.json",
+      "sha256": "c2b58dba1f15e5d97daa6867c1d3eb9a41a119f69df23e66df63ef6ea4c1aa8d",
+      "provenance": "Actual retained save; generated versus forced setup remains as labelled in original scenario results. Not part of 48 new generated sources."
+    },
+    {
+      "source": "reports/fleet-integration-20261028/fleet/generated-ui-1920.json",
+      "copy": "sources/retained-001.json",
+      "sha256": "c2b58dba1f15e5d97daa6867c1d3eb9a41a119f69df23e66df63ef6ea4c1aa8d",
+      "provenance": "Actual retained save; generated versus forced setup remains as labelled in original scenario results. Not part of 48 new generated sources."
+    },
+    {
+      "source": "reports/fleet-integration-20261028/fleet/minor-return-800.json",
+      "copy": "sources/retained-002.json",
+      "sha256": "dc26fdc868dbdf44eb4a36c531b7c1d87827d70885eaf036affae1791a59776d",
+      "provenance": "Actual retained save; generated versus forced setup remains as labelled in original scenario results. Not part of 48 new generated sources."
+    },
+    {
+      "source": "reports/fleet-integration-20261028/fleet/minor-return-1920.json",
+      "copy": "sources/retained-003.json",
+      "sha256": "dc26fdc868dbdf44eb4a36c531b7c1d87827d70885eaf036affae1791a59776d",
+      "provenance": "Actual retained save; generated versus forced setup remains as labelled in original scenario results. Not part of 48 new generated sources."
+    },
+    {
+      "source": "reports/fleet-integration-20261028/fleet/review-safety-cancel-0-800.json",
+      "copy": "sources/retained-004.json",
+      "sha256": "14895dc9b30b5fa15987f4e53e51cccb97285628ea238a1a8d3a239bd31014da",
+      "provenance": "Actual retained save; generated versus forced setup remains as labelled in original scenario results. Not part of 48 new generated sources."
+    },
+    {
+      "source": "reports/fleet-integration-20261028/fleet/review-safety-cancel-1-800.json",
+      "copy": "sources/retained-005.json",
+      "sha256": "6dd54fdbefb0cee7c3bdbf6c6cc242597a6c66aaafedeca9e70f696630280b2f",
+      "provenance": "Actual retained save; generated versus forced setup remains as labelled in original scenario results. Not part of 48 new generated sources."
+    },
+    {
+      "source": "reports/fleet-execution/final/fleet-01/labelled-scale-1920.json",
+      "copy": "sources/retained-006.json",
+      "sha256": "9f04d06b0310bbca76f7bb4a16a76100bec8102a8aee1172462030893b58e7a4",
+      "provenance": "Actual retained save; generated versus forced setup remains as labelled in original scenario results. Not part of 48 new generated sources."
+    },
+    {
+      "source": "ordinary generated seed42 rules8 continuation via recorded acknowledgements/Ready; no state/content edits",
+      "copy": "sources/ordinary-plague.json",
+      "sha256": "1e7d9bcbe386cf4ee4b1d1d36d5283ff13b0f0fb37e6e86bed5582109ef1a670",
+      "provenance": "Additional generated long-horizon health coverage, not part of the 48 initial-state matrix."
+    },
+    {
+      "source": "Normally generated Wenth seed42 Solo; public-chart exploration then explicit offered Remain at observed ameba; guaranteed source-body link recovery, no forced outcomes.",
+      "copy": "sources/ordinary-wenth-recovery.json",
+      "sha256": "9e4242c868e9b39bc6003397d2b8eb2039a283a87b86aaea9873ad4a3e32677c",
+      "provenance": "Normally generated Wenth seed42 Solo; public-chart exploration then explicit offered Remain at observed ameba; guaranteed source-body link recovery, no forced outcomes."
+    },
+    {
+      "source": "Normally generated Harl seed42 Solo; paid settlement hull, ordinary public-view survey/travel and accepted pending founding; no state/resource injection.",
+      "copy": "sources/ordinary-pending-founding.json",
+      "sha256": "f01ba87f1eff74cf97d1c778f09a8b31388d4db16dd17454f13d5c2b7ddd0f8d",
+      "provenance": "Normally generated Harl seed42 Solo; paid settlement hull, ordinary public-view survey/travel and accepted pending founding; no state/resource injection."
+    }
+  ],
+  "coverage": {
+    "ameba": true,
+    "cargo": true,
+    "founding": true,
+    "officer": true,
+    "pendingMove": true,
+    "plague": true,
+    "queue": true,
+    "recovery": true,
+    "request": true,
+    "transit": true
+  },
+  "files": {
+    "checkpoints/generated-harl-large-crisisFalse-amebaFalse-HoldReady.json": "8d7a0c254e537146c12b1f34d6ad2160452af18eaff281aa78c0ffe7c7ac57f6",
+    "checkpoints/generated-harl-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "f31ff2bedd5a6e45ffdf5f93e24d96859c4d214f6fd219028379e945c467d788",
+    "checkpoints/generated-harl-large-crisisFalse-amebaTrue-HoldReady.json": "c9c93dbc4f0c03d8b24d49ebf000ec36552f7e164600e3c960753f8260d04a3e",
+    "checkpoints/generated-harl-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "475d5e131f17fb565c98fddc664b7fa0b9c4febf06edefa0aae03c5e903ff769",
+    "checkpoints/generated-harl-large-crisisTrue-amebaFalse-HoldReady.json": "b190a7698150612b6267326c9607c3d31dec906a5ac0190e5d7f6b4df6fd2328",
+    "checkpoints/generated-harl-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "a39d9a5cafb00c045b140da787e9624543edbbee7fbb24bb986354a81e70fb57",
+    "checkpoints/generated-harl-large-crisisTrue-amebaTrue-HoldReady.json": "902f2a5c520ae6dec8cf66a0ef0a51fd99adc3cf2a42410d72898b34f9076188",
+    "checkpoints/generated-harl-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "d0c2d546db4257acf5170d9b176c1d00bd2f415fc3686bb08e76af643e40b4c7",
+    "checkpoints/generated-harl-medium-crisisFalse-amebaFalse-HoldReady.json": "c78c23048f5003470fb5fbee96283a87ecadb0ff5e16288f0a59c8a1d389c6c4",
+    "checkpoints/generated-harl-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "d82430d83849db299ee0420e344e8a7ea30cb5c8655293f01d0d290fa666a244",
+    "checkpoints/generated-harl-medium-crisisFalse-amebaTrue-HoldReady.json": "2e1b2b30eb04e17a59ab3bc04c07c246c66ba457a872dd3ae5266d9e058477e0",
+    "checkpoints/generated-harl-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "927fe9ba7ee8589860877c2506b9b22c2645e4433c3209b8f125999301e59d9f",
+    "checkpoints/generated-harl-medium-crisisTrue-amebaFalse-HoldReady.json": "d129c65116ce2890d92b61741f38931cd8c578cd25b83c810bd5dfb1b9baaa4e",
+    "checkpoints/generated-harl-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "8ef46b7103a8309d018c90a10754c37ec38fd18a47dfc1f24803d3368112f798",
+    "checkpoints/generated-harl-medium-crisisTrue-amebaTrue-HoldReady.json": "bec8d5e10df3679c9939f967b33d94bbad9980febbe170bc988e2ee88e79b11b",
+    "checkpoints/generated-harl-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "a5539f3c4e09ee0c6a865e8db9c6df0108e786e65bfaaf41e61b29a844a6b73f",
+    "checkpoints/generated-harl-small-crisisFalse-amebaFalse-HoldReady.json": "03b649e3feab6647167966a28be392f25af29af3a389aa1b16696a58eb913a4f",
+    "checkpoints/generated-harl-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "14e99d235458fc1a0a591793efa90f08ab2d66a5257d327c379de7ec9e4c9271",
+    "checkpoints/generated-harl-small-crisisFalse-amebaTrue-HoldReady.json": "5b033fd2dcc8f46be96aa4e65905c9e49a8a15f6c20ebf31908e5e59ad42e1f2",
+    "checkpoints/generated-harl-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "5c88190b0285633f9e8fa73f3d5b60754c4fbcbb85784c284296eadb9f3d2623",
+    "checkpoints/generated-harl-small-crisisTrue-amebaFalse-HoldReady.json": "3ad1e09e1bef80b8ddb1cda5907ab176e61200d351e35fdef53b41e5f209f653",
+    "checkpoints/generated-harl-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "18d5e907972f8dca3750509df1e3c96bcf3995a34f516fb180269133b0d3d44c",
+    "checkpoints/generated-harl-small-crisisTrue-amebaTrue-HoldReady.json": "28c3ff6ed30102016e646ed9e524afb55bb661b2f2f6cb9a8fbcda1e887a938a",
+    "checkpoints/generated-harl-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "76425b533e594c5f07621bccb6082813774edb2e1ce48e19f54ab0258f549759",
+    "checkpoints/generated-peldra-large-crisisFalse-amebaFalse-HoldReady.json": "f89efb2b825f1280be50d42a297fa782be453c6b80fed09a717d36d803ce786f",
+    "checkpoints/generated-peldra-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "86610befa4befc8bdf77818de20d56b1e00f060a87e679dd9c2d7ac65f2a8af5",
+    "checkpoints/generated-peldra-large-crisisFalse-amebaTrue-HoldReady.json": "92d427328d145942776585adaaea54e80475abf845545ab68a90cb5baa360e30",
+    "checkpoints/generated-peldra-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "f5523679aac801ca707bb91a2db3a84a277cb0567cf617489238eb40f8420d17",
+    "checkpoints/generated-peldra-large-crisisTrue-amebaFalse-HoldReady.json": "296b375602a7b641632aad62d8f55d0d98777a42f21d83bce38cb9f917630b8c",
+    "checkpoints/generated-peldra-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "c26abd9d13af3554bceb0dc90b54cb7e46fd3afe72297538a6d37a147823f275",
+    "checkpoints/generated-peldra-large-crisisTrue-amebaTrue-HoldReady.json": "5860e88886c923482e0b952487d165ca22635cd24c335ba6f4e17851ad8d839a",
+    "checkpoints/generated-peldra-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "33ac506ed363c794cefde9be63645849d9fcb2e5c3355acb75c72432d5dffd27",
+    "checkpoints/generated-peldra-medium-crisisFalse-amebaFalse-HoldReady.json": "e14cfc5360adbd045a1350fafea9e8d0107de8aa5e3809760eff73176ea18ea0",
+    "checkpoints/generated-peldra-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "f9ef7ae7a4a3a2d0a93398c85bd02cc72a4346c895d342ba2eea81cd1b158c95",
+    "checkpoints/generated-peldra-medium-crisisFalse-amebaTrue-HoldReady.json": "34e4c3f2f67db996bcfb9990457bd5441aa23ac93f4113e5eed7c298d4d8f8fb",
+    "checkpoints/generated-peldra-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "f1c15d5a0d2a643b6efc64053f30b3bd8485bf98fa531f7a4a5cf91955e469cb",
+    "checkpoints/generated-peldra-medium-crisisTrue-amebaFalse-HoldReady.json": "b8c77a172b0629a885079d52607aff7820feca2990a3c057acbe786b92ea8ced",
+    "checkpoints/generated-peldra-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "77dfe167757bebf0bf3d507675f6a04cadd1ce9a5656543ded54060d80084439",
+    "checkpoints/generated-peldra-medium-crisisTrue-amebaTrue-HoldReady.json": "7c823bcf4ae5738bad2f4dbdf2f6d41eae4337d6deda8d165908ecc43f512102",
+    "checkpoints/generated-peldra-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "4e856ae23cc9bea7802480f5b27a425b7b5ec27a5b369b4845ce043e8e542ab8",
+    "checkpoints/generated-peldra-small-crisisFalse-amebaFalse-HoldReady.json": "8fc7b282ac48b28dbacc9859f0ef41095aca84d219f6dab39777f2271e081fa7",
+    "checkpoints/generated-peldra-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "318e3bbb14f543b8dffff1b721338bb752a5aeece8b6a33992753cc884dd0f53",
+    "checkpoints/generated-peldra-small-crisisFalse-amebaTrue-HoldReady.json": "ed133cef1f086063517bdf8a4747e8f9e7e597b559ee7c60686adc95621c896a",
+    "checkpoints/generated-peldra-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "5473a5adb5f06a49e5d4e8e481103c234da79a85d9547c44537bf16107cf2b72",
+    "checkpoints/generated-peldra-small-crisisTrue-amebaFalse-HoldReady.json": "cebc903c0dc96265552c41e7d76f3b2f5879447db73d78dff58f253f619eb1b7",
+    "checkpoints/generated-peldra-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "8949659923e1e1036f2e390d0577b3045a576939b0feef381d368364a7f263d3",
+    "checkpoints/generated-peldra-small-crisisTrue-amebaTrue-HoldReady.json": "a598a1cda7897eddc1879249a7aac9ebd66048936f03149bd81f0c32cfd8577b",
+    "checkpoints/generated-peldra-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "bd8bb84f43c46fd0f760930eb600104f255a379e97ed3e8c3f635a25d5d19a4b",
+    "checkpoints/generated-sulan-large-crisisFalse-amebaFalse-HoldReady.json": "e7443694a3b57e7d5611b540a6726f1d1900e592d9b6a31e36a6309c6b8d5102",
+    "checkpoints/generated-sulan-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "5e0efe64c0ce850e2b4d5ba919fa7287c0523a8299c3851f12c5ad504ffeabac",
+    "checkpoints/generated-sulan-large-crisisFalse-amebaTrue-HoldReady.json": "99bb6eb9678ad7e9cb981e0b5973aa4ad5303d96fdf2bb8beccc5da37a9de4b8",
+    "checkpoints/generated-sulan-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "16bcbc31a87be80b722684c49301c4fe0b1bc92776de2e6b470468cbe2a2bf2a",
+    "checkpoints/generated-sulan-large-crisisTrue-amebaFalse-HoldReady.json": "601b1caaabdc6ecd5061b2a114b3f0b65a0728507870726e12fba2852dedc3ad",
+    "checkpoints/generated-sulan-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "fc6d55c60d64b2c5efb59e71ed899af21d511831f3919fa959f0824ef3ecbd46",
+    "checkpoints/generated-sulan-large-crisisTrue-amebaTrue-HoldReady.json": "f5952990f0554a1ad918b868161fd94ce701009ca056e0bb85c325e7a3729b6f",
+    "checkpoints/generated-sulan-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "504a8fa77fd4696be8864e59ec2bc258851fb2fccd3f26d7bef4c77f97d9b6ad",
+    "checkpoints/generated-sulan-medium-crisisFalse-amebaFalse-HoldReady.json": "4ef1403c4980a84ae9c3da809dcd690525f54ff04362b8ef12c9f9567c6e6a56",
+    "checkpoints/generated-sulan-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "493d75e3b8b6c3d4a484c295aa638780b783a4bbe91132ace4d50e5b960e53ad",
+    "checkpoints/generated-sulan-medium-crisisFalse-amebaTrue-HoldReady.json": "fd8776cd8f47a1abdb3375706afdee90e495f24d067a223ad24957068ab2b5c0",
+    "checkpoints/generated-sulan-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "4f33062db5418857b5e572dcfe9c3448e1ef4b99718f6e19e05a9c17dce044c5",
+    "checkpoints/generated-sulan-medium-crisisTrue-amebaFalse-HoldReady.json": "74f8b8913f42c4e25fb43de4d1efc76341aebe2a0d5190cf7c80d8dc5c6e5d32",
+    "checkpoints/generated-sulan-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "ca15710cf83744f94ede0907c60e8b727e7b39d8f6122dcd4cf8e4b94d620e80",
+    "checkpoints/generated-sulan-medium-crisisTrue-amebaTrue-HoldReady.json": "b30049868e77961ff821e343bcd77d54bbcd21ebb81985d5578641dac2236197",
+    "checkpoints/generated-sulan-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "4fd5650964fabba332406a646ca790c9db91fe0cb16840874aff0a059bc1f492",
+    "checkpoints/generated-sulan-small-crisisFalse-amebaFalse-HoldReady.json": "93100a71b60d08d5234aac325a4568cd278fdf002cff586e5efa80058f5e2be6",
+    "checkpoints/generated-sulan-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "390437a9a26cfed77a1584b2810c3bea87dc0218c90680e6a3d580852d6abbe5",
+    "checkpoints/generated-sulan-small-crisisFalse-amebaTrue-HoldReady.json": "b6751bb2dbf1e006f140432ad19a26914f53cc0aa4f3fda555c194ccb6342d22",
+    "checkpoints/generated-sulan-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "d734691ced50496af212240e6b25fdeab9ab9cbc9326d8c293b3d693f778f7af",
+    "checkpoints/generated-sulan-small-crisisTrue-amebaFalse-HoldReady.json": "b5e7d98ad4e61c5f9d12e48bd7bf512d6da7d96d2e87be1e0b427028d3ec3a48",
+    "checkpoints/generated-sulan-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "52f41789a09279f3f0f5bca9a70eeecc207befef6d865369ddf8c2ded0a61c90",
+    "checkpoints/generated-sulan-small-crisisTrue-amebaTrue-HoldReady.json": "72abf8e3e1382bcef2e4561f60a228e791f0c7c49a88ed52201f862397b2cbe4",
+    "checkpoints/generated-sulan-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "7f14c9dbe42fec1d1c32908aefcc466e4108c78f8764ecd2d948fc6bcd368877",
+    "checkpoints/generated-wenth-large-crisisFalse-amebaFalse-HoldReady.json": "0dd631385414e717b5f4af9f6b8117f35c60ccafafdb4e44ec602d54f0b3fc38",
+    "checkpoints/generated-wenth-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "5e60a7ad68656b886120b025846a5525b25a0421a5d23541c669dace72b1f548",
+    "checkpoints/generated-wenth-large-crisisFalse-amebaTrue-HoldReady.json": "127a07af3789c88267a3e123c90dfc7687085ca4deb52e0264c97273339bdb95",
+    "checkpoints/generated-wenth-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "4a9c4011f9380067ad8515fe76b36e306da5e2d961be855c41169fc5a1fe62e4",
+    "checkpoints/generated-wenth-large-crisisTrue-amebaFalse-HoldReady.json": "89c647cee18aec8485eca4981006f6056c69dde402858e26d119877aadb1f2a3",
+    "checkpoints/generated-wenth-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "3060b42bff9ccfbb812539330a61dee6af2743b4d59a5e6ab1afd5f3bd2bb8fb",
+    "checkpoints/generated-wenth-large-crisisTrue-amebaTrue-HoldReady.json": "a5e87aa13325e849cc5a54e0fea260e02e09a6d3ffa96754fddb31d961e5b3ca",
+    "checkpoints/generated-wenth-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "575fd3b43625f9473e55d8d2a971e0fc0822fec8161a667863094889205df3fe",
+    "checkpoints/generated-wenth-medium-crisisFalse-amebaFalse-HoldReady.json": "8e80c993b490bc06a4fab035047f6dd1b2a3b57679141e59947f7822d20c3fbc",
+    "checkpoints/generated-wenth-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "a5b5f9b2c49a448e3df1726c1a626ecf0b977e5a59d23d2a9e6541582b79b0a6",
+    "checkpoints/generated-wenth-medium-crisisFalse-amebaTrue-HoldReady.json": "2d48d866fc2bf28dde9dee8ea0a2e457e30a07ac774c6a76c35a089b32bb5dc2",
+    "checkpoints/generated-wenth-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "b8032144dce7e7394afe1be950908027e845a3037db4e46127cc226c6684e165",
+    "checkpoints/generated-wenth-medium-crisisTrue-amebaFalse-HoldReady.json": "660129666ec6a6ce5690ea2de945b660e8097d60d51d62f6ded124c5a3a784dc",
+    "checkpoints/generated-wenth-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "bc7ae0df6f7cac3891372e6e1434e6883d3e6268482661eb7d50f54dc9eed830",
+    "checkpoints/generated-wenth-medium-crisisTrue-amebaTrue-HoldReady.json": "075a6e9d050cc3d5a449aa96457d66f10653b288982ecd1d023825e61add4abb",
+    "checkpoints/generated-wenth-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "76a2d123f9b0c7f493d603e0cbf6633a915f14bfde989c7cfed4a926159e6693",
+    "checkpoints/generated-wenth-small-crisisFalse-amebaFalse-HoldReady.json": "3ba75b06556b775ddcee2b053f018db45c25161cfe695a226c20a11ba364ad14",
+    "checkpoints/generated-wenth-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "0c3d95591c04bd2ac0b5dad58d88631f000b740b340001273793032a24de210b",
+    "checkpoints/generated-wenth-small-crisisFalse-amebaTrue-HoldReady.json": "235ce4447100d3af581f9b8927c2c02072e442aeab0b00ddf0c74948e692d705",
+    "checkpoints/generated-wenth-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "066b1419ebcffbc95c0da4c1185a0aa14c0eb3b9faf1310406dc70f6ca18e82f",
+    "checkpoints/generated-wenth-small-crisisTrue-amebaFalse-HoldReady.json": "ca0b666b362d1db87ebd31dc94ab94255f1b041c5aa8925d19d1ab65f6a8027f",
+    "checkpoints/generated-wenth-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "aa93b93b41155f463f037b44606616fa6b7411f6433e8fd63b74d6df1cbfde84",
+    "checkpoints/generated-wenth-small-crisisTrue-amebaTrue-HoldReady.json": "733970f0b446a98ba03a25d40bf9a08b2387b5cfd0f2edd8c11fb91ace8fc632",
+    "checkpoints/generated-wenth-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "425cddc6f0e4177be9ad46bade740f51a14bc225c8186fb7e8e9e326b9bcad8b",
+    "checkpoints/ordinary-pending-founding-HoldReady.json": "adec3c4ca605dd29e287129c15b6e077c0a2b2cac2db388b9af4e8424ba1a1e0",
+    "checkpoints/ordinary-pending-founding-LegalOwnViewPlay.json": "ad5a1dbd2c430f9f3b0ba07b77ce47f3d91091593e0367671c1905e749070042",
+    "checkpoints/ordinary-plague-HoldReady.json": "578896210bfffd18f0a24f0c0603b4e2ba2205c191cba424bbc99f9b03f2624e",
+    "checkpoints/ordinary-plague-LegalOwnViewPlay.json": "7e3c8c2c8c8baf997080ffe28aaef993c657ac16c1938b74b9049879c4d31c9e",
+    "checkpoints/ordinary-wenth-recovery-HoldReady.json": "f7132589382552b81da4cb7ff3d66b0e89ef4585b07dbb8767add9472a27cd9a",
+    "checkpoints/ordinary-wenth-recovery-LegalOwnViewPlay.json": "2ee6adbecaf275945626399396087a0f6905097b0994b2276b3d6176d89368cc",
+    "checkpoints/retained-000-HoldReady.json": "2f0cc87119884c7d2cb7b28238a432e186c1703f248cc9203c7a8fc037db5446",
+    "checkpoints/retained-000-LegalOwnViewPlay.json": "83909dd67bc072e4f271dbe95c6c45828e0d7fdbed09f2ef28bd641a1f1a5f86",
+    "checkpoints/retained-001-HoldReady.json": "2f0cc87119884c7d2cb7b28238a432e186c1703f248cc9203c7a8fc037db5446",
+    "checkpoints/retained-001-LegalOwnViewPlay.json": "83909dd67bc072e4f271dbe95c6c45828e0d7fdbed09f2ef28bd641a1f1a5f86",
+    "checkpoints/retained-002-HoldReady.json": "ab670768b01bd65a06152f01d4019e8739126487a81ba346d08c0e29aabd7fd4",
+    "checkpoints/retained-002-LegalOwnViewPlay.json": "03fc932a419e7f439e4080e4688948883a4da6d50f365d3de40b98ebe1ba2a91",
+    "checkpoints/retained-003-HoldReady.json": "ab670768b01bd65a06152f01d4019e8739126487a81ba346d08c0e29aabd7fd4",
+    "checkpoints/retained-003-LegalOwnViewPlay.json": "03fc932a419e7f439e4080e4688948883a4da6d50f365d3de40b98ebe1ba2a91",
+    "checkpoints/retained-004-HoldReady.json": "9daa2d2e19c6b1e8205af16fc82fa537f04ba4914c88dd9e98d029da4470c07e",
+    "checkpoints/retained-004-LegalOwnViewPlay.json": "c9838afb937454143684bb3f534b71f3b5cacc8ef73bb6ca7475ec5f092338bc",
+    "checkpoints/retained-005-HoldReady.json": "ece2f79337b194ccd0b21712adb8bac8b9f45359c2036fb6fb6df0fdfd3906c9",
+    "checkpoints/retained-005-LegalOwnViewPlay.json": "12bd5e8686a0eb32218802d0b378135b0cd3dd4b7d105dcd9044c320316fece9",
+    "checkpoints/retained-006-HoldReady.json": "6fd7b1cfcca3acc9820af1cb6ff78575250a8bd54268d255aa24b8b3bba12adf",
+    "checkpoints/retained-006-LegalOwnViewPlay.json": "caa478dc25ebf3b5a9cccc4f1fa47461228c47110a3680e1f27f7ad939da3886",
+    "commands/generated-harl-large-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "07dfb2a878385ca32ab1d9cfd694628b1fa193dc7bba3d2e951963300325d5ec",
+    "commands/generated-harl-large-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "61a6b93398ec999710db0a37921bc38a629304d88d64169df908f1a105d1e07f",
+    "commands/generated-harl-large-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "07dfb2a878385ca32ab1d9cfd694628b1fa193dc7bba3d2e951963300325d5ec",
+    "commands/generated-harl-large-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "61a6b93398ec999710db0a37921bc38a629304d88d64169df908f1a105d1e07f",
+    "commands/generated-harl-medium-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "a45e6ddbd9b6f8c0b097f165075851515d9f2ff50b7ac749d4c5ee3c646668d1",
+    "commands/generated-harl-medium-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "a45e6ddbd9b6f8c0b097f165075851515d9f2ff50b7ac749d4c5ee3c646668d1",
+    "commands/generated-harl-medium-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "a45e6ddbd9b6f8c0b097f165075851515d9f2ff50b7ac749d4c5ee3c646668d1",
+    "commands/generated-harl-medium-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "a45e6ddbd9b6f8c0b097f165075851515d9f2ff50b7ac749d4c5ee3c646668d1",
+    "commands/generated-harl-small-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "24fb20371e95099273c1825356ac3b915c97dda95f12c48fb1edcaa0ec319547",
+    "commands/generated-harl-small-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "4ef4f57714cd353976132bbb9f72e236c2f0f750be05953a6c4f500d14c070e4",
+    "commands/generated-harl-small-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "24fb20371e95099273c1825356ac3b915c97dda95f12c48fb1edcaa0ec319547",
+    "commands/generated-harl-small-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-harl-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "4ef4f57714cd353976132bbb9f72e236c2f0f750be05953a6c4f500d14c070e4",
+    "commands/generated-peldra-large-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "233f90e03db054618c8f504d2ea5e8989d2f0992f2ee0005a3ae477fba32eb01",
+    "commands/generated-peldra-large-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "233f90e03db054618c8f504d2ea5e8989d2f0992f2ee0005a3ae477fba32eb01",
+    "commands/generated-peldra-large-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "233f90e03db054618c8f504d2ea5e8989d2f0992f2ee0005a3ae477fba32eb01",
+    "commands/generated-peldra-large-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "233f90e03db054618c8f504d2ea5e8989d2f0992f2ee0005a3ae477fba32eb01",
+    "commands/generated-peldra-medium-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "9b29441d92fce75545f9f0d967b28005a8b68ae77f31a1a36cd37a5dee02b7be",
+    "commands/generated-peldra-medium-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "9b29441d92fce75545f9f0d967b28005a8b68ae77f31a1a36cd37a5dee02b7be",
+    "commands/generated-peldra-medium-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "9b29441d92fce75545f9f0d967b28005a8b68ae77f31a1a36cd37a5dee02b7be",
+    "commands/generated-peldra-medium-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "9b29441d92fce75545f9f0d967b28005a8b68ae77f31a1a36cd37a5dee02b7be",
+    "commands/generated-peldra-small-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "9d5eb7d7f3888dc4d64d84e314e0cebfeba7cd5c8d0a3bcb2268019140a31312",
+    "commands/generated-peldra-small-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "6b1548cb171ddfa0f22eaacccaf6e1b8bdeac355078f8058c99157a6b31aeb57",
+    "commands/generated-peldra-small-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "9d5eb7d7f3888dc4d64d84e314e0cebfeba7cd5c8d0a3bcb2268019140a31312",
+    "commands/generated-peldra-small-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-peldra-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "6b1548cb171ddfa0f22eaacccaf6e1b8bdeac355078f8058c99157a6b31aeb57",
+    "commands/generated-sulan-large-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "bb6dd3c3fd17a519753d70edf34b3c15513318e54f4cdfd377f9c2d2bbde243a",
+    "commands/generated-sulan-large-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "d9ad57ca933fb9efb17f8d8e4aa1faae3295b7d274d0bf9057bec9f2d3b34d58",
+    "commands/generated-sulan-large-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "bb6dd3c3fd17a519753d70edf34b3c15513318e54f4cdfd377f9c2d2bbde243a",
+    "commands/generated-sulan-large-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "d9ad57ca933fb9efb17f8d8e4aa1faae3295b7d274d0bf9057bec9f2d3b34d58",
+    "commands/generated-sulan-medium-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "3244954d8db2c351c6bf9c98d987729c02b19628db4ced3acfc16c9a5dabc4ed",
+    "commands/generated-sulan-medium-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "3244954d8db2c351c6bf9c98d987729c02b19628db4ced3acfc16c9a5dabc4ed",
+    "commands/generated-sulan-medium-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "3244954d8db2c351c6bf9c98d987729c02b19628db4ced3acfc16c9a5dabc4ed",
+    "commands/generated-sulan-medium-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "3244954d8db2c351c6bf9c98d987729c02b19628db4ced3acfc16c9a5dabc4ed",
+    "commands/generated-sulan-small-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "62398bf8504526e4abb595b48c0d7db4c10a91fe6123fa91785a4ec2b9579296",
+    "commands/generated-sulan-small-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "9b1c8db3ea9e54ed4c3cc9b71d197ea3a9eabc6de03d14046b902f218c8e2df6",
+    "commands/generated-sulan-small-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "62398bf8504526e4abb595b48c0d7db4c10a91fe6123fa91785a4ec2b9579296",
+    "commands/generated-sulan-small-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-sulan-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "9b1c8db3ea9e54ed4c3cc9b71d197ea3a9eabc6de03d14046b902f218c8e2df6",
+    "commands/generated-wenth-large-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "6e3c7b9240bf21a6bcce4163838313d4bb4370724299783eb589abb58dc8eb07",
+    "commands/generated-wenth-large-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "156ec358f93c83158fd97e4fbf12f76add427ddd0b27f2f73b47c7d310d45f62",
+    "commands/generated-wenth-large-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "6e3c7b9240bf21a6bcce4163838313d4bb4370724299783eb589abb58dc8eb07",
+    "commands/generated-wenth-large-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "156ec358f93c83158fd97e4fbf12f76add427ddd0b27f2f73b47c7d310d45f62",
+    "commands/generated-wenth-medium-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "b5b264f414a8c9b4aaa2908792d9fae0c3c5e99c9e9375d2d355d17c4daa7603",
+    "commands/generated-wenth-medium-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "b5b264f414a8c9b4aaa2908792d9fae0c3c5e99c9e9375d2d355d17c4daa7603",
+    "commands/generated-wenth-medium-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "b5b264f414a8c9b4aaa2908792d9fae0c3c5e99c9e9375d2d355d17c4daa7603",
+    "commands/generated-wenth-medium-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "b5b264f414a8c9b4aaa2908792d9fae0c3c5e99c9e9375d2d355d17c4daa7603",
+    "commands/generated-wenth-small-crisisFalse-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json": "c2eeb07af40b926eca2219e0708d5bcb07c3132d5c588152ca51c01648d3a136",
+    "commands/generated-wenth-small-crisisFalse-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json": "d183f159edd3d379a7a3a7ec06e6f87ee4d15dfcec362fdd2de0bf741cf6e9de",
+    "commands/generated-wenth-small-crisisTrue-amebaFalse-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json": "c2eeb07af40b926eca2219e0708d5bcb07c3132d5c588152ca51c01648d3a136",
+    "commands/generated-wenth-small-crisisTrue-amebaTrue-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/generated-wenth-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json": "d183f159edd3d379a7a3a7ec06e6f87ee4d15dfcec362fdd2de0bf741cf6e9de",
+    "commands/ordinary-pending-founding-HoldReady.json": "09dfee05e8853f39cc002eb49a2762225396b858d2853e519fa26445538d623a",
+    "commands/ordinary-pending-founding-LegalOwnViewPlay.json": "53ea8cc984f299cc320fd2b41a3be185feaee79cc1bea056f7a351c126ef5859",
+    "commands/ordinary-plague-HoldReady.json": "db8fdd4c631ea09bde7acd712cade5d307cf9ef87ab0cbb98d11c9d8d4f847f7",
+    "commands/ordinary-plague-LegalOwnViewPlay.json": "4902455d22232a2eb39316f6227de6d0fc966d33a503ed7f3e5e4bccb354ef0e",
+    "commands/ordinary-wenth-recovery-HoldReady.json": "e6d1d6ac381259a54ec500696db26351b1a294d9575bcb4be008e95374a9013b",
+    "commands/ordinary-wenth-recovery-LegalOwnViewPlay.json": "bb93dbb1fcc99a83c64d5f33114fce48eeafc75d6bdb8c4ff5b5349e857dbe96",
+    "commands/retained-000-HoldReady.json": "09dfee05e8853f39cc002eb49a2762225396b858d2853e519fa26445538d623a",
+    "commands/retained-000-LegalOwnViewPlay.json": "2149fabe02699e2c76630e42e35f08ac12cb233a0cf9c107d4633263ef282661",
+    "commands/retained-001-HoldReady.json": "09dfee05e8853f39cc002eb49a2762225396b858d2853e519fa26445538d623a",
+    "commands/retained-001-LegalOwnViewPlay.json": "2149fabe02699e2c76630e42e35f08ac12cb233a0cf9c107d4633263ef282661",
+    "commands/retained-002-HoldReady.json": "b018f9b749056714cb5d2e6e6f334acef436ea263376583d1428311a00b42d92",
+    "commands/retained-002-LegalOwnViewPlay.json": "469469fd171ac5860d157105d7696e665b1caf4e37d7333d20e88ddb7411b33a",
+    "commands/retained-003-HoldReady.json": "b018f9b749056714cb5d2e6e6f334acef436ea263376583d1428311a00b42d92",
+    "commands/retained-003-LegalOwnViewPlay.json": "469469fd171ac5860d157105d7696e665b1caf4e37d7333d20e88ddb7411b33a",
+    "commands/retained-004-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/retained-004-LegalOwnViewPlay.json": "bd2e3d1782a0c019afc330641266f591a0ebb3e60440691579ee75a48ab748cc",
+    "commands/retained-005-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/retained-005-LegalOwnViewPlay.json": "386a0d4424b7ba3963ca9050e04196621e7d1b52798475a998e1804602f2e845",
+    "commands/retained-006-HoldReady.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/retained-006-LegalOwnViewPlay.json": "6c993b55f35577644284ec9a3a86e96db249e312b16576619e87196b289e96ab",
+    "priming/ordinary-pending-founding.json": "328fb0af47934ee1ddedc265cf1d7c32001ab1b35602b61ff838fda17979c586",
+    "priming/ordinary-plague.json": "a5b3cc209585a218d22539d1c035d49b1ad157b874f655a548ceaf4e15d597b6",
+    "priming/ordinary-wenth-recovery.json": "9a710d9b79ee3996cf1fd926888896f09c95ed4ca66d10904f506878d2fb4c4f",
+    "sources/generated-harl-large-crisisFalse-amebaFalse.json": "0086fd58c02f75ba37d9d2d4a6ca1d224873c3cfd5c0e3b56582cacd4b3cc561",
+    "sources/generated-harl-large-crisisFalse-amebaTrue.json": "c8bf85f6c91595eeedb1af8cdb88b69c745220d0466c2689ae1ce7aa32934ad9",
+    "sources/generated-harl-large-crisisTrue-amebaFalse.json": "8c6b9caf65e689dbaa920db698b6cedc68646ad616ff3bbdc0b778cbcfdc04f2",
+    "sources/generated-harl-large-crisisTrue-amebaTrue.json": "0705474901875020f8479cf58ccfd67f830265dee26ade2d72237cbc55ad20b8",
+    "sources/generated-harl-medium-crisisFalse-amebaFalse.json": "1a8b10a636264f46d6838c4ec1c42c702ae50c9393c8bae777b4c507c40ce925",
+    "sources/generated-harl-medium-crisisFalse-amebaTrue.json": "2724f1b7c9e2f6d81e80de9080ba9950694188677978bd5c5d6a6e77eff8f83d",
+    "sources/generated-harl-medium-crisisTrue-amebaFalse.json": "5ccbb54e60103b1a2388e7bc96133b4099d88a0d95547bd1096804cf5afb1ae6",
+    "sources/generated-harl-medium-crisisTrue-amebaTrue.json": "c8d2e4a2b7711a5a14cb108587ab343d4f7891e839974d4411eb8ce5e27010c5",
+    "sources/generated-harl-small-crisisFalse-amebaFalse.json": "eed0ace4a2de4c00577421cc442d0a34bef37128747ae0a3d91c75a7ba564f71",
+    "sources/generated-harl-small-crisisFalse-amebaTrue.json": "d4518c6fff3c03e9fdce8e3a8b5da437cb93f1b46e7375eaf7fff1d2acc1640e",
+    "sources/generated-harl-small-crisisTrue-amebaFalse.json": "693007dc498efc906c7ce726c35c66da62af6f47f76cfb8dd29b8d6b868cdd72",
+    "sources/generated-harl-small-crisisTrue-amebaTrue.json": "eb03f6f1b4f65b894374fbdb3d479e34feef151277e535feb01c3f8887c45668",
+    "sources/generated-peldra-large-crisisFalse-amebaFalse.json": "80cbf4c7887a65804528746027c5b93fb514d5661671f2a6ebdef3e977566a16",
+    "sources/generated-peldra-large-crisisFalse-amebaTrue.json": "78cb759aa3a5fe64ae0389aa7092965e1845c22e59c254e3e173c65653a03707",
+    "sources/generated-peldra-large-crisisTrue-amebaFalse.json": "1864ab518bba4650b4b78ea92a70b5dda0b103b6e2b691e4f5999a12a40621b0",
+    "sources/generated-peldra-large-crisisTrue-amebaTrue.json": "8d6a83dbaadfd0f227c7b97966ad51d95a3bf72cc3d8e81a950707e9a1d138ea",
+    "sources/generated-peldra-medium-crisisFalse-amebaFalse.json": "632866154bbdd7d68bf49ba3b21dcb4de7f1ba6650160df335790ab3e8b23e9c",
+    "sources/generated-peldra-medium-crisisFalse-amebaTrue.json": "fc6b3e318a21b5e1ebf044a20b73d0337610f86326a08b53236f88a7007412a3",
+    "sources/generated-peldra-medium-crisisTrue-amebaFalse.json": "6ff763fda6f682f29ba5477953c45c1f69255d1b85c34b4fd92337e04b683331",
+    "sources/generated-peldra-medium-crisisTrue-amebaTrue.json": "b90dae76a1f3f7a0bd9e5759f7f4bf4dfa27ed9a5d9061fa3b19579d040a65cd",
+    "sources/generated-peldra-small-crisisFalse-amebaFalse.json": "5f296216caca7c0d4ec75c8a39da3dd65f0e02b3e1205d0a31a99db8afd405c7",
+    "sources/generated-peldra-small-crisisFalse-amebaTrue.json": "d59c6b475af28736a73ddc3333f4c9ecb8eb7f62ebd6a94ca126ba807af5ab88",
+    "sources/generated-peldra-small-crisisTrue-amebaFalse.json": "a5a46b46fcb6b758bf9235f7b35c9ceb2b46d8a29822065f34584e6034d0951e",
+    "sources/generated-peldra-small-crisisTrue-amebaTrue.json": "270a308cf8229005b310c79177884bc9f624dc4bcdf04395d04c67ff28d23e8c",
+    "sources/generated-sulan-large-crisisFalse-amebaFalse.json": "a1d9c5e2954b0e11a61c6cd76547b25f2f6b2db4b4d4ceb54d1342eda727db6c",
+    "sources/generated-sulan-large-crisisFalse-amebaTrue.json": "3cc9f2dd233ad515e3863ac422475c12685e1817b66a3e4ebd5353bc5d587d68",
+    "sources/generated-sulan-large-crisisTrue-amebaFalse.json": "7bae34d0df70108e8fdd6eadcddb32af775356da80ba6c2c283e7a2fe190789a",
+    "sources/generated-sulan-large-crisisTrue-amebaTrue.json": "47d60664af6aefbace4bb4004e42e26cdd055951f0f63099a3e31184e3b4d365",
+    "sources/generated-sulan-medium-crisisFalse-amebaFalse.json": "60b9c76109ac51afb555a892a97bd78ca1f3d529e953484d3eaddf4940b51e76",
+    "sources/generated-sulan-medium-crisisFalse-amebaTrue.json": "760b89018511ad44cab9f98d30f92425e0be54b773aa21f96ef57bf1828c3cd4",
+    "sources/generated-sulan-medium-crisisTrue-amebaFalse.json": "beb4afa48111ae5bc1cae0c3d2007387abfd9382132b322e9106c94da9022d68",
+    "sources/generated-sulan-medium-crisisTrue-amebaTrue.json": "b66ef5c0d90b490df56a788823aae63ce1ab666ecda414f065ba05823185e7da",
+    "sources/generated-sulan-small-crisisFalse-amebaFalse.json": "ea515c2121dafe7652f18a3ae0a2e1b7c253ce4e2823c67cb5a6b496a3d8e97e",
+    "sources/generated-sulan-small-crisisFalse-amebaTrue.json": "effa0de1d093229e8a5f7cd4b09062d497fbe0b6611572eeda25dda79a0c9a39",
+    "sources/generated-sulan-small-crisisTrue-amebaFalse.json": "66561b12a6553aec63470a1db9309a5885fde372e95972162d4bcfcf560f0e6f",
+    "sources/generated-sulan-small-crisisTrue-amebaTrue.json": "8bde11afae6c5ff63f44690e4193a008a7dc355d186bbdb1a4706b8b960b9c60",
+    "sources/generated-wenth-large-crisisFalse-amebaFalse.json": "d8563d93a6e79b9bceb45b2534822f15f9d74fbc0cfac4f28e03ffea0ce8ca4d",
+    "sources/generated-wenth-large-crisisFalse-amebaTrue.json": "7dab68f6f3bf6adf488cf9e904fc1cd14a285ab23051aa1919b3caecd23e9f0b",
+    "sources/generated-wenth-large-crisisTrue-amebaFalse.json": "a094f821f3f44ee43e93c2614dbcf700776968f4637c15b6b5f9fc1fba004218",
+    "sources/generated-wenth-large-crisisTrue-amebaTrue.json": "c84312e5586d8e6d350af9acf4a51f84a33f3709d12b0219ed8bf1f55167f3ed",
+    "sources/generated-wenth-medium-crisisFalse-amebaFalse.json": "b7eaa73551b64f6da5b9e55b1e086eeda12d47d541870c18ce3fa1efbcab822d",
+    "sources/generated-wenth-medium-crisisFalse-amebaTrue.json": "9907cbdf0e967ce41e99041fc3568848218867698fe2e3cb378d873874d61097",
+    "sources/generated-wenth-medium-crisisTrue-amebaFalse.json": "c95a37d06e1ab3965c909b93c98ca232d0bcb2dd8a4f50c0f90323691d40523e",
+    "sources/generated-wenth-medium-crisisTrue-amebaTrue.json": "d73bfc9a71288e007d20d2835927bc38ac87b8dac0e0005a937680a56a5b3f52",
+    "sources/generated-wenth-small-crisisFalse-amebaFalse.json": "2c1e2ed58ca5e98094bbd0ada58b7f2331ccbc71569330fe88fb2b4359167c90",
+    "sources/generated-wenth-small-crisisFalse-amebaTrue.json": "f96aef44d9b2f9d747c8df8496e06758c4fabd47bdb90c92055a3aa7d8157cb6",
+    "sources/generated-wenth-small-crisisTrue-amebaFalse.json": "856d60b7333608069516fd394a7acaeadc775089b90797aa2014d7c19cfc11a2",
+    "sources/generated-wenth-small-crisisTrue-amebaTrue.json": "7f81992c1b630c5622ad904bfff4411f559480303fe5096232d2cd538638a0c3",
+    "sources/ordinary-pending-founding.json": "f01ba87f1eff74cf97d1c778f09a8b31388d4db16dd17454f13d5c2b7ddd0f8d",
+    "sources/ordinary-plague.json": "1e7d9bcbe386cf4ee4b1d1d36d5283ff13b0f0fb37e6e86bed5582109ef1a670",
+    "sources/ordinary-wenth-recovery.json": "9e4242c868e9b39bc6003397d2b8eb2039a283a87b86aaea9873ad4a3e32677c",
+    "sources/retained-000.json": "c2b58dba1f15e5d97daa6867c1d3eb9a41a119f69df23e66df63ef6ea4c1aa8d",
+    "sources/retained-001.json": "c2b58dba1f15e5d97daa6867c1d3eb9a41a119f69df23e66df63ef6ea4c1aa8d",
+    "sources/retained-002.json": "dc26fdc868dbdf44eb4a36c531b7c1d87827d70885eaf036affae1791a59776d",
+    "sources/retained-003.json": "dc26fdc868dbdf44eb4a36c531b7c1d87827d70885eaf036affae1791a59776d",
+    "sources/retained-004.json": "14895dc9b30b5fa15987f4e53e51cccb97285628ea238a1a8d3a239bd31014da",
+    "sources/retained-005.json": "6dd54fdbefb0cee7c3bdbf6c6cc242597a6c66aaafedeca9e70f696630280b2f",
+    "sources/retained-006.json": "9f04d06b0310bbca76f7bb4a16a76100bec8102a8aee1172462030893b58e7a4"
+  },
+  "cases": [
+    {
+      "name": "generated-harl-large-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-harl-large-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-harl-large-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-large-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-large-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-harl-large-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-harl-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-large-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-harl-large-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-harl-large-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-large-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-large-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-harl-large-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-harl-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-large-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-harl-large-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-harl-large-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-large-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-large-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-harl-large-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-harl-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-large-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-harl-large-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-harl-large-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-large-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-large-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-harl-large-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-harl-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-medium-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-harl-medium-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-harl-medium-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-medium-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-medium-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-harl-medium-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-harl-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-medium-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-harl-medium-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-harl-medium-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-medium-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-medium-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-harl-medium-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-harl-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-medium-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-harl-medium-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-harl-medium-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-medium-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-medium-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-harl-medium-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-harl-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-medium-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-harl-medium-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-harl-medium-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-medium-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-medium-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-harl-medium-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-harl-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-small-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-harl-small-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-harl-small-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-small-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-small-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-harl-small-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-harl-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-small-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-harl-small-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-harl-small-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-small-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-small-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-harl-small-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-harl-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-small-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-harl-small-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-harl-small-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-small-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-small-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-harl-small-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-harl-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-small-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-harl-small-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-harl-small-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-harl-small-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-harl-small-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-harl-small-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-harl-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-harl-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-large-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-peldra-large-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-peldra-large-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-large-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-large-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-large-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-peldra-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-large-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-peldra-large-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-peldra-large-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-large-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-large-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-large-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-peldra-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-large-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-peldra-large-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-peldra-large-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-large-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-large-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-large-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-peldra-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-large-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-peldra-large-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-peldra-large-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-large-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-large-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-large-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-peldra-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-medium-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-peldra-medium-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-peldra-medium-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-medium-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-medium-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-medium-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-peldra-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-medium-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-peldra-medium-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-peldra-medium-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-medium-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-medium-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-medium-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-peldra-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-medium-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-peldra-medium-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-peldra-medium-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-medium-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-medium-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-medium-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-peldra-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-medium-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-peldra-medium-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-peldra-medium-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-medium-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-medium-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-medium-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-peldra-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-small-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-peldra-small-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-peldra-small-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-small-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-small-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-small-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-peldra-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-small-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-peldra-small-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-peldra-small-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-small-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-small-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-small-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-peldra-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-small-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-peldra-small-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-peldra-small-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-small-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-small-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-small-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-peldra-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-small-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-peldra-small-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-peldra-small-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-peldra-small-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-peldra-small-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-peldra-small-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-peldra-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-peldra-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-large-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-sulan-large-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-sulan-large-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-large-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-large-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-large-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-sulan-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-large-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-sulan-large-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-sulan-large-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-large-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-large-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-large-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-sulan-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-large-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-sulan-large-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-sulan-large-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-large-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-large-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-large-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-sulan-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-large-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-sulan-large-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-sulan-large-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-large-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-large-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-large-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-sulan-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-medium-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-sulan-medium-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-sulan-medium-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-medium-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-medium-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-medium-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-sulan-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-medium-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-sulan-medium-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-sulan-medium-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-medium-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-medium-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-medium-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-sulan-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-medium-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-sulan-medium-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-sulan-medium-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-medium-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-medium-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-medium-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-sulan-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-medium-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-sulan-medium-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-sulan-medium-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-medium-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-medium-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-medium-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-sulan-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-small-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-sulan-small-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-sulan-small-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-small-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-small-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-small-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-sulan-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-small-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-sulan-small-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-sulan-small-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-small-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-small-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-small-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-sulan-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-small-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-sulan-small-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-sulan-small-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-small-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-small-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-small-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-sulan-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-small-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-sulan-small-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-sulan-small-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-sulan-small-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-sulan-small-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-sulan-small-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-sulan-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-sulan-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-large-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-wenth-large-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-wenth-large-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-large-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-large-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-large-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-wenth-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-large-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-large-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-wenth-large-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-wenth-large-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-large-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-large-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-large-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-wenth-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-large-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-large-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-wenth-large-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-wenth-large-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-large-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-large-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-large-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-wenth-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-large-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-large-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-wenth-large-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-wenth-large-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-large-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-large-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-large-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-wenth-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-large-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-medium-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-wenth-medium-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-wenth-medium-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-medium-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-medium-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-medium-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-wenth-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-medium-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-medium-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-wenth-medium-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-wenth-medium-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-medium-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-medium-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-medium-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-wenth-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-medium-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-medium-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-wenth-medium-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-wenth-medium-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-medium-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-medium-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-medium-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-wenth-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-medium-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-medium-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-wenth-medium-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-wenth-medium-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-medium-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-medium-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-medium-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-wenth-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-medium-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-small-crisisFalse-amebaFalse-HoldReady",
+      "save": "sources/generated-wenth-small-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-wenth-small-crisisFalse-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-small-crisisFalse-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-small-crisisFalse-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-small-crisisFalse-amebaFalse.json",
+      "commands": "commands/generated-wenth-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-small-crisisFalse-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-small-crisisFalse-amebaTrue-HoldReady",
+      "save": "sources/generated-wenth-small-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-wenth-small-crisisFalse-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-small-crisisFalse-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-small-crisisFalse-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-small-crisisFalse-amebaTrue.json",
+      "commands": "commands/generated-wenth-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-small-crisisFalse-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-small-crisisTrue-amebaFalse-HoldReady",
+      "save": "sources/generated-wenth-small-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-wenth-small-crisisTrue-amebaFalse-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-small-crisisTrue-amebaFalse-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-small-crisisTrue-amebaFalse-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-small-crisisTrue-amebaFalse.json",
+      "commands": "commands/generated-wenth-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-small-crisisTrue-amebaFalse-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-small-crisisTrue-amebaTrue-HoldReady",
+      "save": "sources/generated-wenth-small-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-wenth-small-crisisTrue-amebaTrue-HoldReady.json",
+      "checkpoints": "checkpoints/generated-wenth-small-crisisTrue-amebaTrue-HoldReady.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "generated-wenth-small-crisisTrue-amebaTrue-LegalOwnViewPlay",
+      "save": "sources/generated-wenth-small-crisisTrue-amebaTrue.json",
+      "commands": "commands/generated-wenth-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/generated-wenth-small-crisisTrue-amebaTrue-LegalOwnViewPlay.json",
+      "provenance": "Generated normally by unchanged rules8 engine; explicit seed42/species/size/one Peldra rival/crisis/ameba settings."
+    },
+    {
+      "name": "retained-000-HoldReady",
+      "save": "sources/retained-000.json",
+      "commands": "commands/retained-000-HoldReady.json",
+      "checkpoints": "checkpoints/retained-000-HoldReady.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-000-LegalOwnViewPlay",
+      "save": "sources/retained-000.json",
+      "commands": "commands/retained-000-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/retained-000-LegalOwnViewPlay.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-001-HoldReady",
+      "save": "sources/retained-001.json",
+      "commands": "commands/retained-001-HoldReady.json",
+      "checkpoints": "checkpoints/retained-001-HoldReady.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-001-LegalOwnViewPlay",
+      "save": "sources/retained-001.json",
+      "commands": "commands/retained-001-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/retained-001-LegalOwnViewPlay.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-002-HoldReady",
+      "save": "sources/retained-002.json",
+      "commands": "commands/retained-002-HoldReady.json",
+      "checkpoints": "checkpoints/retained-002-HoldReady.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-002-LegalOwnViewPlay",
+      "save": "sources/retained-002.json",
+      "commands": "commands/retained-002-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/retained-002-LegalOwnViewPlay.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-003-HoldReady",
+      "save": "sources/retained-003.json",
+      "commands": "commands/retained-003-HoldReady.json",
+      "checkpoints": "checkpoints/retained-003-HoldReady.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-003-LegalOwnViewPlay",
+      "save": "sources/retained-003.json",
+      "commands": "commands/retained-003-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/retained-003-LegalOwnViewPlay.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-004-HoldReady",
+      "save": "sources/retained-004.json",
+      "commands": "commands/retained-004-HoldReady.json",
+      "checkpoints": "checkpoints/retained-004-HoldReady.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-004-LegalOwnViewPlay",
+      "save": "sources/retained-004.json",
+      "commands": "commands/retained-004-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/retained-004-LegalOwnViewPlay.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-005-HoldReady",
+      "save": "sources/retained-005.json",
+      "commands": "commands/retained-005-HoldReady.json",
+      "checkpoints": "checkpoints/retained-005-HoldReady.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-005-LegalOwnViewPlay",
+      "save": "sources/retained-005.json",
+      "commands": "commands/retained-005-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/retained-005-LegalOwnViewPlay.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-006-HoldReady",
+      "save": "sources/retained-006.json",
+      "commands": "commands/retained-006-HoldReady.json",
+      "checkpoints": "checkpoints/retained-006-HoldReady.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "retained-006-LegalOwnViewPlay",
+      "save": "sources/retained-006.json",
+      "commands": "commands/retained-006-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/retained-006-LegalOwnViewPlay.json",
+      "provenance": "Retained old-engine source; refer to original scenario provenance."
+    },
+    {
+      "name": "ordinary-plague-HoldReady",
+      "save": "sources/ordinary-plague.json",
+      "commands": "commands/ordinary-plague-HoldReady.json",
+      "checkpoints": "checkpoints/ordinary-plague-HoldReady.json",
+      "provenance": "Old-engine normally generated Active plague with priming command trace."
+    },
+    {
+      "name": "ordinary-plague-LegalOwnViewPlay",
+      "save": "sources/ordinary-plague.json",
+      "commands": "commands/ordinary-plague-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/ordinary-plague-LegalOwnViewPlay.json",
+      "provenance": "Old-engine normally generated Active plague with priming command trace."
+    },
+    {
+      "name": "ordinary-wenth-recovery-HoldReady",
+      "save": "sources/ordinary-wenth-recovery.json",
+      "commands": "commands/ordinary-wenth-recovery-HoldReady.json",
+      "checkpoints": "checkpoints/ordinary-wenth-recovery-HoldReady.json",
+      "provenance": "Normally generated Wenth seed42 Solo; public-chart exploration then explicit offered Remain at observed ameba; guaranteed source-body link recovery, no forced outcomes."
+    },
+    {
+      "name": "ordinary-wenth-recovery-LegalOwnViewPlay",
+      "save": "sources/ordinary-wenth-recovery.json",
+      "commands": "commands/ordinary-wenth-recovery-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/ordinary-wenth-recovery-LegalOwnViewPlay.json",
+      "provenance": "Normally generated Wenth seed42 Solo; public-chart exploration then explicit offered Remain at observed ameba; guaranteed source-body link recovery, no forced outcomes."
+    },
+    {
+      "name": "ordinary-pending-founding-HoldReady",
+      "save": "sources/ordinary-pending-founding.json",
+      "commands": "commands/ordinary-pending-founding-HoldReady.json",
+      "checkpoints": "checkpoints/ordinary-pending-founding-HoldReady.json",
+      "provenance": "Normally generated Harl seed42 Solo; paid settlement hull, ordinary public-view survey/travel and accepted pending founding; no state/resource injection."
+    },
+    {
+      "name": "ordinary-pending-founding-LegalOwnViewPlay",
+      "save": "sources/ordinary-pending-founding.json",
+      "commands": "commands/ordinary-pending-founding-LegalOwnViewPlay.json",
+      "checkpoints": "checkpoints/ordinary-pending-founding-LegalOwnViewPlay.json",
+      "provenance": "Normally generated Harl seed42 Solo; paid settlement hull, ordinary public-view survey/travel and accepted pending founding; no state/resource injection."
+    }
+  ]
+}

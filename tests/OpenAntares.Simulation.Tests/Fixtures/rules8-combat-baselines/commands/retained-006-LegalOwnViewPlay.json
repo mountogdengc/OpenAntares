@@ -1,0 +1,1620 @@
+[
+  [
+    {
+      "kind": "SetResearchTargetCommand",
+      "json": "{\u0022TechnologyId\u0022:\u0022cultivation_methods\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:68},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:69},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:72},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:73},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:74},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:75},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:76},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:77},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:78},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:79},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:80},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:81},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:82},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:83},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:84},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:85},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:86},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:87},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:88},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:89},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:90},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:91},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:92},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:93},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:94},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:95},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:96},\u0022Target\u0022:{\u0022Kind\u0022:\u0022building\u0022,\u0022ContentId\u0022:\u0022fabrication_hall\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022C0EF6C8821C2474CCD5C387956D99E120446F4A964CD206A1168D1F6EB544C60\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002267F20C8358699498AE39DA68C022872F18459A74909E62CA40DF61A935A7C890\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:2}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00227EAD7B7D342E8066F656B7389758E02773CDE4F61776C69417A2AB5D7C044FC7\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:3}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022987D34670E44B3A5813058F31E6D8803987BB13C39C4D624A76E8D3A23B208C5\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:4}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022439C764F2AAF930B55CE3CF6D4C14635727E150838E3C5A97983731CEAC11918\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:5}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002289C58DE3E9EE4A384B5F2F975C59A0CD56166CE407D0335DF07D62F8BF1E9A9A\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:6}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00228E140495E863EED0DECBF74FAA9D1324A61F39E4346672D48C406DB40BFEB4F9\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:7}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00225B6DCFA11940396B35C8854A8AE9A0F33B550C2C920D02C528D7DE6A48E5EBA6\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:8}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022212A91B0798AECFD4BB073258CFCAAAEBC709F84ED7E9A2B124591EFB6F2DFCF\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:9}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022EA0BBD640425DDB10B19003CC66519105057B6B486FF6EF2238C094BF4BF42F5\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:10}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002244D0995E066AE56A274D8A2463F8034F74FC6E8B6E9B85C3CC0310BC5E00BE91\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:11}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00222DAC0EF0026868A0C64F2360C4B4CD82A043563828AA19382F14270364A88738\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:12}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022AD38630DAFF62334970D70839B2BC75FE41F64FAA2AB97A0017958C55B0C8B0D\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:13}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224A9F2C4B0FC85DC43B7FA11631A6D98E2BEF8F7BFB26448374B9D42094245405\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:14}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00226C3E2AE614D45AF02E590D690DE79BC22BC61BDDDDC6D25890631C3A18641BD4\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:15}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A3D9BB754B5D5200A2246B0C271F5C8EBBF343759C3F888454D02E890CA91FE7\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:16}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002292521D70ACFB72D3B4247BD9C31F99F92E64A7A1665843648B08E9DA22B03706\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:17}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002279B6E39994C74DFF065A2DE1CCA8F874389AF2DD0B6B28B198AEAF74C4CD3E6F\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:18}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220DFFCC326A53A4618BD7F1D814BABA34BFCA3BB5E4E8BEDB5D81FEAD1F38116E\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:19}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F3BE0E13E8B69DAA80927C64F1D476ADE1A189BDB81B3F6508BCDF7B664872A3\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:20}],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E2FCEE725E0F3F165A370D9546506750F693C6122A6DBA3DC20970BA8700AB33\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:159}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220ACF193E45ACD6BE5B2F255D7DCACF9CCF5B55D6A9641690FED819A971DADDDA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:160}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022ADDE5381EB0F98D1E0A28BE5EC0114B218E386349AA8E7F4FB8641BE63181785\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:161}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F85604673F9EEF346A346B36319CAD66A5F5062A837228E64F9EAC5AD5192BF8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:162}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002221ED0EC224B22642011F50CD47E686E6963DD86C384DFC8D645040FB10FEAE5B\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:163}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224DA836B04FF5E584586252CD19463D9C703050C0E802E52CEF43702A22E3C977\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:164}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022EA1D6CEE3D124BE6A2BD1D67B19911B81427359D6B435C4F3E1D6A8859CF9513\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:165}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D2A7C7162D825BCD2A36B0212598E120EE2E1987376639F95C1BB1E27692626C\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:166}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220501D5CB37873AD125EEC1F8016BC76286C45EA930786746E75612EAD36A7770\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:167}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E4C2A95EFDD9D651E26139EE6B1D293A65F0D9A1BD52F03E9299637E0BE04CCA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:168}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002270A32120834956D29BA12BC17B4A2D830A5F5A3FF303D44F2E5C3305F3EAEF09\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:169}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022689F67D72307943A26E029463F9B576357C6D5D96532C1B0ABDCEC28FE20E193\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:170}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D50B301BDA4D4AB39050AFE4505291D1D9049357754F076ED520369F99C1A8A4\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:171}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B5BD41D8316EBE819E98B2AF1947A620FE3127537651056FE072E1B15A460DE3\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:172}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A6AFA48E41E4B9C8BFFC65137947B6E2C72C894584F9CDEEE99080028B5C97CD\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:173}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220A1C439B9564E87A81488DBCC4C12C9A3AE5FE112D304EF11DC435032A74091B\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:174}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002292B814477E9C22F8122E255C9A6AF0256A0CB3F42AB2007C30716DD7B4A1CFF3\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:175}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00227BCB1C09346D4F568900FC986B5C8DD7F23BA9FCCD7A1106F877B09682CEFBB3\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:176}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002212C90480E3C06D9B2EB65BB59908354C0C0A8A5BDB3A0DDE596DB5D3D60983FA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:177}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220C5E4E7A7BDE03850E68751A024330B8F92C616A7D1F3BFC22A6C918386ADB88\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:178}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D21B5B99E4427B86617CCCB4897C694F7064B605AAB6E968437845E0E8371A49\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:179}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A36B1AD208ED0FDE2F9354E835D1596DF95AF6A4AF8294CFC9BA39B9036B66F7\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:180}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224E5AE2C2A2BCFA4D7DCEFC624B61D1E1699641AB12C55BDE92BF94A8DAA40A07\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:181}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022C4F570EDFD15A628A4C9805DA309692A7361020BEFA6F11B6FEEF2F5C59A18D6\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:182}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022CF782274B58BE14C1D9E9C5DBDF3D173CB6DF5D74F410C24768F5602202CD0BA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:183}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022259C12B9D9F8EBDD07264A2F8F4B110773F33952551C6AB49B35A1D02DFC8CA2\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:184}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A7927738B9AFF488CD40A7E4784842CC1BB351D36D19C19DBC45C451D7796679\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:185}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224EB7CC59DDFDE336353F656F8AB7773E8787129561DD5EC060E20F8115D5318B\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:186}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F2137B74A8E088E86B567B49DCF654AE850C206FD5C8B7B1B4072839AEE54137\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:187}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00225D435A84CF06CB6B31304183E37FE746677450ECA4B1F3EFFBF73EB0FC7E9CC6\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:188}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002201D11F3141C7807B872907FA62971070DCB2A235CFBB18281620A9FC298A0DF8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:189}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220EB9DAD12C6EA17158C7B9C9BE6E97A3121A1AB00B191F91B519E9356C63C9FE\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:190}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002262EA0F2F8E7229145ED8FF86F225DAB53D0452383AAFDFF1F8A8409AFABEA00D\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:191}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A891EA460E599A8EDCD34A700FC5109A00668528EC03FF12EEA8EC4F9A094FE1\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:192}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D01E7B91D08A0C1B78445F42DB1986B8A9E04620FD16EDAA234BE631A612EEA4\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:193}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00222B9B9A677236E7AFE8D59C8881C627E9C2D173DC2B6CBB98F1A75124411A3105\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:194}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:1}"
+    }
+  ],
+  [
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022EAC09609590E86574F51B06E1B3C9B9ECCFFCCD9DA636E533988321300E1FAF4\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:2}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:156}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022ABF015B12E1E4F97CE6E3C311DF0F641969A660F2FD6006133552297D008F189\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:2}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:157}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022BBBBD5DA3EAC72D4F08794D63E9C392DB0B3398B6775988F2DD3F130CAE70EE7\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:2}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:195}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:16}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:2}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:3}"
+    }
+  ],
+  [
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:68},\u0022Target\u0022:{\u0022Kind\u0022:\u0022vessel\u0022,\u0022ContentId\u0022:\u0022scout\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00226DCFDAF9EC1D0D5C548FF7B371785557FC3A91299F42BE60C8972D8ADE5EB292\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E61F96A6112EE053AA07DC1252634DE220F32E89F5D75391D15359CA5F12A312\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:2}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00223ED9A73F323256F0364CEB0012F5EF4B230A138DBC49A9BAC3FD5FFFDDFFC874\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:3}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022FE1036F14D97BB892D8340F39458A522915F445941FF786EDE682205BF2F1788\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:4}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022DA8DFADF7A2E6330712B32B8F90F44E8EA03EE79971E32C083AEE27E30B99225\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:5}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A62B5B45CA60A4BB3F20D6FB9DA64F9ABBE3CF185C81E090679EED8271D2C78C\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:6}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F500D8186C245E2D709F8D88EE946A08D7AF694279EBE94502A20FF4B944BF24\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:7}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022FA68E8E026EC9BAD202F9E93009B92A680D18205E2BF58CB88F765B89C293A55\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:8}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00225E36A573155BFBD352CA7E7007E84F541ECAD79E5979811F31C1EA1CDDD25BB5\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:9}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022627543A16E6F1D4509061AA5A9CCE1E474DDD081B717A2E67F7E202C42749589\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:10}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002270204E18C32E0A3FB001239EBD95DE14A50F7D578AAB5BAFD115C4C5880CDA51\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:11}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E139C555AE74C351A6F79B23CC75CB336E4A472FF4963018B82ED4BADB01ACC2\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:12}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00227C694ECF22C5DFE55EA3FC5C19B8B0CBE77CDA14971E0DD71F96F816BC61ADE8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:13}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F97387E608E1CCC7E517CE98609EC3795C801C67CFDA647E5E9199AD9E63F5A1\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:14}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022CA01A8CF3A99310974B05FD78972E77D95F026209305F7D69B2C0F94A7951E91\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:15}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022BC665896CF8C31E22C0854BC8AC5B0831CE28D24D6F558BF955201BB55AB6C02\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:16}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00229CF91700F94EAEE1AF4CC07F5D743D65C62D7F9AE5069ACE4D201A9522E9CE85\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:17}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022365AB27E386FCC3AF6B89F0B5C69243E033A51A5FB8AFBE23D5B7157C66991D2\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:18}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F2ADC37867FB037FCEBD9745607D7EF3BF36C8601998E14E5094726C5C04F7F0\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:19}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00223221FAB56AB5AD1BC6FC5E14DB4282BFFA97AEA92825AF190526BB822D2CA417\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:20}],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00223A698CEF5D3DDAA1BEEF705629EA4C307C1B53CA3E99CA962F11F01071FD64E0\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:156}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F3E08F886616162B1B70FAC0E74DB3C7A7DDC4FDCF80CDA7304E61188B615485\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:157}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00223D43C5389B4D4ABC7A117417F030C2EF5AA9B3D69674851F37D7A5EA5C27C72B\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:159}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00225D83FEE672CCC916FFC23866DEF31EADF437D5D94888A2538CC4963B5D67553F\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:160}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B71D9D9DBD035798B1AC404E8082B478492BDE54607084A3B07166A933133439\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:161}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00226E5CCB39A17DB75E3D3B6915DCBAA097FB2D7163790348B2B7A0EF198FBAA999\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:162}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022340A92D0B32524C9231CE68CE4BA049381280F9D4471CA16698E7B49AB9F6685\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:163}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022DC410D1A954C591F906304FBB5C40A84CADDB1982631A549222441E3F97F97FF\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:164}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022921B90CA86B6159EFEC43FA3FA4660F70851278601BD0699963D66E95870F016\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:165}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022AF1D27ACCFBBBE1C7E0580F920D0D1296B455466696A4A680A0D97CA7E0E880B\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:166}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002229087933DA223B1EEF428DCB6194E88063737933ED0321DCAE03C4D4935098BE\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:167}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002267FACF89B1AF543FA7F773E25EEFDB9C17B5B460D436F89A9CE1A12288D4F3F6\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:168}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022628CF04661B7604FA395612C109AC716578F86278785E51BD8291E25E4376AC5\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:169}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224FB1C4276BD512891E95DD148BA00915C92EB91C8E62609E5E7D1886E52ECB73\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:170}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00221331642052A8B64D11F829CBD7DC726D4A3801A4728797F1DCD593056E2DC7CE\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:171}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220274345B30C469A09CFEEEC62F3A38D054FC80EA4AD6E993E3AB8988FE42EDDB\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:172}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002214F5C23072D785D5305A7A48485425D210A2919103B49BE784C29F8BED154E27\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:173}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00226A47E51F5B7A11E18B1C9F12CCBEBDE183A7A4E2E16267563C78E8F3791F6722\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:174}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022AA54664E1FB9C86AE4B127C3F9CA749A9DF4996A9350B40A9B9498AD80EEA9F5\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:175}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D3DC0279D8890F9478428B9E1A258E1EF8ABED7FF8F1E3B6593D909B2BEE855A\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:176}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002247515DE11337F7CBDD30FA5A2848B2A1B7AD2EBF5D2D0D7EE3E7F06018C51B61\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:177}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224841A26EC4B763BD1BB3791477E7741CF19FC019586428FE5B1518E4CABF92F3\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:178}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00221C662D19548FE038B72EEA3433CCA02C437C9A8AA59455778A449E090560CBFA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:179}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00228417DF23FE3109637A65669BA36C67B3DF7B387CAE33F8BD1D41564101CA7C3B\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:180}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00223255407718FC37DF0DC4CF7A8AFD2ACBB6D85520EBF48489C8AB1F7E71FD2F10\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:181}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022BC85ACC571BCDE2AFC10E55DB3C7A5B7D8BB85682A917490D177E84B6FF54C90\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:182}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A62634AE25765ECF9291D9F4E3C68B06773055F85F28496CB6589D30564DF181\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:183}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A0BDFCA340CA9C418AD9CF9D877931254E05212F2302DB8EE43961105CA381EA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:184}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002293D58A949F549EA722C96DA572B85EF9BD676B03130C9BF7644CB2514C27683B\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:185}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022BBDCF3BD18DA4DB5382DDDB1DAAA6BC24AFECE67BEB4995B176FDC04D3ACEB83\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:186}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002236ABEDA7802B6F4DD22531412CAD4C3894680A813BE32A8B95A8A33B39A7C5CA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:187}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00229EF336F6200BC5CFB84A0D33775CD0AC829D719956A2F67F65B2B2AE261E4EF7\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:188}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022AD69F40C27D50021EFCF1AFCA47EBE829CC0C46C674AC64CFFEA2F6B5043DBCA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:189}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022586E65E8BE35829FAB58C286799B75F3762F25DDC04216AE5A73D83E2F4AD807\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:190}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E92A9113BA710E00C5A554BBA5C5CFD632EAF0E70E2031CA686E75C5F07762F1\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:191}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D27A29CA7014767D63C1EF8B7DFB8E578B344F0084415CD6494EF3CAA6AC4AF3\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:192}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002244B4DE50AA63B1C9F460B5EDAC473F0B1EF0C8B694CE912CDF5B1D8B7D29B4DF\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:193}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F84D555B9F862F19ABD9185415A1E30E5E185EB06C4D717E3422752FE11E58A5\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:194}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00222A1BFB241A2C7060CEDB6358D259EB0A783EDDE7FCDFA43FF66216C78480B68D\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:195}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:17}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:5}"
+    }
+  ],
+  [
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:68},\u0022Target\u0022:{\u0022Kind\u0022:\u0022vessel\u0022,\u0022ContentId\u0022:\u0022scout\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022ED9BAE57DFC5C1F9ED4D7AEA12AD6B4DA043CB1D2AB9B99251BD739BD7B2C55E\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022C86BF080A469BEAC45EA3704C3B9589A918F99A47DF4004CA06F55C512FEE387\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:2}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00223360AF62B514AB75A1F41A81B95EDBF0CAFAA77FD7D41755B0ADE8CC686FB87E\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:3}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D9E384B9949A0CF26E55DDD836C9498C30FEC2CD3665E4B9DA6883CACA06487A\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:4}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002264D9D9AF1F66DB5D7378BB4C902F14A91A199568E4A8718FAF62D7C3B938EC6F\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:5}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00229EABA064E4406DABFD76F2016BA0DFDB744F9E4397E7766D4722E2E778E7FCD0\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:6}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002276EC18E0A04FBC728829C6FEEF115659C0784B6771F810E94C4DDD5E56519999\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:7}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00229551AC7323C8DEE009B6F6E97333AA9076D7DE05F2C59B07EA7991BF926A81AD\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:8}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B45936EC0E0F92A44B61D2FDFCDE21F1F5A800CA036C47E03B06AA4002F6FEA5\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:9}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220025EA323D77E5FD2A9F8CD516E3A4C79A96BC818F870156455A37EC7CC06B7E\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:10}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002261F1EF1C08EBFEA814F8CA96D34C36602A0618B0DF11AE879FFEC55AD52FBBCA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:11}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022C14FF00AE78827429F35DFC62081B5FEE907B732586080D4B2A4F5C8B93D35D8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:12}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002258D3F395E7B60EAB6194B4138CD0ABAEA8D4893B5894232A7E6EFF4876999E07\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:13}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220753157861041A068AA5096F287221504110D9B3B5B5A935F2A65DD78E95A1FA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:14}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00222727BDD023A441C901F34F018F6977679B2FD780DDF59F0E384C984FBA187B6F\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:15}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002250DFEFA1AC53BABAB3C05B5712C290837D793363BC345F2CD0021F6B2E8B01B1\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:16}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022FB751038DA860442618FD3AF96EC5A45D0963974739B08D9A1D683F04E12D927\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:17}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00221154C946F27EDD51CD2DDBE4006FB7A188CE7554E79FB5F7F39AC864F9780540\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:18}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B0187340943A904408FE1D11638DB5503246FFA2F64F15182F120689D4BA4640\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:19}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022DE14D8B077AD4673801E4DA57174B358FBF48390BF0D94C11377A68024AB9D80\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:20}],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00222E9A474E7CA64F543DF5612CA52EDDBF94C7BF511F11167FE461EF6D0B948B3C\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:156}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220E41CC5F27C6F529116A9765E359D5DFC9AB3F934F80A8D4D3C4C121FF253977\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:157}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B152548DBDAA8129FBC185BC30407B9EB0D58BFCE829FED6A245551FEF5A45B8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:159}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220DBDDA964A6C8BE99312F902B3176520C4BFAEB6133E0F49ED482984FD2C3053\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:160}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002246C34F855362F38A359956264B543A09F038157F57C5294304C84DCF79C371EE\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:161}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022863B41E2A01E4621222C5D768BB90CE9D8DF5B277385A5F3ECE797B8EDC16860\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:162}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022205D019ACBE43A59F80B82C760C316677C8ED4AD1D3C145592E772C7DC93C0C3\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:163}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B642E91CD27E6F3ECBF7DA47FF5279E8E395550A4FCFA38C3DEF1BE7407A226A\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:164}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220C3A402FAFD5693D5DA941E6803FD1437B6B7994BD470DB2F070A5D6F3BF9D36\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:165}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022DD136C300FF64F0BDF53FF22C8DD71C0102D3DB7605663979FBC8DCC77FA4BE8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:166}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00220179070FC94FD0868B489244C0FB5A998B87335C2AF4402A3EA859460F3B5AF4\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:167}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022ADE3A57FF04B27FE54B98A7C1700E18F70C28EF47EF5902661CEAB2D229C5591\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:168}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002217ABF1997058D8ABC30DB54A16AC2889955C8FE65EFDB5BCBCE239B3F72CCF55\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:169}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224C950B7EB633BFB7526787F5B14901294C25274FCD50CE39BBDB8F3068422575\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:170}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00225978996F9E168A75BC897F4A3A76B4291A49333D3D8F912F81F560957AF93261\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:171}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022EF7FD273FE6579DE32BBB5B458B1399E6D74F12341817BC5BFF57F7EB303542D\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:172}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00223324DE05909B9509CE33AA0C2C9A988B39B4B8F8EAE21F330B5BDABD4F9F4E3A\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:173}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F8A6108741B3C424BCF082CF83CF71236D7682238E00A79DF456C20D90DD2957\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:174}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00221F9E9A8B3D79C331E839C4D7C679B0BD2ACAEC10A87927536269375547FF7796\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:175}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D2C36F3B8D6FFCC03D24333371BAB8EC795F244F9EA8EA359CE44AFF309F9180\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:176}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A37BB747D4A130B9B5F2EF98D6950156886754467D5A0EBFAADE646EDADF53E7\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:177}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B1DE2D0434286CE07391B19993EFE0968BB335657AD2FA5586270EF48ED622A0\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:178}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002277D4581DDE47121C4C2764D5455CFD978B9EAD96460B7DCAED64B9BFC8E4647A\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:179}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00228E9555DDA1BE4C374A313B0034A8E4EB07B055FA78C8FDEB0101553235189625\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:180}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D892695B7895E241CC9CEDA51AC252C90546D5024A1D90B2F9F937DBF11F87E9\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:181}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022DBEAA4B23BF21F705D8A67EDC48119786E724FFCFE4C7E4F5886A3D3B4DE3BD4\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:182}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022CA592CD124AC2EF5785AEE9442627592F5E0B9D819A3FB7006D0E5A0F764C2BF\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:183}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B722F0C28DD74D40A5DED9A65BE09D12E860CF165CE144D08AE04D8673B32FBD\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:184}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224AB573BEF8C877AAA61DFD97003098EA9F32671F493DDA86C6CA21C68E2A7945\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:185}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00226DBD3FCDE0FFED8057102F0C55974C84B73AEB0FF79CC6B30F8EA76059DDF059\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:186}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022AA65476EF8B3EC44A11547EE962469378FB03560966337AE70EFBD334BAC0BA8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:187}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022373845F0C879AC25521907BA0652D7F234DD495DA4B04A11BE61A7A152BA47DF\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:188}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A57CA35D03BD3F5F4D847C33FA2CE4E03F99BDA2C50E245BE17082616DB2DFC1\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:189}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00226AFDD7F5A99EDFFEE793D45D7648D92A6E5387173A54B57F49DF9FF948785EA7\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:190}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022AE086B8B538E92CCA47410266703B1BCE15E673B97A5D32171C7584ED78BF3BE\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:191}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E6EB2DB99E81E147DC5F4F05B46D7AF52103DA97416F616AE93BB1F45710A176\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:192}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022CCFD3BECD901D49432BA909818707316F17DEC5A6E6B65CAF13B883819BDE0AE\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:193}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00227EB154F0D0E92621E91F33F019F2F570CCF0BBD6B0312B742A56FAA735BE39EA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:194}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F1A53D479DB90BADBF4258902BE9549D4E17ED79C0D43B5A0068A99925048096\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:195}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022673FCC128AF6ADD53C7232657F56E910FBC06E9822FF49CB44EFAE1FD9445A35\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:196}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:18}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:7}"
+    }
+  ],
+  [
+    {
+      "kind": "SetProductionTargetCommand",
+      "json": "{\u0022Colony\u0022:{\u0022Value\u0022:68},\u0022Target\u0022:{\u0022Kind\u0022:\u0022vessel\u0022,\u0022ContentId\u0022:\u0022scout\u0022},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022EAF693C4BCC7CAFD6DE57C5717A780EA787C8CE4BABE3C59A10D731470FD359D\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F0FC079E1F4C005E8DEE8D40A70C963477FF98829C8297829AB61F81661CE356\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:2}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00226091FD369C4A34D25CE767BB2B26717ADD42973958EF3BB51715CC7DFF1BD039\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:3}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022BE7BD5C0414EBAD8F36A33CF33ADA744595C219AADDB8B521E047D248FC8622D\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:4}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00226C7F05F07DC87FE328C1DB5ACAF4C730FFFFC3E4D48A565713A0C507FB5810F7\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:5}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022FA78121D600CB08F6966BD3A0743FD7982BBE7672677F99CB53182EDF2E60EC7\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:6}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002290C61062471B695DF62319A440554E456AC6440A5C212C17069FDC6408C8D448\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:7}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00228DB28455BDE9780E4779C6E652E7167F02EB44B54F98820FF1CA9922F41F7C2D\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:8}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022112372ACA07C1A804397420B6F2458875B52C92BFD44C7295D491E3CFF1DA3B2\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:9}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00223647454D1ECEFBAA869F4A2B6224F14F882C8B44A9DCC704A60701941075C0A8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:10}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002214C80A33C090D46E2556E4BE4DEDE1C5190A5EE22020A9644244CD8A9F091D2A\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:11}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002220BB4E1EAD9D0FBA3BB4AADDBBF0E21F3851A4A2444535F5198A7FFE818D53FE\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:12}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224E9F409CC8467B6C36D0885DD0F7DA99D10EF84A57720CE1058B989B885392A7\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:13}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B5368CBC9E75E93BD48FA6806271BEEE97FC18B3EB2009E596DB5D009E8B9874\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:14}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022AE09375F36D3C39A7FC60FD3B988C07C282B566FB9E9755CEC6D4F6121EF8801\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:15}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00223075F29BBA4D4E84BCFA012DD3EF9EE79CB86A103AE757E83E6382A3FB18B348\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:16}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D79129EA96E6C2D4EF0608CF6B1083E49BB288FB90D1A4F1736467CD3B44A583\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:17}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022342D213A2E3C7D713588E6B1A1EB0E34894F17CA64D7756717C6F1EC5E4BA492\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:18}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022C987328AF3EE80FD7740E2FA5F63C28120061A26E21A5D53FD04A9C36DD79BB8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:19}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E0EDB0196CEE75323F2A168B0895A466D814516B2E5A5F220BE3D853FDF4E348\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:20}],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F8E5225FB7251CCB05FC6A417FA346A40055E4515CFE284190A521A07A391766\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:156}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00221A624065D740670B02D8D599DA57E2A536EEC351CF5F2CCA209FD8E2C0DBA955\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:157}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00226904DE3699B2C7C1F84481E77E6EAAF55BE65248572CCD2DB977C0ADC62973D6\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:159}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B0A7F4A6DE0EB2452BFD96DBF2A20905A5A48DD91395D70CAA4BAA28CF50DDD4\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:160}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F476B35A0609214072D639E43703ACE36BC92E7B56A3301D2F2F090E7D3FF9A1\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:161}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002233372DB60E381451A80563D09EF863C8E5163122AD4FA447A192942D6C630E6D\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:162}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A6C9276D2A22B0064CE53B14FE9FAC4D9AA9EBE6BB4AA4582DC66D71B0220C43\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:163}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002205F2C7DAC242EEFEC554CBABC197BD681553669202F2BC72C6687AAFE9B100E0\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:164}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224B01D6468E069DA5202808FC5702B67DABE5C198294BE0FD6A41055E0497E14C\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:165}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022C08FE82DE452BB4D8D24BF5DF59AD937601A051FDE7C61E05EFC48F1EC48EF3E\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:166}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022C15E64CB0F25331F7A49741926D6D5CA8A9C00EF624DB02145899A20DE9A7F69\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:167}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002247D40552A7AA5DEFF7AB238F8A2887116CAEB57546FBD41E4AAB5E6B077BA68C\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:168}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A8FE37FC4FD8837FD237522FBF4007C130BF8E9B70331D52783C4FF7ED23F9E0\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:169}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022C59A23C0634EE277A241274B681C727E4D4AF1F56314AF5B0095E64965E2668D\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:170}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002244D8A249BF6C090ADC1B7E158BB0CC3835662767FBFAE1B8169ABF0304F8EFEC\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:171}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224CFFF643495B0281C96CC438287BC0723C19A329106E501AA8C83403F3309DAA\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:172}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00225E75FCB9F49FBDEAB29FA8F7BD99DAB1B01D5E125E4C3C22013A8BDF69A2B3F8\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:173}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002214C09E812D4D02F862FB2516D4AC3E381DEB283B1C5BDC78F1D328D313E426A6\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:174}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00221B3D0E114330A44347EBA374ED0D04A2AB8679F147EBA181B79DA34C66C60A10\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:175}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022AD65325B4AB03EEB5DA87EFEA1C67146E52EE0A7DDCF5889532D9EBDA48A6400\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:176}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00221086512850A83288E2AD41AEFE284117318DAA06F4F1EC25EE6F68B9769321B4\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:177}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E3D33B4F304F2B423E764BFAAC45976B2A6CBB20D0124A4BF103E699C6ECE0DF\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:178}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00227AE961377FDC923AC32264E36F4CC24563473189A583E6A0B9AEEE6939A50FDD\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:179}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D227BF2D7C83E81ED4A85AED7AC4FC6479CBB3147CAC9759CC58386DC3934EAF\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:180}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002233537EF62636AA830EC879DF0EF918B160FEE61D52C8C45312DB170BB20C6222\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:181}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E2DE187354FC82E81146C30E29087F2DC569B8523DA8DB8AC9B873F857845732\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:182}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022660146B4865EC04CD68A7DA0E29B0E087802EC6D8F94836B4C392496AEADADFE\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:183}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022F5B78B9299B11A3593CD9DD6E3BCE1EADB8405D61E403DA7DF30BB7EDCE7FAFC\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:184}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00222AB24DC99A1E7C924B3BBF5E85D31E476F35B17CEFDF238D103480845153EF90\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:185}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224FFD9CCBADD87C47AAE2CD908A9A2633C119981444C25609637D0AA6DF4DE614\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:186}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00229F6169DC5F08FB16B4B8B9CB0C8915007C411593EA8107C29676337FF48E4A33\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:187}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022A3EECE8DCC6D7D2FCF26435F48F42CCDD82719B7928345B0F8A993788100EEC4\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:188}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022B09F1EF2E50D5FFD93158D7A8E639F9B568DBA2A5B716646D90D74757E8FD98B\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:189}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002239E7C1565D19E94910FF76E12B42161314F1C487F995468FA7A28DD11AA5AFB9\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:190}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00224D33BEE14DA1904100AAF8915392FDB0776805BE030118D4D0A44C39C9C36006\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:191}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022D04FCA3A5DE4A00492672615FF3B06B4FD5879BA24B4CF8664EAB87D2E9F3DC5\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:192}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022453BEA9699CB358F21AFB046C03935E83844AB2797290516161F4019CDB22806\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:193}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00221871AAD1C5F2A4D048F12EEF8DFE4952CE85B25467B264965C6CAE8167B543B9\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:194}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00227BF0AB94CDBAF93DB6398D875DB54EA491677AA4623934600D8C0EE4B0E36D75\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:195}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002229BDB2C6ABB68E7ECCB02AEAB1B692E6111AABF33B11F8BF06F5C7CA00D2A0E9\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:196}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022769505B706B102315B43B8AE98D184679E6FFF253385DA2A504F5CD13B706689\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}",
+      "actionKind": "MoveSelection",
+      "actionJson": "{\u0022Vessels\u0022:[{\u0022Value\u0022:197}],\u0022Fleets\u0022:[],\u0022Destination\u0022:{\u0022Value\u0022:19}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:9}"
+    }
+  ]
+]

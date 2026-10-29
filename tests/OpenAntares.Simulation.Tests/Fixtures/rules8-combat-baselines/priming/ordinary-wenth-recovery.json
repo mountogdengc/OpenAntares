@@ -1,0 +1,116 @@
+[
+  {
+    "kind": "FleetCommand",
+    "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002246F467985B028A8C9EFE086B7C3B18AEEAECF2A59339CDAFF8B3FCDE94DBD0E0\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+    "actionKind": "Create",
+    "actionJson": "{\u0022Name\u0022:\u0022Old-engine recovery expedition\u0022,\u0022Members\u0022:[{\u0022Value\u0022:45}],\u0022Flagship\u0022:{\u0022Value\u0022:45}}"
+  },
+  {
+    "kind": "OfficerCommand",
+    "json": "{\u0022Action\u0022:{},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+    "actionKind": "AssignFlagship",
+    "actionJson": "{\u0022Officer\u0022:{\u0022Value\u0022:1},\u0022Fleet\u0022:{\u0022Value\u0022:1}}"
+  },
+  {
+    "kind": "FleetCommand",
+    "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022FE4B08CA5162E9C5411A1D626D0BF914E731F8676103C6FC32517FABA5290391\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+    "actionKind": "MoveSelection",
+    "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:2}}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+  },
+  {
+    "kind": "FleetCommand",
+    "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E143C6D8B3981328BCEAF01D7723BBF486FDF83EDD8B1E0E2DEF7CF2DFFD6AC0\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:1}",
+    "actionKind": "MoveSelection",
+    "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:4}}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:1}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:2}"
+  },
+  {
+    "kind": "FleetCommand",
+    "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00222B0E485F4CC7077CE32C31F316A276D9D69528F71945BAF867AD923386BD8E89\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:3}",
+    "actionKind": "MoveSelection",
+    "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:5}}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:3}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}"
+  },
+  {
+    "kind": "FleetCommand",
+    "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022BDC151FB099A425459DD90D1A7E0B457F3DF64BF65F21C49368ABF81FFDB8243\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:5}",
+    "actionKind": "MoveSelection",
+    "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:6}}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:5}"
+  },
+  {
+    "kind": "FleetCommand",
+    "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022E1DE6E144C95EE0E24878AC73B156831ED46B08A37BC5233C028668B9DC57F85\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}",
+    "actionKind": "MoveSelection",
+    "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:7}}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}"
+  },
+  {
+    "kind": "FleetCommand",
+    "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002257C888502AE57958D505E8DD7930D65950C38B8542EA4A18B594E844FB56F3D2\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:7}",
+    "actionKind": "MoveSelection",
+    "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:8}}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:7}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:9}"
+  },
+  {
+    "kind": "FleetCommand",
+    "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u002235231A96EB25E29CB31400AF097BA5B7189F82C0B9AFD3810F8A29636658C935\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:10}",
+    "actionKind": "MoveSelection",
+    "actionJson": "{\u0022Vessels\u0022:[],\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Destination\u0022:{\u0022Value\u0022:9}}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:10}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:11}"
+  },
+  {
+    "kind": "SetAmebaRiskOrderCommand",
+    "json": "{\u0022Vessel\u0022:{\u0022Value\u0022:45},\u0022EncounterNumber\u0022:1,\u0022ExpectedRevision\u0022:1,\u0022Action\u0022:1,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:12}"
+  },
+  {
+    "kind": "AcknowledgeAmebaCommand",
+    "json": "{\u0022Tokens\u0022:[{\u0022Vessel\u0022:{\u0022Value\u0022:45},\u0022EncounterNumber\u0022:1,\u0022Revision\u0022:2,\u0022Stage\u0022:0,\u0022Action\u0022:\u0022remain\u0022,\u0022Destination\u0022:null,\u0022Speed\u0022:300,\u0022Cargo\u0022:0,\u0022Percent\u0022:0,\u0022Reward\u0022:0,\u0022FleetConsequenceFingerprint\u0022:\u00221C50C0E1A057DDD07F046D4CB6A3262D81334B991CE0F8E7076B84F54488A72D\u0022}],\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:12}"
+  },
+  {
+    "kind": "SetReadyCommand",
+    "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:12}"
+  }
+]

@@ -9,3 +9,6 @@
 /reports/scout-integration-*/** -text
 /tests/OpenAntares.Simulation.Tests/Fixtures/rules7-fleet-baselines/** -text -whitespace
 /reports/fleet-execution/** -text -whitespace
+
+/tests/OpenAntares.Simulation.Tests/Fixtures/rules8-combat-baselines/** -text -whitespace
+/reports/combat-execution/** -text -whitespace

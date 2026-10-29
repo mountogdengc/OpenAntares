@@ -1,0 +1,6167 @@
+{
+  "format": "openantares-save",
+  "schema_version": 9,
+  "rules_version": 8,
+  "content": {
+    "fleet_command": {
+      "recovery_technology_id": "command_recovery",
+      "member_limit": 32,
+      "fleet_limit": 64,
+      "request_limit": 32,
+      "participating_colony_limit": 32,
+      "active_officer_limit": 4,
+      "lifetime_commission_limit": 64,
+      "commission_turns": 2,
+      "xp_cap": 30,
+      "highlight_limit": 32,
+      "detail_turn_limit": 10,
+      "mortal_recovery_percent": 50,
+      "researched_recovery_percent": 70,
+      "mortal_recovery_turns": 2,
+      "link_recovery_turns": 2,
+      "last_watch_link_turns": 4,
+      "researched_link_reduction": 1,
+      "first_survey_xp": 2,
+      "assembly_hull_xp": 1,
+      "study_xp": 8,
+      "rank_thresholds": [
+        10,
+        30
+      ],
+      "navigator_bonuses": [
+        5,
+        10
+      ],
+      "survey_research_bonuses": [
+        100,
+        200
+      ],
+      "organizer_discounts": [
+        5,
+        10
+      ],
+      "cultures": [
+        {
+          "id": "estates",
+          "name": "Estates",
+          "default_doctrine": "recover_command",
+          "profile_ids": [
+            "estates_navigator",
+            "estates_surveyor",
+            "estates_organizer"
+          ]
+        },
+        {
+          "id": "schools",
+          "name": "League of Schools",
+          "default_doctrine": "recover_command",
+          "profile_ids": [
+            "schools_navigator",
+            "schools_surveyor",
+            "schools_organizer"
+          ]
+        },
+        {
+          "id": "harbors",
+          "name": "Harbor Houses",
+          "default_doctrine": "recover_command",
+          "profile_ids": [
+            "harbors_navigator",
+            "harbors_surveyor",
+            "harbors_organizer"
+          ]
+        },
+        {
+          "id": "kinship",
+          "name": "Seed Kinship",
+          "default_doctrine": "recover_command",
+          "profile_ids": [
+            "kinship_navigator",
+            "kinship_surveyor",
+            "kinship_organizer"
+          ]
+        }
+      ],
+      "profiles": [
+        {
+          "id": "estates_navigator",
+          "name": "Vara Eshen",
+          "pronouns": "they/them",
+          "culture_id": "estates",
+          "specialty": "navigator",
+          "personality": "Deliberate route planner."
+        },
+        {
+          "id": "estates_surveyor",
+          "name": "Oren Tal",
+          "pronouns": "he/him",
+          "culture_id": "estates",
+          "specialty": "surveyor",
+          "personality": "Patient observer."
+        },
+        {
+          "id": "estates_organizer",
+          "name": "Mira Vell",
+          "pronouns": "she/her",
+          "culture_id": "estates",
+          "specialty": "organizer",
+          "personality": "Careful coordinator."
+        },
+        {
+          "id": "schools_navigator",
+          "name": "Tavi Sen",
+          "pronouns": "they/them",
+          "culture_id": "schools",
+          "specialty": "navigator",
+          "personality": "Methodical pilot."
+        },
+        {
+          "id": "schools_surveyor",
+          "name": "Relo Iven",
+          "pronouns": "he/him",
+          "culture_id": "schools",
+          "specialty": "surveyor",
+          "personality": "Curious recorder."
+        },
+        {
+          "id": "schools_organizer",
+          "name": "Sera Venn",
+          "pronouns": "she/her",
+          "culture_id": "schools",
+          "specialty": "organizer",
+          "personality": "Practical scheduler."
+        },
+        {
+          "id": "harbors_navigator",
+          "name": "Neri Vale",
+          "pronouns": "she/her",
+          "culture_id": "harbors",
+          "specialty": "navigator",
+          "personality": "Cautious pilot."
+        },
+        {
+          "id": "harbors_surveyor",
+          "name": "Taren Oss",
+          "pronouns": "they/them",
+          "culture_id": "harbors",
+          "specialty": "surveyor",
+          "personality": "Attentive chart maker."
+        },
+        {
+          "id": "harbors_organizer",
+          "name": "Olan Riss",
+          "pronouns": "he/him",
+          "culture_id": "harbors",
+          "specialty": "organizer",
+          "personality": "Steady coordinator."
+        },
+        {
+          "id": "kinship_navigator",
+          "name": "Command appointment",
+          "pronouns": "they/them",
+          "culture_id": "kinship",
+          "specialty": "navigator",
+          "personality": "The source colony body maintains this command link."
+        },
+        {
+          "id": "kinship_surveyor",
+          "name": "Command appointment",
+          "pronouns": "they/them",
+          "culture_id": "kinship",
+          "specialty": "surveyor",
+          "personality": "The source colony body maintains this command link."
+        },
+        {
+          "id": "kinship_organizer",
+          "name": "Command appointment",
+          "pronouns": "they/them",
+          "culture_id": "kinship",
+          "specialty": "organizer",
+          "personality": "The source colony body maintains this command link."
+        }
+      ]
+    },
+    "space_ameba": {
+      "id": "space_ameba",
+      "name": "Space ameba",
+      "pursuit_speed": 200,
+      "late_escape": {
+        "base_percent": 50,
+        "relative_speed_coefficient": 100,
+        "minimum_percent": 5,
+        "maximum_percent": 95
+      },
+      "study": {
+        "base_percent": 50,
+        "relative_speed_coefficient": 50,
+        "minimum_percent": 5,
+        "maximum_percent": 90
+      },
+      "research_reward": 600
+    },
+    "plagues": [
+      {
+        "id": "ash_bloom",
+        "name": "Ash Bloom",
+        "first_check_turn": 20,
+        "check_interval": 20,
+        "check_chance_percent": 25,
+        "cooldown_turns": 30,
+        "grace_turns": 2,
+        "recovery_intervals": 6,
+        "initial_severity": 20,
+        "severity_cap": 100,
+        "open_severity_step": 20,
+        "quarantined_severity_step": 5,
+        "mortality_threshold": 80,
+        "mortality_units": 1,
+        "illness_factor_bp": 8000,
+        "quarantine_factor_bp": 7500,
+        "cure_base": 600,
+        "cure_per_population": 100,
+        "immunity_turns": 12,
+        "purge_numerator": 1,
+        "purge_denominator": 2,
+        "civic_factor_loss_bp": 1000,
+        "civic_max_level": 3,
+        "civic_turns": 5
+      }
+    ],
+    "rules": {
+      "support_per_population": 100,
+      "base_growth": 10,
+      "max_surplus_growth": 40,
+      "base_colony_capacity": 10
+    },
+    "starting_colony": {
+      "planet_type": "verdant_world",
+      "population": 6,
+      "workforce": {
+        "support": 2,
+        "production": 2,
+        "research": 2
+      }
+    },
+    "galaxy": {
+      "min_star_distance": 120,
+      "min_planets_per_star": 1,
+      "max_planets_per_star": 4,
+      "star_names": [
+        "Aldrane",
+        "Ambrel",
+        "Bessaro",
+        "Calloran",
+        "Corvane",
+        "Dellith",
+        "Dunmere",
+        "Esmorra",
+        "Evandry",
+        "Faldis",
+        "Gethra",
+        "Hollin",
+        "Ismere",
+        "Javeth",
+        "Kestra",
+        "Lorvan",
+        "Mirrin",
+        "Nesh",
+        "Oberra",
+        "Pallis",
+        "Quillon",
+        "Rhoven",
+        "Savett",
+        "Tarrow",
+        "Ulvane",
+        "Vessar",
+        "Wardel",
+        "Xandre",
+        "Yollis",
+        "Zerith"
+      ],
+      "regions": {
+        "arm": {
+          "name": "Arm",
+          "description": "The star-rich spiral arms."
+        },
+        "core": {
+          "name": "Core",
+          "description": "The dense galactic center."
+        },
+        "rim": {
+          "name": "Rim",
+          "description": "The sparse outer galaxy."
+        }
+      }
+    },
+    "galaxy_sizes": [
+      {
+        "id": "large",
+        "name": "Large",
+        "star_count": 20,
+        "width": 1400,
+        "height": 980
+      },
+      {
+        "id": "medium",
+        "name": "Medium",
+        "star_count": 16,
+        "width": 1200,
+        "height": 840
+      },
+      {
+        "id": "small",
+        "name": "Small",
+        "star_count": 12,
+        "width": 1000,
+        "height": 700
+      }
+    ],
+    "planet_types": [
+      {
+        "id": "barren_rock",
+        "name": "Barren Rock",
+        "colonizable": true,
+        "support_per_worker": 100,
+        "production_per_worker": 200,
+        "research_per_worker": 100,
+        "generation_weight": 3,
+        "environment_generation_weights": {
+          "dry": 8,
+          "open_ocean": 0,
+          "shelf_sea": 0
+        },
+        "region_generation_weights": {
+          "arm": 2,
+          "core": 1,
+          "rim": 3
+        }
+      },
+      {
+        "id": "crystal_world",
+        "name": "Crystal World",
+        "colonizable": true,
+        "support_per_worker": 200,
+        "production_per_worker": 200,
+        "research_per_worker": 300,
+        "generation_weight": 2,
+        "environment_generation_weights": {
+          "dry": 4,
+          "open_ocean": 3,
+          "shelf_sea": 1
+        },
+        "region_generation_weights": {
+          "arm": 2,
+          "core": 3,
+          "rim": 2
+        }
+      },
+      {
+        "id": "forge_world",
+        "name": "Forge World",
+        "colonizable": true,
+        "support_per_worker": 200,
+        "production_per_worker": 300,
+        "research_per_worker": 200,
+        "generation_weight": 2,
+        "environment_generation_weights": {
+          "dry": 6,
+          "open_ocean": 1,
+          "shelf_sea": 1
+        },
+        "region_generation_weights": {
+          "arm": 2,
+          "core": 3,
+          "rim": 4
+        }
+      },
+      {
+        "id": "verdant_world",
+        "name": "Verdant World",
+        "colonizable": true,
+        "support_per_worker": 300,
+        "production_per_worker": 200,
+        "research_per_worker": 200,
+        "generation_weight": 2,
+        "environment_generation_weights": {
+          "dry": 2,
+          "open_ocean": 2,
+          "shelf_sea": 4
+        },
+        "region_generation_weights": {
+          "arm": 3,
+          "core": 1,
+          "rim": 1
+        }
+      }
+    ],
+    "buildings": [
+      {
+        "id": "analysis_lab",
+        "name": "Analysis Lab",
+        "cost": 1200,
+        "prerequisites": [
+          "measurement_methods"
+        ],
+        "effects": [
+          {
+            "kind": "research",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "cultivation_hub",
+        "name": "Cultivation Hub",
+        "cost": 1000,
+        "prerequisites": [
+          "cultivation_methods"
+        ],
+        "effects": [
+          {
+            "kind": "support",
+            "amount": 200
+          }
+        ]
+      },
+      {
+        "id": "discovery_center",
+        "name": "Discovery Center",
+        "cost": 3200,
+        "prerequisites": [
+          "cooperative_science"
+        ],
+        "effects": [
+          {
+            "kind": "research",
+            "amount": 300
+          }
+        ]
+      },
+      {
+        "id": "fabrication_hall",
+        "name": "Fabrication Hall",
+        "cost": 1200,
+        "prerequisites": [],
+        "effects": [
+          {
+            "kind": "production",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "habitat_extension",
+        "name": "Habitat Extension",
+        "cost": 1600,
+        "prerequisites": [
+          "habitat_methods"
+        ],
+        "effects": [
+          {
+            "kind": "capacity",
+            "amount": 2
+          }
+        ]
+      },
+      {
+        "id": "habitat_network",
+        "name": "Habitat Network",
+        "cost": 2800,
+        "prerequisites": [
+          "adaptive_habitats"
+        ],
+        "effects": [
+          {
+            "kind": "support",
+            "amount": 200
+          },
+          {
+            "kind": "capacity",
+            "amount": 2
+          }
+        ]
+      },
+      {
+        "id": "production_complex",
+        "name": "Production Complex",
+        "cost": 3200,
+        "prerequisites": [
+          "industrial_coordination"
+        ],
+        "effects": [
+          {
+            "kind": "production",
+            "amount": 300
+          }
+        ]
+      }
+    ],
+    "technologies": [
+      {
+        "id": "adaptive_habitats",
+        "name": "Adaptive Habitats",
+        "cost": 2400,
+        "prerequisites": [
+          "cultivation_methods",
+          "habitat_methods"
+        ]
+      },
+      {
+        "id": "command_recovery",
+        "name": "Command Recovery",
+        "cost": 2400,
+        "prerequisites": [
+          "industrial_coordination"
+        ]
+      },
+      {
+        "id": "cooperative_science",
+        "name": "Cooperative Science",
+        "cost": 2400,
+        "prerequisites": [
+          "measurement_methods"
+        ]
+      },
+      {
+        "id": "cultivation_methods",
+        "name": "Cultivation Methods",
+        "cost": 1200,
+        "prerequisites": []
+      },
+      {
+        "id": "habitat_methods",
+        "name": "Habitat Methods",
+        "cost": 1600,
+        "prerequisites": []
+      },
+      {
+        "id": "industrial_coordination",
+        "name": "Industrial Coordination",
+        "cost": 2400,
+        "prerequisites": [
+          "measurement_methods"
+        ]
+      },
+      {
+        "id": "measurement_methods",
+        "name": "Measurement Methods",
+        "cost": 1200,
+        "prerequisites": []
+      }
+    ],
+    "expansion": {
+      "starting_vessel": "scout"
+    },
+    "vessels": [
+      {
+        "id": "daughter_seed",
+        "name": "Daughter Seed",
+        "cost": 2400,
+        "speed": 200,
+        "embark_population": 3,
+        "minimum_source_population": 6,
+        "can_found_colony": true,
+        "requires_full_colony": true,
+        "founds_sealed_habitat": false
+      },
+      {
+        "id": "harbor_settler",
+        "name": "Harbor Expedition",
+        "cost": 3600,
+        "speed": 200,
+        "embark_population": 2,
+        "minimum_source_population": 4,
+        "can_found_colony": true,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": true
+      },
+      {
+        "id": "harl_settler",
+        "name": "Settlement Launch",
+        "cost": 1600,
+        "speed": 200,
+        "embark_population": 1,
+        "minimum_source_population": 3,
+        "can_found_colony": true,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": false
+      },
+      {
+        "id": "peldra_settler",
+        "name": "Estate Expedition",
+        "cost": 3200,
+        "speed": 200,
+        "embark_population": 2,
+        "minimum_source_population": 4,
+        "can_found_colony": true,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": false
+      },
+      {
+        "id": "scout",
+        "name": "Scout",
+        "cost": 800,
+        "speed": 300,
+        "embark_population": 0,
+        "minimum_source_population": 0,
+        "can_found_colony": false,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": false
+      },
+      {
+        "id": "settler",
+        "name": "Shelf Expedition",
+        "cost": 2400,
+        "speed": 200,
+        "embark_population": 2,
+        "minimum_source_population": 4,
+        "can_found_colony": true,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": false
+      }
+    ],
+    "environments": [
+      {
+        "id": "dry",
+        "name": "Dry",
+        "description": "No suitable surface water. A Sulan colony needs a sealed harbor."
+      },
+      {
+        "id": "open_ocean",
+        "name": "Open Ocean",
+        "description": "Water without the shallow mineral-rich shelves needed for native Sulan habitation."
+      },
+      {
+        "id": "shelf_sea",
+        "name": "Shelf Sea",
+        "description": "Shallow mineral-rich water suitable for a native Sulan colony."
+      }
+    ],
+    "species": [
+      {
+        "id": "harl",
+        "name": "Harl",
+        "description": "Restless, short-lived scholars whose schools preserve the work of each generation. Fast recovery and small settlement launches favor busy, growing communities.",
+        "culture_name": "League of Schools",
+        "population_unit_label": "population",
+        "command_culture_id": "schools",
+        "command_embodiment": "mortal",
+        "starting_population": 6,
+        "starting_workforce": {
+          "support": 2,
+          "production": 2,
+          "research": 2
+        },
+        "base_capacity": 10,
+        "sealed_base_capacity": null,
+        "support_per_population": 100,
+        "production_basis_points": 10000,
+        "research_basis_points": 10000,
+        "base_growth": 10,
+        "max_surplus_growth": 80,
+        "support_per_growth_point": 5,
+        "natural_environment_ids": [
+          "dry",
+          "open_ocean",
+          "shelf_sea"
+        ],
+        "allows_sealed_habitats": false,
+        "allowed_vessel_ids": [
+          "harl_settler",
+          "scout"
+        ]
+      },
+      {
+        "id": "peldra",
+        "name": "Peldra",
+        "description": "Long-lived, broad-handed estate builders with formidable appetites. Support a small, skilled workforce and it can carry powerful workshops and laboratories.",
+        "culture_name": "Estates",
+        "population_unit_label": "population",
+        "command_culture_id": "estates",
+        "command_embodiment": "mortal",
+        "starting_population": 6,
+        "starting_workforce": {
+          "support": 4,
+          "production": 1,
+          "research": 1
+        },
+        "base_capacity": 10,
+        "sealed_base_capacity": null,
+        "support_per_population": 200,
+        "production_basis_points": 30000,
+        "research_basis_points": 30000,
+        "base_growth": 5,
+        "max_surplus_growth": 15,
+        "support_per_growth_point": 20,
+        "natural_environment_ids": [
+          "dry",
+          "open_ocean",
+          "shelf_sea"
+        ],
+        "allows_sealed_habitats": false,
+        "allowed_vessel_ids": [
+          "peldra_settler",
+          "scout"
+        ]
+      },
+      {
+        "id": "sulan",
+        "name": "Sulan",
+        "description": "Shark-like aliens at home in shallow, mineral-rich shelf seas. Native expeditions build roomy shelf colonies; costlier harbor kits open other worlds in sealed habitats.",
+        "culture_name": "Harbor Houses",
+        "population_unit_label": "population",
+        "command_culture_id": "harbors",
+        "command_embodiment": "mortal",
+        "starting_population": 6,
+        "starting_workforce": {
+          "support": 2,
+          "production": 2,
+          "research": 2
+        },
+        "base_capacity": 12,
+        "sealed_base_capacity": 8,
+        "support_per_population": 100,
+        "production_basis_points": 10000,
+        "research_basis_points": 10000,
+        "base_growth": 10,
+        "max_surplus_growth": 40,
+        "support_per_growth_point": 10,
+        "natural_environment_ids": [
+          "shelf_sea"
+        ],
+        "allows_sealed_habitats": true,
+        "allowed_vessel_ids": [
+          "harbor_settler",
+          "scout",
+          "settler"
+        ]
+      },
+      {
+        "id": "wenth",
+        "name": "Wenth",
+        "description": "Each colony is one vast living body; its population units are functional lobes. Skilled work comes easily, but a body must mature to its current capacity before sending a daughter seed.",
+        "culture_name": "Seed Kinship",
+        "population_unit_label": "lobes",
+        "command_culture_id": "kinship",
+        "command_embodiment": "colony_body",
+        "starting_population": 4,
+        "starting_workforce": {
+          "support": 2,
+          "production": 1,
+          "research": 1
+        },
+        "base_capacity": 6,
+        "sealed_base_capacity": null,
+        "support_per_population": 100,
+        "production_basis_points": 20000,
+        "research_basis_points": 20000,
+        "base_growth": 10,
+        "max_surplus_growth": 40,
+        "support_per_growth_point": 10,
+        "natural_environment_ids": [
+          "dry",
+          "open_ocean",
+          "shelf_sea"
+        ],
+        "allows_sealed_habitats": false,
+        "allowed_vessel_ids": [
+          "daughter_seed",
+          "scout"
+        ]
+      }
+    ],
+    "rival_ai": {
+      "algorithm_id": "expansion_v1",
+      "growth_support_workers": 1,
+      "resurvey_min_age": 3
+    },
+    "governor_templates": [
+      {
+        "id": "balanced",
+        "name": "Balanced",
+        "foundation_ids": [
+          "fabrication_hall",
+          "cultivation_hub",
+          "analysis_lab"
+        ],
+        "development_ids": [
+          "habitat_extension",
+          "production_complex",
+          "discovery_center",
+          "habitat_network"
+        ],
+        "support_target": "minimum",
+        "production_weight": 1,
+        "research_weight": 1
+      },
+      {
+        "id": "growth",
+        "name": "Growth",
+        "foundation_ids": [
+          "fabrication_hall",
+          "cultivation_hub",
+          "analysis_lab"
+        ],
+        "development_ids": [
+          "habitat_extension",
+          "habitat_network"
+        ],
+        "support_target": "capped_growth",
+        "production_weight": 1,
+        "research_weight": 1
+      },
+      {
+        "id": "industrial",
+        "name": "Industrial",
+        "foundation_ids": [
+          "fabrication_hall",
+          "cultivation_hub",
+          "analysis_lab"
+        ],
+        "development_ids": [
+          "production_complex",
+          "habitat_extension"
+        ],
+        "support_target": "minimum",
+        "production_weight": 3,
+        "research_weight": 1
+      },
+      {
+        "id": "research",
+        "name": "Research",
+        "foundation_ids": [
+          "fabrication_hall",
+          "cultivation_hub",
+          "analysis_lab"
+        ],
+        "development_ids": [
+          "discovery_center",
+          "habitat_extension"
+        ],
+        "support_target": "minimum",
+        "production_weight": 1,
+        "research_weight": 3
+      }
+    ]
+  },
+  "state": {
+    "crisis": {
+      "enabled": false
+    },
+    "scouting": {
+      "enabled": false,
+      "placement_random": null,
+      "selection_count": 0,
+      "habitat": null
+    },
+    "turn": 0,
+    "next_entity_id": 196,
+    "random": {
+      "state": 5634835062100987431,
+      "increment": 11448373301212932291
+    },
+    "galaxy_seed": 42,
+    "galaxy_shape": "spiral",
+    "galaxy_width": 1400,
+    "galaxy_height": 980,
+    "empires": [
+      {
+        "id": 1,
+        "controller": "human",
+        "species_id": "harl",
+        "research_reserve": 0,
+        "research_target": null,
+        "known_technologies": [],
+        "ready": false,
+        "surveys": [
+          {
+            "star": 2,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 22,
+                "orbit": 1,
+                "planet_type": "forge_world",
+                "colony": 68,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 6,
+                  "surface_seed": 45405103658731510
+                }
+              },
+              {
+                "planet": 23,
+                "orbit": 2,
+                "planet_type": "crystal_world",
+                "colony": 69,
+                "owner": 1,
+                "environment_id": "open_ocean",
+                "appearance": {
+                  "version": 1,
+                  "variant": 1,
+                  "surface_seed": 45405241097685037
+                }
+              }
+            ]
+          },
+          {
+            "star": 3,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 24,
+                "orbit": 1,
+                "planet_type": "crystal_world",
+                "colony": 70,
+                "owner": 1,
+                "environment_id": "open_ocean",
+                "appearance": {
+                  "version": 1,
+                  "variant": 4,
+                  "surface_seed": 45405378536638563
+                }
+              },
+              {
+                "planet": 25,
+                "orbit": 2,
+                "planet_type": "forge_world",
+                "colony": 71,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 7,
+                  "surface_seed": 45405515975592089
+                }
+              },
+              {
+                "planet": 26,
+                "orbit": 3,
+                "planet_type": "verdant_world",
+                "colony": 72,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 2,
+                  "surface_seed": 45405653414545616
+                }
+              }
+            ]
+          },
+          {
+            "star": 4,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 27,
+                "orbit": 1,
+                "planet_type": "forge_world",
+                "colony": 73,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 5,
+                  "surface_seed": 45405790853499142
+                }
+              },
+              {
+                "planet": 28,
+                "orbit": 2,
+                "planet_type": "forge_world",
+                "colony": 74,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 0,
+                  "surface_seed": 45405928292452669
+                }
+              },
+              {
+                "planet": 29,
+                "orbit": 3,
+                "planet_type": "crystal_world",
+                "colony": 75,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 3,
+                  "surface_seed": 45406065731406195
+                }
+              },
+              {
+                "planet": 30,
+                "orbit": 4,
+                "planet_type": "crystal_world",
+                "colony": 76,
+                "owner": 1,
+                "environment_id": "open_ocean",
+                "appearance": {
+                  "version": 1,
+                  "variant": 1,
+                  "surface_seed": 45511206530830219
+                }
+              }
+            ]
+          },
+          {
+            "star": 5,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 31,
+                "orbit": 1,
+                "planet_type": "barren_rock",
+                "colony": 77,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 6,
+                  "surface_seed": 45511069091876692
+                }
+              },
+              {
+                "planet": 32,
+                "orbit": 2,
+                "planet_type": "forge_world",
+                "colony": 78,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 3,
+                  "surface_seed": 45510931652923166
+                }
+              },
+              {
+                "planet": 33,
+                "orbit": 3,
+                "planet_type": "forge_world",
+                "colony": 79,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 0,
+                  "surface_seed": 45510794213969640
+                }
+              },
+              {
+                "planet": 34,
+                "orbit": 4,
+                "planet_type": "verdant_world",
+                "colony": 66,
+                "owner": 1,
+                "environment_id": "shelf_sea",
+                "appearance": {
+                  "version": 1,
+                  "variant": 5,
+                  "surface_seed": 45511756286644324
+                }
+              }
+            ]
+          },
+          {
+            "star": 6,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 35,
+                "orbit": 1,
+                "planet_type": "crystal_world",
+                "colony": 80,
+                "owner": 1,
+                "environment_id": "open_ocean",
+                "appearance": {
+                  "version": 1,
+                  "variant": 2,
+                  "surface_seed": 45511618847690798
+                }
+              },
+              {
+                "planet": 36,
+                "orbit": 2,
+                "planet_type": "crystal_world",
+                "colony": 81,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 7,
+                  "surface_seed": 45511481408737271
+                }
+              },
+              {
+                "planet": 37,
+                "orbit": 3,
+                "planet_type": "verdant_world",
+                "colony": 82,
+                "owner": 1,
+                "environment_id": "shelf_sea",
+                "appearance": {
+                  "version": 1,
+                  "variant": 4,
+                  "surface_seed": 45511343969783745
+                }
+              },
+              {
+                "planet": 38,
+                "orbit": 4,
+                "planet_type": "barren_rock",
+                "colony": 83,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 1,
+                  "surface_seed": 45512306042458430
+                }
+              }
+            ]
+          },
+          {
+            "star": 7,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 39,
+                "orbit": 1,
+                "planet_type": "crystal_world",
+                "colony": 84,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 6,
+                  "surface_seed": 45512168603504903
+                }
+              }
+            ]
+          },
+          {
+            "star": 8,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 40,
+                "orbit": 1,
+                "planet_type": "forge_world",
+                "colony": 85,
+                "owner": 1,
+                "environment_id": "shelf_sea",
+                "appearance": {
+                  "version": 1,
+                  "variant": 6,
+                  "surface_seed": 46109065978551684
+                }
+              }
+            ]
+          },
+          {
+            "star": 9,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 41,
+                "orbit": 1,
+                "planet_type": "crystal_world",
+                "colony": 86,
+                "owner": 1,
+                "environment_id": "open_ocean",
+                "appearance": {
+                  "version": 1,
+                  "variant": 1,
+                  "surface_seed": 46109203417505211
+                }
+              },
+              {
+                "planet": 42,
+                "orbit": 2,
+                "planet_type": "verdant_world",
+                "colony": 87,
+                "owner": 1,
+                "environment_id": "shelf_sea",
+                "appearance": {
+                  "version": 1,
+                  "variant": 0,
+                  "surface_seed": 46108791100644632
+                }
+              },
+              {
+                "planet": 43,
+                "orbit": 3,
+                "planet_type": "forge_world",
+                "colony": 88,
+                "owner": 1,
+                "environment_id": "open_ocean",
+                "appearance": {
+                  "version": 1,
+                  "variant": 3,
+                  "surface_seed": 46108928539598158
+                }
+              }
+            ]
+          },
+          {
+            "star": 10,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 44,
+                "orbit": 1,
+                "planet_type": "verdant_world",
+                "colony": 89,
+                "owner": 1,
+                "environment_id": "shelf_sea",
+                "appearance": {
+                  "version": 1,
+                  "variant": 2,
+                  "surface_seed": 46109615734365790
+                }
+              }
+            ]
+          },
+          {
+            "star": 11,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 45,
+                "orbit": 1,
+                "planet_type": "crystal_world",
+                "colony": 90,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 5,
+                  "surface_seed": 46109753173319316
+                }
+              },
+              {
+                "planet": 46,
+                "orbit": 2,
+                "planet_type": "barren_rock",
+                "colony": 91,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 4,
+                  "surface_seed": 46109340856458737
+                }
+              },
+              {
+                "planet": 47,
+                "orbit": 3,
+                "planet_type": "verdant_world",
+                "colony": 92,
+                "owner": 1,
+                "environment_id": "shelf_sea",
+                "appearance": {
+                  "version": 1,
+                  "variant": 7,
+                  "surface_seed": 46109478295412263
+                }
+              }
+            ]
+          },
+          {
+            "star": 12,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 48,
+                "orbit": 1,
+                "planet_type": "barren_rock",
+                "colony": 93,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 6,
+                  "surface_seed": 46110165490179895
+                }
+              }
+            ]
+          },
+          {
+            "star": 13,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 49,
+                "orbit": 1,
+                "planet_type": "barren_rock",
+                "colony": 94,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 1,
+                  "surface_seed": 46110302929133422
+                }
+              }
+            ]
+          },
+          {
+            "star": 14,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 50,
+                "orbit": 1,
+                "planet_type": "barren_rock",
+                "colony": 95,
+                "owner": 1,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 7,
+                  "surface_seed": 46233035914608821
+                }
+              }
+            ]
+          },
+          {
+            "star": 15,
+            "last_observed_turn": 0,
+            "planets": [
+              {
+                "planet": 51,
+                "orbit": 1,
+                "planet_type": "crystal_world",
+                "colony": 96,
+                "owner": 1,
+                "environment_id": "shelf_sea",
+                "appearance": {
+                  "version": 1,
+                  "variant": 4,
+                  "surface_seed": 46232898475655295
+                }
+              },
+              {
+                "planet": 52,
+                "orbit": 2,
+                "planet_type": "barren_rock",
+                "colony": null,
+                "owner": null,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 5,
+                  "surface_seed": 46233310792515874
+                }
+              }
+            ]
+          }
+        ],
+        "ai_policy_id": null,
+        "contacts": [],
+        "crisis": {
+          "random": {
+            "state": 11158500043467840445,
+            "increment": 11572142791786627073
+          },
+          "next_episode_number": 1,
+          "next_eligible_turn": 0,
+          "episode": null,
+          "authority": "manual",
+          "authority_research_share": 50,
+          "research_policy_paused": false,
+          "require_acknowledgement": true,
+          "civic_level": 0,
+          "civic_expires_at": 0,
+          "pending_digests": [],
+          "completed_digests": [],
+          "pending_receipts": [],
+          "lost_colony_locations": []
+        },
+        "scouting": {
+          "risk_random": null,
+          "risk_roll_count": 0,
+          "next_encounter_number": 1,
+          "known_habitats": [],
+          "successful_studies": [],
+          "receipts": [],
+          "pending_digest": null,
+          "completed_digests": [],
+          "retired_vessels": []
+        },
+        "development": {
+          "next_template_number": 1,
+          "custom_templates": [],
+          "new_colony_plan": null,
+          "pending_report": null,
+          "completed_reports": []
+        },
+        "fleet_command": {
+          "next_fleet_id": 21,
+          "next_request_id": 4,
+          "next_officer_id": 2,
+          "next_event_id": 8,
+          "lifetime_commissions": 1,
+          "recovery_algorithm_version": 1,
+          "recovery_random": {
+            "state": 10822750475600051645,
+            "increment": 11856436985063973889
+          },
+          "recovery_roll_count": 0,
+          "future_doctrine": null,
+          "fleets": [
+            {
+              "id": 1,
+              "name": "Task force 01",
+              "members": [
+                67,
+                97,
+                98
+              ],
+              "flagship": 67,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 2,
+              "name": "Task force 02",
+              "members": [
+                99,
+                100,
+                101
+              ],
+              "flagship": 99,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 3,
+              "name": "Task force 03",
+              "members": [
+                102,
+                103,
+                104
+              ],
+              "flagship": 102,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 4,
+              "name": "Task force 04",
+              "members": [
+                105,
+                106,
+                107
+              ],
+              "flagship": 105,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 5,
+              "name": "Task force 05",
+              "members": [
+                108,
+                109,
+                110
+              ],
+              "flagship": 108,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 6,
+              "name": "Task force 06",
+              "members": [
+                111,
+                112,
+                113
+              ],
+              "flagship": 111,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 7,
+              "name": "Task force 07",
+              "members": [
+                114,
+                115,
+                116
+              ],
+              "flagship": 114,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 8,
+              "name": "Task force 08",
+              "members": [
+                117,
+                118,
+                119
+              ],
+              "flagship": 117,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 9,
+              "name": "Task force 09",
+              "members": [
+                120,
+                121,
+                122
+              ],
+              "flagship": 120,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 10,
+              "name": "Task force 10",
+              "members": [
+                123,
+                124,
+                125
+              ],
+              "flagship": 123,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 11,
+              "name": "Task force 11",
+              "members": [
+                126,
+                127,
+                128
+              ],
+              "flagship": 126,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 12,
+              "name": "Task force 12",
+              "members": [
+                129,
+                130,
+                131
+              ],
+              "flagship": 129,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 13,
+              "name": "Task force 13",
+              "members": [
+                132,
+                133,
+                134
+              ],
+              "flagship": 132,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 14,
+              "name": "Task force 14",
+              "members": [
+                135,
+                136,
+                137
+              ],
+              "flagship": 135,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 15,
+              "name": "Task force 15",
+              "members": [
+                138,
+                139,
+                140
+              ],
+              "flagship": 138,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 16,
+              "name": "Task force 16",
+              "members": [
+                141,
+                142,
+                143
+              ],
+              "flagship": 141,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 17,
+              "name": "Task force 17",
+              "members": [
+                144,
+                145,
+                146
+              ],
+              "flagship": 144,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 18,
+              "name": "Task force 18",
+              "members": [
+                147,
+                148,
+                149
+              ],
+              "flagship": 147,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 19,
+              "name": "Task force 19",
+              "members": [
+                150,
+                151,
+                152
+              ],
+              "flagship": 150,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            },
+            {
+              "id": 20,
+              "name": "Task force 20",
+              "members": [
+                153,
+                154,
+                155
+              ],
+              "flagship": 153,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": null,
+              "attention": null
+            }
+          ],
+          "requests": [
+            {
+              "next_slot_ordinal": 4,
+              "id": 1,
+              "revision": 2,
+              "name": "Retained scale request",
+              "rally": 5,
+              "rally_fleet": null,
+              "reserved_fleet_slot": true,
+              "priority": "normal",
+              "status": "paused",
+              "colonies": [
+                66,
+                68,
+                69
+              ],
+              "paused_contributions": [],
+              "slots": [
+                {
+                  "ordinal": 1,
+                  "role_id": "scout",
+                  "colony": null,
+                  "queue_token": null,
+                  "vessel": null,
+                  "former_vessel": 157,
+                  "status": "missing",
+                  "resume_status": null,
+                  "new_hull": false,
+                  "blocked_reason": "Manually detached; a finite amendment is required for replacement."
+                },
+                {
+                  "ordinal": 2,
+                  "role_id": "scout",
+                  "colony": null,
+                  "queue_token": null,
+                  "vessel": 158,
+                  "former_vessel": null,
+                  "status": "built",
+                  "resume_status": null,
+                  "new_hull": false,
+                  "blocked_reason": null
+                },
+                {
+                  "ordinal": 3,
+                  "role_id": "scout",
+                  "colony": 66,
+                  "queue_token": 1,
+                  "vessel": null,
+                  "former_vessel": null,
+                  "status": "queued",
+                  "resume_status": null,
+                  "new_hull": false,
+                  "blocked_reason": null
+                }
+              ],
+              "authorize_cargo": false,
+              "coordinator": null,
+              "initial_xp_recipient": null,
+              "coordinator_xp_forfeited": false,
+              "has_allocated": true,
+              "completed_turn": null,
+              "attention": null
+            },
+            {
+              "next_slot_ordinal": 2,
+              "id": 2,
+              "revision": 3,
+              "name": "Scale build 3",
+              "rally": 5,
+              "rally_fleet": null,
+              "reserved_fleet_slot": true,
+              "priority": "normal",
+              "status": "active",
+              "colonies": [
+                70
+              ],
+              "paused_contributions": [],
+              "slots": [
+                {
+                  "ordinal": 1,
+                  "role_id": "scout",
+                  "colony": 70,
+                  "queue_token": 1,
+                  "vessel": null,
+                  "former_vessel": null,
+                  "status": "queued",
+                  "resume_status": null,
+                  "new_hull": false,
+                  "blocked_reason": null
+                }
+              ],
+              "authorize_cargo": false,
+              "coordinator": null,
+              "initial_xp_recipient": null,
+              "coordinator_xp_forfeited": false,
+              "has_allocated": true,
+              "completed_turn": null,
+              "attention": null
+            },
+            {
+              "next_slot_ordinal": 2,
+              "id": 3,
+              "revision": 1,
+              "name": "Scale build 4",
+              "rally": 5,
+              "rally_fleet": null,
+              "reserved_fleet_slot": true,
+              "priority": "normal",
+              "status": "active",
+              "colonies": [
+                71
+              ],
+              "paused_contributions": [],
+              "slots": [
+                {
+                  "ordinal": 1,
+                  "role_id": "scout",
+                  "colony": 71,
+                  "queue_token": 1,
+                  "vessel": null,
+                  "former_vessel": null,
+                  "status": "queued",
+                  "resume_status": null,
+                  "new_hull": false,
+                  "blocked_reason": null
+                }
+              ],
+              "authorize_cargo": false,
+              "coordinator": null,
+              "initial_xp_recipient": null,
+              "coordinator_xp_forfeited": false,
+              "has_allocated": true,
+              "completed_turn": null,
+              "attention": null
+            }
+          ],
+          "officers": [
+            {
+              "id": 1,
+              "profile_id": "schools_navigator",
+              "species_id": "harl",
+              "culture_id": "schools",
+              "name": "Tavi Sen",
+              "pronouns": "they/them",
+              "personality": "Methodical pilot.",
+              "embodiment": "mortal",
+              "specialty": "navigator",
+              "doctrine": "last_watch",
+              "status": "posted",
+              "xp": 0,
+              "rank": 0,
+              "source_body": null,
+              "posted_colony": 66,
+              "flagship": null,
+              "request": null,
+              "recovery_colony": null,
+              "available_at_turn": null,
+              "recovery_started_turn": null,
+              "recovery_percent_at_loss": null,
+              "final_summary": null,
+              "career": {
+                "first_surveys": 0,
+                "studies": 0,
+                "new_hulls": 0,
+                "ships_lost": 0,
+                "flagships_lost": 0,
+                "recoveries": 0,
+                "xp_earned": 0,
+                "completed_requests": 0
+              },
+              "highlights": [],
+              "details": []
+            }
+          ],
+          "candidate_profiles": [
+            "schools_surveyor",
+            "schools_organizer"
+          ],
+          "profile_commissions": {
+            "schools_navigator": 1
+          },
+          "survey_credits": [
+            5
+          ],
+          "study_credits": [],
+          "hull_credits": [],
+          "pending_events": [
+            {
+              "owner": 1,
+              "id": 1,
+              "turn": 0,
+              "kind": "request_Accept",
+              "reason": "Retained scale request: Accept.",
+              "importance": "summary",
+              "fleet": null,
+              "request": 1,
+              "officer": null,
+              "vessel": null
+            },
+            {
+              "owner": 1,
+              "id": 2,
+              "turn": 0,
+              "kind": "request_DetachSlot",
+              "reason": "Retained scale request: DetachSlot.",
+              "importance": "summary",
+              "fleet": null,
+              "request": 1,
+              "officer": null,
+              "vessel": null
+            },
+            {
+              "owner": 1,
+              "id": 3,
+              "turn": 0,
+              "kind": "SetDoctrine",
+              "reason": "Tavi Sen adopted Last watch.",
+              "importance": "summary",
+              "fleet": null,
+              "request": null,
+              "officer": 1,
+              "vessel": null
+            },
+            {
+              "owner": 1,
+              "id": 4,
+              "turn": 0,
+              "kind": "request_Accept",
+              "reason": "Scale build 3: Accept.",
+              "importance": "summary",
+              "fleet": null,
+              "request": 2,
+              "officer": null,
+              "vessel": null
+            },
+            {
+              "owner": 1,
+              "id": 6,
+              "turn": 0,
+              "kind": "request_SetContributionPaused",
+              "reason": "Scale build 3: SetContributionPaused.",
+              "importance": "summary",
+              "fleet": null,
+              "request": 2,
+              "officer": null,
+              "vessel": null
+            },
+            {
+              "owner": 1,
+              "id": 7,
+              "turn": 0,
+              "kind": "request_Accept",
+              "reason": "Scale build 4: Accept.",
+              "importance": "summary",
+              "fleet": null,
+              "request": 3,
+              "officer": null,
+              "vessel": null
+            }
+          ],
+          "recent_events": []
+        }
+      }
+    ],
+    "stars": [
+      {
+        "id": 2,
+        "name": "Faldis",
+        "x": 797,
+        "y": 513,
+        "region": "core"
+      },
+      {
+        "id": 3,
+        "name": "Xandre",
+        "x": 539,
+        "y": 566,
+        "region": "core"
+      },
+      {
+        "id": 4,
+        "name": "Quillon",
+        "x": 941,
+        "y": 489,
+        "region": "core"
+      },
+      {
+        "id": 5,
+        "name": "Savett",
+        "x": 331,
+        "y": 335,
+        "region": "arm"
+      },
+      {
+        "id": 6,
+        "name": "Dellith",
+        "x": 957,
+        "y": 664,
+        "region": "arm"
+      },
+      {
+        "id": 7,
+        "name": "Ambrel",
+        "x": 841,
+        "y": 350,
+        "region": "arm"
+      },
+      {
+        "id": 8,
+        "name": "Javeth",
+        "x": 1181,
+        "y": 348,
+        "region": "arm"
+      },
+      {
+        "id": 9,
+        "name": "Kestra",
+        "x": 692,
+        "y": 337,
+        "region": "arm"
+      },
+      {
+        "id": 10,
+        "name": "Vessar",
+        "x": 143,
+        "y": 281,
+        "region": "arm"
+      },
+      {
+        "id": 11,
+        "name": "Oberra",
+        "x": 961,
+        "y": 275,
+        "region": "arm"
+      },
+      {
+        "id": 12,
+        "name": "Hollin",
+        "x": 418,
+        "y": 486,
+        "region": "arm"
+      },
+      {
+        "id": 13,
+        "name": "Zerith",
+        "x": 744,
+        "y": 860,
+        "region": "arm"
+      },
+      {
+        "id": 14,
+        "name": "Esmorra",
+        "x": 273,
+        "y": 204,
+        "region": "arm"
+      },
+      {
+        "id": 15,
+        "name": "Bessaro",
+        "x": 505,
+        "y": 855,
+        "region": "arm"
+      },
+      {
+        "id": 16,
+        "name": "Lorvan",
+        "x": 1340,
+        "y": 480,
+        "region": "arm"
+      },
+      {
+        "id": 17,
+        "name": "Wardel",
+        "x": 795,
+        "y": 666,
+        "region": "arm"
+      },
+      {
+        "id": 18,
+        "name": "Pallis",
+        "x": 1139,
+        "y": 225,
+        "region": "arm"
+      },
+      {
+        "id": 19,
+        "name": "Ulvane",
+        "x": 129,
+        "y": 456,
+        "region": "rim"
+      },
+      {
+        "id": 20,
+        "name": "Corvane",
+        "x": 754,
+        "y": 160,
+        "region": "rim"
+      },
+      {
+        "id": 21,
+        "name": "Evandry",
+        "x": 180,
+        "y": 615,
+        "region": "rim"
+      }
+    ],
+    "planets": [
+      {
+        "id": 22,
+        "star": 2,
+        "orbit": 1,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 45405103658731510
+        }
+      },
+      {
+        "id": 23,
+        "star": 2,
+        "orbit": 2,
+        "planet_type": "crystal_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 45405241097685037
+        }
+      },
+      {
+        "id": 24,
+        "star": 3,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 45405378536638563
+        }
+      },
+      {
+        "id": 25,
+        "star": 3,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 45405515975592089
+        }
+      },
+      {
+        "id": 26,
+        "star": 3,
+        "orbit": 3,
+        "planet_type": "verdant_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 2,
+          "surface_seed": 45405653414545616
+        }
+      },
+      {
+        "id": 27,
+        "star": 4,
+        "orbit": 1,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 5,
+          "surface_seed": 45405790853499142
+        }
+      },
+      {
+        "id": 28,
+        "star": 4,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 0,
+          "surface_seed": 45405928292452669
+        }
+      },
+      {
+        "id": 29,
+        "star": 4,
+        "orbit": 3,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 3,
+          "surface_seed": 45406065731406195
+        }
+      },
+      {
+        "id": 30,
+        "star": 4,
+        "orbit": 4,
+        "planet_type": "crystal_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 45511206530830219
+        }
+      },
+      {
+        "id": 31,
+        "star": 5,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 45511069091876692
+        }
+      },
+      {
+        "id": 32,
+        "star": 5,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 3,
+          "surface_seed": 45510931652923166
+        }
+      },
+      {
+        "id": 33,
+        "star": 5,
+        "orbit": 3,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 0,
+          "surface_seed": 45510794213969640
+        }
+      },
+      {
+        "id": 34,
+        "star": 5,
+        "orbit": 4,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 5,
+          "surface_seed": 45511756286644324
+        }
+      },
+      {
+        "id": 35,
+        "star": 6,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 2,
+          "surface_seed": 45511618847690798
+        }
+      },
+      {
+        "id": 36,
+        "star": 6,
+        "orbit": 2,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 45511481408737271
+        }
+      },
+      {
+        "id": 37,
+        "star": 6,
+        "orbit": 3,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 45511343969783745
+        }
+      },
+      {
+        "id": 38,
+        "star": 6,
+        "orbit": 4,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 45512306042458430
+        }
+      },
+      {
+        "id": 39,
+        "star": 7,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 45512168603504903
+        }
+      },
+      {
+        "id": 40,
+        "star": 8,
+        "orbit": 1,
+        "planet_type": "forge_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 46109065978551684
+        }
+      },
+      {
+        "id": 41,
+        "star": 9,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 46109203417505211
+        }
+      },
+      {
+        "id": 42,
+        "star": 9,
+        "orbit": 2,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 0,
+          "surface_seed": 46108791100644632
+        }
+      },
+      {
+        "id": 43,
+        "star": 9,
+        "orbit": 3,
+        "planet_type": "forge_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 3,
+          "surface_seed": 46108928539598158
+        }
+      },
+      {
+        "id": 44,
+        "star": 10,
+        "orbit": 1,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 2,
+          "surface_seed": 46109615734365790
+        }
+      },
+      {
+        "id": 45,
+        "star": 11,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 5,
+          "surface_seed": 46109753173319316
+        }
+      },
+      {
+        "id": 46,
+        "star": 11,
+        "orbit": 2,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 46109340856458737
+        }
+      },
+      {
+        "id": 47,
+        "star": 11,
+        "orbit": 3,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 46109478295412263
+        }
+      },
+      {
+        "id": 48,
+        "star": 12,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 46110165490179895
+        }
+      },
+      {
+        "id": 49,
+        "star": 13,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 46110302929133422
+        }
+      },
+      {
+        "id": 50,
+        "star": 14,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 46233035914608821
+        }
+      },
+      {
+        "id": 51,
+        "star": 15,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 46232898475655295
+        }
+      },
+      {
+        "id": 52,
+        "star": 15,
+        "orbit": 2,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 5,
+          "surface_seed": 46233310792515874
+        }
+      },
+      {
+        "id": 53,
+        "star": 16,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 2,
+          "surface_seed": 46233173353562348
+        }
+      },
+      {
+        "id": 54,
+        "star": 16,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 3,
+          "surface_seed": 46232486158794716
+        }
+      },
+      {
+        "id": 55,
+        "star": 16,
+        "orbit": 3,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 0,
+          "surface_seed": 46232348719841190
+        }
+      },
+      {
+        "id": 56,
+        "star": 16,
+        "orbit": 4,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 46232761036701769
+        }
+      },
+      {
+        "id": 57,
+        "star": 17,
+        "orbit": 1,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 46232623597748242
+        }
+      },
+      {
+        "id": 58,
+        "star": 18,
+        "orbit": 1,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 46234135426237032
+        }
+      },
+      {
+        "id": 59,
+        "star": 18,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 46233997987283506
+        }
+      },
+      {
+        "id": 60,
+        "star": 18,
+        "orbit": 3,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 45883116339001630
+        }
+      },
+      {
+        "id": 61,
+        "star": 18,
+        "orbit": 4,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 45883253777955156
+        }
+      },
+      {
+        "id": 62,
+        "star": 19,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 2,
+          "surface_seed": 45883391216908683
+        }
+      },
+      {
+        "id": 63,
+        "star": 20,
+        "orbit": 1,
+        "planet_type": "verdant_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 5,
+          "surface_seed": 45883528655862209
+        }
+      },
+      {
+        "id": 64,
+        "star": 20,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 0,
+          "surface_seed": 45882566583187525
+        }
+      },
+      {
+        "id": 65,
+        "star": 21,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 3,
+          "surface_seed": 45882704022141051
+        }
+      }
+    ],
+    "colonies": [
+      {
+        "id": 66,
+        "planet": 34,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 6,
+        "workforce": {
+          "support": 6,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 2,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": [
+            {
+              "token": 1,
+              "target": {
+                "kind": "vessel",
+                "content_id": "scout"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": 68,
+        "planet": 22,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": {
+            "id": "industrial",
+            "revision": 1,
+            "definition": {
+              "name": "Industrial",
+              "foundation_ids": [
+                "fabrication_hall",
+                "cultivation_hub",
+                "analysis_lab"
+              ],
+              "development_ids": [
+                "production_complex",
+                "habitat_extension"
+              ],
+              "support_target": "minimum",
+              "production_weight": 3,
+              "research_weight": 1
+            }
+          },
+          "workforce_enabled": true,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 69,
+        "planet": 23,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 70,
+        "planet": 24,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 2,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": [
+            {
+              "token": 1,
+              "target": {
+                "kind": "vessel",
+                "content_id": "scout"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": 71,
+        "planet": 25,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 2,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": [
+            {
+              "token": 1,
+              "target": {
+                "kind": "vessel",
+                "content_id": "scout"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "id": 72,
+        "planet": 26,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 73,
+        "planet": 27,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 74,
+        "planet": 28,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 75,
+        "planet": 29,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 76,
+        "planet": 30,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 77,
+        "planet": 31,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 78,
+        "planet": 32,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 79,
+        "planet": 33,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 80,
+        "planet": 35,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 81,
+        "planet": 36,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 82,
+        "planet": 37,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 83,
+        "planet": 38,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 84,
+        "planet": 39,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 85,
+        "planet": 40,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 86,
+        "planet": 41,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 87,
+        "planet": 42,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 88,
+        "planet": 43,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 89,
+        "planet": 44,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 90,
+        "planet": 45,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 91,
+        "planet": 46,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 92,
+        "planet": 47,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 93,
+        "planet": 48,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 94,
+        "planet": 49,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 95,
+        "planet": 50,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      },
+      {
+        "id": 96,
+        "planet": 51,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 2,
+        "workforce": {
+          "support": 2,
+          "production": 0,
+          "research": 0
+        },
+        "growth_progress": 0,
+        "production_reserve": 0,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      }
+    ],
+    "vessels": [
+      {
+        "id": 67,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 1,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 97,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 1,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 98,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 1,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 99,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 2,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 100,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 2,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 101,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 2,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 102,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 3,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 103,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 3,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 104,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 3,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 105,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 4,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 106,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 4,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 107,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 4,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 108,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 5,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 109,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 5,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 110,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 5,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 111,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 6,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 112,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 6,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 113,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 6,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 114,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 7,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 115,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 7,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 116,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 7,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 117,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 8,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 118,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 8,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 119,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 8,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 120,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 9,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 121,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 9,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 122,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 9,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 123,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 10,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 124,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 10,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 125,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 10,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 126,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 11,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 127,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 11,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 128,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 11,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 129,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 12,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 130,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 12,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 131,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 12,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 132,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 13,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 133,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 13,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 134,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 13,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 135,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 14,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 136,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 14,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 137,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 14,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 138,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 15,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 139,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 15,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 140,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 15,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 141,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 16,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 142,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 16,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 143,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 16,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 144,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 17,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 145,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 17,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 146,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 17,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 147,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 18,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 148,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 18,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 149,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 18,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 150,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 19,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 151,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 19,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 152,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 19,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 153,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 20,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 154,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 20,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 155,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 20,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 156,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": 2,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 157,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": 2,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 158,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 159,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": true,
+        "build_origin": null
+      },
+      {
+        "id": 160,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": true,
+        "build_origin": null
+      },
+      {
+        "id": 161,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 162,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 163,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 164,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 165,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 166,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 167,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 168,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 169,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 170,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 171,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 172,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 173,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 174,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 175,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 176,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 177,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 178,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 179,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 180,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 181,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 182,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 183,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 184,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 185,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 186,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 187,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 188,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 189,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 190,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 191,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 192,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 193,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 194,
+        "empire": 1,
+        "role": "scout",
+        "station": 5,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      },
+      {
+        "id": 195,
+        "empire": 1,
+        "role": "scout",
+        "station": null,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": {
+          "origin": 5,
+          "destination": 2,
+          "total_turns": 2,
+          "remaining_turns": 2
+        },
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null
+      }
+    ]
+  }
+}
