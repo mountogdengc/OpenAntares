@@ -32,6 +32,7 @@ public static class GalaxyGenerator
 
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
+        if(Rules.HasShipDesigns(settings.RulesVersion)&&content.ShipDesigns is null)return Fail("Ship-design campaigns require explicit content, including Off.");
         if(Rules.HasCombat(settings.RulesVersion))
         {
             if(settings.SentriesEnabled is null||content.Combat is null)return Fail("Combat campaigns require explicit Sentries Standard / Off and combat content.");
@@ -170,6 +171,7 @@ public static class GalaxyGenerator
         Crises.CrisisInitializer.Initialize(content,state,settings.CrisesEnabled);
         if(Rules.HasScouting(state.RulesVersion))Scouting.ScoutInitializer.Initialize(content,state,settings.AmebasEnabled!.Value);
         if (Rules.HasFleets(state.RulesVersion)) Fleets.FleetInitializer.Initialize(content, state);
+        ShipDesigns.ShipDesignInitializer.Initialize(content,state);
         if(Rules.HasCombat(state.RulesVersion)&&Combat.CombatInitializer.Initialize(content,state,settings.SentriesEnabled!.Value) is {} combatError)return Fail(combatError);
         IReadOnlyList<string> errors = GameStateValidator.Validate(content, state);
         return errors.Count > 0
