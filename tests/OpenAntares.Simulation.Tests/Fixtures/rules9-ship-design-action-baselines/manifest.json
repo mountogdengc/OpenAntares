@@ -1,0 +1,12 @@
+{
+  "rulesVersion": 9,
+  "writerVersion": 10,
+  "sourceCommit": "8825dabd28d1b5463e23868f1b237421212c3b66",
+  "productTree": "7f0dadd739bf488292fbaed9d93c6dcab882386e",
+  "provenance": "Normally generated old9 seed42 Solo/Off; real fleet creation, officer assignment and request accept/pause/resume; no source/resource/outcome edits",
+  "files": {
+    "checkpoints.json": "b5a5de7253f5513b5a68ff10658ad3b44bfa9bef7aec96a1fb68d577be18760b",
+    "commands.json": "1b196409dee9dc1cbfe6683e647a55b89fbe69dac96bad4cb32427a5d6f335bf",
+    "source.json": "5713dd734110c9020ae9e827c529031f15bae1300ac0dedea670e0d55e35b115"
+  }
+}

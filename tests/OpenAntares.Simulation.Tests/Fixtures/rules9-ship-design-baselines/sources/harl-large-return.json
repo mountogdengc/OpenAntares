@@ -1,0 +1,2576 @@
+{
+  "format": "openantares-save",
+  "schema_version": 10,
+  "rules_version": 9,
+  "content": {
+    "combat": {
+      "role_profiles": {
+        "daughter_seed": {
+          "max_hull": 100,
+          "attack": 0,
+          "armor": 0
+        },
+        "escort": {
+          "max_hull": 100,
+          "attack": 24,
+          "armor": 4
+        },
+        "harbor_settler": {
+          "max_hull": 100,
+          "attack": 0,
+          "armor": 0
+        },
+        "harl_settler": {
+          "max_hull": 100,
+          "attack": 0,
+          "armor": 0
+        },
+        "peldra_settler": {
+          "max_hull": 100,
+          "attack": 0,
+          "armor": 0
+        },
+        "scout": {
+          "max_hull": 60,
+          "attack": 0,
+          "armor": 0
+        },
+        "settler": {
+          "max_hull": 100,
+          "attack": 0,
+          "armor": 0
+        }
+      },
+      "sentry_role_id": "raider_sentry",
+      "sentry_profile": {
+        "max_hull": 80,
+        "attack": 18,
+        "armor": 2
+      },
+      "sentry_pursuit_speed": 250,
+      "pocket_limit": 1,
+      "sentries_per_pocket": 2,
+      "history_limit": 20,
+      "round_detail_limit": 20,
+      "hull_thresholds": [
+        50,
+        25
+      ],
+      "attack_percent": [
+        100,
+        50,
+        25
+      ],
+      "speed_percent": [
+        100,
+        75,
+        50
+      ],
+      "destroyed_cohesion_loss": 20,
+      "crippled_cohesion_loss": 10,
+      "flagship_cohesion_loss": 10,
+      "retreat_cohesion_threshold": 40,
+      "repair_hull_divisor": 4,
+      "repair_cohesion": 20
+    },
+    "fleet_command": {
+      "recovery_technology_id": "command_recovery",
+      "member_limit": 32,
+      "fleet_limit": 64,
+      "request_limit": 32,
+      "participating_colony_limit": 32,
+      "active_officer_limit": 4,
+      "lifetime_commission_limit": 64,
+      "commission_turns": 2,
+      "xp_cap": 30,
+      "highlight_limit": 32,
+      "detail_turn_limit": 10,
+      "mortal_recovery_percent": 50,
+      "researched_recovery_percent": 70,
+      "mortal_recovery_turns": 2,
+      "link_recovery_turns": 2,
+      "last_watch_link_turns": 4,
+      "researched_link_reduction": 1,
+      "first_survey_xp": 2,
+      "assembly_hull_xp": 1,
+      "study_xp": 8,
+      "rank_thresholds": [
+        10,
+        30
+      ],
+      "navigator_bonuses": [
+        5,
+        10
+      ],
+      "survey_research_bonuses": [
+        100,
+        200
+      ],
+      "organizer_discounts": [
+        5,
+        10
+      ],
+      "cultures": [
+        {
+          "id": "estates",
+          "name": "Estates",
+          "default_doctrine": "recover_command",
+          "profile_ids": [
+            "estates_navigator",
+            "estates_surveyor",
+            "estates_organizer"
+          ]
+        },
+        {
+          "id": "schools",
+          "name": "League of Schools",
+          "default_doctrine": "recover_command",
+          "profile_ids": [
+            "schools_navigator",
+            "schools_surveyor",
+            "schools_organizer"
+          ]
+        },
+        {
+          "id": "harbors",
+          "name": "Harbor Houses",
+          "default_doctrine": "recover_command",
+          "profile_ids": [
+            "harbors_navigator",
+            "harbors_surveyor",
+            "harbors_organizer"
+          ]
+        },
+        {
+          "id": "kinship",
+          "name": "Seed Kinship",
+          "default_doctrine": "recover_command",
+          "profile_ids": [
+            "kinship_navigator",
+            "kinship_surveyor",
+            "kinship_organizer"
+          ]
+        }
+      ],
+      "profiles": [
+        {
+          "id": "estates_navigator",
+          "name": "Vara Eshen",
+          "pronouns": "they/them",
+          "culture_id": "estates",
+          "specialty": "navigator",
+          "personality": "Deliberate route planner."
+        },
+        {
+          "id": "estates_surveyor",
+          "name": "Oren Tal",
+          "pronouns": "he/him",
+          "culture_id": "estates",
+          "specialty": "surveyor",
+          "personality": "Patient observer."
+        },
+        {
+          "id": "estates_organizer",
+          "name": "Mira Vell",
+          "pronouns": "she/her",
+          "culture_id": "estates",
+          "specialty": "organizer",
+          "personality": "Careful coordinator."
+        },
+        {
+          "id": "schools_navigator",
+          "name": "Tavi Sen",
+          "pronouns": "they/them",
+          "culture_id": "schools",
+          "specialty": "navigator",
+          "personality": "Methodical pilot."
+        },
+        {
+          "id": "schools_surveyor",
+          "name": "Relo Iven",
+          "pronouns": "he/him",
+          "culture_id": "schools",
+          "specialty": "surveyor",
+          "personality": "Curious recorder."
+        },
+        {
+          "id": "schools_organizer",
+          "name": "Sera Venn",
+          "pronouns": "she/her",
+          "culture_id": "schools",
+          "specialty": "organizer",
+          "personality": "Practical scheduler."
+        },
+        {
+          "id": "harbors_navigator",
+          "name": "Neri Vale",
+          "pronouns": "she/her",
+          "culture_id": "harbors",
+          "specialty": "navigator",
+          "personality": "Cautious pilot."
+        },
+        {
+          "id": "harbors_surveyor",
+          "name": "Taren Oss",
+          "pronouns": "they/them",
+          "culture_id": "harbors",
+          "specialty": "surveyor",
+          "personality": "Attentive chart maker."
+        },
+        {
+          "id": "harbors_organizer",
+          "name": "Olan Riss",
+          "pronouns": "he/him",
+          "culture_id": "harbors",
+          "specialty": "organizer",
+          "personality": "Steady coordinator."
+        },
+        {
+          "id": "kinship_navigator",
+          "name": "Command appointment",
+          "pronouns": "they/them",
+          "culture_id": "kinship",
+          "specialty": "navigator",
+          "personality": "The source colony body maintains this command link."
+        },
+        {
+          "id": "kinship_surveyor",
+          "name": "Command appointment",
+          "pronouns": "they/them",
+          "culture_id": "kinship",
+          "specialty": "surveyor",
+          "personality": "The source colony body maintains this command link."
+        },
+        {
+          "id": "kinship_organizer",
+          "name": "Command appointment",
+          "pronouns": "they/them",
+          "culture_id": "kinship",
+          "specialty": "organizer",
+          "personality": "The source colony body maintains this command link."
+        }
+      ]
+    },
+    "space_ameba": {
+      "id": "space_ameba",
+      "name": "Space ameba",
+      "pursuit_speed": 200,
+      "late_escape": {
+        "base_percent": 50,
+        "relative_speed_coefficient": 100,
+        "minimum_percent": 5,
+        "maximum_percent": 95
+      },
+      "study": {
+        "base_percent": 50,
+        "relative_speed_coefficient": 50,
+        "minimum_percent": 5,
+        "maximum_percent": 90
+      },
+      "research_reward": 600
+    },
+    "plagues": [
+      {
+        "id": "ash_bloom",
+        "name": "Ash Bloom",
+        "first_check_turn": 20,
+        "check_interval": 20,
+        "check_chance_percent": 25,
+        "cooldown_turns": 30,
+        "grace_turns": 2,
+        "recovery_intervals": 6,
+        "initial_severity": 20,
+        "severity_cap": 100,
+        "open_severity_step": 20,
+        "quarantined_severity_step": 5,
+        "mortality_threshold": 80,
+        "mortality_units": 1,
+        "illness_factor_bp": 8000,
+        "quarantine_factor_bp": 7500,
+        "cure_base": 600,
+        "cure_per_population": 100,
+        "immunity_turns": 12,
+        "purge_numerator": 1,
+        "purge_denominator": 2,
+        "civic_factor_loss_bp": 1000,
+        "civic_max_level": 3,
+        "civic_turns": 5
+      }
+    ],
+    "rules": {
+      "support_per_population": 100,
+      "base_growth": 10,
+      "max_surplus_growth": 40,
+      "base_colony_capacity": 10
+    },
+    "starting_colony": {
+      "planet_type": "verdant_world",
+      "population": 6,
+      "workforce": {
+        "support": 2,
+        "production": 2,
+        "research": 2
+      }
+    },
+    "galaxy": {
+      "min_star_distance": 120,
+      "min_planets_per_star": 1,
+      "max_planets_per_star": 4,
+      "star_names": [
+        "Aldrane",
+        "Ambrel",
+        "Bessaro",
+        "Calloran",
+        "Corvane",
+        "Dellith",
+        "Dunmere",
+        "Esmorra",
+        "Evandry",
+        "Faldis",
+        "Gethra",
+        "Hollin",
+        "Ismere",
+        "Javeth",
+        "Kestra",
+        "Lorvan",
+        "Mirrin",
+        "Nesh",
+        "Oberra",
+        "Pallis",
+        "Quillon",
+        "Rhoven",
+        "Savett",
+        "Tarrow",
+        "Ulvane",
+        "Vessar",
+        "Wardel",
+        "Xandre",
+        "Yollis",
+        "Zerith"
+      ],
+      "regions": {
+        "arm": {
+          "name": "Arm",
+          "description": "The star-rich spiral arms."
+        },
+        "core": {
+          "name": "Core",
+          "description": "The dense galactic center."
+        },
+        "rim": {
+          "name": "Rim",
+          "description": "The sparse outer galaxy."
+        }
+      }
+    },
+    "galaxy_sizes": [
+      {
+        "id": "large",
+        "name": "Large",
+        "star_count": 20,
+        "width": 1400,
+        "height": 980
+      },
+      {
+        "id": "medium",
+        "name": "Medium",
+        "star_count": 16,
+        "width": 1200,
+        "height": 840
+      },
+      {
+        "id": "small",
+        "name": "Small",
+        "star_count": 12,
+        "width": 1000,
+        "height": 700
+      }
+    ],
+    "planet_types": [
+      {
+        "id": "barren_rock",
+        "name": "Barren Rock",
+        "colonizable": true,
+        "support_per_worker": 100,
+        "production_per_worker": 200,
+        "research_per_worker": 100,
+        "generation_weight": 3,
+        "environment_generation_weights": {
+          "dry": 8,
+          "open_ocean": 0,
+          "shelf_sea": 0
+        },
+        "region_generation_weights": {
+          "arm": 2,
+          "core": 1,
+          "rim": 3
+        }
+      },
+      {
+        "id": "crystal_world",
+        "name": "Crystal World",
+        "colonizable": true,
+        "support_per_worker": 200,
+        "production_per_worker": 200,
+        "research_per_worker": 300,
+        "generation_weight": 2,
+        "environment_generation_weights": {
+          "dry": 4,
+          "open_ocean": 3,
+          "shelf_sea": 1
+        },
+        "region_generation_weights": {
+          "arm": 2,
+          "core": 3,
+          "rim": 2
+        }
+      },
+      {
+        "id": "forge_world",
+        "name": "Forge World",
+        "colonizable": true,
+        "support_per_worker": 200,
+        "production_per_worker": 300,
+        "research_per_worker": 200,
+        "generation_weight": 2,
+        "environment_generation_weights": {
+          "dry": 6,
+          "open_ocean": 1,
+          "shelf_sea": 1
+        },
+        "region_generation_weights": {
+          "arm": 2,
+          "core": 3,
+          "rim": 4
+        }
+      },
+      {
+        "id": "verdant_world",
+        "name": "Verdant World",
+        "colonizable": true,
+        "support_per_worker": 300,
+        "production_per_worker": 200,
+        "research_per_worker": 200,
+        "generation_weight": 2,
+        "environment_generation_weights": {
+          "dry": 2,
+          "open_ocean": 2,
+          "shelf_sea": 4
+        },
+        "region_generation_weights": {
+          "arm": 3,
+          "core": 1,
+          "rim": 1
+        }
+      }
+    ],
+    "buildings": [
+      {
+        "id": "analysis_lab",
+        "name": "Analysis Lab",
+        "cost": 1200,
+        "prerequisites": [
+          "measurement_methods"
+        ],
+        "effects": [
+          {
+            "kind": "research",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "cultivation_hub",
+        "name": "Cultivation Hub",
+        "cost": 1000,
+        "prerequisites": [
+          "cultivation_methods"
+        ],
+        "effects": [
+          {
+            "kind": "support",
+            "amount": 200
+          }
+        ]
+      },
+      {
+        "id": "discovery_center",
+        "name": "Discovery Center",
+        "cost": 3200,
+        "prerequisites": [
+          "cooperative_science"
+        ],
+        "effects": [
+          {
+            "kind": "research",
+            "amount": 300
+          }
+        ]
+      },
+      {
+        "id": "fabrication_hall",
+        "name": "Fabrication Hall",
+        "cost": 1200,
+        "prerequisites": [],
+        "effects": [
+          {
+            "kind": "production",
+            "amount": 100
+          }
+        ]
+      },
+      {
+        "id": "habitat_extension",
+        "name": "Habitat Extension",
+        "cost": 1600,
+        "prerequisites": [
+          "habitat_methods"
+        ],
+        "effects": [
+          {
+            "kind": "capacity",
+            "amount": 2
+          }
+        ]
+      },
+      {
+        "id": "habitat_network",
+        "name": "Habitat Network",
+        "cost": 2800,
+        "prerequisites": [
+          "adaptive_habitats"
+        ],
+        "effects": [
+          {
+            "kind": "support",
+            "amount": 200
+          },
+          {
+            "kind": "capacity",
+            "amount": 2
+          }
+        ]
+      },
+      {
+        "id": "production_complex",
+        "name": "Production Complex",
+        "cost": 3200,
+        "prerequisites": [
+          "industrial_coordination"
+        ],
+        "effects": [
+          {
+            "kind": "production",
+            "amount": 300
+          }
+        ]
+      }
+    ],
+    "technologies": [
+      {
+        "id": "adaptive_habitats",
+        "name": "Adaptive Habitats",
+        "cost": 2400,
+        "prerequisites": [
+          "cultivation_methods",
+          "habitat_methods"
+        ]
+      },
+      {
+        "id": "command_recovery",
+        "name": "Command Recovery",
+        "cost": 2400,
+        "prerequisites": [
+          "industrial_coordination"
+        ]
+      },
+      {
+        "id": "cooperative_science",
+        "name": "Cooperative Science",
+        "cost": 2400,
+        "prerequisites": [
+          "measurement_methods"
+        ]
+      },
+      {
+        "id": "cultivation_methods",
+        "name": "Cultivation Methods",
+        "cost": 1200,
+        "prerequisites": []
+      },
+      {
+        "id": "habitat_methods",
+        "name": "Habitat Methods",
+        "cost": 1600,
+        "prerequisites": []
+      },
+      {
+        "id": "industrial_coordination",
+        "name": "Industrial Coordination",
+        "cost": 2400,
+        "prerequisites": [
+          "measurement_methods"
+        ]
+      },
+      {
+        "id": "measurement_methods",
+        "name": "Measurement Methods",
+        "cost": 1200,
+        "prerequisites": []
+      }
+    ],
+    "expansion": {
+      "starting_vessel": "scout"
+    },
+    "vessels": [
+      {
+        "id": "daughter_seed",
+        "name": "Daughter Seed",
+        "cost": 2400,
+        "speed": 200,
+        "embark_population": 3,
+        "minimum_source_population": 6,
+        "can_found_colony": true,
+        "requires_full_colony": true,
+        "founds_sealed_habitat": false
+      },
+      {
+        "id": "escort",
+        "name": "Escort",
+        "cost": 2400,
+        "speed": 300,
+        "embark_population": 0,
+        "minimum_source_population": 0,
+        "can_found_colony": false,
+        "combat_only": true,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": false
+      },
+      {
+        "id": "harbor_settler",
+        "name": "Harbor Expedition",
+        "cost": 3600,
+        "speed": 200,
+        "embark_population": 2,
+        "minimum_source_population": 4,
+        "can_found_colony": true,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": true
+      },
+      {
+        "id": "harl_settler",
+        "name": "Settlement Launch",
+        "cost": 1600,
+        "speed": 200,
+        "embark_population": 1,
+        "minimum_source_population": 3,
+        "can_found_colony": true,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": false
+      },
+      {
+        "id": "peldra_settler",
+        "name": "Estate Expedition",
+        "cost": 3200,
+        "speed": 200,
+        "embark_population": 2,
+        "minimum_source_population": 4,
+        "can_found_colony": true,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": false
+      },
+      {
+        "id": "scout",
+        "name": "Scout",
+        "cost": 800,
+        "speed": 300,
+        "embark_population": 0,
+        "minimum_source_population": 0,
+        "can_found_colony": false,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": false
+      },
+      {
+        "id": "settler",
+        "name": "Shelf Expedition",
+        "cost": 2400,
+        "speed": 200,
+        "embark_population": 2,
+        "minimum_source_population": 4,
+        "can_found_colony": true,
+        "requires_full_colony": false,
+        "founds_sealed_habitat": false
+      }
+    ],
+    "environments": [
+      {
+        "id": "dry",
+        "name": "Dry",
+        "description": "No suitable surface water. A Sulan colony needs a sealed harbor."
+      },
+      {
+        "id": "open_ocean",
+        "name": "Open Ocean",
+        "description": "Water without the shallow mineral-rich shelves needed for native Sulan habitation."
+      },
+      {
+        "id": "shelf_sea",
+        "name": "Shelf Sea",
+        "description": "Shallow mineral-rich water suitable for a native Sulan colony."
+      }
+    ],
+    "species": [
+      {
+        "id": "harl",
+        "name": "Harl",
+        "description": "Restless, short-lived scholars whose schools preserve the work of each generation. Fast recovery and small settlement launches favor busy, growing communities.",
+        "culture_name": "League of Schools",
+        "population_unit_label": "population",
+        "command_culture_id": "schools",
+        "command_embodiment": "mortal",
+        "starting_population": 6,
+        "starting_workforce": {
+          "support": 2,
+          "production": 2,
+          "research": 2
+        },
+        "base_capacity": 10,
+        "sealed_base_capacity": null,
+        "support_per_population": 100,
+        "production_basis_points": 10000,
+        "research_basis_points": 10000,
+        "base_growth": 10,
+        "max_surplus_growth": 80,
+        "support_per_growth_point": 5,
+        "natural_environment_ids": [
+          "dry",
+          "open_ocean",
+          "shelf_sea"
+        ],
+        "allows_sealed_habitats": false,
+        "allowed_vessel_ids": [
+          "harl_settler",
+          "scout"
+        ]
+      },
+      {
+        "id": "peldra",
+        "name": "Peldra",
+        "description": "Long-lived, broad-handed estate builders with formidable appetites. Support a small, skilled workforce and it can carry powerful workshops and laboratories.",
+        "culture_name": "Estates",
+        "population_unit_label": "population",
+        "command_culture_id": "estates",
+        "command_embodiment": "mortal",
+        "starting_population": 6,
+        "starting_workforce": {
+          "support": 4,
+          "production": 1,
+          "research": 1
+        },
+        "base_capacity": 10,
+        "sealed_base_capacity": null,
+        "support_per_population": 200,
+        "production_basis_points": 30000,
+        "research_basis_points": 30000,
+        "base_growth": 5,
+        "max_surplus_growth": 15,
+        "support_per_growth_point": 20,
+        "natural_environment_ids": [
+          "dry",
+          "open_ocean",
+          "shelf_sea"
+        ],
+        "allows_sealed_habitats": false,
+        "allowed_vessel_ids": [
+          "peldra_settler",
+          "scout"
+        ]
+      },
+      {
+        "id": "sulan",
+        "name": "Sulan",
+        "description": "Shark-like aliens at home in shallow, mineral-rich shelf seas. Native expeditions build roomy shelf colonies; costlier harbor kits open other worlds in sealed habitats.",
+        "culture_name": "Harbor Houses",
+        "population_unit_label": "population",
+        "command_culture_id": "harbors",
+        "command_embodiment": "mortal",
+        "starting_population": 6,
+        "starting_workforce": {
+          "support": 2,
+          "production": 2,
+          "research": 2
+        },
+        "base_capacity": 12,
+        "sealed_base_capacity": 8,
+        "support_per_population": 100,
+        "production_basis_points": 10000,
+        "research_basis_points": 10000,
+        "base_growth": 10,
+        "max_surplus_growth": 40,
+        "support_per_growth_point": 10,
+        "natural_environment_ids": [
+          "shelf_sea"
+        ],
+        "allows_sealed_habitats": true,
+        "allowed_vessel_ids": [
+          "harbor_settler",
+          "scout",
+          "settler"
+        ]
+      },
+      {
+        "id": "wenth",
+        "name": "Wenth",
+        "description": "Each colony is one vast living body; its population units are functional lobes. Skilled work comes easily, but a body must mature to its current capacity before sending a daughter seed.",
+        "culture_name": "Seed Kinship",
+        "population_unit_label": "lobes",
+        "command_culture_id": "kinship",
+        "command_embodiment": "colony_body",
+        "starting_population": 4,
+        "starting_workforce": {
+          "support": 2,
+          "production": 1,
+          "research": 1
+        },
+        "base_capacity": 6,
+        "sealed_base_capacity": null,
+        "support_per_population": 100,
+        "production_basis_points": 20000,
+        "research_basis_points": 20000,
+        "base_growth": 10,
+        "max_surplus_growth": 40,
+        "support_per_growth_point": 10,
+        "natural_environment_ids": [
+          "dry",
+          "open_ocean",
+          "shelf_sea"
+        ],
+        "allows_sealed_habitats": false,
+        "allowed_vessel_ids": [
+          "daughter_seed",
+          "scout"
+        ]
+      }
+    ],
+    "rival_ai": {
+      "algorithm_id": "expansion_v1",
+      "growth_support_workers": 1,
+      "resurvey_min_age": 3
+    },
+    "governor_templates": [
+      {
+        "id": "balanced",
+        "name": "Balanced",
+        "foundation_ids": [
+          "fabrication_hall",
+          "cultivation_hub",
+          "analysis_lab"
+        ],
+        "development_ids": [
+          "habitat_extension",
+          "production_complex",
+          "discovery_center",
+          "habitat_network"
+        ],
+        "support_target": "minimum",
+        "production_weight": 1,
+        "research_weight": 1
+      },
+      {
+        "id": "growth",
+        "name": "Growth",
+        "foundation_ids": [
+          "fabrication_hall",
+          "cultivation_hub",
+          "analysis_lab"
+        ],
+        "development_ids": [
+          "habitat_extension",
+          "habitat_network"
+        ],
+        "support_target": "capped_growth",
+        "production_weight": 1,
+        "research_weight": 1
+      },
+      {
+        "id": "industrial",
+        "name": "Industrial",
+        "foundation_ids": [
+          "fabrication_hall",
+          "cultivation_hub",
+          "analysis_lab"
+        ],
+        "development_ids": [
+          "production_complex",
+          "habitat_extension"
+        ],
+        "support_target": "minimum",
+        "production_weight": 3,
+        "research_weight": 1
+      },
+      {
+        "id": "research",
+        "name": "Research",
+        "foundation_ids": [
+          "fabrication_hall",
+          "cultivation_hub",
+          "analysis_lab"
+        ],
+        "development_ids": [
+          "discovery_center",
+          "habitat_extension"
+        ],
+        "support_target": "minimum",
+        "production_weight": 1,
+        "research_weight": 3
+      }
+    ]
+  },
+  "state": {
+    "crisis": {
+      "enabled": false
+    },
+    "scouting": {
+      "enabled": false,
+      "placement_random": null,
+      "selection_count": 0,
+      "habitat": null
+    },
+    "combat": {
+      "sentries_enabled": true,
+      "next_pocket_id": 2,
+      "next_encounter_id": 2,
+      "pockets": [
+        {
+          "id": 1,
+          "star": 16,
+          "next_sentry_id": 3,
+          "sentries": [
+            {
+              "id": 1,
+              "profile": {
+                "max_hull": 80,
+                "attack": 18,
+                "armor": 2
+              },
+              "hull": 36
+            },
+            {
+              "id": 2,
+              "profile": {
+                "max_hull": 80,
+                "attack": 18,
+                "armor": 2
+              },
+              "hull": 80
+            }
+          ],
+          "cleared": false
+        }
+      ],
+      "encounters": []
+    },
+    "turn": 18,
+    "next_entity_id": 70,
+    "random": {
+      "state": 5634835062100987431,
+      "increment": 11448373301212932291
+    },
+    "galaxy_seed": 42,
+    "galaxy_shape": "spiral",
+    "galaxy_width": 1400,
+    "galaxy_height": 980,
+    "empires": [
+      {
+        "id": 1,
+        "controller": "human",
+        "species_id": "harl",
+        "research_reserve": 7200,
+        "research_target": null,
+        "known_technologies": [],
+        "ready": false,
+        "surveys": [
+          {
+            "star": 5,
+            "last_observed_turn": 18,
+            "planets": [
+              {
+                "planet": 31,
+                "orbit": 1,
+                "planet_type": "barren_rock",
+                "colony": null,
+                "owner": null,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 6,
+                  "surface_seed": 45511069091876692
+                }
+              },
+              {
+                "planet": 32,
+                "orbit": 2,
+                "planet_type": "forge_world",
+                "colony": null,
+                "owner": null,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 3,
+                  "surface_seed": 45510931652923166
+                }
+              },
+              {
+                "planet": 33,
+                "orbit": 3,
+                "planet_type": "forge_world",
+                "colony": null,
+                "owner": null,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 0,
+                  "surface_seed": 45510794213969640
+                }
+              },
+              {
+                "planet": 34,
+                "orbit": 4,
+                "planet_type": "verdant_world",
+                "colony": 66,
+                "owner": 1,
+                "environment_id": "shelf_sea",
+                "appearance": {
+                  "version": 1,
+                  "variant": 5,
+                  "surface_seed": 45511756286644324
+                }
+              }
+            ]
+          },
+          {
+            "star": 16,
+            "last_observed_turn": 18,
+            "planets": [
+              {
+                "planet": 53,
+                "orbit": 1,
+                "planet_type": "barren_rock",
+                "colony": null,
+                "owner": null,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 2,
+                  "surface_seed": 46233173353562348
+                }
+              },
+              {
+                "planet": 54,
+                "orbit": 2,
+                "planet_type": "forge_world",
+                "colony": null,
+                "owner": null,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 3,
+                  "surface_seed": 46232486158794716
+                }
+              },
+              {
+                "planet": 55,
+                "orbit": 3,
+                "planet_type": "barren_rock",
+                "colony": null,
+                "owner": null,
+                "environment_id": "dry",
+                "appearance": {
+                  "version": 1,
+                  "variant": 0,
+                  "surface_seed": 46232348719841190
+                }
+              },
+              {
+                "planet": 56,
+                "orbit": 4,
+                "planet_type": "verdant_world",
+                "colony": null,
+                "owner": null,
+                "environment_id": "shelf_sea",
+                "appearance": {
+                  "version": 1,
+                  "variant": 1,
+                  "surface_seed": 46232761036701769
+                }
+              }
+            ]
+          }
+        ],
+        "ai_policy_id": null,
+        "contacts": [],
+        "crisis": {
+          "random": {
+            "state": 11158500043467840445,
+            "increment": 11572142791786627073
+          },
+          "next_episode_number": 1,
+          "next_eligible_turn": 0,
+          "episode": null,
+          "authority": "manual",
+          "authority_research_share": 50,
+          "research_policy_paused": false,
+          "require_acknowledgement": true,
+          "civic_level": 0,
+          "civic_expires_at": 0,
+          "pending_digests": [],
+          "completed_digests": [],
+          "pending_receipts": [],
+          "lost_colony_locations": []
+        },
+        "scouting": {
+          "risk_random": null,
+          "risk_roll_count": 0,
+          "next_encounter_number": 1,
+          "known_habitats": [],
+          "successful_studies": [],
+          "receipts": [],
+          "pending_digest": {
+            "turn": 18,
+            "entries": [
+              {
+                "owner": 1,
+                "turn": 18,
+                "vessel": 68,
+                "role": "escort",
+                "cargo": 0,
+                "star": 16,
+                "kind": "travelling",
+                "reason": "Committed travel continues.",
+                "destination": 5,
+                "percent": null,
+                "research_award": 0,
+                "encounter": null,
+                "revision": null
+              },
+              {
+                "owner": 1,
+                "turn": 18,
+                "vessel": 69,
+                "role": "escort",
+                "cargo": 0,
+                "star": 16,
+                "kind": "travelling",
+                "reason": "Committed travel continues.",
+                "destination": 5,
+                "percent": null,
+                "research_award": 0,
+                "encounter": null,
+                "revision": null
+              }
+            ]
+          },
+          "completed_digests": [
+            {
+              "turn": 8,
+              "entries": []
+            },
+            {
+              "turn": 9,
+              "entries": []
+            },
+            {
+              "turn": 10,
+              "entries": []
+            },
+            {
+              "turn": 11,
+              "entries": []
+            },
+            {
+              "turn": 12,
+              "entries": [
+                {
+                  "owner": 1,
+                  "turn": 12,
+                  "vessel": 69,
+                  "role": "escort",
+                  "cargo": 0,
+                  "star": 5,
+                  "kind": "constructed",
+                  "reason": "Paid vessel completed; standing orders first apply next planning period.",
+                  "destination": null,
+                  "percent": null,
+                  "research_award": 0,
+                  "encounter": null,
+                  "revision": null
+                }
+              ]
+            },
+            {
+              "turn": 13,
+              "entries": [
+                {
+                  "owner": 1,
+                  "turn": 13,
+                  "vessel": 68,
+                  "role": "escort",
+                  "cargo": 0,
+                  "star": 5,
+                  "kind": "travelling",
+                  "reason": "Committed travel continues.",
+                  "destination": 16,
+                  "percent": null,
+                  "research_award": 0,
+                  "encounter": null,
+                  "revision": null
+                },
+                {
+                  "owner": 1,
+                  "turn": 13,
+                  "vessel": 69,
+                  "role": "escort",
+                  "cargo": 0,
+                  "star": 5,
+                  "kind": "travelling",
+                  "reason": "Committed travel continues.",
+                  "destination": 16,
+                  "percent": null,
+                  "research_award": 0,
+                  "encounter": null,
+                  "revision": null
+                }
+              ]
+            },
+            {
+              "turn": 14,
+              "entries": [
+                {
+                  "owner": 1,
+                  "turn": 14,
+                  "vessel": 68,
+                  "role": "escort",
+                  "cargo": 0,
+                  "star": 5,
+                  "kind": "travelling",
+                  "reason": "Committed travel continues.",
+                  "destination": 16,
+                  "percent": null,
+                  "research_award": 0,
+                  "encounter": null,
+                  "revision": null
+                },
+                {
+                  "owner": 1,
+                  "turn": 14,
+                  "vessel": 69,
+                  "role": "escort",
+                  "cargo": 0,
+                  "star": 5,
+                  "kind": "travelling",
+                  "reason": "Committed travel continues.",
+                  "destination": 16,
+                  "percent": null,
+                  "research_award": 0,
+                  "encounter": null,
+                  "revision": null
+                }
+              ]
+            },
+            {
+              "turn": 15,
+              "entries": [
+                {
+                  "owner": 1,
+                  "turn": 15,
+                  "vessel": 68,
+                  "role": "escort",
+                  "cargo": 0,
+                  "star": 5,
+                  "kind": "travelling",
+                  "reason": "Committed travel continues.",
+                  "destination": 16,
+                  "percent": null,
+                  "research_award": 0,
+                  "encounter": null,
+                  "revision": null
+                },
+                {
+                  "owner": 1,
+                  "turn": 15,
+                  "vessel": 69,
+                  "role": "escort",
+                  "cargo": 0,
+                  "star": 5,
+                  "kind": "travelling",
+                  "reason": "Committed travel continues.",
+                  "destination": 16,
+                  "percent": null,
+                  "research_award": 0,
+                  "encounter": null,
+                  "revision": null
+                }
+              ]
+            },
+            {
+              "turn": 16,
+              "entries": [
+                {
+                  "owner": 1,
+                  "turn": 16,
+                  "vessel": 68,
+                  "role": "escort",
+                  "cargo": 0,
+                  "star": 16,
+                  "kind": "arrived",
+                  "reason": "Arrived by ordinary travel.",
+                  "destination": null,
+                  "percent": null,
+                  "research_award": 0,
+                  "encounter": null,
+                  "revision": null
+                },
+                {
+                  "owner": 1,
+                  "turn": 16,
+                  "vessel": 69,
+                  "role": "escort",
+                  "cargo": 0,
+                  "star": 16,
+                  "kind": "arrived",
+                  "reason": "Arrived by ordinary travel.",
+                  "destination": null,
+                  "percent": null,
+                  "research_award": 0,
+                  "encounter": null,
+                  "revision": null
+                }
+              ]
+            },
+            {
+              "turn": 17,
+              "entries": []
+            }
+          ],
+          "retired_vessels": []
+        },
+        "development": {
+          "next_template_number": 1,
+          "custom_templates": [],
+          "new_colony_plan": null,
+          "pending_report": null,
+          "completed_reports": [
+            {
+              "turn": 8,
+              "unchanged_count": 1,
+              "entries": []
+            },
+            {
+              "turn": 9,
+              "unchanged_count": 1,
+              "entries": []
+            },
+            {
+              "turn": 10,
+              "unchanged_count": 1,
+              "entries": []
+            },
+            {
+              "turn": 11,
+              "unchanged_count": 1,
+              "entries": []
+            },
+            {
+              "turn": 12,
+              "unchanged_count": 1,
+              "entries": []
+            },
+            {
+              "turn": 13,
+              "unchanged_count": 1,
+              "entries": []
+            },
+            {
+              "turn": 14,
+              "unchanged_count": 1,
+              "entries": []
+            },
+            {
+              "turn": 15,
+              "unchanged_count": 1,
+              "entries": []
+            },
+            {
+              "turn": 16,
+              "unchanged_count": 1,
+              "entries": []
+            },
+            {
+              "turn": 17,
+              "unchanged_count": 1,
+              "entries": []
+            }
+          ]
+        },
+        "fleet_command": {
+          "next_fleet_id": 2,
+          "next_request_id": 1,
+          "next_officer_id": 2,
+          "next_event_id": 1,
+          "lifetime_commissions": 1,
+          "recovery_algorithm_version": 1,
+          "recovery_random": {
+            "state": 10822750475600051645,
+            "increment": 11856436985063973889
+          },
+          "recovery_roll_count": 0,
+          "future_doctrine": null,
+          "fleets": [
+            {
+              "id": 1,
+              "name": "Paid combat force",
+              "members": [
+                68,
+                69
+              ],
+              "flagship": 68,
+              "officer": null,
+              "order": {
+                "kind": "hold",
+                "destination": null
+              },
+              "cohort": {
+                "origin": 16,
+                "destination": 5,
+                "total_turns": 4,
+                "launch_turn": 17,
+                "effective_speed": 300
+              },
+              "attention": null
+            }
+          ],
+          "requests": [],
+          "officers": [
+            {
+              "id": 1,
+              "profile_id": "schools_navigator",
+              "species_id": "harl",
+              "culture_id": "schools",
+              "name": "Tavi Sen",
+              "pronouns": "they/them",
+              "personality": "Methodical pilot.",
+              "embodiment": "mortal",
+              "specialty": "navigator",
+              "doctrine": "recover_command",
+              "status": "posted",
+              "xp": 0,
+              "rank": 0,
+              "source_body": null,
+              "posted_colony": 66,
+              "flagship": null,
+              "request": null,
+              "recovery_colony": null,
+              "available_at_turn": null,
+              "recovery_started_turn": null,
+              "recovery_percent_at_loss": null,
+              "final_summary": null,
+              "career": {
+                "first_surveys": 0,
+                "studies": 0,
+                "new_hulls": 0,
+                "ships_lost": 0,
+                "flagships_lost": 0,
+                "recoveries": 0,
+                "xp_earned": 0,
+                "completed_requests": 0
+              },
+              "highlights": [],
+              "details": []
+            }
+          ],
+          "candidate_profiles": [
+            "schools_surveyor",
+            "schools_organizer"
+          ],
+          "profile_commissions": {
+            "schools_navigator": 1
+          },
+          "survey_credits": [
+            5,
+            16
+          ],
+          "study_credits": [],
+          "hull_credits": [],
+          "pending_events": [],
+          "recent_events": []
+        },
+        "combat": {
+          "next_event_id": 3,
+          "lifetime_encounters": 1,
+          "lifetime_ships_lost": 0,
+          "lifetime_hull_lost": 28,
+          "lifetime_cargo_lost": 0,
+          "lifetime_hull_repaired": 0,
+          "observations": [
+            {
+              "pocket": 1,
+              "star": 16,
+              "turn": 18,
+              "cleared": false,
+              "sentries": [
+                {
+                  "id": 1,
+                  "profile": {
+                    "max_hull": 80,
+                    "attack": 18,
+                    "armor": 2
+                  },
+                  "hull": 36,
+                  "pursuit_speed": 250
+                },
+                {
+                  "id": 2,
+                  "profile": {
+                    "max_hull": 80,
+                    "attack": 18,
+                    "armor": 2
+                  },
+                  "hull": 80,
+                  "pursuit_speed": 250
+                }
+              ]
+            }
+          ],
+          "responses": [],
+          "history": [
+            {
+              "encounter": 1,
+              "pocket": 1,
+              "turn": 17,
+              "outcome": "Withdrawn",
+              "destroyed": [],
+              "rounds": 1,
+              "details": [
+                {
+                  "encounter": 1,
+                  "turn": 16,
+                  "round": 1,
+                  "interception": false,
+                  "before": {
+                    "encounter_id": 1,
+                    "turn": 16,
+                    "revision": 1,
+                    "owner": 1,
+                    "fleet": 1,
+                    "ships": [
+                      {
+                        "vessel_id": 68,
+                        "role_id": "escort",
+                        "hull": 100,
+                        "max_hull": 100,
+                        "cohesion": 100,
+                        "attack": 24,
+                        "armor": 4,
+                        "effective_speed": 300,
+                        "flagship": true,
+                        "cargo": 0
+                      },
+                      {
+                        "vessel_id": 69,
+                        "role_id": "escort",
+                        "hull": 100,
+                        "max_hull": 100,
+                        "cohesion": 100,
+                        "attack": 24,
+                        "armor": 4,
+                        "effective_speed": 300,
+                        "flagship": false,
+                        "cargo": 0
+                      }
+                    ],
+                    "sentries": [
+                      {
+                        "sentry_id": 1,
+                        "hull": 80,
+                        "max_hull": 80,
+                        "attack": 18,
+                        "armor": 2,
+                        "pursuit_speed": 250
+                      },
+                      {
+                        "sentry_id": 2,
+                        "hull": 80,
+                        "max_hull": 80,
+                        "attack": 18,
+                        "armor": 2,
+                        "pursuit_speed": 250
+                      }
+                    ],
+                    "orders": {
+                      "doctrine": "hold",
+                      "return_colony": 66,
+                      "stragglers": "keep_together",
+                      "on_arrival": "repair"
+                    },
+                    "route": {
+                      "origin": 16,
+                      "origin_x": 1340,
+                      "origin_y": 480,
+                      "destination": 5,
+                      "destination_x": 331,
+                      "destination_y": 335
+                    }
+                  },
+                  "result": {
+                    "ships": [
+                      {
+                        "id": 68,
+                        "before": 100,
+                        "after": 72,
+                        "actual_loss": 28
+                      },
+                      {
+                        "id": 69,
+                        "before": 100,
+                        "after": 100,
+                        "actual_loss": 0
+                      }
+                    ],
+                    "sentries": [
+                      {
+                        "id": 1,
+                        "before": 80,
+                        "after": 36,
+                        "actual_loss": 44
+                      },
+                      {
+                        "id": 2,
+                        "before": 80,
+                        "after": 80,
+                        "actual_loss": 0
+                      }
+                    ],
+                    "shots": [
+                      {
+                        "source": {
+                          "sentry": false,
+                          "id": 68
+                        },
+                        "target": {
+                          "sentry": true,
+                          "id": 1
+                        },
+                        "damage": 22
+                      },
+                      {
+                        "source": {
+                          "sentry": false,
+                          "id": 69
+                        },
+                        "target": {
+                          "sentry": true,
+                          "id": 1
+                        },
+                        "damage": 22
+                      },
+                      {
+                        "source": {
+                          "sentry": true,
+                          "id": 1
+                        },
+                        "target": {
+                          "sentry": false,
+                          "id": 68
+                        },
+                        "damage": 14
+                      },
+                      {
+                        "source": {
+                          "sentry": true,
+                          "id": 2
+                        },
+                        "target": {
+                          "sentry": false,
+                          "id": 68
+                        },
+                        "damage": 14
+                      }
+                    ],
+                    "destroyed_vessels": [],
+                    "destroyed_sentries": []
+                  },
+                  "forecasts": [
+                    {
+                      "id": 68,
+                      "before": "operational",
+                      "after": "operational",
+                      "cohesion_before": 100,
+                      "cohesion_after": 100
+                    },
+                    {
+                      "id": 69,
+                      "before": "operational",
+                      "after": "operational",
+                      "cohesion_before": 100,
+                      "cohesion_after": 100
+                    }
+                  ],
+                  "participants": [
+                    68,
+                    69
+                  ]
+                }
+              ],
+              "hull_lost": 28,
+              "cargo_lost": 0
+            }
+          ],
+          "pending_events": [],
+          "recent_events": [
+            {
+              "id": 1,
+              "turn": 16,
+              "kind": "exchange",
+              "reason": "A frozen simultaneous volley resolved; actual hull loss and destruction are retained in the encounter receipt.",
+              "encounter": 1,
+              "vessel": null
+            },
+            {
+              "id": 2,
+              "turn": 17,
+              "kind": "encounter_closed",
+              "reason": "Withdrawn. Surviving main and detached cohorts keep cargo and the selected finite arrival order; no automatic reinforcement or resend.",
+              "encounter": 1,
+              "vessel": null
+            }
+          ]
+        }
+      }
+    ],
+    "stars": [
+      {
+        "id": 2,
+        "name": "Faldis",
+        "x": 797,
+        "y": 513,
+        "region": "core"
+      },
+      {
+        "id": 3,
+        "name": "Xandre",
+        "x": 539,
+        "y": 566,
+        "region": "core"
+      },
+      {
+        "id": 4,
+        "name": "Quillon",
+        "x": 941,
+        "y": 489,
+        "region": "core"
+      },
+      {
+        "id": 5,
+        "name": "Savett",
+        "x": 331,
+        "y": 335,
+        "region": "arm"
+      },
+      {
+        "id": 6,
+        "name": "Dellith",
+        "x": 957,
+        "y": 664,
+        "region": "arm"
+      },
+      {
+        "id": 7,
+        "name": "Ambrel",
+        "x": 841,
+        "y": 350,
+        "region": "arm"
+      },
+      {
+        "id": 8,
+        "name": "Javeth",
+        "x": 1181,
+        "y": 348,
+        "region": "arm"
+      },
+      {
+        "id": 9,
+        "name": "Kestra",
+        "x": 692,
+        "y": 337,
+        "region": "arm"
+      },
+      {
+        "id": 10,
+        "name": "Vessar",
+        "x": 143,
+        "y": 281,
+        "region": "arm"
+      },
+      {
+        "id": 11,
+        "name": "Oberra",
+        "x": 961,
+        "y": 275,
+        "region": "arm"
+      },
+      {
+        "id": 12,
+        "name": "Hollin",
+        "x": 418,
+        "y": 486,
+        "region": "arm"
+      },
+      {
+        "id": 13,
+        "name": "Zerith",
+        "x": 744,
+        "y": 860,
+        "region": "arm"
+      },
+      {
+        "id": 14,
+        "name": "Esmorra",
+        "x": 273,
+        "y": 204,
+        "region": "arm"
+      },
+      {
+        "id": 15,
+        "name": "Bessaro",
+        "x": 505,
+        "y": 855,
+        "region": "arm"
+      },
+      {
+        "id": 16,
+        "name": "Lorvan",
+        "x": 1340,
+        "y": 480,
+        "region": "arm"
+      },
+      {
+        "id": 17,
+        "name": "Wardel",
+        "x": 795,
+        "y": 666,
+        "region": "arm"
+      },
+      {
+        "id": 18,
+        "name": "Pallis",
+        "x": 1139,
+        "y": 225,
+        "region": "arm"
+      },
+      {
+        "id": 19,
+        "name": "Ulvane",
+        "x": 129,
+        "y": 456,
+        "region": "rim"
+      },
+      {
+        "id": 20,
+        "name": "Corvane",
+        "x": 754,
+        "y": 160,
+        "region": "rim"
+      },
+      {
+        "id": 21,
+        "name": "Evandry",
+        "x": 180,
+        "y": 615,
+        "region": "rim"
+      }
+    ],
+    "planets": [
+      {
+        "id": 22,
+        "star": 2,
+        "orbit": 1,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 45405103658731510
+        }
+      },
+      {
+        "id": 23,
+        "star": 2,
+        "orbit": 2,
+        "planet_type": "crystal_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 45405241097685037
+        }
+      },
+      {
+        "id": 24,
+        "star": 3,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 45405378536638563
+        }
+      },
+      {
+        "id": 25,
+        "star": 3,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 45405515975592089
+        }
+      },
+      {
+        "id": 26,
+        "star": 3,
+        "orbit": 3,
+        "planet_type": "verdant_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 2,
+          "surface_seed": 45405653414545616
+        }
+      },
+      {
+        "id": 27,
+        "star": 4,
+        "orbit": 1,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 5,
+          "surface_seed": 45405790853499142
+        }
+      },
+      {
+        "id": 28,
+        "star": 4,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 0,
+          "surface_seed": 45405928292452669
+        }
+      },
+      {
+        "id": 29,
+        "star": 4,
+        "orbit": 3,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 3,
+          "surface_seed": 45406065731406195
+        }
+      },
+      {
+        "id": 30,
+        "star": 4,
+        "orbit": 4,
+        "planet_type": "crystal_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 45511206530830219
+        }
+      },
+      {
+        "id": 31,
+        "star": 5,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 45511069091876692
+        }
+      },
+      {
+        "id": 32,
+        "star": 5,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 3,
+          "surface_seed": 45510931652923166
+        }
+      },
+      {
+        "id": 33,
+        "star": 5,
+        "orbit": 3,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 0,
+          "surface_seed": 45510794213969640
+        }
+      },
+      {
+        "id": 34,
+        "star": 5,
+        "orbit": 4,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 5,
+          "surface_seed": 45511756286644324
+        }
+      },
+      {
+        "id": 35,
+        "star": 6,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 2,
+          "surface_seed": 45511618847690798
+        }
+      },
+      {
+        "id": 36,
+        "star": 6,
+        "orbit": 2,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 45511481408737271
+        }
+      },
+      {
+        "id": 37,
+        "star": 6,
+        "orbit": 3,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 45511343969783745
+        }
+      },
+      {
+        "id": 38,
+        "star": 6,
+        "orbit": 4,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 45512306042458430
+        }
+      },
+      {
+        "id": 39,
+        "star": 7,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 45512168603504903
+        }
+      },
+      {
+        "id": 40,
+        "star": 8,
+        "orbit": 1,
+        "planet_type": "forge_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 46109065978551684
+        }
+      },
+      {
+        "id": 41,
+        "star": 9,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 46109203417505211
+        }
+      },
+      {
+        "id": 42,
+        "star": 9,
+        "orbit": 2,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 0,
+          "surface_seed": 46108791100644632
+        }
+      },
+      {
+        "id": 43,
+        "star": 9,
+        "orbit": 3,
+        "planet_type": "forge_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 3,
+          "surface_seed": 46108928539598158
+        }
+      },
+      {
+        "id": 44,
+        "star": 10,
+        "orbit": 1,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 2,
+          "surface_seed": 46109615734365790
+        }
+      },
+      {
+        "id": 45,
+        "star": 11,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 5,
+          "surface_seed": 46109753173319316
+        }
+      },
+      {
+        "id": 46,
+        "star": 11,
+        "orbit": 2,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 46109340856458737
+        }
+      },
+      {
+        "id": 47,
+        "star": 11,
+        "orbit": 3,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 46109478295412263
+        }
+      },
+      {
+        "id": 48,
+        "star": 12,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 46110165490179895
+        }
+      },
+      {
+        "id": 49,
+        "star": 13,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 46110302929133422
+        }
+      },
+      {
+        "id": 50,
+        "star": 14,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 46233035914608821
+        }
+      },
+      {
+        "id": 51,
+        "star": 15,
+        "orbit": 1,
+        "planet_type": "crystal_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 46232898475655295
+        }
+      },
+      {
+        "id": 52,
+        "star": 15,
+        "orbit": 2,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 5,
+          "surface_seed": 46233310792515874
+        }
+      },
+      {
+        "id": 53,
+        "star": 16,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 2,
+          "surface_seed": 46233173353562348
+        }
+      },
+      {
+        "id": 54,
+        "star": 16,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 3,
+          "surface_seed": 46232486158794716
+        }
+      },
+      {
+        "id": 55,
+        "star": 16,
+        "orbit": 3,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 0,
+          "surface_seed": 46232348719841190
+        }
+      },
+      {
+        "id": 56,
+        "star": 16,
+        "orbit": 4,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 1,
+          "surface_seed": 46232761036701769
+        }
+      },
+      {
+        "id": 57,
+        "star": 17,
+        "orbit": 1,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 6,
+          "surface_seed": 46232623597748242
+        }
+      },
+      {
+        "id": 58,
+        "star": 18,
+        "orbit": 1,
+        "planet_type": "verdant_world",
+        "environment_id": "shelf_sea",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 46234135426237032
+        }
+      },
+      {
+        "id": 59,
+        "star": 18,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 46233997987283506
+        }
+      },
+      {
+        "id": 60,
+        "star": 18,
+        "orbit": 3,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 4,
+          "surface_seed": 45883116339001630
+        }
+      },
+      {
+        "id": 61,
+        "star": 18,
+        "orbit": 4,
+        "planet_type": "crystal_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 7,
+          "surface_seed": 45883253777955156
+        }
+      },
+      {
+        "id": 62,
+        "star": 19,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 2,
+          "surface_seed": 45883391216908683
+        }
+      },
+      {
+        "id": 63,
+        "star": 20,
+        "orbit": 1,
+        "planet_type": "verdant_world",
+        "environment_id": "open_ocean",
+        "appearance": {
+          "version": 1,
+          "variant": 5,
+          "surface_seed": 45883528655862209
+        }
+      },
+      {
+        "id": 64,
+        "star": 20,
+        "orbit": 2,
+        "planet_type": "forge_world",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 0,
+          "surface_seed": 45882566583187525
+        }
+      },
+      {
+        "id": 65,
+        "star": 21,
+        "orbit": 1,
+        "planet_type": "barren_rock",
+        "environment_id": "dry",
+        "appearance": {
+          "version": 1,
+          "variant": 3,
+          "surface_seed": 45882704022141051
+        }
+      }
+    ],
+    "colonies": [
+      {
+        "id": 66,
+        "planet": 34,
+        "empire": 1,
+        "habitat_mode": "native",
+        "population": 10,
+        "workforce": {
+          "support": 6,
+          "production": 2,
+          "research": 2
+        },
+        "growth_progress": 0,
+        "production_reserve": 2400,
+        "project": null,
+        "project_kind": "building",
+        "completed_buildings": [],
+        "crisis": {
+          "quarantined": false,
+          "release_episode": null,
+          "policy_paused": false,
+          "immunity_family_id": null,
+          "immune_until_turn": 0,
+          "case": null
+        },
+        "development": {
+          "template": null,
+          "workforce_enabled": false,
+          "construction_enabled": false,
+          "next_queue_token": 1,
+          "active_queue_token": null,
+          "origin": "none",
+          "queue": []
+        }
+      }
+    ],
+    "vessels": [
+      {
+        "id": 67,
+        "empire": 1,
+        "role": "scout",
+        "station": 16,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": null,
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": null,
+        "newly_completed": false,
+        "build_origin": null,
+        "combat": {
+          "hull": 60,
+          "cohesion": 100,
+          "return_colony": null,
+          "on_arrival": null,
+          "repairing": false,
+          "hull_lost": 0,
+          "hull_repaired": 0,
+          "last_repair_turn": null,
+          "last_repair_blocked_turn": null
+        }
+      },
+      {
+        "id": 68,
+        "empire": 1,
+        "role": "escort",
+        "station": null,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": {
+          "origin": 16,
+          "destination": 5,
+          "total_turns": 4,
+          "remaining_turns": 3
+        },
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 1,
+        "newly_completed": false,
+        "build_origin": null,
+        "combat": {
+          "hull": 72,
+          "cohesion": 100,
+          "return_colony": 66,
+          "on_arrival": "repair",
+          "repairing": false,
+          "hull_lost": 28,
+          "hull_repaired": 0,
+          "last_repair_turn": null,
+          "last_repair_blocked_turn": null
+        }
+      },
+      {
+        "id": 69,
+        "empire": 1,
+        "role": "escort",
+        "station": null,
+        "pending_move": null,
+        "pending_founding": null,
+        "carried_population": 0,
+        "transit": {
+          "origin": 16,
+          "destination": 5,
+          "total_turns": 4,
+          "remaining_turns": 3
+        },
+        "crisis": {
+          "carrier_episode": null,
+          "inspection_due_turn": null
+        },
+        "scout": {
+          "posture": "observe",
+          "withdraw_from_ameba": true,
+          "last_wait_signature": null,
+          "approach_acceptance": null
+        },
+        "ameba_encounter": null,
+        "fleet": 1,
+        "newly_completed": false,
+        "build_origin": null,
+        "combat": {
+          "hull": 100,
+          "cohesion": 100,
+          "return_colony": 66,
+          "on_arrival": "repair",
+          "repairing": false,
+          "hull_lost": 0,
+          "hull_repaired": 0,
+          "last_repair_turn": null,
+          "last_repair_blocked_turn": null
+        }
+      }
+    ]
+  }
+}

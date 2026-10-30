@@ -1,0 +1,1540 @@
+{
+  "rulesVersion": 9,
+  "writerVersion": 10,
+  "generatedSources": 72,
+  "generatedCheckpoints": 144,
+  "supplementalSources": 11,
+  "sourceCommit": "8825dabd28d1b5463e23868f1b237421212c3b66",
+  "approvedPlanCommit": "4c58403b107063a616645905b6f6f86f86676ca6",
+  "productTree": "7f0dadd739bf488292fbaed9d93c6dcab882386e",
+  "compiler": "8.0.33",
+  "engineSha256": "5951fc658e642aa1fba76ad6cd901c4708c2666f1d673b7c28f0602d3bb2adaa",
+  "programSha256": "b4fc0bf84efc0c137f5a8887fda5fbf5f9697484ce24adcca68f254938cb5f80",
+  "coverage": {
+    "activeCombat": true,
+    "activeRequest": true,
+    "alternativeRole": true,
+    "ameba": true,
+    "cargo": true,
+    "damage": true,
+    "firstHumanReady": true,
+    "off": true,
+    "officer": true,
+    "pausedRequest": true,
+    "pendingCombat": true,
+    "plague": true,
+    "project": true,
+    "queue": true,
+    "repair": true,
+    "return": true,
+    "withdrawal": true
+  },
+  "origins": [
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-large\\start.json",
+      "save": "sources/harl-large-start.json",
+      "sha256": "c271864b180e0bce87ad45474211750d413578e5853cea56e1022a5ba6b03472",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-large\\pending.json",
+      "save": "sources/harl-large-pending.json",
+      "sha256": "a4e46b2c4fecec305df11ee6173a0e7de8893550197333dce27e297de4f9feb7",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-large\\active.json",
+      "save": "sources/harl-large-active.json",
+      "sha256": "fe0acd4afbfaf9591fcef0e783995a7b2c308148ccbe1fba1a523d9feb461719",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-large\\return.json",
+      "save": "sources/harl-large-return.json",
+      "sha256": "42b0abab40844367829aa915efe55235f2e5aa2794e29a853d0a343e20cc5cfa",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-large\\repair.json",
+      "save": "sources/harl-large-repair.json",
+      "sha256": "04912ad340c0543f2419dca21b0aabc60991b5fc80d303a2b35239002034b028",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-large\\cleared.json",
+      "save": "sources/harl-large-cleared.json",
+      "sha256": "5f5a3f7327ecee73a10f1266239fe71bd6fe2c40386b23a61d1d85d8982a1adb",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-medium\\start.json",
+      "save": "sources/harl-medium-start.json",
+      "sha256": "57480689bc0f5132ca8f4ae254ed12cc57ec660efd9c3f314f56bf6d66cb1fb3",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-medium\\pending.json",
+      "save": "sources/harl-medium-pending.json",
+      "sha256": "49c6db266f72dfce58326263b269dd819886b7e20f1aafc05d7e8ae2e8ab0ecf",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-medium\\active.json",
+      "save": "sources/harl-medium-active.json",
+      "sha256": "3aa4d3ee026076956b2f57bd1c86ee2ce189cfd0fd9bd9b8f96ab641aa3f437f",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-medium\\return.json",
+      "save": "sources/harl-medium-return.json",
+      "sha256": "dc54b55fd69252b0fd5eeb49b22d6183cddd775dec3fb3ef70b0c02f51297e95",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-medium\\repair.json",
+      "save": "sources/harl-medium-repair.json",
+      "sha256": "b112a6ffe90a8d21cd333972c72356c24a3b116a7d5c76b6a186b391380254ba",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-medium\\cleared.json",
+      "save": "sources/harl-medium-cleared.json",
+      "sha256": "e9875f97a3b536d05c88906a01a941ae53622c7a164b3e2d166c15d63938b697",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-small\\start.json",
+      "save": "sources/harl-small-start.json",
+      "sha256": "bf9764b1473e486cbd3c1f4cd4d66625c4ff6eede39b5f11f14357b2ba1b4694",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-small\\pending.json",
+      "save": "sources/harl-small-pending.json",
+      "sha256": "ff89ce0888d5b56858348f7dc0b39926e442d767144d0ef34469144a13b68ad8",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-small\\active.json",
+      "save": "sources/harl-small-active.json",
+      "sha256": "c9434fec7d3e861a53ead9508ce2bf49a376258fd3977b9952f8284aa0741cc3",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-small\\return.json",
+      "save": "sources/harl-small-return.json",
+      "sha256": "05e9475abe6d3d9fd8d35dde559a32989a314a895d76b4df00a80ddb1b77286b",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-small\\repair.json",
+      "save": "sources/harl-small-repair.json",
+      "sha256": "374b2cc14e6972838c81b83a3a223df3e663f41032778ba3211aecb0a4a2a8e2",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\harl-small\\cleared.json",
+      "save": "sources/harl-small-cleared.json",
+      "sha256": "a4959362a804a34c9622879a490a7326f320bcc2fc7937a229255a5adcdbbebe",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-large\\start.json",
+      "save": "sources/peldra-large-start.json",
+      "sha256": "b8a4441f9e7aaa2866d8ff8c54cab56c1ac20de7f5aa5acf0839cc1a708a1641",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-large\\pending.json",
+      "save": "sources/peldra-large-pending.json",
+      "sha256": "2ac3d936360777fa9be223f47e00b7e51327576459df373e4d8211a8541d0aeb",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-large\\active.json",
+      "save": "sources/peldra-large-active.json",
+      "sha256": "7fe8ec4dce5953317d30d4026d78f6be8558d316291697d28e270284ff48cee2",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-large\\return.json",
+      "save": "sources/peldra-large-return.json",
+      "sha256": "73a54c83c90d8c571d8a89d705e98277cca2920181e4907e93780990edad0b58",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-large\\repair.json",
+      "save": "sources/peldra-large-repair.json",
+      "sha256": "ee18eeb02a0f7d3e69debbc8069ca576ec477d55592a1f486c803c4735f31d90",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-large\\cleared.json",
+      "save": "sources/peldra-large-cleared.json",
+      "sha256": "f3376c400b5c23be20e44b418c9ef3d11045165e3f52c6d9eb9c0fba4b717152",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-medium\\start.json",
+      "save": "sources/peldra-medium-start.json",
+      "sha256": "44b0dfc3fd9ab062d60a55e3ac789b8227c9dccdde80da38016c4b933a8d2152",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-medium\\pending.json",
+      "save": "sources/peldra-medium-pending.json",
+      "sha256": "7a9618e328b60e50f97b17897d59f56b250a93a972bdb027185eb71188e4e523",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-medium\\active.json",
+      "save": "sources/peldra-medium-active.json",
+      "sha256": "fc91f5c387c0cb08ce07fe16d73e3a31eeb0bbf83e58d04cabf2b67726743d97",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-medium\\return.json",
+      "save": "sources/peldra-medium-return.json",
+      "sha256": "e38b8d53ddd48f7559e0f68eb05177c0a23b115f4a6ef19a029027dfef49736b",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-medium\\repair.json",
+      "save": "sources/peldra-medium-repair.json",
+      "sha256": "b79cf93fa08a7a071881cb85d347d12369ab7abbe32bc5bfbc4d7b6f81cf855e",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-medium\\cleared.json",
+      "save": "sources/peldra-medium-cleared.json",
+      "sha256": "69d751a15639ef43c2fcb1d50161d0f30ec1303f53a5ddb75a09831801a63890",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-small\\start.json",
+      "save": "sources/peldra-small-start.json",
+      "sha256": "bc421339956edeb82a094a27accf2db75c9ffb951dcc1377ae65285a464e14a8",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-small\\pending.json",
+      "save": "sources/peldra-small-pending.json",
+      "sha256": "354312a06aee451117fd5e7b839b6fd4643a2c0c567458f1e8d7c41a59b00d76",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-small\\active.json",
+      "save": "sources/peldra-small-active.json",
+      "sha256": "f98c2f0f05a82620fb9154bb6973986178b512d229963bf0aae809fa8903b20c",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-small\\return.json",
+      "save": "sources/peldra-small-return.json",
+      "sha256": "ea09bee6f48122623b75e0ac46c2029817f0e94366286db288367016f55f2da7",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-small\\repair.json",
+      "save": "sources/peldra-small-repair.json",
+      "sha256": "1b2ccbf631f657e4db7d5030797aab69c818c386776ef73c2cc800fdb3e4d1b2",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\peldra-small\\cleared.json",
+      "save": "sources/peldra-small-cleared.json",
+      "sha256": "5a01a7031521bd748682c9371ed40da33a4cb4cb432a51e7c833ee55b7b32ac9",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-large\\start.json",
+      "save": "sources/sulan-large-start.json",
+      "sha256": "c4d25d9b13159a51477e1cb95b164d1fb01bbda6792c1acd1a87020256c64b4d",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-large\\pending.json",
+      "save": "sources/sulan-large-pending.json",
+      "sha256": "753056a51e26edd1b58ef86e0ce00c6871bd88d1a1a2e038146c745c5e84b06e",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-large\\active.json",
+      "save": "sources/sulan-large-active.json",
+      "sha256": "b23aae8da723e7e71d3c73624288c622221aeab91e0c6b86e4ec9891512eb90c",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-large\\return.json",
+      "save": "sources/sulan-large-return.json",
+      "sha256": "8bde6331809109151572705fe865b7e7e93bcd1e6d8b6d54c78ba1a7d526857d",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-large\\repair.json",
+      "save": "sources/sulan-large-repair.json",
+      "sha256": "da91cc912642c9fe4e1d531868864e6c0e18ba1427d5cccc4079078396029fb4",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-large\\cleared.json",
+      "save": "sources/sulan-large-cleared.json",
+      "sha256": "f5a10524428e22997832652522616cfac186cfd6bc7c2d4075e0ad90195791bc",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-medium\\start.json",
+      "save": "sources/sulan-medium-start.json",
+      "sha256": "49ce7f8388d1fdd843eaf319c04fd92f372c4375283212da5b379dffd38bbaac",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-medium\\pending.json",
+      "save": "sources/sulan-medium-pending.json",
+      "sha256": "093a38655c6b6e75c01b169e69d238f208d08efcfcdde0f0f2a7190ee61caf4e",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-medium\\active.json",
+      "save": "sources/sulan-medium-active.json",
+      "sha256": "0f86a66d900804c9ca41780ff562411b9a3a2178b4dac0fb26e9467cad091c95",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-medium\\return.json",
+      "save": "sources/sulan-medium-return.json",
+      "sha256": "aeb8db0eb335c8256ed3c732f08d2cbb406dc9211e12731d8a73317c9667d0e4",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-medium\\repair.json",
+      "save": "sources/sulan-medium-repair.json",
+      "sha256": "fce1a8d9f84ea28120cd2a0955fd8432c1c0883670a0295497718021543b812a",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-medium\\cleared.json",
+      "save": "sources/sulan-medium-cleared.json",
+      "sha256": "d309a445758e2fab8e61176f5aa6353c383d46606daacc6ade285566b24fc977",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-small\\start.json",
+      "save": "sources/sulan-small-start.json",
+      "sha256": "368d445e953f2c141e372497d58ca7bb9e1dcc8aaae969e377ea7fddca40f87a",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-small\\pending.json",
+      "save": "sources/sulan-small-pending.json",
+      "sha256": "2a8469c8d6a5ceaeb781bb033d5fd1b439450b5a2ef5d79b11914cbe2734bf93",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-small\\active.json",
+      "save": "sources/sulan-small-active.json",
+      "sha256": "62f4a9c0ce4ffc929ba729e98b4ee327cf65ced347a4b35d1a871bea308505ba",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-small\\return.json",
+      "save": "sources/sulan-small-return.json",
+      "sha256": "37ead537e24b40ca34ad45ae3f43e52acb597672c6edcb1a39c2e1a6ac37e1f5",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-small\\repair.json",
+      "save": "sources/sulan-small-repair.json",
+      "sha256": "8683b5a291e0bbfc8f72f435499a7592b58915381ce6794e6d0ac912cfd8f9e8",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\sulan-small\\cleared.json",
+      "save": "sources/sulan-small-cleared.json",
+      "sha256": "49b63f25c45c035e5938c61b79d1ac57bc19e5c58e160246b28931152778a102",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-large\\start.json",
+      "save": "sources/wenth-large-start.json",
+      "sha256": "6eae8a3342e9a66b915571a58bd0b444c34172b255586ae4e5d946dc273e8612",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-large\\pending.json",
+      "save": "sources/wenth-large-pending.json",
+      "sha256": "13c01b39d5769d955671cfb0a11256acc6cd880ac9fa273fa45ee91ea7746b6c",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-large\\active.json",
+      "save": "sources/wenth-large-active.json",
+      "sha256": "4abba1afc723095d1aee7279549a15a2c3bd32f444c3edffccd0dfd2b529e5a1",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-large\\return.json",
+      "save": "sources/wenth-large-return.json",
+      "sha256": "203f3b35a0966b48b7851ead6212e913c29548abe660cc97125a2e5e30b1b837",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-large\\repair.json",
+      "save": "sources/wenth-large-repair.json",
+      "sha256": "9c5a1257162e477914a617ef28cacaac50a7a43d9a269e8c8d27d94b2b29ccbe",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-large\\cleared.json",
+      "save": "sources/wenth-large-cleared.json",
+      "sha256": "d8e3d4049c0c8ecab8be6f5223e07e725859d2ec7f6aad074810c80fce16d0ec",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-medium\\start.json",
+      "save": "sources/wenth-medium-start.json",
+      "sha256": "f675fe72113999e99f09ef26b94022203773bc2f962e2eca054ee3d74123710c",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-medium\\pending.json",
+      "save": "sources/wenth-medium-pending.json",
+      "sha256": "b5601603121a8fb7061b4cecc519921c3152f4173a6fcf7a5a0a7b055b644615",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-medium\\active.json",
+      "save": "sources/wenth-medium-active.json",
+      "sha256": "28d31d0c8e51aee245eb52aa62ce42581c33b31a29d04a27ced24ab3bc257362",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-medium\\return.json",
+      "save": "sources/wenth-medium-return.json",
+      "sha256": "8475f8df50f830dd28d64d35f928bc89cb57eb3ccbfe26022880e0dc56a54833",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-medium\\repair.json",
+      "save": "sources/wenth-medium-repair.json",
+      "sha256": "56cf833bf7822289eae16f2cecdd69e2779ba605a8b78af4bdc4ee5292dde158",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-medium\\cleared.json",
+      "save": "sources/wenth-medium-cleared.json",
+      "sha256": "80773106b7809222aace907e75b17402dde85ea97c596faffb325ec47591fab4",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-small\\start.json",
+      "save": "sources/wenth-small-start.json",
+      "sha256": "3de1867ddce82bdeeb252e1bc33df5f3b7da01ab86a9661bde7cfe71df87d372",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-small\\pending.json",
+      "save": "sources/wenth-small-pending.json",
+      "sha256": "2b1a3870afdc1f21e8b5b1b8a4536ca3eb48d83cd5ffd7d93d92f839d0f74b73",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-small\\active.json",
+      "save": "sources/wenth-small-active.json",
+      "sha256": "2c8b17bd6874416c54e2dd65993e0292b661db04a5b721c5cc1676bcc1de9598",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-small\\return.json",
+      "save": "sources/wenth-small-return.json",
+      "sha256": "d6fd444b86d9464e74972fbaded932c6adbdcdd78791bac94ff2b4669f1a5d34",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-small\\repair.json",
+      "save": "sources/wenth-small-repair.json",
+      "sha256": "00dfe447a30d1813f6212a5af84a51390abd4657221efe30cf64991295631d85",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\reports\\combat-integration-20261029\\combat-01\\generated\\wenth-small\\cleared.json",
+      "save": "sources/wenth-small-cleared.json",
+      "sha256": "7ea0789247be00ae846ed46f612207fd44958f222ee5936a3c9fcbef449bea24",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules9-ship-design-baselines.attempt-20261030T0436277441042\\primed\\off-start.json",
+      "save": "sources/off-start.json",
+      "sha256": "5713dd734110c9020ae9e827c529031f15bae1300ac0dedea670e0d55e35b115",
+      "category": "supplemental",
+      "provenance": "Normally generated unchanged explicit9 seed42 Solo, hazards Off."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules9-ship-design-baselines.attempt-20261030T0436277441042\\primed\\manual-project-queue.json",
+      "save": "sources/manual-project-queue.json",
+      "sha256": "e118b78fa107e18ab151232b1c446d3bf88d55ce110ec00221fa7918ee3871fe",
+      "category": "supplemental",
+      "provenance": "Normally generated9 plus real finite queue/manual project commands, no production injection."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules9-ship-design-baselines.attempt-20261030T0436277441042\\primed\\active-request.json",
+      "save": "sources/active-request.json",
+      "sha256": "ee88958895742c55fb4261c6cb67285a03c7785c83444e7d13ec3e03dccc9efe",
+      "category": "supplemental",
+      "provenance": "Normally generated9 plus an accepted finite paid construction request, no completed hull injected."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules9-ship-design-baselines.attempt-20261030T0436277441042\\primed\\paused-request.json",
+      "save": "sources/paused-request.json",
+      "sha256": "949ebc6fd589823f4061cbca2d4187d488897a2b16fe63da3702f407dbc058f8",
+      "category": "supplemental",
+      "provenance": "Same public request explicitly paused; reservations and unspent queues retained."
+    },
+    {
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-combat-20261029-125412-5506626-withdrawal-800.json",
+      "save": "sources/retained-004.json",
+      "sha256": "b29b05e17e8a6221ea7be60829e5832b97652925bbeaa5f6810e383a33535a73",
+      "category": "supplemental",
+      "provenance": "Actual retained Main fixture/save; original scenario provenance: Actual ordinary Main Save/Load controls"
+    },
+    {
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-combat-20261029-125413-5784850-civilian-800.json",
+      "save": "sources/retained-005.json",
+      "sha256": "1fc510ad57b9bbeb820175d9b41cca3436a89685281b6732eccd99312a9cdfc3",
+      "category": "supplemental",
+      "provenance": "Actual retained Main fixture/save; original scenario provenance: Labelled fixture mounted through ordinary Main Load control"
+    },
+    {
+      "source": "C:\\Users\\david\\AppData\\Roaming\\Godot\\app_userdata\\OpenAntares\\saves\\qa-combat-20261029-125420-5750499-two-human-800.json",
+      "save": "sources/retained-006.json",
+      "sha256": "429799d59dd3318da257c601e37b02b7d2c2264154830f681b7646f52a4c8be5",
+      "category": "supplemental",
+      "provenance": "Actual retained Main fixture/save; original scenario provenance: Actual ordinary Main Save/Load controls"
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules9-ship-design-baselines.attempt-20261030T0436277441042\\primed\\ordinary-plague.json",
+      "save": "sources/ordinary-plague.json",
+      "sha256": "93a196468be0fbb6ab0373654027765c4e329605142594143e9c577d52769a04",
+      "category": "supplemental",
+      "provenance": "Normally generated9, ordinary acknowledged Ready progression to Active plague; no state/resource edits."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules9-ship-design-baselines.attempt-20261030T0436277441042\\primed\\ordinary-ameba.json",
+      "save": "sources/ordinary-ameba.json",
+      "sha256": "e1b181593a49e411af57b389d6042f89ffde31e89785011eb7616f77ebeb635a",
+      "category": "supplemental",
+      "provenance": "Normally generated9 and real public-chart exploration reaches ameba; no teleport/outcome injection."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules9-ship-design-baselines.attempt-20261030T0436277441042\\primed\\first-human-ready.json",
+      "save": "sources/first-human-ready.json",
+      "sha256": "f3c13012b423078448a358dc266e2b963ad3c9131fe4940d1d1875de23d9fb05",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session two-human controller fixture; first human used actual Ready, no boundary occurred."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\ship-design\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules9-ship-design-baselines.attempt-20261030T0436277441042\\primed\\alternative-armed-role.json",
+      "save": "sources/alternative-armed-role.json",
+      "sha256": "6c950ac888802af4762857dd348a3ffb65010d071ee4ec2166a806cd5f0907fb",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session alternate-content armed-role fixture; not earned production."
+    }
+  ],
+  "files": {
+    "checkpoints/active-request.json": "58c1c363b672195ea0bdb2f035b27d25296d76f98fc968076ece5ce32e211187",
+    "checkpoints/alternative-armed-role.json": "63a7ffdb6b59a1ad47a7f6f793b73a7aaacd24230615656fa8c9a18a1d4813fd",
+    "checkpoints/first-human-ready.json": "ec07241faa0b1f136e76d63286dcc8191359add8fb24058100dbe54b05ffd054",
+    "checkpoints/harl-large-active.json": "5b512c62c49234b591ed0cadcf241b871d90db81794b7ffa9eb8213d7da769df",
+    "checkpoints/harl-large-cleared.json": "1cae2287f1bd49b90b51c5607204fbf478fb86baa7cbbff2f29f949542433736",
+    "checkpoints/harl-large-pending.json": "5916fb1662dce3ac0ef040cfd229a3b098407ab42d2020b371927ee290d0a567",
+    "checkpoints/harl-large-repair.json": "0d056a649f75d5b6781376ff9dd9a8064c5d8cafe0e9fe612a82905c777c3bba",
+    "checkpoints/harl-large-return.json": "81e8a864d96ea884029ec27599d47c8ea438c3ba31502ec2bceae352ed0998d2",
+    "checkpoints/harl-large-start.json": "8d7ff238943cb69b69e7fa01c92bef53664e760a3266fb122ed4e6e71eaa204b",
+    "checkpoints/harl-medium-active.json": "e199f38434f4f11962b5135384622ae904121895bc0b1c5705df976654c938cf",
+    "checkpoints/harl-medium-cleared.json": "b7b1279d15dd4d74df6fc1c61aee6dac9851f42161c6dcd6958530abb427fd6c",
+    "checkpoints/harl-medium-pending.json": "6f0ffdcdfc74069cbbcecdfcf023c2fc82a0115388a9a8d8da07390dd8c604df",
+    "checkpoints/harl-medium-repair.json": "5e5f758467e7db22b6e1ada7b6fed2194feda552e38822c1619d3b5e1d3fbf00",
+    "checkpoints/harl-medium-return.json": "95f1e5cf2a5ba4492e0f10a30e03625987f9d5836a13629b9d92e10ae4e3e43f",
+    "checkpoints/harl-medium-start.json": "3a361ac11f49ee11e59710d03852cdca227c203e293052b16a71251c798ae9b0",
+    "checkpoints/harl-small-active.json": "8d6a06b16b86a26ca623d1dcb0a915e066bab1ece10ed1212467390899beb89f",
+    "checkpoints/harl-small-cleared.json": "ab10047390072068b1c072c0b2d549a5dd600fed10aa2f38c27ec693d9b686b0",
+    "checkpoints/harl-small-pending.json": "d737f711dc12dcdfd316b92901e23d771c109d307da9bd11ef0301211f61141c",
+    "checkpoints/harl-small-repair.json": "3485dcf5d75f7f2092d488398075dffe674c2c270ad4120a78b4bafff49d91c9",
+    "checkpoints/harl-small-return.json": "ed64b1486639152182f40b840e29bb515938984199d1fc197fa57cf4d5f74ab2",
+    "checkpoints/harl-small-start.json": "f25cf65c83dbdcdd7b13d1a27939424c98f6c502d8e67270d2810c49303348d8",
+    "checkpoints/manual-project-queue.json": "e8f638c600b290b0b3d856bd3abd945cc8b164718b4a79dff63f018f812f4788",
+    "checkpoints/off-start.json": "4f74891fefbbdc9ea6a32dfe174a4155a40cab4ca31163f5c506a0b42449a0b7",
+    "checkpoints/ordinary-ameba.json": "ef2a6ac9b8a3793082dff564fd097d3dce20c0aff30e0db94211c1b3e0000acf",
+    "checkpoints/ordinary-plague.json": "ac06ec1dd6878022cd57dd9f1c2ad437b2b7f40f830950034b9b0781ab675a8d",
+    "checkpoints/paused-request.json": "840f899c155d59075d4cb3bb5f10165a48165e8931e6710f560a3727274054b1",
+    "checkpoints/peldra-large-active.json": "174b994e1cccf78e4e277aa9bd62e4aad8ff7689522b875062507b80aac01587",
+    "checkpoints/peldra-large-cleared.json": "dde6b108ebc1b0d83bcd99aae271f35887f4d2d19de92edb585f9190c22bbb2f",
+    "checkpoints/peldra-large-pending.json": "394d040fba0479e3769e1566c065fb6f19a9a2205d4e791b5b566c6d2459fc8f",
+    "checkpoints/peldra-large-repair.json": "fee2540bd1ff1c61e8a144064dacfe4fc1d5291b8da21f40bd78b638b9e5d74d",
+    "checkpoints/peldra-large-return.json": "6933d10aab08d1bad75b230712c0c899896c1c454974faa47233156dbc3bf4f2",
+    "checkpoints/peldra-large-start.json": "22460da034bb35a7735f2aadda183d13bd137b8d75d1b6742cb51ea9c9d2e4c5",
+    "checkpoints/peldra-medium-active.json": "bcf566a7a4236730d2367ce5f7eca6ff69a7bc5e93d474482687aeb9c82ba011",
+    "checkpoints/peldra-medium-cleared.json": "6b1650cc7b629196d10b4e288d878c4871e89bf005aa1d7eaf427010f950eac0",
+    "checkpoints/peldra-medium-pending.json": "5cf4c6836e4354b9b159caf1cde56e51ea3f9a4463f758c4d44dd03fa9f3724b",
+    "checkpoints/peldra-medium-repair.json": "f512c2f898feaf6942e8dfc327ac60fd9dcdc94cd54a32fd26e3f9f09a890b4d",
+    "checkpoints/peldra-medium-return.json": "f7c53e8591c42314e067652a71a54375030e86278cbaad00eb07d59ac9d8638c",
+    "checkpoints/peldra-medium-start.json": "994d1890344f09a8d585ffcdbf21e8b47710d53357c34702146d2df5d8d4f0b7",
+    "checkpoints/peldra-small-active.json": "34dcac4a7f35ab999c50339a4e209cbe64a752093b819541c6b20f6a8f1dc39a",
+    "checkpoints/peldra-small-cleared.json": "03c5a14b65d330d0021bcd6ae210912ab352e4574ba4d2dfe410fe7f84c71a9f",
+    "checkpoints/peldra-small-pending.json": "f12dadb8d6b325a96170b194b38ab237e81a64f91b6e54a3f0c1674b6d8a3842",
+    "checkpoints/peldra-small-repair.json": "d62ccc2dd6c6333c5901e2555d589cc31878988144e8fb6bff0f222dce9ad70b",
+    "checkpoints/peldra-small-return.json": "0f95c86b089ad7df7741a30f42433eb64fba66e3bfa423217dce4228edf3535c",
+    "checkpoints/peldra-small-start.json": "1c216c52922f9dc3ad9597f4a8551e32cc58fe8567f0b695bf3971693bdb711d",
+    "checkpoints/retained-004.json": "00f00368437edb2c223c56039ac47e432258406a6d219ea8292ed9e114c6e574",
+    "checkpoints/retained-005.json": "ae0b58386eb2484a6584b64461876db99b32d26b53ef8f427e09d20d57aa66d0",
+    "checkpoints/retained-006.json": "6c81d17ef3d3101ed2a24573fbf57f4d0e460c18f3bc224584042c2077eee509",
+    "checkpoints/sulan-large-active.json": "fba4883b4dc8e12bd24e32bf8483f462d5de8c3a8c4be5460c9b3bf2c30bd261",
+    "checkpoints/sulan-large-cleared.json": "5248723f09ad81a99e52e2fe31792186017fd5577f8a90824d65b6d51ff6a46b",
+    "checkpoints/sulan-large-pending.json": "0e4fcc06d18714f8b67f7f3af02b40f32a1f43f06c9d8cdac073aebb6a8cfdde",
+    "checkpoints/sulan-large-repair.json": "c61c46531b4ea7ed7786c2fe25aed3ffa7a02ed7fc0216e59c7f2fb0ab25b6e7",
+    "checkpoints/sulan-large-return.json": "0d0c0eb6138dbc831d68c9d8fb6a758cfcb0de2fc0738c9111aa46b2da00aa37",
+    "checkpoints/sulan-large-start.json": "06db541e797c1cbb45cb337435cc5c2365465bd9237defbfa4fe40f1ec963f60",
+    "checkpoints/sulan-medium-active.json": "d9a333618f0f5ce8de29671e60a4919ae0d79ff7ceaaad4c1df8ca2ac46542d6",
+    "checkpoints/sulan-medium-cleared.json": "cbe294bc913d09ec2076bfa6e126f37d97488f3208eb07053da215bd08dfca97",
+    "checkpoints/sulan-medium-pending.json": "3a7792fb0047beae2aba86696bda3c6a307e9f8ba4490a165521d74b0cac6eb1",
+    "checkpoints/sulan-medium-repair.json": "cdb8b5de55cbfb773692b64b5b92af2698fd5e2800d598ed47774369e5fe9fdf",
+    "checkpoints/sulan-medium-return.json": "1e27435607753c48bb7b2221f4e01e62d757e7133ad2a4739d2e9e1196a98c5e",
+    "checkpoints/sulan-medium-start.json": "cf67dd284afeaf80fd6d3b3f1a8833cbd37dbb9285f928cdf81c4ca3c381f3d1",
+    "checkpoints/sulan-small-active.json": "4c183777e14438867f3e88204afbbea1110b402a2e90b3f767097e23508f8dda",
+    "checkpoints/sulan-small-cleared.json": "6f683d8c52d3e772ce187cf01fa4504729b3a00e48c7334e302c44486c130d59",
+    "checkpoints/sulan-small-pending.json": "9d6964cecd6bfb547b391ce6cf252171c4f431977c1d4d3f891a16f5054e943a",
+    "checkpoints/sulan-small-repair.json": "5c4e8eb13d02ccf565b2a258e9d7100fa217ded72ae974965a475a29cfa44345",
+    "checkpoints/sulan-small-return.json": "5f903a3bb9b5f697847e7d63c13d0b4f056e9a6ebaa113346f7992002a477911",
+    "checkpoints/sulan-small-start.json": "089a40af78a275040ab8ff7bc3bfffc38958db98c4969363bf773686d26ef301",
+    "checkpoints/wenth-large-active.json": "0d0a621d57a8201a1aeb3610eee6d3a2ab464568e994f7d765e95f69baa1265b",
+    "checkpoints/wenth-large-cleared.json": "310b35267e77887cb66c5ef6544f5b0be5c8e0f7225dc94d9486cf2c4d7018c9",
+    "checkpoints/wenth-large-pending.json": "620c642d6924fb1ad6a05d740ade84fed91b472c553ee92a43aeb17831349feb",
+    "checkpoints/wenth-large-repair.json": "9215edd3e62c264a0bea1f729b1182b2634f2e932d4b42c527c8fba2242a38b0",
+    "checkpoints/wenth-large-return.json": "6aa722885a55fdb7222bfe3d835d38f5a85a58714583f7f0d30ecbe5b318a404",
+    "checkpoints/wenth-large-start.json": "ca8ab6f65804f62d139b841bb31d4ef0a707810cf25fc41ac278d5acc16d4cd9",
+    "checkpoints/wenth-medium-active.json": "56778dca9de52feca806d885ce35b3cd074843395894a7cae6cd0ad4b8bc01bd",
+    "checkpoints/wenth-medium-cleared.json": "74e2d748d2e58470d1d1aa2b0519cfe139084c422baad9555bf223b9e18c2f54",
+    "checkpoints/wenth-medium-pending.json": "5767499b6e425ca40ad0b61532e03c03685f9b4c0eb7c75a12bce2a9d9ff8039",
+    "checkpoints/wenth-medium-repair.json": "c6633ac97da093e96306e98520abc41d56a59720af4476f75712f3d3e13ef34d",
+    "checkpoints/wenth-medium-return.json": "2e259a3c59a7915e440039cc38ec1c67d2c11af6d4f95eb90a152f2968e9be8f",
+    "checkpoints/wenth-medium-start.json": "27a8808c01126f875fc3e30c48ebb261debea122ccea21449ffb717cacea876d",
+    "checkpoints/wenth-small-active.json": "5532e16635aa2fb99ca0baa41a7c50ea9cbfc89f34cfe23c98eefd9335349f92",
+    "checkpoints/wenth-small-cleared.json": "3e28743ebacee92514bf8135964d200b46a8f3de2274e6ccca863cc67d4c713e",
+    "checkpoints/wenth-small-pending.json": "0d5238664084c0b7721eb4289f9d90d4a9f5b009bcae8289bd420c1fac4baa04",
+    "checkpoints/wenth-small-repair.json": "33490071de189c52f23ada61f2c8e4b46f8c2a6c5b1acf48ff1e8544f9759717",
+    "checkpoints/wenth-small-return.json": "9dd4b78d0dcffbaffe60a40ea4b09c99ee182eb7d6cf89964a9627781a582949",
+    "checkpoints/wenth-small-start.json": "6848f12ae6912a77073ed46d8fadd94283b69dd21e30753c4555f97d7305d04c",
+    "commands/active-request.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/alternative-armed-role.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/first-human-ready.json": "0d55e6d656b8f7e9fbda18cf7c40004a66529f194276c7e6059c103dcf773de3",
+    "commands/harl-large-active.json": "ca8439209f0eb65459c8d2a74f7163fa3df17a029101d5b87e2e92b19da564c5",
+    "commands/harl-large-cleared.json": "d6f0c36723d5bf0f24443e760b1c627cfd97d595293c82be222b6bfc10adfa4b",
+    "commands/harl-large-pending.json": "476549d7b4f1878a9a2ea03cacd91182f52ca4cd60376b24a0c67b553b54a4f3",
+    "commands/harl-large-repair.json": "5a04026943a2906b66be9267052d9683b727bed3123ca568eb8e2c6850b9777f",
+    "commands/harl-large-return.json": "4079f6737ac2d21b43dd1deb99f83c5a00d143df86769f38a1491c4963ec354c",
+    "commands/harl-large-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/harl-medium-active.json": "476549d7b4f1878a9a2ea03cacd91182f52ca4cd60376b24a0c67b553b54a4f3",
+    "commands/harl-medium-cleared.json": "fc53b809f723f79ef26acbc6bbd421a65ed8341baf2f73babe66fd8aeb898955",
+    "commands/harl-medium-pending.json": "1a43cf208912e37b84e2a783c67a8be940dd8e1f1d4ae7271c8f957a7917de26",
+    "commands/harl-medium-repair.json": "9e8aa6d8703fcdac82e6a4da3868de0ff7d60181300665e5150f0c6de83c081b",
+    "commands/harl-medium-return.json": "ca8439209f0eb65459c8d2a74f7163fa3df17a029101d5b87e2e92b19da564c5",
+    "commands/harl-medium-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/harl-small-active.json": "1a43cf208912e37b84e2a783c67a8be940dd8e1f1d4ae7271c8f957a7917de26",
+    "commands/harl-small-cleared.json": "9cdce4af9c664faefda75cfdb3b82d136a3871f0b373f16f8e1ac28aba4d9717",
+    "commands/harl-small-pending.json": "cb36c5fb138a084792e5089deaa8d00df30b5b9e79a87cf22cade8527883fb2d",
+    "commands/harl-small-repair.json": "ca8439209f0eb65459c8d2a74f7163fa3df17a029101d5b87e2e92b19da564c5",
+    "commands/harl-small-return.json": "476549d7b4f1878a9a2ea03cacd91182f52ca4cd60376b24a0c67b553b54a4f3",
+    "commands/harl-small-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/manual-project-queue.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/off-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/ordinary-ameba.json": "39ca054e3cb96db046458bf4e3b65fac0741269f6e60924488aae8b5814e431d",
+    "commands/ordinary-plague.json": "db8fdd4c631ea09bde7acd712cade5d307cf9ef87ab0cbb98d11c9d8d4f847f7",
+    "commands/paused-request.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/peldra-large-active.json": "e6d1d6ac381259a54ec500696db26351b1a294d9575bcb4be008e95374a9013b",
+    "commands/peldra-large-cleared.json": "351d2a5179cff74d86867e73ad043db2a5e0e4f8a50e010bbb30a1eab098333a",
+    "commands/peldra-large-pending.json": "bb9a782319ff852b91fcdc629a1fc4c73056967faf25f10940b781aaa0864a18",
+    "commands/peldra-large-repair.json": "ca8439209f0eb65459c8d2a74f7163fa3df17a029101d5b87e2e92b19da564c5",
+    "commands/peldra-large-return.json": "cb36c5fb138a084792e5089deaa8d00df30b5b9e79a87cf22cade8527883fb2d",
+    "commands/peldra-large-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/peldra-medium-active.json": "bb9a782319ff852b91fcdc629a1fc4c73056967faf25f10940b781aaa0864a18",
+    "commands/peldra-medium-cleared.json": "53576f8be714053e5bb1d5ffe3836a53f660d7b5e5dc2fba28e8a665d1a92530",
+    "commands/peldra-medium-pending.json": "665befc55d3f0f3cb7c46bd0a880bac56efed4a3ca4e9d70e1a5bee6a2a4e80f",
+    "commands/peldra-medium-repair.json": "1a43cf208912e37b84e2a783c67a8be940dd8e1f1d4ae7271c8f957a7917de26",
+    "commands/peldra-medium-return.json": "e6d1d6ac381259a54ec500696db26351b1a294d9575bcb4be008e95374a9013b",
+    "commands/peldra-medium-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/peldra-small-active.json": "665befc55d3f0f3cb7c46bd0a880bac56efed4a3ca4e9d70e1a5bee6a2a4e80f",
+    "commands/peldra-small-cleared.json": "b522b493a74aede14a5d4ab5db0c7d0f4ef631d957a4a16bc137e7b8838e4070",
+    "commands/peldra-small-pending.json": "4d50209f4ff05247a02eddb9a8dd615f587eceebe573085f24f28b10eb7f3966",
+    "commands/peldra-small-repair.json": "e6d1d6ac381259a54ec500696db26351b1a294d9575bcb4be008e95374a9013b",
+    "commands/peldra-small-return.json": "bb9a782319ff852b91fcdc629a1fc4c73056967faf25f10940b781aaa0864a18",
+    "commands/peldra-small-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/retained-004.json": "18275263550f44dc6c7420626e5475637d504b886b10cec986066473390d3c62",
+    "commands/retained-005.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/retained-006.json": "0d55e6d656b8f7e9fbda18cf7c40004a66529f194276c7e6059c103dcf773de3",
+    "commands/sulan-large-active.json": "ca8439209f0eb65459c8d2a74f7163fa3df17a029101d5b87e2e92b19da564c5",
+    "commands/sulan-large-cleared.json": "d6f0c36723d5bf0f24443e760b1c627cfd97d595293c82be222b6bfc10adfa4b",
+    "commands/sulan-large-pending.json": "476549d7b4f1878a9a2ea03cacd91182f52ca4cd60376b24a0c67b553b54a4f3",
+    "commands/sulan-large-repair.json": "5a04026943a2906b66be9267052d9683b727bed3123ca568eb8e2c6850b9777f",
+    "commands/sulan-large-return.json": "4079f6737ac2d21b43dd1deb99f83c5a00d143df86769f38a1491c4963ec354c",
+    "commands/sulan-large-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/sulan-medium-active.json": "476549d7b4f1878a9a2ea03cacd91182f52ca4cd60376b24a0c67b553b54a4f3",
+    "commands/sulan-medium-cleared.json": "fc53b809f723f79ef26acbc6bbd421a65ed8341baf2f73babe66fd8aeb898955",
+    "commands/sulan-medium-pending.json": "1a43cf208912e37b84e2a783c67a8be940dd8e1f1d4ae7271c8f957a7917de26",
+    "commands/sulan-medium-repair.json": "9e8aa6d8703fcdac82e6a4da3868de0ff7d60181300665e5150f0c6de83c081b",
+    "commands/sulan-medium-return.json": "ca8439209f0eb65459c8d2a74f7163fa3df17a029101d5b87e2e92b19da564c5",
+    "commands/sulan-medium-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/sulan-small-active.json": "1a43cf208912e37b84e2a783c67a8be940dd8e1f1d4ae7271c8f957a7917de26",
+    "commands/sulan-small-cleared.json": "9cdce4af9c664faefda75cfdb3b82d136a3871f0b373f16f8e1ac28aba4d9717",
+    "commands/sulan-small-pending.json": "cb36c5fb138a084792e5089deaa8d00df30b5b9e79a87cf22cade8527883fb2d",
+    "commands/sulan-small-repair.json": "ca8439209f0eb65459c8d2a74f7163fa3df17a029101d5b87e2e92b19da564c5",
+    "commands/sulan-small-return.json": "476549d7b4f1878a9a2ea03cacd91182f52ca4cd60376b24a0c67b553b54a4f3",
+    "commands/sulan-small-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/wenth-large-active.json": "ca8439209f0eb65459c8d2a74f7163fa3df17a029101d5b87e2e92b19da564c5",
+    "commands/wenth-large-cleared.json": "d6f0c36723d5bf0f24443e760b1c627cfd97d595293c82be222b6bfc10adfa4b",
+    "commands/wenth-large-pending.json": "476549d7b4f1878a9a2ea03cacd91182f52ca4cd60376b24a0c67b553b54a4f3",
+    "commands/wenth-large-repair.json": "5a04026943a2906b66be9267052d9683b727bed3123ca568eb8e2c6850b9777f",
+    "commands/wenth-large-return.json": "4079f6737ac2d21b43dd1deb99f83c5a00d143df86769f38a1491c4963ec354c",
+    "commands/wenth-large-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/wenth-medium-active.json": "476549d7b4f1878a9a2ea03cacd91182f52ca4cd60376b24a0c67b553b54a4f3",
+    "commands/wenth-medium-cleared.json": "fc53b809f723f79ef26acbc6bbd421a65ed8341baf2f73babe66fd8aeb898955",
+    "commands/wenth-medium-pending.json": "1a43cf208912e37b84e2a783c67a8be940dd8e1f1d4ae7271c8f957a7917de26",
+    "commands/wenth-medium-repair.json": "9e8aa6d8703fcdac82e6a4da3868de0ff7d60181300665e5150f0c6de83c081b",
+    "commands/wenth-medium-return.json": "ca8439209f0eb65459c8d2a74f7163fa3df17a029101d5b87e2e92b19da564c5",
+    "commands/wenth-medium-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/wenth-small-active.json": "1a43cf208912e37b84e2a783c67a8be940dd8e1f1d4ae7271c8f957a7917de26",
+    "commands/wenth-small-cleared.json": "9cdce4af9c664faefda75cfdb3b82d136a3871f0b373f16f8e1ac28aba4d9717",
+    "commands/wenth-small-pending.json": "cb36c5fb138a084792e5089deaa8d00df30b5b9e79a87cf22cade8527883fb2d",
+    "commands/wenth-small-repair.json": "ca8439209f0eb65459c8d2a74f7163fa3df17a029101d5b87e2e92b19da564c5",
+    "commands/wenth-small-return.json": "476549d7b4f1878a9a2ea03cacd91182f52ca4cd60376b24a0c67b553b54a4f3",
+    "commands/wenth-small-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "primed/active-request.json": "ee88958895742c55fb4261c6cb67285a03c7785c83444e7d13ec3e03dccc9efe",
+    "primed/alternative-armed-role.json": "6c950ac888802af4762857dd348a3ffb65010d071ee4ec2166a806cd5f0907fb",
+    "primed/first-human-ready.json": "f3c13012b423078448a358dc266e2b963ad3c9131fe4940d1d1875de23d9fb05",
+    "primed/manual-project-queue.json": "e118b78fa107e18ab151232b1c446d3bf88d55ce110ec00221fa7918ee3871fe",
+    "primed/off-start.json": "5713dd734110c9020ae9e827c529031f15bae1300ac0dedea670e0d55e35b115",
+    "primed/ordinary-ameba.json": "e1b181593a49e411af57b389d6042f89ffde31e89785011eb7616f77ebeb635a",
+    "primed/ordinary-plague.json": "93a196468be0fbb6ab0373654027765c4e329605142594143e9c577d52769a04",
+    "primed/paused-request.json": "949ebc6fd589823f4061cbca2d4187d488897a2b16fe63da3702f407dbc058f8",
+    "sources/active-request.json": "ee88958895742c55fb4261c6cb67285a03c7785c83444e7d13ec3e03dccc9efe",
+    "sources/alternative-armed-role.json": "6c950ac888802af4762857dd348a3ffb65010d071ee4ec2166a806cd5f0907fb",
+    "sources/first-human-ready.json": "f3c13012b423078448a358dc266e2b963ad3c9131fe4940d1d1875de23d9fb05",
+    "sources/harl-large-active.json": "fe0acd4afbfaf9591fcef0e783995a7b2c308148ccbe1fba1a523d9feb461719",
+    "sources/harl-large-cleared.json": "5f5a3f7327ecee73a10f1266239fe71bd6fe2c40386b23a61d1d85d8982a1adb",
+    "sources/harl-large-pending.json": "a4e46b2c4fecec305df11ee6173a0e7de8893550197333dce27e297de4f9feb7",
+    "sources/harl-large-repair.json": "04912ad340c0543f2419dca21b0aabc60991b5fc80d303a2b35239002034b028",
+    "sources/harl-large-return.json": "42b0abab40844367829aa915efe55235f2e5aa2794e29a853d0a343e20cc5cfa",
+    "sources/harl-large-start.json": "c271864b180e0bce87ad45474211750d413578e5853cea56e1022a5ba6b03472",
+    "sources/harl-medium-active.json": "3aa4d3ee026076956b2f57bd1c86ee2ce189cfd0fd9bd9b8f96ab641aa3f437f",
+    "sources/harl-medium-cleared.json": "e9875f97a3b536d05c88906a01a941ae53622c7a164b3e2d166c15d63938b697",
+    "sources/harl-medium-pending.json": "49c6db266f72dfce58326263b269dd819886b7e20f1aafc05d7e8ae2e8ab0ecf",
+    "sources/harl-medium-repair.json": "b112a6ffe90a8d21cd333972c72356c24a3b116a7d5c76b6a186b391380254ba",
+    "sources/harl-medium-return.json": "dc54b55fd69252b0fd5eeb49b22d6183cddd775dec3fb3ef70b0c02f51297e95",
+    "sources/harl-medium-start.json": "57480689bc0f5132ca8f4ae254ed12cc57ec660efd9c3f314f56bf6d66cb1fb3",
+    "sources/harl-small-active.json": "c9434fec7d3e861a53ead9508ce2bf49a376258fd3977b9952f8284aa0741cc3",
+    "sources/harl-small-cleared.json": "a4959362a804a34c9622879a490a7326f320bcc2fc7937a229255a5adcdbbebe",
+    "sources/harl-small-pending.json": "ff89ce0888d5b56858348f7dc0b39926e442d767144d0ef34469144a13b68ad8",
+    "sources/harl-small-repair.json": "374b2cc14e6972838c81b83a3a223df3e663f41032778ba3211aecb0a4a2a8e2",
+    "sources/harl-small-return.json": "05e9475abe6d3d9fd8d35dde559a32989a314a895d76b4df00a80ddb1b77286b",
+    "sources/harl-small-start.json": "bf9764b1473e486cbd3c1f4cd4d66625c4ff6eede39b5f11f14357b2ba1b4694",
+    "sources/manual-project-queue.json": "e118b78fa107e18ab151232b1c446d3bf88d55ce110ec00221fa7918ee3871fe",
+    "sources/off-start.json": "5713dd734110c9020ae9e827c529031f15bae1300ac0dedea670e0d55e35b115",
+    "sources/ordinary-ameba.json": "e1b181593a49e411af57b389d6042f89ffde31e89785011eb7616f77ebeb635a",
+    "sources/ordinary-plague.json": "93a196468be0fbb6ab0373654027765c4e329605142594143e9c577d52769a04",
+    "sources/paused-request.json": "949ebc6fd589823f4061cbca2d4187d488897a2b16fe63da3702f407dbc058f8",
+    "sources/peldra-large-active.json": "7fe8ec4dce5953317d30d4026d78f6be8558d316291697d28e270284ff48cee2",
+    "sources/peldra-large-cleared.json": "f3376c400b5c23be20e44b418c9ef3d11045165e3f52c6d9eb9c0fba4b717152",
+    "sources/peldra-large-pending.json": "2ac3d936360777fa9be223f47e00b7e51327576459df373e4d8211a8541d0aeb",
+    "sources/peldra-large-repair.json": "ee18eeb02a0f7d3e69debbc8069ca576ec477d55592a1f486c803c4735f31d90",
+    "sources/peldra-large-return.json": "73a54c83c90d8c571d8a89d705e98277cca2920181e4907e93780990edad0b58",
+    "sources/peldra-large-start.json": "b8a4441f9e7aaa2866d8ff8c54cab56c1ac20de7f5aa5acf0839cc1a708a1641",
+    "sources/peldra-medium-active.json": "fc91f5c387c0cb08ce07fe16d73e3a31eeb0bbf83e58d04cabf2b67726743d97",
+    "sources/peldra-medium-cleared.json": "69d751a15639ef43c2fcb1d50161d0f30ec1303f53a5ddb75a09831801a63890",
+    "sources/peldra-medium-pending.json": "7a9618e328b60e50f97b17897d59f56b250a93a972bdb027185eb71188e4e523",
+    "sources/peldra-medium-repair.json": "b79cf93fa08a7a071881cb85d347d12369ab7abbe32bc5bfbc4d7b6f81cf855e",
+    "sources/peldra-medium-return.json": "e38b8d53ddd48f7559e0f68eb05177c0a23b115f4a6ef19a029027dfef49736b",
+    "sources/peldra-medium-start.json": "44b0dfc3fd9ab062d60a55e3ac789b8227c9dccdde80da38016c4b933a8d2152",
+    "sources/peldra-small-active.json": "f98c2f0f05a82620fb9154bb6973986178b512d229963bf0aae809fa8903b20c",
+    "sources/peldra-small-cleared.json": "5a01a7031521bd748682c9371ed40da33a4cb4cb432a51e7c833ee55b7b32ac9",
+    "sources/peldra-small-pending.json": "354312a06aee451117fd5e7b839b6fd4643a2c0c567458f1e8d7c41a59b00d76",
+    "sources/peldra-small-repair.json": "1b2ccbf631f657e4db7d5030797aab69c818c386776ef73c2cc800fdb3e4d1b2",
+    "sources/peldra-small-return.json": "ea09bee6f48122623b75e0ac46c2029817f0e94366286db288367016f55f2da7",
+    "sources/peldra-small-start.json": "bc421339956edeb82a094a27accf2db75c9ffb951dcc1377ae65285a464e14a8",
+    "sources/retained-004.json": "b29b05e17e8a6221ea7be60829e5832b97652925bbeaa5f6810e383a33535a73",
+    "sources/retained-005.json": "1fc510ad57b9bbeb820175d9b41cca3436a89685281b6732eccd99312a9cdfc3",
+    "sources/retained-006.json": "429799d59dd3318da257c601e37b02b7d2c2264154830f681b7646f52a4c8be5",
+    "sources/sulan-large-active.json": "b23aae8da723e7e71d3c73624288c622221aeab91e0c6b86e4ec9891512eb90c",
+    "sources/sulan-large-cleared.json": "f5a10524428e22997832652522616cfac186cfd6bc7c2d4075e0ad90195791bc",
+    "sources/sulan-large-pending.json": "753056a51e26edd1b58ef86e0ce00c6871bd88d1a1a2e038146c745c5e84b06e",
+    "sources/sulan-large-repair.json": "da91cc912642c9fe4e1d531868864e6c0e18ba1427d5cccc4079078396029fb4",
+    "sources/sulan-large-return.json": "8bde6331809109151572705fe865b7e7e93bcd1e6d8b6d54c78ba1a7d526857d",
+    "sources/sulan-large-start.json": "c4d25d9b13159a51477e1cb95b164d1fb01bbda6792c1acd1a87020256c64b4d",
+    "sources/sulan-medium-active.json": "0f86a66d900804c9ca41780ff562411b9a3a2178b4dac0fb26e9467cad091c95",
+    "sources/sulan-medium-cleared.json": "d309a445758e2fab8e61176f5aa6353c383d46606daacc6ade285566b24fc977",
+    "sources/sulan-medium-pending.json": "093a38655c6b6e75c01b169e69d238f208d08efcfcdde0f0f2a7190ee61caf4e",
+    "sources/sulan-medium-repair.json": "fce1a8d9f84ea28120cd2a0955fd8432c1c0883670a0295497718021543b812a",
+    "sources/sulan-medium-return.json": "aeb8db0eb335c8256ed3c732f08d2cbb406dc9211e12731d8a73317c9667d0e4",
+    "sources/sulan-medium-start.json": "49ce7f8388d1fdd843eaf319c04fd92f372c4375283212da5b379dffd38bbaac",
+    "sources/sulan-small-active.json": "62f4a9c0ce4ffc929ba729e98b4ee327cf65ced347a4b35d1a871bea308505ba",
+    "sources/sulan-small-cleared.json": "49b63f25c45c035e5938c61b79d1ac57bc19e5c58e160246b28931152778a102",
+    "sources/sulan-small-pending.json": "2a8469c8d6a5ceaeb781bb033d5fd1b439450b5a2ef5d79b11914cbe2734bf93",
+    "sources/sulan-small-repair.json": "8683b5a291e0bbfc8f72f435499a7592b58915381ce6794e6d0ac912cfd8f9e8",
+    "sources/sulan-small-return.json": "37ead537e24b40ca34ad45ae3f43e52acb597672c6edcb1a39c2e1a6ac37e1f5",
+    "sources/sulan-small-start.json": "368d445e953f2c141e372497d58ca7bb9e1dcc8aaae969e377ea7fddca40f87a",
+    "sources/wenth-large-active.json": "4abba1afc723095d1aee7279549a15a2c3bd32f444c3edffccd0dfd2b529e5a1",
+    "sources/wenth-large-cleared.json": "d8e3d4049c0c8ecab8be6f5223e07e725859d2ec7f6aad074810c80fce16d0ec",
+    "sources/wenth-large-pending.json": "13c01b39d5769d955671cfb0a11256acc6cd880ac9fa273fa45ee91ea7746b6c",
+    "sources/wenth-large-repair.json": "9c5a1257162e477914a617ef28cacaac50a7a43d9a269e8c8d27d94b2b29ccbe",
+    "sources/wenth-large-return.json": "203f3b35a0966b48b7851ead6212e913c29548abe660cc97125a2e5e30b1b837",
+    "sources/wenth-large-start.json": "6eae8a3342e9a66b915571a58bd0b444c34172b255586ae4e5d946dc273e8612",
+    "sources/wenth-medium-active.json": "28d31d0c8e51aee245eb52aa62ce42581c33b31a29d04a27ced24ab3bc257362",
+    "sources/wenth-medium-cleared.json": "80773106b7809222aace907e75b17402dde85ea97c596faffb325ec47591fab4",
+    "sources/wenth-medium-pending.json": "b5601603121a8fb7061b4cecc519921c3152f4173a6fcf7a5a0a7b055b644615",
+    "sources/wenth-medium-repair.json": "56cf833bf7822289eae16f2cecdd69e2779ba605a8b78af4bdc4ee5292dde158",
+    "sources/wenth-medium-return.json": "8475f8df50f830dd28d64d35f928bc89cb57eb3ccbfe26022880e0dc56a54833",
+    "sources/wenth-medium-start.json": "f675fe72113999e99f09ef26b94022203773bc2f962e2eca054ee3d74123710c",
+    "sources/wenth-small-active.json": "2c8b17bd6874416c54e2dd65993e0292b661db04a5b721c5cc1676bcc1de9598",
+    "sources/wenth-small-cleared.json": "7ea0789247be00ae846ed46f612207fd44958f222ee5936a3c9fcbef449bea24",
+    "sources/wenth-small-pending.json": "2b1a3870afdc1f21e8b5b1b8a4536ca3eb48d83cd5ffd7d93d92f839d0f74b73",
+    "sources/wenth-small-repair.json": "00dfe447a30d1813f6212a5af84a51390abd4657221efe30cf64991295631d85",
+    "sources/wenth-small-return.json": "d6fd444b86d9464e74972fbaded932c6adbdcdd78791bac94ff2b4669f1a5d34",
+    "sources/wenth-small-start.json": "3de1867ddce82bdeeb252e1bc33df5f3b7da01ab86a9661bde7cfe71df87d372"
+  },
+  "cases": [
+    {
+      "name": "harl-large-start",
+      "save": "sources/harl-large-start.json",
+      "commands": "commands/harl-large-start.json",
+      "checkpoints": "checkpoints/harl-large-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-large-pending",
+      "save": "sources/harl-large-pending.json",
+      "commands": "commands/harl-large-pending.json",
+      "checkpoints": "checkpoints/harl-large-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-large-active",
+      "save": "sources/harl-large-active.json",
+      "commands": "commands/harl-large-active.json",
+      "checkpoints": "checkpoints/harl-large-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-large-return",
+      "save": "sources/harl-large-return.json",
+      "commands": "commands/harl-large-return.json",
+      "checkpoints": "checkpoints/harl-large-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-large-repair",
+      "save": "sources/harl-large-repair.json",
+      "commands": "commands/harl-large-repair.json",
+      "checkpoints": "checkpoints/harl-large-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-large-cleared",
+      "save": "sources/harl-large-cleared.json",
+      "commands": "commands/harl-large-cleared.json",
+      "checkpoints": "checkpoints/harl-large-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-medium-start",
+      "save": "sources/harl-medium-start.json",
+      "commands": "commands/harl-medium-start.json",
+      "checkpoints": "checkpoints/harl-medium-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-medium-pending",
+      "save": "sources/harl-medium-pending.json",
+      "commands": "commands/harl-medium-pending.json",
+      "checkpoints": "checkpoints/harl-medium-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-medium-active",
+      "save": "sources/harl-medium-active.json",
+      "commands": "commands/harl-medium-active.json",
+      "checkpoints": "checkpoints/harl-medium-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-medium-return",
+      "save": "sources/harl-medium-return.json",
+      "commands": "commands/harl-medium-return.json",
+      "checkpoints": "checkpoints/harl-medium-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-medium-repair",
+      "save": "sources/harl-medium-repair.json",
+      "commands": "commands/harl-medium-repair.json",
+      "checkpoints": "checkpoints/harl-medium-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-medium-cleared",
+      "save": "sources/harl-medium-cleared.json",
+      "commands": "commands/harl-medium-cleared.json",
+      "checkpoints": "checkpoints/harl-medium-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-small-start",
+      "save": "sources/harl-small-start.json",
+      "commands": "commands/harl-small-start.json",
+      "checkpoints": "checkpoints/harl-small-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-small-pending",
+      "save": "sources/harl-small-pending.json",
+      "commands": "commands/harl-small-pending.json",
+      "checkpoints": "checkpoints/harl-small-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-small-active",
+      "save": "sources/harl-small-active.json",
+      "commands": "commands/harl-small-active.json",
+      "checkpoints": "checkpoints/harl-small-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-small-return",
+      "save": "sources/harl-small-return.json",
+      "commands": "commands/harl-small-return.json",
+      "checkpoints": "checkpoints/harl-small-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-small-repair",
+      "save": "sources/harl-small-repair.json",
+      "commands": "commands/harl-small-repair.json",
+      "checkpoints": "checkpoints/harl-small-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "harl-small-cleared",
+      "save": "sources/harl-small-cleared.json",
+      "commands": "commands/harl-small-cleared.json",
+      "checkpoints": "checkpoints/harl-small-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-large-start",
+      "save": "sources/peldra-large-start.json",
+      "commands": "commands/peldra-large-start.json",
+      "checkpoints": "checkpoints/peldra-large-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-large-pending",
+      "save": "sources/peldra-large-pending.json",
+      "commands": "commands/peldra-large-pending.json",
+      "checkpoints": "checkpoints/peldra-large-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-large-active",
+      "save": "sources/peldra-large-active.json",
+      "commands": "commands/peldra-large-active.json",
+      "checkpoints": "checkpoints/peldra-large-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-large-return",
+      "save": "sources/peldra-large-return.json",
+      "commands": "commands/peldra-large-return.json",
+      "checkpoints": "checkpoints/peldra-large-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-large-repair",
+      "save": "sources/peldra-large-repair.json",
+      "commands": "commands/peldra-large-repair.json",
+      "checkpoints": "checkpoints/peldra-large-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-large-cleared",
+      "save": "sources/peldra-large-cleared.json",
+      "commands": "commands/peldra-large-cleared.json",
+      "checkpoints": "checkpoints/peldra-large-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-medium-start",
+      "save": "sources/peldra-medium-start.json",
+      "commands": "commands/peldra-medium-start.json",
+      "checkpoints": "checkpoints/peldra-medium-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-medium-pending",
+      "save": "sources/peldra-medium-pending.json",
+      "commands": "commands/peldra-medium-pending.json",
+      "checkpoints": "checkpoints/peldra-medium-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-medium-active",
+      "save": "sources/peldra-medium-active.json",
+      "commands": "commands/peldra-medium-active.json",
+      "checkpoints": "checkpoints/peldra-medium-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-medium-return",
+      "save": "sources/peldra-medium-return.json",
+      "commands": "commands/peldra-medium-return.json",
+      "checkpoints": "checkpoints/peldra-medium-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-medium-repair",
+      "save": "sources/peldra-medium-repair.json",
+      "commands": "commands/peldra-medium-repair.json",
+      "checkpoints": "checkpoints/peldra-medium-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-medium-cleared",
+      "save": "sources/peldra-medium-cleared.json",
+      "commands": "commands/peldra-medium-cleared.json",
+      "checkpoints": "checkpoints/peldra-medium-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-small-start",
+      "save": "sources/peldra-small-start.json",
+      "commands": "commands/peldra-small-start.json",
+      "checkpoints": "checkpoints/peldra-small-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-small-pending",
+      "save": "sources/peldra-small-pending.json",
+      "commands": "commands/peldra-small-pending.json",
+      "checkpoints": "checkpoints/peldra-small-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-small-active",
+      "save": "sources/peldra-small-active.json",
+      "commands": "commands/peldra-small-active.json",
+      "checkpoints": "checkpoints/peldra-small-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-small-return",
+      "save": "sources/peldra-small-return.json",
+      "commands": "commands/peldra-small-return.json",
+      "checkpoints": "checkpoints/peldra-small-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-small-repair",
+      "save": "sources/peldra-small-repair.json",
+      "commands": "commands/peldra-small-repair.json",
+      "checkpoints": "checkpoints/peldra-small-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "peldra-small-cleared",
+      "save": "sources/peldra-small-cleared.json",
+      "commands": "commands/peldra-small-cleared.json",
+      "checkpoints": "checkpoints/peldra-small-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-large-start",
+      "save": "sources/sulan-large-start.json",
+      "commands": "commands/sulan-large-start.json",
+      "checkpoints": "checkpoints/sulan-large-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-large-pending",
+      "save": "sources/sulan-large-pending.json",
+      "commands": "commands/sulan-large-pending.json",
+      "checkpoints": "checkpoints/sulan-large-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-large-active",
+      "save": "sources/sulan-large-active.json",
+      "commands": "commands/sulan-large-active.json",
+      "checkpoints": "checkpoints/sulan-large-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-large-return",
+      "save": "sources/sulan-large-return.json",
+      "commands": "commands/sulan-large-return.json",
+      "checkpoints": "checkpoints/sulan-large-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-large-repair",
+      "save": "sources/sulan-large-repair.json",
+      "commands": "commands/sulan-large-repair.json",
+      "checkpoints": "checkpoints/sulan-large-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-large-cleared",
+      "save": "sources/sulan-large-cleared.json",
+      "commands": "commands/sulan-large-cleared.json",
+      "checkpoints": "checkpoints/sulan-large-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-medium-start",
+      "save": "sources/sulan-medium-start.json",
+      "commands": "commands/sulan-medium-start.json",
+      "checkpoints": "checkpoints/sulan-medium-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-medium-pending",
+      "save": "sources/sulan-medium-pending.json",
+      "commands": "commands/sulan-medium-pending.json",
+      "checkpoints": "checkpoints/sulan-medium-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-medium-active",
+      "save": "sources/sulan-medium-active.json",
+      "commands": "commands/sulan-medium-active.json",
+      "checkpoints": "checkpoints/sulan-medium-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-medium-return",
+      "save": "sources/sulan-medium-return.json",
+      "commands": "commands/sulan-medium-return.json",
+      "checkpoints": "checkpoints/sulan-medium-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-medium-repair",
+      "save": "sources/sulan-medium-repair.json",
+      "commands": "commands/sulan-medium-repair.json",
+      "checkpoints": "checkpoints/sulan-medium-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-medium-cleared",
+      "save": "sources/sulan-medium-cleared.json",
+      "commands": "commands/sulan-medium-cleared.json",
+      "checkpoints": "checkpoints/sulan-medium-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-small-start",
+      "save": "sources/sulan-small-start.json",
+      "commands": "commands/sulan-small-start.json",
+      "checkpoints": "checkpoints/sulan-small-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-small-pending",
+      "save": "sources/sulan-small-pending.json",
+      "commands": "commands/sulan-small-pending.json",
+      "checkpoints": "checkpoints/sulan-small-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-small-active",
+      "save": "sources/sulan-small-active.json",
+      "commands": "commands/sulan-small-active.json",
+      "checkpoints": "checkpoints/sulan-small-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-small-return",
+      "save": "sources/sulan-small-return.json",
+      "commands": "commands/sulan-small-return.json",
+      "checkpoints": "checkpoints/sulan-small-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-small-repair",
+      "save": "sources/sulan-small-repair.json",
+      "commands": "commands/sulan-small-repair.json",
+      "checkpoints": "checkpoints/sulan-small-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "sulan-small-cleared",
+      "save": "sources/sulan-small-cleared.json",
+      "commands": "commands/sulan-small-cleared.json",
+      "checkpoints": "checkpoints/sulan-small-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-large-start",
+      "save": "sources/wenth-large-start.json",
+      "commands": "commands/wenth-large-start.json",
+      "checkpoints": "checkpoints/wenth-large-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-large-pending",
+      "save": "sources/wenth-large-pending.json",
+      "commands": "commands/wenth-large-pending.json",
+      "checkpoints": "checkpoints/wenth-large-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-large-active",
+      "save": "sources/wenth-large-active.json",
+      "commands": "commands/wenth-large-active.json",
+      "checkpoints": "checkpoints/wenth-large-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-large-return",
+      "save": "sources/wenth-large-return.json",
+      "commands": "commands/wenth-large-return.json",
+      "checkpoints": "checkpoints/wenth-large-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-large-repair",
+      "save": "sources/wenth-large-repair.json",
+      "commands": "commands/wenth-large-repair.json",
+      "checkpoints": "checkpoints/wenth-large-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-large-cleared",
+      "save": "sources/wenth-large-cleared.json",
+      "commands": "commands/wenth-large-cleared.json",
+      "checkpoints": "checkpoints/wenth-large-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-medium-start",
+      "save": "sources/wenth-medium-start.json",
+      "commands": "commands/wenth-medium-start.json",
+      "checkpoints": "checkpoints/wenth-medium-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-medium-pending",
+      "save": "sources/wenth-medium-pending.json",
+      "commands": "commands/wenth-medium-pending.json",
+      "checkpoints": "checkpoints/wenth-medium-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-medium-active",
+      "save": "sources/wenth-medium-active.json",
+      "commands": "commands/wenth-medium-active.json",
+      "checkpoints": "checkpoints/wenth-medium-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-medium-return",
+      "save": "sources/wenth-medium-return.json",
+      "commands": "commands/wenth-medium-return.json",
+      "checkpoints": "checkpoints/wenth-medium-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-medium-repair",
+      "save": "sources/wenth-medium-repair.json",
+      "commands": "commands/wenth-medium-repair.json",
+      "checkpoints": "checkpoints/wenth-medium-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-medium-cleared",
+      "save": "sources/wenth-medium-cleared.json",
+      "commands": "commands/wenth-medium-cleared.json",
+      "checkpoints": "checkpoints/wenth-medium-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-small-start",
+      "save": "sources/wenth-small-start.json",
+      "commands": "commands/wenth-small-start.json",
+      "checkpoints": "checkpoints/wenth-small-start.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-small-pending",
+      "save": "sources/wenth-small-pending.json",
+      "commands": "commands/wenth-small-pending.json",
+      "checkpoints": "checkpoints/wenth-small-pending.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-small-active",
+      "save": "sources/wenth-small-active.json",
+      "commands": "commands/wenth-small-active.json",
+      "checkpoints": "checkpoints/wenth-small-active.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-small-return",
+      "save": "sources/wenth-small-return.json",
+      "commands": "commands/wenth-small-return.json",
+      "checkpoints": "checkpoints/wenth-small-return.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-small-repair",
+      "save": "sources/wenth-small-repair.json",
+      "commands": "commands/wenth-small-repair.json",
+      "checkpoints": "checkpoints/wenth-small-repair.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "wenth-small-cleared",
+      "save": "sources/wenth-small-cleared.json",
+      "commands": "commands/wenth-small-cleared.json",
+      "checkpoints": "checkpoints/wenth-small-cleared.json",
+      "category": "generated",
+      "provenance": "Actual previously earned paid rules9 Combat campaign; original bytes from accepted main native evidence."
+    },
+    {
+      "name": "off-start",
+      "save": "sources/off-start.json",
+      "commands": "commands/off-start.json",
+      "checkpoints": "checkpoints/off-start.json",
+      "category": "supplemental",
+      "provenance": "Normally generated unchanged explicit9 seed42 Solo, hazards Off."
+    },
+    {
+      "name": "manual-project-queue",
+      "save": "sources/manual-project-queue.json",
+      "commands": "commands/manual-project-queue.json",
+      "checkpoints": "checkpoints/manual-project-queue.json",
+      "category": "supplemental",
+      "provenance": "Normally generated9 plus real finite queue/manual project commands, no production injection."
+    },
+    {
+      "name": "active-request",
+      "save": "sources/active-request.json",
+      "commands": "commands/active-request.json",
+      "checkpoints": "checkpoints/active-request.json",
+      "category": "supplemental",
+      "provenance": "Normally generated9 plus an accepted finite paid construction request, no completed hull injected."
+    },
+    {
+      "name": "paused-request",
+      "save": "sources/paused-request.json",
+      "commands": "commands/paused-request.json",
+      "checkpoints": "checkpoints/paused-request.json",
+      "category": "supplemental",
+      "provenance": "Same public request explicitly paused; reservations and unspent queues retained."
+    },
+    {
+      "name": "retained-004",
+      "save": "sources/retained-004.json",
+      "commands": "commands/retained-004.json",
+      "checkpoints": "checkpoints/retained-004.json",
+      "category": "supplemental",
+      "provenance": "Actual retained Main fixture/save; original scenario provenance: Actual ordinary Main Save/Load controls"
+    },
+    {
+      "name": "retained-005",
+      "save": "sources/retained-005.json",
+      "commands": "commands/retained-005.json",
+      "checkpoints": "checkpoints/retained-005.json",
+      "category": "supplemental",
+      "provenance": "Actual retained Main fixture/save; original scenario provenance: Labelled fixture mounted through ordinary Main Load control"
+    },
+    {
+      "name": "retained-006",
+      "save": "sources/retained-006.json",
+      "commands": "commands/retained-006.json",
+      "checkpoints": "checkpoints/retained-006.json",
+      "category": "supplemental",
+      "provenance": "Actual retained Main fixture/save; original scenario provenance: Actual ordinary Main Save/Load controls"
+    },
+    {
+      "name": "ordinary-plague",
+      "save": "sources/ordinary-plague.json",
+      "commands": "commands/ordinary-plague.json",
+      "checkpoints": "checkpoints/ordinary-plague.json",
+      "category": "supplemental",
+      "provenance": "Normally generated9, ordinary acknowledged Ready progression to Active plague; no state/resource edits."
+    },
+    {
+      "name": "ordinary-ameba",
+      "save": "sources/ordinary-ameba.json",
+      "commands": "commands/ordinary-ameba.json",
+      "checkpoints": "checkpoints/ordinary-ameba.json",
+      "category": "supplemental",
+      "provenance": "Normally generated9 and real public-chart exploration reaches ameba; no teleport/outcome injection."
+    },
+    {
+      "name": "first-human-ready",
+      "save": "sources/first-human-ready.json",
+      "commands": "commands/first-human-ready.json",
+      "checkpoints": "checkpoints/first-human-ready.json",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session two-human controller fixture; first human used actual Ready, no boundary occurred."
+    },
+    {
+      "name": "alternative-armed-role",
+      "save": "sources/alternative-armed-role.json",
+      "commands": "commands/alternative-armed-role.json",
+      "checkpoints": "checkpoints/alternative-armed-role.json",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session alternate-content armed-role fixture; not earned production."
+    }
+  ]
+}

@@ -17,3 +17,4 @@
 
 /reports/ship-design-execution/** -text -whitespace
 /tests/OpenAntares.Simulation.Tests/Fixtures/rules9-ship-design-baselines/** -text -whitespace
+/tests/OpenAntares.Simulation.Tests/Fixtures/rules9-ship-design-action-baselines/** -text -whitespace

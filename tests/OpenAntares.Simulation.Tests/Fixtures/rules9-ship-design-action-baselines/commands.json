@@ -1,0 +1,98 @@
+[
+  [
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u0022558345AE24AFF59803199848089EC934882D472E71A1F8241F4C2F57867B1552\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "Create",
+      "actionJson": "{\u0022Name\u0022:\u0022Frozen command expedition\u0022,\u0022Members\u0022:[{\u0022Value\u0022:45}],\u0022Flagship\u0022:{\u0022Value\u0022:45}}"
+    },
+    {
+      "kind": "OfficerCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "AssignFlagship",
+      "actionJson": "{\u0022Officer\u0022:{\u0022Value\u0022:1},\u0022Fleet\u0022:{\u0022Value\u0022:1}}"
+    },
+    {
+      "kind": "AssemblyCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "Accept",
+      "actionJson": "{\u0022Draft\u0022:{\u0022Name\u0022:\u0022Frozen scout request\u0022,\u0022Rally\u0022:{\u0022Value\u0022:3},\u0022RallyFleet\u0022:null,\u0022Roles\u0022:[\u0022scout\u0022,\u0022scout\u0022],\u0022Colonies\u0022:[{\u0022Value\u0022:44}],\u0022Priority\u0022:0,\u0022AcceptedIdleVessels\u0022:[],\u0022AuthorizeCargo\u0022:false,\u0022Coordinator\u0022:null},\u0022Fingerprint\u0022:\u0022C5578DAED3CE98C4BF7467B72B23900EE3535A537071909C667BECC40D2259AA\u0022}"
+    },
+    {
+      "kind": "AssemblyCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "Pause",
+      "actionJson": "{\u0022Request\u0022:{\u0022Value\u0022:1},\u0022Revision\u0022:1}"
+    },
+    {
+      "kind": "AssemblyCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "Resume",
+      "actionJson": "{\u0022Fingerprint\u0022:\u0022EC3095812155BEC09EC76F4718C0B9B684C8FACB48E4CE3F8512BA9D9F8F90BE\u0022,\u0022Request\u0022:{\u0022Value\u0022:1},\u0022Revision\u0022:2}"
+    },
+    {
+      "kind": "FleetCommand",
+      "json": "{\u0022Action\u0022:{},\u0022Fingerprint\u0022:\u00225A87A0A4E7005CB815A20CE8ED03942A91B5C24C181F18E5CDA14BF481B39347\u0022,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}",
+      "actionKind": "SetOrder",
+      "actionJson": "{\u0022Fleets\u0022:[{\u0022Value\u0022:1}],\u0022Order\u0022:{\u0022Kind\u0022:0,\u0022Destination\u0022:null}}"
+    },
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:0}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:1}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:2}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:3}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:4}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:5}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:6}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:7}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:8}"
+    }
+  ],
+  [
+    {
+      "kind": "SetReadyCommand",
+      "json": "{\u0022Ready\u0022:true,\u0022Issuer\u0022:{\u0022Value\u0022:1},\u0022ExpectedTurn\u0022:9}"
+    }
+  ]
+]
