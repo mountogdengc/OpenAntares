@@ -68,3 +68,6 @@ M8 full approval/planning2026-10-27: owner “0approved” accepts the complete 
 
 
 [ADR-021: Ship design and refitting design entry](ADR-021-ship-design-and-refitting-design-entry.md) records delegated drafting choices after M9 integration. The complete proposal and fresh builder check are ready for review; M10-D In Progress, plan/implementation Not Started. Current product remains9/10/46.
+
+
+[ADR-022: Approve ship design and refitting](ADR-022-approved-ship-design-and-refitting-design.md) records full owner gameplay/default approval at71ec87b. M10-D/SHP-AC-012 Verified for design; separate17-task plan written/self-reviewed, M10-P In Progress pending plan review. Native retained; current product9/10/46 and implementation Not Started.

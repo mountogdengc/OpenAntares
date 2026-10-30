@@ -1,5 +1,7 @@
 # OpenAntares validation report
 
+**M10 design approval/planning,2026-10-29:** [Implementation-plan author review](SHIP_DESIGN_IMPLEMENTATION_PLAN_REVIEW_2026-10-29.md) records17 task gates, complete SHP coverage, exact interfaces/paths and document/preservation checks. Full design approved in ADR-022; separate plan awaits review. No product change, gameplay/build/native run or genuine rules9 future capture occurred in planning; prior M9 integration remains the latest gameplay evidence.
+
 **Documentation continuation,2026-10-29:** [Ship-design gameplay proposal/check](SHIP_DESIGN_GAMEPLAY_REVIEW_2026-10-29.md). Complete M10 draft and builder disposition; document links/IDs/arithmetic and exact preservation checked. No product change, build/gameplay test, runtime validation or genuine rules9 future capture in this turn. Product stays rules9/writer10/46 pairs; [M9 integration](COMBAT_INTEGRATION_2026-10-29.md) remains the latest executed gameplay evidence.
 
 **Latest local integration,2026-10-29:** [Combat main integration](COMBAT_INTEGRATION_2026-10-29.md): owner-selected fast-forward; fresh1733 simulation tests,3271 Combat checks+93 separate provenance/12 generated campaigns,0diagnostics/build warnings/errors and actual9+2 opt-in/ordinary exclusions. Main rules9/writer10/46pairs. Owner files/raw evidence/QA/all8 worktrees preserved; no push/release/cleanup. Earlier checkpoints below are historical. Human/platform/balance/security/export/release limits remain open.

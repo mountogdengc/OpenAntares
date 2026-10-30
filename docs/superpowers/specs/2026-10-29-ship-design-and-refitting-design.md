@@ -1,6 +1,6 @@
 # Ship design and refitting
 
-2026-10-29. **Status: In Progress — complete M10 gameplay proposal for review.** The owner said “use your own judgement” in response to a proposal to draft this milestone, delegating the starting choices below. They are drafter decisions, not previously owner-confirmed numbers. M10-P/M10-I and functional acceptance are Not Started. [ADR-021](../../DECISIONS/ADR-021-ship-design-and-refitting-design-entry.md) records the drafting authority.
+2026-10-29. **Status: Full gameplay design approved in [ADR-022](../../DECISIONS/ADR-022-approved-ship-design-and-refitting-design.md). M10-D/SHP-AC-012 Verified for design; M10-P In Progress pending review of the separate17-task implementation plan; M10-I/functional criteria Not Started.** Owner “Looks good, write the implementation plan” accepts the complete document at71ec87b (pre-approval SHA256 a54ba0c275f0c8345b57fba4dc247bd6453133344a92eeb1cc384a9f2791252c). Original drafter/proposal wording below records the choices’ origin; those defaults are now approved. [ADR-021](../../DECISIONS/ADR-021-ship-design-and-refitting-design-entry.md) retains drafting history. No product implementation or unread-plan approval is implied.
 
 ## Intent and current baseline
 
@@ -143,7 +143,7 @@ Before any future product change, freeze genuine current rules9 campaigns and th
 
 ## SHP-010 Acceptance and handoff
 
-Functional rows are **Not Started**. M10-D and SHP-AC-012 are **In Progress** until the full written gameplay description is reviewed. M10-P/M10-I are **Not Started**. Parent REQ-017 and the17 parent-row totals do not change through this draft.
+Functional rows are **Not Started**. M10-D and SHP-AC-012 are **Verified for design only** in ADR-022. M10-P is **In Progress** for the separate implementation-plan review; M10-I is **Not Started**. Parent REQ-017 and the17 parent-row totals do not change through this draft.
 
 | Criterion | Required proof before local automated acceptance |
 | --- | --- |
@@ -165,3 +165,6 @@ Later implementation evidence must separate genuine generated paid campaigns fro
 Keep one full simulation gate and affected/full native regression gates in the later plan. Add a distinct opt-in ShipDesign runtime scenario, bringing ordinary exclusion checks to10 scenarios and the existing2 helpers; preserve the real opt-in negative-control requirement and rebuild the normal solution even on failed validation. One final fresh whole-branch implementation review/one correction pass and retained Native execution follow the separate plan's approval; this design's builder check is not that implementation review.
 
 Builder discretion covers type/file organization, indexes/query DTOs, exact typed target representation, accessibility labels, focus order and container layout, original component names, and grouping of tests. It does not change the numeric defaults, loadout limits, shot model, refit price/authority, compatibility or owner-confirmed M8/M9 choices. No product implementation or separate implementation plan is part of this drafting turn. Next is review of the complete proposal; the owner's delegated judgment settles the proposed defaults without another round of preliminary questions.
+
+
+Full gameplay approval2026-10-29: ADR-022 accepts the complete document at71ec87b and all its starting defaults. The [separate17-task plan](../plans/2026-10-29-ship-design-and-refitting.md) is written/self-reviewed and awaits owner review. Earlier drafting-only/plan-not-written statements describe their original checkpoint. Current product remains9/writer10/46; genuine rules9 future capture and implementation have not begun.
