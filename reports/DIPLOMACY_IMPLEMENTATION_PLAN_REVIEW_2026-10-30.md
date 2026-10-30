@@ -1,0 +1,12 @@
+# Diplomacy implementation plan author self-review
+
+2026-10-30 America/Denver. Scope: complete18-task plan compared against owner-approved DIP-001..008 and DIP-AC-001..012. This is author self-review per writing-plans, not a subagent or implementation review. No gameplay tests/build/capture/execution occurred.
+
+- Coverage: all eight requirement sections and12 criteria mapped in plan; design criterion satisfied only by ADR-024. Contact/attitude/offers/accord/trade/duration/AI/state/UI each has task ownership and behavioral checks.
+- Step scan:18 numbered tasks,90 explicit checkbox steps, behavioral RED/focused GREEN/full-suite gates, exact task-owned file paths and commit messages. Replaced the locating placeholder with actual Colonization/FoundingRules.cs and ColonizationResolver.cs. UI/evidence gates use real opt-in scenario assertions rather than treating previously passing unit tests as new RED.
+- Interface consistency: state/definition/command/reservation/frame/resolver/planner/view types have canonical shared contracts. Clarified forward-declared reservation and view contracts at Task4/Task10, with implementation and consumer audits at Tasks5/13; rules11 default remains disabled until Task16. Task11 explicitly carries post-payment banks into economy while frozen pre-offer agreements govern current effects.
+- Review Focus: five concrete risk classes each names an owning task and assertion: exact earmark, travelling founder, revoke/expiry, historical lost hub and hidden-partner Ready/token rollback.
+- Proportion: task steps pin contracts, assertions, files and observable outcomes without supplying production method bodies. Repeated gates are defined centrally; a task's suite result is source-scoped, not an invented passing count.
+- Preservation/compatibility: Task1 freezes all24 genuine rules10 sources and48 checkpoints before product change; inherited old futures retained. Task12 defines67 explicit pairs. Task17 distinguishes four earned campaigns from labelled supplements, checks all11 scenarios and2helper exclusions, and preserves raw/failed evidence. Task18 owns one final review/correction pass, not per-task reviews.
+
+Document structure, new link targets and Git diff checks verified during save. No unresolved planning gap identified by this author review. This is not a guarantee of future gameplay correctness or balance. The separate plan awaits owner review; Native method is already selected. Prior2030-test M10 evidence remains historical.

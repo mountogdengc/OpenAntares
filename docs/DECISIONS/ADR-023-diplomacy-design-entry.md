@@ -9,3 +9,6 @@ The [proposal](../superpowers/specs/2026-10-30-diplomacy-design.md) selects reci
 Read the [fresh builder check and disposition](../../reports/DIPLOMACY_GAMEPLAY_REVIEW_2026-10-30.md). M11-D/DIP-AC-012 In Progress; M11-P/M11-I and functional DIP criteria Not Started. No separate implementation plan, product changes or gameplay test run in this design turn. Rules10/writer11/56 pairs remain active; proposed11/12/67 remains inactive. Native inline/no per-task implementation agents/one final fresh implementation reviewer remain retained after later approvals.
 
 Preserve all nine worktrees, existing branches, owner prose/peaceful-mode paragraph, old QA/frozen futures/raw reports/recovery and17 parent-row statuses/totals. No push/release/cleanup. Next: owner review of the complete diplomacy proposal, then a separate implementation plan.
+
+
+Subsequent full owner approval2026-10-30 is recorded in [ADR-024](ADR-024-approved-diplomacy-design.md); the separate18-task plan now awaits concrete-plan review. Earlier drafting-only status is historical.

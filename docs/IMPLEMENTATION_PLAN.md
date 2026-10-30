@@ -1,5 +1,7 @@
 # OpenAntares continuation plan
 
+**M11 full design approved; implementation plan ready,2026-10-30:** Owner “Looks good, write the implementation plan” accepts the complete diplomacy design/defaults at a8d17dd; ADR-024 records approval. M11-D/DIP-AC-012 Verified for design only. The [separate18-task plan](superpowers/plans/2026-10-30-diplomacy.md) and author self-review in reports/DIPLOMACY_IMPLEMENTATION_PLAN_REVIEW_2026-10-30.md are ready for concrete-plan review. M11-P In Progress; M11-I/functional DIP criteria Not Started. Native inline/no per-task implementation agents/one final fresh implementation reviewer retained. Active product10/11/56 unchanged; proposed11/12/67 inactive. Documentation checks only, no execution checkout/genuine rules10 future capture/gameplay build or test run. All nine worktrees/owner prose/peaceful paragraph/old QA/raw evidence/recovery/17 parent totals remain. No push/release/cleanup. Next: review the concrete18-task plan before execution; do not reopen full gameplay approval or execution-method choices. Earlier pending-full-design statements are historical.
+
 **M11 diplomacy proposal,2026-10-30:** Owner selected diplomacy and delegated starting choices (“Use your own judgement and put together the design”). The [complete proposal](superpowers/specs/2026-10-30-diplomacy-design.md) and fresh builder-check disposition in reports/DIPLOMACY_GAMEPLAY_REVIEW_2026-10-30.md are ready for owner review. Reciprocal identity contact, visible attitudes, one-system settlement accords and paid production trade are drafter defaults. Empire warfare/non-aggression, treasury/barter and FR-001 peaceful mode remain later scope. M11-D/DIP-AC-012 In Progress; M11-P/M11-I/functional DIP criteria Not Started. M10 remains locally integrated at45c5cf0; active rules10/writer11/56 pairs are unchanged, proposed11/12/67 inactive. Documentation checks only; no new gameplay test run or product changes. Native inline/no per-task implementation agents/one final implementation reviewer remain retained after later approvals. All nine worktrees, prior owner prose/peaceful paragraph/QA/raw evidence/recovery and17 parent-row statuses/totals remain. No push/release/cleanup. Next: review this complete proposal before a separate implementation plan. Earlier next-action paragraphs are historical.
 
 **M10 locally integrated,2026-10-30:** Owner “Looks good, merge it into main.” authorized the conflict-free fast-forward of codex/ship-design1fde284 into main from4c58403. Product3796315 includes ship design/refitting and all four follow-up fixes; rules10/writer11/56 explicit pairs are active. Fresh main Suite2030/2030, ShipDesign2017 records/four earned species campaigns and Colony682 pass; builds0 warnings/errors, diagnostics0, actual opt-in10+2 detection and ordinary0+0 metadata pass. All24 generated stage saves match the verified branch byte-exactly. M10-I/functional SHP criteria remain Verified for local automated scope; no open implementation finding or second review. All9 worktrees, owner files/peaceful paragraph, existing QA/raw evidence/ignored workspace and17 parent rows/totals remain preserved. Recovery: codex/ship-design-premerge-20261030. See [integration evidence](../reports/SHIP_DESIGN_INTEGRATION_2026-10-30.md) and its machine summary. Earlier branch-only restrictions are historical. No push, release or cleanup. Human/platform/balance/security/delivery limits remain. Next: bounded milestone selection before further implementation.
@@ -55,7 +57,7 @@ M1-I is now technically integrated under explicit owner authorization, with fres
 
 ## Next concrete action
 
-Review the complete [M11 diplomacy proposal](superpowers/specs/2026-10-30-diplomacy-design.md) and [fresh builder-check disposition](../reports/DIPLOMACY_GAMEPLAY_REVIEW_2026-10-30.md). The owner delegated drafting choices, not full proposal approval. M11-D In Progress; separate plan/implementation Not Started. Retain the Native execution preference after later gates. M10 integration is complete; do not repeat ship-design planning, implementation or integration.
+Review the separate [18-task diplomacy implementation plan](superpowers/plans/2026-10-30-diplomacy.md) and [author self-review](../reports/DIPLOMACY_IMPLEMENTATION_PLAN_REVIEW_2026-10-30.md). Full gameplay/default approval is ADR-024; do not reopen it. Native execution remains selected. After concrete-plan approval, isolate execution and freeze genuine rules10 futures before product/content changes. No execution checkout/capture/build has begun in this planning turn.
 
 ## Risks and autonomy
 
@@ -160,6 +162,6 @@ M10 full approval/planning,2026-10-29: owner “Looks good, write the implementa
 
 | M11 milestone | Scope | Status |
 | --- | --- | --- |
-| M11-D | Complete diplomacy proposal and fresh builder check, awaiting owner review | In Progress |
-| M11-P | Separate plan after full design approval | Not Started |
+| M11-D | Full owner-approved design/defaults; ADR-024 | Verified for design |
+| M11-P | Separate18-task plan/self-review ready; concrete-plan review pending | In Progress |
 | M11-I | Implement after separate plan approval | Not Started |
