@@ -220,9 +220,20 @@ public partial class ColonyPanel : VBoxContainer
             }
         }
 
-        if(view is not null)foreach(var design in OpenAntares.Simulation.ShipDesigns.ShipDesignQueries.BuildChoices(view))
+        if(view is not null)
         {
-            picker.AddItem(ShipDesignUi.DesignName(content,view,design.Id)+" ("+Format.Points(design.Stats.BuildCost)+")");picker.SetItemMetadata(picker.ItemCount-1,ShipDesignUi.Encode(OpenAntares.Simulation.ShipDesigns.ShipDesignTargets.Build(design.Id)));picker.SetItemTooltip(picker.ItemCount-1,$"Hull {design.Stats.MaxHull}; attack {design.Stats.Attack}; armor {design.Stats.Armor}; base speed {design.Stats.BaseSpeed}; space {design.Stats.SpaceUsed}/{design.Stats.SpaceCapacity}. One exact new ship; equipment is not substituted.");if(colony.ProjectKind==ProductionKinds.ShipDesign&&colony.ProjectId==design.Id.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))picker.Select(picker.ItemCount-1);
+            var choices=OpenAntares.Simulation.ShipDesigns.ShipDesignQueries.BuildChoices(view);
+            if(colony.ProjectKind==ProductionKinds.ShipDesign&&OpenAntares.Simulation.ShipDesigns.ShipDesignTargets.TryId(colony.ProjectId,out int committedId)&&view.ShipDesigns?.Designs.SingleOrDefault(d=>d.Id.Value==committedId) is {} committed&&!choices.Any(d=>d.Id==committed.Id))choices=choices.Add(committed);
+            foreach(var design in choices)
+            {
+                bool selectable=!design.Archived&&design.Unlocked;
+                string status=design.Archived?" (archived; committed)":!design.Unlocked?" (locked; committed)":"";
+                picker.AddItem(ShipDesignUi.DesignName(content,view,design.Id)+status+" ("+Format.Points(design.Stats.BuildCost)+")");int index=picker.ItemCount-1;
+                picker.SetItemMetadata(index,ShipDesignUi.Encode(OpenAntares.Simulation.ShipDesigns.ShipDesignTargets.Build(design.Id)));
+                picker.SetItemTooltip(index,$"Hull {design.Stats.MaxHull}; attack {design.Stats.Attack}; armor {design.Stats.Armor}; base speed {design.Stats.BaseSpeed}; space {design.Stats.SpaceUsed}/{design.Stats.SpaceCapacity}. One exact new ship; equipment is not substituted."+(selectable?"":" Existing commitment only; restore/unlock the design before selecting it for new work."));
+                if(colony.ProjectKind==ProductionKinds.ShipDesign&&colony.ProjectId==design.Id.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))picker.Select(index);
+                picker.SetItemDisabled(index,!selectable);
+            }
         }
         if(colony.ProjectKind==ProductionKinds.Refit){picker.AddItem("Committed refit #"+colony.ProjectId);picker.SetItemMetadata(picker.ItemCount-1,"refit|"+colony.ProjectId);picker.Select(picker.ItemCount-1);picker.Disabled=true;picker.TooltipText="Cancel or complete the committed refit before changing this production slot.";}
         foreach (BuildingDefinition building in remaining.Where(b => !b.PrerequisiteTechnologyIds.All(id => colony.KnownTechnologyIds.Contains(id))))
