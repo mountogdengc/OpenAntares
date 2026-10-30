@@ -41,12 +41,12 @@ public partial class CrisisGraphicalValidation:Node
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();var setup=One<NewGameScreen>(main);setup.Configure("small",42);
         Check(Named<OptionButton>(setup,"SpeciesPicker").GetSelectedMetadata().AsString()=="harl"&&Named<OptionButton>(setup,"RivalCountPicker").Selected==1&&Named<OptionButton>(setup,"RivalSpeciesPicker").GetSelectedMetadata().AsString()=="peldra"&&Named<OptionButton>(setup,"CrisisModePicker").Selected==0,"Actual current setup defaults Harl, One Peldra rival and Standard crises");
         Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames();var session=Session(One<GameScreen>(main));
-        Check(session.State.RulesVersion==9&&session.State.Crisis!.Enabled&&session.State.FindEmpire(session.State.Empires[0].Id)!.Crisis is {Authority:CrisisAuthority.Manual,RequireAcknowledgement:true},"Actual current Start uses rules9 Standard and manual required acknowledgement");
+        Check(session.State.RulesVersion==10&&session.State.Crisis!.Enabled&&session.State.FindEmpire(session.State.Empires[0].Id)!.Crisis is {Authority:CrisisAuthority.Manual,RequireAcknowledgement:true},"Actual current Start uses rules10 Standard and manual required acknowledgement");
         RemoveChild(main);main.QueueFree();await Frames();
         main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();setup=One<NewGameScreen>(main);setup.Configure("small",42,"harl",1,"peldra",false);
         Check(Named<OptionButton>(setup,"CrisisModePicker").Selected==1&&Descendants<Label>(setup).Any(l=>l.Name=="SpeciesSummary"&&l.Text.Contains("Colony crises: Off",StringComparison.Ordinal)),"Actual Off control updates new-game preview without starting a campaign");
         Press(Descendants<Button>(setup).Single(b=>b.Text=="Start"));await Frames();session=Session(One<GameScreen>(main));
-        Check(session.State.RulesVersion==9&&!session.State.Crisis!.Enabled,"Actual Off Start keeps rules9 crisis streams dormant");
+        Check(session.State.RulesVersion==10&&!session.State.Crisis!.Enabled,"Actual Off Start keeps rules10 crisis streams dormant");
         RemoveChild(main);main.QueueFree();await Frames();
         var incomplete=CoreWithApprovedPlague() with{Plagues=ImmutableSortedDictionary<string,PlagueDefinition>.Empty};
         setup=new NewGameScreen(incomplete);AddChild(setup);await Frames();Check(Descendants<Button>(setup).Single(b=>b.Text=="Start").Disabled,"Missing current plague prevents even an Off new-game start");bool canLoad=false;setup.LoadRequested+=()=>canLoad=true;Press(Descendants<Button>(setup).Single(b=>b.Text=="Load Game"));Check(canLoad,"Missing current plague still offers old-save Load recovery");RemoveChild(setup);setup.QueueFree();await Frames();
