@@ -17,6 +17,7 @@ public sealed record ContentSet(
     ImmutableSortedDictionary<string, BuildingDefinition> Buildings,
     ImmutableSortedDictionary<string, TechnologyDefinition> Technologies)
 {
+    public ShipDesigns.ShipDesignDefinition? ShipDesigns { get; init; }
     public Combat.CombatDefinition? Combat { get; init; }
     public Fleets.FleetCommandDefinition? FleetCommand { get; init; }
     public AmebaDefinition? SpaceAmeba { get; init; }
@@ -110,7 +111,10 @@ public sealed record TechnologyDefinition(
     string Id,
     string Name,
     long Cost,
-    ImmutableArray<string> PrerequisiteTechnologyIds);
+    ImmutableArray<string> PrerequisiteTechnologyIds)
+{
+    public bool ShipDesignOnly {get;init;}
+}
 
 public sealed record VesselDefinition(string Id, string Name, long Cost, int Speed, int EmbarkPopulation, int MinimumSourcePopulation, bool CanFoundColony)
 {

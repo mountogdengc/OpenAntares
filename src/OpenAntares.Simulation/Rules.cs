@@ -18,21 +18,24 @@ public static class Rules
     public const int ScoutVersion = 7;
     public const int FleetVersion = 8;
     public const int CombatVersion = 9;
-    public static bool HasCombat(int version) => version == CombatVersion;
+    public const int ShipDesignVersion = 10;
+    public static bool HasShipDesigns(int version) => version == ShipDesignVersion;
+    public static bool HasCombat(int version) => version is CombatVersion or ShipDesignVersion;
     public static bool VesselAvailable(ContentSet content, int version, string roleId) => HasExpansion(version) && content.Vessels.TryGetValue(roleId, out var role) && (!role.CombatOnly || HasCombat(version));
-    public static bool HasFleets(int version) => version is FleetVersion or CombatVersion;
-    public static bool HasScouting(int version) => version is ScoutVersion or FleetVersion or CombatVersion;
-    public static bool HasCrises(int version) => version is CrisisVersion or ScoutVersion or FleetVersion or CombatVersion;
+    public static bool HasFleets(int version) => version is FleetVersion or CombatVersion or ShipDesignVersion;
+    public static bool HasScouting(int version) => version is ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion;
+    public static bool HasCrises(int version) => version is CrisisVersion or ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion;
     public const int CurrentVersion = CombatVersion;
-    public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion;
-    public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion;
-    public static bool HasSpecies(int version) => version is SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion;
-    public static bool HasRivals(int version) => version is RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion;
+    public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion;
+    public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion;
+    public static bool HasSpecies(int version) => version is SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion;
+    public static bool HasRivals(int version) => version is RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion;
 
-    public static bool HasDevelopment(int version) => version is DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion;
+    public static bool HasDevelopment(int version) => version is DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion;
 
     public static bool TechnologyAvailable(ContentSet content, int rulesVersion, string technologyId) =>
-        IsSupported(rulesVersion) && content.Technologies.ContainsKey(technologyId) &&
+        IsSupported(rulesVersion) && content.Technologies.TryGetValue(technologyId, out var technology) &&
+        (!technology.ShipDesignOnly || HasShipDesigns(rulesVersion)) &&
         (HasFleets(rulesVersion) || content.FleetCommand?.RecoveryTechnologyId != technologyId);
 
     /// <summary>A colony's population capacity: the base capacity plus completed capacity buildings.</summary>

@@ -32,6 +32,7 @@ public sealed class CombatGenerationTests
     {
         var root=CombatContentTests.CoreNode();var role=root["vessels"]!.AsArray().Single(n=>n!["id"]!.GetValue<string>()=="escort")!;role["id"]="guardian";
         var profiles=root["combat"]!["role_profiles"]!.AsObject();var profile=profiles["escort"]!.DeepClone();profiles.Remove("escort");profiles["guardian"]=profile;root["combat"]!["sentry_role_id"]="gate_machine";
+        root["ship_designs"]!["warship_role_id"]="guardian";
         var loaded=ContentLoader.Load(new[]{new ContentSource("alternative-combat.json",root.ToJsonString())},requireCombat:true);Assert.True(loaded.Succeeded,string.Join("; ",loaded.Errors));
         var result=GalaxyGenerator.CreateNewGame(loaded.Content!,new("small",42,9,"wenth",AmebasEnabled:false,SentriesEnabled:true));Assert.True(result.Succeeded,result.Error);Assert.Single(result.State!.Combat!.Pockets);
         Assert.Equal(100,loaded.Content!.Combat!.RoleProfiles["guardian"].MaxHull);Assert.Empty(GameStateValidator.Validate(loaded.Content,result.State));

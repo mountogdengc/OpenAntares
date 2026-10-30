@@ -50,6 +50,42 @@
       "prerequisites": [
         "industrial_coordination"
       ]
+    },
+    {
+      "id": "focused_emitters",
+      "name": "Focused Emitters",
+      "cost": 2400,
+      "prerequisites": [
+        "measurement_methods"
+      ],
+      "ship_design_only": true
+    },
+    {
+      "id": "reinforced_laminates",
+      "name": "Reinforced Laminates",
+      "cost": 2400,
+      "prerequisites": [
+        "industrial_coordination"
+      ],
+      "ship_design_only": true
+    },
+    {
+      "id": "vector_drives",
+      "name": "Vector Drives",
+      "cost": 3600,
+      "prerequisites": [
+        "industrial_coordination"
+      ],
+      "ship_design_only": true
+    },
+    {
+      "id": "frigate_construction",
+      "name": "Frigate Construction",
+      "cost": 3600,
+      "prerequisites": [
+        "industrial_coordination"
+      ],
+      "ship_design_only": true
     }
   ]
 }

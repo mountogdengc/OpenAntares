@@ -1,0 +1,97 @@
+{
+  "ship_designs": {
+    "warship_role_id": "escort",
+    "starting_recipe": {
+      "frame_id": "escort_frame",
+      "engine_id": "conventional_drive",
+      "armor_id": "plated_armor",
+      "weapon_bank_ids": [
+        "pulse_bank"
+      ]
+    },
+    "frames": {
+      "escort_frame": {
+        "id": "escort_frame",
+        "name": "Escort",
+        "hull": 100,
+        "space": 6,
+        "cost": 1200,
+        "travel_percent": 100,
+        "prerequisites": []
+      },
+      "frigate_frame": {
+        "id": "frigate_frame",
+        "name": "Frigate",
+        "hull": 180,
+        "space": 10,
+        "cost": 2400,
+        "travel_percent": 75,
+        "prerequisites": [
+          "frigate_construction"
+        ]
+      }
+    },
+    "components": {
+      "conventional_drive": {
+        "id": "conventional_drive",
+        "name": "Conventional drive",
+        "kind": "engine",
+        "space": 0,
+        "cost": 400,
+        "value": 300,
+        "prerequisites": []
+      },
+      "vector_drive": {
+        "id": "vector_drive",
+        "name": "Vector drive",
+        "kind": "engine",
+        "space": 0,
+        "cost": 800,
+        "value": 400,
+        "prerequisites": [
+          "vector_drives"
+        ]
+      },
+      "pulse_bank": {
+        "id": "pulse_bank",
+        "name": "Pulse bank",
+        "kind": "weapon",
+        "space": 3,
+        "cost": 600,
+        "value": 24,
+        "prerequisites": []
+      },
+      "lance_bank": {
+        "id": "lance_bank",
+        "name": "Lance bank",
+        "kind": "weapon",
+        "space": 4,
+        "cost": 1000,
+        "value": 36,
+        "prerequisites": [
+          "focused_emitters"
+        ]
+      },
+      "plated_armor": {
+        "id": "plated_armor",
+        "name": "Plated armor",
+        "kind": "armor",
+        "space": 2,
+        "cost": 200,
+        "value": 4,
+        "prerequisites": []
+      },
+      "reinforced_armor": {
+        "id": "reinforced_armor",
+        "name": "Reinforced armor",
+        "kind": "armor",
+        "space": 3,
+        "cost": 500,
+        "value": 8,
+        "prerequisites": [
+          "reinforced_laminates"
+        ]
+      }
+    }
+  }
+}
