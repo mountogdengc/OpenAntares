@@ -21,6 +21,7 @@ public partial class FleetCommandDialog:AcceptDialog
     public event Action<StarId>? StarRequested;
     public event Action<RequestId?>? RequestRequested;
     public event Action? OfficersRequested;
+    public event Action? DesignsRequested;
     public event Action? DisplayApplied;
     public string PreferencesPath {get;set;}="user://fleet-notifications.json";
     private ContentSet _content=null!;private EmpireView _view=null!;private VBoxContainer _body=null!;
@@ -40,6 +41,7 @@ public partial class FleetCommandDialog:AcceptDialog
     {
         Name="FleetCommandDialog";Title="Fleet command";OkButtonText="Close";_body=DevelopmentUi.DialogBody(this);_body.AddChild(DevelopmentUi.Text("All your ships, finite construction requests and command appointments. Every move uses normal travel; manual orders and live safety responses take precedence."));
         var top=new HBoxContainer();_body.AddChild(top);DevelopmentUi.Button(top,"New assembly request",()=>RequestRequested?.Invoke(null),"FleetNewRequest");DevelopmentUi.Button(top,"Admirals and service records",()=>OfficersRequested?.Invoke(),"FleetOpenOfficers");
+        DevelopmentUi.Button(_body,"Ship designs",()=>DesignsRequested?.Invoke(),"OpenShipDesigns");
         _body.AddChild(_tabs);var ships=Page("Ships");var filters=new HBoxContainer();ships.AddChild(filters);filters.AddChild(_filter);filters.AddChild(_sort);ships.AddChild(_roleFilter);foreach(var f in new[]{"All","Idle","Unassigned","New","Travelling","Reserved","Attention"})_filter.AddItem(f);foreach(var s in new[]{"Ship ID","Role","Location"})_sort.AddItem(s);ships.AddChild(_ships);Navigation(ships,"FleetShips",_shipPages,delta=>{_shipPage+=delta;Rows();});
         var select=new HBoxContainer();ships.AddChild(select);DevelopmentUi.Button(select,"Select all shown",()=>{for(int i=0;i<_ships.ItemCount;i++)_ships.Select(i,false);Details();},"FleetSelectAll");DevelopmentUi.Button(select,"Clear selection",()=>{_ships.DeselectAll();Details();},"FleetClearSelection");
         ships.AddChild(_detail);ships.AddChild(_destination);ships.AddChild(_name);var shipActions=new GridContainer{Columns=2};ships.AddChild(shipActions);
@@ -75,11 +77,13 @@ public partial class FleetCommandDialog:AcceptDialog
     public void ShowEmpire(ContentSet content,EmpireView view)
     {
         _content=content;_view=view;if(view.Fleets is null)return;
+        NamedDesignEntry();
         if(view.Combat is not null&&_filter.ItemCount==7)foreach(var label in new[]{"Warships","In combat","Withdrawing","Damaged","Crippled","Repairing"})_filter.AddItem(label);
         if(view.Combat is null)while(_filter.ItemCount>7)_filter.RemoveItem(_filter.ItemCount-1);
         foreach(var id in new[]{"FleetCombatOrders","FleetRepair","FleetStopRepair","CombatRoutineDisplay","CombatApplyDisplay"})FindChild(id,true,false)?.Set("visible",view.Combat is not null);
         CombatReport();FillRoles();FillDestinations(_destination);FillDestinations(_groupDestination);Rows();GroupRows();RequestRows();Events();PopupCenteredClamped(new(760,560));
     }
+    private void NamedDesignEntry(){if(FindChild("OpenShipDesigns",true,false) is Button button)button.Visible=OpenAntares.Simulation.Rules.HasShipDesigns(_view.RulesVersion);}
     private void CombatReport(){_combatReport.ShowRoutine=CombatNotificationPreferences.Load(ProjectSettings.GlobalizePath(CombatPreferencesPath)).ShowRoutine;if(FindChild("CombatRoutineDisplay",true,false) is OptionButton picker)picker.Select(_combatReport.ShowRoutine?0:1);_combatReport.SetView(_view.Combat);}
     private void CombatOrder(FleetId fleet)
     {

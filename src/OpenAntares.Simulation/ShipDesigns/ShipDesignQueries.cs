@@ -18,13 +18,13 @@ public static class ShipDesignQueries
     public static ImmutableArray<DesignView> BuildChoices(EmpireView view)=>!Rules.HasShipDesigns(view.RulesVersion)?ImmutableArray<DesignView>.Empty:view.ShipDesigns?.Designs.Where(d=>!d.Archived&&d.Unlocked).OrderBy(d=>d.Id).ToImmutableArray()??ImmutableArray<DesignView>.Empty;
     public static DesignPreview PreviewDraft(ContentSet content,EmpireView view,string name,ShipRecipe recipe)
     {
-        DesignPreview Reject(string code,DesignStats? stats=null,ImmutableArray<string> missing=default)=>new(false,code,stats,missing.IsDefault?ImmutableArray<string>.Empty:missing);
+        DesignPreview Reject(string code,DesignStats? stats=null,ImmutableArray<string> missing=default,string? explanation=null)=>new(false,code,stats,missing.IsDefault?ImmutableArray<string>.Empty:missing){Explanation=explanation};
         if(!Rules.HasShipDesigns(view.RulesVersion)||content.ShipDesigns is not {} definition||view.ShipDesigns is not {} catalogue)return Reject("ship_design_unavailable");
         name=name?.Trim()??string.Empty;
         if(!ValidName(name))return Reject("ship_design_name");
         DesignStats stats;
         try{stats=ShipDesignMath.Calculate(definition,recipe);}
-        catch(Exception error)when(error is ArgumentException or OverflowException or System.Collections.Generic.KeyNotFoundException){return Reject("ship_design_recipe");}
+        catch(Exception error)when(error is ArgumentException or OverflowException or System.Collections.Generic.KeyNotFoundException){return Reject("ship_design_recipe",explanation:error.Message);}
         var selected=recipe.WeaponBankIds.Prepend(recipe.EngineId);if(recipe.ArmorId is {} armor)selected=selected.Append(armor);
         var missing=definition.Frames[recipe.FrameId].Prerequisites.Concat(selected.SelectMany(id=>definition.Components[id].Prerequisites)).Where(id=>!view.Research.KnownTechnologyIds.Contains(id)).Distinct(StringComparer.Ordinal).Order(StringComparer.Ordinal).ToImmutableArray();
         if(!missing.IsEmpty)return Reject("ship_design_locked",stats,missing);

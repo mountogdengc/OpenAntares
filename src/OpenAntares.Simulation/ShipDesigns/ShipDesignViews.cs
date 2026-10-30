@@ -7,7 +7,11 @@ public sealed record DesignReferences(int Vessels,int ActiveProjects,int QueueEn
 {
     public bool Any=>Vessels!=0||ActiveProjects!=0||QueueEntries!=0||RequestSlots!=0||Refits!=0;
 }
-public sealed record DesignPreview(bool Allowed,string? RejectionCode,DesignStats? Stats,ImmutableArray<string> MissingTechnologyIds);
+public sealed record DesignPreview(bool Allowed,string? RejectionCode,DesignStats? Stats,ImmutableArray<string> MissingTechnologyIds)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public string? Explanation {get;init;}
+}
 public sealed record DesignView(DesignId Id,string Name,ShipRecipe Recipe,DesignStats Stats,bool Archived,bool Unlocked,DesignReferences References);
 public sealed record CatalogueFilter(bool IncludeArchived=false,string? Search=null);
 public sealed record CatalogueRow(DesignView Design,string? ArchiveBlockedReason,string? RestoreBlockedReason,string? DeleteBlockedReason);

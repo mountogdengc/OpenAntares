@@ -36,6 +36,8 @@ public partial class GameScreen : VBoxContainer
     private readonly Label _combatBadge=new(){Name="CombatAttentionBadge",ThemeTypeVariation="WarningLabel",AutowrapMode=TextServer.AutowrapMode.WordSmart};
     public string CombatPreferencesPath{get;set;}="user://combat-notifications.json";
     private readonly FleetCommandDialog _fleetCommand=new();
+    private readonly ShipDesignDialog _shipDesigns=new();
+    private readonly ShipDesignEditor _shipDesignEditor=new();
     private readonly AssemblyRequestDialog _assemblyRequest=new();
     private readonly OfficerDetailDialog _officerDetails=new();
     private readonly Label _fleetBadge=new(){Name="FleetAttentionBadge",ThemeTypeVariation="WarningLabel",AutowrapMode=TextServer.AutowrapMode.WordSmart,SizeFlagsHorizontal=SizeFlags.ExpandFill};
@@ -106,12 +108,17 @@ public partial class GameScreen : VBoxContainer
 
         AddChild(_saveDialog);
         _saveDialog.Saved += name => ShowMessage($"Saved as \"{name}\".", isWarning: false);
-        AddChild(_fleetCommand);AddChild(_assemblyRequest);AddChild(_officerDetails);AddChild(_combatOrders);
+        AddChild(_fleetCommand);AddChild(_assemblyRequest);AddChild(_officerDetails);AddChild(_combatOrders);AddChild(_shipDesigns);AddChild(_shipDesignEditor);
+        _fleetCommand.DesignsRequested+=()=>{_fleetCommand.Hide();_shipDesigns.ShowCatalogue(_session.Content,View);};
+        _shipDesigns.EditorRequested+=copy=>{_shipDesigns.Hide();_shipDesignEditor.ShowEditor(_session.Content,View,copy);};
+        _shipDesigns.ActionRequested+=DesignAction;
+        _shipDesignEditor.Saved+=(name,recipe)=>DesignAction(new OpenAntares.Simulation.ShipDesigns.ShipDesignAction.Save(name,recipe));
+        _shipDesignEditor.CancelRequested+=()=>_shipDesigns.ShowCatalogue(_session.Content,View);
         _fleetCommand.CombatRequested+=action=>{_fleetCommand.Hide();Callable.From(()=>OpenCombat(action)).CallDeferred();};
         if(Rules.HasCombat(View.RulesVersion)){var row=new VBoxContainer();AddChild(row);row.AddChild(_combatBadge);var response=new Button{Name="OpenCombatResponses",Text="Review combat response / orders"};row.AddChild(response);response.Pressed+=OpenCombatResponse;}else{AddChild(_combatBadge);_combatBadge.Hide();}
         _fleetCommand.CommandIssued+=Execute;_assemblyRequest.CommandIssued+=Execute;_officerDetails.CommandIssued+=Execute;
         _fleetCommand.DisplayApplied+=()=>Callable.From(Refresh).CallDeferred();
-        foreach(var dialog in new Window[]{_fleetCommand,_assemblyRequest,_officerDetails,_combatOrders})dialog.VisibilityChanged+=()=>Callable.From(OpenPendingCommandInterrupt).CallDeferred();
+        foreach(var dialog in new Window[]{_fleetCommand,_assemblyRequest,_officerDetails,_combatOrders,_shipDesigns,_shipDesignEditor})dialog.VisibilityChanged+=()=>Callable.From(OpenPendingCommandInterrupt).CallDeferred();
         _fleetCommand.RequestRequested+=request=>{_fleetCommand.Hide();Callable.From(()=>_assemblyRequest.ShowEditor(_session.Content,View,request)).CallDeferred();};
         _fleetCommand.OfficersRequested+=()=>{_fleetCommand.Hide();Callable.From(()=>_officerDetails.ShowOfficers(_session.Content,View)).CallDeferred();};
         _fleetCommand.StarRequested+=star=>{_fleetCommand.Hide();_map.Select(star);};
@@ -224,6 +231,7 @@ public partial class GameScreen : VBoxContainer
         ShowMessage(outcome.Rejection?.Message ?? string.Empty, isWarning: true);
         if(_combatOrders.Visible&&command is OpenAntares.Simulation.Combat.CombatActionCommand){if(outcome.Accepted)_combatOrders.Hide();else _combatOrders.ShowError(outcome.Rejection?.Message??"");}
         if(_fleetCommand.Visible)_fleetCommand.ShowError(outcome.Rejection?.Message??"");
+        if(_shipDesigns.Visible)_shipDesigns.ShowError(outcome.Rejection?.Message??"");
         if(_assemblyRequest.Visible)_assemblyRequest.ShowError(outcome.Rejection?.Message??"");
         if(_officerDetails.Visible)_officerDetails.ShowError(outcome.Rejection?.Message??"");
         if(outcome.Changed&&command is OpenAntares.Simulation.Fleets.AssemblyCommand{Action:OpenAntares.Simulation.Fleets.AssemblyAction.Accept}&&View.Fleets is {} accepted)
@@ -259,6 +267,8 @@ public partial class GameScreen : VBoxContainer
         _fleetCommand.PreferencesPath=FleetPreferencesPath;
         _report.FleetPreferencesPath=FleetPreferencesPath;
         if(_fleetCommand.Visible)_fleetCommand.ShowEmpire(_session.Content,view);
+        if(_shipDesigns.Visible)_shipDesigns.ShowCatalogue(_session.Content,view);
+        if(_shipDesignEditor.Visible)_shipDesignEditor.UpdateView(_session.Content,view);
         if(_assemblyRequest.Visible)_assemblyRequest.UpdateView(_session.Content,view);
         if(_officerDetails.Visible)_officerDetails.ShowOfficers(_session.Content,view);
         RefreshFleetAttention(view);
@@ -305,6 +315,14 @@ public partial class GameScreen : VBoxContainer
         int emergency=combat.Notices.Count(n=>n.Level==OpenAntares.Simulation.Combat.CombatNoticeLevel.Emergency),attention=combat.Notices.Count(n=>n.Level==OpenAntares.Simulation.Combat.CombatNoticeLevel.Attention);
         _combatBadge.Text=emergency>0?$"Combat Emergency: {emergency} encounter response(s) required before Ready. Review the exact fleet and revision.":$"Combat Attention: {attention} damage, return, repair or officer conditions. Routine display cannot hide these facts.";
     }
+    private void DesignAction(OpenAntares.Simulation.ShipDesigns.ShipDesignAction action)
+    {
+        var result=_session.Execute(new OpenAntares.Simulation.ShipDesigns.ShipDesignCommand(_viewer,View.Turn,View.ShipDesigns!.CatalogueRevision,action));
+        ShowMessage(result.Rejection?.Message??string.Empty,isWarning:true);
+        if(result.Accepted){_shipDesignEditor.Hide();_shipDesigns.ShowCatalogue(_session.Content,View);_shipDesigns.ShowError("");}
+        else{if(_shipDesignEditor.Visible)_shipDesignEditor.ShowError(result.Rejection?.Message??"");if(_shipDesigns.Visible)_shipDesigns.ShowError(result.Rejection?.Message??"");}
+        Callable.From(Refresh).CallDeferred();
+    }
     private void OpenFleetCommand(){if(Rules.HasFleets(View.RulesVersion)){_fleetCommand.PreferencesPath=FleetPreferencesPath;_fleetCommand.ShowEmpire(_session.Content,View);}}
     private void RefreshFleetAttention(EmpireView view)
     {
@@ -325,7 +343,7 @@ public partial class GameScreen : VBoxContainer
             if(_seenCrisisMaterial.Add($"event:{entry.Key.Episode}:{entry.Key.Colony}:{entry.Revision}:{entry.Kind}")&&_crisisMaterialInitialized)fresh=true;
         _crisisMaterialInitialized=true;
         if(!fresh||_crisisPreferences.Critical!=OpenAntares.Game.Presentation.CrisisDisplayLevel.Interrupt)return;
-        if(_report.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_combatOrders.Visible)_pendingCrisisInterrupt=true;
+        if(_report.Visible||_shipDesigns.Visible||_shipDesignEditor.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_combatOrders.Visible)_pendingCrisisInterrupt=true;
         else if(!_crisisOverview.Visible&&!_crisisResponse.Visible)
             Callable.From(()=>{if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}).CallDeferred();
     }
@@ -345,12 +363,12 @@ public partial class GameScreen : VBoxContainer
     {
         // Visibility may change again between the signal and its deferred callback.
         // Keep the emergency queued until the currently exclusive report/response really closes.
-        if(!IsInsideTree()||!_pendingScoutInterrupt||_report.Visible||_crisisOverview.Visible||_crisisResponse.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_combatOrders.Visible)return;
+        if(!IsInsideTree()||!_pendingScoutInterrupt||_report.Visible||_crisisOverview.Visible||_crisisResponse.Visible||_shipDesigns.Visible||_shipDesignEditor.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_combatOrders.Visible)return;
         _pendingScoutInterrupt=false;if(View.Scouting is {} current)_scoutOverview.ShowScouting(_session.Content,current);
     }
     private void OpenPendingCommandInterrupt()
     {
-        if(!IsInsideTree()||_report.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_combatOrders.Visible||_crisisOverview.Visible||_crisisResponse.Visible)return;
+        if(!IsInsideTree()||_report.Visible||_shipDesigns.Visible||_shipDesignEditor.Visible||_fleetCommand.Visible||_assemblyRequest.Visible||_officerDetails.Visible||_combatOrders.Visible||_crisisOverview.Visible||_crisisResponse.Visible)return;
         if(_pendingCrisisInterrupt){_pendingCrisisInterrupt=false;if(View.Crisis is {} current)_crisisOverview.ShowCrisis(_session.Content,current);}else OpenPendingScoutInterrupt();
     }
 

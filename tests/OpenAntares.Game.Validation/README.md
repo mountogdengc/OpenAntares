@@ -1,5 +1,11 @@
 # Godot runtime validation
 
+## Ship-design scenario
+
+Use `-Scenario ShipDesign` with a fresh output directory. The new tenth scenario opens the real catalogue from Fleet Command and exercises Copy, component selectors, explicit Save/Cancel, name and research rejection, exact space feedback, archive/restore/delete, 16-row paging and filter reset at 800×600 and 1920×1080. Separate labelled pre-session catalogues cover 32 active and 256 retained records. A public-command-prepared project supplement verifies that archiving keeps its pinned recipe and blocks deletion. These supplements do not establish earned campaign progression; that evidence is recorded separately.
+
+The runner inspects the real opt-in assembly as its negative control and always rebuilds ordinary code, checking exclusion of all ten scenarios and the two existing helpers even on failure. Primary popup geometry uses native windows. Supplementary PNGs explicitly switch only the test window to embedded mode, then restore native mode; they are not native-window pixel captures. The inherited canvas scaling is visible in the 800-pixel captures. In-process signals, focus and scroll bounds do not establish physical input, comfortable reading, accessibility, player understanding or aesthetics. Keep every failed run and generated save.
+
 This opt-in harness tests the legacy colony loop, frozen rules2 expansion and current rules3 species loop inside graphical Godot. It is excluded from ordinary compilation by the root project's `tests/**` exclusion and is added only through `Validation.targets` during this runner.
 
 From the repository root, with restored dependencies and a Godot 4.7.2 **.NET console executable**:

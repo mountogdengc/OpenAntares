@@ -20,7 +20,7 @@ public static class ShipDesignMath
         Int128 space=(Int128)engine.Space+(armor?.Space??0),attack=0;
         foreach(string bank in recipe.WeaponBankIds)
         {var weapon=Component(bank,ShipComponentKind.Weapon);cost+=weapon.Cost;space+=weapon.Space;attack+=weapon.Value;}
-        if(space>frame.Space)throw new ArgumentException("Equipment exceeds frame space capacity.");
+        if(space>frame.Space)throw new ArgumentException($"Equipment uses {space}/{frame.Space} space; exceeds frame space capacity.");
         int speed=checked((int)Int128.Max(1,(Int128)engine.Value*frame.TravelPercent/100));
         return new(checked((long)cost),frame.Hull,checked((int)attack),armor?.Value??0,speed,checked((int)space),frame.Space);
 
