@@ -1,5 +1,7 @@
 # OpenAntares continuation plan
 
+**M10 deferred-item closure,2026-10-30:** Owner-authorized M1–M4 follow-up is complete on retained codex/ship-design, product3796315. Canonical recipes/compatible prior rules10 loading, early optional-equipment overflow diagnostics, direct equipment/refit comparisons and colony designer access are verified. Suite2030/2030, ShipDesign2017 records/four earned species campaigns and Colony682 pass; ordinary builds0 warnings/errors,10+2 harness types excluded. M10-I/SHP functional criteria are Verified for local automated scope; design approval has its own scope. [Follow-up validation](../reports/SHIP_DESIGN_POLISH_2026-10-30.md) and its machine record supersede the earlier four-Minor deferral. Main/all9 worktrees/owner prose/old QA/raw evidence remain preserved; no second review, merge/push/release/cleanup. Human/platform/delivery limits and17 parent rows/totals remain unchanged. Next: owner disposition of the completed branch. Earlier checkpoint paragraphs below are historical.
+
 Adoption reconciliation and subsequent owner deferral, 2026-10-22. This plan orders work and gates; it does not authorize broad implementation. The [approved 2026-10-19 plan](superpowers/plans/2026-10-19-first-playable-validation-and-exploration-design.md) retains its detailed tasks, amended by [ADR-005](DECISIONS/ADR-005-defer-uncoached-playtest-for-design.md) to permit expansion design while the unavailable uncoached session is deferred. Read [PROJECT_STATUS.md](../PROJECT_STATUS.md) first.
 
 ## Baseline
@@ -41,7 +43,7 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M9-I | Implement approved bounded combat | M9-P approved | CBT-AC-001..011; one review/one correction pass;1733 simulation and affected native gates | Verified for local automated scope |
 | M10-D | Approve ship design and equipment refitting | Full owner approval in ADR-022 | SHP-AC-012 full gameplay/default review | Verified for design |
 | M10-P | Plan reviewed ship-design slice | M10-D approved; separate17-task plan/self-review | Owner review of the concrete plan; Native retained | Verified |
-| M10-I | Implement approved ship-design slice | Approved M10-P; genuine rules9 future freeze before product changes | SHP criteria, retained regressions and single final implementation review | Implemented, Unverified |
+| M10-I | Implement approved ship-design slice | Approved M10-P; genuine rules9 future freeze before product changes | SHP criteria, retained regressions and single final implementation review | Verified for local automated scope |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 

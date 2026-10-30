@@ -1,5 +1,7 @@
 # OpenAntares requirement register
 
+**M10 deferred-item closure,2026-10-30:** Owner-authorized M1–M4 follow-up is complete on retained codex/ship-design, product3796315. Canonical recipes/compatible prior rules10 loading, early optional-equipment overflow diagnostics, direct equipment/refit comparisons and colony designer access are verified. Suite2030/2030, ShipDesign2017 records/four earned species campaigns and Colony682 pass; ordinary builds0 warnings/errors,10+2 harness types excluded. M10-I/SHP functional criteria are Verified for local automated scope; design approval has its own scope. [Follow-up validation](../reports/SHIP_DESIGN_POLISH_2026-10-30.md) and its machine record supersede the earlier four-Minor deferral. Main/all9 worktrees/owner prose/old QA/raw evidence remain preserved; no second review, merge/push/release/cleanup. Human/platform/delivery limits and17 parent rows/totals remain unchanged. Next: owner disposition of the completed branch. Earlier checkpoint paragraphs below are historical.
+
 Reconciled 2026-10-22. IDs introduced by this audit are stable traceability labels, not new feature approvals. Detailed existing documents remain authoritative. `Verified` below means the stated automated contract passed on Windows x64; it does not imply graphical or cross-platform acceptance.
 
 Status vocabulary: Not Started / In Progress / Implemented, Unverified / Verified / Blocked / Deferred. Counts in [PROJECT_STATUS.md](../PROJECT_STATUS.md) derive from the 17 rows below.
@@ -220,15 +222,15 @@ M10 drafting,2026-10-29: owner “use your own judgement” delegates the full s
 
 | Child contract | Proposed scope | Status |
 | --- | --- | --- |
-| SHP-001 | Catalogue and immutable design identity; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Implemented, Unverified |
-| SHP-002 | Frames/components and exact calculations; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Implemented, Unverified |
+| SHP-001 | Catalogue and immutable design identity; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Verified for local automated scope |
+| SHP-002 | Frames/components and exact calculations; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Verified for local automated scope |
 | SHP-003 | Manual research unlocks; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Verified for local automated scope |
 | SHP-004 | Pinned production and colony queues; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Verified for local automated scope |
 | SHP-005 | Exact-design fleet requests and existing officers; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Verified for local automated scope |
-| SHP-006 | Refit acceptance and price; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Implemented, Unverified |
+| SHP-006 | Refit acceptance and price; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Verified for local automated scope |
 | SHP-007 | Refit resolution, cancellation and interaction; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Verified for local automated scope |
-| SHP-008 | Presentation, scale and privacy; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Implemented, Unverified |
-| SHP-009 | Compatibility, determinism and transactions; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Implemented, Unverified |
+| SHP-008 | Presentation, scale and privacy; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Verified for local automated scope |
+| SHP-009 | Compatibility, determinism and transactions; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Verified for local automated scope |
 | SHP-010 | Acceptance and handoff; [full contract](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) | Verified for local automated scope |
 
 
