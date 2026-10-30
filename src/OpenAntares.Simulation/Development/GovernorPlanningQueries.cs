@@ -39,10 +39,16 @@ public static class GovernorPlanningQueries
         private readonly GameState _frame=OwnFrame(View);
         public ColonyEconomy? Forecast(ColonyId colony,Workforce workforce,ProductionTarget? target)
         {
+            if(target is not null)
+            {
+                try{target=ShipDesigns.ShipDesignTargets.Normalize(Content,_frame,View.Viewer,target);}
+                catch(ArgumentException){return null;}
+            }
             var source=_frame.FindColony(colony);
             if(source is null||workforce.HasNegativeCount||(long)workforce.Support+workforce.Production+workforce.Research!=source.Population)return null;
             if(target is {} t) {
                 if(t.Kind==ProductionKinds.Building) {if(!Content.Buildings.TryGetValue(t.ContentId,out var b)||source.CompletedBuildingIds.Contains(t.ContentId)||!Rules.PrerequisitesKnown(_frame.Empires[0],b.PrerequisiteTechnologyIds))return null;}
+                else if(t.Kind==ProductionKinds.ShipDesign) {if(ShipDesigns.ShipDesignTargets.Bound(Content,_frame,View.Viewer,t) is null)return null;}
                 else if(t.Kind!=ProductionKinds.Vessel||!SpeciesRules.CanBuildVessel(Content,_frame,View.Viewer,t.ContentId))return null;
             }
             var frame=_frame.Clone();var proposed=frame.FindColony(colony)!;proposed.Workforce=workforce;proposed.ProjectId=target?.ContentId;proposed.ProjectKind=target?.Kind??ProductionKinds.Building;
@@ -51,6 +57,8 @@ public static class GovernorPlanningQueries
         private static GameState OwnFrame(EmpireView view)
         {
             var owner=new EmpireState{Id=view.Viewer,SpeciesId=view.SpeciesId,Controller=ControllerKind.Human,KnownTechnologyIds=view.Research.KnownTechnologyIds.ToList()};
+            if(Rules.HasShipDesigns(view.RulesVersion)&&view.ShipDesigns is {} designs)
+                owner.ShipDesigns=new(){CatalogueRevision=designs.CatalogueRevision,NextDesignId=checked(designs.Designs.Select(d=>d.Id.Value).DefaultIfEmpty().Max()+1),Designs=designs.Designs.Select(d=>new ShipDesigns.ShipDesign(d.Id,d.Name,d.Recipe,d.Archived)).ToList()};
             var frame=new GameState {
                 RulesVersion=view.RulesVersion,Turn=view.Turn,Random=new Pcg32{State=0,Increment=1},Empires=new(){owner},
                 Planets=view.Stars.Where(s=>s.Planets.HasValue).SelectMany(s=>s.Planets!.Value.Where(p=>view.Colonies.Any(c=>c.PlanetId==p.Id)).Select(p=>new PlanetState{Id=p.Id,StarId=s.Chart.Id,Orbit=p.Orbit,PlanetTypeId=p.PlanetTypeId,EnvironmentId=p.EnvironmentId})).ToList(),

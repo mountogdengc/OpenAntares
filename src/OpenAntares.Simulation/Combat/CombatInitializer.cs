@@ -22,7 +22,7 @@ public static class CombatInitializer
         }
         state.Combat=game;
         foreach(var owner in state.Empires)owner.Combat=new();
-        foreach(var vessel in state.Vessels)InitializeVessel(content,state.RulesVersion,vessel);
+        foreach(var vessel in state.Vessels)InitializeVessel(content,state,vessel);
         return null;
     }
     private static Int128 Distance(StarState a,StarState b)
@@ -37,8 +37,15 @@ public static class CombatInitializer
     }
     public static void InitializeVessel(ContentSet content,int rules,VesselState vessel)
     {
+        if(Rules.HasShipDesigns(rules))throw new ArgumentException("Rules10 initialization requires the owning state and installed design.");
         if(!Rules.HasCombat(rules))return;
         if(content.Combat is not {} definition||!definition.RoleProfiles.TryGetValue(vessel.RoleId,out var profile))throw new ArgumentException("Combat hull profile missing: "+vessel.RoleId);
+        vessel.Combat=new(){Hull=profile.MaxHull,Cohesion=100};
+    }
+    public static void InitializeVessel(ContentSet content,GameState state,VesselState vessel)
+    {
+        if(!Rules.HasCombat(state.RulesVersion))return;
+        var profile=ShipDesigns.VesselLoadouts.CombatProfile(content,state,vessel);
         vessel.Combat=new(){Hull=profile.MaxHull,Cohesion=100};
     }
 }

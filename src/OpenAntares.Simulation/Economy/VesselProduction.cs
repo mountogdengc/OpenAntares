@@ -4,7 +4,11 @@ using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Economy;
 
-public sealed record VesselCompletionPlan(string RoleId, int Cargo, ColonyId Source, StarId Star);
+public sealed record VesselCompletionPlan(string RoleId, int Cargo, ColonyId Source, StarId Star)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ShipDesigns.DesignId? Design {get;init;}
+}
 public sealed record EmbarkOutcome(int PopulationAfter, Workforce WorkforceAfter, Quantity NextSupportProduced, Quantity NextSupportRequired)
 {
     public bool ReassignmentNeeded => NextSupportProduced.Total < NextSupportRequired.Total;

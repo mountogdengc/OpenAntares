@@ -54,7 +54,7 @@ public static partial class CommandProcessor
         return result;
     }
 
-    private static CommandOutcome ExecuteCore(ContentSet content, GameState state, Command command,bool scoutPreparationMove=false)
+    private static CommandOutcome ExecuteCore(ContentSet content, GameState state, Command command,bool scoutPreparationMove=false,bool boundProduction=false)
     {
         EmpireState? issuer = state.FindEmpire(command.Issuer);
         if (issuer is null)
@@ -80,7 +80,7 @@ public static partial class CommandProcessor
             ScoutCommand c => ExecuteScout(content,state,issuer,c),
             CrisisCommand c => ExecuteCrisis(content,state,issuer,c),
             DevelopmentCommand c => ExecuteDevelopment(content, state, issuer, c),
-            SetProductionTargetCommand c => SetProductionTarget(content, state, issuer, c),
+            SetProductionTargetCommand c => SetProductionTarget(content, state, issuer, c,allowArchived:boundProduction),
             SetFoundingOrderCommand c => SetFoundingOrder(content, state, c),
             SetMoveOrderCommand c => SetMoveOrder(content, state, c,group:scoutPreparationMove),
             SetWorkforceCommand c => SetWorkforce(state, c),

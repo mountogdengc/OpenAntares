@@ -34,10 +34,22 @@ public static partial class CommandProcessor
         if (v!.PendingMove == c.Destination && (c.Destination is null || v.PendingFounding is null&&v.AmebaEncounter?.RiskOrder is null) && (acceptance is null||v.Scout?.ApproachAcceptance==acceptance)) return CommandOutcome.NoChange(s);
         return ApplyPlanningChange(s, c.Issuer, candidate => { var unit = candidate.FindVessel(c.Vessel)!; unit.PendingMove = c.Destination;if(unit.Scout is {} scout)scout.ApproachAcceptance=acceptance;if (c.Destination.HasValue){unit.PendingFounding = null;if(unit.AmebaEncounter is {} encounter)encounter.RiskOrder=null;} });
     }
-    private static CommandOutcome SetProductionTarget(ContentSet content, GameState s, EmpireState issuer, SetProductionTargetCommand c)
+    private static CommandOutcome SetProductionTarget(ContentSet content, GameState s, EmpireState issuer, SetProductionTargetCommand c,bool allowArchived=false)
     {
+        if(c.Target is not null)
+        {
+            try{c=c with{Target=ShipDesigns.ShipDesignTargets.Normalize(content,s,c.Issuer,c.Target)};}
+            catch(ArgumentException){return CommandOutcome.Reject(s,"invalid_design_target","Select an owned, available saved design.");}
+        }
         if (c.Target is null || c.Target.Kind == ProductionKinds.Building) return SetProject(content, s, issuer, new(c.Issuer, c.ExpectedTurn, c.Colony, c.Target?.ContentId));
         if (!TryGetOwnedColony(s, c.Issuer, c.Colony, out var colony, out var rejection)) return rejection;
+        if(c.Target.Kind==ProductionKinds.ShipDesign)
+        {
+            if(ShipDesigns.ShipDesignTargets.Bound(content,s,c.Issuer,c.Target) is null)return CommandOutcome.Reject(s,"invalid_design_target","Owned pinned design required.");
+            if(colony.ProjectId==c.Target.ContentId&&colony.ProjectKind==c.Target.Kind)return CommandOutcome.NoChange(s);
+            if(!allowArchived&&ShipDesigns.ShipDesignTargets.Bound(content,s,c.Issuer,c.Target,newChoice:true) is null)return CommandOutcome.Reject(s,"archived_design","Archived designs cannot be newly selected.");
+            return ApplyPlanningChange(s,c.Issuer,candidate=>{var port=candidate.FindColony(c.Colony)!;port.ProjectId=c.Target.ContentId;port.ProjectKind=c.Target.Kind;});
+        }
         if (c.Target.Kind != ProductionKinds.Vessel) return CommandOutcome.Reject(s, "invalid_production_kind", "Unknown production kind.");
         if (!Rules.HasExpansion(s.RulesVersion)) return CommandOutcome.Reject(s, "expansion_unavailable", "Legacy colony game - start a new game for exploration.");
         if (!content.Vessels.ContainsKey(c.Target.ContentId)) return CommandOutcome.Reject(s, "unknown_vessel_role", "Vessel role is not defined.");

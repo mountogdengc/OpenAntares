@@ -53,7 +53,14 @@ public static partial class CommandProcessor
                         Require(draft is not null&&draft.Target is not null,"Missing queue entry/target.");
                         int token;if(draft!.Token is {} retained){Require(controls.Queue.Any(q=>q.Token==retained),"Queue token belongs to another queue or no longer exists.");token=retained;}
                         else {token=controls.NextQueueToken;controls.NextQueueToken=checked(token+1);}
-                        replacements.Add(new(token,draft.Target));
+                        var normalized=ShipDesigns.ShipDesignTargets.Normalize(content,candidate,issuer.Id,draft.Target);
+                        if(normalized.Kind==ProductionKinds.ShipDesign)
+                        {
+                            bool alreadyBound=controls.Queue.Any(q=>q.Token==token&&q.Target==normalized);
+                            Require(ShipDesigns.ShipDesignTargets.Bound(content,candidate,issuer.Id,normalized,newChoice:!alreadyBound) is not null,"Select an owned active design; archived choices must already be bound to this token.");
+                        }
+                        Require(normalized.Kind!=ProductionKinds.Refit,"Refits require their own explicit Start command.");
+                        replacements.Add(new(token,normalized));
                     }
                     if(controls.ActiveQueueToken is {} active) {
                         var old=controls.Queue.Single(q=>q.Token==active);var replacement=replacements.Find(q=>q.Token==active);
@@ -129,7 +136,7 @@ public static partial class CommandProcessor
                 origin==ProductionOrigin.Template&&queueToken is null&&target.Target.Kind==ProductionKinds.Building&&d.Template is {} t&&t.Definition.FoundationIds.Concat(t.Definition.DevelopmentIds).Contains(target.Target.ContentId);
             if(!bound)return CommandOutcome.Reject(state,"invalid_governor","Target is outside the explicit queue or assigned template.");
         }
-        var outcome=ExecuteCore(content,state,command);
+        var outcome=ExecuteCore(content,state,command,boundProduction:queueToken is not null&&origin==ProductionOrigin.Queue);
         if(!outcome.Accepted||!outcome.Changed)return outcome;
         if(command is SetProductionTargetCommand) {var after=outcome.State.FindColony(id.Value)!.Development!;after.ActiveQueueToken=queueToken;after.Origin=origin;}
         if(GameStateValidator.Validate(content,outcome.State,allowAllHumansReady:true).Count!=0)return CommandOutcome.Reject(state,"invalid_governor","Prepared orders failed validation.");

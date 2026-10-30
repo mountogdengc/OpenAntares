@@ -57,7 +57,7 @@ public static class GovernorPlanner
                 if(forecast.Production.BlockedReasonCode=="awaiting_embarkation")issues.Add(new("embarkation_wait",target?.ContentId));
                 if(Rules.HasCrises(context.View.RulesVersion)&&forecast.Production.BlockedReasonCode=="quarantine")issues.Add(new("quarantine_wait",target?.ContentId));
                 orders.Add(new(c.Id,target,workforce,token,target is null?ProductionOrigin.None:origin,issues.ToImmutable()));
-                bool Legal(ProductionTarget t)=>t.Kind==ProductionKinds.Building?context.Content.Buildings.TryGetValue(t.ContentId,out var b)&&!c.CompletedBuildingIds.Contains(t.ContentId)&&b.PrerequisiteTechnologyIds.All(context.View.Research.KnownTechnologyIds.Contains):t.Kind==ProductionKinds.Vessel&&context.View.AvailableVesselRoleIds.Contains(t.ContentId)&&context.Content.Vessels.ContainsKey(t.ContentId);
+                bool Legal(ProductionTarget t)=>t.Kind==ProductionKinds.Building?context.Content.Buildings.TryGetValue(t.ContentId,out var b)&&!c.CompletedBuildingIds.Contains(t.ContentId)&&b.PrerequisiteTechnologyIds.All(context.View.Research.KnownTechnologyIds.Contains):t.Kind==ProductionKinds.ShipDesign?ShipDesigns.ShipDesignTargets.Available(context.View,t):t.Kind==ProductionKinds.Vessel&&context.View.AvailableVesselRoleIds.Contains(t.ContentId)&&context.Content.Vessels.ContainsKey(t.ContentId);
             }
             return new(true,orders.ToImmutable(),null);
         }catch(Exception ex) when(ex is OverflowException or InvalidOperationException or ArgumentException or System.Collections.Generic.KeyNotFoundException){return new(false,ImmutableArray<GovernorColonyOrder>.Empty,ex.Message);}

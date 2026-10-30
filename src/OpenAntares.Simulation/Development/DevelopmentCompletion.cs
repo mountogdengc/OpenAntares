@@ -15,7 +15,7 @@ internal static class DevelopmentCompletion
             if(Rules.HasCrises(candidate.RulesVersion)&&colony is null)continue;
             var d=colony!.Development!;
             if(economy.Production.TargetKind==ProductionKinds.Building)d.Queue.RemoveAll(q=>q.Target.Kind==ProductionKinds.Building&&q.Target.ContentId==id);
-            else if(d.ActiveQueueToken is {} token)d.Queue.RemoveAll(q=>q.Token==token&&q.Target.Kind==ProductionKinds.Vessel&&q.Target.ContentId==id);
+            else if(d.ActiveQueueToken is {} token)d.Queue.RemoveAll(q=>q.Token==token&&q.Target.Kind==economy.Production.TargetKind&&q.Target.ContentId==id);
             d.ActiveQueueToken=null;d.Origin=ProductionOrigin.None;
         }
         foreach(var owner in candidate.Empires.Where(e=>e.Controller==ControllerKind.Human)) {

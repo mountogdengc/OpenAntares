@@ -63,7 +63,7 @@ internal static class DevelopmentStateValidator
             if(c.ProjectId is null&&d.Origin!=ProductionOrigin.None)Error("origin without active project");
             if(e.Controller==ControllerKind.Ai&&(d.Template is not null||d.WorkforceEnabled||d.ConstructionEnabled||d.Queue.Count!=0||d.ActiveQueueToken is not null||d.NextQueueToken!=1||d.Origin!=ProductionOrigin.None))Error("AI cannot have player colony controls");
         }
-        bool TargetValid(ProductionTarget t,ColonyState c)=>t.Kind==ProductionKinds.Building?content.Buildings.ContainsKey(t.ContentId):t.Kind==ProductionKinds.Vessel&&Species.SpeciesRules.CanBuildVessel(content,state,c.EmpireId,t.ContentId);
+        bool TargetValid(ProductionTarget t,ColonyState c)=>t.Kind==ProductionKinds.Building?content.Buildings.ContainsKey(t.ContentId):t.Kind==ProductionKinds.ShipDesign?ShipDesigns.ShipDesignTargets.Bound(content,state,c.EmpireId,t) is not null:t.Kind==ProductionKinds.Vessel&&Species.SpeciesRules.CanBuildVessel(content,state,c.EmpireId,t.ContentId)&&(!Rules.HasShipDesigns(state.RulesVersion)||t.ContentId!=content.ShipDesigns?.WarshipRoleId);
         void Snapshot(GovernorTemplateSnapshot t,EmpireState owner) {
             if(string.IsNullOrWhiteSpace(t.Id)||t.Revision<1||DraftErrors(content,t.Definition).Any())Error("invalid template snapshot");
             if(content.GovernorTemplates.TryGetValue(t.Id,out var builtin)) {
@@ -82,8 +82,8 @@ internal static class DevelopmentStateValidator
                 if(entry.Colony.Value<=last||live?.EmpireId!=owner.Id&&!retired)Error("report entry ownership/order");last=entry.Colony.Value;
                 if(entry.BeforeWorkforce.HasValue!=entry.AfterWorkforce.HasValue||entry.Issues.IsDefault)Error("report action/issue shape");
                 foreach(var w in new[]{entry.BeforeWorkforce,entry.AfterWorkforce})if(w is {} value&&(value.Support<0||value.Production<0||value.Research<0))Error("report workforce");
-                var issues=new HashSet<GovernorIssue>();foreach(var issue in entry.Issues)if(!(issue.Code is ("support_shortage" or "construction_locked" or "embarkation_wait" or "plan_complete")||Rules.HasCrises(state.RulesVersion)&&issue.Code=="quarantine_wait")||!issues.Add(issue)||issue.ContentId is {} id&&!content.Buildings.ContainsKey(id)&&!content.Vessels.ContainsKey(id))Error("unknown/duplicate report issue");
-                foreach(var target in new[]{entry.BeforeTarget,entry.AfterTarget})if(target is {} t&&!(t.Kind==ProductionKinds.Building?content.Buildings.ContainsKey(t.ContentId):t.Kind==ProductionKinds.Vessel&&content.Vessels.ContainsKey(t.ContentId)))Error("report target");
+                var issues=new HashSet<GovernorIssue>();foreach(var issue in entry.Issues)if(!(issue.Code is ("support_shortage" or "construction_locked" or "embarkation_wait" or "plan_complete")||Rules.HasCrises(state.RulesVersion)&&issue.Code=="quarantine_wait")||!issues.Add(issue)||issue.ContentId is {} id&&!content.Buildings.ContainsKey(id)&&!content.Vessels.ContainsKey(id)&&!(Rules.HasShipDesigns(state.RulesVersion)&&ShipDesigns.ShipDesignTargets.Bound(content,state,owner.Id,new(ProductionKinds.ShipDesign,id)) is not null))Error("unknown/duplicate report issue");
+                foreach(var target in new[]{entry.BeforeTarget,entry.AfterTarget})if(target is {} t&&!(t.Kind==ProductionKinds.Building?content.Buildings.ContainsKey(t.ContentId):t.Kind==ProductionKinds.Vessel&&content.Vessels.ContainsKey(t.ContentId)||t.Kind==ProductionKinds.ShipDesign&&ShipDesigns.ShipDesignTargets.Bound(content,state,owner.Id,t) is not null))Error("report target");
             }
         }
     }

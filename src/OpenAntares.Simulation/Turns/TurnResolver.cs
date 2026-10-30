@@ -124,12 +124,12 @@ public static class TurnResolver
                 colony.ProductionReserve = result.Production.Ending;
                 if (result.VesselCompletionPlan is { } vesselPlan)
                 {
-                    var vessel = new VesselState { Id = new(candidate.AllocateId()), EmpireId = colony.EmpireId, RoleId = vesselPlan.RoleId, CarriedPopulation = vesselPlan.Cargo, StationaryStarId = vesselPlan.Star };
+                    var vessel = new VesselState { Id = new(candidate.AllocateId()), EmpireId = colony.EmpireId, RoleId = vesselPlan.RoleId, Design=vesselPlan.Design, CarriedPopulation = vesselPlan.Cargo, StationaryStarId = vesselPlan.Star };
                     candidate.Vessels.Add(vessel);
                     if(fleet is not null)FleetResolver.BindCompletion(content,snapshot,candidate,fleet,colony.Id,vessel);
                     if (Rules.HasFleets(candidate.RulesVersion)) vessel.NewlyCompleted = true;
                     Scouting.ScoutInitializer.InitializeVessel(content,candidate.RulesVersion,vessel);
-                    Combat.CombatInitializer.InitializeVessel(content,candidate.RulesVersion,vessel);
+                    Combat.CombatInitializer.InitializeVessel(content,candidate,vessel);
                     if(crisis is not null)CrisisTransport.TagCompletion(content,snapshot,candidate,crisis,colony.Id,vessel);
                     if (result.EmbarkOutcome is { } embark) { colony.Population = embark.PopulationAfter; colony.Workforce = embark.WorkforceAfter; }
                     colony.ProjectId = null; colony.ProjectKind = ProductionKinds.Building;
