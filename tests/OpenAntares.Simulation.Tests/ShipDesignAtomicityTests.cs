@@ -51,7 +51,7 @@ public sealed class ShipDesignAtomicityTests
     [Fact]
     public void InsufficientReserveRetainsEquipmentJobAndNoSuccessReceipt()
     {
-        var game=RefitResolutionTests.Economic(0,0);RefitResolutionTests.Start(game);var result=CommandProcessor.Execute(game.Content,game.State,new SetReadyCommand(game.State.Empires[0].Id,10,true));Assert.True(result.Accepted,result.Rejection?.Message);Assert.Equal(new DesignId(1),result.State.Vessels[0].Design);Assert.Single(result.State.Empires[0].ShipDesigns!.Refits);Assert.Null(result.Report!.Economy.Colonies[0].Production.CompletedId);Assert.Empty(result.Report.ShipDesignEvents!.Value);Assert.Equal(0,result.State.Colonies[0].ProductionReserve);
+        var game=RefitResolutionTests.Economic(0,0);RefitResolutionTests.Start(game);var result=CommandProcessor.Execute(game.Content,game.State,new SetReadyCommand(game.State.Empires[0].Id,10,true));Assert.True(result.Accepted,result.Rejection?.Message);Assert.Equal(new DesignId(1),result.State.Vessels[0].Design);Assert.Single(result.State.Empires[0].ShipDesigns!.Refits);Assert.Null(result.Report!.Economy.Colonies[0].Production.CompletedId);Assert.Equal("refit_accepted",Assert.Single(result.Report.ShipDesignEvents!.Value).Kind);Assert.DoesNotContain(result.Report.ShipDesignEvents.Value,e=>e.Kind=="refit_completed"||e.Paid!=0);Assert.Equal(0,result.State.Colonies[0].ProductionReserve);
     }
     [Fact]
     public void CancelledJobTokensCannotRestoreTheJobOrSpendReserve()

@@ -46,6 +46,10 @@ public static class RefitQueries
             long price=job?.Price??ShipDesignMath.RefitPrice(target.Stats.BuildCost);
             long? estimate=price<=port.ProductionReserve?1:port.Economy.NetProduction.Total>0?checked((price-port.ProductionReserve-1)/port.Economy.NetProduction.Total+1):(long?)null;
             var consequences=ImmutableArray.Create("Use this colony's one production slot; bank output until a single completion payment.","Keep vessel, fleet, flagship, officer, hull and cohesion; installed equipment changes only on completion.","Construction stays paused; queue, template and workforce remain. Cancel explicitly before replacing the job or moving its ship.");
+            if(action is RefitAction.Cancel)
+            {
+                estimate=null;consequences=ImmutableArray.Create("Cancel this job without payment or equipment changes; all banked reserve stays at the colony.","Release this job's ship and production slot. Construction remains paused; the retained queue, template and workforce are unchanged.");
+            }
             string token=Token(content,view,action,job,ship,port,source,target,price);
             return new(true,null,token,job?.Id,ship.Id,port.Id,source.Id,target.Id,source.Stats,target.Stats,price,estimate,consequences);
         }

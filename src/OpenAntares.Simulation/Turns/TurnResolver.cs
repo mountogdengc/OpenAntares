@@ -240,6 +240,7 @@ public static class TurnResolver
             }
             if(fleet is not null)FleetReports.Finalize(content,candidate,fleet);
             if(combat is not null)Combat.CombatReports.Finalize(content,snapshot,candidate,combat);
+            if(refits is not null)refitEvents=ShipDesigns.ShipDesignReports.Finalize(candidate);
             fleetHook?.Invoke(FleetResolutionPhase.Reports);combatHook?.Invoke(Combat.CombatResolutionPhase.Reports);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Reports);
             if(crisis is not null)
