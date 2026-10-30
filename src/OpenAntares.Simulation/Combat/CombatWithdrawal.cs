@@ -15,7 +15,7 @@ public static class CombatWithdrawal
         var groups=new[]{frame.Ships.Where(s=>!detach.Contains(s.VesselId)).OrderBy(s=>s.VesselId).ToImmutableArray()}.Concat(frame.Ships.Where(s=>detach.Contains(s.VesselId)).OrderBy(s=>s.VesselId).Select(s=>ImmutableArray.Create(s)));
         return groups.Where(g=>g.Length>0).Select(g=>
         {
-            int speed=g.Min(s=>detach.Contains(s.VesselId)?CombatMath.Stats(new(s.MaxHull,s.Attack,s.Armor),s.Hull,content.Vessels[s.RoleId].Speed,0,frame.Definition).Speed:s.EffectiveSpeed);
+            int speed=g.Min(s=>detach.Contains(s.VesselId)?CombatMath.Stats(new(s.MaxHull,s.Attack,s.Armor),s.Hull,s.Equipment?.Stats.BaseSpeed??content.Vessels[s.RoleId].Speed,0,frame.Definition).Speed:s.EffectiveSpeed);
             return new CombatDeparture(g.Select(s=>s.VesselId).ToImmutableArray(),route.Origin,route.Destination,speed,TravelCalculator.Duration(route.OriginX,route.OriginY,route.DestinationX,route.DestinationY,speed),frame.Orders.OnArrival);
         }).ToImmutableArray();
     }

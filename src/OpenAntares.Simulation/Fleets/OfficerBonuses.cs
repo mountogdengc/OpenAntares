@@ -74,12 +74,19 @@ public static class OfficerBonuses
     public static int EffectiveSpeed(ContentSet content, GameState state, VesselId vessel)
     {
         var ship = state.FindVessel(vessel)!;
-        int speed = content.Vessels[ship.RoleId].Speed;
-        if(Rules.HasCombat(state.RulesVersion))return Combat.CombatMath.Stats(content.Combat!.RoleProfiles[ship.RoleId],ship.Combat!.Hull,speed,NavigatorBonus(content,state,ship),content.Combat).Speed;
+        var loadout=ShipDesigns.VesselLoadouts.Resolve(content,state,ship);int speed=loadout.BaseSpeed;
+        if(Rules.HasCombat(state.RulesVersion))return Combat.CombatMath.Stats(loadout.Profile!,ship.Combat!.Hull,speed,NavigatorBonus(content,state,ship),content.Combat).Speed;
         if (!Rules.HasFleets(state.RulesVersion) || ship.Fleet is not { } id || state.FindEmpire(ship.EmpireId)!.Fleets is not { } f) return speed;
         var fleet = f.Fleets.Single(x => x.Id == id);
         var officer = f.Officers.SingleOrDefault(o => o.Id == fleet.Officer && o.Flagship == fleet.Flagship && o.Status == OfficerStatus.Commanding);
         if (officer is not { Specialty: OfficerSpecialty.Navigator, Rank: > 0 }) return speed;
         return checked((int)((long)speed * (100 + content.FleetCommand!.NavigatorBonuses[officer.Rank - 1]) / 100));
+    }
+    internal static int EffectiveSpeed(ContentSet content,EmpireView view,VesselId vessel)
+    {
+        var loadout=ShipDesigns.VesselLoadouts.Resolve(content,view,vessel);var fleet=view.Fleets?.Fleets.SingleOrDefault(f=>f.Members.Contains(vessel));
+        var officer=fleet is null?null:view.Fleets?.Officers.SingleOrDefault(o=>o.Id==fleet.Officer&&o.Flagship==fleet.Flagship&&o.Status==OfficerStatus.Commanding);
+        int bonus=officer is{Specialty:OfficerSpecialty.Navigator,Rank:>0}?content.FleetCommand!.NavigatorBonuses[officer.Rank-1]:0;
+        return Rules.HasCombat(view.RulesVersion)?Combat.CombatMath.Stats(loadout.Profile!,view.Combat!.Ships.Single(s=>s.Id==vessel).Hull,loadout.BaseSpeed,bonus,content.Combat).Speed:checked((int)((long)loadout.BaseSpeed*(100+bonus)/100));
     }
 }

@@ -71,7 +71,7 @@ public static class GovernorPlanningQueries
                 owner.Fleets=new()
                 {
                     Fleets=fleets.Fleets.Select(f=>new Fleets.FleetRecord{Id=f.Id,Name=f.Name,Members=f.Members.ToList(),Flagship=f.Flagship,Officer=f.Officer,Order=f.Order,Cohort=f.Cohort}).ToList(),
-                    Officers=fleets.Officers.Select(o=>new Fleets.OfficerRecord{Id=o.Id,Specialty=o.Specialty,Xp=o.Xp,Rank=o.Rank,Status=o.Status,PostedColony=o.PostedColony,Request=o.Request}).ToList(),
+                    Officers=fleets.Officers.Select(o=>new Fleets.OfficerRecord{Id=o.Id,Flagship=o.Flagship,Specialty=o.Specialty,Xp=o.Xp,Rank=o.Rank,Status=o.Status,PostedColony=o.PostedColony,Request=o.Request}).ToList(),
                     Requests=fleets.Requests.Select(r=>new Fleets.AssemblyRequest{Id=r.Id,RallyFleet=r.RallyFleet,Status=r.Status,Colonies=r.Colonies.ToList(),PausedContributions=r.PausedContributions.ToList(),Coordinator=r.Coordinator,Slots=r.Slots.Select(s=>new Fleets.AssemblySlot{Ordinal=s.Ordinal,RoleId=s.RoleId,Design=s.Design,Vessel=s.Vessel,Colony=s.Colony,QueueToken=s.QueueToken,Status=s.Status,ResumeStatus=s.ResumeStatus}).ToList()}).ToList()
                 };
             if(Rules.HasShipDesigns(view.RulesVersion))

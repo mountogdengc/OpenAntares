@@ -84,7 +84,7 @@ public static class CombatQueries
             {
                 var vessel=view.Vessels.SingleOrDefault(v=>v.Id==id);var own=combat.Ships.SingleOrDefault(s=>s.Id==id);
                 if(fleets.Ships.Single(s=>s.Id==id).Request is not null||vessel is null||own is null||vessel.StationaryStarId!=pocket.Star||vessel.Transit is not null||vessel.PendingMove is not null||vessel.PendingFounding is not null||own.Repairing||vessel.Crisis?.Held==true)return Reject();
-                var profile=d.RoleProfiles[vessel.RoleId];ships.Add(new(id,vessel.RoleId,own.Hull,profile.MaxHull,own.Cohesion,profile.Attack,profile.Armor,CombatMath.Stats(profile,own.Hull,content.Vessels[vessel.RoleId].Speed,bonus,d).Speed,id==fleet.Flagship,vessel.CarriedPopulation));
+                var loadout=ShipDesigns.VesselLoadouts.Resolve(content,view,id);var profile=loadout.Profile!;ships.Add(new(id,vessel.RoleId,own.Hull,profile.MaxHull,own.Cohesion,profile.Attack,profile.Armor,CombatMath.Stats(profile,own.Hull,loadout.BaseSpeed,bonus,d).Speed,id==fleet.Flagship,vessel.CarriedPopulation){Equipment=ShipDesigns.VesselLoadouts.Fact(content,view,id)});
             }
             var members=ships.ToImmutable();if(!members.Any(s=>s.Attack>0)&&existing is null)return Reject();
             CombatPhase? changedPhase=action is CombatAction.ChangeCombatOrders?CombatOrderRules.AfterChange(existing!,orders,cargoConsent,members,combat.Responses.Any(r=>r.Encounter==existing!.Id),d):null;
@@ -135,7 +135,7 @@ public static class CombatQueries
                 if(port is null||vessel.Transit is not null||vessel.PendingMove is not null||vessel.PendingFounding is not null||view.Combat.Encounters.Any(e=>e.Members.Contains(id))||vessel.Crisis?.Held==true||vessel.CarriedPopulation>0&&PortClosed(view,port.StarId))return new(false,CombatRejectionCodes.PortClosed,string.Empty);
                 ports.Add(id,port.Id);
             }
-            var profile=content.Combat!.RoleProfiles[vessel.RoleId];ships.Add(new(id,vessel.RoleId,own.Hull,profile.MaxHull,own.Cohesion,profile.Attack,profile.Armor,CombatMath.Stats(profile,own.Hull,content.Vessels[vessel.RoleId].Speed,0,content.Combat).Speed,false,vessel.CarriedPopulation));
+            var loadout=ShipDesigns.VesselLoadouts.Resolve(content,view,id);var profile=loadout.Profile!;ships.Add(new(id,vessel.RoleId,own.Hull,profile.MaxHull,own.Cohesion,profile.Attack,profile.Armor,CombatMath.Stats(profile,own.Hull,loadout.BaseSpeed,0,content.Combat).Speed,false,vessel.CarriedPopulation){Equipment=ShipDesigns.VesselLoadouts.Fact(content,view,id)});
         }
         var preview=new CombatPreview(true,null,string.Empty){AffectedShips=ships.ToImmutable(),RepairPorts=ports.ToImmutable(),RepairForecasts=ships.Select(s=>new CombatRepairForecast(s.VesselId,s.Hull,s.Cohesion,repair.Enabled?RepairIntervals(content.Combat!,s.MaxHull,s.Hull,s.Cohesion):0)).ToImmutableArray()};
         return preview with {Token=Token(new{view.Turn,view.Viewer,repair.Enabled,Ships=preview.AffectedShips,Ports=preview.RepairPorts.OrderBy(x=>x.Key).Select(x=>new{x.Key,x.Value}),Orders=repair.Vessels.OrderBy(id=>id).Select(id=>view.Vessels.Single(v=>v.Id==id)),Current=repair.Vessels.OrderBy(id=>id).Select(id=>view.Combat!.Ships.Single(v=>v.Id==id))})};
@@ -172,7 +172,7 @@ public static class CombatQueries
         var ships=e.Members.OrderBy(id=>id).Select(id=>
         {
             var vessel=state.FindVessel(id)??throw new ArgumentException("Committed combat member missing.");if(vessel.EmpireId!=e.Owner||vessel.StationaryStarId!=p.Star||vessel.Transit is not null||vessel.Fleet!=e.Fleet)throw new ArgumentException("Committed combat member invalid.");
-            var profile=d.RoleProfiles[vessel.RoleId];return new CombatShipFrame(id,vessel.RoleId,vessel.Combat!.Hull,profile.MaxHull,vessel.Combat.Cohesion,profile.Attack,profile.Armor,OfficerBonuses.EffectiveSpeed(content,state,id),id==f.Flagship,vessel.CarriedPopulation);
+            var profile=ShipDesigns.VesselLoadouts.CombatProfile(content,state,vessel);return new CombatShipFrame(id,vessel.RoleId,vessel.Combat!.Hull,profile.MaxHull,vessel.Combat.Cohesion,profile.Attack,profile.Armor,OfficerBonuses.EffectiveSpeed(content,state,id),id==f.Flagship,vessel.CarriedPopulation){Equipment=ShipDesigns.VesselLoadouts.Fact(content,state,vessel)};
         }).ToImmutableArray();
         var sentries=p.Sentries.Where(s=>s.Hull>0).OrderBy(s=>s.Id).Select(s=>new SentryFrame(s.Id,s.Hull,s.Profile.MaxHull,s.Profile.Attack,s.Profile.Armor,CombatMath.Stats(s.Profile,s.Hull,d.SentryPursuitSpeed,0,d).Speed)).ToImmutableArray();
         var origin=state.FindStar(p.Star)!;var colony=state.FindColony(e.Orders.ReturnColony);var planet=colony is null?null:state.FindPlanet(colony.PlanetId);var target=planet is null?null:state.FindStar(planet.StarId);

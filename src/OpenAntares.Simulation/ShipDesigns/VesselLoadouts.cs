@@ -28,6 +28,17 @@ public static class VesselLoadouts
         return own.Loadout is {} loadout&&loadout.RoleId==own.RoleId?loadout:throw new ArgumentException("Immutable own loadout facts required.");
     }
     public static CombatProfile CombatProfile(ContentSet content,GameState state,VesselState vessel)=>Resolve(content,state,vessel).Profile??throw new ArgumentException("Combat rules and an equipped profile are required.");
+    internal static EquipmentFact? Fact(ContentSet content,GameState state,VesselState vessel)
+    {
+        if(!Rules.HasShipDesigns(state.RulesVersion)||vessel.Design is not {} id)return null;
+        var row=state.FindEmpire(vessel.EmpireId)!.ShipDesigns!.Designs.Single(d=>d.Id==id);
+        return new(row.Id,row.Name,row.Recipe,ShipDesignMath.Calculate(content.ShipDesigns!,row.Recipe));
+    }
+    internal static EquipmentFact? Fact(ContentSet content,EmpireView view,VesselId vessel)
+    {
+        if(!Rules.HasShipDesigns(view.RulesVersion)||Resolve(content,view,vessel).Design is not {} id)return null;
+        var row=view.ShipDesigns!.Designs.Single(d=>d.Id==id);return new(row.Id,row.Name,row.Recipe,row.Stats);
+    }
     private static VesselLoadout Legacy(ContentSet content,int rules,string roleId)
     {
         if(!content.Vessels.TryGetValue(roleId,out var role))throw new ArgumentException("Unknown vessel role.");

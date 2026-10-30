@@ -4,7 +4,11 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Combat;
 public enum CombatDamageBand { Operational, Damaged, Crippled }
 public sealed record CombatStats(int Firepower,int Armor,int Speed);
-public sealed record CombatShipFrame(VesselId VesselId,string RoleId,int Hull,int MaxHull,int Cohesion,int Attack,int Armor,int EffectiveSpeed,bool Flagship,int Cargo);
+public sealed record CombatShipFrame(VesselId VesselId,string RoleId,int Hull,int MaxHull,int Cohesion,int Attack,int Armor,int EffectiveSpeed,bool Flagship,int Cargo)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ShipDesigns.EquipmentFact? Equipment {get;init;}
+}
 public sealed record SentryFrame(SentryId SentryId,int Hull,int MaxHull,int Attack,int Armor,int PursuitSpeed);
 public sealed record CombatRoute(StarId Origin,int OriginX,int OriginY,StarId Destination,int DestinationX,int DestinationY);
 public sealed record CombatFrame(EncounterId? EncounterId,int Turn,long Revision,EmpireId Owner,FleetId Fleet,ImmutableArray<CombatShipFrame> Ships,ImmutableArray<SentryFrame> Sentries,CombatOrders Orders)

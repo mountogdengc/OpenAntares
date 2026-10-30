@@ -60,7 +60,7 @@ internal static class CombatResolver
         if(pocket.Cleared||encounter.Members.Count==0)
         {Finish(content,candidate,encounter,pocket.Cleared?encounter.Members.Count==0?"Mutual destruction":"Victory":"Force destroyed");return;}
         var survivors=encounter.Members.Select(id=>candidate.FindVessel(id)!).ToArray();bool armed=survivors.Any(v=>definition.RoleProfiles[v.RoleId].Attack>0);int cohesion=survivors.Min(v=>v.Combat!.Cohesion);
-        bool crippled=survivors.Any(v=>CombatMath.Band(definition.RoleProfiles[v.RoleId],v.Combat!.Hull,definition)==CombatDamageBand.Crippled);
+        bool crippled=survivors.Any(v=>CombatMath.Band(ShipDesigns.VesselLoadouts.CombatProfile(content,candidate,v),v.Combat!.Hull,definition)==CombatDamageBand.Crippled);
         bool withdraw=!armed||encounter.Orders.Doctrine switch {CombatDoctrine.Cautious=>crippled||result.DestroyedVessels.Length>0||cohesion<=definition.RetreatCohesionThreshold,CombatDoctrine.Press=>cohesion<=definition.RetreatCohesionThreshold,CombatDoctrine.HitAndRun=>true,_=>false};
         encounter.Phase=withdraw?CombatPhase.WithdrawalQueued:CombatPhase.Active;
         if(withdraw)Event(content,candidate,encounter,"withdrawal_queued",armed?encounter.Orders.Doctrine+" triggered withdrawal after the actual losses, damage bands and cohesion. Departure occurs at the next boundary under the selected return and straggler orders.":"The last warship was destroyed. Civilian survivors require explicit withdrawal review before Ready and remain at risk until departure.");

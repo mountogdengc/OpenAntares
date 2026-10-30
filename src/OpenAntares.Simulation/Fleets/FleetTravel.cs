@@ -21,7 +21,8 @@ public static class FleetTravel
         int? duration=null;
         if(departures.GetValueOrDefault(id) is {} target&&vessel.StationaryStarId is {} station)
         {
-            int speed=named?members.Min(member=>OfficerBonuses.EffectiveSpeed(content,state,member)):content.Vessels[vessel.RoleId].Speed;
+            int DetachedSpeed(){var loadout=ShipDesigns.VesselLoadouts.Resolve(content,state,vessel);return Combat.CombatMath.Stats(loadout.Profile!,vessel.Combat!.Hull,loadout.BaseSpeed,0,content.Combat).Speed;}
+            int speed=named?members.Min(member=>OfficerBonuses.EffectiveSpeed(content,state,member)):Rules.HasShipDesigns(state.RulesVersion)?DetachedSpeed():content.Vessels[vessel.RoleId].Speed;
             var a=state.FindStar(station)!;var b=state.FindStar(target)!;duration=TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,speed);
         }
         var consequence=new FleetDepartureConsequence(group.Id,named?group.Id:null,group.Flagship,members,original.Except(compatible).OrderBy(x=>x).ToImmutableArray(),named?group.Officer:null,named&&id==group.Flagship&&group.Officer is not null,duration);
@@ -64,6 +65,12 @@ public static class FleetTravel
     internal static int PreviewDuration(ContentSet content, Knowledge.EmpireView view, Knowledge.OwnedVesselView vessel, StarId target)
     {
         var a=view.Galaxy.Stars.Single(s=>s.Id==vessel.StationaryStarId);var b=view.Galaxy.Stars.Single(s=>s.Id==target);
+        if(Rules.HasShipDesigns(view.RulesVersion))
+        {
+            var group=view.Fleets!.Fleets.SingleOrDefault(f=>f.Members.Contains(vessel.Id));
+            int equipped=group is null?OfficerBonuses.EffectiveSpeed(content,view,vessel.Id):group.Members.Min(id=>OfficerBonuses.EffectiveSpeed(content,view,id));
+            return TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,equipped);
+        }
         int speed=content.Vessels[vessel.RoleId].Speed;
         if(Rules.HasCombat(view.RulesVersion))
         {

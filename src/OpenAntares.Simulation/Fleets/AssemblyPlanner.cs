@@ -199,8 +199,8 @@ public static class AssemblyPlanner
             int next=Math.Max(request.NextSlotOrdinal,checked(request.Slots.Max(slot=>slot.Ordinal)+1));
             var ordinalMap=result.Slots.ToDictionary(slot=>slot.Ordinal,_=>{int ordinal=next;next=checked(next+1);return ordinal;});
             var slots=result.Slots.Select(slot=>slot with{Ordinal=ordinalMap[slot.Ordinal]}).ToList();
-            long Travel(StarId origin,string role,DesignId? design=null)
-            {if(origin==draft.Rally)return 0;var a=view.Galaxy.Stars.Single(s=>s.Id==origin);var b=view.Galaxy.Stars.Single(s=>s.Id==draft.Rally);return Movement.TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,AssemblyDesigns.Speed(context,role,design));}
+            long Travel(StarId origin,string role,DesignId? design=null,int? equippedSpeed=null)
+            {if(origin==draft.Rally)return 0;var a=view.Galaxy.Stars.Single(s=>s.Id==origin);var b=view.Galaxy.Stars.Single(s=>s.Id==draft.Rally);return Movement.TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,equippedSpeed??AssemblyDesigns.Speed(context,role,design));}
             var colonyResults=result.Colonies.Select(col=>col with{PriorQueue=view.Colonies.Single(x=>x.Id==col.Colony).Development!.Queue,ProposedQueue=col.ProposedQueue.Select(q=>q.SlotOrdinal is {} fresh?q with{SlotOrdinal=ordinalMap[fresh]}:q.Token is {} token&&kept.FirstOrDefault(slot=>slot.Colony==col.Colony&&slot.QueueToken==token) is {} old?q with{SlotOrdinal=old.Ordinal}:q).ToImmutableArray()}).ToList();
             foreach(var original in view.Colonies.Where(col=>request.Colonies.Contains(col.Id)&&!draft.Colonies.Contains(col.Id)))
                 colonyResults.Add(new(original.Id,original.ProjectId is {} project?new(original.ProjectKind,project):null,original.Development!.ActiveQueueToken,original.ProductionReserve,original.Economy.NetProduction.Total,0,original.Development.Queue,modified.Single(col=>col.Id==original.Id).Development!.Queue.Select(q=>new AssemblyQueueItem(q.Token,q.Target,null)).ToImmutableArray()));
@@ -211,7 +211,7 @@ public static class AssemblyPlanner
                 long? completion=queued?.CompletionTurns,arrival=null;
                 if(queued is not null&&old.Colony is {} yard&&completion is {} turns)arrival=checked(turns+Travel(view.Colonies.Single(col=>col.Id==yard).StarId,old.RoleId,old.Design));
                 if(old.Vessel is {} vessel&&own.Ships.SingleOrDefault(ship=>ship.Id==vessel) is {} ship)
-                {completion=0;arrival=ship.Transit is {} transit?checked(transit.RemainingTurns+Travel(transit.Destination,old.RoleId,old.Design)):ship.Station is {} station?Travel(station,old.RoleId,old.Design):(long?)null;}
+                {completion=0;arrival=ship.Transit is {} transit?checked(transit.RemainingTurns+Travel(transit.Destination,old.RoleId,old.Design,Rules.HasShipDesigns(view.RulesVersion)?view.Combat!.Ships.Single(s=>s.Id==vessel).EffectiveSpeed:null)):ship.Station is {} station?Travel(station,old.RoleId,old.Design,Rules.HasShipDesigns(view.RulesVersion)?view.Combat!.Ships.Single(s=>s.Id==vessel).EffectiveSpeed:null):(long?)null;}
                 slots.Add(new(old.Ordinal,old.RoleId,old.Vessel,old.Colony,queued is null?null:source!.ProposedQueue.IndexOf(queued),old.QueueToken is null?0:FleetPlanningQueries.RequestShipCost(context,draft,old.Colony!.Value,new AssemblyQuota(old.RoleId,old.Design),request.Id),c.Vessels[old.RoleId].EmbarkPopulation,completion,arrival){RetainedSlotOrdinal=old.Ordinal,Design=old.Design});
             }
             var warnings=result.Warnings;if(kept.Any(slot=>slot.Status==SlotStatus.Missing))warnings=warnings.Add("Missing slots remain missing; only an explicit finite amendment may authorize replacements.");

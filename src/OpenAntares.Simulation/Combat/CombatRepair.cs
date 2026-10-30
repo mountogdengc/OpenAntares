@@ -47,7 +47,7 @@ public static class CombatRepair
         foreach(var id in context.RepairCapture)
         {
             var vessel=candidate.FindVessel(id);if(vessel?.Combat is not {} ship||!ship.Repairing||ship.LastRepairTurn==context.FromTurn||!Eligible(candidate,vessel)||context.Departures.ContainsKey(id)||context.Rounds.Any(r=>r.Participants.Contains(id)))continue;
-            var profile=definition.RoleProfiles[vessel.RoleId];int before=ship.Hull;
+            var profile=ShipDesigns.VesselLoadouts.CombatProfile(content,candidate,vessel);int before=ship.Hull;
             Int128 gain=((Int128)profile.MaxHull+definition.RepairHullDivisor-1)/definition.RepairHullDivisor;
             ship.Hull=checked((int)Int128.Min(profile.MaxHull,(Int128)ship.Hull+gain));ship.Cohesion=Math.Min(100,checked(ship.Cohesion+definition.RepairCohesion));ship.LastRepairTurn=context.FromTurn;
             int actual=ship.Hull-before;ship.HullRepaired=checked(ship.HullRepaired+actual);var owner=candidate.FindEmpire(vessel.EmpireId)!.Combat!;owner.LifetimeHullRepaired=checked(owner.LifetimeHullRepaired+actual);
@@ -64,7 +64,7 @@ public static class CombatRepair
             var port=candidate.FindColony(destination);if(port?.EmpireId!=vessel.EmpireId||candidate.FindPlanet(port.PlanetId)?.StarId!=vessel.StationaryStarId)continue;
             if(arrival==CombatArrivalOrder.Hold){Clear(ship);Record(definition,candidate,vessel,"return_hold","The authorized return completed in Hold without arrival healing.");continue;}
             if(!Eligible(candidate,vessel))continue;
-            if(ship.Hull==definition.RoleProfiles[vessel.RoleId].MaxHull&&ship.Cohesion==100){Clear(ship);continue;}
+            if(ship.Hull==ShipDesigns.VesselLoadouts.CombatProfile(context.Content,candidate,vessel).MaxHull&&ship.Cohesion==100){Clear(ship);continue;}
             ship.Repairing=true; // Eligibility capture already happened; no arrival tick can be granted.
         }
     }

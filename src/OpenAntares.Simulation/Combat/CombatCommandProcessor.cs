@@ -80,7 +80,7 @@ public static class CombatCommandProcessor
                     var ship=candidate.FindVessel(member)!.Combat!;
                     if(repair.Enabled)
                     {
-                        var port=preview.RepairPorts[member];var profile=content.Combat!.RoleProfiles[candidate.FindVessel(member)!.RoleId];if(ship.Hull==profile.MaxHull&&ship.Cohesion==100)continue;
+                        var port=preview.RepairPorts[member];var profile=ShipDesigns.VesselLoadouts.CombatProfile(content,candidate,candidate.FindVessel(member)!);if(ship.Hull==profile.MaxHull&&ship.Cohesion==100)continue;
                         if(ship.Repairing&&ship.ReturnColony==port&&ship.OnArrival==CombatArrivalOrder.Repair)continue;
                         ship.Repairing=true;ship.ReturnColony=port;ship.OnArrival=CombatArrivalOrder.Repair;changed=true;
                     }

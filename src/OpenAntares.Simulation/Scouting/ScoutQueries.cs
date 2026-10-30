@@ -21,10 +21,10 @@ public static class ScoutQueries
         var a=view.Galaxy.Stars.FirstOrDefault(s=>s.Id==origin);var b=view.Galaxy.Stars.FirstOrDefault(s=>s.Id==target);
         if(a is null||b is null||!c.Vessels.TryGetValue(vessel.RoleId,out var role))return false;
         if(vessel.CarriedPopulation>0&&(vessel.Crisis is {Held:true} or {PortClosed:true}||view.Colonies.Any(col=>col.StarId==target&&col.Crisis?.Quarantined==true)))return false;
-        try{_=TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,role.Speed);return true;}catch(Exception ex)when(ex is OverflowException or ArgumentOutOfRangeException){return false;}
+        try{_=Rules.HasShipDesigns(view.RulesVersion)?Fleets.FleetTravel.PreviewDuration(c,view,vessel,target):TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,role.Speed);return true;}catch(Exception ex)when(ex is OverflowException or ArgumentOutOfRangeException){return false;}
     }
     internal static int Duration(ContentSet c,EmpireView view,OwnedVesselView vessel,StarId target)
-    {var a=view.Galaxy.Stars.Single(s=>s.Id==vessel.StationaryStarId);var b=view.Galaxy.Stars.Single(s=>s.Id==target);return TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,c.Vessels[vessel.RoleId].Speed);}
+    {var a=view.Galaxy.Stars.Single(s=>s.Id==vessel.StationaryStarId);var b=view.Galaxy.Stars.Single(s=>s.Id==target);return Rules.HasShipDesigns(view.RulesVersion)?Fleets.FleetTravel.PreviewDuration(c,view,vessel,target):TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,c.Vessels[vessel.RoleId].Speed);}
     private static (ScoutView View,ScoutPreparationPreview Preview) Evaluate(ContentSet c,GameState s,EmpireId owner)
     {
         if(Rules.HasFleets(s.RulesVersion))
