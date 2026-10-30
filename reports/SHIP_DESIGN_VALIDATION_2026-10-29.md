@@ -1,6 +1,6 @@
 # Ship design and refitting validation
 
-Run date:2026-10-30; approved plan dated2026-10-29. **Implementation/review correction complete; four Minor deviations remain open. Full-spec acceptance is not claimed. Final Task17 formal gate registration is pending.**
+Run date:2026-10-30; approved plan dated2026-10-29. **Implementation/review correction complete; four Minor deviations remain open. Full-spec acceptance is not claimed. All17 execution tasks are registered complete; the final formal gate passes2026/2026.**
 
 The isolated codex/ship-design branch implements immutable ship recipes, exact-design construction/assembly, manual research unlocks and paid same-frame refitting. Current new games use rules10, writer11 and56 explicit schema/rules pairs. Standard Escort reproduces the old2400/100/24/4/300 profile. Existing rules1..9 retain their embedded content and original outcomes.
 
@@ -60,7 +60,7 @@ One fresh whole-branch review: gpt-6-astra/high, read-only, no delegated reviewe
 
 ## Preservation
 
-Audit01 verifies primary10720 tracked files byte-exact and clean; execution10624 old files outside authorized diffs exact at that checkpoint; all four protected files exact per checkout; the exact peaceful-request paragraph text;6736 original QA saves exact; both locked84/168 archives; all9 worktrees/eight prior heads; unrelated refs/stashes; all17 parent rows. Parent totals remain12 Verified,3 Implemented/Unverified,1 In Progress,1 Deferred. Fresh QA and all failed attempts are retained. Final disposition includes a second audit after documentation changes.
+Audit01 verifies primary10720 tracked files byte-exact and clean; execution10624 old files outside authorized diffs exact at that checkpoint; all four protected files exact per checkout; the exact peaceful-request paragraph text;6736 original QA saves exact; both locked84/168 archives; all9 worktrees/eight prior heads; unrelated refs/stashes; all17 parent rows. Parent totals remain12 Verified,3 Implemented/Unverified,1 In Progress,1 Deferred. Fresh QA and all failed attempts are retained. Post-disposition audit02 passes: primary10720 files still byte-exact/clean; execution10617 old files outside authorized diffs exact; protected four files,6736 original QA saves, peaceful text, all17 parent rows, all9 worktrees/prior heads/refs/stashes and all260 manifest-listed frozen files remain exact. [Raw final audit](ship-design-execution/task-17/preservation-audit-02.json) records actual source scope.
 
 ## Limits and handoff
 
