@@ -1,4 +1,6 @@
 using System.Collections.Immutable;
+using System;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace OpenAntares.Simulation.ShipDesigns;
@@ -8,7 +10,18 @@ public sealed record ShipRecipe(
     [property:JsonRequired] string FrameId,
     [property:JsonRequired] string EngineId,
     [property:JsonRequired] string? ArmorId,
-    [property:JsonRequired] ImmutableArray<string> WeaponBankIds);
+    ImmutableArray<string> WeaponBankIds)
+{
+    private readonly ImmutableArray<string> _weaponBankIds=CanonicalBanks(WeaponBankIds);
+    [JsonRequired]
+    public ImmutableArray<string> WeaponBankIds
+    {
+        get=>_weaponBankIds;
+        init=>_weaponBankIds=CanonicalBanks(value);
+    }
+    private static ImmutableArray<string> CanonicalBanks(ImmutableArray<string> banks)=>
+        banks.IsDefault?banks:banks.Order(StringComparer.Ordinal).ToImmutableArray();
+}
 public sealed record ShipFrameDefinition(
     [property:JsonRequired] string Id,[property:JsonRequired] string Name,
     [property:JsonRequired] int Hull,[property:JsonRequired] int Space,

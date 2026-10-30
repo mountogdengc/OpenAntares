@@ -25,6 +25,7 @@ public partial class ColonyPanel : VBoxContainer
     /// <summary>Raised when the player changes something. The screen executes it and refreshes.</summary>
     public event Action<Command>? CommandIssued;
     public event Action<VesselId>? RefitRequested;
+    public event Action? ShipDesignsRequested;
 
     public void ShowColony(ContentSet content, OwnedColonyView colony, EmpireView? view = null)
     {
@@ -99,6 +100,11 @@ public partial class ColonyPanel : VBoxContainer
         AddChild(new Label { Text = "Construction", ThemeTypeVariation = "HeaderLabel" });
         _projectPicker = ProjectPicker(content, colony, colony.Turn,view);
         AddChild(_projectPicker);
+        if(view is not null&&Rules.HasShipDesigns(view.RulesVersion))
+        {
+            var designs=new Button{Name="ColonyShipDesigns",Text="Ship designs"};AddChild(designs);
+            designs.Pressed+=()=>ShipDesignsRequested?.Invoke();
+        }
 
         ReserveOutcome production = economy.Production;
         string status = production.TargetId is null

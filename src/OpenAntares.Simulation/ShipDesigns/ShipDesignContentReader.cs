@@ -34,6 +34,7 @@ internal static class ShipDesignContentReader
 
     internal static void Validate(ShipDesignDefinition value,IEnumerable<VesselDefinition> roles,CombatDefinition? combat,IEnumerable<TechnologyDefinition> technologies,string file,List<ContentError> errors)
     {
+        int initialErrors=errors.Count;
         void Error(string field,string message)=>errors.Add(new(file,"ship_designs","ship_designs."+field,message));
         bool Text(string? text)=>!string.IsNullOrWhiteSpace(text)&&text.Length<=80&&!text.Any(char.IsControl);
         var tech=technologies.ToDictionary(t=>t.Id,StringComparer.Ordinal);
@@ -64,6 +65,7 @@ internal static class ShipDesignContentReader
             if(part.Value<(part.Kind==ShipComponentKind.Armor?0:1))Error("components."+item.Key+".value","Weapon/engine values must be positive; armor may be zero.");
             Prerequisites(part.Prerequisites,"components."+item.Key+".prerequisites");
         }
+        if(errors.Count==initialErrors)ValidateAggregates();
         if(value.StartingRecipe is null){Error("starting_recipe","A starting recipe is required.");return;}
         try
         {
@@ -85,6 +87,37 @@ internal static class ShipDesignContentReader
             if(prerequisites.IsDefault){Error(path,"Prerequisites array is required.");return;}
             if(prerequisites.Distinct(StringComparer.Ordinal).Count()!=prerequisites.Length)Error(path,"Duplicate prerequisites.");
             foreach(string id in prerequisites)if(id is null||!tech.ContainsKey(id))Error(path,"Undefined prerequisite: "+id);
+        }
+
+        void ValidateAggregates()
+        {
+            var parts=value.Components!.Values.ToArray();
+            var engines=parts.Where(p=>p.Kind==ShipComponentKind.Engine).ToArray();
+            var armors=parts.Where(p=>p.Kind==ShipComponentKind.Armor).Cast<ShipComponentDefinition?>().Prepend(null).ToArray();
+            var weapons=parts.Where(p=>p.Kind==ShipComponentKind.Weapon).ToArray();
+            var reported=new HashSet<string>(StringComparer.Ordinal);
+            void Overflow(string field,string context)
+            {if(reported.Add(field))Error(field,"Aggregate overflow with "+context+"; reduce this definition's contribution.");}
+            foreach(var frame in value.Frames!.Values)
+            foreach(var engine in engines)
+            foreach(var armor in armors)
+            for(int first=0;first<weapons.Length;first++)
+            for(int second=-1;second<=first;second++)
+            {
+                var bank=weapons[first];var other=second<0?null:weapons[second];
+                Int128 space=(Int128)engine.Space+(armor?.Space??0)+bank.Space+(other?.Space??0);
+                if(space>frame.Space)continue;
+                string context=$"frame '{frame.Id}', engine '{engine.Id}', armor '{armor?.Id??"none"}', banks '{bank.Id}' / '{other?.Id??"none"}'";
+                if((Int128)frame.Cost+engine.Cost+(armor?.Cost??0)+bank.Cost+(other?.Cost??0)>long.MaxValue)
+                {
+                    Overflow("frames."+frame.Id+".cost",context);
+                    foreach(var part in new[]{engine,armor,bank,other})if(part is{Cost:>0})Overflow("components."+part.Id+".cost",context);
+                }
+                if((Int128)engine.Value*frame.TravelPercent/100>int.MaxValue)
+                {Overflow("components."+engine.Id+".value",context);Overflow("frames."+frame.Id+".travel_percent",context);}
+                if((Int128)bank.Value+(other?.Value??0)>int.MaxValue)
+                {Overflow("components."+bank.Id+".value",context);if(other is not null)Overflow("components."+other.Id+".value",context);}
+            }
         }
     }
 

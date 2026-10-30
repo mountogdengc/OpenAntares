@@ -23,9 +23,63 @@ public partial class ShipDesignGraphicalValidation:Node
     public override async void _Ready()
     {
         string? error=null;
-        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Actual graphical display");await CurrentSetup();foreach(string species in new[]{"harl","peldra","sulan","wenth"})await GenuineCampaign(species);Check(_generatedCases==4,"Four genuine current10 species campaigns complete");await PausedMainCheckpoint();foreach(var size in new[]{new Vector2I(800,600),new Vector2I(1920,1080)}){await DesignerControls(size);await CatalogueBounds(size,32);await CatalogueBounds(size,256);await Feature("archived direct project",()=>ArchiveBoundReferences(size,false));await Feature("archived queued project",()=>ArchiveBoundReferences(size,true));await Feature("paid queue",()=>BuildRequestAndRefitControls(size));await Feature("exact request",()=>ExactRequestControls(size));await Feature("refit",()=>RefitControls(size));await Feature("research",()=>ResearchControls(size));await Feature("blocked refits",()=>RefitBlockers(size));await Feature("paused refit",()=>PausedRefitControls(size));await Feature("exact idle paging",()=>ExactIdlePaging(size));}if(_failures.Count>0)throw new InvalidOperationException(string.Join("\n",_failures));}
+        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Actual graphical display");await CurrentSetup();foreach(string species in new[]{"harl","peldra","sulan","wenth"})await GenuineCampaign(species);Check(_generatedCases==4,"Four genuine current10 species campaigns complete");await PausedMainCheckpoint();foreach(var size in new[]{new Vector2I(800,600),new Vector2I(1920,1080)}){await Feature("equipment summaries",()=>EquipmentSummaries(size));await Feature("equipment comparison",()=>EquipmentComparison(size));await Feature("colony designer",()=>ColonyDesignerEntry(size));await DesignerControls(size);await CatalogueBounds(size,32);await CatalogueBounds(size,256);await Feature("archived direct project",()=>ArchiveBoundReferences(size,false));await Feature("archived queued project",()=>ArchiveBoundReferences(size,true));await Feature("paid queue",()=>BuildRequestAndRefitControls(size));await Feature("exact request",()=>ExactRequestControls(size));await Feature("refit",()=>RefitControls(size));await Feature("research",()=>ResearchControls(size));await Feature("blocked refits",()=>RefitBlockers(size));await Feature("paused refit",()=>PausedRefitControls(size));await Feature("exact idle paging",()=>ExactIdlePaging(size));}if(_failures.Count>0)throw new InvalidOperationException(string.Join("\n",_failures));}
         catch(Exception failure){error=failure.ToString();GD.PrintErr(error);}
         finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{scenario="ShipDesign",passed=error is null,error,method="Actual Godot control signals; four genuine earned current10 campaigns plus separately labelled pre-session supplements; no physical input or comprehension claim",generatedCampaigns=_generatedCases,checks=_checks},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
+    }
+    private async Task EquipmentSummaries(Vector2I size)
+    {
+        GetTree().Root.Size=size;var prepared=OrderBoard();var recipe=prepared.Content.ShipDesigns!.StartingRecipe;
+        SavePreparedDesign(prepared,"Gun Escort",recipe with{ArmorId=null,WeaponBankIds=ImmutableArray.Create("pulse_bank","pulse_bank")});
+        SavePreparedDesign(prepared,"Mixed Frigate",new("frigate_frame","vector_drive","plated_armor",ImmutableArray.Create("pulse_bank","lance_bank")));
+        var state=prepared.State.Clone();state.Vessels[0].Design=new(2);state.Empires[0].ShipDesigns!.Designs[1]=state.Empires[0].ShipDesigns!.Designs[1] with{Archived=true};
+        Check(GameStateValidator.Validate(prepared.Content,state).Count==0,"Labelled archived-installed equipment board validates");
+        var session=new GameSession(prepared.Content,state);var screen=Screen(session,state.Empires[0].Id,_output);AddChild(screen);await Frames(this);
+        try
+        {
+            Press(Named<Button>(screen,"OpenFleetCommand"));await Frames(this);Press(Named<Button>(screen,"OpenShipDesigns"));await Frames(this);var catalogue=Descendants<ShipDesignDialog>(screen).Single();
+            var include=Named<CheckBox>(catalogue,"DesignIncludeArchived");include.SetPressedNoSignal(true);include.EmitSignal(BaseButton.SignalName.Toggled,true);await Frames(this);
+            foreach(var item in new[]{("Standard Escort","Conventional drive","Plated armor","Pulse bank ×1"),("Gun Escort","Conventional drive","None","Pulse bank ×2"),("Mixed Frigate","Vector drive","Plated armor","Lance bank ×1, Pulse bank ×1")})
+            {
+                await SelectDesign(catalogue,item.Item1);string text=Named<Label>(catalogue,"DesignDetails").Text;
+                Check(text.Contains(item.Item2)&&text.Contains(item.Item3)&&text.Contains(item.Item4),"Catalogue directly explains engine, armor and counted banks for "+item.Item1+" at "+size.X);
+            }
+            await Evidence(catalogue,"equipment-catalogue-"+size.X);await Close(catalogue);
+            var installed=Descendants<Label>(screen).SingleOrDefault(l=>l.Name=="VesselEquipment");
+            Check(installed is not null&&installed.Text.Contains("Conventional drive")&&installed.Text.Contains("None")&&installed.Text.Contains("Pulse bank ×2")&&installed.Text.Contains("archived"),"Archived installed recipe is directly inspectable without Copy at "+size.X);
+        }
+        finally{RemoveChild(screen);screen.QueueFree();await Frames(this);}
+    }
+    private async Task EquipmentComparison(Vector2I size)
+    {
+        GetTree().Root.Size=size;var session=OrderBoard();var recipe=session.Content.ShipDesigns!.StartingRecipe;
+        SavePreparedDesign(session,"Vector Gun",recipe with{EngineId="vector_drive",ArmorId=null,WeaponBankIds=ImmutableArray.Create("pulse_bank","pulse_bank")});
+        var screen=Screen(session,session.State.Empires[0].Id,_output);AddChild(screen);await Frames(this);
+        try
+        {
+            Press(Named<Button>(screen,"VesselOpenRefit"));await Frames(this);var dialog=Descendants<RefitDialog>(screen).Single();string text=Named<Label>(dialog,"RefitPreviewDetails").Text;
+            Check(text.Contains("Conventional drive")&&text.Contains("Vector drive")&&text.Contains("Plated armor")&&text.Contains("None")&&text.Contains("Pulse bank ×2"),"Refit shows complete current and target equipment at "+size.X);
+            Check(text.Contains("Removed: Conventional drive ×1, Plated armor ×1")&&text.Contains("Installed: Pulse bank ×1, Vector drive ×1"),"Refit shows exact removed/installed component quantities at "+size.X);
+            var apply=Named<Button>(dialog,"RefitApply");var scroll=Descendants<ScrollContainer>(dialog).First();apply.GrabFocus();scroll.EnsureControlVisible(apply);await Frames(this);Check(apply.GetGlobalRect().Intersects(scroll.GetGlobalRect()),"Refit Apply remains reachable with component comparison at "+size.X);await Evidence(dialog,"equipment-refit-"+size.X);
+        }
+        finally{RemoveChild(screen);screen.QueueFree();await Frames(this);}
+    }
+    private async Task ColonyDesignerEntry(Vector2I size)
+    {
+        GetTree().Root.Size=size;var session=OrderBoard();var owner=session.State.Empires[0].Id;var colony=session.State.Colonies[0];
+        Check(session.Execute(new SetProductionTargetCommand(owner,session.State.Turn,colony.Id,ShipDesignTargets.Build(new(1)))).Accepted,"Labelled public-command colony project setup");
+        var screen=Screen(session,owner,_output);AddChild(screen);await Frames(this);
+        try
+        {
+            var entry=Descendants<Button>(screen).SingleOrDefault(b=>b.Name=="ColonyShipDesigns");Check(entry is not null,"Colony construction exposes Ship designs at "+size.X);
+            string before=JsonSerializer.Serialize(session.State.Colonies[0]);Press(entry!);await Frames(this);var catalogue=Descendants<ShipDesignDialog>(screen).Single();Check(catalogue.Visible,"Colony opens the existing catalogue at "+size.X);
+            Press(Named<Button>(catalogue,"CopyDesign"));await Frames(this);var editor=Descendants<ShipDesignEditor>(screen).Single();SetDesignName(editor,"Colony Gun");await Pick(editor,"DesignArmor","");await Pick(editor,"DesignBank2","pulse_bank");
+            var save=Named<Button>(editor,"SaveDesign");var scroll=Descendants<ScrollContainer>(editor).First();save.GrabFocus();scroll.EnsureControlVisible(save);await Frames(this);Check(save.GetGlobalRect().Intersects(scroll.GetGlobalRect()),"Colony-path Save remains reachable at "+size.X);Press(save);await Frames(this);
+            Check(before==JsonSerializer.Serialize(session.State.Colonies[0]),"Saving through colony preserves committed project, reserve and queue at "+size.X);await Close(catalogue);
+            var picker=Named<OptionButton>(screen,"ColonyProjectPicker");int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsString()=="ship_design|2");Check(!picker.IsItemDisabled(index)&&picker.GetSelectedMetadata().AsString()=="ship_design|1","New colony-path design is available without changing current project at "+size.X);
+            picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)index);await Frames(this);Check(session.State.Colonies[0].ProjectId=="2"&&session.State.Colonies[0].ProductionReserve==colony.ProductionReserve,"Only explicit picker selection changes project and retains reserve at "+size.X);
+        }
+        finally{RemoveChild(screen);screen.QueueFree();await Frames(this);}
     }
     private async Task CurrentSetup()
     {

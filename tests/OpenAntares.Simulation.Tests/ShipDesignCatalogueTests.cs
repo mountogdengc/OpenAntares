@@ -13,6 +13,23 @@ namespace OpenAntares.Simulation.Tests;
 public sealed class ShipDesignCatalogueTests
 {
     [Fact]
+    public void ReversedBanksSaveCanonicallyAndRetryWithoutAllocating()
+    {
+        var session=ShipDesignFixtures.Session(ImmutableArray.Create("industrial_coordination","frigate_construction","measurement_methods","focused_emitters"));
+        var recipe=new ShipRecipe("frigate_frame","conventional_drive",null,ImmutableArray.Create("pulse_bank","lance_bank"));
+        var id=ShipDesignFixtures.SaveDesign(session,"Mixed",recipe);
+        Assert.Equal(new[]{"lance_bank","pulse_bank"},Row(session,id).Recipe.WeaponBankIds);
+        session.State.Empires[0].Ready=true;string before=Bytes(session);
+        var retry=Issue(session,new ShipDesignAction.Save(" mixed ",recipe with{WeaponBankIds=ImmutableArray.Create("lance_bank","pulse_bank")}));
+        Assert.True(retry.Accepted,retry.Rejection?.Message);Assert.False(retry.Changed);Assert.Equal(before,Bytes(session));
+        session.State.Empires[0].Ready=false;
+        var saved=System.Text.Json.Nodes.JsonNode.Parse(OpenAntares.Simulation.Saves.SaveGame.Serialize(session.Content,session.State))!;
+        saved["state"]!["empires"]![0]!["ship_designs"]!["designs"]![1]!["recipe"]!["weapon_bank_ids"]=new System.Text.Json.Nodes.JsonArray("pulse_bank","lance_bank");
+        var read=OpenAntares.Simulation.Saves.SaveGame.Deserialize(saved.ToJsonString());
+        Assert.True(read.Succeeded,string.Join(";",read.Errors));
+        Assert.Equal(new[]{"lance_bank","pulse_bank"},read.Game!.State.Empires[0].ShipDesigns!.Designs.Single(d=>d.Id==id).Recipe.WeaponBankIds);
+    }
+    [Fact]
     public void SaveCopyArchiveRestoreDeleteRespectIdentity()
     {
         var session=ShipDesignFixtures.Session(ImmutableArray.Create("industrial_coordination","vector_drives"));var standard=session.Content.ShipDesigns!.StartingRecipe;

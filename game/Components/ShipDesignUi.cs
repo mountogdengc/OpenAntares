@@ -22,4 +22,23 @@ internal static class ShipDesignUi
         var design=view?.ShipDesigns?.Designs.SingleOrDefault(d=>d.Id==id);return design is null?"Design #"+id.Value:design.Name+" — "+content.ShipDesigns!.Frames[design.Recipe.FrameId].Name;
     }
     internal static bool UsesDesigns(ContentSet content,EmpireView view,string role)=>Rules.HasShipDesigns(view.RulesVersion)&&role==content.ShipDesigns?.WarshipRoleId;
+    internal static string EquipmentSummary(ContentSet content,ShipRecipe recipe)
+    {
+        var parts=content.ShipDesigns!.Components;
+        string banks=string.Join(", ",recipe.WeaponBankIds.GroupBy(id=>id,StringComparer.Ordinal).OrderBy(g=>g.Key,StringComparer.Ordinal).Select(g=>parts[g.Key].Name+" ×"+g.Count()));
+        return $"Engine: {parts[recipe.EngineId].Name}; armor: {(recipe.ArmorId is {} armor?parts[armor].Name:"None")}; weapon banks: {banks}.";
+    }
+    internal static string EquipmentChanges(ContentSet content,ShipRecipe before,ShipRecipe after)
+    {
+        string[] Parts(ShipRecipe recipe)=>recipe.WeaponBankIds.Prepend(recipe.EngineId).Concat(recipe.ArmorId is {} armor?new[]{armor}:Array.Empty<string>()).ToArray();
+        var old=Parts(before);var target=Parts(after);
+        string Difference(string[] from,string[] to)
+        {
+            var removed=from.GroupBy(id=>id,StringComparer.Ordinal).OrderBy(g=>g.Key,StringComparer.Ordinal)
+                .Select(g=>(Id:g.Key,Count:g.Count()-to.Count(id=>id==g.Key))).Where(p=>p.Count>0)
+                .Select(p=>content.ShipDesigns!.Components[p.Id].Name+" ×"+p.Count).ToArray();
+            return removed.Length==0?"None":string.Join(", ",removed);
+        }
+        return "Removed: "+Difference(old,target)+".\nInstalled: "+Difference(target,old)+".";
+    }
 }

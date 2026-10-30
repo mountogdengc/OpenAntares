@@ -195,6 +195,7 @@ public partial class GameScreen : VBoxContainer
         _vessels.CommandIssued += Execute;
         _vessels.RefitRequested+=OpenRefit;
         _colonyPanel.RefitRequested+=OpenRefit;
+        _colonyPanel.ShipDesignsRequested+=()=>_shipDesigns.ShowCatalogue(_session.Content,View);
         _fleetCommand.RefitRequested+=vessel=>{_fleetCommand.Hide();OpenRefit(vessel);};
         _vessels.VesselSelected += vessel => { _selectedVessel = vessel; _courseDestination = null; Callable.From(Refresh).CallDeferred(); };
         _vessels.DestinationSelected += star => { _courseDestination = star; _map.Select(star); };

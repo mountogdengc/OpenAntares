@@ -60,7 +60,15 @@ internal static class ShipDesignSaveData
         {
             var fields=input.EnumerateObject().ToDictionary(p=>p.Name,p=>p.Value,StringComparer.Ordinal);var expected=canonical.EnumerateObject().ToArray();if(fields.Count!=expected.Length)throw new JsonException($"Every field is required at {path}.");foreach(var p in expected){if(!fields.TryGetValue(p.Name,out var child))throw new JsonException($"Missing field {path}.{p.Name}.");Shape(child,p.Value,path+"."+p.Name);}
         }
-        else if(input.ValueKind==JsonValueKind.Array){var a=input.EnumerateArray().ToArray();var b=canonical.EnumerateArray().ToArray();if(a.Length!=b.Length)throw new JsonException("Collection mismatch.");for(int i=0;i<a.Length;i++)Shape(a[i],b[i],path+"["+i+"]");}
+        else if(input.ValueKind==JsonValueKind.Array)
+        {
+            var a=input.EnumerateArray().ToArray();var b=canonical.EnumerateArray().ToArray();
+            if(a.Length!=b.Length)throw new JsonException("Collection mismatch.");
+            // Earlier rules10 writers retained bank input order. Preserve those saves while
+            // validating the exact multiset; all other arrays and enum spellings remain strict.
+            if(path.EndsWith(".weapon_bank_ids",StringComparison.Ordinal))a=a.OrderBy(e=>e.GetString(),StringComparer.Ordinal).ToArray();
+            for(int i=0;i<a.Length;i++)Shape(a[i],b[i],path+"["+i+"]");
+        }
         else if(input.ValueKind==JsonValueKind.String&&input.GetString()!=canonical.GetString())throw new JsonException($"Noncanonical enum at {path}.");
     }
 }

@@ -14,6 +14,23 @@ namespace OpenAntares.Simulation.Tests;
 
 public sealed class ShipDesignContentTests
 {
+    [Theory]
+    [InlineData("cost")][InlineData("speed")][InlineData("attack")]
+    public void OptionalComponentOverflowFailsAtLoadWithComponentField(string field)
+    {
+        var node=JsonNode.Parse(BasicJson)!;var d=node["ship_designs"]!;
+        var part=d["components"]![field=="attack"?"pulse_bank":"conventional_drive"]!.DeepClone();
+        part["id"]="optional_part";part["name"]="Optional part";
+        part[field=="cost"?"cost":"value"]=field=="cost"?JsonValue.Create(long.MaxValue):JsonValue.Create(int.MaxValue);
+        d["components"]!["optional_part"]=part;
+        if(field=="speed")
+        {
+            var frame=d["frames"]!["escort_frame"]!.DeepClone();frame["id"]="optional_frame";frame["travel_percent"]=200;d["frames"]!["optional_frame"]=frame;
+        }
+        var loaded=Load(node.ToJsonString());Assert.False(loaded.Succeeded);
+        Assert.Contains(loaded.Errors,e=>e.File=="ship-basic.json"&&e.Field=="ship_designs.components.optional_part."+(field=="cost"?"cost":"value")&&e.Message.Contains("overflow",StringComparison.OrdinalIgnoreCase));
+    }
+
     [Fact]
     public void CoreShipContentMatchesApprovedTables()
     {

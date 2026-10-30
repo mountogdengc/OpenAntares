@@ -29,6 +29,11 @@ public partial class VesselPanel : VBoxContainer
         picker.ItemSelected += index => VesselSelected?.Invoke(new(picker.GetItemMetadata((int)index).AsInt32()));
         var vessel = view.Vessels.FirstOrDefault(v => v.Id == selected) ?? view.Vessels[0]; var role = content.Vessels[vessel.RoleId];
         if(Rules.HasShipDesigns(view.RulesVersion)&&vessel.Loadout?.Design is not null){var refit=new Button{Name="VesselOpenRefit",Text="Review equipment refit"};AddChild(refit);refit.Pressed+=()=>RefitRequested?.Invoke(vessel.Id);}
+        if(vessel.Loadout?.Design is {} designId&&view.ShipDesigns?.Designs.SingleOrDefault(d=>d.Id==designId) is {} installed)
+        {
+            var equipment=Text(installed.Name+(installed.Archived?" (archived)":"")+"\n"+ShipDesignUi.EquipmentSummary(content,installed.Recipe));
+            equipment.Name="VesselEquipment";AddChild(equipment);
+        }
         if(view.Combat?.Ships.FirstOrDefault(v=>v.Id==vessel.Id) is {} combat)AddChild(Text($"{CombatReportPanel.Status(combat)} — hull {combat.Hull}/{combat.MaxHull}, cohesion {combat.Cohesion}, {combat.DamageBand}; attack {combat.Firepower}, armor {combat.Armor}, effective speed {combat.EffectiveSpeed}."));
         AddChild(Text(view.Combat is not null&&content.Combat!.RoleProfiles[vessel.RoleId].Attack>0?"Warship: combat requires a separate named-fleet attack order.":vessel.CarriedPopulation > 0 ? $"Carried {view.PopulationUnitLabel}: {vessel.CarriedPopulation}" : "Scout: surveys a system on arrival."));
         var scouting=view.Scouting?.Vessels.FirstOrDefault(v=>v.Id==vessel.Id);
