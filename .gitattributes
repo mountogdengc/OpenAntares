@@ -14,3 +14,6 @@
 /reports/combat-execution/** -text -whitespace
 
 /reports/combat-integration-20261029/** -text -whitespace
+
+/reports/ship-design-execution/** -text -whitespace
+/tests/OpenAntares.Simulation.Tests/Fixtures/rules9-ship-design-baselines/** -text -whitespace
