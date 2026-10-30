@@ -54,7 +54,7 @@ public static class RequestQueueAuthority
             {
                 bool changed=false;
                 foreach(var slot in r.Slots.Where(s=>s.Colony==col.Id&&s.QueueToken is not null))
-                    if(!col.Development!.Queue.Any(q=>q.Token==slot.QueueToken&&q.Target.Kind==ProductionKinds.Vessel&&q.Target.ContentId==slot.RoleId))
+                    if(!col.Development!.Queue.Any(q=>q.Token==slot.QueueToken&&q.Target==AssemblyDesigns.Target(slot.RoleId,slot.Design)))
                     {slot.QueueToken=null;slot.Status=SlotStatus.Missing;slot.ResumeStatus=null;slot.BlockedReason="Queue entry changed manually; finite amendment required.";changed=true;}
                 if(changed){if(!r.PausedContributions.Contains(col.Id))r.PausedContributions.Add(col.Id);r.Revision=checked(r.Revision+1);}
             }

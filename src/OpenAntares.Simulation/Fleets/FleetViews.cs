@@ -2,9 +2,17 @@ using System.Collections.Immutable;
 
 namespace OpenAntares.Simulation.Fleets;
 
-public sealed record FleetShipView(VesselId Id, string RoleId, StarId? Station, State.TransitState? Transit, StarId? PendingMove, FleetId? Fleet, RequestId? Request, bool NewlyCompleted, Scouting.AmebaApproach? ApproachAcceptance=null);
+public sealed record FleetShipView(VesselId Id, string RoleId, StarId? Station, State.TransitState? Transit, StarId? PendingMove, FleetId? Fleet, RequestId? Request, bool NewlyCompleted, Scouting.AmebaApproach? ApproachAcceptance=null)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ShipDesigns.DesignId? Design {get;init;}
+}
 public sealed record FleetView(FleetId Id, string Name, ImmutableArray<VesselId> Members, VesselId Flagship, OfficerId? Officer, FleetOrder Order, FleetTransitProvenance? Cohort, string? Attention);
-public sealed record AssemblySlotView(int Ordinal, string RoleId, ColonyId? Colony, int? QueueToken, VesselId? Vessel, SlotStatus Status, SlotStatus? ResumeStatus, bool NewHull, string? BlockedReason);
+public sealed record AssemblySlotView(int Ordinal, string RoleId, ColonyId? Colony, int? QueueToken, VesselId? Vessel, SlotStatus Status, SlotStatus? ResumeStatus, bool NewHull, string? BlockedReason)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ShipDesigns.DesignId? Design {get;init;}
+}
 public sealed record AssemblyRequestView(RequestId Id, long Revision, string Name, StarId Rally, FleetId? RallyFleet, bool ReservedFleetSlot, RequestPriority Priority, RequestStatus Status, ImmutableArray<ColonyId> Colonies, ImmutableArray<ColonyId> PausedContributions, ImmutableArray<AssemblySlotView> Slots, bool AuthorizeCargo, OfficerId? Coordinator, string? Attention)
 {
     public int NextSlotOrdinal { get; init; }=1;
@@ -23,10 +31,17 @@ public sealed record FleetDepartureConsequence(FleetId SourceFleet,FleetId? Reta
     public OfficerRewardConsequence? Reward {get;init;}
     public OfficerLossConsequence? Recovery {get;init;}
 }
-public sealed record AssemblyDraft(string Name,StarId Rally,FleetId? RallyFleet,ImmutableArray<string> Roles,ImmutableArray<ColonyId> Colonies,RequestPriority Priority,ImmutableArray<VesselId> AcceptedIdleVessels,bool AuthorizeCargo,OfficerId? Coordinator);
+public sealed record AssemblyQuota(string RoleId,ShipDesigns.DesignId? Design);
+public sealed record AssemblyDraft(string Name,StarId Rally,FleetId? RallyFleet,ImmutableArray<string> Roles,ImmutableArray<ColonyId> Colonies,RequestPriority Priority,ImmutableArray<VesselId> AcceptedIdleVessels,bool AuthorizeCargo,OfficerId? Coordinator)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public ImmutableArray<AssemblyQuota> Quotas {get;init;}
+}
 public sealed record AssemblySlotPlan(int Ordinal,string RoleId,VesselId? Vessel,ColonyId? Colony,int? QueuePosition,long Cost,int Cargo,long? CompletionTurns,long? ArrivalTurns)
 {
     public int? RetainedSlotOrdinal {get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ShipDesigns.DesignId? Design {get;init;}
 }
 public sealed record AssemblyQueueItem(int? Token,State.ProductionTarget Target,int? SlotOrdinal,long? CompletionTurns=null);
 public sealed record AssemblyColonyPreview(ColonyId Colony,State.ProductionTarget? ActiveProject,int? ActiveQueueToken,long Reserve,long ProductionPerTurn,int CargoTotal,ImmutableArray<Development.ProductionQueueEntry> PriorQueue,ImmutableArray<AssemblyQueueItem> ProposedQueue);

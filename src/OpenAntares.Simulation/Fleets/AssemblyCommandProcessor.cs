@@ -52,7 +52,7 @@ public static class AssemblyCommandProcessor
                 foreach(var plan in preview.Slots)
                 {
                     if(plan.RetainedSlotOrdinal is {} ordinal){slots.Add(previous[ordinal].Clone());continue;}
-                    var slot=new AssemblySlot{Ordinal=plan.Ordinal,RoleId=plan.RoleId,Vessel=plan.Vessel,Status=plan.Vessel is null?SlotStatus.Queued:SlotStatus.Built};
+                    var slot=new AssemblySlot{Ordinal=plan.Ordinal,RoleId=plan.RoleId,Design=plan.Design,Vessel=plan.Vessel,Status=plan.Vessel is null?SlotStatus.Queued:SlotStatus.Built};
                     if(tokens.TryGetValue(plan.Ordinal,out var binding)){slot.Colony=binding.Colony;slot.QueueToken=binding.Token;}
                     if(r.Status==RequestStatus.SafetyPaused){slot.ResumeStatus=slot.Status;slot.Status=SlotStatus.BlockedSafety;slot.BlockedReason=r.Attention;}
                     slots.Add(slot);if(slot.Vessel is {} ship)candidate.FindVessel(ship)!.NewlyCompleted=false;

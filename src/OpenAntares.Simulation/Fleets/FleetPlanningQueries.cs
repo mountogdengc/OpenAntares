@@ -5,6 +5,7 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Fleets;
 public static class FleetPlanningQueries
 {
+    internal static long RequestShipCost(IFleetPlanningContext context,AssemblyDraft draft,ColonyId colony,AssemblyQuota quota,RequestId? replacing)=>OfficerBonuses.RequestShipCost(context,draft,colony,quota,replacing);
     internal static long RequestShipCost(IFleetPlanningContext context,AssemblyDraft draft,ColonyId colony,string role,RequestId? replacing)
         =>OfficerBonuses.RequestShipCost(context.Content,context.View,draft,colony,role,replacing);
     public static IFleetPlanningContext Create(ContentSet content,EmpireView view)=>new Context(content,view with{Galaxy=view.Galaxy with{Seed=null}});

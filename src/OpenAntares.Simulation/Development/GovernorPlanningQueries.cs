@@ -70,7 +70,7 @@ public static class GovernorPlanningQueries
                 owner.Fleets=new()
                 {
                     Officers=fleets.Officers.Select(o=>new Fleets.OfficerRecord{Id=o.Id,Specialty=o.Specialty,Xp=o.Xp,Rank=o.Rank,Status=o.Status,PostedColony=o.PostedColony,Request=o.Request}).ToList(),
-                    Requests=fleets.Requests.Select(r=>new Fleets.AssemblyRequest{Id=r.Id,Status=r.Status,Colonies=r.Colonies.ToList(),PausedContributions=r.PausedContributions.ToList(),Coordinator=r.Coordinator,Slots=r.Slots.Select(s=>new Fleets.AssemblySlot{Ordinal=s.Ordinal,RoleId=s.RoleId,Colony=s.Colony,QueueToken=s.QueueToken,Status=s.Status,ResumeStatus=s.ResumeStatus}).ToList()}).ToList()
+                    Requests=fleets.Requests.Select(r=>new Fleets.AssemblyRequest{Id=r.Id,Status=r.Status,Colonies=r.Colonies.ToList(),PausedContributions=r.PausedContributions.ToList(),Coordinator=r.Coordinator,Slots=r.Slots.Select(s=>new Fleets.AssemblySlot{Ordinal=s.Ordinal,RoleId=s.RoleId,Design=s.Design,Colony=s.Colony,QueueToken=s.QueueToken,Status=s.Status,ResumeStatus=s.ResumeStatus}).ToList()}).ToList()
                 };
             Crises.CrisisForecastFrame.Apply(frame,view);
             return frame;

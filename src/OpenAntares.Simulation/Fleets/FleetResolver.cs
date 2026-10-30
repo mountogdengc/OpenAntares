@@ -12,7 +12,7 @@ internal static class FleetResolver
         context.Completed.Add(ship.Id);var before=snapshot.FindColony(colony)!;
         if(before.Development?.ActiveQueueToken is not {} token)return;
         var f=candidate.FindEmpire(ship.EmpireId)!.Fleets!;
-        var binding=f.Requests.Where(r=>FleetQueries.IsActive(r.Status)).SelectMany(r=>r.Slots.Select(slot=>(Request:r,Slot:slot))).SingleOrDefault(x=>x.Slot.Colony==colony&&x.Slot.QueueToken==token&&x.Slot.RoleId==ship.RoleId&&x.Slot.Vessel is null&&(x.Slot.Status==SlotStatus.Queued||x.Slot.Status==SlotStatus.BlockedSafety&&x.Slot.ResumeStatus==SlotStatus.Queued));
+        var binding=f.Requests.Where(r=>FleetQueries.IsActive(r.Status)).SelectMany(r=>r.Slots.Select(slot=>(Request:r,Slot:slot))).SingleOrDefault(x=>x.Slot.Colony==colony&&x.Slot.QueueToken==token&&x.Slot.RoleId==ship.RoleId&&x.Slot.Design==ship.Design&&x.Slot.Vessel is null&&(x.Slot.Status==SlotStatus.Queued||x.Slot.Status==SlotStatus.BlockedSafety&&x.Slot.ResumeStatus==SlotStatus.Queued));
         if(binding.Request is null)return;
         var slot=binding.Slot;ship.BuildOrigin=new(binding.Request.Id,slot.Ordinal,colony,token);slot.Vessel=ship.Id;slot.NewHull=true;slot.QueueToken=null;
         if(slot.Status==SlotStatus.BlockedSafety)slot.ResumeStatus=SlotStatus.Built;else slot.Status=SlotStatus.Built;

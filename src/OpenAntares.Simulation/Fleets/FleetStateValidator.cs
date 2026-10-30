@@ -86,6 +86,11 @@ public static class FleetStateValidator
                 foreach (var slot in request.Slots)
                 {
                     if (slot.Ordinal < 1 || !Enum.IsDefined(slot.Status) || slot.RoleId is null || !content.Vessels.TryGetValue(slot.RoleId, out var role) || !Species.SpeciesRules.CanBuildVessel(content,state,empire.Id,slot.RoleId)) { Error("request slot/role is invalid."); continue; }
+                    if(Rules.HasShipDesigns(state.RulesVersion))
+                    {
+                        if(slot.RoleId==content.ShipDesigns?.WarshipRoleId?(slot.Design is null||ShipDesigns.ShipDesignTargets.Bound(content,state,empire.Id,AssemblyDesigns.Target(slot.RoleId,slot.Design)) is null):slot.Design is not null)Error("request slot design is missing, foreign or mismatched.");
+                    }
+                    else if(slot.Design is not null)Error("old request cannot contain design fields.");
                     if (role.EmbarkPopulation > 0 && !request.AuthorizeCargo) Error("request lacks explicit population cargo authorization.");
                     if (slot.Status == SlotStatus.BlockedSafety && (request.Status != RequestStatus.SafetyPaused || slot.ResumeStatus is null or SlotStatus.Missing or SlotStatus.BlockedSafety || !Enum.IsDefined(slot.ResumeStatus.Value))) Error("blocked-safety slot must preserve its previous progress.");
                     if (slot.Status != SlotStatus.BlockedSafety && slot.ResumeStatus is not null) Error("unblocked slot has stale safety progress.");
@@ -94,7 +99,7 @@ public static class FleetStateValidator
                     if (slot.Vessel is { } id)
                     {
                         var vessel = state.FindVessel(id);
-                        if (vessel?.EmpireId != empire.Id || vessel.RoleId != slot.RoleId || progress == SlotStatus.Missing || !reservedShips.Add(id)) Error("slot hull is foreign, missing, duplicated or incorrectly reserved.");
+                        if (vessel?.EmpireId != empire.Id || vessel.RoleId != slot.RoleId || vessel.Design!=slot.Design || progress == SlotStatus.Missing || !reservedShips.Add(id)) Error("slot hull is foreign, missing, duplicated or incorrectly reserved.");
                         if(progress==SlotStatus.Arrived&&(request.RallyFleet is null||vessel?.Fleet!=request.RallyFleet||vessel.StationaryStarId!=request.Rally))Error("arrived slot is not at its actual rally fleet.");
                         if(progress==SlotStatus.Travelling&&vessel?.Transit is null||progress==SlotStatus.Built&&vessel?.Transit is not null)Error("slot transit progress is incoherent.");
                         if (slot.NewHull && vessel?.BuildOrigin is not { } origin) Error("new hull lacks original construction provenance.");
@@ -103,7 +108,7 @@ public static class FleetStateValidator
                     else if (progress is SlotStatus.Built or SlotStatus.Travelling or SlotStatus.Arrived) Error("built slot is missing its live hull.");
                     if (progress == SlotStatus.Queued)
                     {
-                        if (slot.Vessel is not null || slot.QueueToken is not { } token || token < 1 || slot.Colony is not { } colony || !request.Colonies.Contains(colony) || !queueBindings.Add((colony, token)) || state.FindColony(colony)?.Development?.Queue.Any(q => q.Token == token && q.Target.Kind == ProductionKinds.Vessel && q.Target.ContentId == slot.RoleId) != true) Error("request queue binding is missing, duplicated or mismatched.");
+                        if (slot.Vessel is not null || slot.QueueToken is not { } token || token < 1 || slot.Colony is not { } colony || !request.Colonies.Contains(colony) || !queueBindings.Add((colony, token)) || state.FindColony(colony)?.Development?.Queue.Any(q => q.Token == token && q.Target==AssemblyDesigns.Target(slot.RoleId,slot.Design)) != true) Error("request queue binding is missing, duplicated or mismatched.");
                     }
                 }
             }
