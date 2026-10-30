@@ -16,6 +16,6 @@ public static class ContentFiles
             .ToArray();
 
         return ContentLoader.Load(files.Select(name =>
-            new ContentSource(name, FileAccess.GetFileAsString($"{CoreDirectory}/{name}"))),requireSpecies:true,requireRivals:true,requireDevelopment:true,requireCrises:true,requireScouting:true,requireFleets:true,requireCombat:true);
+            new ContentSource(name, FileAccess.GetFileAsString($"{CoreDirectory}/{name}"))),requireSpecies:true,requireRivals:true,requireDevelopment:true,requireCrises:true,requireScouting:true,requireFleets:true,requireCombat:true,requireShipDesigns:true);
     }
 }

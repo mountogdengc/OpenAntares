@@ -78,7 +78,7 @@ public partial class NewGameScreen : CenterContainer
         column.AddChild(new Label { Text = "Explore and settle alongside peaceful rivals. Optional sentry battles can clear one guarded system for ordinary founding.", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart });
         column.AddChild(_error); _start.Pressed += Start; column.AddChild(_start);
         var load = new Button { Text = "Load Game" }; load.Pressed += () => LoadRequested?.Invoke(); column.AddChild(load);
-        _start.Disabled = _species.Length == 0 || _sizes.Length == 0 || _content.RivalAi is null || _content.GovernorTemplates.IsEmpty || _content.Plagues.Count!=1 || Rules.HasScouting(Rules.CurrentVersion)&&_content.SpaceAmeba is null||Rules.HasCombat(Rules.CurrentVersion)&&_content.Combat is null;
+        _start.Disabled = _species.Length == 0 || _sizes.Length == 0 || _content.RivalAi is null || _content.GovernorTemplates.IsEmpty || _content.Plagues.Count!=1 || Rules.HasShipDesigns(Rules.CurrentVersion)&&_content.ShipDesigns is null || Rules.HasScouting(Rules.CurrentVersion)&&_content.SpaceAmeba is null||Rules.HasCombat(Rules.CurrentVersion)&&_content.Combat is null;
         _rivalCountPicker.ItemSelected += _ => { _rivalSpeciesPicker.Disabled = _rivalCountPicker.Selected == 0 || _species.Length == 0; UpdateSummary(); };
         _rivalSpeciesPicker.ItemSelected += _ => UpdateSummary();
         _speciesPicker.ItemSelected += _ => UpdateSummary(); _sizePicker.ItemSelected += _ => UpdateSummary(); _crisisPicker.ItemSelected += _ => UpdateSummary(); _seedField.TextChanged += _ => UpdateSummary();
@@ -99,6 +99,7 @@ public partial class NewGameScreen : CenterContainer
     }
     public void Start()
     {
+        if(Rules.HasShipDesigns(Rules.CurrentVersion)&&_content.ShipDesigns is null){ShowError("Ship-design definitions are required for current campaigns, including Sentries Off. Load an existing campaign instead.");return;}
         if(Rules.HasCombat(Rules.CurrentVersion)&&_content.Combat is null){ShowError("Combat definitions are required for current campaigns, including Sentries Off. Load an existing campaign instead.");return;}
         if(Rules.HasScouting(Rules.CurrentVersion)&&_content.SpaceAmeba is null){ShowError("Space ameba definitions are required for current campaigns, including Off. Load an existing campaign instead.");return;}
         if (_content.GovernorTemplates.IsEmpty) { ShowError("Colony template definitions are missing. Load an existing campaign instead."); return; }
@@ -127,6 +128,7 @@ public partial class NewGameScreen : CenterContainer
             $"\nWorkers: {sp.StartingWorkforce.Support} support / {sp.StartingWorkforce.Production} production / {sp.StartingWorkforce.Research} research.\nSupport {Format.Points(economy.SupportProduced.Total)} / {Format.Points(economy.SupportRequired.Total)}; production {Format.Points(economy.NetProduction.Total)}, research {Format.Points(economy.NetResearch.Total)} per turn.\nGrowth +{Format.Points(economy.GrowthEarned.Total)} per turn; base +{Format.Points(sp.BaseGrowth)}, surplus bonus up to +{Format.Points(sp.MaxSurplusGrowth)}.\n\n" + string.Join("\n", roles);
         _summary.TooltipText = BreakdownText.Describe(economy.NetProduction, _content, "Production") + "\n\n" + BreakdownText.Describe(economy.GrowthEarned, _content, "Growth");
         if(Rules.HasScouting(Rules.CurrentVersion))_summary.Text+=$"\n\nSpace ameba: {(_amebaPicker.Selected==0?"Standard":"Off")}. Standard may place a stationary danger; arrival gives one safe departure opportunity. Off keeps ameba encounters dormant. Scouts start with neutral Observe and enabled ameba withdrawal; Avoid encounters is a separate opt-in. Study and remaining at risk require an explicit response.";
+        if(Rules.HasShipDesigns(Rules.CurrentVersion))_summary.Text+="\n\nShip designs: Standard Escort is the permanent starting recipe. Save your own designs in Fleet Command, earn component research, and pay for construction or same-frame refits at an owned port. Existing ships keep their equipment until a paid refit completes.";
         if(Rules.HasCombat(Rules.CurrentVersion))_summary.Text+=$"\n\nSentries: {(_sentriesPicker.Selected==0?"Standard":"Off")}. Standard places one pocket of two automated sentries, blocking founding until cleared. Ordinary passage and survey stay safe; battles require a separate fleet attack order. Off keeps warship construction and repair available. Rival relations stay peaceful.";
         if(preview.State.Scouting is {Enabled:true,Habitat:null})_summary.Text+="\nThis setup will not place a space ameba: there is not enough eligible non-home habitat.";
     }
