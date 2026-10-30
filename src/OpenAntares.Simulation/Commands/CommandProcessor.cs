@@ -49,7 +49,7 @@ public static partial class CommandProcessor
         }
         // New commands may change an encounter's material consequences. Validate only
         // after the shared receipt reconciliation has removed the obsolete consent.
-        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand or Combat.CombatActionCommand)&&GameStateValidator.Validate(content,result.State,allowAllHumansReady).Count!=0)
+        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand or Combat.CombatActionCommand or ShipDesigns.ShipDesignCommand)&&GameStateValidator.Validate(content,result.State,allowAllHumansReady).Count!=0)
             return CommandOutcome.Reject(state,"fleet_invalid","The complete fleet or officer action could not be applied coherently.");
         return result;
     }
@@ -72,6 +72,7 @@ public static partial class CommandProcessor
             return CommandOutcome.Reject(state,Combat.CombatRejectionCodes.Unavailable,"Committed combat members require combat orders or completed withdrawal.");
         return command switch
         {
+            ShipDesigns.ShipDesignCommand c => ShipDesigns.ShipDesignCommandProcessor.Execute(content,state,c),
             Combat.CombatActionCommand c => Combat.CombatCommandProcessor.Execute(content,state,c),
             Fleets.FleetCommand c => Fleets.FleetCommandProcessor.Execute(content,state,c),
             Fleets.OfficerCommand c => Fleets.OfficerCommandProcessor.Execute(content,state,c),

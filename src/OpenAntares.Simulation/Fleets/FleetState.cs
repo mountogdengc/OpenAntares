@@ -47,6 +47,8 @@ public sealed class FleetRecord
 
 public sealed class AssemblySlot
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ShipDesigns.DesignId? Design {get;set;}
     public int Ordinal { get; set; }
     public string RoleId { get; set; } = string.Empty;
     public ColonyId? Colony { get; set; }
