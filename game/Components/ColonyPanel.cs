@@ -24,6 +24,7 @@ public partial class ColonyPanel : VBoxContainer
 
     /// <summary>Raised when the player changes something. The screen executes it and refreshes.</summary>
     public event Action<Command>? CommandIssued;
+    public event Action<VesselId>? RefitRequested;
 
     public void ShowColony(ContentSet content, OwnedColonyView colony, EmpireView? view = null)
     {
@@ -33,7 +34,7 @@ public partial class ColonyPanel : VBoxContainer
         AddChild(new HSeparator());
         AddChild(new Label { Text = "Colony", ThemeTypeVariation = "HeaderLabel" });
 
-        if (view is not null) { var orders = new ColonyOrdersPanel(); AddChild(orders); orders.CommandIssued += c => CommandIssued?.Invoke(c); orders.ShowColony(content, view, colony); }
+        if (view is not null) { var orders = new ColonyOrdersPanel(); AddChild(orders); orders.CommandIssued += c => CommandIssued?.Invoke(c); orders.RefitRequested+=v=>RefitRequested?.Invoke(v); orders.ShowColony(content, view, colony); }
 
         if (view is not null && Rules.HasDevelopment(view.RulesVersion)) { var known=view.Stars.FirstOrDefault(s=>s.Chart.Id==colony.StarId)?.Planets?.FirstOrDefault(p=>p.Id==colony.PlanetId);var portrait=new PlanetPortrait();AddChild(portrait);if(_styles is not null&&_cache is not null)portrait.Configure(_styles,_cache);portrait.ShowPlanet(known); }
 
@@ -96,13 +97,13 @@ public partial class ColonyPanel : VBoxContainer
         // Construction.
         AddChild(new HSeparator());
         AddChild(new Label { Text = "Construction", ThemeTypeVariation = "HeaderLabel" });
-        _projectPicker = ProjectPicker(content, colony, colony.Turn);
+        _projectPicker = ProjectPicker(content, colony, colony.Turn,view);
         AddChild(_projectPicker);
 
         ReserveOutcome production = economy.Production;
         string status = production.TargetId is null
             ? $"No project: production is saved (reserve {Format.Points(production.Starting)})."
-            : production.BlockedReasonCode is not null ? $"{BreakdownText.Progress(production)}; banking until embarkation is possible" : $"{BreakdownText.Progress(production)}, {BreakdownText.Estimate(production.Estimate)}";
+            : production.BlockedReasonCode is not null ? colony.ProjectKind==ProductionKinds.Refit?$"{BreakdownText.Progress(production)}; refit paused — review Resume or Cancel.":$"{BreakdownText.Progress(production)}; banking until embarkation is possible" : $"{BreakdownText.Progress(production)}, {BreakdownText.Estimate(production.Estimate)}";
         AddChild(Wrapped(status, "SubtleLabel"));
         if (colony.ProjectKind == ProductionKinds.Vessel && colony.ProjectId is { } roleId && content.Vessels[roleId].CanFoundColony)
         {
@@ -110,7 +111,7 @@ public partial class ColonyPanel : VBoxContainer
             string full = Rules.HasSpecies(colony.RulesVersion) && role.RequiresFullColony ? $" Requires a full colony at current capacity {economy.Growth.Capacity}." : string.Empty;
             AddChild(Wrapped($"{role.Name}: requires {unit} {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers; transfers {role.EmbarkPopulation} {unit} on completion. Delays construction of a building." + full, "SubtleLabel"));
         }
-        if (production.BlockedReasonCode is not null && colony.ProjectId is { } blockedRoleId)
+        if (production.BlockedReasonCode is not null && colony.ProjectKind==ProductionKinds.Vessel && colony.ProjectId is { } blockedRoleId)
         {
             var role = content.Vessels[blockedRoleId];
             if (Rules.HasSpecies(colony.RulesVersion))
@@ -190,7 +191,7 @@ public partial class ColonyPanel : VBoxContainer
     }
 
     /// <summary>Lists buildable projects, then locked ones (disabled) with what they need.</summary>
-    private OptionButton ProjectPicker(ContentSet content, OwnedColonyView colony, int turn)
+    private OptionButton ProjectPicker(ContentSet content, OwnedColonyView colony, int turn,EmpireView? view)
     {
         var picker = new OptionButton { Name = "ColonyProjectPicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
         picker.AddItem("No project");
@@ -209,7 +210,7 @@ public partial class ColonyPanel : VBoxContainer
 
         if (Rules.HasExpansion(colony.RulesVersion))
         {
-            foreach (var role in content.Vessels.Values.Where(r => colony.AvailableVesselRoleIds.Contains(r.Id)))
+            foreach (var role in content.Vessels.Values.Where(r => colony.AvailableVesselRoleIds.Contains(r.Id)&&!(view is not null&&ShipDesignUi.UsesDesigns(content,view,r.Id))))
             {
                 picker.AddItem($"{role.Name} ({Format.Points(role.Cost)})"); picker.SetItemMetadata(picker.ItemCount - 1, "vessel|" + role.Id);
                 picker.SetItemTooltip(picker.ItemCount - 1, role.CanFoundColony ? $"Requires {colony.PopulationUnitLabel} {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers. Transfers those existing workers into cargo." +
@@ -219,6 +220,11 @@ public partial class ColonyPanel : VBoxContainer
             }
         }
 
+        if(view is not null)foreach(var design in OpenAntares.Simulation.ShipDesigns.ShipDesignQueries.BuildChoices(view))
+        {
+            picker.AddItem(ShipDesignUi.DesignName(content,view,design.Id)+" ("+Format.Points(design.Stats.BuildCost)+")");picker.SetItemMetadata(picker.ItemCount-1,ShipDesignUi.Encode(OpenAntares.Simulation.ShipDesigns.ShipDesignTargets.Build(design.Id)));picker.SetItemTooltip(picker.ItemCount-1,$"Hull {design.Stats.MaxHull}; attack {design.Stats.Attack}; armor {design.Stats.Armor}; base speed {design.Stats.BaseSpeed}; space {design.Stats.SpaceUsed}/{design.Stats.SpaceCapacity}. One exact new ship; equipment is not substituted.");if(colony.ProjectKind==ProductionKinds.ShipDesign&&colony.ProjectId==design.Id.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))picker.Select(picker.ItemCount-1);
+        }
+        if(colony.ProjectKind==ProductionKinds.Refit){picker.AddItem("Committed refit #"+colony.ProjectId);picker.SetItemMetadata(picker.ItemCount-1,"refit|"+colony.ProjectId);picker.Select(picker.ItemCount-1);picker.Disabled=true;picker.TooltipText="Cancel or complete the committed refit before changing this production slot.";}
         foreach (BuildingDefinition building in remaining.Where(b => !b.PrerequisiteTechnologyIds.All(id => colony.KnownTechnologyIds.Contains(id))))
         {
             string needs = string.Join(", ", building.PrerequisiteTechnologyIds
@@ -232,7 +238,7 @@ public partial class ColonyPanel : VBoxContainer
         picker.ItemSelected += index =>
         {
             string id = picker.GetItemMetadata((int)index).AsString();
-            CommandIssued?.Invoke(new SetProductionTargetCommand(colony.EmpireId, turn, colony.Id, id.Length == 0 ? null : id.StartsWith("vessel|", StringComparison.Ordinal) ? new(ProductionKinds.Vessel, id[7..]) : new(ProductionKinds.Building, id)));
+            CommandIssued?.Invoke(new SetProductionTargetCommand(colony.EmpireId, turn, colony.Id, id.Length == 0 ? null : id.StartsWith("vessel|", StringComparison.Ordinal)||id.StartsWith("ship_design|",StringComparison.Ordinal) ? ShipDesignUi.Decode(id) : new(ProductionKinds.Building, id)));
         };
         return picker;
     }

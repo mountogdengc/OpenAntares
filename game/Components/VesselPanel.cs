@@ -15,6 +15,7 @@ public partial class VesselPanel : VBoxContainer
     public event Action<StarId>? DestinationSelected;
     public event Action? ScoutOverviewRequested;
     public event Action? FleetCommandRequested;
+    public event Action<VesselId>? RefitRequested;
     public void ShowVessels(ContentSet content, EmpireView view, VesselId? selected, StarId? destination, PlanetId? selectedPlanet)
     {
         foreach (Node child in GetChildren()) { RemoveChild(child); child.QueueFree(); }
@@ -24,9 +25,10 @@ public partial class VesselPanel : VBoxContainer
         foreach (var foreign in view.ForeignVessels) AddChild(Text($"Observed {view.Contacts.FirstOrDefault(c=>c.OtherEmpireId==foreign.EmpireId)?.CultureName ?? foreign.EmpireId.ToString()}: {content.Vessels[foreign.RoleId].Name} at {view.Stars.First(s => s.Chart.Id == foreign.StarId).Chart.Name} (turn {view.Turn})"));
         if (view.Vessels.Length == 0) { AddChild(Text("No vessels. Build a scout or settler in a colony.")); return; }
         var picker = new OptionButton { SizeFlagsHorizontal = SizeFlags.ExpandFill, Name = "VesselPicker" }; AddChild(picker);
-        foreach (var unit in view.Vessels) { picker.AddItem($"{content.Vessels[unit.RoleId].Name} {unit.Id.Value}"); picker.SetItemMetadata(picker.ItemCount - 1, unit.Id.Value); if (unit.Id == selected) picker.Select(picker.ItemCount - 1); }
+        foreach (var unit in view.Vessels) { picker.AddItem($"{(unit.Loadout?.Design is {} id?ShipDesignUi.DesignName(content,view,id):content.Vessels[unit.RoleId].Name)} {unit.Id.Value}"); picker.SetItemMetadata(picker.ItemCount - 1, unit.Id.Value); if (unit.Id == selected) picker.Select(picker.ItemCount - 1); }
         picker.ItemSelected += index => VesselSelected?.Invoke(new(picker.GetItemMetadata((int)index).AsInt32()));
         var vessel = view.Vessels.FirstOrDefault(v => v.Id == selected) ?? view.Vessels[0]; var role = content.Vessels[vessel.RoleId];
+        if(Rules.HasShipDesigns(view.RulesVersion)&&vessel.Loadout?.Design is not null){var refit=new Button{Name="VesselOpenRefit",Text="Review equipment refit"};AddChild(refit);refit.Pressed+=()=>RefitRequested?.Invoke(vessel.Id);}
         if(view.Combat?.Ships.FirstOrDefault(v=>v.Id==vessel.Id) is {} combat)AddChild(Text($"{CombatReportPanel.Status(combat)} — hull {combat.Hull}/{combat.MaxHull}, cohesion {combat.Cohesion}, {combat.DamageBand}; attack {combat.Firepower}, armor {combat.Armor}, effective speed {combat.EffectiveSpeed}."));
         AddChild(Text(view.Combat is not null&&content.Combat!.RoleProfiles[vessel.RoleId].Attack>0?"Warship: combat requires a separate named-fleet attack order.":vessel.CarriedPopulation > 0 ? $"Carried {view.PopulationUnitLabel}: {vessel.CarriedPopulation}" : "Scout: surveys a system on arrival."));
         var scouting=view.Scouting?.Vessels.FirstOrDefault(v=>v.Id==vessel.Id);

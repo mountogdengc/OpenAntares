@@ -56,6 +56,15 @@ public partial class TurnReportDialog : AcceptDialog
         _crisisPreferences=crisisPreferences??OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
         Title = "Turn report";
         _body.AddChild(new Label { Text = $"Turn {report.FromTurn} results", ThemeTypeVariation = "HeaderLabel" });
+        if(report.ShipDesignEvents is {} equipmentEvents&&!equipmentEvents.IsEmpty)
+        {
+            _body.AddChild(new Label{Text="Ship equipment",ThemeTypeVariation="HeaderLabel"});
+            foreach(var entry in equipmentEvents.DistinctBy(e=>e.Id).OrderBy(e=>e.Id))
+            {
+                string names=(entry.Before?.Name??"Previous equipment")+" → "+(entry.After?.Name??"Retained equipment");string paid=entry.Paid>0?$" Paid {Format.Points(entry.Paid)} ({entry.Paid} internal) once.":" No payment.";
+                _body.AddChild(Wrapped(names+". "+entry.Reason+paid,"SubtleLabel"));
+            }
+        }
         if(report.Combat is not null){var combat=new CombatReportPanel{Name="TurnCombatReport",ShowRoutine=OpenAntares.Game.Presentation.CombatNotificationPreferences.Load(ProjectSettings.GlobalizePath(CombatPreferencesPath)).ShowRoutine};_body.AddChild(combat);combat.SetReport(report);}
         if(empireView?.Fleets is not null)
         {
@@ -99,7 +108,7 @@ public partial class TurnReportDialog : AcceptDialog
             if(e.Kind=="vessel_completed"&&_preferences.LevelFor("completions")==OpenAntares.Game.Presentation.NotificationLevel.Off)continue;
             // The colony completion owns the notice and both navigation actions.
             if (e.Kind == "vessel_completed" && report.Colonies.Any(c =>
-                c.Id == e.Colony && c.Economy.Production.TargetKind == ProductionKinds.Vessel &&
+                c.Id == e.Colony && c.Economy.Production.TargetKind is ProductionKinds.Vessel or ProductionKinds.ShipDesign &&
                 c.Economy.Production.CompletedId is not null)) continue;
             string location = e.Star is { } star && report.StarNames.TryGetValue(star, out var name) ? name : "system";
             string message = e.Kind switch { "arrived" => $"Vessel arrived at {location}.", "discovered" => $"Surveyed the planets of {location}.", "vessel_completed" => $"Expedition completed at {location}.", "colony_founded" => $"Colony founded at {location}.", "founding_failed" => $"Another expedition settled {location} first. Your settler and cargo were retained.", _ => "Expedition updated." };
@@ -135,7 +144,7 @@ public partial class TurnReportDialog : AcceptDialog
 
         if (_preferences.LevelFor("completions") != OpenAntares.Game.Presentation.NotificationLevel.Off && colony.Production.CompletedId is { } building)
         {
-            _body.AddChild(CompletionNotice($"Completed {(colony.Production.TargetKind == ProductionKinds.Vessel ? content.Vessels[building].Name : content.Buildings[building].Name)}."));
+            _body.AddChild(CompletionNotice($"Completed {(colony.Production.TargetKind == ProductionKinds.Vessel ? content.Vessels[building].Name : colony.Production.TargetKind is ProductionKinds.ShipDesign or ProductionKinds.Refit ? (colony.Production.TargetKind==ProductionKinds.Refit?"refit to ":"")+(view.ProductionEquipment?.Name??"design #"+building) : content.Buildings[building].Name)}."));
             if(colonySurvives)
             {
                 var choose = new Button { Text = "Choose next project" };
@@ -147,7 +156,7 @@ public partial class TurnReportDialog : AcceptDialog
                 _body.AddChild(choose);
             }
             else _body.AddChild(Wrapped("This colony was lost after completion; no next project can be selected here.","WarningLabel"));
-            if (colony.Production.TargetKind == ProductionKinds.Vessel)
+            if (colony.Production.TargetKind is ProductionKinds.Vessel or ProductionKinds.ShipDesign)
             {
                 foreach (var completion in report.Events.Where(e =>
                     e.Kind == "vessel_completed" && e.Colony == view.Id && e.Vessel.HasValue))

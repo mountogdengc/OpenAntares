@@ -66,7 +66,7 @@ public partial class ResearchBar : HBoxContainer
             string needs = string.Join(", ", technology.PrerequisiteTechnologyIds
                 .Where(id => !empire.KnownTechnologyIds.Contains(id))
                 .Select(id => content.Technologies[id].Name));
-            _picker.AddItem($"{technology.Name}: needs {needs}");
+            _picker.AddItem(technology.ShipDesignOnly&&Rules.HasShipDesigns(empire.RulesVersion)?$"{technology.Name} ({Format.Points(technology.Cost)}): needs {needs}":$"{technology.Name}: needs {needs}");
             _picker.SetItemMetadata(_picker.ItemCount - 1, technology.Id);
             _picker.SetItemDisabled(_picker.ItemCount - 1, true);
         }

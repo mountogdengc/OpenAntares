@@ -64,7 +64,11 @@ public sealed record EmpireView(int Turn, EmpireId Viewer, int RulesVersion, Gal
     public ImmutableArray<string> AvailableVesselRoleIds { get; init; } = ImmutableArray<string>.Empty;
 }
 
-public sealed record ColonyReportView(ColonyEconomy Economy, ColonyId Id, StarId Star, string Name);
+public sealed record ColonyReportView(ColonyEconomy Economy, ColonyId Id, StarId Star, string Name)
+{
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ShipDesigns.EquipmentFact? ProductionEquipment {get;init;}
+}
 public sealed record EmpireTurnReportView(int FromTurn, int ToTurn, ImmutableArray<ColonyReportView> Colonies, EmpireEconomy Research, ImmutableArray<OpenAntares.Simulation.Turns.ExpansionEvent> Events, ImmutableDictionary<StarId, string> StarNames)
 {
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]

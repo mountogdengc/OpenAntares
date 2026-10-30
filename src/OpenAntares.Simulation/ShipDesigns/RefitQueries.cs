@@ -77,6 +77,7 @@ public static class RefitQueries
         var material=new
         {
             view.Turn,view.Viewer,view.RulesVersion,Action=JsonSerializer.Serialize(action,action.GetType()),Job=job,
+            NewJobId=job is null?(int?)view.ShipDesigns!.NextRefitId:null,
             Ship=new{ship.Id,ship.RoleId,ship.StationaryStarId,ship.Transit,ship.PendingMove,ship.PendingFounding,ship.CarriedPopulation,Condition=conditions,Group=group},
             Port=new{port.Id,port.EmpireId,port.StarId,port.ProjectId,port.ProjectKind,port.ProductionReserve,Output=port.Economy.NetProduction.Total,ActiveQueueToken=port.Development?.ActiveQueueToken},
             Source=new{source.Id,source.Name,source.Recipe,source.Stats},Target=new{target.Id,target.Name,target.Recipe,target.Stats,target.Archived,target.Unlocked},Price=price,Requirements=requirements,

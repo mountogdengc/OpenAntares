@@ -60,6 +60,11 @@ public sealed class ShipDesignAtomicityTests
         foreach(var action in new RefitAction[]{cancel,new RefitAction.Resume(job.Id,job.Revision)}){var result=game.Execute(new RefitCommand(game.State.Empires[0].Id,10,action,token));Assert.False(result.Accepted);Assert.Equal(bytes,Bytes(game.State));}Assert.Equal(500,game.State.Colonies[0].ProductionReserve);
     }
     [Fact]
+    public void OldStartPreviewCannotRecreateACancelledJobInTheSamePlanningTurn()
+    {
+        var game=RefitResolutionTests.Economic(700,0);var action=new RefitAction.Start(game.State.Vessels[0].Id,game.State.Colonies[0].Id,new(2));var beforeStart=RefitCommandTests.Preview(game,action);RefitCommandTests.Apply(game,action);var job=game.State.Empires[0].ShipDesigns!.Refits.Single();RefitCommandTests.Apply(game,new RefitAction.Cancel(job.Id,job.Revision));string before=Bytes(game.State);var replay=game.Execute(new RefitCommand(game.State.Empires[0].Id,game.State.Turn,action,beforeStart.Token));Assert.False(replay.Accepted);Assert.Equal(before,Bytes(game.State));Assert.Empty(game.State.Empires[0].ShipDesigns!.Refits);var current=RefitCommandTests.Preview(game,action);Assert.True(current.Allowed);Assert.NotEqual(beforeStart.Token,current.Token);var fresh=game.Execute(new RefitCommand(game.State.Empires[0].Id,game.State.Turn,action,current.Token));Assert.True(fresh.Accepted,fresh.Rejection?.Message);Assert.Equal(new RefitId(2),Assert.Single(game.State.Empires[0].ShipDesigns!.Refits).Id);
+    }
+    [Fact]
     public void OneLockedShipRejectsAnEntireMultiSelectionAndUnknownTargetKind()
     {
         var game=RefitResolutionTests.Economic();var other=game.State.Vessels[0].Clone();other.Id=new(game.State.AllocateId());game.State.Vessels.Add(other);RefitResolutionTests.Start(game);var bytes=Bytes(game.State);var owner=game.State.Empires[0];var target=game.State.Stars.First(s=>s.Id!=other.StationaryStarId).Id;

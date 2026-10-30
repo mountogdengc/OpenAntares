@@ -11,15 +11,18 @@ namespace OpenAntares.Game.Components;
 public partial class ColonyOrdersPanel:VBoxContainer
 {
     public event Action<Command>? CommandIssued;
+    public event Action<VesselId>? RefitRequested;
     public void ShowColony(ContentSet content,EmpireView view,OwnedColonyView colony)
     {
         DevelopmentUi.Clear(this);AddChild(new HSeparator());AddChild(new Label{Text="Colony plans",ThemeTypeVariation="HeaderLabel"});
         if(!Rules.HasDevelopment(view.RulesVersion)||colony.Development is not {} d){AddChild(DevelopmentUi.Text("This campaign keeps its original rules. Start a new game to use governor plans and construction queues."));return;}
+        var refit=view.ShipDesigns?.Refits.SingleOrDefault(j=>j.Port==colony.Id);
+        if(refit is not null){AddChild(DevelopmentUi.Text("Committed refit: "+refit.StatusExplanation,"WarningLabel"));DevelopmentUi.Button(this,"Review active refit / Cancel / Resume",()=>RefitRequested?.Invoke(refit.Vessel),"ColonyOpenRefit");}
         var picker=new OptionButton{Name="GovernorTemplatePicker",SizeFlagsHorizontal=SizeFlags.ExpandFill};picker.AddItem("Manual / no template");picker.SetItemMetadata(0,"");
         foreach(var t in content.GovernorTemplates.Values){picker.AddItem(t.Name+" (default)");picker.SetItemMetadata(picker.ItemCount-1,t.Id);}
         foreach(var t in view.Development!.CustomTemplates){picker.AddItem(t.Definition.Name+$" (revision {t.Revision})");picker.SetItemMetadata(picker.ItemCount-1,t.Id);}
         for(int i=0;i<picker.ItemCount;i++)if(picker.GetItemMetadata(i).AsString()==(d.Template?.Id??"balanced"))picker.Select(i);if(d.Template is null&&picker.Selected==0&&picker.ItemCount>1)picker.Select(1);AddChild(picker);
-        var workforce=new CheckBox{Name="WorkforceGovernorToggle",Text="Governor manages workforce",ButtonPressed=d.WorkforceEnabled,Disabled=d.Template is null};var construction=new CheckBox{Name="ConstructionGovernorToggle",Text="Governor manages construction",ButtonPressed=d.ConstructionEnabled};AddChild(workforce);AddChild(construction);
+        var workforce=new CheckBox{Name="WorkforceGovernorToggle",Text="Governor manages workforce",ButtonPressed=d.WorkforceEnabled,Disabled=d.Template is null};var construction=new CheckBox{Name="ConstructionGovernorToggle",Text="Governor manages construction",ButtonPressed=d.ConstructionEnabled};AddChild(workforce);AddChild(construction);if(refit is not null){construction.Disabled=true;construction.TooltipText="Cancel or complete the refit before resuming construction.";}
         workforce.Toggled+=on=>CommandIssued?.Invoke(new SetColonyAutomationCommand(view.Viewer,view.Turn,colony.Id,on,construction.ButtonPressed));construction.Toggled+=on=>CommandIssued?.Invoke(new SetColonyAutomationCommand(view.Viewer,view.Turn,colony.Id,workforce.ButtonPressed,on));
         var replace=new CheckBox{Name="ReplaceActiveProject",Text="Replace active project when applying (keep reserve)"};AddChild(replace);
         var preview=DevelopmentUi.Text("");AddChild(preview);
@@ -33,7 +36,7 @@ public partial class ColonyOrdersPanel:VBoxContainer
                 preview.Text=$"Manual control. {effect} Reserve retained.";
                 return;
             }
-            string next=row.Target is null?"bank production":row.Target.Kind=="building"?content.Buildings[row.Target.ContentId].Name:content.Vessels[row.Target.ContentId].Name;
+            string next=row.Target is null?"bank production":ShipDesignUi.Name(content,view,row.Target);
             preview.Text=$"Preview Support/Production/Research {colony.Workforce.Support}/{colony.Workforce.Production}/{colony.Workforce.Research} to {row.Workforce.Support}/{row.Workforce.Production}/{row.Workforce.Research} at next Ready. {effect} Reserve retained; next Ready: {next}.";
         }
 
@@ -46,8 +49,8 @@ public partial class ColonyOrdersPanel:VBoxContainer
         void Buttons(){bool custom=view.Development.CustomTemplates.Any(t=>t.Id==Chosen()?.Id);edit.Disabled=!custom;delete.Disabled=!custom;}picker.ItemSelected+=_=>Buttons();Buttons();
         AddChild(DevelopmentUi.Text(d.Template is {} assigned?$"Assigned: {assigned.Definition.Name}, revision {assigned.Revision}. Library edits take effect only after Apply.":"No assigned template."));
         AddChild(DevelopmentUi.Text($"Workforce: {(d.WorkforceEnabled?"automatic":"manual / paused")}. Construction: {(d.ConstructionEnabled?"automatic":"manual / paused")}. Active origin: {d.Origin}."));
-        var queue=new ItemList{Name="ConstructionQueue",CustomMinimumSize=new(0,90)};AddChild(queue);foreach(var entry in d.Queue){string title=entry.Target.Kind=="building"?content.Buildings[entry.Target.ContentId].Name:content.Vessels[entry.Target.ContentId].Name;bool locked=entry.Target.Kind=="building"&&content.Buildings[entry.Target.ContentId].PrerequisiteTechnologyIds.Any(id=>!view.Research.KnownTechnologyIds.Contains(id));queue.AddItem(title+(locked?" (technology locked)":"")+(entry.Token==d.ActiveQueueToken?" (active)":""));}
-        var queueEditor=new ConstructionQueueEditor();AddChild(queueEditor);queueEditor.CommandIssued+=c=>CommandIssued?.Invoke(c);DevelopmentUi.Button(this,"Edit queue",()=>queueEditor.Open(content,view,colony));
+        var queue=new ItemList{Name="ConstructionQueue",CustomMinimumSize=new(0,90)};AddChild(queue);foreach(var entry in d.Queue){string title=ShipDesignUi.Name(content,view,entry.Target);bool locked=entry.Target.Kind=="building"&&content.Buildings[entry.Target.ContentId].PrerequisiteTechnologyIds.Any(id=>!view.Research.KnownTechnologyIds.Contains(id));queue.AddItem(title+(locked?" (technology locked)":"")+(entry.Token==d.ActiveQueueToken?" (active)":""));}
+        var queueEditor=new ConstructionQueueEditor();AddChild(queueEditor);queueEditor.CommandIssued+=c=>CommandIssued?.Invoke(c);var editQueue=DevelopmentUi.Button(this,"Edit queue",()=>queueEditor.Open(content,view,colony));if(refit is not null){editQueue.Disabled=true;editQueue.TooltipText="The refit retains this queue. Cancel the job explicitly before editing it.";}
         var presets=new TemplatePresetDialog();AddChild(presets);presets.CommandIssued+=c=>CommandIssued?.Invoke(c);DevelopmentUi.Button(this,"Template presets",()=>presets.Open(content,view,view.Development.CustomTemplates.Length>0?view.Development.CustomTemplates.Select(t=>t.Definition).ToImmutableArray():Chosen() is {} t?ImmutableArray.Create(t.Definition):ImmutableArray<GovernorTemplateDraft>.Empty));
     }
 }

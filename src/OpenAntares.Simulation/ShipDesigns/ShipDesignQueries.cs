@@ -49,6 +49,7 @@ public static class ShipDesignQueries
         }
         return new(data.CatalogueRevision,data.Designs.OrderBy(d=>d.Id).Select(d=>new DesignView(d.Id,d.Name,d.Recipe,ShipDesignMath.Calculate(definition,d.Recipe),d.Archived,ShipDesignStateValidator.Unlocked(definition,d.Recipe,owner),references[d.Id])).ToImmutableArray())
         {
+            NextRefitId=data.NextRefitId,
             Refits=data.Refits.OrderBy(j=>j.Id).Select(Refit).ToImmutableArray(),
             Events=data.RecentEvents.Concat(data.PendingEvents).OrderBy(e=>e.Id).TakeLast(20).ToImmutableArray()
         };

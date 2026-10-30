@@ -70,15 +70,22 @@ public static class EmpireViewProjector
     public static EmpireTurnReportView ProjectReport(ContentSet content, GameState state, Turns.TurnReport report, EmpireId viewer)
     {
         var owner = state.FindEmpire(viewer) ?? throw new ArgumentException("Empire not found.", nameof(viewer));
+        ShipDesigns.EquipmentFact? Equipment(ColonyEconomy economy)
+        {
+            if(!Rules.HasShipDesigns(state.RulesVersion))return null;
+            if(economy.Production.TargetKind==ProductionKinds.Refit)return report.ShipDesignEvents?.LastOrDefault(e=>e.Owner==viewer&&e.Port==economy.Colony&&e.Kind=="refit_completed")?.After;
+            if(economy.Production.TargetKind!=ProductionKinds.ShipDesign||economy.Production.TargetId is not {} key||ShipDesigns.ShipDesignTargets.Bound(content,state,viewer,new(ProductionKinds.ShipDesign,key)) is not {} design)return null;
+            return new(design.Id,design.Name,design.Recipe,ShipDesigns.ShipDesignMath.Calculate(content.ShipDesigns!,design.Recipe));
+        }
         var colonies = report.Economy.Colonies.Where(c => c.Empire == viewer).Select(c =>
         {
             if(Rules.HasCrises(state.RulesVersion))
             {
                 if(!report.ColonyLocations.TryGetValue(c.Colony,out var location))throw new InvalidOperationException("Missing original owned colony report location.");
-                return new ColonyReportView(c,c.Colony,location.Star,location.Name);
+                return new ColonyReportView(c,c.Colony,location.Star,location.Name){ProductionEquipment=Equipment(c)};
             }
             var planet = state.FindPlanet(state.FindColony(c.Colony)!.PlanetId)!; var star = state.FindStar(planet.StarId)!;
-            return new ColonyReportView(c, c.Colony, star.Id, $"{star.Name} {planet.Orbit}");
+            return new ColonyReportView(c, c.Colony, star.Id, $"{star.Name} {planet.Orbit}"){ProductionEquipment=Equipment(c)};
         }).ToImmutableArray();
         var encounters = Rules.HasRivals(state.RulesVersion) ? report.EncounterEvents.Where(e => e.Viewer == viewer).Select(e =>
         {

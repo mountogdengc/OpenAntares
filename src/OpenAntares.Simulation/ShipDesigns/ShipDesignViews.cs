@@ -18,6 +18,7 @@ public sealed record CatalogueRow(DesignView Design,string? ArchiveBlockedReason
 public sealed record CataloguePage(int PageIndex,int PageCount,int Total,ImmutableArray<CatalogueRow> Rows);
 public sealed record ShipDesignEmpireView(long CatalogueRevision,ImmutableArray<DesignView> Designs)
 {
+    public int NextRefitId {get;init;}=1;
     public ImmutableArray<RefitView> Refits {get;init;}=ImmutableArray<RefitView>.Empty;
     public ImmutableArray<ShipDesignEvent> Events {get;init;}=ImmutableArray<ShipDesignEvent>.Empty;
 }

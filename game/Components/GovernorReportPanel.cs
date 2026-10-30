@@ -23,10 +23,10 @@ public partial class GovernorReportPanel:VBoxContainer
             foreach(var entry in report.Entries.OrderBy(e=>e.Colony)){
                 string name=view.Research.ColonyNames.TryGetValue(entry.Colony.ToString(),out var known)?known:view.Crisis?.LostColonyLocations.FirstOrDefault(l=>l.Colony==entry.Colony)?.Name??entry.Colony.ToString();details.AddChild(DevelopmentUi.Text(name));
                 if(entry.BeforeWorkforce is {} before&&entry.AfterWorkforce is {} after)details.AddChild(DevelopmentUi.Text($"Support/Production/Research: {before.Support}/{before.Production}/{before.Research} to {after.Support}/{after.Production}/{after.Research}. Support target first, remaining workers by configured weights."+(entry.WorkforceOverridden?" Overridden by a manual workforce order.":"")));
-                if(entry.BeforeTarget!=entry.AfterTarget)details.AddChild(DevelopmentUi.Text($"Construction: {TargetName(entry.BeforeTarget)} to {TargetName(entry.AfterTarget)}. Explicit queue precedes assigned building preferences; active work is retained."+(entry.ConstructionOverridden?" Overridden by a manual construction order.":"")));
+                if(entry.BeforeTarget!=entry.AfterTarget)details.AddChild(DevelopmentUi.Text($"Construction: {TargetName(entry.BeforeTarget,entry.BeforeEquipment)} to {TargetName(entry.AfterTarget,entry.AfterEquipment)}. Explicit queue precedes assigned building preferences; active work is retained."+(entry.ConstructionOverridden?" Overridden by a manual construction order.":"")));
                 foreach(var issue in entry.Issues)details.AddChild(DevelopmentUi.Text(IssueText(content,issue),issue.Code=="plan_complete"?"SubtleLabel":"WarningLabel"));
             }
-            string TargetName(OpenAntares.Simulation.State.ProductionTarget? target)=>target is null?"bank production":target.Kind=="building"?content.Buildings[target.ContentId].Name:content.Vessels[target.ContentId].Name;
+            string TargetName(OpenAntares.Simulation.State.ProductionTarget? target,OpenAntares.Simulation.ShipDesigns.EquipmentFact? fact)=>target is null?"bank production":fact is not null?fact.Name+" — "+content.ShipDesigns!.Frames[fact.Recipe.FrameId].Name:ShipDesignUi.Name(content,view,target);
         }
         picker.ItemSelected+=_=>Render();expand.Toggled+=on=>details.Visible=on;Render();
     }
