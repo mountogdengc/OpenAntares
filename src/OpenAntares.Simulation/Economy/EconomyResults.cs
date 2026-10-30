@@ -33,6 +33,8 @@ public sealed record ColonyEconomy(
     ReserveOutcome Production)
 {
     public string PopulationUnitLabel { get; init; } = "population";
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ShipDesigns.RefitPlan? RefitPlan {get;init;}
     public VesselCompletionPlan? VesselCompletionPlan { get; init; }
     public EmbarkOutcome? EmbarkOutcome { get; init; }
 }

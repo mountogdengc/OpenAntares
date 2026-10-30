@@ -107,7 +107,8 @@ public static class EconomyCalculator
         result = CrisisEconomy.ApplyColony(content,state,colony,result);
         result = result with {Production=Reserve(colony.ProductionReserve,result.NetProduction.Total,project?.Id,project?.Cost,projectLegal)};
         result=VesselProduction.Calculate(content,state,colony,planet,planetType,buildings,result);
-        return ShipDesigns.ShipDesignProduction.Calculate(content,state,colony,result);
+        result=ShipDesigns.ShipDesignProduction.Calculate(content,state,colony,result);
+        return ShipDesigns.RefitEconomy.Calculate(content,state,colony,result);
     }
 
     private static EmpireEconomy CalculateEmpire(ContentSet content, GameState state, EmpireState empire, ImmutableArray<ColonyEconomy> colonies)

@@ -24,6 +24,8 @@ public sealed record TurnResolution(GameState State, TurnReport? Report, IReadOn
 /// <summary>What happened during one turn resolution: the turn transition and the economy that was applied.</summary>
 public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ImmutableArray<ShipDesigns.ShipDesignEvent>? ShipDesignEvents {get;init;}
     public ImmutableArray<Combat.OwnedCombatDeparture> CombatDepartures {get;init;}=ImmutableArray<Combat.OwnedCombatDeparture>.Empty;
     public ImmutableArray<Combat.OwnedCombatEvent> CombatEvents {get;init;}=ImmutableArray<Combat.OwnedCombatEvent>.Empty;
     public ImmutableArray<Combat.CombatRoundReceipt> CombatRounds {get;init;}=ImmutableArray<Combat.CombatRoundReceipt>.Empty;
@@ -42,6 +44,7 @@ public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 /// </summary>
 public static class TurnResolver
 {
+    internal static TurnResolution ResolveShipDesigns(ContentSet content,GameState snapshot,Action<ShipDesigns.ShipDesignResolutionPhase> hook)=>ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null,null,null,null,hook);
     internal static TurnResolution ResolveCombat(ContentSet content,GameState snapshot,Action<Combat.CombatResolutionPhase> hook)=>ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null,null,null,hook);
     internal static TurnResolution ResolveFleet(ContentSet content,GameState snapshot,Action<FleetResolutionPhase> hook)=>ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null,null,hook);
     internal static TurnResolution ResolveScouting(ContentSet content,GameState snapshot,Action<Scouting.ScoutResolutionPhase> hook)=>ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null,hook);
@@ -52,7 +55,7 @@ public static class TurnResolver
     internal static TurnResolution Resolve(ContentSet content, GameState snapshot, Func<ContentSet,GameState,RivalPlanningOutcome> prepare)
         => ResolveCore(content,snapshot,prepare,null);
 
-    private static TurnResolution ResolveCore(ContentSet content,GameState snapshot,Func<ContentSet,GameState,RivalPlanningOutcome> prepare,Action<CrisisResolutionPhase>? hook,Action<Scouting.ScoutResolutionPhase>? scoutHook=null,Action<FleetResolutionPhase>? fleetHook=null,Action<Combat.CombatResolutionPhase>? combatHook=null)
+    private static TurnResolution ResolveCore(ContentSet content,GameState snapshot,Func<ContentSet,GameState,RivalPlanningOutcome> prepare,Action<CrisisResolutionPhase>? hook,Action<Scouting.ScoutResolutionPhase>? scoutHook=null,Action<FleetResolutionPhase>? fleetHook=null,Action<Combat.CombatResolutionPhase>? combatHook=null,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook=null)
     {
         GameState original = snapshot;
         var inputErrors = GameStateValidator.Validate(content, snapshot, allowAllHumansReady: true);
@@ -108,10 +111,14 @@ public static class TurnResolver
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Preparation);
             var scouting=Rules.HasScouting(snapshot.RulesVersion)?Scouting.AmebaResolutionContext.Capture(content,snapshot):null;
             var crisis=Rules.HasCrises(snapshot.RulesVersion)?CrisisResolutionContext.Capture(content,snapshot):null;
+            var refits=Rules.HasShipDesigns(snapshot.RulesVersion)?ShipDesigns.RefitResolutionContext.Capture(content,snapshot):null;
+            var refitEvents=ImmutableArray<ShipDesigns.ShipDesignEvent>.Empty;
+            shipDesignHook?.Invoke(ShipDesigns.ShipDesignResolutionPhase.Capture);
             // Phases 1-2: from the snapshot, calculate support, outputs, and growth for every colony in
             // ID order, and research for every empire in ID order. Effects completed this turn apply
             // only from the next snapshot.
             economy = EconomyCalculator.Calculate(content, snapshot);
+            shipDesignHook?.Invoke(ShipDesigns.ShipDesignResolutionPhase.Economy);
 
             // Phase 3: growth, with new workers assigned to support.
             // Phase 4: production and research reserves, at most one completion per colony and empire.
@@ -197,6 +204,9 @@ public static class TurnResolver
             }
 
             if(combat is not null){Combat.CombatRepair.Apply(content,snapshot,candidate,combat);Combat.CombatRepair.ObserveArrivals(candidate,combat);combatHook?.Invoke(Combat.CombatResolutionPhase.Repair);}
+            shipDesignHook?.Invoke(ShipDesigns.ShipDesignResolutionPhase.PostLoss);
+            if(refits is not null){var applied=ShipDesigns.RefitResolver.Apply(content,snapshot,candidate,refits,economy);economy=applied.Economy;refitEvents=applied.Events;}
+            shipDesignHook?.Invoke(ShipDesigns.ShipDesignResolutionPhase.Refit);
             // Phase 5: reset readiness, validate, and advance the turn once.
             foreach (EmpireState empire in candidate.Empires)
             {
@@ -213,6 +223,7 @@ public static class TurnResolver
             if(scouting is not null)Scouting.AmebaResolver.ObserveArrivals(content,candidate,scouting);
             if(fleet is not null)FleetResolver.ObserveAssembly(content,candidate,fleet);
             if(combat is not null)Combat.CombatTurnCoordinator.RefreshKnownObservations(content,candidate,combat);
+            shipDesignHook?.Invoke(ShipDesigns.ShipDesignResolutionPhase.Observation);
             combatHook?.Invoke(Combat.CombatResolutionPhase.Observation);
             fleetHook?.Invoke(FleetResolutionPhase.Observation);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Observation);
@@ -237,11 +248,12 @@ public static class TurnResolver
                 hook?.Invoke(CrisisResolutionPhase.Finalize);
                 crisisValidation=GameStateValidator.Validate(content,candidate);
                 if(crisisValidation.Count>0)return Failed(original,RivalTurnPlanner.FailureMessage);
+                shipDesignHook?.Invoke(ShipDesigns.ShipDesignResolutionPhase.Validation);
                 hook?.Invoke(CrisisResolutionPhase.Validation);combatHook?.Invoke(Combat.CombatResolutionPhase.Validation);
                 fleetHook?.Invoke(FleetResolutionPhase.Validation);
                 scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Validation);
                 var locations=crisis.Locations.SetItems(candidate.Colonies.Where(c=>!crisis.Locations.ContainsKey(c.Id)).Select(c=>new KeyValuePair<ColonyId,CrisisLocation>(c.Id,CrisisQueries.Location(candidate,c))));
-                crisisReport=new(snapshot.Turn,candidate.Turn,economy){CombatDepartures=combat?.ReportDepartures??ImmutableArray<Combat.OwnedCombatDeparture>.Empty,CombatEvents=combat?.ReportEvents??ImmutableArray<Combat.OwnedCombatEvent>.Empty,CombatRounds=combat?.Rounds??ImmutableArray<Combat.CombatRoundReceipt>.Empty,ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations,ScoutEvents=scouting?.Events.ToImmutableArray()??ImmutableArray<Scouting.ScoutOrderEvent>.Empty,FleetEvents=fleet?.Events.ToImmutableArray()??ImmutableArray<FleetEvent>.Empty};
+                crisisReport=new(snapshot.Turn,candidate.Turn,economy){ShipDesignEvents=Rules.HasShipDesigns(snapshot.RulesVersion)?refitEvents:null,CombatDepartures=combat?.ReportDepartures??ImmutableArray<Combat.OwnedCombatDeparture>.Empty,CombatEvents=combat?.ReportEvents??ImmutableArray<Combat.OwnedCombatEvent>.Empty,CombatRounds=combat?.Rounds??ImmutableArray<Combat.CombatRoundReceipt>.Empty,ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations,ScoutEvents=scouting?.Events.ToImmutableArray()??ImmutableArray<Scouting.ScoutOrderEvent>.Empty,FleetEvents=fleet?.Events.ToImmutableArray()??ImmutableArray<FleetEvent>.Empty};
             }
         }
         catch (OverflowException exception)
