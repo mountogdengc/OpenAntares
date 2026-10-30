@@ -17,7 +17,7 @@ public static class AssemblyCommandProcessor
         if(command.ExpectedTurn!=state.Turn)return Reject("Request command is stale.");
         try
         {
-            var view=EmpireViewProjector.Project(content,state,command.Issuer);var context=FleetPlanningQueries.Create(content,view);
+            var view=EmpireViewProjector.Project(content,state,command.Issuer);if(ShipDesigns.RefitGuards.Conflicts(view,command))return Reject("Cancel or complete the affected refit first.");var context=FleetPlanningQueries.Create(content,view);
             var candidate=state.Clone();var e=candidate.FindEmpire(command.Issuer)!;var f=e.Fleets!;
             string Facts(GameState s)=>JsonSerializer.Serialize(new{Fleets=s.FindEmpire(command.Issuer)!.Fleets,Colonies=s.Colonies.Where(c=>c.EmpireId==command.Issuer)});
             string before=Facts(state);AssemblyRequest? request=null;long originalRevision=0;

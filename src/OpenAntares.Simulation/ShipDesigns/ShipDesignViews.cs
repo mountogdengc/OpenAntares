@@ -1,5 +1,6 @@
 using OpenAntares.Simulation.Combat;
 using System.Collections.Immutable;
+using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.ShipDesigns;
 public sealed record VesselLoadout(string RoleId,DesignId? Design,string? FrameId,long BuildCost,int BaseSpeed,CombatProfile? Profile);
 public sealed record DesignReferences(int Vessels,int ActiveProjects,int QueueEntries,int RequestSlots,int Refits)
@@ -8,4 +9,10 @@ public sealed record DesignReferences(int Vessels,int ActiveProjects,int QueueEn
 }
 public sealed record DesignPreview(bool Allowed,string? RejectionCode,DesignStats? Stats,ImmutableArray<string> MissingTechnologyIds);
 public sealed record DesignView(DesignId Id,string Name,ShipRecipe Recipe,DesignStats Stats,bool Archived,bool Unlocked,DesignReferences References);
-public sealed record ShipDesignEmpireView(long CatalogueRevision,ImmutableArray<DesignView> Designs);
+public sealed record ShipDesignEmpireView(long CatalogueRevision,ImmutableArray<DesignView> Designs)
+{
+    public ImmutableArray<RefitView> Refits {get;init;}=ImmutableArray<RefitView>.Empty;
+    public ImmutableArray<ShipDesignEvent> Events {get;init;}=ImmutableArray<ShipDesignEvent>.Empty;
+}
+public sealed record RefitView(RefitId Id,VesselId Vessel,ColonyId Port,DesignId SourceDesign,DesignId TargetDesign,int AcceptedTurn,long Revision,long Price,RefitStatus Status,string? Reason);
+public sealed record RefitPreview(bool Allowed,string? RejectionCode,string Token,RefitId? Job,VesselId? Vessel,ColonyId? Port,DesignId? Source,DesignId? Target,DesignStats? Before,DesignStats? After,long? Price,long? EstimatedTurns,ImmutableArray<string> Consequences);

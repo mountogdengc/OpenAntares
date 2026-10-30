@@ -18,7 +18,7 @@ internal static class ExpansionStateValidator
         if (content.Expansion is null || content.Vessels.Count == 0) errors.Add("Expansion rules require embedded expansion content.");
         foreach (var c in s.Colonies)
         {
-            bool design=c.ProjectKind==ProductionKinds.ShipDesign&&c.ProjectId is {} key&&ShipDesigns.ShipDesignTargets.Bound(content,s,c.EmpireId,new(c.ProjectKind,key)) is not null;
+            bool design=c.ProjectKind==ProductionKinds.Refit&&ShipDesigns.ShipDesignTargets.Job(s,c) is not null||c.ProjectKind==ProductionKinds.ShipDesign&&c.ProjectId is {} key&&ShipDesigns.ShipDesignTargets.Bound(content,s,c.EmpireId,new(c.ProjectKind,key)) is not null;
             if (!design&&c.ProjectKind is not (ProductionKinds.Building or ProductionKinds.Vessel) || (c.ProjectId is null && c.ProjectKind != ProductionKinds.Building)) errors.Add($"{c.Id}: invalid production kind.");
             if(Rules.HasShipDesigns(s.RulesVersion)&&c.ProjectKind==ProductionKinds.Vessel&&c.ProjectId==content.ShipDesigns?.WarshipRoleId)errors.Add($"{c.Id}: configured warship project must pin a design.");
             if (c.ProjectKind == ProductionKinds.Vessel && c.ProjectId is {} project && !Rules.VesselAvailable(content, s.RulesVersion, project)) errors.Add($"{c.Id}: vessel project unavailable for campaign rules.");

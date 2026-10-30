@@ -33,4 +33,10 @@ public static class ShipDesignTargets
         catch(Exception error)when(error is ArgumentException or OverflowException or System.Collections.Generic.KeyNotFoundException){return null;}
     }
     internal static bool Available(Knowledge.EmpireView view,ProductionTarget target,bool newChoice=false)=>Rules.HasShipDesigns(view.RulesVersion)&&target.Kind==ProductionKinds.ShipDesign&&TryId(target.ContentId,out int number)&&view.ShipDesigns?.Designs.Any(d=>d.Id.Value==number&&d.Unlocked&&(!newChoice||!d.Archived))==true;
+    internal static RefitJob? Job(GameState state,ColonyState port)
+    {
+        if(!Rules.HasShipDesigns(state.RulesVersion)||port.ProjectKind!=ProductionKinds.Refit||!TryId(port.ProjectId,out int number))return null;
+        var jobs=state.FindEmpire(port.EmpireId)?.ShipDesigns?.Refits.Where(j=>j.Id.Value==number&&j.Port==port.Id).Take(2).ToArray();
+        return jobs is {Length:1}?jobs[0]:null;
+    }
 }

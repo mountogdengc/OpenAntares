@@ -14,6 +14,7 @@ public static class FleetCommandProcessor
     {
         if (!Rules.HasFleets(view.RulesVersion) || view.Fleets is not { } f) throw new InvalidOperationException("Fleet command requires a fleet campaign.");
         if(Combat.CombatCommandGuards.Conflicts(view,new FleetCommand(view.Viewer,view.Turn,action)))throw new InvalidOperationException("Committed combat members require combat orders or completed withdrawal.");
+        if(ShipDesigns.RefitGuards.Conflicts(view,new FleetCommand(view.Viewer,view.Turn,action)))throw new InvalidOperationException("Cancel or complete the affected refit first.");
         void Require(bool condition, string reason) { if (!condition) throw new InvalidOperationException(reason); }
         FleetView Fleet(FleetId id) => f.Fleets.SingleOrDefault(x => x.Id == id) ?? throw new InvalidOperationException("Fleet is unavailable to this empire.");
         VesselId[] Ships(ImmutableArray<VesselId> ids)

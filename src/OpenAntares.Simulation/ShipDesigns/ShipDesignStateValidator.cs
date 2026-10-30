@@ -45,6 +45,21 @@ public static class ShipDesignStateValidator
                 if(job.Id.Value<=0||job.Id.Value>=data.NextRefitId||job.Revision<=0||job.Price<=0||job.AcceptedTurn<0||job.AcceptedTurn>state.Turn||!Enum.IsDefined(job.Status))OwnerError("invalid refit fields");
                 if(source is null||target is null||source.Id==target.Id||source.Recipe.FrameId!=target.Recipe.FrameId||ship?.EmpireId!=owner.Id||ship.Design!=job.SourceDesign||state.FindColony(job.Port)?.EmpireId!=owner.Id)OwnerError("invalid refit equipment/ship/port references");
                 if(job.Status==RefitStatus.Paused&&string.IsNullOrWhiteSpace(job.Reason))OwnerError("paused refit requires a reason");
+                var port=state.FindColony(job.Port);
+                if(port is null||ShipDesignTargets.Job(state,port)?.Id!=job.Id||port.Development is not{ConstructionEnabled:false,ActiveQueueToken:null,Origin:Development.ProductionOrigin.Manual})OwnerError("refit must own its manual, paused-construction production slot");
+                if(owner.Controller!=ControllerKind.Human)OwnerError("refits require human planning authority");
+                if(source is not null&&target is not null)
+                {
+                    try
+                    {
+                        var before=ShipDesignMath.Calculate(definition,source.Recipe);var after=ShipDesignMath.Calculate(definition,target.Recipe);
+                        if(job.Price!=ShipDesignMath.RefitPrice(after.BuildCost)||RefitQueries.SameEquipment(source.Recipe,target.Recipe))OwnerError("invalid frozen refit price or identical equipment");
+                        if(job.Status==RefitStatus.Active&&(port is null||ship is null||ship.RoleId!=definition.WarshipRoleId||ship.Transit is not null||ship.StationaryStarId!=state.FindPlanet(port!.PlanetId)?.StarId||ship.CarriedPopulation!=0||ship.PendingMove is not null||ship.PendingFounding is not null||ship.AmebaEncounter is not null||ship.Combat is not{Cohesion:100,Repairing:false,ReturnColony:null}||ship.Combat.Hull!=before.MaxHull||state.Combat?.Encounters.Any(e=>e.Members.Contains(ship.Id))==true))OwnerError("active refit ship condition/location/activity conflicts");
+                        if(ship?.Fleet is {} fleet&&owner.Fleets?.Fleets.SingleOrDefault(f=>f.Id==fleet) is {} group&&(group.Order.Kind!=Fleets.FleetOrderKind.Hold||group.Cohort is not null))OwnerError("refit fleet must remain in Hold");
+                        if(owner.Fleets?.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&(r.Slots.Any(s=>s.Vessel==job.Vessel&&s.Status!=Fleets.SlotStatus.Missing)||ship?.Fleet is {} groupId&&r.RallyFleet==groupId))==true)OwnerError("refit conflicts with active assembly/rally authority");
+                    }
+                    catch(Exception ex)when(ex is ArgumentException or OverflowException or KeyNotFoundException){OwnerError("invalid refit recipe: "+ex.Message);}
+                }
             }
             if(data.RecentEvents.Count>20||data.PendingEvents.Count>20)OwnerError("event history exceeds 20");
             var events=data.RecentEvents.Concat(data.PendingEvents).ToArray();

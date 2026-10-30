@@ -46,6 +46,7 @@ public static class AssemblyPlanner
         try
         {
             if(!Rules.HasFleets(v.RulesVersion)||c.FleetCommand is not {} d||v.Fleets is not {} f)return Failed("Assembly requires fleet command rules.");
+            if(RefitGuards.Conflicts(v,new AssemblyCommand(v.Viewer,v.Turn,new AssemblyAction.Accept(draft,string.Empty))))return Failed("Cancel or complete the affected refit first.");
             if(string.IsNullOrWhiteSpace(draft.Name)||draft.Name.Length>80||draft.Name.Any(char.IsControl)||!Enum.IsDefined(draft.Priority))return Failed("Choose a printable1..80 character name and valid priority.");
             if(draft.Roles.IsDefault||draft.Roles.Length+retainedSlots<1||draft.Roles.Length+retainedSlots>d.MemberLimit||draft.Colonies.IsDefaultOrEmpty||draft.Colonies.Length>d.ParticipatingColonyLimit||draft.Colonies.Distinct().Count()!=draft.Colonies.Length||draft.AcceptedIdleVessels.IsDefault||draft.AcceptedIdleVessels.Distinct().Count()!=draft.AcceptedIdleVessels.Length)return Failed("Choose a bounded finite quota, distinct own colonies and distinct idle ships.");
             if(!v.Galaxy.Stars.Any(s=>s.Id==draft.Rally)||v.Scouting?.Habitats.Any(h=>h.Star==draft.Rally)==true)return Failed("Rally must be charted and free of known ameba danger.");

@@ -12,6 +12,7 @@ public static class OfficerCommandProcessor
         CommandOutcome Reject(string reason)=>CommandOutcome.Reject(state,"officer_illegal",reason);
         if(!Rules.HasFleets(state.RulesVersion)||content.FleetCommand is not {} d||state.FindEmpire(command.Issuer)?.Fleets is null)return Reject("Officer command requires a fleet campaign.");
         if(command.ExpectedTurn!=state.Turn)return Reject("Officer command is stale.");
+        if(Rules.HasShipDesigns(state.RulesVersion)&&ShipDesigns.RefitGuards.Conflicts(Knowledge.EmpireViewProjector.Project(content,state,command.Issuer),command))return Reject("Cancel or complete the affected refit first.");
         try
         {
             var candidate=state.Clone();var e=candidate.FindEmpire(command.Issuer)!;var f=e.Fleets!;

@@ -249,7 +249,8 @@ public static class GameStateValidator
 
             if (colony.ProjectId is { } project)
             {
-                if(colony.ProjectKind==ProductionKinds.ShipDesign&&ShipDesigns.ShipDesignTargets.Bound(content,state,colony.EmpireId,new(colony.ProjectKind,project)) is not null) { }
+                if(colony.ProjectKind==ProductionKinds.Refit&&ShipDesigns.ShipDesignTargets.Job(state,colony) is not null) { }
+                else if(colony.ProjectKind==ProductionKinds.ShipDesign&&ShipDesigns.ShipDesignTargets.Bound(content,state,colony.EmpireId,new(colony.ProjectKind,project)) is not null) { }
                 else if (colony.ProjectKind == ProductionKinds.Vessel && Rules.HasExpansion(state.RulesVersion) && content.Vessels.ContainsKey(project)) { }
                 else if (colony.ProjectKind != ProductionKinds.Building || !content.Buildings.ContainsKey(project))
                 {
