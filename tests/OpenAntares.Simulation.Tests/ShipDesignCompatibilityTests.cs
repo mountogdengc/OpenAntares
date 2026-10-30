@@ -51,6 +51,7 @@ public sealed class ShipDesignCompatibilityTests
         Assert.Equal(10,manifest["writerVersion"]!.GetValue<int>());
         Assert.Equal(72,manifest["generatedSources"]!.GetValue<int>());
         Assert.Equal(144,manifest["generatedCheckpoints"]!.GetValue<int>());
+        Assert.Equal(83,manifest["cases"]!.AsArray().Count); // 72 generated plus 11 labelled supplements.
         foreach(string key in new[]{"off","officer","project","queue","activeRequest","pausedRequest","cargo","plague","ameba","firstHumanReady","alternativeRole","pendingCombat","activeCombat","withdrawal","return","repair","damage"})
             Assert.True(manifest["coverage"]![key]!.GetValue<bool>(),"Missing original9 source/future coverage: "+key);
         foreach(var file in manifest["files"]!.AsObject())

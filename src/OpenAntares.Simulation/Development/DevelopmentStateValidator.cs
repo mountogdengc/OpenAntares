@@ -82,8 +82,14 @@ internal static class DevelopmentStateValidator
                 if(entry.Colony.Value<=last||live?.EmpireId!=owner.Id&&!retired)Error("report entry ownership/order");last=entry.Colony.Value;
                 if(entry.BeforeWorkforce.HasValue!=entry.AfterWorkforce.HasValue||entry.Issues.IsDefault)Error("report action/issue shape");
                 foreach(var w in new[]{entry.BeforeWorkforce,entry.AfterWorkforce})if(w is {} value&&(value.Support<0||value.Production<0||value.Research<0))Error("report workforce");
-                var issues=new HashSet<GovernorIssue>();foreach(var issue in entry.Issues)if(!(issue.Code is ("support_shortage" or "construction_locked" or "embarkation_wait" or "plan_complete")||Rules.HasCrises(state.RulesVersion)&&issue.Code=="quarantine_wait")||!issues.Add(issue)||issue.ContentId is {} id&&!content.Buildings.ContainsKey(id)&&!content.Vessels.ContainsKey(id)&&!(Rules.HasShipDesigns(state.RulesVersion)&&ShipDesigns.ShipDesignTargets.Bound(content,state,owner.Id,new(ProductionKinds.ShipDesign,id)) is not null))Error("unknown/duplicate report issue");
-                foreach(var target in new[]{entry.BeforeTarget,entry.AfterTarget})if(target is {} t&&!(t.Kind==ProductionKinds.Building?content.Buildings.ContainsKey(t.ContentId):t.Kind==ProductionKinds.Vessel&&content.Vessels.ContainsKey(t.ContentId)||t.Kind==ProductionKinds.ShipDesign&&ShipDesigns.ShipDesignTargets.Bound(content,state,owner.Id,t) is not null))Error("report target");
+                bool Historical(ProductionTarget? target,ShipDesigns.EquipmentFact? fact)
+                {
+                    if(target?.Kind!=ProductionKinds.ShipDesign)return fact is null;
+                    return Rules.HasShipDesigns(state.RulesVersion)&&ShipDesigns.ShipDesignTargets.TryId(target.ContentId,out int id)&&fact?.Id.Value==id&&ShipDesigns.ShipDesignStateValidator.ValidFact(content,owner,fact);
+                }
+                if(!Historical(entry.BeforeTarget,entry.BeforeEquipment)||!Historical(entry.AfterTarget,entry.AfterEquipment))Error("report copied equipment facts");
+                var issues=new HashSet<GovernorIssue>();foreach(var issue in entry.Issues)if(!(issue.Code is ("support_shortage" or "construction_locked" or "embarkation_wait" or "plan_complete")||Rules.HasCrises(state.RulesVersion)&&issue.Code=="quarantine_wait")||!issues.Add(issue)||issue.ContentId is {} id&&!content.Buildings.ContainsKey(id)&&!content.Vessels.ContainsKey(id)&&!(Rules.HasShipDesigns(state.RulesVersion)&&new[]{entry.BeforeEquipment,entry.AfterEquipment}.Any(f=>f is not null&&ShipDesigns.ShipDesignTargets.TryId(id,out int n)&&f.Id.Value==n)))Error("unknown/duplicate report issue");
+                foreach(var target in new[]{entry.BeforeTarget,entry.AfterTarget})if(target is {} t&&!(t.Kind==ProductionKinds.Building?content.Buildings.ContainsKey(t.ContentId):t.Kind==ProductionKinds.Vessel&&content.Vessels.ContainsKey(t.ContentId)||Rules.HasShipDesigns(state.RulesVersion)&&t.Kind==ProductionKinds.ShipDesign))Error("report target");
             }
         }
     }

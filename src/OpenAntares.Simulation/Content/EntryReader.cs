@@ -198,6 +198,12 @@ internal sealed class EntryReader
         if (!TryGet(field, out JsonElement value) || value.ValueKind == JsonValueKind.Null) return null;
         return Nested(value, field);
     }
+    internal JsonElement? RequiredNullableObjectElement(string field)
+    {
+        if(!TryGet(field,out JsonElement value)||value.ValueKind==JsonValueKind.Null)return null;
+        if(value.ValueKind==JsonValueKind.Object)return value;
+        Error(field,$"Expected an object or null, found {Describe(value)}.");return null;
+    }
     public EntryReader? RequiredObject(string field)
     {
         if (!TryGet(field, out JsonElement value))

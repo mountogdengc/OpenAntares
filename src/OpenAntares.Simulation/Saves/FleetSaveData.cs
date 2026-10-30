@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Fleets;
 using OpenAntares.Simulation.State;
@@ -13,10 +14,14 @@ namespace OpenAntares.Simulation.Saves;
 /// enum names, duplicate members and unknown fields are checked before state validation.</summary>
 internal static class FleetSaveData
 {
-    private static readonly JsonSerializerOptions Options=CreateOptions();
-    private static JsonSerializerOptions CreateOptions()
+    private static readonly JsonSerializerOptions Options=CreateOptions(false);
+    private static readonly JsonSerializerOptions DesignOptions=CreateOptions(true);
+    private static JsonSerializerOptions CreateOptions(bool designs)
     {
-        var options=new JsonSerializerOptions{PropertyNamingPolicy=JsonNamingPolicy.SnakeCaseLower,UnmappedMemberHandling=JsonUnmappedMemberHandling.Disallow};
+        var resolver=new DefaultJsonTypeInfoResolver();
+        resolver.Modifiers.Add(info=>{if(info.Type==typeof(AssemblySlot))for(int i=info.Properties.Count-1;i>=0;i--)if(info.Properties[i].Name=="design"){if(!designs)info.Properties.RemoveAt(i);else info.Properties[i].ShouldSerialize=(_,_)=>true;}});
+        var options=new JsonSerializerOptions{TypeInfoResolver=resolver,PropertyNamingPolicy=JsonNamingPolicy.SnakeCaseLower,UnmappedMemberHandling=JsonUnmappedMemberHandling.Disallow};
+        if(designs)ShipDesignSaveData.AddIds(options);
         options.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseLower,allowIntegerValues:false));
         options.Converters.Add(new IdConverter<FleetId>(n=>new(n),id=>id.Value));options.Converters.Add(new IdConverter<RequestId>(n=>new(n),id=>id.Value));options.Converters.Add(new IdConverter<OfficerId>(n=>new(n),id=>id.Value));
         options.Converters.Add(new IdConverter<EmpireId>(n=>new(n),id=>id.Value));options.Converters.Add(new IdConverter<ColonyId>(n=>new(n),id=>id.Value));options.Converters.Add(new IdConverter<VesselId>(n=>new(n),id=>id.Value));options.Converters.Add(new IdConverter<StarId>(n=>new(n),id=>id.Value));
@@ -29,7 +34,7 @@ internal static class FleetSaveData
         public override void Write(Utf8JsonWriter writer,T id,JsonSerializerOptions options)=>writer.WriteNumberValue(value(id));
     }
     internal static void WriteEmpire(Utf8JsonWriter writer,FleetEmpireState? state,int rules)
-    {if(!Rules.HasFleets(rules))return;writer.WritePropertyName("fleet_command");JsonSerializer.Serialize(writer,state,Options);}
+    {if(!Rules.HasFleets(rules))return;writer.WritePropertyName("fleet_command");JsonSerializer.Serialize(writer,state,Rules.HasShipDesigns(rules)?DesignOptions:Options);}
     internal static FleetEmpireState? ReadEmpire(EntryReader parent,int rules)
     {
         if(!Rules.HasFleets(rules))return null;
@@ -37,11 +42,11 @@ internal static class FleetSaveData
         if(parent.OptionalObjectElement("fleet_command") is not {} element)return null;
         try
         {
-            Unique(element);var state=element.Deserialize<FleetEmpireState>(Options)??throw new JsonException("Fleet state is required.");
+            var options=Rules.HasShipDesigns(rules)?DesignOptions:Options;Unique(element);var state=element.Deserialize<FleetEmpireState>(options)??throw new JsonException("Fleet state is required.");
             if(state.ProfileCommissions is not null)state.ProfileCommissions=new(state.ProfileCommissions,StringComparer.Ordinal);
-            Shape(element,JsonSerializer.SerializeToElement(state,Options),"fleet_command");return state;
+            Shape(element,JsonSerializer.SerializeToElement(state,options),"fleet_command");return state;
         }
-        catch(Exception error)when(error is JsonException or NotSupportedException or ArgumentException or InvalidOperationException)
+        catch(Exception error)when(error is JsonException or NotSupportedException or ArgumentException or InvalidOperationException or OverflowException)
         {parent.Error("fleet_command",error.Message);return null;}
     }
     private static void Unique(JsonElement element)

@@ -19,6 +19,7 @@ internal static class ExpansionSaveData
             ScoutSaveData.WriteVessel(w,v,s.RulesVersion);
             FleetSaveData.WriteVessel(w,v,s.RulesVersion);
             CombatSaveData.WriteVessel(w,v,s.RulesVersion);
+            ShipDesignSaveData.WriteVessel(w,v,s.RulesVersion);
             w.WriteEndObject();
         }
         w.WriteEndArray();
@@ -45,6 +46,7 @@ internal static class ExpansionSaveData
             ScoutSaveData.ReadVessel(v,vessel,s.RulesVersion);
             FleetSaveData.ReadVessel(v,vessel,s.RulesVersion);
             CombatSaveData.ReadVessel(v,vessel,s.RulesVersion);
+            ShipDesignSaveData.ReadVessel(v,vessel,s.RulesVersion);
             s.Vessels.Add(vessel);
         });
     }

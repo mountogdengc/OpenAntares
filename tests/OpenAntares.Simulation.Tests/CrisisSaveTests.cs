@@ -38,7 +38,7 @@ public sealed class CrisisSaveTests
         foreach(var g in new[]{CrisisFixtures.Game(),CrisisFixtures.Game(enabled:false),CrisisFixtures.Warning(),CrisisFixtures.Active(),HeldAndWaived(),ResolvedReceipt(),Immune()})
         {
             Assert.Empty(GameStateValidator.Validate(g.Content,g.State));
-            string text=SaveGame.Serialize(g.Content,g.State);var json=JsonNode.Parse(text)!;Assert.Equal(10,json["schema_version"]!.GetValue<int>());
+            string text=SaveGame.Serialize(g.Content,g.State);var json=JsonNode.Parse(text)!;Assert.Equal(11,json["schema_version"]!.GetValue<int>());
             var loaded=SaveGame.Deserialize(text);Assert.True(loaded.Succeeded,string.Join("; ",loaded.Errors));
             Assert.Equal(text,SaveGame.Serialize(loaded.Game!.Content,loaded.Game.State));
             loaded.Game.State.Empires[0].Crisis!.Random.NextUInt32();

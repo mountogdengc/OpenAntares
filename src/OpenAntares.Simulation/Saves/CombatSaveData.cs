@@ -13,12 +13,15 @@ namespace OpenAntares.Simulation.Saves;
 /// <summary>Rules9-only state. Every field, including nullable leaves, is explicit.</summary>
 internal static class CombatSaveData
 {
-    private static readonly JsonSerializerOptions Options=CreateOptions();
-    private static JsonSerializerOptions CreateOptions()
+    private static readonly JsonSerializerOptions LegacyOptions=CreateOptions(false);
+    private static readonly JsonSerializerOptions DesignOptions=CreateOptions(true);
+    private static JsonSerializerOptions CreateOptions(bool designs)
     {
         var resolver=new DefaultJsonTypeInfoResolver();
         resolver.Modifiers.Add(info=>{if(info.Type==typeof(CombatFrame))for(int i=info.Properties.Count-1;i>=0;i--)if(info.Properties[i].Name=="definition")info.Properties.RemoveAt(i);});
+        resolver.Modifiers.Add(info=>{if(info.Type==typeof(CombatShipFrame))for(int i=info.Properties.Count-1;i>=0;i--)if(info.Properties[i].Name=="equipment"){if(!designs)info.Properties.RemoveAt(i);else info.Properties[i].ShouldSerialize=(_,_)=>true;}});
         var o=new JsonSerializerOptions{PropertyNamingPolicy=JsonNamingPolicy.SnakeCaseLower,UnmappedMemberHandling=JsonUnmappedMemberHandling.Disallow,TypeInfoResolver=resolver};
+        if(designs)ShipDesignSaveData.AddIds(o);
         o.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.SnakeCaseLower,allowIntegerValues:false));
         o.Converters.Add(new IdConverter<PocketId>(n=>new(checked((int)n)),id=>id.Value));o.Converters.Add(new IdConverter<SentryId>(n=>new(checked((int)n)),id=>id.Value));o.Converters.Add(new IdConverter<EncounterId>(n=>new(n),id=>id.Value));
         o.Converters.Add(new IdConverter<FleetId>(n=>new(checked((int)n)),id=>id.Value));o.Converters.Add(new IdConverter<EmpireId>(n=>new(checked((int)n)),id=>id.Value));o.Converters.Add(new IdConverter<ColonyId>(n=>new(checked((int)n)),id=>id.Value));o.Converters.Add(new IdConverter<VesselId>(n=>new(checked((int)n)),id=>id.Value));o.Converters.Add(new IdConverter<StarId>(n=>new(checked((int)n)),id=>id.Value));return o;
@@ -36,13 +39,13 @@ internal static class CombatSaveData
     internal static void WriteVessel(Utf8JsonWriter writer,VesselState vessel,int rules)=>Write(writer,vessel.Combat,rules);
     internal static void ReadVessel(EntryReader parent,VesselState vessel,int rules)=>vessel.Combat=Read<ShipCombatState>(parent,rules);
     private static void Write<T>(Utf8JsonWriter writer,T state,int rules)
-    {if(!Rules.HasCombat(rules))return;writer.WritePropertyName("combat");JsonSerializer.Serialize(writer,state,Options);}
+    {if(!Rules.HasCombat(rules))return;writer.WritePropertyName("combat");JsonSerializer.Serialize(writer,state,Rules.HasShipDesigns(rules)?DesignOptions:LegacyOptions);}
     private static T? Read<T>(EntryReader parent,int rules) where T:class
     {
         if(!Rules.HasCombat(rules))return null;
         if(!parent.HasField("combat")){parent.Error("combat","Required field is missing.");return null;}
         if(parent.OptionalObjectElement("combat") is not {} element)return null;
-        try{Unique(element);var result=element.Deserialize<T>(Options)??throw new JsonException("Combat state is required.");Shape(element,JsonSerializer.SerializeToElement(result,Options),"combat");return result;}
+        try{var Options=Rules.HasShipDesigns(rules)?DesignOptions:LegacyOptions;Unique(element);var result=element.Deserialize<T>(Options)??throw new JsonException("Combat state is required.");Shape(element,JsonSerializer.SerializeToElement(result,Options),"combat");return result;}
         catch(Exception error)when(error is JsonException or NotSupportedException or ArgumentException or InvalidOperationException or OverflowException){parent.Error("combat",error.Message);return null;}
     }
     private static void Unique(JsonElement e)
@@ -53,7 +56,7 @@ internal static class CombatSaveData
             foreach(var p in e.EnumerateObject())
             {
                 if(!names.Add(p.Name))throw new JsonException($"Duplicate field '{p.Name}'.");
-                if(p.Value.ValueKind==JsonValueKind.Null&&p.Name is not ("return_colony" or "on_arrival" or "last_repair_turn" or "last_repair_blocked_turn" or "last_resolved_turn" or "last_resolved_phase" or "consent_revision" or "continue_risk_turn" or "encounter" or "vessel" or "encounter_id" or "route" or "after"))throw new JsonException($"Null required field '{p.Name}'.");
+                if(p.Value.ValueKind==JsonValueKind.Null&&p.Name is not ("return_colony" or "on_arrival" or "last_repair_turn" or "last_repair_blocked_turn" or "last_resolved_turn" or "last_resolved_phase" or "consent_revision" or "continue_risk_turn" or "encounter" or "vessel" or "encounter_id" or "route" or "after" or "armor_id" or "equipment"))throw new JsonException($"Null required field '{p.Name}'.");
                 Unique(p.Value);
             }
         }

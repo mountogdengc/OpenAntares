@@ -15,7 +15,7 @@ using Xunit;
 namespace OpenAntares.Simulation.Tests;
 public sealed class CombatSaveTests
 {
-    [Fact] public void Exact46PairsAndLiveStateRoundTrips()
+    [Fact] public void PriorRulesLoadThroughWriter11()
     {
         string[] old={"legacy-v2-save.json","legacy-rules2-v3-save.json","legacy-rules3-v4-save.json","legacy-rules4-v5-save.json","legacy-rules5-v6-save.json"};int count=0;
         var sources=Enumerable.Range(1,9).ToDictionary(r=>r,r=>r==9?SaveGame.Serialize(CombatFixtures.Game().Content,CombatFixtures.Game().State):r==8?SaveGame.Serialize(FleetFixtures.Game().Content,FleetFixtures.Game().State):r==7?SaveGame.Serialize(ScoutingFixtures.Content(),ScoutingFixtures.Game().State):r==6?SaveGame.Serialize(CrisisFixtures.Content(),CrisisFixtures.Game().State):File.ReadAllText(CompatibilityFixtures.PathFor(old[r-1])));
@@ -23,10 +23,10 @@ public sealed class CombatSaveTests
         {
             var node=JsonNode.Parse(sources[Math.Min(rules,9)])!;node["schema_version"]=schema;node["rules_version"]=rules;
             if(schema==1&&rules==1)node=JsonNode.Parse(File.ReadAllText(CompatibilityFixtures.PathFor("legacy-v1-save.json")))!;
-            bool expected=(schema,rules) is (1,1) or (2,1)||schema is >=3 and <=9&&rules<schema||schema==10&&rules<=9;
+            bool expected=(schema,rules) is (1,1) or (2,1)||schema is >=3 and <=9&&rules<schema||schema is 10 or 11&&rules<=9;
             var loaded=SaveGame.Deserialize(node.ToJsonString());Assert.True(expected==loaded.Succeeded,$"({schema},{rules}): {string.Join(";",loaded.Errors)}");if(loaded.Succeeded)count++;
         }
-        Assert.Equal(46,count);Assert.Equal(10,SaveGame.SchemaVersion);
+        Assert.Equal(55,count);Assert.Equal(11,SaveGame.SchemaVersion);
     }
     internal static LoadedGame Next(LoadedGame g)
     {var n=TurnResolver.Resolve(g.Content,g.State);Assert.True(n.Succeeded,string.Join(";",n.Errors));return new(g.Content,n.State);}
@@ -48,7 +48,7 @@ public sealed class CombatSaveTests
     {
         foreach(var g in Cases())
         {
-            string before=CombatFixtures.Bytes(g.State),text=SaveGame.Serialize(g.Content,g.State);Assert.Equal(10,JsonNode.Parse(text)!["schema_version"]!.GetValue<int>());var loaded=SaveGame.Deserialize(text);Assert.True(loaded.Succeeded,string.Join(";",loaded.Errors));Assert.Equal(text,SaveGame.Serialize(loaded.Game!.Content,loaded.Game.State));Assert.Equal(before,CombatFixtures.Bytes(loaded.Game.State));Assert.Equal(before,CombatFixtures.Bytes(g.State));
+            string before=CombatFixtures.Bytes(g.State),text=SaveGame.Serialize(g.Content,g.State);Assert.Equal(11,JsonNode.Parse(text)!["schema_version"]!.GetValue<int>());var loaded=SaveGame.Deserialize(text);Assert.True(loaded.Succeeded,string.Join(";",loaded.Errors));Assert.Equal(text,SaveGame.Serialize(loaded.Game!.Content,loaded.Game.State));Assert.Equal(before,CombatFixtures.Bytes(loaded.Game.State));Assert.Equal(before,CombatFixtures.Bytes(g.State));
             var direct=g;var restored=loaded.Game;
             for(int i=0;i<3;i++)
             {

@@ -24,7 +24,7 @@ internal static class DevelopmentSaveData
         if(!Rules.HasDevelopment(rules))return;
         w.WriteStartObject("development");w.WriteNumber("next_template_number",d!.NextTemplateNumber);w.WriteStartArray("custom_templates");foreach(var t in d.CustomTemplates)Snapshot(w,t);w.WriteEndArray();
         if(d.NewColonyPlan is {} plan){w.WriteStartObject("new_colony_plan");w.WritePropertyName("template");Snapshot(w,plan.Template);w.WriteBoolean("workforce_enabled",plan.WorkforceEnabled);w.WriteBoolean("construction_enabled",plan.ConstructionEnabled);w.WriteEndObject();}else w.WriteNull("new_colony_plan");
-        w.WritePropertyName("pending_report");Report(w,d.PendingReport);w.WriteStartArray("completed_reports");foreach(var r in d.CompletedReports)Report(w,r);w.WriteEndArray();w.WriteEndObject();
+        w.WritePropertyName("pending_report");Report(w,d.PendingReport,rules);w.WriteStartArray("completed_reports");foreach(var r in d.CompletedReports)Report(w,r,rules);w.WriteEndArray();w.WriteEndObject();
     }
     internal static EmpireDevelopmentState? ReadEmpire(EntryReader parent,int rules)
     {
@@ -32,8 +32,8 @@ internal static class DevelopmentSaveData
         var d=new EmpireDevelopmentState{NextTemplateNumber=r.RequiredInt("next_template_number",1,int.MaxValue)};
         Items(r,"custom_templates",t=>d.CustomTemplates.Add(ReadSnapshot(t)));
         if(r.RequiredNullableObject("new_colony_plan") is {} plan){var t=plan.RequiredObject("template");if(t is not null)d.NewColonyPlan=new(ReadSnapshot(t),plan.RequiredBool("workforce_enabled"),plan.RequiredBool("construction_enabled"));plan.RejectUnknownFields();}
-        if(r.RequiredNullableObject("pending_report") is {} pending)d.PendingReport=ReadReport(pending);
-        Items(r,"completed_reports",item=>d.CompletedReports.Add(ReadReport(item)));r.RejectUnknownFields();return d;
+        if(r.RequiredNullableObject("pending_report") is {} pending)d.PendingReport=ReadReport(pending,rules);
+        Items(r,"completed_reports",item=>d.CompletedReports.Add(ReadReport(item,rules)));r.RejectUnknownFields();return d;
     }
     internal static void WriteColony(Utf8JsonWriter w,ColonyDevelopmentState? d,int rules)
     {
@@ -56,16 +56,16 @@ internal static class DevelopmentSaveData
     private static ProductionTarget? NullableTarget(EntryReader r,string field)=>r.RequiredNullableObject(field) is {} t?ReadTarget(t):null;
     private static void WorkforceValue(Utf8JsonWriter w,string field,Workforce? f){if(f is not {} v){w.WriteNull(field);return;}w.WriteStartObject(field);w.WriteNumber("support",v.Support);w.WriteNumber("production",v.Production);w.WriteNumber("research",v.Research);w.WriteEndObject();}
     private static Workforce? ReadWorkforce(EntryReader r,string field){if(r.RequiredNullableObject(field) is not {} w)return null;var f=new Workforce(w.RequiredInt("support",0,int.MaxValue),w.RequiredInt("production",0,int.MaxValue),w.RequiredInt("research",0,int.MaxValue));w.RejectUnknownFields();return f;}
-    private static void Report(Utf8JsonWriter w,GovernorTurnReport? report)
+    private static void Report(Utf8JsonWriter w,GovernorTurnReport? report,int rules)
     {
         if(report is null){w.WriteNullValue();return;}w.WriteStartObject();w.WriteNumber("turn",report.Turn);w.WriteNumber("unchanged_count",report.UnchangedCount);w.WriteStartArray("entries");
-        foreach(var e in report.Entries){w.WriteStartObject();w.WriteNumber("colony",e.Colony.Value);WorkforceValue(w,"before_workforce",e.BeforeWorkforce);WorkforceValue(w,"after_workforce",e.AfterWorkforce);Target(w,"before_target",e.BeforeTarget);Target(w,"after_target",e.AfterTarget);w.WriteBoolean("workforce_overridden",e.WorkforceOverridden);w.WriteBoolean("construction_overridden",e.ConstructionOverridden);w.WriteStartArray("issues");foreach(var i in e.Issues){w.WriteStartObject();w.WriteString("code",i.Code);w.WriteString("content_id",i.ContentId);w.WriteEndObject();}w.WriteEndArray();w.WriteEndObject();}
+        foreach(var e in report.Entries){w.WriteStartObject();w.WriteNumber("colony",e.Colony.Value);WorkforceValue(w,"before_workforce",e.BeforeWorkforce);WorkforceValue(w,"after_workforce",e.AfterWorkforce);Target(w,"before_target",e.BeforeTarget);Target(w,"after_target",e.AfterTarget);ShipDesignSaveData.WriteFact(w,"before_equipment",e.BeforeEquipment,rules);ShipDesignSaveData.WriteFact(w,"after_equipment",e.AfterEquipment,rules);w.WriteBoolean("workforce_overridden",e.WorkforceOverridden);w.WriteBoolean("construction_overridden",e.ConstructionOverridden);w.WriteStartArray("issues");foreach(var i in e.Issues){w.WriteStartObject();w.WriteString("code",i.Code);w.WriteString("content_id",i.ContentId);w.WriteEndObject();}w.WriteEndArray();w.WriteEndObject();}
         w.WriteEndArray();w.WriteEndObject();
     }
-    private static GovernorTurnReport ReadReport(EntryReader r)
+    private static GovernorTurnReport ReadReport(EntryReader r,int rules)
     {
         int turn=r.RequiredInt("turn",0,int.MaxValue),unchanged=r.RequiredInt("unchanged_count",0,int.MaxValue);var entries=ImmutableArray.CreateBuilder<GovernorReportEntry>();
-        Items(r,"entries",e=>{var id=new ColonyId(e.RequiredInt("colony",1,int.MaxValue));var before=ReadWorkforce(e,"before_workforce");var after=ReadWorkforce(e,"after_workforce");var beforeTarget=NullableTarget(e,"before_target");var afterTarget=NullableTarget(e,"after_target");bool wf=e.RequiredBool("workforce_overridden"),construction=e.RequiredBool("construction_overridden");var issues=ImmutableArray.CreateBuilder<GovernorIssue>();Items(e,"issues",i=>issues.Add(new(i.RequiredString("code"),i.RequiredNullableString("content_id"))));entries.Add(new(id,before,after,beforeTarget,afterTarget,issues.ToImmutable(),wf,construction));});
+        Items(r,"entries",e=>{var id=new ColonyId(e.RequiredInt("colony",1,int.MaxValue));var before=ReadWorkforce(e,"before_workforce");var after=ReadWorkforce(e,"after_workforce");var beforeTarget=NullableTarget(e,"before_target");var afterTarget=NullableTarget(e,"after_target");var beforeEquipment=ShipDesignSaveData.ReadFact(e,"before_equipment",rules);var afterEquipment=ShipDesignSaveData.ReadFact(e,"after_equipment",rules);bool wf=e.RequiredBool("workforce_overridden"),construction=e.RequiredBool("construction_overridden");var issues=ImmutableArray.CreateBuilder<GovernorIssue>();Items(e,"issues",i=>issues.Add(new(i.RequiredString("code"),i.RequiredNullableString("content_id"))));entries.Add(new(id,before,after,beforeTarget,afterTarget,issues.ToImmutable(),wf,construction){BeforeEquipment=beforeEquipment,AfterEquipment=afterEquipment});});
         r.RejectUnknownFields();return new(turn,entries.ToImmutable(),unchanged);
     }
     private static string Origin(ProductionOrigin origin)=>origin switch{ProductionOrigin.Manual=>"manual",ProductionOrigin.Queue=>"queue",ProductionOrigin.Template=>"template",_=>"none"};

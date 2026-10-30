@@ -28,7 +28,7 @@ public sealed record SaveLoadResult(LoadedGame? Game, IReadOnlyList<string> Erro
 public static class SaveGame
 {
     public const string FormatName = "openantares-save";
-    public const int SchemaVersion = 10;
+    public const int SchemaVersion = 11;
 
     private const string SaveLocation = "save";
 
@@ -138,14 +138,14 @@ public static class SaveGame
                 return Fail($"This is not an OpenAntares save (format '{format}').");
             }
 
-            if (schema is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10))
+            if (schema is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11))
             {
                 return Fail($"The save uses unsupported schema version {schema}.");
             }
 
-            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5) or (7,1) or (7,2) or (7,3) or (7,4) or (7,5) or (7,6) or (8,1) or (8,2) or (8,3) or (8,4) or (8,5) or (8,6) or (8,7) or (9,1) or (9,2) or (9,3) or (9,4) or (9,5) or (9,6) or (9,7) or (9,8) or (10,1) or (10,2) or (10,3) or (10,4) or (10,5) or (10,6) or (10,7) or (10,8) or (10,9)))
+            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5) or (7,1) or (7,2) or (7,3) or (7,4) or (7,5) or (7,6) or (8,1) or (8,2) or (8,3) or (8,4) or (8,5) or (8,6) or (8,7) or (9,1) or (9,2) or (9,3) or (9,4) or (9,5) or (9,6) or (9,7) or (9,8) or (10,1) or (10,2) or (10,3) or (10,4) or (10,5) or (10,6) or (10,7) or (10,8) or (10,9) or (11,1) or (11,2) or (11,3) or (11,4) or (11,5) or (11,6) or (11,7) or (11,8) or (11,9) or (11,10)))
             {
-                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1 through 9 with explicit schema compatibility. Saves are not migrated automatically.");
+                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1 through 10 with explicit schema compatibility. Saves are not migrated automatically.");
             }
 
             // Embedded content goes through the same loader and validation as content files.
@@ -166,7 +166,14 @@ public static class SaveGame
                     errors.Add(new(SaveLocation, null, "content.fleet_command", "Old campaigns cannot contain fleet command content."));
                 if(!Rules.HasFleets((int)rulesVersion)&&document.RootElement.GetProperty("content").TryGetProperty("species",out var speciesContent)&&speciesContent.ValueKind==JsonValueKind.Array)
                     foreach(var species in speciesContent.EnumerateArray())if(species.ValueKind==JsonValueKind.Object&&(species.TryGetProperty("command_culture_id",out _)||species.TryGetProperty("command_embodiment",out _)))errors.Add(new(SaveLocation,null,"content.species","Old campaigns cannot contain command capability metadata."));
-                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion), requireDevelopment: Rules.HasDevelopment((int)rulesVersion), requireCrises: Rules.HasCrises((int)rulesVersion),requireScouting:Rules.HasScouting((int)rulesVersion),requireFleets:Rules.HasFleets((int)rulesVersion),requireCombat:Rules.HasCombat((int)rulesVersion));
+                if(!Rules.HasShipDesigns((int)rulesVersion))
+                {
+                    var embedded=document.RootElement.GetProperty("content");
+                    if(embedded.TryGetProperty("ship_designs",out _))errors.Add(new(SaveLocation,null,"content.ship_designs","Old campaigns cannot contain ship-design content."));
+                    if(embedded.TryGetProperty("technologies",out var technologies)&&technologies.ValueKind==JsonValueKind.Array)
+                        foreach(var technology in technologies.EnumerateArray())if(technology.ValueKind==JsonValueKind.Object&&technology.TryGetProperty("ship_design_only",out _))errors.Add(new(SaveLocation,null,"content.technologies","Old campaigns cannot contain ship-design technology flags."));
+                }
+                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion), requireDevelopment: Rules.HasDevelopment((int)rulesVersion), requireCrises: Rules.HasCrises((int)rulesVersion),requireScouting:Rules.HasScouting((int)rulesVersion),requireFleets:Rules.HasFleets((int)rulesVersion),requireCombat:Rules.HasCombat((int)rulesVersion),requireShipDesigns:Rules.HasShipDesigns((int)rulesVersion));
                 errors.AddRange(loaded.Errors);
                 content = loaded.Content;
             }
@@ -231,6 +238,7 @@ public static class SaveGame
             DevelopmentSaveData.WriteEmpire(writer, empire.Development, state.RulesVersion);
             FleetSaveData.WriteEmpire(writer,empire.Fleets,state.RulesVersion);
             CombatSaveData.WriteEmpire(writer,empire.Combat,state.RulesVersion);
+            ShipDesignSaveData.WriteEmpire(writer,empire.ShipDesigns,state.RulesVersion);
             writer.WriteEndObject();
         }
 
@@ -348,6 +356,7 @@ public static class SaveGame
             empire.Development = DevelopmentSaveData.ReadEmpire(item, rulesVersion);
             empire.Fleets = FleetSaveData.ReadEmpire(item,rulesVersion);
             empire.Combat = CombatSaveData.ReadEmpire(item,rulesVersion);
+            ShipDesignSaveData.ReadEmpire(item,empire,rulesVersion);
             state.Empires.Add(empire);
         });
 

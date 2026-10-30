@@ -64,6 +64,12 @@ public static class ShipDesignStateValidator
             if(data.RecentEvents.Count>20||data.PendingEvents.Count>20)OwnerError("event history exceeds 20");
             var events=data.RecentEvents.Concat(data.PendingEvents).ToArray();
             if(events.Select(e=>e.Id).Distinct().Count()!=events.Length||events.Any(e=>e.Owner!=owner.Id||e.Id<=0||e.Id>=data.NextEventId||e.Turn<0||e.Turn>state.Turn||e.Paid<0||string.IsNullOrWhiteSpace(e.Kind)||string.IsNullOrWhiteSpace(e.Reason)))OwnerError("invalid event owner/ID/turn/facts");
+            foreach(var list in new[]{data.RecentEvents,data.PendingEvents})if(!list.Select(e=>e.Id).SequenceEqual(list.Select(e=>e.Id).Order()))OwnerError("event IDs must be sorted");
+            foreach(var e in events)
+            {
+                if(e.Kind is not("refit_accepted" or "refit_cancelled" or "refit_resumed" or "refit_paused" or "refit_cancelled_missing_ship" or "refit_completed")||e.Vessel is not{Value:>0}||e.Port is not{Value:>0}||!ValidFact(content,owner,e.Before)||!ValidFact(content,owner,e.After))OwnerError("invalid historical equipment/event shape");
+                if(ValidFact(content,owner,e.Before)&&ValidFact(content,owner,e.After)&&(e.Before!.Id==e.After!.Id||e.Before.Recipe.FrameId!=e.After.Recipe.FrameId||RefitQueries.SameEquipment(e.Before.Recipe,e.After.Recipe)||e.Paid!=(e.Kind=="refit_completed"?ShipDesignMath.RefitPrice(e.After.Stats.BuildCost):0)))OwnerError("invalid historical refit payment or equipment");
+            }
         }
         foreach(var ship in state.Vessels)
         {
@@ -77,6 +83,12 @@ public static class ShipDesignStateValidator
         return errors;
     }
     internal static bool SameRecipe(ShipRecipe? a,ShipRecipe? b)=>a is not null&&b is not null&&a.FrameId==b.FrameId&&a.EngineId==b.EngineId&&a.ArmorId==b.ArmorId&&!a.WeaponBankIds.IsDefault&&!b.WeaponBankIds.IsDefault&&a.WeaponBankIds.SequenceEqual(b.WeaponBankIds);
+    internal static bool ValidFact(ContentSet content,EmpireState owner,EquipmentFact? fact)
+    {
+        if(content.ShipDesigns is not {} definition||owner.ShipDesigns is not {} data||fact is null||fact.Id.Value<=0||fact.Id.Value>=data.NextDesignId||string.IsNullOrWhiteSpace(fact.Name)||fact.Name.Length>40||fact.Name!=fact.Name.Trim()||fact.Name.Any(char.IsControl))return false;
+        try{return fact.Stats==ShipDesignMath.Calculate(definition,fact.Recipe)&&Unlocked(definition,fact.Recipe,owner);}
+        catch(Exception error)when(error is ArgumentException or OverflowException or KeyNotFoundException){return false;}
+    }
     internal static bool Unlocked(ShipDesignDefinition definition,ShipRecipe recipe,EmpireState owner)
     {
         var parts=recipe.WeaponBankIds.Prepend(recipe.EngineId);if(recipe.ArmorId is {} armor)parts=parts.Append(armor);

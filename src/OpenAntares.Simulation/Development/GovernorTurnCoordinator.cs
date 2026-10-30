@@ -33,6 +33,7 @@ public static class GovernorTurnCoordinator
                     var row=previous??new(order.Colony,null,null,null,null,ImmutableArray<GovernorIssue>.Empty,false,false);
                     if(workforceChanged)row=row with{BeforeWorkforce=row.BeforeWorkforce??oldWorkforce,AfterWorkforce=order.Workforce};
                     if(targetChanged)row=row with{BeforeTarget=row.BeforeTarget==row.AfterTarget?oldTarget:row.BeforeTarget,AfterTarget=order.Target};
+                    if(Rules.HasShipDesigns(state.RulesVersion))row=row with{BeforeEquipment=row.BeforeEquipment??Fact(row.BeforeTarget),AfterEquipment=Fact(row.AfterTarget)};
                     entries[order.Colony]=row with{Issues=order.Issues.Distinct().OrderBy(i=>i.Code,StringComparer.Ordinal).ThenBy(i=>i.ContentId,StringComparer.Ordinal).ToImmutableArray()};
                 }
             }
@@ -45,6 +46,11 @@ public static class GovernorTurnCoordinator
                 if(!outcome.Accepted)return false;
                 if(outcome.Changed&&++changed>budget)return false;
                 working=outcome.State;return true;
+            }
+            ShipDesigns.EquipmentFact? Fact(ProductionTarget? target)
+            {
+                if(target is null||ShipDesigns.ShipDesignTargets.Bound(content,working,owner,target) is not {} design)return null;
+                return new(design.Id,design.Name,design.Recipe,ShipDesigns.ShipDesignMath.Calculate(content.ShipDesigns!,design.Recipe));
             }
         }catch(Exception error) when(error is OverflowException or ArgumentException or InvalidOperationException or KeyNotFoundException){return new(state,false);}
     }
