@@ -71,3 +71,6 @@ M8 full approval/planning2026-10-27: owner “0approved” accepts the complete 
 
 
 [ADR-022: Approve ship design and refitting](ADR-022-approved-ship-design-and-refitting-design.md) records full owner gameplay/default approval at71ec87b. M10-D/SHP-AC-012 Verified for design; separate17-task plan written/self-reviewed, M10-P In Progress pending plan review. Native retained; current product9/10/46 and implementation Not Started.
+
+
+[ADR-023: Diplomacy design entry](ADR-023-diplomacy-design-entry.md) records owner-selected diplomacy and delegated defaults. Complete proposal/fresh builder check ready; M11-D In Progress, separate plan/implementation Not Started. Active product10/11/56 remains unchanged.
