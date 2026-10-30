@@ -256,21 +256,23 @@ M9 local integration, 2026-10-29: the owner selected option1, authorizing a loca
 
 ## M10 ship design and refitting acceptance
 
+Implementation/review disposition2026-10-30: producta11f9b8 on codex/ship-design implements rules10/writer11/56 explicit pairs. One fresh review/one correction pass closes I1; M1 bank canonicalization, M2 early optional-component overflow diagnostics, M3 component summaries/comparison and M4 colony designer entry remain deferred. M10-I and SHP-AC-001/002/007/010/011 are Implemented, Unverified for their full required scope. Other Verified child rows mean executed local automated scope only; design/plan approvals retain their own scope. [Validation](../reports/SHIP_DESIGN_VALIDATION_2026-10-29.md) records actual gates, source scopes and limits. All17 parent rows/totals and human/platform/release limits remain unchanged. Earlier drafting/planning paragraphs below are historical.
+
 M10 drafting,2026-10-29: owner “use your own judgement” delegates the full ship-design/refitting proposal after local M9 integration. Read [the complete design](../docs/superpowers/specs/2026-10-29-ship-design-and-refitting-design.md), [ADR-021](../docs/DECISIONS/ADR-021-ship-design-and-refitting-design-entry.md) and [builder-check disposition](../reports/SHIP_DESIGN_GAMEPLAY_REVIEW_2026-10-29.md). Two frames, limited weapon/armor/engine choices, four research unlocks, immutable saved designs, exact-design queues/requests and paid same-frame full-condition refits are drafter defaults for full review. The starting Standard Escort matches M9 exactly. M10-D/SHP-AC-012 In Progress; M10-P/M10-I and functional SHP-AC-001..011 Not Started. Product remains rules9/writer10/46 pairs; proposed10/11/56 is inactive. No product changes, gameplay test run, genuine rules9 future capture, separate implementation plan, new worktree, push/release/cleanup or repeated M9 review. Native/no per-task implementation agents/one final implementation reviewer retained after later plan approval. Parent17-row totals, four owner files, exact peaceful paragraph, all8 worktrees/branches, old saves/QA/reports/recovery remain preserved. Next: review the complete proposal before its separate implementation plan.
 
 | Criterion | Scope | Status |
 | --- | --- | --- |
-| SHP-AC-001 | Content and setup; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
-| SHP-AC-002 | Design catalogue; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
-| SHP-AC-003 | Exact calculations; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
-| SHP-AC-004 | Research; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
-| SHP-AC-005 | Production and queues; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
-| SHP-AC-006 | Requests and officers; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
-| SHP-AC-007 | Refit acceptance; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
-| SHP-AC-008 | Refit economics; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
-| SHP-AC-009 | Integration and privacy; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
-| SHP-AC-010 | Persistence and atomicity; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
-| SHP-AC-011 | Native controls and scale; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Not Started |
+| SHP-AC-001 | Content and setup; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Implemented, Unverified |
+| SHP-AC-002 | Design catalogue; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Implemented, Unverified |
+| SHP-AC-003 | Exact calculations; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Verified for local automated scope |
+| SHP-AC-004 | Research; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Verified for local automated scope |
+| SHP-AC-005 | Production and queues; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Verified for local automated scope |
+| SHP-AC-006 | Requests and officers; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Verified for local automated scope |
+| SHP-AC-007 | Refit acceptance; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Implemented, Unverified |
+| SHP-AC-008 | Refit economics; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Verified for local automated scope |
+| SHP-AC-009 | Integration and privacy; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Verified for local automated scope |
+| SHP-AC-010 | Persistence and atomicity; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Implemented, Unverified |
+| SHP-AC-011 | Native controls and scale; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Implemented, Unverified |
 | SHP-AC-012 | Full written design review; [required evidence](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md#shp-010-acceptance-and-handoff) | Verified for design only |
 
 

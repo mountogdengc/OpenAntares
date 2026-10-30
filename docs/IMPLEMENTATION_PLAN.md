@@ -40,8 +40,8 @@ The old spiral execution checklist is not a completion log; its header says impl
 | M9-P | Plan the reviewed combat slice | M9-D approved | Separate16-task plan/self-review; owner “Approve” | Verified |
 | M9-I | Implement approved bounded combat | M9-P approved | CBT-AC-001..011; one review/one correction pass;1733 simulation and affected native gates | Verified for local automated scope |
 | M10-D | Approve ship design and equipment refitting | Full owner approval in ADR-022 | SHP-AC-012 full gameplay/default review | Verified for design |
-| M10-P | Plan reviewed ship-design slice | M10-D approved; separate17-task plan/self-review | Owner review of the concrete plan; Native retained | In Progress |
-| M10-I | Implement approved ship-design slice | Approved M10-P; genuine rules9 future freeze before product changes | SHP criteria, retained regressions and single final implementation review | Not Started |
+| M10-P | Plan reviewed ship-design slice | M10-D approved; separate17-task plan/self-review | Owner review of the concrete plan; Native retained | Verified |
+| M10-I | Implement approved ship-design slice | Approved M10-P; genuine rules9 future freeze before product changes | SHP criteria, retained regressions and single final implementation review | Implemented, Unverified |
 | M-Later | Remaining strategic systems; REQ-017 | Focused approved subsystem specifications; no inferred AI/combat/diplomacy scope | AC-017 then subsystem criteria | Deferred |
 | M-Delivery | Target-platform and release validation; REQ-013 | Define platform/package/performance/support policy, review Release mapping, add export/dependency attribution/CI as approved | AC-013 plus clean install/export/startup/save checks, dependency audit | Not Started as a delivery milestone; local code exists |
 
