@@ -17,7 +17,7 @@ public static class CombatQueries
         var d=content.Combat!;var notices=ImmutableArray.CreateBuilder<CombatNotice>();
         var ships=state.Vessels.Where(v=>v.EmpireId==viewer).OrderBy(v=>v.Id).Select(v=>
         {
-            var own=v.Combat!;var profile=d.RoleProfiles[v.RoleId];var stats=CombatMath.Stats(profile,own.Hull,content.Vessels[v.RoleId].Speed,OfficerBonuses.NavigatorBonus(content,state,v),d);
+            var own=v.Combat!;var loadout=ShipDesigns.VesselLoadouts.Resolve(content,state,v);var profile=loadout.Profile!;var stats=CombatMath.Stats(profile,own.Hull,loadout.BaseSpeed,OfficerBonuses.NavigatorBonus(content,state,v),d);
             var encounter=state.Combat!.Encounters.SingleOrDefault(e=>e.Owner==viewer&&e.Members.Contains(v.Id));
             bool atPort=own.ReturnColony is {} port&&state.FindColony(port) is {} colony&&state.FindPlanet(colony.PlanetId)?.StarId==v.StationaryStarId;
             var status=encounter is not null?encounter.Phase switch{CombatPhase.Pending=>CombatShipStatus.AttackCommitted,CombatPhase.Active=>CombatShipStatus.InCombat,CombatPhase.WithdrawalQueued=>CombatShipStatus.WithdrawalQueued,_=>CombatShipStatus.ResponseRequired}:v.Transit is not null&&own.ReturnColony is not null?CombatShipStatus.Returning:own.PendingRepairBlocked(state,v,atPort)?CombatShipStatus.RepairBlocked:own.Repairing?CombatShipStatus.Repairing:own.ReturnColony is not null?CombatShipStatus.ReturnOrdered:own.Hull<profile.MaxHull||own.Cohesion<100?CombatShipStatus.Damaged:CombatShipStatus.Hold;

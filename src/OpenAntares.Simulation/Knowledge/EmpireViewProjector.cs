@@ -43,6 +43,7 @@ public static class EmpireViewProjector
         var map = new GalaxyMapView(charts, state.GalaxySeed, state.GalaxyShapeId, state.GalaxyWidth, state.GalaxyHeight, colonies.Select(c => c.StarId).Distinct().OrderBy(id => id).ToImmutableArray());
         var vessels = state.Vessels.Where(v => v.EmpireId == viewer).Select(v => new OwnedVesselView(v.Id, v.EmpireId, v.RoleId, v.StationaryStarId, v.Transit, v.PendingMove, v.PendingFounding, v.CarriedPopulation)
         {
+            Loadout=Rules.HasShipDesigns(state.RulesVersion)?ShipDesigns.VesselLoadouts.Resolve(content,state,v):null,
             Crisis=crisis?.Vessels.FirstOrDefault(x=>x.Id==v.Id),
             FoundingPreviews = content.Vessels.TryGetValue(v.RoleId,out var role) && role.CanFoundColony ? e.Surveys.SelectMany(o=>o.Planets).OrderBy(p=>p.PlanetId).Select(p=>Colonization.FoundingRules.Preview(content,state,viewer,v.Id,p.PlanetId)).ToImmutableArray() : ImmutableArray<Colonization.FoundingPreview>.Empty
         }).ToImmutableArray();

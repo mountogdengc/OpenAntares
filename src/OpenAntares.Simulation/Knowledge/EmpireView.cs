@@ -35,6 +35,8 @@ public sealed record OwnedColonyView(ColonyId Id, PlanetId PlanetId, StarId Star
 }
 public sealed record OwnedVesselView(VesselId Id, EmpireId EmpireId, string RoleId, StarId? StationaryStarId, TransitState? Transit, StarId? PendingMove, PlanetId? PendingFounding, int CarriedPopulation)
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ShipDesigns.VesselLoadout? Loadout {get;init;}
     public CrisisVesselView? Crisis { get; init; }
     public ImmutableArray<Colonization.FoundingPreview> FoundingPreviews { get; init; } = ImmutableArray<Colonization.FoundingPreview>.Empty;
 }

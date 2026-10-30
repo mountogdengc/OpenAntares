@@ -95,7 +95,12 @@ public static class CombatStateValidator
         foreach(var vessel in state.Vessels)
         {
             if(vessel.Combat is not {} c){Error($"{vessel.Id} missing hull/cohesion");continue;}
-            if(!d.RoleProfiles.TryGetValue(vessel.RoleId,out var profile)||c.Hull<=0||c.Hull>profile.MaxHull||c.Cohesion is <0 or >100)Error("invalid live hull/cohesion");
+            try
+            {
+                var profile=ShipDesigns.VesselLoadouts.CombatProfile(content,state,vessel);
+                if(c.Hull<=0||c.Hull>profile.MaxHull||c.Cohesion is <0 or >100)Error("invalid live hull/cohesion");
+            }
+            catch(Exception ex)when(ex is ArgumentException or OverflowException or InvalidOperationException or System.Collections.Generic.KeyNotFoundException){Error("invalid live equipped profile: "+ex.Message);}
             if(vessel.PendingFounding is {} founding&&state.FindPlanet(founding) is {} planet&&game.Pockets.Any(p=>!p.Cleared&&p.Star==planet.StarId))Error("guarded pocket cannot hold a founding intent");
             if(c.LastRepairBlockedTurn is {} blockedTurn&&(blockedTurn<0||blockedTurn>state.Turn))Error("invalid blocked repair clock");
             if(c.HullLost is <0 or long.MaxValue||c.HullRepaired is <0 or long.MaxValue||c.LastRepairTurn is {} lastRepair&&(lastRepair<0||lastRepair>state.Turn))Error("invalid ship damage/repair totals or clock");

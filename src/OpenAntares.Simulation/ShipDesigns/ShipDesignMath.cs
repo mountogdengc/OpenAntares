@@ -2,6 +2,11 @@ using System;
 namespace OpenAntares.Simulation.ShipDesigns;
 public static class ShipDesignMath
 {
+    public static long RefitPrice(long cost)
+    {
+        if(cost<0)throw new ArgumentOutOfRangeException(nameof(cost));
+        return checked((long)Int128.Max(1,((Int128)cost+3)/4));
+    }
     public static DesignStats Calculate(ShipDesignDefinition definition,ShipRecipe recipe)
     {
         ArgumentNullException.ThrowIfNull(definition);ArgumentNullException.ThrowIfNull(recipe);
