@@ -88,7 +88,7 @@ public static class GovernorPlanningQueries
         }
         private static ColonyState OwnColony(OwnedColonyView c)=>new()
         {
-            Id=c.Id,EmpireId=c.EmpireId,PlanetId=c.PlanetId,Population=c.Population,Workforce=c.Workforce,GrowthProgress=c.GrowthProgress,ProductionReserve=c.ProductionReserve,ProjectId=c.ProjectId,ProjectKind=c.ProjectKind,HabitatMode=c.HabitatMode,CompletedBuildingIds=c.CompletedBuildingIds.ToList(),
+            Id=c.Id,EmpireId=c.EmpireId,PlanetId=c.PlanetId,Population=c.Population,Workforce=c.Workforce,GrowthProgress=c.GrowthProgress,ProductionReserve=c.SpendableProduction,ProjectId=c.ProjectId,ProjectKind=c.ProjectKind,HabitatMode=c.HabitatMode,CompletedBuildingIds=c.CompletedBuildingIds.ToList(),
             Development=c.Development is {} d?new(){Template=d.Template,WorkforceEnabled=d.WorkforceEnabled,ConstructionEnabled=d.ConstructionEnabled,Queue=d.Queue.ToList(),NextQueueToken=d.NextQueueToken??checked(d.Queue.Select(q=>q.Token).DefaultIfEmpty().Max()+1),ActiveQueueToken=d.ActiveQueueToken,Origin=d.Origin}:null
         };
     }

@@ -42,7 +42,7 @@ public static class RefitResolver
                 job.Status=RefitStatus.Paused;job.Revision=checked(job.Revision+1);job.Reason="The ship no longer meets the required condition, location or order constraints. Review before resuming.";
                 events.Add(Event("refit_paused",job.Reason,0));outcomes[index]=receipt with{RefitPlan=plan with{Covered=false},Production=receipt.Production with{CompletedId=null,BlockedReasonCode=reason,Estimate=new TurnEstimate(null)}};continue;
             }
-            if(!plan.Covered||port.ProductionReserve<job.Price)continue;
+            if(!plan.Covered||Diplomacy.DiplomacyReservations.Spendable(candidate,port.Id)<job.Price)continue;
             port.ProductionReserve=checked(port.ProductionReserve-job.Price);ship.Design=job.TargetDesign;
             string key=ShipDesignTargets.Refit(job.Id).ContentId;var change=Quantity.From(receipt.Production.Change.Lines.Add(new(BreakdownKinds.CostPaid,key,null,-job.Price)));
             outcomes[index]=receipt with{Production=receipt.Production with{Ending=port.ProductionReserve,Change=change,CompletedId=key,BlockedReasonCode=null,Estimate=new TurnEstimate(1)}};

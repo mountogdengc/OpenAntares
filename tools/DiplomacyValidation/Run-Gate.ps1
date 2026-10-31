@@ -6,6 +6,11 @@ param(
 )
 $ErrorActionPreference='Stop'
 $repoRoot=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
+$gateHash=[Convert]::ToHexString([Security.Cryptography.SHA256]::HashData([Text.Encoding]::UTF8.GetBytes($repoRoot.ToUpperInvariant())))
+$gateMutex=[Threading.Mutex]::new($false,('Local\OpenAntaresDiplomacyGate_'+$gateHash))
+$gateOwned=$gateMutex.WaitOne(0)
+if(-not $gateOwned){$gateMutex.Dispose();throw 'Another validation gate is active in this checkout; run gates sequentially.'}
+try {
 $outputPath=[IO.Path]::GetFullPath((Join-Path $repoRoot $OutputRoot))
 if(-not $outputPath.StartsWith($repoRoot+[IO.Path]::DirectorySeparatorChar,[StringComparison]::OrdinalIgnoreCase)){throw 'Gate output must stay inside this checkout.'}
 New-Item -ItemType Directory -Path $outputPath -Force | Out-Null
@@ -45,3 +50,5 @@ $record | ConvertTo-Json -Depth 8 | Set-Content -LiteralPath (Join-Path $outputP
 $record | Select-Object exitCode,seconds,utc | ConvertTo-Json -Compress
 Get-Content -LiteralPath $log -Tail 10
 exit $resultCode
+
+} finally {$gateMutex.ReleaseMutex();$gateMutex.Dispose()}

@@ -22,7 +22,7 @@ internal static class VesselProduction
         var eligibility = EmbarkationRules.Evaluate(content, state, colony, role);
         bool eligible = eligibility.Eligible;
         long price=Fleets.OfficerBonuses.RequestShipCost(content,state,colony.Id,id);
-        var reserve = EconomyCalculator.Reserve(colony.ProductionReserve, result.NetProduction.Total, id, price, eligible) with { TargetKind = ProductionKinds.Vessel, BlockedReasonCode = eligible ? null : eligibility.Unmet.Any(r=>r.Code=="quarantine")?"quarantine":"awaiting_embarkation", BlockedRequirements = eligibility.Unmet };
+        var reserve = Diplomacy.DiplomacyReservations.CalculateReserve(state,colony, result.NetProduction.Total, id, price, eligible) with { TargetKind = ProductionKinds.Vessel, BlockedReasonCode = eligible ? null : eligibility.Unmet.Any(r=>r.Code=="quarantine")?"quarantine":"awaiting_embarkation", BlockedRequirements = eligibility.Unmet };
         if (!eligible) reserve = reserve with { Estimate = new TurnEstimate(null) };
         result = result with { Production = reserve };
         if (reserve.CompletedId is null) return result;

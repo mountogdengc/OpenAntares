@@ -44,7 +44,7 @@ internal static class RivalColonyPlanner
                     if (colony.Economy.Growth.Capacity < Math.Max(world.Role.MinimumSourcePopulation,(long)world.Role.EmbarkPopulation+1)) continue;
                     var target = new ProductionTarget(ProductionKinds.Vessel,world.Role.Id);
                     var forecast = context.Forecast(colony.Id,WorkforceFor(context,colony,target),target);
-                    if (forecast is null || (forecast.NetProduction.Total <= 0 && colony.ProductionReserve < world.Role.Cost)) continue;
+                    if (forecast is null || (forecast.NetProduction.Total <= 0 && colony.SpendableProduction < world.Role.Cost)) continue;
                     if (context.TravelTurns(colony.StarId,world.Star,world.Role.Id) is { } travel) combinations.Add((colony,world,travel));
                 }
             }

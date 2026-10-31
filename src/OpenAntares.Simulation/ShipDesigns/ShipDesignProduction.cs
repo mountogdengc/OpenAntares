@@ -11,7 +11,7 @@ public static class ShipDesignProduction
         var design=ShipDesignTargets.Bound(content,state,colony.EmpireId,new(colony.ProjectKind,colony.ProjectId??string.Empty))??throw new ArgumentException("Owned pinned design required.");
         var definition=content.ShipDesigns!;
         long price=Fleets.OfficerBonuses.RequestShipCost(content,state,colony.Id,new ProductionTarget(colony.ProjectKind,colony.ProjectId!));
-        var reserve=EconomyCalculator.Reserve(colony.ProductionReserve,result.NetProduction.Total,colony.ProjectId,price,true) with{TargetKind=ProductionKinds.ShipDesign};
+        var reserve=Diplomacy.DiplomacyReservations.CalculateReserve(state,colony,result.NetProduction.Total,colony.ProjectId,price,true) with{TargetKind=ProductionKinds.ShipDesign};
         return result with{Production=reserve,VesselCompletionPlan=reserve.CompletedId is null?null:new VesselCompletionPlan(definition.WarshipRoleId,0,colony.Id,state.FindPlanet(colony.PlanetId)!.StarId){Design=design.Id}};
     }
 }

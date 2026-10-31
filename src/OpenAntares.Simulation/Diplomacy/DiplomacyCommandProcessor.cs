@@ -19,11 +19,7 @@ public static class DiplomacyCommandProcessor
         try
         {
             var candidate=state.Clone();var p=candidate.Diplomacy!.Pairs.Single(p=>p.Pair==key);var party=p.Parties.Single(x=>x.Owner==command.Issuer);bool publicChange=true;
-            bool HubAllowed(ColonyId hub)
-            {
-                var colony=state.FindColony(hub);
-                return colony is not null&&colony.EmpireId==command.Issuer&&colony.ProjectKind!=ProductionKinds.Refit&&DiplomacyReservations.CanCommit(state,hub,d.SetupCost)&&!issuer.Fleets!.Requests.Any(r=>r.Slots.Any(slot=>slot.Colony==hub))&&EconomyCalculator.CalculateColony(content,state,colony).NetProduction.Total>0;
-            }
+            bool HubAllowed(ColonyId hub)=>DiplomacyHubQueries.Eligibility(content,state,command.Issuer,hub,null).Allowed;
             switch(command.Action)
             {
                 case DiplomacyAction.OfferTrade trade:

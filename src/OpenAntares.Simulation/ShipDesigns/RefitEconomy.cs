@@ -10,8 +10,8 @@ public static class RefitEconomy
         if(colony.ProjectKind!=ProductionKinds.Refit)return result;
         var job=ShipDesignTargets.Job(state,colony)??throw new System.ArgumentException("Refit project requires its committed job.");
         string? reason=job.Status==RefitStatus.Paused?"refit_paused":RefitEligibility.Reason(content,state,colony.EmpireId,job);
-        var bank=EconomyCalculator.Reserve(colony.ProductionReserve,result.NetProduction.Total,colony.ProjectId,job.Price,false) with{TargetKind=ProductionKinds.Refit,BlockedReasonCode=reason};
+        var bank=Diplomacy.DiplomacyReservations.CalculateReserve(state,colony,result.NetProduction.Total,colony.ProjectId,job.Price,false) with{TargetKind=ProductionKinds.Refit,BlockedReasonCode=reason};
         if(reason is not null)bank=bank with{Estimate=new TurnEstimate(null)};
-        return result with{Production=bank,VesselCompletionPlan=null,EmbarkOutcome=null,RefitPlan=new(job.Id,colony.EmpireId,job.Vessel,colony.Id,job.SourceDesign,job.TargetDesign,job.Price,reason is null&&bank.Ending>=job.Price)};
+        return result with{Production=bank,VesselCompletionPlan=null,EmbarkOutcome=null,RefitPlan=new(job.Id,colony.EmpireId,job.Vessel,colony.Id,job.SourceDesign,job.TargetDesign,job.Price,reason is null&&bank.Ending-Diplomacy.DiplomacyReservations.Reserved(state,colony.Id)>=job.Price)};
     }
 }

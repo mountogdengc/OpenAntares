@@ -44,7 +44,7 @@ public static class RefitQueries
                 if(Eligibility(view,ship,port,job) is {} reason)return Reject(reason);
             }
             long price=job?.Price??ShipDesignMath.RefitPrice(target.Stats.BuildCost);
-            long? estimate=price<=port.ProductionReserve?1:port.Economy.NetProduction.Total>0?checked((price-port.ProductionReserve-1)/port.Economy.NetProduction.Total+1):(long?)null;
+            long? estimate=price<=port.SpendableProduction?1:port.Economy.NetProduction.Total>0?checked((price-port.SpendableProduction-1)/port.Economy.NetProduction.Total+1):(long?)null;
             var consequences=ImmutableArray.Create("Use this colony's one production slot; bank output until a single completion payment.","Keep vessel, fleet, flagship, officer, hull and cohesion; installed equipment changes only on completion.","Construction stays paused; queue, template and workforce remain. Cancel explicitly before replacing the job or moving its ship.");
             if(action is RefitAction.Cancel)
             {
@@ -79,7 +79,7 @@ public static class RefitQueries
             view.Turn,view.Viewer,view.RulesVersion,Action=JsonSerializer.Serialize(action,action.GetType()),Job=job,
             NewJobId=job is null?(int?)view.ShipDesigns!.NextRefitId:null,
             Ship=new{ship.Id,ship.RoleId,ship.StationaryStarId,ship.Transit,ship.PendingMove,ship.PendingFounding,ship.CarriedPopulation,Condition=conditions,Group=group},
-            Port=new{port.Id,port.EmpireId,port.StarId,port.ProjectId,port.ProjectKind,port.ProductionReserve,Output=port.Economy.NetProduction.Total,ActiveQueueToken=port.Development?.ActiveQueueToken},
+            Port=new{port.Id,port.EmpireId,port.StarId,port.ProjectId,port.ProjectKind,ProductionReserve=port.SpendableProduction,Output=port.Economy.NetProduction.Total,ActiveQueueToken=port.Development?.ActiveQueueToken},
             Source=new{source.Id,source.Name,source.Recipe,source.Stats},Target=new{target.Id,target.Name,target.Recipe,target.Stats,target.Archived,target.Unlocked},Price=price,Requirements=requirements,
             Requests=view.Fleets.Requests.Where(r=>FleetQueries.IsActive(r.Status)&&(r.Colonies.Contains(port.Id)||r.Slots.Any(s=>s.Vessel==ship.Id)||group is not null&&r.RallyFleet==group.Id)).Select(r=>new{r.Id,r.Revision,r.Status,r.PausedContributions}).ToArray(),
             Ameba=view.Scouting?.Vessels.Where(s=>s.Id==ship.Id).Select(s=>new{s.Stage,s.EncounterNumber,s.Revision,s.Held}).ToArray()

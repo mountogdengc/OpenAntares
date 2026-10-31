@@ -91,7 +91,7 @@ public static class RivalPlanningQueries
                 Planets = owner.Surveys.SelectMany(o => o.Planets.Select(p => new PlanetState { Id=p.PlanetId,StarId=o.StarId,
                     Orbit=p.Orbit,PlanetTypeId=p.PlanetTypeId,EnvironmentId=p.EnvironmentId })).OrderBy(p => p.Id).ToList(),
                 Colonies = view.Colonies.Select(c => new ColonyState { Id=c.Id,EmpireId=view.Viewer,PlanetId=c.PlanetId,Population=c.Population,
-                    Workforce=c.Workforce,GrowthProgress=c.GrowthProgress,ProductionReserve=c.ProductionReserve,ProjectId=c.ProjectId,ProjectKind=c.ProjectKind,
+                    Workforce=c.Workforce,GrowthProgress=c.GrowthProgress,ProductionReserve=c.SpendableProduction,ProjectId=c.ProjectId,ProjectKind=c.ProjectKind,
                     HabitatMode=c.HabitatMode,CompletedBuildingIds=c.CompletedBuildingIds.ToList() }).ToList()
             };
             Crises.CrisisForecastFrame.Apply(frame,view);

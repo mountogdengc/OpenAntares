@@ -43,7 +43,7 @@ public static class ShipDesignQueries
         EquipmentFact Fact(DesignId id){var d=data.Designs.Single(d=>d.Id==id);return new(d.Id,d.Name,d.Recipe,ShipDesignMath.Calculate(definition,d.Recipe));}
         RefitView Refit(RefitJob j)
         {
-            var port=state.FindColony(j.Port)!;var economy=forecast.Colony(j.Port);string code=j.Status==RefitStatus.Paused?"refit_paused":port.ProductionReserve>=j.Price?"refit_ready_next_interval":economy.NetProduction.Total<=0?"refit_port_inactive":"refit_insufficient_reserve";
+            var port=state.FindColony(j.Port)!;var economy=forecast.Colony(j.Port);string code=j.Status==RefitStatus.Paused?"refit_paused":Diplomacy.DiplomacyReservations.Spendable(state,port.Id)>=j.Price?"refit_ready_next_interval":economy.NetProduction.Total<=0?"refit_port_inactive":"refit_insufficient_reserve";
             string explanation=code switch{"refit_paused"=>j.Reason??"Review the ship and port before explicitly resuming.","refit_ready_next_interval"=>"Reserve covers the cost; completion still requires a full stationary interval.","refit_port_inactive"=>"The port has no net production and reserve does not cover the refit.",_=>"The port is banking production until reserve covers the frozen refit price."};
             return new(j.Id,j.Vessel,j.Port,j.SourceDesign,j.TargetDesign,j.AcceptedTurn,j.Revision,j.Price,j.Status,j.Reason){Reserve=port.ProductionReserve,OutputPerTurn=economy.NetProduction.Total,EstimatedTurns=j.Status==RefitStatus.Paused?null:economy.Production.Estimate?.Turns,StatusCode=code,StatusExplanation=explanation,Before=Fact(j.SourceDesign),After=Fact(j.TargetDesign)};
         }

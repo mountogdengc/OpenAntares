@@ -105,7 +105,7 @@ public static class EconomyCalculator
             grossProduction, grossResearch, netProduction, netResearch,
             growthEarned, growth, production) { PopulationUnitLabel = profile.PopulationUnitLabel };
         result = CrisisEconomy.ApplyColony(content,state,colony,result);
-        result = result with {Production=Reserve(colony.ProductionReserve,result.NetProduction.Total,project?.Id,project?.Cost,projectLegal)};
+        result = result with {Production=Diplomacy.DiplomacyReservations.CalculateReserve(state,colony,result.NetProduction.Total,project?.Id,project?.Cost,projectLegal)};
         result=VesselProduction.Calculate(content,state,colony,planet,planetType,buildings,result);
         result=ShipDesigns.ShipDesignProduction.Calculate(content,state,colony,result);
         return ShipDesigns.RefitEconomy.Calculate(content,state,colony,result);

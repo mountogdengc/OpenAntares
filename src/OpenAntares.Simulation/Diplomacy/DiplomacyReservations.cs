@@ -12,4 +12,11 @@ public static class DiplomacyReservations
     }
     public static long Spendable(GameState state,ColonyId hub)=>checked((state.FindColony(hub)?.ProductionReserve??0)-Reserved(state,hub));
     public static bool CanCommit(GameState state,ColonyId hub,long amount)=>amount>0&&Reserved(state,hub)==0&&Spendable(state,hub)>=amount;
+
+    internal static OpenAntares.Simulation.Economy.ReserveOutcome CalculateReserve(GameState state,ColonyState colony,long output,string? target,long? cost,bool legal)
+    {
+        long reserved=Reserved(state,colony.Id);
+        var result=OpenAntares.Simulation.Economy.EconomyCalculator.Reserve(checked(colony.ProductionReserve-reserved),output,target,cost,legal);
+        return reserved==0?result:result with{Starting=colony.ProductionReserve,Ending=checked(result.Ending+reserved)};
+    }
 }

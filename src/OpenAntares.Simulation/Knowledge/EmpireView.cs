@@ -23,6 +23,10 @@ public sealed record KnownPlanetView(PlanetId Id, int Orbit, string PlanetTypeId
 public sealed record StarView(ChartedStar Chart, ImmutableArray<KnownPlanetView>? Planets, int? LastObservedTurn, bool Current);
 public sealed record OwnedColonyView(ColonyId Id, PlanetId PlanetId, StarId StarId, EmpireId EmpireId, int Population, Workforce Workforce, int GrowthProgress, long ProductionReserve, string? ProjectId, string ProjectKind, ImmutableArray<string> CompletedBuildingIds, ColonyEconomy Economy)
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
+    public long ReservedProduction {get;init;}
+    [System.Text.Json.Serialization.JsonIgnore]
+    public long SpendableProduction=>checked(ProductionReserve-ReservedProduction);
     public CrisisCaseView? Crisis { get; init; }
     public int Turn { get; init; }
     public ColonyDevelopmentView? Development { get; init; }

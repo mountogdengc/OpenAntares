@@ -99,7 +99,7 @@ public static class AssemblyPlanner
             (List<AssemblyQueueItem> Queue,long? Active,long Output) Estimate(OwnedColonyView col,List<AssemblyQueueItem> additions)
             {
                 var queue=Queue(col,additions);var baseline=Forecast(col,null);long output=baseline?.NetProduction.Total??0,growth=baseline?.GrowthEarned.Total??0;int capacity=baseline?.Growth.Capacity??col.Population;
-                long reserve=col.ProductionReserve,time=0,progress=col.GrowthProgress;int population=col.Population,support=col.Workforce.Support;bool stalled=false;
+                long reserve=col.SpendableProduction,time=0,progress=col.GrowthProgress;int population=col.Population,support=col.Workforce.Support;bool stalled=false;
                 long? Work(ProductionTarget target,bool requestBound=false)
                 {
                     if(stalled)return null;var forecast=Forecast(col,target);
@@ -146,7 +146,7 @@ public static class AssemblyPlanner
                 var estimate=Estimate(col,allocated[col.Id]);
                 foreach(var item in estimate.Queue.Where(q=>q.SlotOrdinal is not null))
                 {int i=slots.FindIndex(s=>s.Ordinal==item.SlotOrdinal);var slot=slots[i];slots[i]=slot with{CompletionTurns=item.CompletionTurns,ArrivalTurns=item.CompletionTurns is {} turns?checked(turns+Travel(col.StarId,slot.RoleId,slot.Design)):(long?)null,QueuePosition=estimate.Queue.IndexOf(item)};}
-                colonyPreviews.Add(new(col.Id,col.ProjectId is {} project?new(col.ProjectKind,project):null,col.Development!.ActiveQueueToken,col.ProductionReserve,estimate.Output,allocated[col.Id].Sum(q=>q.Target.Kind==ProductionKinds.ShipDesign?0:c.Vessels[q.Target.ContentId].EmbarkPopulation),col.Development.Queue,estimate.Queue.ToImmutableArray()));
+                colonyPreviews.Add(new(col.Id,col.ProjectId is {} project?new(col.ProjectKind,project):null,col.Development!.ActiveQueueToken,col.SpendableProduction,estimate.Output,allocated[col.Id].Sum(q=>q.Target.Kind==ProductionKinds.ShipDesign?0:c.Vessels[q.Target.ContentId].EmbarkPopulation),col.Development.Queue,estimate.Queue.ToImmutableArray()));
             }
             warnings.Add("Conditional estimates hold current output and growth fixed; future manual orders, quarantine and research may change them. Each project takes at least one resolution.");
             if(slots.Any(s=>s.ArrivalTurns is null))warnings.Add("Some work has no finite completion/arrival estimate and remains blocked behind its active project or current requirements.");
@@ -203,7 +203,7 @@ public static class AssemblyPlanner
             {if(origin==draft.Rally)return 0;var a=view.Galaxy.Stars.Single(s=>s.Id==origin);var b=view.Galaxy.Stars.Single(s=>s.Id==draft.Rally);return Movement.TravelCalculator.Duration(a.X,a.Y,b.X,b.Y,equippedSpeed??AssemblyDesigns.Speed(context,role,design));}
             var colonyResults=result.Colonies.Select(col=>col with{PriorQueue=view.Colonies.Single(x=>x.Id==col.Colony).Development!.Queue,ProposedQueue=col.ProposedQueue.Select(q=>q.SlotOrdinal is {} fresh?q with{SlotOrdinal=ordinalMap[fresh]}:q.Token is {} token&&kept.FirstOrDefault(slot=>slot.Colony==col.Colony&&slot.QueueToken==token) is {} old?q with{SlotOrdinal=old.Ordinal}:q).ToImmutableArray()}).ToList();
             foreach(var original in view.Colonies.Where(col=>request.Colonies.Contains(col.Id)&&!draft.Colonies.Contains(col.Id)))
-                colonyResults.Add(new(original.Id,original.ProjectId is {} project?new(original.ProjectKind,project):null,original.Development!.ActiveQueueToken,original.ProductionReserve,original.Economy.NetProduction.Total,0,original.Development.Queue,modified.Single(col=>col.Id==original.Id).Development!.Queue.Select(q=>new AssemblyQueueItem(q.Token,q.Target,null)).ToImmutableArray()));
+                colonyResults.Add(new(original.Id,original.ProjectId is {} project?new(original.ProjectKind,project):null,original.Development!.ActiveQueueToken,original.SpendableProduction,original.Economy.NetProduction.Total,0,original.Development.Queue,modified.Single(col=>col.Id==original.Id).Development!.Queue.Select(q=>new AssemblyQueueItem(q.Token,q.Target,null)).ToImmutableArray()));
             foreach(var old in kept)
             {
                 var source=old.Colony is {} colony?colonyResults.FirstOrDefault(col=>col.Colony==colony):null;

@@ -44,6 +44,7 @@ public static partial class CommandProcessor
         var result = ExecuteCore(content, state, command,scoutPreparationMove,shipDesignHook:shipDesignHook);
         if(Rules.HasCombat(state.RulesVersion))result=Combat.CombatRepair.Override(content,state,result,command);
         if (result.Changed && Rules.HasDevelopment(state.RulesVersion)) ApplyManualIntervention(result.State, command);
+        if(result.Changed&&result.State.Turn==state.Turn)Diplomacy.DiplomacyReconciliation.AfterCommand(content,result.State);
         if(result.Changed&&result.State.Turn==state.Turn&&Rules.HasScouting(state.RulesVersion))
         {
             try{if(command is not CrisisCommand)ReconcileScoutConsent(content,state,result.State,command.Issuer);}
