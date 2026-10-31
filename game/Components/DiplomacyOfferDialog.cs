@@ -40,7 +40,7 @@ public partial class DiplomacyOfferDialog:AcceptDialog
         _details.Text=_preview.Terms+"\n"+string.Join("\n",_preview.Consequences)+"\n"+_preview.PolicyReason;
         if(_preview.Hub is {} h)_details.Text+=$"\nOwn bank: {Format.Points(h.Bank)} ({h.Bank} internal); {Format.Points(h.Reserved)} ({h.Reserved}) reserved; {Format.Points(h.Spendable)} ({h.Spendable}) spendable. "+(h.Allowed?"Hub ready.":h.Reason?.Replace('_',' '));
         if(_preview.BreakEvenBoundaries is {} n)_details.Text+=$"\nConditional break-even: {n} full effective turns if both hubs survive. No refund on termination or hub loss.";
-        if(Action() is DiplomacyAction.Terminate)_details.Text+=$"\nNotice submitted now ends the agreement at turn {_view.Turn+_content.Diplomacy!.Notice}. Cancellation memory is published at the next resolution.";
+        if(Action() is DiplomacyAction.Terminate)_details.Text+=$"\nNotice submitted now ends the agreement at turn {(long)_view.Turn+_content.Diplomacy!.Notice}. Cancellation memory is published at the next resolution.";
         if(!_preview.Allowed)_details.Text+="\nUnavailable: "+_preview.RejectionCode?.Replace('_',' ');Enable();
     }
     private void Enable(){if(_apply is not null)_apply.Disabled=_preview?.Allowed!=true||_consent.Visible&&!_consent.ButtonPressed;}

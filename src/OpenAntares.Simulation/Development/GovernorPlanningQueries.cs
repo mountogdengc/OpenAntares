@@ -84,6 +84,7 @@ public static class GovernorPlanningQueries
                 frame.Combat=new(){Encounters=view.Combat!.Encounters.Select(e=>new Combat.EncounterState{Id=e.Id,Owner=view.Viewer,Fleet=e.Fleet,Members=e.Members.ToList(),Phase=e.Phase}).ToList()};
             }
             Crises.CrisisForecastFrame.Apply(frame,view);
+            Diplomacy.DiplomacyForecastFrame.Apply(frame,view);
             return frame;
         }
         private static ColonyState OwnColony(OwnedColonyView c)=>new()

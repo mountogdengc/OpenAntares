@@ -107,6 +107,8 @@ public partial class ColonyPanel : VBoxContainer
         }
 
         if(view?.Colonies.FirstOrDefault(c=>c.Id==colony.Id) is {} bank&&view.Diplomacy is not null)AddChild(Wrapped($"Production bank {Format.Points(bank.ProductionReserve)}; diplomacy reserved {Format.Points(bank.ReservedProduction)}; spendable {Format.Points(bank.SpendableProduction)}.","SubtleLabel"));
+        if(view?.Colonies.FirstOrDefault(c=>c.Id==colony.Id)?.ProductionIfSetupReleased is {} released)
+            AddChild(Wrapped("Conditional on setup reservation release: "+BreakdownText.Progress(released)+"; "+BreakdownText.Estimate(released.Estimate)+". This assumes the offer ends without activation; a partner's queued answer remains private.","SubtleLabel"));
         ReserveOutcome production = economy.Production;
         string status = production.TargetId is null
             ? $"No project: production is saved (reserve {Format.Points(production.Starting)})."

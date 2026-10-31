@@ -21,7 +21,7 @@ public static partial class DiplomacyQueries
                 if(otherNotice>=state.Turn)otherNotice=null;
                 int? end=ownNotice is {} on?checked(on+d.Notice):null;
                 if(otherNotice is {} pn)end=end is {} e?Math.Min(e,checked(pn+d.Notice)):checked(pn+d.Notice);
-                return new DiplomacyAgreementView(a.Kind,a.Star,a.ActivatedTurn,checked(a.ActivatedTurn+d.Minimum),end,(viewer==p.Pair.Low?a.LowHub:a.HighHub)?.Hub,Math.Max(0,checked(a.ActivatedTurn+d.Warmup-state.Turn)),ownNotice is not null);
+                return new DiplomacyAgreementView(a.Kind,a.Star,a.ActivatedTurn,checked((long)a.ActivatedTurn+d.Minimum),end,(viewer==p.Pair.Low?a.LowHub:a.HighHub)?.Hub,checked((int)Math.Max(0L,(long)a.ActivatedTurn+d.Warmup-state.Turn)),ownNotice is not null);
             }).ToImmutableArray();
             return new ContactDiplomacyView(contact,p.PublicRevision,DiplomacyTokens.PrivateRevision(content,state,viewer,contact.OtherEmpireId),Attitude(own.Attitude),Attitude(other.Attitude),offer,agreements,own.NextAiOfferTurn,p.LastResults.Where(e=>e.Viewer==viewer&&e.Turn<=state.Turn).ToImmutableArray());
         }).ToImmutableArray();

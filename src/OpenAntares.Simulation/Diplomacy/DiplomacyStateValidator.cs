@@ -71,7 +71,7 @@ public static class DiplomacyStateValidator
                     if(e is null){Error("Null result.");continue;}
                     string family=e.Kind is not null&&e.Kind.StartsWith("trade_",StringComparison.Ordinal)?"trade_":"settlement_";
                     string suffix=e.Kind is not null&&e.Kind.StartsWith(family,StringComparison.Ordinal)?e.Kind[family.Length..]:"";
-                    if(!key.Contains(e.Viewer)||e.Other!=key.Other(e.Viewer)||e.Turn<0||e.Turn>state.Turn||string.IsNullOrWhiteSpace(e.Reason)||e.Reason.Length>256||e.Reason.Any(char.IsControl)||!summaries.Add((e.Viewer,family))||suffix is not("activated" or "declined" or "expired" or "failed" or "withdrawn" or "notice" or "ended"))Error("Invalid bounded result.");
+                    if(!key.Contains(e.Viewer)||e.Other!=key.Other(e.Viewer)||e.Turn<0||e.Turn>state.Turn||string.IsNullOrWhiteSpace(e.Reason)||e.Reason.Length>256||e.Reason.Any(char.IsControl)||!summaries.Add((e.Viewer,family))||suffix is not("offered" or "activated" or "declined" or "expired" or "failed" or "withdrawn" or "notice" or "ended"))Error("Invalid bounded result.");
                     if(e.Paid<0||e.Paid>0&&(e.Kind!="trade_activated"||e.Paid!=d.SetupCost||e.OwnHub is null)||e.Kind=="trade_activated"&&e.Paid!=d.SetupCost)Error("Invalid setup payment history.");
                     if(family=="trade_"&&e.Star is not null||family=="settlement_"&&(e.OwnHub is not null||e.Paid!=0||e.Star is not {} star||state.FindStar(star) is null))Error("Invalid result location scope.");
                 }

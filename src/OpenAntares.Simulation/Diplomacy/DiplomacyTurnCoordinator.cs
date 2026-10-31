@@ -20,7 +20,9 @@ public static class DiplomacyTurnCoordinator
                 DiplomacyPlanner.Plan(content,view,command=>
                 {
                     if(failed)return;if(++submitted>3L*view.Contacts.Length||command.Issuer!=view.Viewer||command.ExpectedTurn!=snapshot.Turn){failed=true;return;}
-                    var outcome=CommandProcessor.ExecuteRivalDiplomacy(content,working,command);
+                    // Public decisions remain frozen. Only bind subsequent intents to the AI's own preceding authorized mutations.
+                    var bound=command with{PrivateRevision=DiplomacyTokens.PrivateRevision(content,working,command.Issuer,command.Other)};
+                    var outcome=CommandProcessor.ExecuteRivalDiplomacy(content,working,bound);
                     if(!outcome.Accepted)
                     {
                         var key=DiplomacyPair.For(command.Issuer,command.Other);
@@ -31,6 +33,11 @@ public static class DiplomacyTurnCoordinator
                 });
                 if(failed)return new(snapshot,false);
             }
+            // Preparation is private. A new AI offer starts its lifetime at publication,
+            // after the recipient first receives an opportunity to answer it.
+            foreach(var pair in working.Diplomacy!.Pairs)
+                if(pair.Pending is {} offer&&working.FindEmpire(offer.Proposer)!.Controller==ControllerKind.Ai&&snapshot.Diplomacy!.Pairs.Single(p=>p.Pair==pair.Pair).Pending?.Id!=offer.Id)
+                {offer.CreatedTurn=checked(snapshot.Turn+1);offer.ExpiryTurn=checked(offer.CreatedTurn+content.Diplomacy!.OfferLifetime);}
             return new(working,true);
         }
         catch(Exception e)when(e is OverflowException or InvalidOperationException or ArgumentException){return new(snapshot,false);}

@@ -32,7 +32,7 @@ public partial class TurnReportDialog : AcceptDialog
     public event Action<ColonyId>? ColonyRequested;
     public event Action<VesselId>? VesselRequested;
     public event Action? FleetCommandRequested;
-    public event Action? DiplomacyRequested;
+    public event Action<EmpireId>? DiplomacyRequested;
 
     public override void _Ready()
     {
@@ -117,7 +117,16 @@ public partial class TurnReportDialog : AcceptDialog
             var view = new Button { Text = e.Colony.HasValue && e.Kind == "colony_founded" ? "View colony" : e.Vessel.HasValue && e.Kind == "vessel_completed" ? "View vessel" : "View system" };
             view.Pressed += () => { Hide(); if (e.Colony is { } colony && e.Kind == "colony_founded") ColonyRequested?.Invoke(colony); else if (e.Vessel is { } vessel && e.Kind == "vessel_completed") VesselRequested?.Invoke(vessel); else if (e.Star is { } destination) StarRequested?.Invoke(destination); }; _body.AddChild(view);
         }
-        if(report.DiplomacyEvents is {} diplomacyEvents&&!diplomacyEvents.IsEmpty){_body.AddChild(new Label{Text="Diplomacy",ThemeTypeVariation="HeaderLabel"});foreach(var e in diplomacyEvents)_body.AddChild(Wrapped(e.Kind.Replace('_',' ')+": "+e.Reason,"SubtleLabel"));DevelopmentUi.Button(_body,"Open diplomacy",()=>DiplomacyRequested?.Invoke(),"ReportOpenDiplomacy");}
+        if(report.DiplomacyEvents is {} diplomacyEvents&&!diplomacyEvents.IsEmpty)
+        {
+            _body.AddChild(new Label{Text="Diplomacy",ThemeTypeVariation="HeaderLabel"});
+            foreach(var group in diplomacyEvents.GroupBy(e=>e.Other))
+            {
+                foreach(var e in group)_body.AddChild(Wrapped(e.Kind.Replace('_',' ')+": "+e.Reason+(e.Paid>0?" Setup paid: "+Format.Points(e.Paid)+" production.":""),"SubtleLabel"));
+                var other=group.Key;string name=empireView?.Contacts.FirstOrDefault(c=>c.OtherEmpireId==other)?.CultureName??"this contact";
+                DevelopmentUi.Button(_body,"Open diplomacy with "+name,()=>{Hide();DiplomacyRequested?.Invoke(other);},"ReportOpenDiplomacy_"+other.Value);
+            }
+        }
         foreach (var encounter in report.EncounterEvents)
         {
             if(encounter.Kind=="first_contact"&&report.DiplomacyEvents is {} de&&de.Any(e=>e.Kind=="first_contact"&&e.Other==encounter.OtherEmpireId))continue;

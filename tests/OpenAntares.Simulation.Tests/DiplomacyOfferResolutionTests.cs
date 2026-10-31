@@ -19,7 +19,7 @@ public sealed class DiplomacyOfferResolutionTests
         var p=candidate.Diplomacy!.Pairs.Single();Assert.Null(p.Pending);Assert.Single(p.Agreements);Assert.Equal(3,p.Agreements[0].ActivatedTurn);
         Assert.Empty(DiplomacyFrame.Capture(s.Content,candidate).Agreements);Assert.All(candidate.Colonies,c=>Assert.Equal(0,c.ProductionReserve));Assert.Equal(2,events.Length);
         var w=Offered(true);var pair=w.State.Diplomacy!.Pairs.Single();Assert.True(DiplomacyCommandTests.Act(w,pair.Pending!.Proposer,new DiplomacyAction.Withdraw(pair.Pending.Id)).Accepted);
-        candidate=w.State.Clone();Assert.Empty(DiplomacyResolver.ResolveOffers(w.Content,w.State,candidate));Assert.Empty(candidate.Diplomacy!.Pairs.Single().Agreements);Assert.All(candidate.Colonies,c=>Assert.Equal(500,c.ProductionReserve));
+        candidate=w.State.Clone();var withdrawn=DiplomacyResolver.ResolveOffers(w.Content,w.State,candidate);Assert.Equal(2,withdrawn.Length);Assert.All(withdrawn,e=>{Assert.Equal("trade_withdrawn",e.Kind);Assert.Equal(0,e.Paid);});Assert.Empty(candidate.Diplomacy!.Pairs.Single().Agreements);Assert.All(candidate.Colonies,c=>Assert.Equal(500,c.ProductionReserve));
     }
     [Fact] public void ExpiryAndFailedActivationReleaseBeforeOrdinaryCompletion()
     {
@@ -36,3 +36,4 @@ public sealed class DiplomacyOfferResolutionTests
         Assert.Equal("fabrication_hall",OpenAntares.Simulation.Economy.EconomyCalculator.Calculate(s.Content,candidate).Colony(hub.Id).Production.CompletedId);
         Assert.Equal(8,candidate.Diplomacy!.Pairs.Single().Parties[0].NextAiOfferTurn);
     }}
+

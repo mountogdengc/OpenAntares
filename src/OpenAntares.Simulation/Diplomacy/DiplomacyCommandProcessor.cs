@@ -48,7 +48,9 @@ public static class DiplomacyCommandProcessor
                     if(rev.Answer is null)return CommandOutcome.NoChange(state);rev.Answer=null;publicChange=false;break;
                 case DiplomacyAction.Withdraw withdraw:
                     if(p.Pending is not {} w||w.Id!=withdraw.Id||w.Proposer!=command.Issuer)return Reject();
-                    p.Pending=null;party.NextAiOfferTurn=checked(state.Turn+d.Cooldown);break;
+                    p.Pending=null;party.NextAiOfferTurn=checked(state.Turn+d.Cooldown);
+                    foreach(var signatory in p.Parties){var ownHub=signatory.Owner==w.Proposer?w.ProposerHub?.Hub:w.Answer?.Hub?.Hub;DiplomacyResolver.Record(p,new(signatory.Owner,p.Pair.Other(signatory.Owner),state.Turn,(w.Kind==AgreementKind.Trade?"trade_":"settlement_")+"withdrawn",w.Star,ownHub,"Offer withdrawn; any setup reservations released."));}
+                    break;
                 case DiplomacyAction.Terminate terminate:
                     var active=p.Agreements.SingleOrDefault(a=>a.Kind==terminate.Kind);if(active is null||state.Turn-active.ActivatedTurn<d.Minimum)return Reject();
                     bool low=command.Issuer==key.Low;if((low?active.LowNoticeTurn:active.HighNoticeTurn) is not null)return CommandOutcome.NoChange(state);

@@ -21,11 +21,22 @@ public partial class DiplomacyDialog:AcceptDialog
         else if(diplomacy.Contacts.IsEmpty){_body.AddChild(DevelopmentUi.Text("No other civilization has been met. Explore to establish contact. Solo games have no diplomatic partners."));}
         else
         {
-            foreach(var c in diplomacy.Contacts){var id=c.Identity.OtherEmpireId;DevelopmentUi.Button(_body,c.Identity.CultureName+" — "+c.Identity.SpeciesName,()=>ShowEmpire(content,view,id),"DiplomacyContact_"+id.Value);}
+            foreach(var c in diplomacy.Contacts){var id=c.Identity.OtherEmpireId;DevelopmentUi.Button(_body,c.Identity.CultureName+" — "+c.Identity.SpeciesName,()=>ShowEmpire(content,view,id),"DiplomacyContact_"+id.Value);
+                string pendingSummary=c.Pending is {} pendingOffer?(pendingOffer.Recipient==view.Viewer?"Incoming ":"Outgoing ")+pendingOffer.Kind+FormattableString.Invariant($"; {Math.Max(0L,(long)pendingOffer.ExpiryTurn-view.Turn)} answer boundaries remain."):"No pending offer.";
+                _body.AddChild(DevelopmentUi.Text($"You: {c.OwnAttitude.Label} ({c.OwnAttitude.Score}); them: {c.OtherAttitude.Label} ({c.OtherAttitude.Score}). "+pendingSummary+" Agreements: "+(c.Agreements.IsEmpty?"none":string.Join(", ",c.Agreements.Select(a=>a.Kind)))));
+            }
             var contact=diplomacy.Contacts.FirstOrDefault(c=>c.Identity.OtherEmpireId==_selected)??diplomacy.Contacts[0];_selected=contact.Identity.OtherEmpireId;
-            var panel=new DiplomacyContactPanel();_body.AddChild(panel);panel.ShowContact(contact);
-            if(contact.Pending is {} offer)_body.AddChild(DevelopmentUi.Text($"{offer.Kind} offer"+(offer.Star is {} offered?" in "+view.Stars.Single(s=>s.Chart.Id==offered).Chart.Name:"")+ $": created turn {offer.CreatedTurn}, expires at resolution to turn {offer.ExpiryTurn}. "+(offer.OwnAnswered?"Your answer is queued.":"No answer is required to Ready.")));
-            foreach(var a in contact.Agreements){string system=a.Star is {} star?" in "+view.Stars.Single(s=>s.Chart.Id==star).Chart.Name:"";_body.AddChild(DevelopmentUi.Text($"{a.Kind}{system}: activated {a.ActivatedTurn}; earliest notice {a.FirstTerminationTurn}; "+(a.EndTurn is {} end?$"ends {end}.":"no termination notice.")+ $" Warmup remaining: {a.WarmupRemaining}."));}
+            var panel=new DiplomacyContactPanel();_body.AddChild(panel);panel.ShowContact(content,contact);
+            if(contact.Pending is {} offer)_body.AddChild(DevelopmentUi.Text($"{offer.Kind} offer"+(offer.Star is {} offered?" in "+view.Stars.Single(s=>s.Chart.Id==offered).Chart.Name:"")+ $": created turn {offer.CreatedTurn}, expires at resolution to turn {offer.ExpiryTurn}. "+(offer.OwnAnswered?(offer.OwnAccept==true?"Your Accept is queued.":"Your Decline is queued."):"No answer is required to Ready.")));
+            string HubName(ColonyId id)=>view.Research.ColonyNames.TryGetValue(id.ToString(),out var name)?name:"recorded former hub";
+            if(contact.Pending?.OwnHub is {} promised)_body.AddChild(DevelopmentUi.Text("Your selected hub: "+HubName(promised)+". Setup remains reserved until activation, withdrawal, answer revocation or resolution."));
+            foreach(var a in contact.Agreements){string system=a.Star is {} star?" in "+view.Stars.Single(s=>s.Chart.Id==star).Chart.Name:"";_body.AddChild(DevelopmentUi.Text($"{a.Kind}{system}: activated {a.ActivatedTurn}; earliest notice {a.FirstTerminationTurn}; "+(a.EndTurn is {} end?$"ends {end}.":"no termination notice.")+ $" Warmup remaining: {a.WarmupRemaining}."));
+                if(a.Kind==AgreementKind.Trade&&a.OwnHub is {} hub)
+                {
+                    var colony=view.Colonies.FirstOrDefault(c=>c.Id==hub);string location=colony is null?"recorded location":view.Stars.Single(s=>s.Chart.Id==colony.StarId).Chart.Name;
+                    _body.AddChild(DevelopmentUi.Text("Your trade hub: "+HubName(hub)+" at "+location+". Setup paid: "+Format.Points(content.Diplomacy!.SetupCost)+" production. Income: +"+Format.Points(content.Diplomacy.TradeOutput)+" production per full eligible turn. "+FormattableString.Invariant($"First payout resolves at turn {(long)a.ActivatedTurn+content.Diplomacy.Warmup+1}. No refund or hub switching.")));
+                }
+            }
             void Order(DiplomacyAction action)=>_offer.Open(content,view,contact.Identity.OtherEmpireId,action);
             if(contact.Pending is {} pending)
             {
@@ -45,3 +56,4 @@ public partial class DiplomacyDialog:AcceptDialog
         PopupCenteredClamped(new(700,540));
     }
 }
+

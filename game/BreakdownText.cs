@@ -46,6 +46,8 @@ public static class BreakdownText
             BreakdownKinds.Colony => colonyName?.Invoke(line.SourceId) ?? line.SourceId,
             BreakdownKinds.Earned => "Earned this turn",
             BreakdownKinds.CostPaid => $"Completes {Name(line.SourceId, content)}",
+            "diplomacy_trade" => "Trade income",
+            "diplomacy_setup_paid" => "Trade setup payment",
             _ => line.Kind,
         };
     }

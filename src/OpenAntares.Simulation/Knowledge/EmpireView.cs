@@ -27,6 +27,8 @@ public sealed record OwnedColonyView(ColonyId Id, PlanetId PlanetId, StarId Star
     public long ReservedProduction {get;init;}
     [System.Text.Json.Serialization.JsonIgnore]
     public long SpendableProduction=>checked(ProductionReserve-ReservedProduction);
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ReserveOutcome? ProductionIfSetupReleased {get;init;}
     public CrisisCaseView? Crisis { get; init; }
     public int Turn { get; init; }
     public ColonyDevelopmentView? Development { get; init; }

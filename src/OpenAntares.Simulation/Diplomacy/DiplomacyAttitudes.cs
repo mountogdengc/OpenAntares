@@ -44,7 +44,7 @@ public static partial class DiplomacyResolver
                 {
                     p.Parties.Single(x=>x.Owner!=issuer.Owner).Attitude.LastCounterpartNoticeTurn=next;changed=true;
                     foreach(var viewer in p.Parties)
-                    {var e=Event(viewer.Owner,"notice","Termination notice resolved; agreement ends at turn "+a.EndTurn+".");Record(p,e);events.Add(e);}
+                    {var e=Event(viewer.Owner,"notice","Termination notice resolved; agreement ends at turn "+a.EndTurn?.ToString(System.Globalization.CultureInfo.InvariantCulture)+".");Record(p,e);events.Add(e);}
                 }
                 if(a.EndTurn is {} end&&end<=next)
                 {
@@ -58,6 +58,6 @@ public static partial class DiplomacyResolver
         DiplomacyReconciliation.AfterCommand(content,candidate);
         return events.ToImmutable();
     }
-    private static void Record(DiplomacyPairState p,DiplomacyEvent e)
+    internal static void Record(DiplomacyPairState p,DiplomacyEvent e)
     {string prefix=e.Kind.StartsWith("trade_",StringComparison.Ordinal)?"trade_":"settlement_";p.LastResults.RemoveAll(x=>x.Viewer==e.Viewer&&x.Kind.StartsWith(prefix,StringComparison.Ordinal));p.LastResults.Add(e);}
 }

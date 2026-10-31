@@ -1,13 +1,15 @@
 using Godot;
 using OpenAntares.Simulation.Diplomacy;
+using OpenAntares.Simulation.Content;
 namespace OpenAntares.Game.Components;
 public partial class DiplomacyContactPanel:VBoxContainer
 {
-    public void ShowContact(ContactDiplomacyView contact)
+    public void ShowContact(ContentSet content,ContactDiplomacyView contact)
     {
         DevelopmentUi.Clear(this);
         AddChild(DevelopmentUi.Text(contact.Identity.CultureName+" — "+contact.Identity.SpeciesName,"HeaderLabel"));
-        AddChild(DevelopmentUi.Text("A diplomatic channel is open. Identity is shared; remote locations and private resources remain undisclosed."));
+        AddChild(DevelopmentUi.Text(content.Species[contact.Identity.SpeciesId].Description));
+        AddChild(DevelopmentUi.Text("Civilizations currently compete peacefully for settlement. A diplomatic channel is open. Identity is shared; remote locations and private resources remain undisclosed."));
         AddChild(DevelopmentUi.Text(Reason("Your attitude",contact.OwnAttitude)));
         AddChild(DevelopmentUi.Text(Reason("Their attitude",contact.OtherAttitude)));
     }

@@ -96,6 +96,7 @@ public static class RivalPlanningQueries
                     HabitatMode=c.HabitatMode,CompletedBuildingIds=c.CompletedBuildingIds.ToList() }).ToList()
             };
             Crises.CrisisForecastFrame.Apply(frame,view);
+            Diplomacy.DiplomacyForecastFrame.Apply(frame,view);
             return frame;
         }
     }

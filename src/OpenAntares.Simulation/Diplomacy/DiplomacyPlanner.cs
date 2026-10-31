@@ -26,7 +26,7 @@ public static class DiplomacyPlanner
                 }
                 continue;
             }
-            if(view.Turn<c.NextAiOfferTurn)continue;
+            if(view.Turn<c.NextAiOfferTurn||(long)view.Turn+1+d.OfferLifetime>int.MaxValue)continue;
             if(!c.Agreements.Any(a=>a.Kind==AgreementKind.Trade)&&c.OwnAttitude.Score>=d.TradeThreshold&&Hub() is {} tradeHub)
             {used.Add(tradeHub);Emit(new DiplomacyAction.OfferTrade(tradeHub));continue;}
             if(c.Agreements.Any(a=>a.Kind==AgreementKind.Settlement)||c.OwnAttitude.Score<d.AccordThreshold)continue;

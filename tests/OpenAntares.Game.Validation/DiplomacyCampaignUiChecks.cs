@@ -42,6 +42,11 @@ public partial class DiplomacyGraphicalValidation
                 if(step.Stage is {} stage)
                 {
                     var uninterrupted=new GameSession(session.Content,session.State.Clone());SaveGame.WriteFile(Path.Combine(folder,stage+".json"),session.Content,session.State);screen=await SaveReload(main,screen,folder,species+"-"+stage);replays.Add((stage,uninterrupted,session.State.Turn+3));
+                    if(stage=="warmup")
+                    {
+                        await Click(screen,"OpenDiplomacy");var dialog=Descendants<DiplomacyDialog>(screen).Single();var text=string.Join(" ",Descendants<Label>(dialog).Select(l=>l.Text));var ownView=Live(screen).View(Live(screen).State.Empires[0].Id);var active=ownView.Diplomacy!.Contacts.Single().Agreements.Single(a=>a.Kind==AgreementKind.Trade);ReviewCheck(text.Contains("Your trade hub: "+ownView.Research.ColonyNames[active.OwnHub!.Value.ToString()]),"Active trade identifies own hub");ReviewCheck(text.Contains("First payout resolves at turn"),"Active trade has first payout date");dialog.Hide();
+                        var quantity=OpenAntares.Simulation.Economy.Quantity.From(new OpenAntares.Simulation.Economy.BreakdownLine("diplomacy_trade","trade_agreement",null,100));ReviewCheck(!OpenAntares.Game.BreakdownText.Describe(quantity,Live(screen).Content,"Production").Contains("diplomacy_trade"),"Trade income has a human label");
+                    }
                     if(stage=="blocked-founder")
                     {
                         var founder=((SetFoundingOrderCommand)step.Command).Vessel;var picker=Named<OptionButton>(screen,"VesselPicker");int i=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==founder.Value);picker.Select(i);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)i);await Frames(this);Check(Descendants<Label>(screen).Any(l=>l.Text.Contains("settlement accord blocks further founding")),"Actual founder Attention preserves blocked cargo");await Click(screen,"FoundingDiplomacy");Check(Descendants<DiplomacyDialog>(screen).Single().Visible,"Founding Attention opens the governing accord");Descendants<DiplomacyDialog>(screen).Single().Hide();

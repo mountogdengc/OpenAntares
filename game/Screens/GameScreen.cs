@@ -154,7 +154,7 @@ public partial class GameScreen : VBoxContainer
         AddChild(_diplomacy);_diplomacy.CommandIssued+=Execute;
         if(Rules.HasDiplomacy(View.RulesVersion)){var entry=new Button{Name="OpenDiplomacy",Text="Diplomacy"};entry.Pressed+=()=>_diplomacy.ShowEmpire(_session.Content,View);AddChild(entry);}
         _contacts.DiplomacyRequested+=id=>_diplomacy.ShowEmpire(_session.Content,View,id);
-        _report.DiplomacyRequested+=()=>{_report.Hide();_diplomacy.ShowEmpire(_session.Content,View);};
+        _report.DiplomacyRequested+=id=>{_report.Hide();_diplomacy.ShowEmpire(_session.Content,View,id);};
         AddChild(_report);
         _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingCrisisInterrupt)Callable.From(OpenPendingCommandInterrupt).CallDeferred();};
         _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingScoutInterrupt)Callable.From(OpenPendingScoutInterrupt).CallDeferred();};
