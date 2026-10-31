@@ -13,6 +13,7 @@ public static partial class ConflictRelations
     {
         if(context.RelationsPrepared||context.FromTurn!=snapshot.Turn||candidate.Turn!=snapshot.Turn)throw new InvalidOperationException("Conflict relation phase already applied or changed.");
         context.RelationsPrepared=true;if(!Rules.HasConflict(snapshot.RulesVersion))return;
+        ConflictPeace.Prepare(content,snapshot,candidate,context);
         var busy=candidate.Conflict!.Pairs.Where(p=>p.Relation==RelationKind.War&&!context.AcceptedPeace.Contains(p.Pair)).SelectMany(p=>new[]{p.Pair.Low,p.Pair.High}).ToHashSet();
         var wars=ImmutableArray.CreateBuilder<ConflictWarDecision>();var failed=ImmutableArray.CreateBuilder<ConflictDeclarationFailure>();
         foreach(var pair in candidate.Conflict.Pairs.OrderBy(p=>p.Pair))
@@ -24,16 +25,21 @@ public static partial class ConflictRelations
             wars.Add(new(pair.Pair,declarers));busy.Add(pair.Pair.Low);busy.Add(pair.Pair.High);
         }
         context.NewWars=wars.ToImmutable();context.RejectedDeclarations=failed.ToImmutable();
+        ConflictTreatyEffects.Prepare(content,snapshot,candidate,context);
     }
     public static void Finalize(ContentSet content,GameState snapshot,GameState candidate,ConflictResolutionContext context)
     {
         if(!context.RelationsPrepared||context.RelationsFinalized||candidate.Turn!=(long)context.FromTurn+1)throw new InvalidOperationException("Conflict publication phase already applied or changed.");
         context.RelationsFinalized=true;if(!Rules.HasConflict(snapshot.RulesVersion))return;
+        ConflictAttitudes.Age(content,snapshot,candidate);
+        ConflictPeace.Finalize(content,candidate,context);
         foreach(var war in context.NewWars)
         {
             var pair=candidate.Conflict!.Pairs.Single(p=>p.Pair==war.Pair);pair.Relation=RelationKind.War;pair.WarTurn=candidate.Turn;pair.Declarers=war.Declarers.ToList();pair.Revision=checked(pair.Revision+1);
+            ConflictAttitudes.Declared(candidate,pair,war.Declarers);
             foreach(var viewer in new[]{pair.Pair.Low,pair.Pair.High})RecordEvent(candidate,viewer,pair.Pair.Other(viewer),"war_declared","War is now effective. Armed vessels may be attacked; civilian vessels and colonies remain protected.",attention:true);
         }
+        ConflictTreatyEffects.Finalize(content,candidate,context);
         foreach(var failed in context.RejectedDeclarations)RecordEvent(candidate,failed.Owner,failed.Other,"declaration_unavailable","The declaration could not take effect under the current conflict limit.",attention:true);
         foreach(var pair in candidate.Conflict!.Pairs)
         {

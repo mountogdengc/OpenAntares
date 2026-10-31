@@ -14,6 +14,7 @@ public static class DiplomacyCommandProcessor
         if(!Rules.HasDiplomacy(state.RulesVersion)||content.Diplomacy is not {} d||state.Diplomacy is null||command.Action is null||command.ExpectedTurn!=state.Turn||command.Issuer==command.Other)return Reject();
         var key=DiplomacyPair.For(command.Issuer,command.Other);var original=state.Diplomacy.Pairs.SingleOrDefault(p=>p.Pair==key);
         if(original is null||state.FindEmpire(command.Issuer) is not {} issuer||!issuer.Contacts.Any(c=>c.OtherEmpireId==command.Other))return Reject();
+        if(state.Conflict?.Pairs.Any(p=>p.Pair==key&&p.Relation==Conflict.RelationKind.War)==true)return Reject("diplomacy_at_war");
         var own=original.Parties.Single(p=>p.Owner==command.Issuer);
         if(command.PublicRevision!=original.PublicRevision||command.PrivateRevision!=DiplomacyTokens.PrivateRevision(content,state,command.Issuer,command.Other))return Reject("diplomacy_stale");
         try

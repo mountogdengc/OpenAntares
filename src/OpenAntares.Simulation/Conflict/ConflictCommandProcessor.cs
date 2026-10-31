@@ -17,7 +17,7 @@ public static class ConflictCommandProcessor
             var view=EmpireViewProjector.Project(content,state,command.Issuer);var preview=ConflictQueries.Preview(content,view,command.Action);
             if(!StringComparer.Ordinal.Equals(command.Token,preview.Token))return Reject("conflict_stale");
             if(!preview.Allowed)return Reject();
-            EmpireId other=command.Action switch{ConflictAction.DeclareWar a=>a.Other,ConflictAction.RevokeDeclaration a=>a.Other,_=>default};
+            EmpireId other=command.Action switch{ConflictAction.DeclareWar a=>a.Other,ConflictAction.RevokeDeclaration a=>a.Other,_=>ConflictPeace.Other(command.Action)??default};
             var original=state.Conflict.Pairs.SingleOrDefault(p=>p.Pair==DiplomacyPair.For(command.Issuer,other));if(original is null)return Reject();
             bool queued=original.Declarations.Any(i=>i.Owner==command.Issuer);
             if(command.Action is ConflictAction.DeclareWar&&queued||command.Action is ConflictAction.RevokeDeclaration&&!queued)return CommandOutcome.NoChange(state);
@@ -28,7 +28,7 @@ public static class ConflictCommandProcessor
                     pair.Declarations.Add(new(command.Issuer,state.Turn));pair.Declarations.Sort((a,b)=>a.Owner.CompareTo(b.Owner));break;
                 case ConflictAction.RevokeDeclaration:
                     pair.Declarations.RemoveAll(i=>i.Owner==command.Issuer);break;
-                default:return Reject();
+                default:if(ConflictPeace.Other(command.Action) is null)return Reject();if(!ConflictPeace.Edit(content,candidate,pair,command.Issuer,command.Action))return CommandOutcome.NoChange(state);break;
             }
             pair.Parties.Single(p=>p.Owner==command.Issuer).PrivateRevision=checked(pair.Parties.Single(p=>p.Owner==command.Issuer).PrivateRevision+1);
             var owner=candidate.Conflict.Owners.Single(o=>o.Owner==command.Issuer);owner.Revision=checked(owner.Revision+1);candidate.FindEmpire(command.Issuer)!.Ready=false;

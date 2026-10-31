@@ -43,6 +43,8 @@ public static class ConflictStateValidator
             if(p.Declarations.Count>2||p.Declarations.Any(x=>x is null||!key.Contains(x.Owner)||x.Turn!=state.Turn)||!Ordered(p.Declarations.Select(x=>(long)x.Owner.Value)))Error("Invalid queued declaration.");
             if(p.Declarations.Count>0&&p.Relation!=RelationKind.Peace)Error("Cannot declare during war.");
             if(p.PeaceIntents.Count>2||p.PeaceIntents.Any(x=>x is null||!key.Contains(x.Owner)||x.Turn!=state.Turn)||!Ordered(p.PeaceIntents.Select(x=>(long)x.Owner.Value)))Error("Invalid private peace intent.");
+            if(p.PeaceIntents.Count>0&&p.PendingPeace is not null)Error("Published and private peace offers cannot coexist.");
+            if(p.Relation==RelationKind.War&&state.Diplomacy?.Pairs?.Any(x=>x is not null&&x.Pair==key&&(x.Pending is not null||x.Agreements?.Count>0||x.Parties?.Any(a=>a?.Attitude?.Streak!=0)==true))==true)Error("War cannot retain ordinary agreements or cooperation.");
             if((p.PeaceIntents.Count>0||p.PendingPeace is not null)&&p.Relation!=RelationKind.War)Error("Peace offers require war.");
             if(p.PendingPeace is {} offer&&(offer.Id.Value<1||offer.Id.Value>=p.NextPeaceOfferId||!key.Contains(offer.Proposer)||offer.CreatedTurn<0||offer.CreatedTurn>state.Turn||offer.ExpiryTurn!=(long)offer.CreatedTurn+d.OfferLifetime||offer.ExpiryTurn<=state.Turn))Error("Invalid peace offer identity/dates.");
         }

@@ -13,6 +13,7 @@ public static class DiplomacyPlanner
         foreach(var c in diplomacy.Contacts.OrderBy(c=>c.Identity.OtherEmpireId))
         {
             var other=c.Identity.OtherEmpireId;
+            if(view.Conflict?.Relations.Any(r=>r.Other==other&&r.Relation==Conflict.RelationKind.War)==true)continue;
             ColonyId? Hub()=>diplomacy.Hubs.Where(h=>h.NewCommitment.Allowed&&!used.Contains(h.Id)).OrderBy(h=>h.Id).Select(h=>(ColonyId?)h.Id).FirstOrDefault();
             void Emit(DiplomacyAction action)=>emit(new(view.Viewer,view.Turn,other,c.PublicRevision,c.PrivateRevision,action));
             if(c.Pending is {} o)

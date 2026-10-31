@@ -12,7 +12,7 @@ public static partial class DiplomacyQueries
     public static DiplomacyPreview Preview(ContentSet content,EmpireView view,EmpireId other,DiplomacyAction action)
     {
         var c=view.Diplomacy?.Contacts.SingleOrDefault(c=>c.Identity.OtherEmpireId==other);var d=content.Diplomacy;
-        if(c is null||d is null)return new(false,"diplomacy_unavailable",0,0,"",null,ImmutableArray<string>.Empty,"",null,false);
+        if(c is null||d is null||view.Conflict?.Relations.Any(r=>r.Other==other&&r.Relation==Conflict.RelationKind.War)==true)return new(false,"diplomacy_unavailable",0,0,"",null,ImmutableArray<string>.Empty,"",null,false);
         var consequences=ImmutableArray.CreateBuilder<string>();HubEligibility? hub=null;bool trade=action is DiplomacyAction.OfferTrade||(action is DiplomacyAction.Answer or DiplomacyAction.RevokeAnswer or DiplomacyAction.Withdraw)&&c.Pending?.Kind==AgreementKind.Trade||action is DiplomacyAction.Terminate{Kind:AgreementKind.Trade};
         string terms="Minimum "+d.Minimum.ToString(CultureInfo.InvariantCulture)+" effective turns; "+d.Notice.ToString(CultureInfo.InvariantCulture)+" turns notice after the minimum.";
         StarId? named=action is DiplomacyAction.OfferSettlement settlement?settlement.Star:action is DiplomacyAction.Terminate{Kind:AgreementKind.Settlement}?c.Agreements.FirstOrDefault(a=>a.Kind==AgreementKind.Settlement)?.Star:!trade?c.Pending?.Star:null;
