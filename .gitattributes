@@ -20,3 +20,5 @@
 /tests/OpenAntares.Simulation.Tests/Fixtures/rules9-ship-design-action-baselines/** -text -whitespace
 
 /reports/ship-design-integration-20261030/** -text -whitespace
+
+/tests/OpenAntares.Simulation.Tests/Fixtures/rules10-diplomacy-baselines/** -text
