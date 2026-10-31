@@ -42,5 +42,20 @@ public static class ConflictQueries
         var history=owner.History.Select(h=>new ConflictHistoryView(h.Encounter,h.Other,h.Star,h.StartedTurn,h.EndedTurn,h.Outcome,h.LostMembers.ToImmutableArray(),h.Rounds.ToImmutableArray())).ToImmutableArray();
         return new(viewer,state.Turn,owner.Revision,relations,ships,military,encounters,blockades,owner.Events.ToImmutableArray(),owner.Notices.ToImmutableArray(),history){OwnAttacks=owner.Attacks.ToImmutableArray()};
     }
-    public static ConflictPreview Preview(ContentSet content,EmpireView view,ConflictAction action)=>new(false,"conflict_action_unavailable",ConflictTokens.For(content,view,action));
+    public static ConflictPreview Preview(ContentSet content,EmpireView view,ConflictAction action)
+    {
+        string token=ConflictTokens.For(content,view,action);bool allowed=false;long? effective=null;
+        if(Rules.HasConflict(view.RulesVersion)&&view.Conflict is {} own)
+        {
+            EmpireId? other=action switch{ConflictAction.DeclareWar a=>a.Other,ConflictAction.RevokeDeclaration a=>a.Other,_=>null};
+            var relation=own.Relations.SingleOrDefault(r=>r.Other==other);
+            if(relation is not null)
+            {
+                if(action is ConflictAction.DeclareWar&&view.Turn<int.MaxValue&&relation.Relation==RelationKind.Peace&&(relation.TruceEndTurn is null||relation.TruceEndTurn<=view.Turn)&&!own.Relations.Any(r=>r.Relation==RelationKind.War))
+                {allowed=true;effective=(long)view.Turn+1;}
+                else if(action is ConflictAction.RevokeDeclaration&&relation.Relation==RelationKind.Peace)allowed=true;
+            }
+        }
+        return new(allowed,allowed?null:"conflict_action_unavailable",token){EffectiveTurn=effective,Explanations=allowed&&action is ConflictAction.DeclareWar?ImmutableArray.Create("Declaration takes effect at the next publication; no attack or blockade is authorized this planning turn. Counterpart availability is rechecked at resolution."):ImmutableArray<string>.Empty};
+    }
 }

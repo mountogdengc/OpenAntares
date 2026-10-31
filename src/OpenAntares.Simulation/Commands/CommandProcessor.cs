@@ -25,6 +25,7 @@ public static partial class CommandProcessor
         catch(InvalidOperationException)when(Rules.HasFleets(state.RulesVersion))
         {return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The order could not be prepared from the current state.");}
     }
+    internal static CommandOutcome ExecuteConflictPreparation(ContentSet content,GameState state,Command command)=>state.FindEmpire(command.Issuer)?.Controller==ControllerKind.Ai?ExecuteTransaction(content,state,command,allowAllHumansReady:true):CommandOutcome.Reject(state,"conflict_unavailable","Conflict preparation requires its own AI issuer.");
     internal static CommandOutcome ExecuteRivalDiplomacy(ContentSet content,GameState state,Diplomacy.DiplomacyCommand command)=>ExecuteTransaction(content,state,command,allowAllHumansReady:true);
     internal static CommandOutcome ExecuteRivalFleetMove(ContentSet content,GameState state,SetMoveOrderCommand command)
     {
@@ -55,7 +56,7 @@ public static partial class CommandProcessor
         }
         // New commands may change an encounter's material consequences. Validate only
         // after the shared receipt reconciliation has removed the obsolete consent.
-        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand or Combat.CombatActionCommand or ShipDesigns.ShipDesignCommand or ShipDesigns.RefitCommand or Diplomacy.DiplomacyCommand)&&GameStateValidator.Validate(content,result.State,allowAllHumansReady).Count!=0)
+        if(result.Changed&&(command is Conflict.ConflictCommand or Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand or Combat.CombatActionCommand or ShipDesigns.ShipDesignCommand or ShipDesigns.RefitCommand or Diplomacy.DiplomacyCommand)&&GameStateValidator.Validate(content,result.State,allowAllHumansReady).Count!=0)
             return CommandOutcome.Reject(state,"fleet_invalid","The complete fleet or officer action could not be applied coherently.");
         return result;
     }
@@ -81,6 +82,7 @@ public static partial class CommandProcessor
             return CommandOutcome.Reject(state,Combat.CombatRejectionCodes.Unavailable,"Committed combat members require combat orders or completed withdrawal.");
         return command switch
         {
+            Conflict.ConflictCommand c => Conflict.ConflictCommandProcessor.Execute(content,state,c),
             Diplomacy.DiplomacyCommand c => Diplomacy.DiplomacyCommandProcessor.Execute(content,state,c),
             ShipDesigns.RefitCommand c => ShipDesigns.RefitCommandProcessor.Execute(content,state,c),
             ShipDesigns.ShipDesignCommand c => ShipDesigns.ShipDesignCommandProcessor.Execute(content,state,c),
