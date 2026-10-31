@@ -27,7 +27,7 @@ public static class Rules
     public static bool HasFleets(int version) => version is FleetVersion or CombatVersion or ShipDesignVersion or DiplomacyVersion;
     public static bool HasScouting(int version) => version is ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion or DiplomacyVersion;
     public static bool HasCrises(int version) => version is CrisisVersion or ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion or DiplomacyVersion;
-    public const int CurrentVersion = ShipDesignVersion;
+    public const int CurrentVersion = DiplomacyVersion;
     public static bool IsSupported(int version) => version is LegacyVersion or ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion or DiplomacyVersion;
     public static bool HasExpansion(int version) => version is ExpansionVersion or SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion or DiplomacyVersion;
     public static bool HasSpecies(int version) => version is SpeciesVersion or RivalVersion or DevelopmentVersion or CrisisVersion or ScoutVersion or FleetVersion or CombatVersion or ShipDesignVersion or DiplomacyVersion;

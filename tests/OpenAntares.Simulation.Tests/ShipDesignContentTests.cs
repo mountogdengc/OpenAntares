@@ -143,15 +143,15 @@ public sealed class ShipDesignContentTests
         var saved=JsonNode.Parse(SaveGame.Serialize(c,old.State))!;
         Assert.Null(saved["content"]!["ship_designs"]);
         Assert.DoesNotContain(saved["content"]!["technologies"]!.AsArray(),t=>t!["id"]!.GetValue<string>()==technology.Id);
-        Assert.Equal(10,Rules.CurrentVersion);
+        Assert.Equal(11,Rules.CurrentVersion);
     }
 
     [Fact]
-    public void ExplicitTenSupportsEveryExistingFeatureAsCurrentDefault()
+    public void ExplicitTenRetainsItsFeaturesAndCurrentElevenIncludesThem()
     {
         Assert.True(Rules.IsSupported(10));Assert.True(Rules.HasShipDesigns(10));Assert.False(Rules.HasShipDesigns(9));
         Assert.True(Rules.HasExpansion(10));Assert.True(Rules.HasSpecies(10));Assert.True(Rules.HasRivals(10));Assert.True(Rules.HasDevelopment(10));Assert.True(Rules.HasCrises(10));Assert.True(Rules.HasScouting(10));Assert.True(Rules.HasFleets(10));Assert.True(Rules.HasCombat(10));
-        Assert.Equal(10,Rules.CurrentVersion);
+        Assert.Equal(11,Rules.CurrentVersion);
     }
 
     private static ContentSet Core(){var r=ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory());Assert.True(r.Succeeded,string.Join("; ",r.Errors));return r.Content!;}
@@ -181,3 +181,4 @@ public sealed class ShipDesignContentTests
     }}
     """;
 }
+

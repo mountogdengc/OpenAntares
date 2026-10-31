@@ -32,6 +32,7 @@ public static class GalaxyGenerator
 
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
+        if(Rules.HasDiplomacy(settings.RulesVersion)&&content.Diplomacy is null)return Fail("Diplomacy campaigns require explicit diplomacy content, including Solo.");
         if(Rules.HasShipDesigns(settings.RulesVersion)&&content.ShipDesigns is null)return Fail("Ship-design campaigns require explicit content, including Off.");
         if(Rules.HasCombat(settings.RulesVersion))
         {
@@ -173,6 +174,7 @@ public static class GalaxyGenerator
         if (Rules.HasFleets(state.RulesVersion)) Fleets.FleetInitializer.Initialize(content, state);
         ShipDesigns.ShipDesignInitializer.Initialize(content,state);
         if(Rules.HasCombat(state.RulesVersion)&&Combat.CombatInitializer.Initialize(content,state,settings.SentriesEnabled!.Value) is {} combatError)return Fail(combatError);
+        if(Rules.HasDiplomacy(state.RulesVersion))Diplomacy.DiplomacyInitializer.Initialize(content,state);
         IReadOnlyList<string> errors = GameStateValidator.Validate(content, state);
         return errors.Count > 0
             ? Fail("Generated an invalid game: " + string.Join("; ", errors))

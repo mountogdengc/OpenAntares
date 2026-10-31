@@ -125,3 +125,7 @@ Run with `-Scenario Combat`. The ninth opt-in scenario loads explicit rules9 sav
 The runner verifies all nine scenario types plus both helpers in its actual opt-in metadata negative control, then rebuilds and verifies their absence in the normal assembly even on failure. Native geometry/focus checks precede separately labelled embedded viewport PNGs; embedded screenshots inherit the root canvas scaling and are not native-window pixel captures. Checks dispatch signals, not physical input. They establish neither player comprehension nor Windows input/accessibility comfort.
 
 After M10 activation, Combat loads its12 original frozen genuine rules9 turn0 sources through ordinary Main Load and replays the original paid campaign policy. Current10 setup is checked separately; the retained sources and their expected old outcomes are not regenerated or upgraded. Historical scenario descriptions above record their original milestone scope. The current runner inventories all10 scenario classes and both helpers.
+
+## Diplomacy scenario
+
+`-Scenario Diplomacy` runs the eleventh opt-in native scenario. Current new campaigns use rules11/writer12; historical scenarios select their original rules explicitly. Native control signals, focus/scroll geometry, and labelled supplements do not establish physical input, readability, accessibility, balance, delivery, or release acceptance. The runner tests the actual opt-in assembly as a negative control, then always rebuilds and verifies all eleven scenarios and the two existing helpers are absent.

@@ -22,7 +22,7 @@ public sealed class ScoutingSaveTests
     }
     [Fact] public void CurrentWriterRoundTripsEveryExplicitScoutShape()
     {
-        Assert.Equal(12,SaveGame.SchemaVersion);Assert.Equal(10,Rules.CurrentVersion);
+        Assert.Equal(12,SaveGame.SchemaVersion);Assert.Equal(11,Rules.CurrentVersion);
         foreach(var g in Cases()){string before=SaveGame.Serialize(g.Content,g.State);var r=SaveGame.Deserialize(before);Assert.True(r.Succeeded,string.Join("; ",r.Errors));Assert.Equal(before,SaveGame.Serialize(r.Game!.Content,r.Game.State));}
     }
     [Fact] public void ExactTwentyNinePairsAcceptAndAllOtherNearbyPairsReject()
@@ -95,3 +95,4 @@ public sealed class ScoutingSaveTests
     private static JsonNode At(JsonNode n,string[] path){foreach(var part in path)n=n is JsonArray a?a[int.Parse(part)]!:n[part]!;return n;}
     private static void Collect(JsonNode? node,string[] path,List<string[]> fields){if(node is JsonObject o)foreach(var p in o){var child=path.Append(p.Key).ToArray();fields.Add(child);Collect(p.Value,child,fields);}else if(node is JsonArray a)for(int i=0;i<a.Count;i++)Collect(a[i],path.Append(i.ToString()).ToArray(),fields);}
 }
+

@@ -15,7 +15,7 @@ public sealed class ColonyContentTests
         Assert.Equal(SupportTargetMode.CappedGrowth,c.GovernorTemplates["growth"].SupportTarget);
         Assert.Equal(3200,c.Buildings["production_complex"].Cost);Assert.Equal(300,c.Buildings["production_complex"].Effects.Single().Amount);
         Assert.Equal(2400,c.Technologies["adaptive_habitats"].Cost);Assert.Equal(2,c.Buildings["habitat_network"].Effects.Single(e=>e.Kind=="capacity").Amount);
-        Assert.Equal(10,Rules.CurrentVersion);
+        Assert.Equal(11,Rules.CurrentVersion);
     }
     [Theory][InlineData("production_weight","101")][InlineData("production_weight","-1")][InlineData("name","\"\"")][InlineData("support_target","\"future\"")][InlineData("foundation_ids","[\"missing\"]")][InlineData("development_ids","[\"fabrication_hall\"]")]
     public void InvalidDefaultsHaveLocatedErrors(string field,string json) {
@@ -60,3 +60,4 @@ public sealed class ColonyContentTests
         var root=JsonNode.Parse(ColonyFixtures.Json())!;root["governor_templates"]![0]!["name"]="   ";var result=ContentLoader.Load(new[]{new ContentSource("bad-name.json",root.ToJsonString())},requireDevelopment:true);Assert.False(result.Succeeded);Assert.Contains(result.Errors,e=>e.File=="bad-name.json"&&e.EntryId=="balanced"&&e.Field=="name");
     }
 }
+

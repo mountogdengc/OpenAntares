@@ -51,7 +51,7 @@ public sealed class ScoutingIntegrationTests
     private static ContentSet Core()=>ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory()).Content!;
     [Fact] public void CurrentCoreStartsExplicitStandardWithSeparateObserveAndSurvivalDefaults()
     {
-        Assert.Equal(10,Rules.CurrentVersion);var c=Core();Assert.NotNull(c.SpaceAmeba);Assert.Equal(200,c.SpaceAmeba.PursuitSpeed);Assert.Equal(600,c.SpaceAmeba.ResearchReward);
+        Assert.Equal(11,Rules.CurrentVersion);var c=Core();Assert.NotNull(c.SpaceAmeba);Assert.Equal(200,c.SpaceAmeba.PursuitSpeed);Assert.Equal(600,c.SpaceAmeba.ResearchReward);
         var result=GalaxyGenerator.CreateNewGame(c,new("small",42,8,SpeciesId:"harl",RivalCount:1,RivalSpeciesId:"peldra",AmebasEnabled:true));Assert.True(result.Succeeded,result.Error);var s=result.State!;Assert.True(s.Scouting!.Enabled);Assert.Equal(1,s.Scouting.SelectionCount);
         Assert.All(s.Vessels,v=>{Assert.Equal(ScoutPosture.Observe,v.Scout!.Posture);Assert.True(v.Scout.WithdrawFromAmeba);});var session=new GameSession(c,s);string before=SaveGame.Serialize(c,s);for(int n=0;n<3;n++){var view=session.View(s.Empires[0].Id);Assert.Empty(view.Scouting!.Habitats);Assert.Empty(view.Scouting.Attention);session.Forecast();}Assert.Equal(before,SaveGame.Serialize(c,s));
         foreach(bool enabled in new[]{false,true})Assert.False(GalaxyGenerator.CreateNewGame(c with{SpaceAmeba=null},new("small",42,7,"harl",AmebasEnabled:enabled)).Succeeded);
@@ -141,3 +141,4 @@ public sealed class ScoutingIntegrationTests
         string root=new DirectoryInfo(ContentLoaderTests.CoreContentDirectory()).Parent!.Parent!.FullName;string folder=Path.Combine(root,"reports","scout-execution");Directory.CreateDirectory(folder);string name="task14-"+kind+"-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+".json";File.WriteAllText(Path.Combine(folder,name),JsonSerializer.Serialize(data,new JsonSerializerOptions{WriteIndented=true}));File.WriteAllText(Path.Combine(folder,"task14-"+kind+"-latest.json"),JsonSerializer.Serialize(new{artifact=name,sha256=Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(folder,name)))).ToLowerInvariant()}));
     }
 }
+
