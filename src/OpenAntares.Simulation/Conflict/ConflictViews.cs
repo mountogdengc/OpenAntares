@@ -13,6 +13,7 @@ public sealed record ConflictView(EmpireId Viewer,int Turn,long OwnRevision,Immu
 public sealed record ConflictPreview(bool Allowed,string? RejectionCode,string Token)
 {
     public ConflictVolleyView? Volley {get;init;}
+    public ConflictWithdrawalPreview? Withdrawal {get;init;}
     public long? EffectiveTurn {get;init;}
     public long? TruceEndTurn {get;init;}
     public ImmutableArray<string> Explanations {get;init;}=ImmutableArray<string>.Empty;

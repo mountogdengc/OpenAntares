@@ -21,6 +21,8 @@ public sealed class ConflictResolutionContext
     internal bool RelationsFinalized {get;set;}
     internal bool MatchingResolved {get;set;}
     internal bool ExchangesResolved {get;set;}
+    internal bool WithdrawalsResolved {get;set;}
+    public ImmutableArray<ConflictDeparture> Departures {get;internal set;}=ImmutableArray<ConflictDeparture>.Empty;
     internal HashSet<VesselId> VolleyParticipants {get;}=new();
     internal List<ConflictDestruction> DestructionFacts {get;}=new();
     internal List<ConflictAppliedRound> RoundFacts {get;}=new();

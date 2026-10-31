@@ -26,7 +26,8 @@ public sealed record ConflictBattleFrame(ConflictEncounterId Encounter,Diplomacy
         StarId? Departure(ConflictSideState side)
         {
             var fleet=state.FindEmpire(side.Owner)!.Fleets!.Fleets.SingleOrDefault(f=>f.Id==side.Fleet);
-            return side.Members.Select(state.FindVessel).Where(v=>v?.PendingMove is not null).Select(v=>v!.PendingMove).FirstOrDefault()??(fleet?.Order.Kind is FleetOrderKind.Return or FleetOrderKind.Assemble?fleet.Order.Destination:null);
+            var destination=side.Members.Select(state.FindVessel).Where(v=>v?.PendingMove is not null).Select(v=>v!.PendingMove).FirstOrDefault()??(fleet?.Order.Kind is FleetOrderKind.Return or FleetOrderKind.Assemble?fleet.Order.Destination:null);
+            return destination==encounter.Star?null:destination;
         }
         return new(encounter.Id,encounter.Pair,encounter.Star,state.Turn,encounter.Round,encounter.Phase,Ships(encounter.LowSide),Ships(encounter.HighSide),encounter.LowSide.Orders,encounter.HighSide.Orders){Definition=content.Combat!,LowWithdraw=encounter.LowSide.WithdrawQueued,HighWithdraw=encounter.HighSide.WithdrawQueued,LowDepartureStar=Departure(encounter.LowSide),HighDepartureStar=Departure(encounter.HighSide)};
     }
