@@ -43,7 +43,7 @@ public static partial class DiplomacyResolver
                     party.PrivateRevision=checked(party.PrivateRevision+1);
                     string prefix=offer.Kind==AgreementKind.Trade?"trade_":"settlement_";
                     var hub=party.Owner==offer.Proposer?offer.ProposerHub:offer.Answer?.Hub;
-                    var e=new DiplomacyEvent(party.Owner,pair.Pair.Other(party.Owner),next,prefix+result,offer.Star,hub?.Hub,activated?"Agreement activates next planning turn.":result=="failed"?"Agreement could not activate.":"Offer "+result+"."){Paid=activated&&offer.Kind==AgreementKind.Trade?d.SetupCost:0};
+                    var e=new DiplomacyEvent(party.Owner,pair.Pair.Other(party.Owner),next,prefix+result,offer.Star,hub?.Hub,activated?"Agreement activates next planning turn.":result=="failed"?"Agreement could not activate.":offer.Answer?.PolicyReason??("Offer "+result+".")){Paid=activated&&offer.Kind==AgreementKind.Trade?d.SetupCost:0};
                     pair.LastResults.RemoveAll(x=>x.Viewer==party.Owner&&x.Kind.StartsWith(prefix,StringComparison.Ordinal));pair.LastResults.Add(e);events.Add(e);
                 }
             }

@@ -24,6 +24,7 @@ public static partial class CommandProcessor
         catch(InvalidOperationException)when(Rules.HasFleets(state.RulesVersion))
         {return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The order could not be prepared from the current state.");}
     }
+    internal static CommandOutcome ExecuteRivalDiplomacy(ContentSet content,GameState state,Diplomacy.DiplomacyCommand command)=>ExecuteTransaction(content,state,command,allowAllHumansReady:true);
     internal static CommandOutcome ExecuteRivalFleetMove(ContentSet content,GameState state,SetMoveOrderCommand command)
     {
         var issuer=state.FindEmpire(command.Issuer);var vessel=state.FindVessel(command.Vessel);
@@ -53,7 +54,7 @@ public static partial class CommandProcessor
         }
         // New commands may change an encounter's material consequences. Validate only
         // after the shared receipt reconciliation has removed the obsolete consent.
-        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand or Combat.CombatActionCommand or ShipDesigns.ShipDesignCommand or ShipDesigns.RefitCommand)&&GameStateValidator.Validate(content,result.State,allowAllHumansReady).Count!=0)
+        if(result.Changed&&(command is Fleets.FleetCommand or Fleets.OfficerCommand or Fleets.AssemblyCommand or Combat.CombatActionCommand or ShipDesigns.ShipDesignCommand or ShipDesigns.RefitCommand or Diplomacy.DiplomacyCommand)&&GameStateValidator.Validate(content,result.State,allowAllHumansReady).Count!=0)
             return CommandOutcome.Reject(state,"fleet_invalid","The complete fleet or officer action could not be applied coherently.");
         return result;
     }

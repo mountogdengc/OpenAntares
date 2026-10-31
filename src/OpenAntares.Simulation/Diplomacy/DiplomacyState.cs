@@ -20,7 +20,7 @@ public sealed class DiplomaticParty
     public EmpireId Owner {get;set;} public long PrivateRevision {get;set;}=1;
     public AttitudeState Attitude {get;set;}=new(); public int NextAiOfferTurn {get;set;}
 }
-public sealed class DiplomacyAnswer {public bool Accept {get;set;} public HubCommitment? Hub {get;set;}}
+public sealed class DiplomacyAnswer {public string? PolicyReason {get;set;} public bool Accept {get;set;} public HubCommitment? Hub {get;set;}}
 public sealed class DiplomacyOffer
 {
     public OfferId Id {get;set;} public EmpireId Proposer {get;set;} public EmpireId Recipient {get;set;}

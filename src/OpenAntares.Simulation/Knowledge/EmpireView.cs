@@ -58,6 +58,8 @@ public sealed record EmpireView(int Turn, EmpireId Viewer, int RulesVersion, Gal
     [System.Text.Json.Serialization.JsonIgnore]
     public ImmutableArray<StarId> SettlementRestrictedSystems {get;init;}=ImmutableArray<StarId>.Empty;
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public Diplomacy.DiplomacyView? Diplomacy {get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public ShipDesigns.ShipDesignEmpireView? ShipDesigns {get;init;}
     public Combat.CombatEmpireView? Combat {get;init;}
     public Fleets.FleetEmpireView? Fleets { get; init; }

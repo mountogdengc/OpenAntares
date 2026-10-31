@@ -39,7 +39,10 @@ public static class DiplomacyCommandProcessor
                         if(pending.Kind==AgreementKind.Trade&&(answer.Hub is not {} hub||!HubAllowed(hub)))return Reject();
                         if(pending.Kind==AgreementKind.Settlement&&(answer.Hub is not null||pending.Star is not {} star||!CanObserveAccord(state,command.Issuer,command.Other,star)))return Reject();
                     }
-                    pending.Answer=new(){Accept=answer.Accept,Hub=answer.Accept&&pending.Kind==AgreementKind.Trade?new(answer.Hub!.Value,d.SetupCost):null};publicChange=false;break;
+                    pending.Answer=new(){Accept=answer.Accept,Hub=answer.Accept&&pending.Kind==AgreementKind.Trade?new(answer.Hub!.Value,d.SetupCost):null};
+                    if(issuer.Controller==ControllerKind.Ai)
+                        pending.Answer.PolicyReason=answer.Accept?(pending.Kind==AgreementKind.Trade?"A record of cooperation makes trade worthwhile.":"This protects our settlement."):pending.Kind==AgreementKind.Settlement&&pending.Star is {} offered&&!state.Colonies.Any(c=>c.EmpireId==issuer.Id&&state.FindPlanet(c.PlanetId)?.StarId==offered)?"We have no settlement to protect in that system.":"We are not ready for this agreement.";
+                    publicChange=false;break;
                 case DiplomacyAction.RevokeAnswer revoke:
                     if(p.Pending is not {} rev||rev.Id!=revoke.Id||rev.Recipient!=command.Issuer||rev.Withdraw)return Reject();
                     if(rev.Answer is null)return CommandOutcome.NoChange(state);rev.Answer=null;publicChange=false;break;
@@ -55,7 +58,7 @@ public static class DiplomacyCommandProcessor
             }
             party.PrivateRevision=checked(party.PrivateRevision+1);if(publicChange)p.PublicRevision=checked(p.PublicRevision+1);
             candidate.FindEmpire(command.Issuer)!.Ready=false;
-            if(GameStateValidator.Validate(content,candidate).Count!=0)return Reject("diplomacy_invalid");
+            if(GameStateValidator.Validate(content,candidate,allowAllHumansReady:issuer.Controller==ControllerKind.Ai).Count!=0)return Reject("diplomacy_invalid");
             return new(candidate,null,true,null);
         }
         catch(Exception e)when(e is OverflowException or InvalidOperationException or ArgumentException){return Reject("diplomacy_invalid");}
