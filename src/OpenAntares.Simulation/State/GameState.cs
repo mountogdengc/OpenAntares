@@ -13,6 +13,7 @@ namespace OpenAntares.Simulation.State;
 /// </summary>
 public sealed class GameState
 {
+    public Diplomacy.DiplomacyState? Diplomacy {get;set;}
     public Combat.CombatGameState? Combat {get;set;}
     public Scouting.ScoutGameState? Scouting { get; set; }
     public GameCrisisState? Crisis { get; set; }
@@ -55,6 +56,7 @@ public sealed class GameState
 
     public GameState Clone() => new()
     {
+        Diplomacy = Diplomacy?.Clone(),
         Combat = Combat?.Clone(),
         Scouting = Scouting?.Clone(),
         Crisis = Crisis?.Clone(),
