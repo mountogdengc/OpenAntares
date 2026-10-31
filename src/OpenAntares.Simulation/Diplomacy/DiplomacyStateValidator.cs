@@ -9,7 +9,7 @@ public static class DiplomacyStateValidator
     public static IReadOnlyList<string> Validate(ContentSet content,GameState state)
     {
         var errors=new List<string>();void Error(string message)=>errors.Add("Diplomacy: "+message);
-        if(state.RulesVersion!=11){if(state.Diplomacy is not null)Error("Old rules cannot contain diplomacy state.");return errors;}
+        if(!Rules.HasDiplomacy(state.RulesVersion)){if(state.Diplomacy is not null)Error("Old rules cannot contain diplomacy state.");return errors;}
         if(content.Diplomacy is not {} d||state.Diplomacy is not {} diplomacy){Error("Explicit content and state required.");return errors;}
         if(diplomacy.Pairs is null){Error("Pairs are required.");return errors;}
         if(diplomacy.BlockedFounders is null||diplomacy.BlockedFounders.Count>state.Vessels.Count)Error("Invalid blocked founder list.");

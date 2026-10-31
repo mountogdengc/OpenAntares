@@ -176,6 +176,7 @@ public static class GalaxyGenerator
         ShipDesigns.ShipDesignInitializer.Initialize(content,state);
         if(Rules.HasCombat(state.RulesVersion)&&Combat.CombatInitializer.Initialize(content,state,settings.SentriesEnabled!.Value) is {} combatError)return Fail(combatError);
         if(Rules.HasDiplomacy(state.RulesVersion))Diplomacy.DiplomacyInitializer.Initialize(content,state);
+        if(Rules.HasConflict(state.RulesVersion))Conflict.ConflictInitializer.Initialize(content,state);
         IReadOnlyList<string> errors = GameStateValidator.Validate(content, state);
         return errors.Count > 0
             ? Fail("Generated an invalid game: " + string.Join("; ", errors))

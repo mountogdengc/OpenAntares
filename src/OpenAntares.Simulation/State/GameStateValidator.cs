@@ -48,6 +48,7 @@ public static class GameStateValidator
         RivalStateValidator.Validate(content, state, errors);
         Development.DevelopmentStateValidator.Validate(content, state, errors);
         Crises.CrisisStateValidator.Validate(content,state,errors);
+        errors.AddRange(Conflict.ConflictStateValidator.Validate(content,state));
         errors.AddRange(Diplomacy.DiplomacyStateValidator.Validate(content,state));
         errors.AddRange(ShipDesigns.ShipDesignStateValidator.Validate(content,state));
         errors.AddRange(Combat.CombatStateValidator.Validate(content,state,!skipEffectiveScoutConsent));
