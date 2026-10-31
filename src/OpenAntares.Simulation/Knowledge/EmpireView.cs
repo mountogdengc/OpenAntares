@@ -55,6 +55,8 @@ public sealed record ForeignVesselView(VesselId Id, EmpireId EmpireId, string Ro
 public sealed record ContactView(EmpireId OtherEmpireId, string SpeciesId, string SpeciesName, string CultureName, int FirstObservedTurn);
 public sealed record EmpireView(int Turn, EmpireId Viewer, int RulesVersion, GalaxyMapView Galaxy, ImmutableArray<StarView> Stars, ImmutableArray<OwnedColonyView> Colonies, ImmutableArray<OwnedVesselView> Vessels, ImmutableArray<ForeignVesselView> ForeignVessels, OwnResearchView Research)
 {
+    [System.Text.Json.Serialization.JsonIgnore]
+    public ImmutableArray<StarId> SettlementRestrictedSystems {get;init;}=ImmutableArray<StarId>.Empty;
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public ShipDesigns.ShipDesignEmpireView? ShipDesigns {get;init;}
     public Combat.CombatEmpireView? Combat {get;init;}

@@ -44,5 +44,6 @@ public sealed class DiplomacyPairState
 public sealed class DiplomacyState
 {
     public List<DiplomacyPairState> Pairs {get;set;}=new();
+    public List<VesselId> BlockedFounders {get;set;}=new();
     public DiplomacyState Clone()=>JsonSerializer.Deserialize<DiplomacyState>(JsonSerializer.Serialize(this))!;
 }

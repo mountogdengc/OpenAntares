@@ -13,7 +13,7 @@ namespace OpenAntares.Simulation.Knowledge;
 public static class EmpireViewProjector
 {
     public static EmpireView Project(ContentSet content, GameState state, EmpireId viewer)
-        => ProjectBase(content,state,viewer) with{Scouting=Rules.HasScouting(state.RulesVersion)?Scouting.ScoutQueries.Project(content,state,viewer):null};
+        => ProjectBase(content,state,viewer) with{SettlementRestrictedSystems=Rules.HasDiplomacy(state.RulesVersion)?Diplomacy.DiplomacyFrame.Capture(content,state).Agreements.Where(a=>a.Kind==Diplomacy.AgreementKind.Settlement&&a.Pair.Contains(viewer)&&a.Star is not null&&(a.EndTurn is null||a.EndTurn>state.Turn)).Select(a=>a.Star!.Value).Distinct().OrderBy(x=>x).ToImmutableArray():ImmutableArray<StarId>.Empty,Scouting=Rules.HasScouting(state.RulesVersion)?Scouting.ScoutQueries.Project(content,state,viewer):null};
     internal static EmpireView ProjectBase(ContentSet content, GameState state, EmpireId viewer)
     {
         var e = state.FindEmpire(viewer) ?? throw new ArgumentException("Empire not found.", nameof(viewer));

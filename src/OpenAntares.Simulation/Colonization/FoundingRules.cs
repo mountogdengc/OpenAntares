@@ -32,6 +32,7 @@ public static class FoundingRules
         population=vessel.CarriedPopulation;
         if(Rules.HasSpecies(state.RulesVersion) && role.FoundsSealedHabitat) mode=HabitatModes.Sealed;
         capacity=SpeciesRules.BaseCapacity(content,state,issuer,mode);
+        if(Rules.HasDiplomacy(state.RulesVersion)&&Diplomacy.DiplomacyRules.BlocksFounding(Diplomacy.DiplomacyFrame.Capture(content,state),issuer,planet.StarId))return Reject("diplomacy_settlement_accord");
         if(vessel.StationaryStarId != planet.StarId) return Reject("wrong_system");
         if(Rules.HasScouting(state.RulesVersion)&&owner!.Scouting!.KnownHabitats.Any(h=>h.Star==planet.StarId))return Reject("ameba_habitat_guarded");
         if(Rules.HasCombat(state.RulesVersion)&&(owner!.Combat?.Observations.Any(o=>o.Star==planet.StarId&&!o.Cleared)==true||state.Combat?.Pockets.Any(p=>p.Star==planet.StarId&&!p.Cleared)==true))return Reject("sentry_pocket_guarded");

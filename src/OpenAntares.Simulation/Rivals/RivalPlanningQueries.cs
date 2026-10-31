@@ -49,6 +49,7 @@ public static class RivalPlanningQueries
 
         public FoundingPreview? PreviewSettlement(PlanetId target, string roleId)
         {
+            if(View.Stars.Any(s=>View.SettlementRestrictedSystems.Contains(s.Chart.Id)&&s.Planets is {} planets&&planets.Any(p=>p.Id==target)))return null;
             var known = _frame.Empires[0].Surveys.SelectMany(o => o.Planets).FirstOrDefault(p => p.PlanetId == target);
             if (known is null || known.OwnerId is not null || !Content.Vessels.TryGetValue(roleId, out var role) || !role.CanFoundColony
                 || !SpeciesRules.CanBuildVessel(Content, _frame, View.Viewer, roleId)) return null;

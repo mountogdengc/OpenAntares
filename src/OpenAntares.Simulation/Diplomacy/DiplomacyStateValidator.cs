@@ -12,6 +12,13 @@ public static class DiplomacyStateValidator
         if(state.RulesVersion!=11){if(state.Diplomacy is not null)Error("Old rules cannot contain diplomacy state.");return errors;}
         if(content.Diplomacy is not {} d||state.Diplomacy is not {} diplomacy){Error("Explicit content and state required.");return errors;}
         if(diplomacy.Pairs is null){Error("Pairs are required.");return errors;}
+        if(diplomacy.BlockedFounders is null||diplomacy.BlockedFounders.Count>state.Vessels.Count)Error("Invalid blocked founder list.");
+        else
+        {
+            int previousVessel=0;
+            foreach(var id in diplomacy.BlockedFounders)
+            {if(id.Value<=previousVessel||state.FindVessel(id) is not {PendingFounding:not null})Error("Blocked founder must be unique, ordered and retain its intent.");previousVessel=id.Value;}
+        }
         var seen=new HashSet<DiplomacyPair>();var earmarked=new HashSet<ColonyId>();DiplomacyPair? previous=null;
         foreach(var p in diplomacy.Pairs)
         {

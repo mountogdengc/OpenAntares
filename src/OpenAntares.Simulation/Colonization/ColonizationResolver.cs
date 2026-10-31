@@ -13,6 +13,13 @@ public static class ColonizationResolver
         {
             if(scouting?.ConsumedVessels.Contains(before.Id)==true)continue;
             var target = before.PendingFounding!.Value; var vessel = candidate.FindVessel(before.Id)??throw new System.InvalidOperationException("Unexpected missing founding vessel."); var planet = candidate.FindPlanet(target)!;
+            if(Rules.HasDiplomacy(snapshot.RulesVersion)&&Diplomacy.DiplomacyRules.BlocksFounding(Diplomacy.DiplomacyFrame.Capture(content,snapshot),before.EmpireId,planet.StarId))
+            {
+                if(!candidate.Diplomacy!.BlockedFounders.Contains(before.Id))
+                {candidate.Diplomacy.BlockedFounders.Add(before.Id);candidate.Diplomacy.BlockedFounders.Sort();events.Add(new("founding_paused",before.EmpireId,before.Id,planet.StarId,target,Reason:"diplomacy_settlement_accord"));}
+                continue;
+            }
+            candidate.Diplomacy?.BlockedFounders.Remove(before.Id);
             if(scouting is not null&&snapshot.Scouting?.Habitat?.Star==planet.StarId)throw new System.InvalidOperationException("Ameba habitat cannot be colonized.");
             if(context is not null&&(Crises.CrisisQueries.IsHeld(snapshot,before.Id)||context.ClosedPorts.Contains((before.EmpireId,planet.StarId))))continue;
             if (candidate.Colonies.Any(c => c.PlanetId == target))

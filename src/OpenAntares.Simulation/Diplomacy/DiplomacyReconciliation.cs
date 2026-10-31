@@ -7,6 +7,8 @@ public static class DiplomacyReconciliation
     public static void AfterCommand(ContentSet content,GameState candidate)
     {
         if(!Rules.HasDiplomacy(candidate.RulesVersion)||candidate.Diplomacy is null||content.Diplomacy is not {} d)return;
+        var frame=DiplomacyFrame.Capture(content,candidate);
+        candidate.Diplomacy.BlockedFounders.RemoveAll(id=>candidate.FindVessel(id) is not {} v||v.PendingFounding is not {} target||candidate.FindPlanet(target) is not {} planet||!DiplomacyRules.BlocksFounding(frame,v.EmpireId,planet.StarId));
         foreach(var p in candidate.Diplomacy.Pairs)
         {
             if(p.Pending is not {Kind:AgreementKind.Trade} o)continue;
