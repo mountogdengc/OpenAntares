@@ -17,7 +17,7 @@ public static class ConflictTokens
         var encounter=own?.Encounters.SingleOrDefault(e=>e.Id==encounterId);
         var target=action is ConflictAction.Attack attack?own?.Military.SingleOrDefault(m=>m.Vessel==attack.Target):null;
         VesselId? anchor=action is ConflictAction.ConfigureDefense defense?defense.Anchor:null;
-        FleetId? fleet=action switch{ConflictAction.Attack a=>a.Fleet,ConflictAction.Blockade a=>a.Fleet,ConflictAction.LiftBlockade a=>a.Fleet,_=>encounter?.OwnFleet??own?.Ships.SingleOrDefault(s=>s.Id==anchor)?.Fleet};
+        FleetId? fleet=action switch{ConflictAction.Attack a=>a.Fleet,ConflictAction.Blockade a=>a.Fleet,ConflictAction.LiftBlockade a=>a.Fleet,ConflictAction.CancelAttack a=>a.Fleet,_=>encounter?.OwnFleet??own?.Ships.SingleOrDefault(s=>s.Id==anchor)?.Fleet};
         EmpireId? other=action switch
         {
             ConflictAction.DeclareWar a=>a.Other,ConflictAction.RevokeDeclaration a=>a.Other,ConflictAction.ProposePeace a=>a.Other,

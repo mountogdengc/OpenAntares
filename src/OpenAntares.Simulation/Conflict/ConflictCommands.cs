@@ -13,6 +13,7 @@ public abstract record ConflictAction
     public sealed record RevokePeaceAnswer(EmpireId Other,PeaceOfferId Offer):ConflictAction;
     public sealed record ConfigureDefense(VesselId Anchor,ConflictOrders Orders):ConflictAction;
     public sealed record Attack(FleetId Fleet,VesselId Target,ConflictOrders Orders):ConflictAction;
+    public sealed record CancelAttack(FleetId Fleet):ConflictAction;
     public sealed record ChangeOrders(ConflictEncounterId Encounter,long Revision,ConflictOrders Orders):ConflictAction;
     public sealed record Withdraw(ConflictEncounterId Encounter,long Revision):ConflictAction;
     public sealed record Respond(ConflictEncounterId Encounter,long Revision):ConflictAction;

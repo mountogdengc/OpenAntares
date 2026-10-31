@@ -17,6 +17,7 @@ public static class ConflictCommandProcessor
             var view=EmpireViewProjector.Project(content,state,command.Issuer);var preview=ConflictQueries.Preview(content,view,command.Action);
             if(!StringComparer.Ordinal.Equals(command.Token,preview.Token))return Reject("conflict_stale");
             if(!preview.Allowed)return Reject();
+            if(command.Action is not (ConflictAction.DeclareWar or ConflictAction.RevokeDeclaration)&&ConflictPeace.Other(command.Action) is null)return ConflictEligibility.Execute(content,state,command);
             EmpireId other=command.Action switch{ConflictAction.DeclareWar a=>a.Other,ConflictAction.RevokeDeclaration a=>a.Other,_=>ConflictPeace.Other(command.Action)??default};
             var original=state.Conflict.Pairs.SingleOrDefault(p=>p.Pair==DiplomacyPair.For(command.Issuer,other));if(original is null)return Reject();
             bool queued=original.Declarations.Any(i=>i.Owner==command.Issuer);

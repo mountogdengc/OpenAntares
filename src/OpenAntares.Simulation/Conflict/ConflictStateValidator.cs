@@ -62,7 +62,7 @@ public static class ConflictStateValidator
             foreach(var side in new[]{e.LowSide,e.HighSide})
             {
                 if(side.Members is null||side.ProtectedCivilians is null||side.DestroyedMembers is null){Error("Side membership collections required.");continue;}
-                if(side.ConsentRevision<1||side.ConsentRevision>e.Revision||!Orders(side.Orders,side.Owner))Error("Invalid side consent/orders.");
+                if(side.ConsentRevision<1||!Orders(side.Orders,side.Owner))Error("Invalid side consent/orders.");
                 if(!Ordered(side.Members.Select(x=>(long)x.Value))||!Ordered(side.ProtectedCivilians.Select(x=>(long)x.Value))||!Ordered(side.DestroyedMembers.Select(x=>(long)x.Value))||side.Members.Count+side.DestroyedMembers.Count>32)Error("Invalid bounded side membership.");
                 if(side.DestroyedMembers.Any(x=>x.Value<1||x.Value>=state.NextEntityId||state.FindVessel(x) is not null))Error("Destroyed membership must be historical.");
                 if(!live)continue;
