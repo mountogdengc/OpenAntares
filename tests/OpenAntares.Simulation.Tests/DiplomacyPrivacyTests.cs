@@ -55,4 +55,11 @@ public sealed class DiplomacyPrivacyTests
         Assert.True(DiplomacyCommandTests.Act(s,a,new DiplomacyAction.OfferSettlement(star.Chart.Id)).Accepted);var offer=s.View(b).Diplomacy!.Contacts.Single().Pending!;
         var recipient=DiplomacyQueries.Preview(s.Content,s.View(b),a,new DiplomacyAction.Answer(offer.Id,true,null));Assert.Contains(star.Chart.Name,recipient.Terms);
     }
+
+    [Fact] public void RepeatedViewsAndPreviewsCannotConsumeIdsOrRandom()
+    {
+        var s=DiplomacyCommandTests.Funded();var a=s.State.Empires[0].Id;var b=s.State.Empires[1].Id;var before=OpenAntares.Simulation.Saves.SaveGame.Serialize(s.Content,s.State);
+        for(int i=0;i<3;i++){var view=s.View(a);var preview=DiplomacyQueries.Preview(s.Content,view,b,new DiplomacyAction.OfferTrade(view.Colonies[0].Id));Assert.True(preview.Allowed);Assert.Single(view.Diplomacy!.Contacts);}
+        Assert.Equal(before,OpenAntares.Simulation.Saves.SaveGame.Serialize(s.Content,s.State));
+    }
 }

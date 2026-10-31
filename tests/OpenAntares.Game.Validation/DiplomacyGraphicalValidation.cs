@@ -13,12 +13,12 @@ using static OpenAntares.Game.Validation.ScoutUiControlChecks;
 namespace OpenAntares.Game.Validation;
 public partial class DiplomacyGraphicalValidation:Node
 {
-    private string _output="";private readonly List<object> _checks=new();
+    private int _earnedCampaigns;private string _output="";private readonly List<object> _checks=new();
     private void Check(bool value,string text){_checks.Add(new{passed=value,text});if(!value)throw new InvalidOperationException(text);}
     public override async void _Ready()
     {
         string? error=null;
-        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Actual graphical display");await Navigation();await OfferControls();}
+        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Actual graphical display");await Navigation();await OfferControls();await OpenOfferExpiry();foreach(var species in new[]{"harl","peldra","sulan","wenth"})await EarnedCampaignUi(species);Check(_earnedCampaigns==4,"Four genuinely earned species campaigns completed");}
         catch(Exception e){error=e.ToString();GD.PrintErr(error);}
         finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{scenario="Diplomacy",passed=error is null,error,method="Actual Godot control signals; labelled UI supplements. No physical input acceptance claim.",checks=_checks},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
     }
@@ -60,5 +60,12 @@ public partial class DiplomacyGraphicalValidation:Node
         finally{RemoveChild(screen);screen.QueueFree();await Frames(this);}
     }
     private async Task Click(Node root,string name){var b=Named<Button>(root,name);Check(!b.Disabled&&b.IsVisibleInTree(),"Enabled visible control "+name);for(Node? n=b.GetParent();n is not null;n=n.GetParent())if(n is ScrollContainer scroll)scroll.EnsureControlVisible(b);b.GrabFocus();await Frames(this);b.EmitSignal(Button.SignalName.Pressed);await Frames(this);}
-}
 
+    private async Task OpenOfferExpiry()
+    {
+        var content=CompleteContent();var state=GalaxyGenerator.CreateNewGame(content,new("small",42,11,"harl",1,"peldra",CrisesEnabled:false,AmebasEnabled:false,SentriesEnabled:false)).State!;var a=state.Empires[0];var b=state.Empires[1];b.Controller=OpenAntares.Simulation.State.ControllerKind.Human;b.AiPolicyId=null;a.Contacts.Add(new(b.Id,b.SpeciesId!,0));b.Contacts.Add(new(a.Id,a.SpeciesId!,0));state.Diplomacy!.Pairs.Add(new(){Pair=DiplomacyPair.For(a.Id,b.Id),Parties=new(){new(){Owner=a.Id},new(){Owner=b.Id}}});foreach(var c in state.Colonies)c.ProductionReserve=500;var session=new GameSession(content,state);var pair=session.View(a.Id).Diplomacy!.Contacts.Single();Check(session.Execute(new DiplomacyCommand(a.Id,0,b.Id,pair.PublicRevision,pair.PrivateRevision,new DiplomacyAction.OfferTrade(session.View(a.Id).Colonies.Single().Id))).Accepted,"Labelled pre-session expiry offer uses ordinary command");
+        var screen=new GameScreen(session,b.Id);AddChild(screen);await Frames(this);
+        try{await Click(screen,"OpenDiplomacy");await Click(screen,"DiplomacyAccept");var offer=Descendants<OpenAntares.Game.Components.DiplomacyOfferDialog>(screen).Single();Check(!Named<Button>(offer,"DiplomacySubmit").Disabled,"Open answer initially legal");for(int n=0;n<3;n++){Check(session.Execute(new OpenAntares.Simulation.Commands.SetReadyCommand(a.Id,session.State.Turn,true)).Accepted,"Expiry source first human Ready");var result=session.Execute(new OpenAntares.Simulation.Commands.SetReadyCommand(b.Id,session.State.Turn,true));Check(result.Accepted,"Expiry source final Ready");Check(result.Report!.DiplomacyEvents!.Value.Sum(e=>e.Paid)==0,"Unanswered expiry never charges either side");}typeof(GameScreen).GetMethod("Refresh",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!.Invoke(screen,null);await Frames(this);Check(offer.Visible&&Named<Button>(offer,"DiplomacySubmit").Disabled,"Offer expiry while open disables Submit on refresh");Check(session.State.Diplomacy!.Pairs.Single().Pending is null,"Expired local offer cannot be answered");}
+        finally{RemoveChild(screen);screen.QueueFree();await Frames(this);}
+    }
+}

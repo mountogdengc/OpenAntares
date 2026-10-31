@@ -14,6 +14,7 @@ try {
     if($ReportPath){[pscustomobject]@{expectedScenarioTypes=$forbidden;presentScenarioTypes=$found;expectedHelpers=$helpers;presentHelpers=$foundHelpers}|ConvertTo-Json -Depth 5|Set-Content -LiteralPath $ReportPath -Encoding utf8}
     if($found.Count -gt 0){Write-Output ('Harness types present: '+($found -join ', '));exit 1}
     if($foundHelpers.Count -gt 0){Write-Output ('Harness helpers present: '+($foundHelpers -join ', '));exit 1}
-    Write-Output 'All ten graphical validation types and both test helpers are absent from the ordinary assembly.'
+    Write-Output 'All eleven graphical validation types and both test helpers are absent from the ordinary assembly.'
 } finally {if($null -ne $reader){$reader.Dispose()};$stream.Dispose()}
 exit 0
+
