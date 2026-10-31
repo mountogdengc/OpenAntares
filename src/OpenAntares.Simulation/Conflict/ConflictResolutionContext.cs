@@ -13,6 +13,7 @@ public sealed class ConflictResolutionContext
     public ImmutableArray<ConflictWarDecision> NewWars {get;internal set;}=ImmutableArray<ConflictWarDecision>.Empty;
     public ImmutableArray<ConflictDeclarationFailure> RejectedDeclarations {get;internal set;}=ImmutableArray<ConflictDeclarationFailure>.Empty;
     public ImmutableHashSet<DiplomacyPair> AcceptedPeace {get;internal set;}=ImmutableHashSet<DiplomacyPair>.Empty;
+    public ConflictBlockadeFrame FrozenBlockades {get;internal set;}=new(0,ImmutableArray<ConflictBlockadePressure>.Empty,ImmutableArray<ConflictBlockadeStatus>.Empty);
     public ImmutableArray<ConflictBattleFrame> Battles {get;internal set;}=ImmutableArray<ConflictBattleFrame>.Empty;
     internal HashSet<VesselId> UsedSet {get;}=new();
     internal HashSet<ConflictEncounterId> PausedSet {get;}=new();
@@ -39,5 +40,5 @@ public sealed class ConflictResolutionContext
     public int FromTurn {get;private init;}
     internal Fleets.FleetResolutionContext? FleetContext {get;private init;}
     public static ConflictResolutionContext Capture(ContentSet content,GameState snapshot)=>Capture(content,snapshot,Rules.HasConflict(snapshot.RulesVersion)?Fleets.FleetResolutionContext.Capture(content,snapshot):null);
-    public static ConflictResolutionContext Capture(ContentSet content,GameState snapshot,Fleets.FleetResolutionContext? fleet)=>new(){Snapshot=snapshot.Clone(),FromTurn=snapshot.Turn,FleetContext=fleet};
+    public static ConflictResolutionContext Capture(ContentSet content,GameState snapshot,Fleets.FleetResolutionContext? fleet)=>new(){Snapshot=snapshot.Clone(),FromTurn=snapshot.Turn,FleetContext=fleet,FrozenBlockades=ConflictBlockades.Capture(content,snapshot)};
 }

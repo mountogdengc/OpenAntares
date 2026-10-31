@@ -38,7 +38,8 @@ public static partial class ConflictQueries
             var own=e.LowSide.Owner==viewer?e.LowSide:e.HighSide;var other=e.LowSide.Owner==viewer?e.HighSide:e.LowSide;
             return new OwnConflictEncounterView(e.Id,e.Pair.Other(viewer),e.Star,own.Fleet,own.ConsentRevision,e.Round,own.WithdrawQueued?ConflictPhase.WithdrawalQueued:own.NeedsResponse?ConflictPhase.ResponseRequired:e.Phase,own.Members.ToImmutableArray(),own.ProtectedCivilians.ToImmutableArray(),own.Orders,own.WithdrawQueued,own.NeedsResponse,military.Where(o=>other.Members.Contains(o.Vessel)).ToImmutableArray());
         }).ToImmutableArray();
-        var blockades=owner.Blockades.OrderBy(b=>b.Fleet).Select(b=>new OwnBlockadeView(b.Fleet,b.Other,b.Star,(long)b.AcceptedTurn+1,b.AcceptedTurn>=state.Turn?"Pending":"Awaiting evaluation")).ToImmutableArray();
+        var blockadeFrame=ConflictBlockades.Capture(content,state);
+        var blockades=blockadeFrame.Orders.Where(b=>b.Owner==viewer).Select(b=>new OwnBlockadeView(b.Fleet,b.Other,b.Star,b.EffectiveTurn,b.Status)).ToImmutableArray();
         var history=owner.History.Select(h=>new ConflictHistoryView(h.Encounter,h.Other,h.Star,h.StartedTurn,h.EndedTurn,h.Outcome,h.LostMembers.ToImmutableArray(),h.Rounds.ToImmutableArray())).ToImmutableArray();
         return new(viewer,state.Turn,owner.Revision,relations,ships,military,encounters,blockades,owner.Events.ToImmutableArray(),owner.Notices.ToImmutableArray(),history){OwnAttacks=owner.Attacks.ToImmutableArray()};
     }

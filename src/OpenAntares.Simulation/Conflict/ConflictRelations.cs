@@ -14,6 +14,7 @@ public static partial class ConflictRelations
         if(context.RelationsPrepared||context.FromTurn!=snapshot.Turn||candidate.Turn!=snapshot.Turn)throw new InvalidOperationException("Conflict relation phase already applied or changed.");
         context.RelationsPrepared=true;if(!Rules.HasConflict(snapshot.RulesVersion))return;
         ConflictPeace.Prepare(content,snapshot,candidate,context);
+        context.FrozenBlockades=context.FrozenBlockades.Suppress(context.AcceptedPeace);
         var busy=candidate.Conflict!.Pairs.Where(p=>p.Relation==RelationKind.War&&!context.AcceptedPeace.Contains(p.Pair)).SelectMany(p=>new[]{p.Pair.Low,p.Pair.High}).ToHashSet();
         var wars=ImmutableArray.CreateBuilder<ConflictWarDecision>();var failed=ImmutableArray.CreateBuilder<ConflictDeclarationFailure>();
         foreach(var pair in candidate.Conflict.Pairs.OrderBy(p=>p.Pair))
