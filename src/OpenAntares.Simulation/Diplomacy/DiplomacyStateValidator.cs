@@ -52,7 +52,7 @@ public static class DiplomacyStateValidator
                 {if(a.Star is not {} star||state.Stars.All(s=>s.Id!=star)||a.LowHub is not null||a.HighHub is not null)Error("Invalid accord.");}
                 else{Origin(a.LowHub,key.Low,a.ActivatedTurn);Origin(a.HighHub,key.High,a.ActivatedTurn);if(a.Star is not null)Error("Trade system must be absent.");}
                 var dates=new[]{a.LowNoticeTurn,a.HighNoticeTurn}.Where(t=>t is not null).Select(t=>t!.Value).ToArray();
-                foreach(int t in dates)if(t<a.ActivatedTurn+d.Minimum||t>=state.Turn)Error("Invalid notice history.");
+                foreach(int t in dates)if((long)t<(long)a.ActivatedTurn+d.Minimum||t>state.Turn)Error("Invalid notice history.");
                 if(dates.Length==0?a.EndTurn is not null:a.EndTurn!=(long)dates.Min()+d.Notice||a.EndTurn<=state.Turn)Error("Invalid notice end.");
             }
             if(p.LastResults is null||p.LastResults.Count>4)Error("Last results must be bounded to one per viewer/kind.");

@@ -78,6 +78,7 @@ public static partial class CommandProcessor
             return CommandOutcome.Reject(state,Combat.CombatRejectionCodes.Unavailable,"Committed combat members require combat orders or completed withdrawal.");
         return command switch
         {
+            Diplomacy.DiplomacyCommand c => Diplomacy.DiplomacyCommandProcessor.Execute(content,state,c),
             ShipDesigns.RefitCommand c => ShipDesigns.RefitCommandProcessor.Execute(content,state,c),
             ShipDesigns.ShipDesignCommand c => ShipDesigns.ShipDesignCommandProcessor.Execute(content,state,c),
             Combat.CombatActionCommand c => Combat.CombatCommandProcessor.Execute(content,state,c),
