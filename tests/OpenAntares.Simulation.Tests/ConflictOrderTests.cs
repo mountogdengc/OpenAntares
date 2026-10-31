@@ -23,7 +23,7 @@ public sealed class ConflictOrderTests
     }
     [Fact] public void ObservedAnchorCanBeAttackedButProtectedCargoCannot()
     {
-        var g=LocalForces(true);var a=g.State.Empires[0].Id;var action=Attack(g);var civilian=g.State.FindEmpire(g.State.Empires[1].Id)!.Fleets!.Fleets[0].Flagship;
+        var g=LocalForces(true);var a=g.State.Empires[0].Id;var action=Attack(g);var civilian=g.State.FindEmpire(g.State.Empires[1].Id)!.Fleets!.Fleets.Single(f=>f.Id==g.State.FindVessel(action.Target)!.Fleet).Flagship;
         Assert.True(ConflictQueries.Preview(g.Content,g.View(a),action).Allowed);Assert.False(ConflictQueries.Preview(g.Content,g.View(a),action with{Target=civilian}).Allowed);
         string bytes=ConflictFixtures.Canonical(g.State);var illegal=action with{Target=civilian};var result=g.Execute(new ConflictCommand(a,g.State.Turn,illegal,ConflictTokens.For(g.Content,g.View(a),illegal)));Assert.False(result.Accepted);Assert.Equal(bytes,ConflictFixtures.Canonical(g.State));
         var own=g.State.Conflict!.Owners.Single(o=>o.Owner==a);ConflictDeclarationTests.Issue(g,a,action);Assert.Single(g.State.Conflict!.Owners.Single(o=>o.Owner==a).Attacks);Assert.Empty(g.State.Conflict.Encounters);Assert.Empty(own.Attacks);

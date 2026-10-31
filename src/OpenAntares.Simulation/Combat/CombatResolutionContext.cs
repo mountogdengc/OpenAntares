@@ -32,5 +32,11 @@ public sealed class CombatResolutionContext
     public ImmutableArray<CombatRoundReceipt> Rounds=>RoundFacts.ToImmutableArray();
     public ImmutableDictionary<VesselId,CombatDeparture> Departures {get;internal set;}=ImmutableDictionary<VesselId,CombatDeparture>.Empty;
     public ImmutableArray<VesselId> RepairCapture {get;internal set;}=ImmutableArray<VesselId>.Empty;
+    public ImmutableHashSet<VesselId> EmpireParticipants {get;private set;}=ImmutableHashSet<VesselId>.Empty;
+    public void ReserveEmpireParticipants(Conflict.ConflictResolutionContext conflict)
+    {
+        if(!Rules.HasConflict(Snapshot.RulesVersion)||conflict.FromTurn!=FromTurn||!conflict.MatchingResolved)throw new System.InvalidOperationException("Matching must precede the new-rules participation adapter.");
+        EmpireParticipants=conflict.UsedVessels;RepairCapture=RepairCapture.Where(id=>!EmpireParticipants.Contains(id)).ToImmutableArray();
+    }
     public static CombatResolutionContext Capture(ContentSet content,GameState snapshot)=>new(){Content=content,Definition=content.Combat,RepairCapture=CombatRepair.Capture(content,snapshot),Snapshot=snapshot.Clone(),FromTurn=snapshot.Turn,Encounters=snapshot.Combat?.Encounters.OrderBy(e=>e.Id).Select(e=>e.Id).ToImmutableArray()??ImmutableArray<EncounterId>.Empty,FleetContext=FleetResolutionContext.Capture(content,snapshot)};
 }
