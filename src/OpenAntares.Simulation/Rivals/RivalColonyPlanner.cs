@@ -14,7 +14,7 @@ internal static class RivalColonyPlanner
 {
     internal static IReadOnlyList<RivalColonyGoal> Plan(IRivalPlanningContext context)
     {
-        var colonies = context.View.Colonies.OrderBy(c => c.Id).ToArray();
+        var colonies = context.View.Colonies.Where(c=>!Rules.HasConflict(context.View.RulesVersion)||!(c.ProjectKind is ProductionKinds.ShipDesign or ProductionKinds.Refit&&c.ProjectId is not null)&&!context.View.Fleets!.Requests.Any(r=>Fleets.FleetQueries.IsActive(r.Status)&&r.Colonies.Contains(c.Id)&&!r.PausedContributions.Contains(c.Id))).OrderBy(c => c.Id).ToArray();
         var targets = colonies.ToDictionary(c => c.Id, c => LocalTarget(context,c));
         bool IsScout(string id) => context.Content.Vessels.TryGetValue(id,out var role) && !role.CanFoundColony;
         bool haveScout = context.View.Vessels.Any(v => IsScout(v.RoleId));

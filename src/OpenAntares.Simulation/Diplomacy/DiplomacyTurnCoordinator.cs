@@ -8,12 +8,14 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Diplomacy;
 public static class DiplomacyTurnCoordinator
 {
-    public static RivalPlanningOutcome Prepare(ContentSet content,GameState snapshot)
+    public static RivalPlanningOutcome Prepare(ContentSet content,GameState snapshot)=>PrepareCore(content,snapshot,null);
+    internal static RivalPlanningOutcome PrepareOwner(ContentSet content,GameState snapshot,EmpireId owner)=>PrepareCore(content,snapshot,owner);
+    private static RivalPlanningOutcome PrepareCore(ContentSet content,GameState snapshot,EmpireId? onlyOwner)
     {
         if(!Rules.HasDiplomacy(snapshot.RulesVersion))return new(snapshot,true);var working=snapshot.Clone();
         try
         {
-            var views=snapshot.Empires.Where(e=>e.Controller==ControllerKind.Ai).OrderBy(e=>e.Id).Select(e=>EmpireViewProjector.Project(content,snapshot,e.Id)).ToArray();
+            var views=snapshot.Empires.Where(e=>e.Controller==ControllerKind.Ai&&(onlyOwner is null||e.Id==onlyOwner)).OrderBy(e=>e.Id).Select(e=>EmpireViewProjector.Project(content,snapshot,e.Id)).ToArray();
             foreach(var view in views)
             {
                 long submitted=0;bool failed=false;

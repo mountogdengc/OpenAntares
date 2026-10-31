@@ -11,7 +11,7 @@ public static class ConflictInitializer
         if(!Rules.HasConflict(state.RulesVersion))return;
         if(content.Conflict is null)throw new ArgumentException("Conflict content required, including Solo.");
         if(state.Conflict is not null)throw new InvalidOperationException("Conflict initializes only once during generation.");
-        state.Conflict=new();foreach(var owner in state.Empires.OrderBy(e=>e.Id))state.Conflict.Owners.Add(new(){Owner=owner.Id});
+        state.Conflict=new();foreach(var owner in state.Empires.OrderBy(e=>e.Id)){state.Conflict.Owners.Add(new(){Owner=owner.Id});if(owner.Controller==ControllerKind.Ai)owner.AiPolicyId=content.Conflict.AlgorithmId;}
         if(state.Diplomacy is not null)foreach(var pair in state.Diplomacy.Pairs)EnsurePair(state,pair.Pair.Low,pair.Pair.High);
     }
     internal static ConflictPairState EnsurePair(GameState state,EmpireId a,EmpireId b)
