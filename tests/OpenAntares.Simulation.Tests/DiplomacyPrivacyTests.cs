@@ -47,5 +47,12 @@ public sealed class DiplomacyPrivacyTests
         var pair=state.Diplomacy.Pairs.Single(p=>p.Pair.Contains(third.Id));var command=new DiplomacyCommand(b,0,third.Id,pair.PublicRevision,DiplomacyTokens.PrivateRevision(s.Content,state,b,third.Id),new DiplomacyAction.OfferTrade(state.Colonies.Single(c=>c.EmpireId==b).Id));Assert.True(s.Execute(command).Accepted);
         var after=s.View(a).Diplomacy!;Assert.Single(after.Contacts);Assert.DoesNotContain(after.Contacts,c=>c.Identity.OtherEmpireId==third.Id);Assert.Equal(before.PrivateRevision,after.Contacts[0].PrivateRevision);Assert.Null(after.Contacts[0].Pending);
     }
-}
 
+    [Fact] public void AccordPreviewNamesTheDisclosedSystem()
+    {
+        var s=DiplomacyCommandTests.Funded();var a=s.State.Empires[0].Id;var b=s.State.Empires[1].Id;var view=s.View(a);var star=view.Stars.Single(st=>st.Chart.Id==view.Colonies[0].StarId);
+        var preview=DiplomacyQueries.Preview(s.Content,view,b,new DiplomacyAction.OfferSettlement(star.Chart.Id));Assert.Contains(star.Chart.Name,preview.Terms);
+        Assert.True(DiplomacyCommandTests.Act(s,a,new DiplomacyAction.OfferSettlement(star.Chart.Id)).Accepted);var offer=s.View(b).Diplomacy!.Contacts.Single().Pending!;
+        var recipient=DiplomacyQueries.Preview(s.Content,s.View(b),a,new DiplomacyAction.Answer(offer.Id,true,null));Assert.Contains(star.Chart.Name,recipient.Terms);
+    }
+}

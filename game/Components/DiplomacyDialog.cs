@@ -24,7 +24,7 @@ public partial class DiplomacyDialog:AcceptDialog
             foreach(var c in diplomacy.Contacts){var id=c.Identity.OtherEmpireId;DevelopmentUi.Button(_body,c.Identity.CultureName+" — "+c.Identity.SpeciesName,()=>ShowEmpire(content,view,id),"DiplomacyContact_"+id.Value);}
             var contact=diplomacy.Contacts.FirstOrDefault(c=>c.Identity.OtherEmpireId==_selected)??diplomacy.Contacts[0];_selected=contact.Identity.OtherEmpireId;
             var panel=new DiplomacyContactPanel();_body.AddChild(panel);panel.ShowContact(contact);
-            if(contact.Pending is {} offer)_body.AddChild(DevelopmentUi.Text($"{offer.Kind} offer: created turn {offer.CreatedTurn}, expires at resolution to turn {offer.ExpiryTurn}. "+(offer.OwnAnswered?"Your answer is queued.":"No answer is required to Ready.")));
+            if(contact.Pending is {} offer)_body.AddChild(DevelopmentUi.Text($"{offer.Kind} offer"+(offer.Star is {} offered?" in "+view.Stars.Single(s=>s.Chart.Id==offered).Chart.Name:"")+ $": created turn {offer.CreatedTurn}, expires at resolution to turn {offer.ExpiryTurn}. "+(offer.OwnAnswered?"Your answer is queued.":"No answer is required to Ready.")));
             foreach(var a in contact.Agreements){string system=a.Star is {} star?" in "+view.Stars.Single(s=>s.Chart.Id==star).Chart.Name:"";_body.AddChild(DevelopmentUi.Text($"{a.Kind}{system}: activated {a.ActivatedTurn}; earliest notice {a.FirstTerminationTurn}; "+(a.EndTurn is {} end?$"ends {end}.":"no termination notice.")+ $" Warmup remaining: {a.WarmupRemaining}."));}
             void Order(DiplomacyAction action)=>_offer.Open(content,view,contact.Identity.OtherEmpireId,action);
             if(contact.Pending is {} pending)
