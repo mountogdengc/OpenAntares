@@ -13,7 +13,7 @@ public sealed class FleetIntegrationTests
         var made=GalaxyGenerator.CreateNewGame(c,settings);Assert.True(made.Succeeded,made.Error);var s=made.State!;
         Assert.Equal(8,s.RulesVersion);Assert.Equal("harl",s.Empires[0].SpeciesId);Assert.Equal("peldra",s.Empires[1].SpeciesId);
         Assert.True(settings.CrisesEnabled);Assert.NotNull(s.Crisis);Assert.NotNull(s.Scouting!.Habitat);Assert.All(s.Empires,e=>Assert.NotNull(e.Fleets));
-        using var saved=JsonDocument.Parse(SaveGame.Serialize(c,s));Assert.Equal(11,saved.RootElement.GetProperty("schema_version").GetInt32());
+        using var saved=JsonDocument.Parse(SaveGame.Serialize(c,s));Assert.Equal(12,saved.RootElement.GetProperty("schema_version").GetInt32());
         var old=GalaxyGenerator.CreateNewGame(c,settings with{RulesVersion=7});Assert.True(old.Succeeded);var loaded=SaveGame.Deserialize(SaveGame.Serialize(c,old.State!));Assert.True(loaded.Succeeded,string.Join(";",loaded.Errors));Assert.Equal(7,loaded.Game!.State.RulesVersion);Assert.All(loaded.Game.State.Empires,e=>Assert.Null(e.Fleets));
     }
 }

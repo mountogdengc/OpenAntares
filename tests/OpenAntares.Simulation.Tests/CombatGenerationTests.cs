@@ -59,6 +59,6 @@ public sealed class CombatGenerationTests
     {
         var c=ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory()).Content!;
         var generated=GalaxyGenerator.CreateNewGame(c,new("small",42,SpeciesId:"harl",AmebasEnabled:false,SentriesEnabled:true));Assert.True(generated.Succeeded,generated.Error);Assert.Equal(10,generated.State!.RulesVersion);Assert.True(generated.State.Combat!.SentriesEnabled);Assert.Single(generated.State.Combat.Pockets);
-        var off=GalaxyGenerator.CreateNewGame(c,new("small",42,SpeciesId:"harl",AmebasEnabled:false,SentriesEnabled:false));Assert.True(off.Succeeded,off.Error);Assert.Empty(off.State!.Combat!.Pockets);Assert.Contains("escort",OpenAntares.Simulation.Knowledge.EmpireViewProjector.Project(c,off.State,off.State.Empires[0].Id).AvailableVesselRoleIds);Assert.All(off.State.Vessels,v=>Assert.NotNull(v.Combat));Assert.Equal(11,OpenAntares.Simulation.Saves.SaveGame.SchemaVersion);
+        var off=GalaxyGenerator.CreateNewGame(c,new("small",42,SpeciesId:"harl",AmebasEnabled:false,SentriesEnabled:false));Assert.True(off.Succeeded,off.Error);Assert.Empty(off.State!.Combat!.Pockets);Assert.Contains("escort",OpenAntares.Simulation.Knowledge.EmpireViewProjector.Project(c,off.State,off.State.Empires[0].Id).AvailableVesselRoleIds);Assert.All(off.State.Vessels,v=>Assert.NotNull(v.Combat));Assert.Equal(12,OpenAntares.Simulation.Saves.SaveGame.SchemaVersion);
     }
 }

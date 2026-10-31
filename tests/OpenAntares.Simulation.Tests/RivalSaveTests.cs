@@ -74,7 +74,7 @@ public sealed class RivalSaveTests
         var loaded = SaveGame.Deserialize(original);
         Assert.True(loaded.Succeeded, string.Join("; ", loaded.Errors));
         Assert.Equal(original, SaveGame.Serialize(loaded.Game!.Content, loaded.Game.State));
-        Assert.Equal(11, JsonNode.Parse(original)!["schema_version"]!.GetValue<int>());
+        Assert.Equal(12, JsonNode.Parse(original)!["schema_version"]!.GetValue<int>());
         Assert.Equal(new("expansion_v1", 0, 9), loaded.Game.Content.RivalAi);
         Assert.True(loaded.Game.State.FindEmpire(human.Id)!.Ready);
         Assert.Equal(321, loaded.Game.State.FindEmpire(ai.Id)!.ResearchReserve);

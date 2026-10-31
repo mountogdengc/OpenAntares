@@ -28,7 +28,7 @@ public sealed record SaveLoadResult(LoadedGame? Game, IReadOnlyList<string> Erro
 public static class SaveGame
 {
     public const string FormatName = "openantares-save";
-    public const int SchemaVersion = 11;
+    public const int SchemaVersion = 12;
 
     private const string SaveLocation = "save";
 
@@ -138,14 +138,14 @@ public static class SaveGame
                 return Fail($"This is not an OpenAntares save (format '{format}').");
             }
 
-            if (schema is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11))
+            if (schema is not (1 or 2 or 3 or 4 or 5 or 6 or 7 or 8 or 9 or 10 or 11 or 12))
             {
                 return Fail($"The save uses unsupported schema version {schema}.");
             }
 
-            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5) or (7,1) or (7,2) or (7,3) or (7,4) or (7,5) or (7,6) or (8,1) or (8,2) or (8,3) or (8,4) or (8,5) or (8,6) or (8,7) or (9,1) or (9,2) or (9,3) or (9,4) or (9,5) or (9,6) or (9,7) or (9,8) or (10,1) or (10,2) or (10,3) or (10,4) or (10,5) or (10,6) or (10,7) or (10,8) or (10,9) or (11,1) or (11,2) or (11,3) or (11,4) or (11,5) or (11,6) or (11,7) or (11,8) or (11,9) or (11,10)))
+            if ((schema,rulesVersion) is not ((1,1) or (2,1) or (3,1) or (3,2) or (4,1) or (4,2) or (4,3) or (5,1) or (5,2) or (5,3) or (5,4) or (6,1) or (6,2) or (6,3) or (6,4) or (6,5) or (7,1) or (7,2) or (7,3) or (7,4) or (7,5) or (7,6) or (8,1) or (8,2) or (8,3) or (8,4) or (8,5) or (8,6) or (8,7) or (9,1) or (9,2) or (9,3) or (9,4) or (9,5) or (9,6) or (9,7) or (9,8) or (10,1) or (10,2) or (10,3) or (10,4) or (10,5) or (10,6) or (10,7) or (10,8) or (10,9) or (11,1) or (11,2) or (11,3) or (11,4) or (11,5) or (11,6) or (11,7) or (11,8) or (11,9) or (11,10) or (12,1) or (12,2) or (12,3) or (12,4) or (12,5) or (12,6) or (12,7) or (12,8) or (12,9) or (12,10) or (12,11)))
             {
-                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1 through 10 with explicit schema compatibility. Saves are not migrated automatically.");
+                return Fail($"The save uses rules version {rulesVersion}; this build implements versions 1 through 11 with explicit schema compatibility. Saves are not migrated automatically.");
             }
 
             // Embedded content goes through the same loader and validation as content files.
@@ -173,7 +173,8 @@ public static class SaveGame
                     if(embedded.TryGetProperty("technologies",out var technologies)&&technologies.ValueKind==JsonValueKind.Array)
                         foreach(var technology in technologies.EnumerateArray())if(technology.ValueKind==JsonValueKind.Object&&technology.TryGetProperty("ship_design_only",out _))errors.Add(new(SaveLocation,null,"content.technologies","Old campaigns cannot contain ship-design technology flags."));
                 }
-                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion), requireDevelopment: Rules.HasDevelopment((int)rulesVersion), requireCrises: Rules.HasCrises((int)rulesVersion),requireScouting:Rules.HasScouting((int)rulesVersion),requireFleets:Rules.HasFleets((int)rulesVersion),requireCombat:Rules.HasCombat((int)rulesVersion),requireShipDesigns:Rules.HasShipDesigns((int)rulesVersion));
+                if(!Rules.HasDiplomacy((int)rulesVersion)&&document.RootElement.GetProperty("content").TryGetProperty("diplomacy",out _))errors.Add(new(SaveLocation,null,"content.diplomacy","Old campaigns cannot contain diplomacy content."));
+                ContentLoadResult loaded = ContentLoader.Load(new[] { new ContentSource("save content", contentJson) }, requireSpecies: Rules.HasSpecies((int)rulesVersion), requireRivals: Rules.HasRivals((int)rulesVersion), requireDevelopment: Rules.HasDevelopment((int)rulesVersion), requireCrises: Rules.HasCrises((int)rulesVersion),requireScouting:Rules.HasScouting((int)rulesVersion),requireFleets:Rules.HasFleets((int)rulesVersion),requireCombat:Rules.HasCombat((int)rulesVersion),requireShipDesigns:Rules.HasShipDesigns((int)rulesVersion),requireDiplomacy:Rules.HasDiplomacy((int)rulesVersion));
                 errors.AddRange(loaded.Errors);
                 content = loaded.Content;
             }
@@ -203,6 +204,7 @@ public static class SaveGame
     private static void WriteState(Utf8JsonWriter writer, GameState state)
     {
         writer.WriteStartObject();
+        DiplomacySaveData.WriteGame(writer,state);
         CrisisSaveData.WriteGame(writer,state.Crisis,state.RulesVersion);
         ScoutSaveData.WriteGame(writer,state.Scouting,state.RulesVersion);
         CombatSaveData.WriteGame(writer,state);
@@ -307,6 +309,7 @@ public static class SaveGame
         var state = new GameState
         {
             RulesVersion = rulesVersion,
+            Diplomacy = DiplomacySaveData.ReadGame(reader,rulesVersion),
             Crisis = CrisisSaveData.ReadGame(reader,rulesVersion),
             Scouting = ScoutSaveData.ReadGame(reader,rulesVersion),
             Combat = CombatSaveData.ReadGame(reader,rulesVersion),

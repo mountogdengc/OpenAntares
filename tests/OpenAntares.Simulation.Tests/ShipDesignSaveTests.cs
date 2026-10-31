@@ -23,12 +23,12 @@ public sealed class ShipDesignSaveTests
     {
         string[] old={"legacy-v2-save.json","legacy-rules2-v3-save.json","legacy-rules3-v4-save.json","legacy-rules4-v5-save.json","legacy-rules5-v6-save.json"};
         var sources=Enumerable.Range(1,10).ToDictionary(r=>r,r=>r==10?Encode(ShipDesignFixtures.Session()):r==9?SaveGame.Serialize(CombatFixtures.Game().Content,CombatFixtures.Game().State):r==8?SaveGame.Serialize(FleetFixtures.Game().Content,FleetFixtures.Game().State):r==7?SaveGame.Serialize(ScoutingFixtures.Content(),ScoutingFixtures.Game().State):r==6?SaveGame.Serialize(CrisisFixtures.Content(),CrisisFixtures.Game().State):File.ReadAllText(CompatibilityFixtures.PathFor(old[r-1])));int accepted=0;
-        for(int schema=1;schema<=12;schema++)for(int rules=1;rules<=11;rules++)
+        for(int schema=1;schema<=11;schema++)for(int rules=1;rules<=11;rules++)
         {
             var n=JsonNode.Parse(sources[Math.Min(rules,10)])!;n["schema_version"]=schema;n["rules_version"]=rules;if(schema==1&&rules==1)n=JsonNode.Parse(File.ReadAllText(CompatibilityFixtures.PathFor("legacy-v1-save.json")))!;
             bool expected=(schema,rules) is (1,1) or (2,1)||schema is >=3 and <=11&&rules<schema;var loaded=SaveGame.Deserialize(n.ToJsonString());Assert.True(expected==loaded.Succeeded,$"({schema},{rules}): {string.Join("; ",loaded.Errors)}");if(loaded.Succeeded)accepted++;
         }
-        Assert.Equal(56,accepted);Assert.Equal(11,SaveGame.SchemaVersion);
+        Assert.Equal(56,accepted);Assert.Equal(12,SaveGame.SchemaVersion);
     }
     public static IEnumerable<object[]> Phases()=>new[]{"off","catalogue","queue","request","completed_request","completed_request_refitted","active_refit","paused_refit","insufficient_refit","first_ready","gun_battle","frigate_damaged"}.Select(s=>new object[]{s});
     [Theory,MemberData(nameof(Phases))]

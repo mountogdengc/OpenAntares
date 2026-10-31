@@ -63,7 +63,7 @@ public class SaveGameTests : IDisposable
         Assert.Equal((985, 414), (legacy.State.Stars[0].X, legacy.State.Stars[0].Y));
         Assert.All(legacy.State.Stars, star => Assert.Null(star.RegionId));
         LoadedGame resaved = Load(SaveGame.Serialize(legacy.Content, legacy.State));
-        Assert.Equal(11, JsonDocument.Parse(SaveGame.Serialize(legacy.Content, legacy.State)).RootElement.GetProperty("schema_version").GetInt32());
+        Assert.Equal(12, JsonDocument.Parse(SaveGame.Serialize(legacy.Content, legacy.State)).RootElement.GetProperty("schema_version").GetInt32());
         Assert.Equal(Snapshot(legacy.State), Snapshot(resaved.State));
     }
 
@@ -154,8 +154,8 @@ public class SaveGameTests : IDisposable
     {
         // find (last occurrence, so state fields win over embedded content), replace, expected error fragment
         { "\"format\": \"openantares-save\"", "\"format\": \"something-else\"", "not an OpenAntares save" },
-        { "\"schema_version\": 11", "\"schema_version\": 12", "unsupported schema version 12" },
-        { "\"rules_version\": 1", "\"rules_version\": 11", "rules version 11; this build implements versions 1 through 10" },
+        { "\"schema_version\": 12", "\"schema_version\": 13", "unsupported schema version 13" },
+        { "\"rules_version\": 1", "\"rules_version\": 12", "rules version 12; this build implements versions 1 through 11" },
         { "\"turn\": 2,", "", "field 'state.turn': Required field is missing" },
         { "\"controller\": \"human\"", "\"controller\": \"robot\"", "field 'state.empires[0].controller': Unknown controller 'robot'" },
         { "\"ready\": false", "\"ready\": \"no\"", "field 'state.empires[0].ready': Expected true or false" },

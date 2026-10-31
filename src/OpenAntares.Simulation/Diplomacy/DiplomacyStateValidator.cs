@@ -26,7 +26,7 @@ public static class DiplomacyStateValidator
             var key=p.Pair;
             if(key.Low.Value<=0||key.Low.CompareTo(key.High)>=0||state.FindEmpire(key.Low) is null||state.FindEmpire(key.High) is null||!seen.Add(key)||previous is {} prev&&prev.CompareTo(key)>=0)Error("Pair must contain sorted unique existing empires.");previous=key;
             if(p.NextOfferId<1||p.PublicRevision<1)Error("Counters/revisions must be positive.");
-            if(p.Parties is null||p.Parties.Count!=2||p.Parties[0].Owner!=key.Low||p.Parties[1].Owner!=key.High){Error("Exactly two ordered signatories required.");continue;}
+            if(p.Parties is null||p.Parties.Count!=2||p.Parties.Any(x=>x is null)||p.Parties[0].Owner!=key.Low||p.Parties[1].Owner!=key.High){Error("Exactly two ordered signatories required.");continue;}
             foreach(var party in p.Parties)
             {
                 if(party.PrivateRevision<1||party.NextAiOfferTurn<0||party.Attitude is null){Error("Invalid party state.");continue;}
@@ -34,7 +34,7 @@ public static class DiplomacyStateValidator
                 var own=state.FindEmpire(party.Owner);var other=state.FindEmpire(key.Other(party.Owner));
                 if(own is null||other is null||!own.Contacts.Any(c=>c.OtherEmpireId==other.Id))Error("Reciprocal identity contacts required.");
             }
-            if(p.Agreements is null){Error("Agreements are required.");continue;}
+            if(p.Agreements is null||p.Agreements.Any(a=>a is null)){Error("Agreements are required.");continue;}
             if(p.Pending is {} o)
             {
                 if(o.Id.Value<1||o.Id.Value>=p.NextOfferId||!key.Contains(o.Proposer)||o.Recipient!=key.Other(o.Proposer)||!Enum.IsDefined(o.Kind)||o.CreatedTurn<0||o.CreatedTurn>state.Turn||(long)o.ExpiryTurn!= (long)o.CreatedTurn+d.OfferLifetime||o.ExpiryTurn<=state.Turn)Error("Invalid pending offer identity/dates.");
@@ -63,7 +63,19 @@ public static class DiplomacyStateValidator
                 if(dates.Length==0?a.EndTurn is not null:a.EndTurn!=(long)dates.Min()+d.Notice||a.EndTurn<=state.Turn)Error("Invalid notice end.");
             }
             if(p.LastResults is null||p.LastResults.Count>4)Error("Last results must be bounded to one per viewer/kind.");
-            else foreach(var e in p.LastResults)if(!key.Contains(e.Viewer)||e.Other!=key.Other(e.Viewer)||e.Turn<0||e.Turn>state.Turn||e.Reason is null||e.Reason.Length>256)Error("Invalid bounded result.");
+            else
+            {
+                var summaries=new HashSet<(EmpireId,string)>();
+                foreach(var e in p.LastResults)
+                {
+                    if(e is null){Error("Null result.");continue;}
+                    string family=e.Kind is not null&&e.Kind.StartsWith("trade_",StringComparison.Ordinal)?"trade_":"settlement_";
+                    string suffix=e.Kind is not null&&e.Kind.StartsWith(family,StringComparison.Ordinal)?e.Kind[family.Length..]:"";
+                    if(!key.Contains(e.Viewer)||e.Other!=key.Other(e.Viewer)||e.Turn<0||e.Turn>state.Turn||string.IsNullOrWhiteSpace(e.Reason)||e.Reason.Length>256||e.Reason.Any(char.IsControl)||!summaries.Add((e.Viewer,family))||suffix is not("activated" or "declined" or "expired" or "failed" or "withdrawn" or "notice" or "ended"))Error("Invalid bounded result.");
+                    if(e.Paid<0||e.Paid>0&&(e.Kind!="trade_activated"||e.Paid!=d.SetupCost||e.OwnHub is null)||e.Kind=="trade_activated"&&e.Paid!=d.SetupCost)Error("Invalid setup payment history.");
+                    if(family=="trade_"&&e.Star is not null||family=="settlement_"&&(e.OwnHub is not null||e.Paid!=0||e.Star is not {} star||state.FindStar(star) is null))Error("Invalid result location scope.");
+                }
+            }
         }
         foreach(var empire in state.Empires)
         foreach(var contact in empire.Contacts)
@@ -76,6 +88,7 @@ public static class DiplomacyStateValidator
             if(colony is null||colony.EmpireId!=owner||hub.Reserved!=d.SetupCost||colony.ProductionReserve<hub.Reserved||!earmarked.Add(hub.Hub))Error("Invalid/duplicate hub earmark.");
         }
         void Origin(HubOrigin? origin,EmpireId owner,int turn)
-        {if(origin is null||origin.Hub.Value<=0||origin.Hub.Value>=state.NextEntityId||origin.Owner!=owner||origin.ActivationTurn!=turn)Error("Invalid historical hub origin.");}
+        {if(origin is null||origin.Hub.Value<=0||origin.Hub.Value>=state.NextEntityId||origin.Owner!=owner||origin.ActivationTurn!=turn)Error("Invalid historical hub origin.");
+            else if(state.Vessels.Any(v=>v.Id.Value==origin.Hub.Value)||state.Stars.Any(x=>x.Id.Value==origin.Hub.Value)||state.Planets.Any(x=>x.Id.Value==origin.Hub.Value)||state.Empires.Any(x=>x.Id.Value==origin.Hub.Value))Error("Historical hub cannot reference another entity type.");}
     }
 }
