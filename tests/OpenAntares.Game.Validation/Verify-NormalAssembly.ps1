@@ -6,7 +6,7 @@ $reader=$null
 try {
     $reader=[System.Reflection.PortableExecutable.PEReader]::new($stream)
     $metadata=[System.Reflection.Metadata.PEReaderExtensions]::GetMetadataReader($reader)
-    $forbidden=@('GraphicalValidation','ExpansionGraphicalValidation','SpeciesGraphicalValidation','RivalGraphicalValidation','ColonyGraphicalValidation','CrisisGraphicalValidation','ScoutGraphicalValidation','FleetGraphicalValidation','CombatGraphicalValidation','ShipDesignGraphicalValidation')
+    $forbidden=@('GraphicalValidation','ExpansionGraphicalValidation','SpeciesGraphicalValidation','RivalGraphicalValidation','ColonyGraphicalValidation','CrisisGraphicalValidation','ScoutGraphicalValidation','FleetGraphicalValidation','CombatGraphicalValidation','ShipDesignGraphicalValidation','DiplomacyGraphicalValidation')
     $helpers=@('FrozenContent','ScoutUiControlChecks')
     $names=@(foreach($handle in $metadata.TypeDefinitions){$definition=$metadata.GetTypeDefinition($handle);$metadata.GetString($definition.Name)})
     $found=@($names|Where-Object{$forbidden -contains $_})

@@ -1,7 +1,7 @@
 param(
     [Parameter(Mandatory = $true)][string]$Godot,
     [string]$OutputDirectory = 'reports/first-playable-2026-10-22',
-    [ValidateSet('Legacy','Expansion','Species','Rival','Colony','Crisis','Scout','Fleet','Combat','ShipDesign')][string]$Scenario = 'Legacy'
+    [ValidateSet('Legacy','Expansion','Species','Rival','Colony','Crisis','Scout','Fleet','Combat','ShipDesign','Diplomacy')][string]$Scenario = 'Legacy'
 )
 $ErrorActionPreference = 'Stop'
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
@@ -22,7 +22,7 @@ try {
         if ($LASTEXITCODE -ne 0) { throw 'Validation build failed.' }
         & (Join-Path $PSScriptRoot 'Verify-NormalAssembly.ps1') -AssemblyPath '.godot/mono/temp/bin/Debug/OpenAntares.dll' -ReportPath (Join-Path $outputPath 'opt-in-metadata.json') *> (Join-Path $outputPath 'opt-in-metadata.log')
         if ($LASTEXITCODE -ne 1) { throw 'Metadata negative control did not detect the real opt-in assembly.' }
-        $scene = switch ($Scenario) { 'ShipDesign' { 'res://tests/OpenAntares.Game.Validation/ShipDesignGraphicalValidation.tscn' } 'Combat' { 'res://tests/OpenAntares.Game.Validation/CombatGraphicalValidation.tscn' } 'Fleet' { 'res://tests/OpenAntares.Game.Validation/FleetGraphicalValidation.tscn' } 'Scout' { 'res://tests/OpenAntares.Game.Validation/ScoutGraphicalValidation.tscn' } 'Crisis' { 'res://tests/OpenAntares.Game.Validation/CrisisGraphicalValidation.tscn' } 'Colony' { 'res://tests/OpenAntares.Game.Validation/ColonyGraphicalValidation.tscn' } 'Rival' { 'res://tests/OpenAntares.Game.Validation/RivalGraphicalValidation.tscn' } 'Expansion' { 'res://tests/OpenAntares.Game.Validation/ExpansionGraphicalValidation.tscn' } 'Species' { 'res://tests/OpenAntares.Game.Validation/SpeciesGraphicalValidation.tscn' } default { 'res://tests/OpenAntares.Game.Validation/GraphicalValidation.tscn' } }
+        $scene = switch ($Scenario) { 'Diplomacy' { 'res://tests/OpenAntares.Game.Validation/DiplomacyGraphicalValidation.tscn' } 'ShipDesign' { 'res://tests/OpenAntares.Game.Validation/ShipDesignGraphicalValidation.tscn' } 'Combat' { 'res://tests/OpenAntares.Game.Validation/CombatGraphicalValidation.tscn' } 'Fleet' { 'res://tests/OpenAntares.Game.Validation/FleetGraphicalValidation.tscn' } 'Scout' { 'res://tests/OpenAntares.Game.Validation/ScoutGraphicalValidation.tscn' } 'Crisis' { 'res://tests/OpenAntares.Game.Validation/CrisisGraphicalValidation.tscn' } 'Colony' { 'res://tests/OpenAntares.Game.Validation/ColonyGraphicalValidation.tscn' } 'Rival' { 'res://tests/OpenAntares.Game.Validation/RivalGraphicalValidation.tscn' } 'Expansion' { 'res://tests/OpenAntares.Game.Validation/ExpansionGraphicalValidation.tscn' } 'Species' { 'res://tests/OpenAntares.Game.Validation/SpeciesGraphicalValidation.tscn' } default { 'res://tests/OpenAntares.Game.Validation/GraphicalValidation.tscn' } }
                 $frameLimit=if($Scenario -in @('Combat','ShipDesign')){72000}else{7200}
         & $godotPath --path $repoRoot --quit-after $frameLimit --scene $scene --log-file (Join-Path $outputPath 'godot.log') -- "--validation-output=$outputPath"
         if ($LASTEXITCODE -ne 0) { throw "Graphical validation failed with exit $LASTEXITCODE." }

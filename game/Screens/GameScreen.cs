@@ -25,6 +25,7 @@ public partial class GameScreen : VBoxContainer
     private readonly ColonyPanel _colonyPanel = new();
     private readonly Button _endTurn = new();
     private readonly ContactsPanel _contacts = new();
+    private readonly DiplomacyDialog _diplomacy = new();
     private readonly ColonyList _colonies = new();
     private readonly VesselPanel _vessels = new();
     private ColonyId? _selectedColony;
@@ -150,6 +151,10 @@ public partial class GameScreen : VBoxContainer
         _colonies.ManageRequested += () => { _management.Preferences = _preferences; _management.ShowEmpire(_session.Content,View); };
         _colonies.NotificationsRequested += () => _notificationDialog.Open(NotificationPreferencesPath);
         _colonies.LatestReportRequested += ShowLatestReport;
+        AddChild(_diplomacy);
+        if(Rules.HasDiplomacy(View.RulesVersion)){var entry=new Button{Name="OpenDiplomacy",Text="Diplomacy"};entry.Pressed+=()=>_diplomacy.ShowEmpire(_session.Content,View);AddChild(entry);}
+        _contacts.DiplomacyRequested+=id=>_diplomacy.ShowEmpire(_session.Content,View,id);
+        _report.DiplomacyRequested+=()=>{_report.Hide();_diplomacy.ShowEmpire(_session.Content,View);};
         AddChild(_report);
         _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingCrisisInterrupt)Callable.From(OpenPendingCommandInterrupt).CallDeferred();};
         _report.VisibilityChanged+=()=>{if(!_report.Visible&&_pendingScoutInterrupt)Callable.From(OpenPendingScoutInterrupt).CallDeferred();};
@@ -291,6 +296,7 @@ public partial class GameScreen : VBoxContainer
         _map.ShowKnownAmebas(view.Scouting);
         RefreshScoutAttention(view.Scouting);
         _contacts.Show(view);
+        if(_diplomacy.Visible)_diplomacy.ShowEmpire(_session.Content,view);
         RefreshCrisisAttention(view.Crisis);
         if (view.RulesVersion == Rules.LegacyVersion) ShowMessage("Legacy colony game - start a new game for exploration", false);
         if (_map.Selected is not { } selected) return;

@@ -32,6 +32,7 @@ public partial class TurnReportDialog : AcceptDialog
     public event Action<ColonyId>? ColonyRequested;
     public event Action<VesselId>? VesselRequested;
     public event Action? FleetCommandRequested;
+    public event Action? DiplomacyRequested;
 
     public override void _Ready()
     {
@@ -116,8 +117,10 @@ public partial class TurnReportDialog : AcceptDialog
             var view = new Button { Text = e.Colony.HasValue && e.Kind == "colony_founded" ? "View colony" : e.Vessel.HasValue && e.Kind == "vessel_completed" ? "View vessel" : "View system" };
             view.Pressed += () => { Hide(); if (e.Colony is { } colony && e.Kind == "colony_founded") ColonyRequested?.Invoke(colony); else if (e.Vessel is { } vessel && e.Kind == "vessel_completed") VesselRequested?.Invoke(vessel); else if (e.Star is { } destination) StarRequested?.Invoke(destination); }; _body.AddChild(view);
         }
+        if(report.DiplomacyEvents is {} diplomacyEvents&&!diplomacyEvents.IsEmpty){_body.AddChild(new Label{Text="Diplomacy",ThemeTypeVariation="HeaderLabel"});foreach(var e in diplomacyEvents)_body.AddChild(Wrapped(e.Kind.Replace('_',' ')+": "+e.Reason,"SubtleLabel"));DevelopmentUi.Button(_body,"Open diplomacy",()=>DiplomacyRequested?.Invoke(),"ReportOpenDiplomacy");}
         foreach (var encounter in report.EncounterEvents)
         {
+            if(encounter.Kind=="first_contact"&&report.DiplomacyEvents is {} de&&de.Any(e=>e.Kind=="first_contact"))continue;
             string location = report.StarNames.TryGetValue(encounter.StarId,out var name) ? name : "system";
             string species = encounter.SpeciesName ?? "unidentified";
             string culture = encounter.CultureName is { } knownCulture ? $" ({knownCulture})" : string.Empty;

@@ -13,6 +13,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)FleetGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)CombatGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShipDesignGraphicalValidation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DiplomacyGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShipDesignCampaignChecks.cs" />
   </ItemGroup>
 </Project>
