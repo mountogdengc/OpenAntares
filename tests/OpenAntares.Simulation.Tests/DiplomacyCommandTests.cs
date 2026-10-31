@@ -8,7 +8,7 @@ public sealed class DiplomacyCommandTests
 {
     internal static CommandOutcome Act(GameSession s,EmpireId issuer,DiplomacyAction action)
     {
-        var p=s.State.Diplomacy!.Pairs.Single();return s.Execute(new DiplomacyCommand(issuer,s.State.Turn,p.Pair.Other(issuer),p.PublicRevision,p.Parties.Single(x=>x.Owner==issuer).PrivateRevision,action));
+        var p=s.State.Diplomacy!.Pairs.Single();return s.Execute(new DiplomacyCommand(issuer,s.State.Turn,p.Pair.Other(issuer),p.PublicRevision,DiplomacyTokens.PrivateRevision(s.Content,s.State,issuer,p.Pair.Other(issuer)),action));
     }
     internal static GameSession Funded()
     {
@@ -39,7 +39,7 @@ public sealed class DiplomacyCommandTests
     [Fact] public void NoOpPreservesReadinessAndCountersAndStaleRejects()
     {
         var s=Funded();var a=s.State.Empires[0].Id;var p=s.State.Diplomacy!.Pairs.Single();var hub=s.State.Colonies.Single(c=>c.EmpireId==a).Id;
-        var old=new DiplomacyCommand(a,0,p.Pair.Other(a),p.PublicRevision,p.Parties[0].PrivateRevision,new DiplomacyAction.OfferTrade(hub));
+        var old=new DiplomacyCommand(a,0,p.Pair.Other(a),p.PublicRevision,DiplomacyTokens.PrivateRevision(s.Content,s.State,a,p.Pair.Other(a)),new DiplomacyAction.OfferTrade(hub));
         Assert.True(s.Execute(old).Accepted);Assert.False(s.Execute(old).Accepted);
         s.State.Empires[0].Ready=true;long next=s.State.Diplomacy!.Pairs.Single().NextOfferId;
         var noop=Act(s,a,new DiplomacyAction.OfferTrade(hub));Assert.True(noop.Accepted);Assert.False(noop.Changed);Assert.True(s.State.Empires[0].Ready);Assert.Equal(next,s.State.Diplomacy!.Pairs.Single().NextOfferId);

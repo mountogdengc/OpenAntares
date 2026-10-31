@@ -15,7 +15,7 @@ public static class DiplomacyCommandProcessor
         var key=DiplomacyPair.For(command.Issuer,command.Other);var original=state.Diplomacy.Pairs.SingleOrDefault(p=>p.Pair==key);
         if(original is null||state.FindEmpire(command.Issuer) is not {} issuer||!issuer.Contacts.Any(c=>c.OtherEmpireId==command.Other))return Reject();
         var own=original.Parties.Single(p=>p.Owner==command.Issuer);
-        if(command.PublicRevision!=original.PublicRevision||command.PrivateRevision!=own.PrivateRevision)return Reject("diplomacy_stale");
+        if(command.PublicRevision!=original.PublicRevision||command.PrivateRevision!=DiplomacyTokens.PrivateRevision(content,state,command.Issuer,command.Other))return Reject("diplomacy_stale");
         try
         {
             var candidate=state.Clone();var p=candidate.Diplomacy!.Pairs.Single(p=>p.Pair==key);var party=p.Parties.Single(x=>x.Owner==command.Issuer);bool publicChange=true;
