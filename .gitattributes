@@ -22,3 +22,6 @@
 /reports/ship-design-integration-20261030/** -text -whitespace
 
 /tests/OpenAntares.Simulation.Tests/Fixtures/rules10-diplomacy-baselines/** -text
+
+/tests/OpenAntares.Simulation.Tests/Fixtures/rules11-conflict-baselines/** -text -whitespace
+/reports/conflict-execution/** -text -whitespace
