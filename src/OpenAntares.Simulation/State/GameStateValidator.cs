@@ -21,6 +21,7 @@ public static class GameStateValidator
     private static IReadOnlyList<string> ValidateCore(ContentSet content,GameState state,bool allowAllHumansReady,bool skipEffectiveScoutConsent)
     {
         var errors = new List<string>();
+        if(state.ConflictCalculatorFrame is not null)errors.Add("Calculator-only conflict facts cannot be published, saved or resolved.");
 
         if (!Rules.IsSupported(state.RulesVersion))
         {

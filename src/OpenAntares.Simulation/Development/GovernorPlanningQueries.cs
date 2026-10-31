@@ -85,6 +85,7 @@ public static class GovernorPlanningQueries
             }
             Crises.CrisisForecastFrame.Apply(frame,view);
             Diplomacy.DiplomacyForecastFrame.Apply(frame,view);
+            Conflict.ConflictForecastFrame.Apply(frame,view);
             return frame;
         }
         private static ColonyState OwnColony(OwnedColonyView c)=>new()

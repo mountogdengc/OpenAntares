@@ -23,7 +23,7 @@ public static class EconomyCalculator
 
     public static TurnEconomy Calculate(ContentSet content, GameState state)
     {
-        var pressure=Rules.HasConflict(state.RulesVersion)&&state.Conflict is not null?Conflict.ConflictBlockades.Capture(content,state):null;
+        var pressure=state.ConflictCalculatorFrame??(Rules.HasConflict(state.RulesVersion)&&state.Conflict is not null?Conflict.ConflictBlockades.Capture(content,state):null);
         ImmutableArray<ColonyEconomy> colonies = state.Colonies
             .OrderBy(c => c.Id)
             .Select(colony => CalculateColony(content, state, colony,pressure))
@@ -57,7 +57,7 @@ public static class EconomyCalculator
         return new TurnEstimate(checked((long)((remaining + perTurn - 1) / perTurn)));
     }
 
-    internal static ColonyEconomy CalculateColony(ContentSet content, GameState state, ColonyState colony)=>CalculateColony(content,state,colony,Rules.HasConflict(state.RulesVersion)&&state.Conflict is not null?Conflict.ConflictBlockades.Capture(content,state):null);
+    internal static ColonyEconomy CalculateColony(ContentSet content, GameState state, ColonyState colony)=>CalculateColony(content,state,colony,state.ConflictCalculatorFrame??(Rules.HasConflict(state.RulesVersion)&&state.Conflict is not null?Conflict.ConflictBlockades.Capture(content,state):null));
     private static ColonyEconomy CalculateColony(ContentSet content, GameState state, ColonyState colony,Conflict.ConflictBlockadeFrame? pressure)
     {
         PlanetState planet = state.FindPlanet(colony.PlanetId)

@@ -9,7 +9,8 @@ public sealed record OwnConflictEncounterView(ConflictEncounterId Id,EmpireId Ot
 public sealed record OwnBlockadeView(FleetId Fleet,EmpireId Other,StarId Star,long EffectiveTurn,string Status);
 public sealed record ConflictHistoryView(ConflictEncounterId Encounter,EmpireId Other,StarId Star,int StartedTurn,int EndedTurn,string Outcome,ImmutableArray<VesselId> LostMembers,ImmutableArray<ConflictRoundReceipt> Rounds);
 public sealed record ConflictView(EmpireId Viewer,int Turn,long OwnRevision,ImmutableArray<ConflictRelationView> Relations,ImmutableArray<OwnConflictShipView> Ships,ImmutableArray<MilitaryObservation> Military,ImmutableArray<OwnConflictEncounterView> Encounters,ImmutableArray<OwnBlockadeView> Blockades,ImmutableArray<ConflictEvent> Events,ImmutableArray<ConflictNotice> Notices,ImmutableArray<ConflictHistoryView> History)
-{public ImmutableArray<ConflictAttackIntent> OwnAttacks {get;init;}=ImmutableArray<ConflictAttackIntent>.Empty;}
+{public ImmutableArray<OwnBlockadePressure> OwnPressure {get;init;}=ImmutableArray<OwnBlockadePressure>.Empty;
+public ImmutableArray<ConflictAttackIntent> OwnAttacks {get;init;}=ImmutableArray<ConflictAttackIntent>.Empty;}
 public sealed record ConflictPreview(bool Allowed,string? RejectionCode,string Token)
 {
     public ConflictVolleyView? Volley {get;init;}

@@ -97,6 +97,7 @@ public static class RivalPlanningQueries
             };
             Crises.CrisisForecastFrame.Apply(frame,view);
             Diplomacy.DiplomacyForecastFrame.Apply(frame,view);
+            Conflict.ConflictForecastFrame.Apply(frame,view);
             return frame;
         }
     }

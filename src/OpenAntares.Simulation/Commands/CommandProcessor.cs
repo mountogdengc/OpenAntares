@@ -64,6 +64,7 @@ public static partial class CommandProcessor
 
     private static CommandOutcome ExecuteCore(ContentSet content, GameState state, Command command,bool scoutPreparationMove=false,bool boundProduction=false,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook=null,Action<Diplomacy.DiplomacyResolutionPhase>? diplomacyHook=null)
     {
+        if(state.ConflictCalculatorFrame is not null)return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"Calculator-only planning facts cannot accept game commands.");
         EmpireState? issuer = state.FindEmpire(command.Issuer);
         if (issuer is null)
         {
