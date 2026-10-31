@@ -22,7 +22,7 @@ public static class DiplomacyHubQueries
         else if(state.FindEmpire(owner)!.Fleets!.Requests.Any(r=>r.Status==RequestStatus.Active&&r.Slots.Any(s=>s.Colony==hub&&s.Status==SlotStatus.Queued)))reason="hub_assembly";
         else if(reserved!=matching)reason="hub_already_committed";
         else if(available<d.SetupCost)reason="hub_setup_unfunded";
-        else if(EconomyCalculator.CalculateColony(content,state,colony).NetProduction.Total<=0)reason="hub_not_productive";
+        else if(EconomyCalculator.CalculateColony(content,state,colony).NetProduction.Total-DiplomacyEconomy.TradeOutput(content,DiplomacyFrame.Capture(content,state),hub)<=0)reason="hub_not_productive";
         return new(reason is null,reason,colony.ProductionReserve,reserved,checked(colony.ProductionReserve-reserved));
     }
 }
