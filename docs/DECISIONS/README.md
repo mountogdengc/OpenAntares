@@ -77,3 +77,6 @@ M8 full approval/planning2026-10-27: owner “0approved” accepts the complete 
 
 
 [ADR-024: Approve diplomacy gameplay design](ADR-024-approved-diplomacy-design.md) records owner full proposal/default approval at a8d17dd. M11-D/DIP-AC-012 Verified for design; separate18-task plan/self-review ready, M11-P In Progress; implementation Not Started.
+
+
+[ADR-025: Empire-conflict design entry](ADR-025-empire-conflict-design-entry.md) records owner-selected drafting and delegated defaults. Complete proposal and fresh builder check ready; M12-D In Progress, separate plan/implementation Not Started. Active product11/12/67 unchanged.
