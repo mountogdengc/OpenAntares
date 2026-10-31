@@ -28,7 +28,7 @@ public sealed class ShipDesignSaveTests
             var n=JsonNode.Parse(sources[Math.Min(rules,10)])!;n["schema_version"]=schema;n["rules_version"]=rules;if(schema==1&&rules==1)n=JsonNode.Parse(File.ReadAllText(CompatibilityFixtures.PathFor("legacy-v1-save.json")))!;
             bool expected=(schema,rules) is (1,1) or (2,1)||schema is >=3 and <=11&&rules<schema;var loaded=SaveGame.Deserialize(n.ToJsonString());Assert.True(expected==loaded.Succeeded,$"({schema},{rules}): {string.Join("; ",loaded.Errors)}");if(loaded.Succeeded)accepted++;
         }
-        Assert.Equal(56,accepted);Assert.Equal(12,SaveGame.SchemaVersion);
+        Assert.Equal(56,accepted);Assert.Equal(13,SaveGame.SchemaVersion);
     }
     public static IEnumerable<object[]> Phases()=>new[]{"off","catalogue","queue","request","completed_request","completed_request_refitted","active_refit","paused_refit","insufficient_refit","first_ready","gun_battle","frigate_damaged"}.Select(s=>new object[]{s});
     [Theory,MemberData(nameof(Phases))]

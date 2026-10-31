@@ -35,7 +35,7 @@ public class ExpansionSaveTests
     {
         var loaded = SaveGame.Deserialize(Fixture(schema)); Assert.True(loaded.Succeeded, string.Join("\n", loaded.Errors));
         var original = loaded.Game!; var text = SaveGame.Serialize(original.Content, original.State);
-        Assert.Equal(12, JsonNode.Parse(text)!["schema_version"]!.GetValue<int>());
+        Assert.Equal(13, JsonNode.Parse(text)!["schema_version"]!.GetValue<int>());
         var reread = SaveGame.Deserialize(text); Assert.True(reread.Succeeded, string.Join("\n", reread.Errors));
         var copy = reread.Game!; Assert.Equal(Fixtures.Snapshot(original.State), Fixtures.Snapshot(copy.State));
         Assert.Equal(1, copy.State.RulesVersion); Assert.Empty(copy.State.Vessels); Assert.Null(copy.Content.Expansion); Assert.Empty(copy.Content.Vessels);

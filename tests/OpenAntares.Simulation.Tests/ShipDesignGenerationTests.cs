@@ -13,7 +13,7 @@ public sealed class ShipDesignGenerationTests
     {
         var c=ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory()).Content!;
         var g=GalaxyGenerator.CreateNewGame(c,new(size,42,SpeciesId:species,RivalCount:0,CrisesEnabled:false,AmebasEnabled:false,SentriesEnabled:sentries));
-        Assert.True(g.Succeeded,g.Error);var s=g.State!;Assert.Equal(11,s.RulesVersion);Assert.Equal(12,SaveGame.SchemaVersion);
+        Assert.True(g.Succeeded,g.Error);var s=g.State!;Assert.Equal(11,s.RulesVersion);Assert.Equal(13,SaveGame.SchemaVersion);
         var old=GalaxyGenerator.CreateNewGame(c,new(size,42,9,species,CrisesEnabled:false,AmebasEnabled:false,SentriesEnabled:sentries)).State!;
         Assert.Equal(old.NextEntityId,s.NextEntityId);Assert.Equal(old.Random.State,s.Random.State);Assert.Equal(old.Random.Increment,s.Random.Increment);
         Assert.Equal(old.Vessels.Count,s.Vessels.Count);Assert.All(s.Vessels,v=>Assert.Null(v.Design));Assert.Equal(old.Colonies[0].ProductionReserve,s.Colonies[0].ProductionReserve);
