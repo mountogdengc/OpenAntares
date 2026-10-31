@@ -39,9 +39,9 @@ internal static class ConflictFixtures
         var s=session.State;var ship=new VesselState{Id=new(s.AllocateId()),EmpireId=owner,RoleId=session.Content.ShipDesigns!.WarshipRoleId,Design=new(1),StationaryStarId=star,Crisis=new()};
         ScoutInitializer.InitializeVessel(session.Content,s.RulesVersion,ship);CombatInitializer.InitializeVessel(session.Content,s,ship);ship.Combat!.Hull=hull;s.Vessels.Add(ship);return ship;
     }
-    internal static GameSession WithEncounter()
+    internal static GameSession WithEncounter(string species="harl")
     {
-        var session=WithContact(Create(humans:2));var s=session.State;var p=s.Conflict!.Pairs[0];p.Relation=RelationKind.War;p.WarTurn=s.Turn;p.Declarers.Add(p.Pair.Low);
+        var session=WithContact(Create(species,humans:2));var s=session.State;var p=s.Conflict!.Pairs[0];p.Relation=RelationKind.War;p.WarTurn=s.Turn;p.Declarers.Add(p.Pair.Low);
         p.Parties[1].DeclarationGrievance=true;p.Parties[1].LastCounterpartDeclarationTurn=s.Turn;
         var star=s.FindPlanet(s.Colonies[0].PlanetId)!.StarId;var low=AddEscort(session,p.Pair.Low,star);var high=AddEscort(session,p.Pair.High,star);
         var fleets=s.FindEmpire(p.Pair.Low)!.Fleets!;var f=new FleetRecord{Id=new(fleets.NextFleetId++),Name="Labelled conflict fleet",Members=new(){low.Id},Flagship=low.Id};fleets.Fleets.Add(f);low.Fleet=f.Id;

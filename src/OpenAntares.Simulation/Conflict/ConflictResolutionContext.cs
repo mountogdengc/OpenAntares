@@ -6,6 +6,7 @@ using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Conflict;
 public sealed record ConflictDestruction(ConflictEncounterId Encounter,VesselId Vessel,EmpireId Owner,string RoleId,StarId Star,bool Flagship);
 public sealed record ConflictAppliedRound(ConflictBattleFrame Frame,ConflictExchangeResult Result,bool Interception);
+internal sealed record ConflictInterruptedRefit(EmpireId Owner,ShipDesigns.RefitJob Job);
 public sealed class ConflictResolutionContext
 {
     public ImmutableArray<ConflictPeaceDecision> PeaceDecisions {get;internal set;}=ImmutableArray<ConflictPeaceDecision>.Empty;
@@ -22,6 +23,12 @@ public sealed class ConflictResolutionContext
     internal bool MatchingResolved {get;set;}
     internal bool ExchangesResolved {get;set;}
     internal bool WithdrawalsResolved {get;set;}
+    internal bool RefitsInterrupted {get;set;}
+    internal bool AftermathApplied {get;set;}
+    internal bool MovementApplied {get;set;}
+    internal bool FoundingDeparturesApplied {get;set;}
+    internal List<ConflictDeparture> DeferredDepartures {get;}=new();
+    internal List<ConflictInterruptedRefit> InterruptedRefits {get;}=new();
     public ImmutableArray<ConflictDeparture> Departures {get;internal set;}=ImmutableArray<ConflictDeparture>.Empty;
     internal HashSet<VesselId> VolleyParticipants {get;}=new();
     internal List<ConflictDestruction> DestructionFacts {get;}=new();
@@ -30,5 +37,7 @@ public sealed class ConflictResolutionContext
     public ImmutableArray<ConflictAppliedRound> Rounds=>RoundFacts.ToImmutableArray();
     public GameState Snapshot {get;private init;}=null!;
     public int FromTurn {get;private init;}
-    public static ConflictResolutionContext Capture(ContentSet content,GameState snapshot)=>new(){Snapshot=snapshot.Clone(),FromTurn=snapshot.Turn};
+    internal Fleets.FleetResolutionContext? FleetContext {get;private init;}
+    public static ConflictResolutionContext Capture(ContentSet content,GameState snapshot)=>Capture(content,snapshot,Rules.HasConflict(snapshot.RulesVersion)?Fleets.FleetResolutionContext.Capture(content,snapshot):null);
+    public static ConflictResolutionContext Capture(ContentSet content,GameState snapshot,Fleets.FleetResolutionContext? fleet)=>new(){Snapshot=snapshot.Clone(),FromTurn=snapshot.Turn,FleetContext=fleet};
 }

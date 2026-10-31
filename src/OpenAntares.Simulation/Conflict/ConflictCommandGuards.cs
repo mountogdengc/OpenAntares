@@ -12,7 +12,7 @@ internal static class ConflictCommandGuards
     {
         if(view.Conflict is not {} own||view.Fleets is not {} fleets)return false;
         var groups=own.Encounters.Where(e=>e.OwnFleet is not null).Select(e=>e.OwnFleet!.Value).Concat(own.OwnAttacks.Select(i=>i.Fleet)).ToHashSet();
-        var armed=own.Encounters.SelectMany(e=>e.OwnMembers).Concat(own.Ships.Where(s=>s.Fleet is {} f&&groups.Contains(f)).Select(s=>s.Id)).ToHashSet();
+        var armed=own.Encounters.SelectMany(e=>e.OwnMembers).Concat(own.Ships.Where(s=>s.Military&&s.Fleet is {} f&&groups.Contains(f)).Select(s=>s.Id)).ToHashSet();
         var grouped=fleets.Fleets.Where(f=>groups.Contains(f.Id)).SelectMany(f=>f.Members).Concat(armed).ToHashSet();
         bool Ships(IEnumerable<VesselId> ids)=>ids.Any(grouped.Contains);
         bool Officer(OfficerId id)=>fleets.Officers.Any(o=>o.Id==id&&o.Flagship is {} ship&&grouped.Contains(ship));

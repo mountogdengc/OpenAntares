@@ -78,7 +78,8 @@ public static class ConflictWithdrawal
                 var colony=port is {} p?candidate.FindColony(p):null;StarId? destination=ordinary??(colony?.EmpireId==side.Owner?candidate.FindPlanet(colony.PlanetId)?.StarId:null);
                 var ids=groups.SelectMany(g=>g.Members).Where(id=>candidate.FindVessel(id) is not null).ToArray();
                 bool cargo=ids.Any(id=>candidate.FindVessel(id)!.CarriedPopulation>0);
-                bool illegal=destination is null||destination==frame.Star||candidate.FindStar(destination.Value) is null||ordinary is null&&CrisisQueries.PortClosed(candidate,side.Owner,destination.Value)||cargo&&(ids.Any(id=>CrisisQueries.IsHeld(candidate,id))||CrisisQueries.PortClosed(candidate,side.Owner,frame.Star)||destination is {} selectedStar&&CrisisQueries.PortClosed(candidate,side.Owner,selectedStar));
+                bool Closed(StarId star)=>CrisisQueries.PortClosed(snapshot,side.Owner,star)||CrisisQueries.PortClosed(candidate,side.Owner,star);
+                bool illegal=destination is null||destination==frame.Star||candidate.FindStar(destination.Value) is null||ordinary is null&&Closed(destination.Value)||cargo&&(ids.Any(id=>CrisisQueries.IsHeld(snapshot,id)||CrisisQueries.IsHeld(candidate,id))||Closed(frame.Star)||destination is {} selectedStar&&Closed(selectedStar));
                 if(illegal){destination=null;port=null;}
                 foreach(var group in groups)
                 {

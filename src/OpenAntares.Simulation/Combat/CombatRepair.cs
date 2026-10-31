@@ -13,7 +13,7 @@ public static class CombatRepair
     private static bool Conflict(GameState state,VesselState vessel)
     {
         var command=state.FindEmpire(vessel.EmpireId)?.Fleets;var group=command?.Fleets.SingleOrDefault(f=>f.Id==vessel.Fleet);
-        return vessel.PendingMove is not null||vessel.PendingFounding is not null||vessel.AmebaEncounter is not null||state.Combat!.Encounters.Any(e=>e.Members.Contains(vessel.Id))||group is not null&&group.Order.Kind!=FleetOrderKind.Hold||command?.Requests.Any(r=>FleetQueries.IsActive(r.Status)&&(group is not null&&r.RallyFleet==group.Id||r.Slots.Any(s=>s.Vessel==vessel.Id&&s.Status!=SlotStatus.Missing)))==true;
+        return vessel.PendingMove is not null||vessel.PendingFounding is not null||vessel.AmebaEncounter is not null||state.Combat!.Encounters.Any(e=>e.Members.Contains(vessel.Id))||state.Conflict?.Encounters.Any(e=>e.Phase!=OpenAntares.Simulation.Conflict.ConflictPhase.Completed&&(e.LowSide.Members.Contains(vessel.Id)||e.HighSide.Members.Contains(vessel.Id)))==true||group is not null&&group.Order.Kind!=FleetOrderKind.Hold||command?.Requests.Any(r=>FleetQueries.IsActive(r.Status)&&(group is not null&&r.RallyFleet==group.Id||r.Slots.Any(s=>s.Vessel==vessel.Id&&s.Status!=SlotStatus.Missing)))==true;
     }
     internal static bool Eligible(GameState state,VesselState vessel)
     {
@@ -25,10 +25,11 @@ public static class CombatRepair
     {
         var c=state.FindEmpire(vessel.EmpireId)!.Combat!;long id=c.NextEventId;c.NextEventId=checked(id+1);c.PendingEvents.Add(new(id,state.Turn,kind,reason,Vessel:vessel.Id));while(c.PendingEvents.Count>definition.HistoryLimit)c.PendingEvents.RemoveAt(0);
     }
-    public static void Apply(ContentSet content,GameState snapshot,GameState candidate,CombatResolutionContext context)
+    public static void Apply(ContentSet content,GameState snapshot,GameState candidate,CombatResolutionContext context,Conflict.ConflictResolutionContext? conflict=null)
     {
         if(context.RepairsApplied||context.FromTurn!=snapshot.Turn)throw new InvalidOperationException("Repair phase already applied or snapshot changed.");context.RepairsApplied=true;
         if(!Rules.HasCombat(snapshot.RulesVersion))return;
+        if(conflict is not null&&(!Rules.HasConflict(snapshot.RulesVersion)||!conflict.AftermathApplied||conflict.FromTurn!=snapshot.Turn||!ReferenceEquals(context.FleetContext,conflict.FleetContext)))throw new InvalidOperationException("Conflict repair exclusion requires the shared aftermath context.");
         var definition=content.Combat!;
         foreach(var vessel in candidate.Vessels)
         {
@@ -46,6 +47,7 @@ public static class CombatRepair
         }
         foreach(var id in context.RepairCapture)
         {
+            if(conflict?.UsedVessels.Contains(id)==true)continue;
             var vessel=candidate.FindVessel(id);if(vessel?.Combat is not {} ship||!ship.Repairing||ship.LastRepairTurn==context.FromTurn||!Eligible(candidate,vessel)||context.Departures.ContainsKey(id)||context.Rounds.Any(r=>r.Participants.Contains(id)))continue;
             var profile=ShipDesigns.VesselLoadouts.CombatProfile(content,candidate,vessel);int before=ship.Hull;
             Int128 gain=((Int128)profile.MaxHull+definition.RepairHullDivisor-1)/definition.RepairHullDivisor;
