@@ -62,6 +62,8 @@ public sealed record EmpireView(int Turn, EmpireId Viewer, int RulesVersion, Gal
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public Diplomacy.DiplomacyView? Diplomacy {get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public Conflict.ConflictView? Conflict {get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public ShipDesigns.ShipDesignEmpireView? ShipDesigns {get;init;}
     public Combat.CombatEmpireView? Combat {get;init;}
     public Fleets.FleetEmpireView? Fleets { get; init; }

@@ -62,4 +62,16 @@ internal static class ConflictFixtures
         var data=s.FindEmpire(side.Owner)!.Fleets!;var fleet=new FleetRecord{Id=new(data.NextFleetId++),Name="Labelled protected convoy",Members=side.Members.Concat(new[]{ship.Id}).OrderBy(id=>id).ToList(),Flagship=ship.Id};data.Fleets.Add(fleet);
         foreach(var id in fleet.Members)s.FindVessel(id)!.Fleet=fleet.Id;side.Fleet=fleet.Id;side.Flagship=ship.Id;side.ProtectedCivilians.Add(ship.Id);return g;
     }
+    internal static EmpireId AddNeutralObserver(GameSession game,StarId star)
+    {
+        var s=game.State;var extra=s.Empires[0].Clone();extra.Id=new(s.AllocateId());extra.Controller=ControllerKind.Human;extra.AiPolicyId=null;extra.Ready=false;extra.Contacts.Clear();extra.Surveys.Clear();
+        extra.Crisis=new(){Random=OpenAntares.Simulation.Crises.CrisisInitializer.CreateRandom(s.GalaxySeed!.Value,extra.Id)};extra.Scouting=new();extra.Combat=new();
+        var f=extra.Fleets!;f.Fleets.Clear();f.Requests.Clear();f.PendingEvents.Clear();f.RecentEvents.Clear();f.SurveyCredits.Clear();f.StudyCredits.Clear();f.HullCredits.Clear();f.RecoveryRandom=FleetInitializer.RecoveryRandom(s.GalaxySeed.Value,extra.Id);f.RecoveryRollCount=0;
+        foreach(var o in f.Officers){o.Status=OfficerStatus.Retired;o.FinalSummary="Labelled neutral-observer appointment retired before this supplement.";o.PostedColony=null;o.Flagship=null;o.Request=null;o.RecoveryColony=null;o.AvailableAtTurn=null;}
+        s.Empires.Add(extra);s.Empires.Sort((a,b)=>a.Id.CompareTo(b.Id));s.Conflict!.Owners.Add(new(){Owner=extra.Id});s.Conflict.Owners.Sort((a,b)=>a.Owner.CompareTo(b.Owner));
+        var role=game.Content.Expansion!.StartingVesselId;var scout=new VesselState{Id=new(s.AllocateId()),EmpireId=extra.Id,RoleId=role,StationaryStarId=star,Crisis=new()};ScoutInitializer.InitializeVessel(game.Content,s.RulesVersion,scout);CombatInitializer.InitializeVessel(game.Content,s,scout);s.Vessels.Add(scout);
+        foreach(var owner in s.Empires)foreach(var other in s.Empires.Where(e=>e.Id!=owner.Id))
+        {if(!owner.Contacts.Any(c=>c.OtherEmpireId==other.Id))owner.Contacts.Add(new(other.Id,other.SpeciesId!,s.Turn));owner.Contacts.Sort((a,b)=>a.OtherEmpireId.CompareTo(b.OtherEmpireId));DiplomacyInitializer.EnsurePair(s,owner.Id,other.Id);ConflictInitializer.EnsurePair(s,owner.Id,other.Id);}
+        OpenAntares.Simulation.Knowledge.ObservationUpdater.Refresh(s,s.Turn);return extra.Id;
+    }
 }

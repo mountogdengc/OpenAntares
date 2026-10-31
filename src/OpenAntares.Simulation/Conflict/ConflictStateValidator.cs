@@ -115,7 +115,7 @@ public static class ConflictStateValidator
             if(o.Observations.Any(x=>x is null)||o.Events.Any(x=>x is null)||o.Notices.Any(x=>x is null)||o.History.Any(x=>x is null)){Error("Null owner history row.");continue;}
             if(o.Observations.Select(x=>x.Vessel).Distinct().Count()!=o.Observations.Count)Error("Duplicate military observation.");
             foreach(var obs in o.Observations)
-                if(obs.Vessel.Value<1||obs.Vessel.Value>=state.NextEntityId||obs.Owner==o.Owner||state.FindEmpire(obs.Owner) is null||state.FindStar(obs.Star) is null||!Past(obs.Turn)||obs.Current&&obs.Turn!=state.Turn||obs.Hull<1||obs.MaxHull<obs.Hull||obs.Attack<1||obs.Armor<0||obs.Speed<1||string.IsNullOrWhiteSpace(obs.RoleId)||!content.Vessels.ContainsKey(obs.RoleId)||obs.WeaponBanks.IsDefault)Error("Invalid current/stale military fact.");
+                if(obs.Vessel.Value<1||obs.Vessel.Value>=state.NextEntityId||obs.Owner==o.Owner||state.FindEmpire(obs.Owner) is null||state.FindStar(obs.Star) is null||!Past(obs.Turn)||obs.Current&&(obs.Turn!=state.Turn||!ConflictObservations.OwnPresence(state,o.Owner,obs.Star))||obs.Hull<1||obs.MaxHull<obs.Hull||obs.Attack<1||obs.Armor<0||obs.Speed<1||string.IsNullOrWhiteSpace(obs.RoleId)||!content.Vessels.ContainsKey(obs.RoleId)||obs.WeaponBanks.IsDefault)Error("Invalid current/stale military fact.");
             if(o.Observations.Count(x=>!x.Current)>256)Error("Stale military history exceeds bound.");
             if(!Ordered(o.Events.Select(x=>x.Id)))Error("Events must be unique and ordered.");
             foreach(var ev in o.Events)
