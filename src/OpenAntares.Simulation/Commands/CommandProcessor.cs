@@ -14,11 +14,12 @@ namespace OpenAntares.Simulation.Commands;
 public static partial class CommandProcessor
 {
     // Explicit test seam; no ambient hook or global mutable callback.
+    internal static CommandOutcome ExecuteDiplomacy(ContentSet content,GameState state,SetReadyCommand command,Action<Diplomacy.DiplomacyResolutionPhase> hook)=>ExecuteWithHooks(content,state,command,null,hook);
     internal static CommandOutcome ExecuteShipDesigns(ContentSet content,GameState state,SetReadyCommand command,Action<ShipDesigns.ShipDesignResolutionPhase> hook)=>ExecuteWithHooks(content,state,command,hook);
     public static CommandOutcome Execute(ContentSet content, GameState state, Command command)=>ExecuteWithHooks(content,state,command,null);
-    private static CommandOutcome ExecuteWithHooks(ContentSet content,GameState state,Command command,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook)
+    private static CommandOutcome ExecuteWithHooks(ContentSet content,GameState state,Command command,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook,Action<Diplomacy.DiplomacyResolutionPhase>? diplomacyHook=null)
     {
-        try{return ExecuteTransaction(content,state,command,shipDesignHook:shipDesignHook);}
+        try{return ExecuteTransaction(content,state,command,shipDesignHook:shipDesignHook,diplomacyHook:diplomacyHook);}
         catch(OverflowException)when(Rules.HasFleets(state.RulesVersion))
         {return CommandOutcome.Reject(state,RejectionCodes.ResolutionFailed,"The order exceeds supported production or command limits.");}
         catch(InvalidOperationException)when(Rules.HasFleets(state.RulesVersion))
@@ -40,9 +41,9 @@ public static partial class CommandProcessor
             return CommandOutcome.Reject(state,"scout_preparation_unavailable","Move is outside the validated scout preparation.");
         return ExecuteTransaction(content,state,command,scoutPreparationMove:true);
     }
-    private static CommandOutcome ExecuteTransaction(ContentSet content, GameState state, Command command,bool allowAllHumansReady=false,bool scoutPreparationMove=false,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook=null)
+    private static CommandOutcome ExecuteTransaction(ContentSet content, GameState state, Command command,bool allowAllHumansReady=false,bool scoutPreparationMove=false,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook=null,Action<Diplomacy.DiplomacyResolutionPhase>? diplomacyHook=null)
     {
-        var result = ExecuteCore(content, state, command,scoutPreparationMove,shipDesignHook:shipDesignHook);
+        var result = ExecuteCore(content, state, command,scoutPreparationMove,shipDesignHook:shipDesignHook,diplomacyHook:diplomacyHook);
         if(Rules.HasCombat(state.RulesVersion))result=Combat.CombatRepair.Override(content,state,result,command);
         if (result.Changed && Rules.HasDevelopment(state.RulesVersion)) ApplyManualIntervention(result.State, command);
         if(result.Changed&&result.State.Turn==state.Turn)Diplomacy.DiplomacyReconciliation.AfterCommand(content,result.State);
@@ -59,7 +60,7 @@ public static partial class CommandProcessor
         return result;
     }
 
-    private static CommandOutcome ExecuteCore(ContentSet content, GameState state, Command command,bool scoutPreparationMove=false,bool boundProduction=false,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook=null)
+    private static CommandOutcome ExecuteCore(ContentSet content, GameState state, Command command,bool scoutPreparationMove=false,bool boundProduction=false,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook=null,Action<Diplomacy.DiplomacyResolutionPhase>? diplomacyHook=null)
     {
         EmpireState? issuer = state.FindEmpire(command.Issuer);
         if (issuer is null)
@@ -96,7 +97,7 @@ public static partial class CommandProcessor
             SetWorkforceCommand c => SetWorkforce(state, c),
             SetProjectCommand c => SetProject(content, state, issuer, c),
             SetResearchTargetCommand c => SetResearchTarget(content, state, issuer, c),
-            SetReadyCommand c => SetReady(content, state, issuer, c,shipDesignHook),
+            SetReadyCommand c => SetReady(content, state, issuer, c,shipDesignHook,diplomacyHook),
             _ => throw new ArgumentException($"Unsupported command type {command.GetType().Name}.", nameof(command)),
         };
     }
@@ -195,7 +196,7 @@ public static partial class CommandProcessor
         return ApplyPlanningChange(state, command.Issuer, candidate => candidate.FindEmpire(command.Issuer)!.ResearchTargetId = technologyId);
     }
 
-    private static CommandOutcome SetReady(ContentSet content, GameState state, EmpireState issuer, SetReadyCommand command,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook=null)
+    private static CommandOutcome SetReady(ContentSet content, GameState state, EmpireState issuer, SetReadyCommand command,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook=null,Action<Diplomacy.DiplomacyResolutionPhase>? diplomacyHook=null)
     {
         if (issuer.Ready == command.Ready)
         {
@@ -257,7 +258,7 @@ public static partial class CommandProcessor
         }
 
         // The readiness change and the resolution it triggers succeed or fail together.
-        TurnResolution resolution = shipDesignHook is null?TurnResolver.Resolve(content, candidate):TurnResolver.ResolveShipDesigns(content,candidate,shipDesignHook);
+        TurnResolution resolution = diplomacyHook is not null?TurnResolver.ResolveDiplomacy(content,candidate,diplomacyHook):shipDesignHook is null?TurnResolver.Resolve(content, candidate):TurnResolver.ResolveShipDesigns(content,candidate,shipDesignHook);
         if (!resolution.Succeeded)
         {
             return CommandOutcome.Reject(state, RejectionCodes.ResolutionFailed,

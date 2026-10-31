@@ -25,6 +25,8 @@ public sealed record TurnResolution(GameState State, TurnReport? Report, IReadOn
 public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 {
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ImmutableArray<Diplomacy.DiplomacyEvent>? DiplomacyEvents {get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public ImmutableArray<ShipDesigns.ShipDesignEvent>? ShipDesignEvents {get;init;}
     public ImmutableArray<Combat.OwnedCombatDeparture> CombatDepartures {get;init;}=ImmutableArray<Combat.OwnedCombatDeparture>.Empty;
     public ImmutableArray<Combat.OwnedCombatEvent> CombatEvents {get;init;}=ImmutableArray<Combat.OwnedCombatEvent>.Empty;
@@ -44,6 +46,7 @@ public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 /// </summary>
 public static class TurnResolver
 {
+    internal static TurnResolution ResolveDiplomacy(ContentSet content,GameState state,Action<Diplomacy.DiplomacyResolutionPhase> hook)=>ResolveCore(content,state,RivalTurnPlanner.Prepare,null,diplomacyHook:hook);
     internal static TurnResolution ResolveShipDesigns(ContentSet content,GameState snapshot,Action<ShipDesigns.ShipDesignResolutionPhase> hook)=>ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null,null,null,null,hook);
     internal static TurnResolution ResolveCombat(ContentSet content,GameState snapshot,Action<Combat.CombatResolutionPhase> hook)=>ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null,null,null,hook);
     internal static TurnResolution ResolveFleet(ContentSet content,GameState snapshot,Action<FleetResolutionPhase> hook)=>ResolveCore(content,snapshot,RivalTurnPlanner.Prepare,null,null,hook);
@@ -55,7 +58,7 @@ public static class TurnResolver
     internal static TurnResolution Resolve(ContentSet content, GameState snapshot, Func<ContentSet,GameState,RivalPlanningOutcome> prepare)
         => ResolveCore(content,snapshot,prepare,null);
 
-    private static TurnResolution ResolveCore(ContentSet content,GameState snapshot,Func<ContentSet,GameState,RivalPlanningOutcome> prepare,Action<CrisisResolutionPhase>? hook,Action<Scouting.ScoutResolutionPhase>? scoutHook=null,Action<FleetResolutionPhase>? fleetHook=null,Action<Combat.CombatResolutionPhase>? combatHook=null,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook=null)
+    private static TurnResolution ResolveCore(ContentSet content,GameState snapshot,Func<ContentSet,GameState,RivalPlanningOutcome> prepare,Action<CrisisResolutionPhase>? hook,Action<Scouting.ScoutResolutionPhase>? scoutHook=null,Action<FleetResolutionPhase>? fleetHook=null,Action<Combat.CombatResolutionPhase>? combatHook=null,Action<ShipDesigns.ShipDesignResolutionPhase>? shipDesignHook=null,Action<Diplomacy.DiplomacyResolutionPhase>? diplomacyHook=null)
     {
         GameState original = snapshot;
         var inputErrors = GameStateValidator.Validate(content, snapshot, allowAllHumansReady: true);
@@ -65,6 +68,8 @@ public static class TurnResolver
         GameState candidate;
         TurnEconomy economy;
         TurnReport? crisisReport=null;
+        var diplomacyEvents=ImmutableArray<Diplomacy.DiplomacyEvent>.Empty;
+        Diplomacy.DiplomacyFrame? diplomacyFrame=null;
         IReadOnlyList<string>? crisisValidation=null;
         try
         {
@@ -102,8 +107,21 @@ public static class TurnResolver
                 if (!planned.Succeeded) return Failed(original,RivalTurnPlanner.FailureMessage);
                 snapshot = planned.State;
             }
+            if(Rules.HasDiplomacy(snapshot.RulesVersion))
+            {
+                var planned=Diplomacy.DiplomacyTurnCoordinator.Prepare(content,snapshot);if(!planned.Succeeded)return Failed(original,RivalTurnPlanner.FailureMessage);snapshot=planned.State;
+                diplomacyHook?.Invoke(Diplomacy.DiplomacyResolutionPhase.Planning);
+            }
             fleetHook?.Invoke(FleetResolutionPhase.Preparation);combatHook?.Invoke(Combat.CombatResolutionPhase.Preparation);
             candidate = snapshot.Clone();
+            if(Rules.HasDiplomacy(snapshot.RulesVersion))
+            {
+                diplomacyFrame=Diplomacy.DiplomacyFrame.Capture(content,snapshot);diplomacyHook?.Invoke(Diplomacy.DiplomacyResolutionPhase.Snapshot);
+                diplomacyEvents=Diplomacy.DiplomacyResolver.ResolveOffers(content,snapshot,candidate);
+                diplomacyFrame=Diplomacy.DiplomacyResolver.PrepareEffective(content,snapshot,candidate,diplomacyFrame);
+                diplomacyHook?.Invoke(Diplomacy.DiplomacyResolutionPhase.Offers);
+            }
+
             var combat=Rules.HasCombat(snapshot.RulesVersion)?Combat.CombatResolutionContext.Capture(content,snapshot):null;
             var fleet=combat?.FleetContext??(Rules.HasFleets(snapshot.RulesVersion)?FleetResolutionContext.Capture(content,snapshot):null);
             combatHook?.Invoke(Combat.CombatResolutionPhase.Snapshot);
@@ -117,7 +135,8 @@ public static class TurnResolver
             // Phases 1-2: from the snapshot, calculate support, outputs, and growth for every colony in
             // ID order, and research for every empire in ID order. Effects completed this turn apply
             // only from the next snapshot.
-            economy = EconomyCalculator.Calculate(content, snapshot);
+            economy = EconomyCalculator.Calculate(content, Rules.HasDiplomacy(snapshot.RulesVersion)?candidate:snapshot);
+            diplomacyHook?.Invoke(Diplomacy.DiplomacyResolutionPhase.Economy);
             shipDesignHook?.Invoke(ShipDesigns.ShipDesignResolutionPhase.Economy);
 
             // Phase 3: growth, with new workers assigned to support.
@@ -189,6 +208,7 @@ public static class TurnResolver
                 combatHook?.Invoke(Combat.CombatResolutionPhase.Movement);
                 fleetHook?.Invoke(FleetResolutionPhase.Transport);
                 Colonization.ColonizationResolver.Apply(content, snapshot, candidate, events,crisis,scouting);
+                diplomacyHook?.Invoke(Diplomacy.DiplomacyResolutionPhase.Founding);
             }
             if(fleet is not null)FleetResolver.AfterFounding(candidate,fleet,events);
             fleetHook?.Invoke(FleetResolutionPhase.Founding);combatHook?.Invoke(Combat.CombatResolutionPhase.Founding);
@@ -218,8 +238,17 @@ public static class TurnResolver
 
             Development.DevelopmentCompletion.Apply(content, candidate, new TurnReport(snapshot.Turn, checked(snapshot.Turn + 1), economy));
             candidate.Turn = checked(candidate.Turn + 1);
+            if(diplomacyFrame is not null)
+            {
+                diplomacyEvents=diplomacyEvents.AddRange(Diplomacy.DiplomacyResolver.Finalize(content,snapshot,candidate,diplomacyFrame));
+                diplomacyEvents=diplomacyEvents.AddRange(candidate.Diplomacy!.Pairs.SelectMany(p=>p.LastResults).Where(e=>e.Turn==candidate.Turn)).Distinct().ToImmutableArray();
+                economy=Diplomacy.DiplomacyEconomy.IncludeSetupPayments(economy,diplomacyEvents);
+            }
+
             ObservationUpdater.Refresh(candidate, candidate.Turn);
             encounters = ContactUpdater.Refresh(snapshot, candidate);
+            if(diplomacyFrame is not null){diplomacyEvents=diplomacyEvents.AddRange(Diplomacy.DiplomacyContactUpdater.Refresh(snapshot,candidate,encounters));diplomacyHook?.Invoke(Diplomacy.DiplomacyResolutionPhase.Contact);}
+
             if(scouting is not null)Scouting.AmebaResolver.ObserveArrivals(content,candidate,scouting);
             if(fleet is not null)FleetResolver.ObserveAssembly(content,candidate,fleet);
             if(combat is not null)Combat.CombatTurnCoordinator.RefreshKnownObservations(content,candidate,combat);
@@ -247,6 +276,7 @@ public static class TurnResolver
             {
                 CrisisReports.TrimRetiredLocations(candidate);
                 hook?.Invoke(CrisisResolutionPhase.Finalize);
+                diplomacyHook?.Invoke(Diplomacy.DiplomacyResolutionPhase.Validation);
                 crisisValidation=GameStateValidator.Validate(content,candidate);
                 if(crisisValidation.Count>0)return Failed(original,RivalTurnPlanner.FailureMessage);
                 shipDesignHook?.Invoke(ShipDesigns.ShipDesignResolutionPhase.Validation);
@@ -254,7 +284,7 @@ public static class TurnResolver
                 fleetHook?.Invoke(FleetResolutionPhase.Validation);
                 scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Validation);
                 var locations=crisis.Locations.SetItems(candidate.Colonies.Where(c=>!crisis.Locations.ContainsKey(c.Id)).Select(c=>new KeyValuePair<ColonyId,CrisisLocation>(c.Id,CrisisQueries.Location(candidate,c))));
-                crisisReport=new(snapshot.Turn,candidate.Turn,economy){ShipDesignEvents=Rules.HasShipDesigns(snapshot.RulesVersion)?refitEvents:null,CombatDepartures=combat?.ReportDepartures??ImmutableArray<Combat.OwnedCombatDeparture>.Empty,CombatEvents=combat?.ReportEvents??ImmutableArray<Combat.OwnedCombatEvent>.Empty,CombatRounds=combat?.Rounds??ImmutableArray<Combat.CombatRoundReceipt>.Empty,ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations,ScoutEvents=scouting?.Events.ToImmutableArray()??ImmutableArray<Scouting.ScoutOrderEvent>.Empty,FleetEvents=fleet?.Events.ToImmutableArray()??ImmutableArray<FleetEvent>.Empty};
+                crisisReport=new(snapshot.Turn,candidate.Turn,economy){DiplomacyEvents=Rules.HasDiplomacy(snapshot.RulesVersion)?diplomacyEvents:null,ShipDesignEvents=Rules.HasShipDesigns(snapshot.RulesVersion)?refitEvents:null,CombatDepartures=combat?.ReportDepartures??ImmutableArray<Combat.OwnedCombatDeparture>.Empty,CombatEvents=combat?.ReportEvents??ImmutableArray<Combat.OwnedCombatEvent>.Empty,CombatRounds=combat?.Rounds??ImmutableArray<Combat.CombatRoundReceipt>.Empty,ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations,ScoutEvents=scouting?.Events.ToImmutableArray()??ImmutableArray<Scouting.ScoutOrderEvent>.Empty,FleetEvents=fleet?.Events.ToImmutableArray()??ImmutableArray<FleetEvent>.Empty};
             }
         }
         catch (OverflowException exception)
@@ -270,7 +300,7 @@ public static class TurnResolver
             return Rules.HasRivals(original.RulesVersion) ? Failed(original,RivalTurnPlanner.FailureMessage) : new TurnResolution(original, Report: null, errors);
         }
 
-        return new TurnResolution(candidate, crisisReport??new TurnReport(snapshot.Turn, candidate.Turn, economy) { ExpansionEvents = events.ToImmutableArray(), EncounterEvents = encounters }, Array.Empty<string>());
+        return new TurnResolution(candidate, crisisReport??new TurnReport(snapshot.Turn, candidate.Turn, economy) { DiplomacyEvents=Rules.HasDiplomacy(snapshot.RulesVersion)?diplomacyEvents:null,ExpansionEvents = events.ToImmutableArray(), EncounterEvents = encounters }, Array.Empty<string>());
     }
 
     private static void InsertSorted(List<string> ids, string id)
