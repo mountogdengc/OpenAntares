@@ -9,11 +9,12 @@ namespace OpenAntares.Simulation.Content;
 /// </summary>
 public static partial class ContentWriter
 {
-    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null, !content.GovernorTemplates.IsEmpty, !content.Plagues.IsEmpty, content.SpaceAmeba is not null, content.FleetCommand is not null, content.Combat is not null, content.ShipDesigns is not null);
-    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), Rules.HasRivals(rulesVersion), Rules.HasDevelopment(rulesVersion), Rules.HasCrises(rulesVersion), Rules.HasScouting(rulesVersion), Rules.HasFleets(rulesVersion), Rules.HasCombat(rulesVersion), Rules.HasShipDesigns(rulesVersion));
-    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals, bool includeDevelopment, bool includeCrises, bool includeScouting, bool includeFleets, bool includeCombat, bool includeShipDesigns)
+    public static void Write(Utf8JsonWriter writer, ContentSet content) => WriteCore(writer, content, !content.Species.IsEmpty || !content.Environments.IsEmpty, content.RivalAi is not null, !content.GovernorTemplates.IsEmpty, !content.Plagues.IsEmpty, content.SpaceAmeba is not null, content.FleetCommand is not null, content.Combat is not null, content.ShipDesigns is not null, content.Diplomacy is not null);
+    public static void Write(Utf8JsonWriter writer, ContentSet content, int rulesVersion) => WriteCore(writer, content, Rules.HasSpecies(rulesVersion), Rules.HasRivals(rulesVersion), Rules.HasDevelopment(rulesVersion), Rules.HasCrises(rulesVersion), Rules.HasScouting(rulesVersion), Rules.HasFleets(rulesVersion), Rules.HasCombat(rulesVersion), Rules.HasShipDesigns(rulesVersion), rulesVersion == 11);
+    private static void WriteCore(Utf8JsonWriter writer, ContentSet content, bool includeSpecies, bool includeRivals, bool includeDevelopment, bool includeCrises, bool includeScouting, bool includeFleets, bool includeCombat, bool includeShipDesigns, bool includeDiplomacy)
     {
         writer.WriteStartObject();
+        if (includeDiplomacy) Diplomacy.DiplomacyContentWriter.Write(writer,content.Diplomacy ?? throw new System.ArgumentException("Missing diplomacy content."));
         if (includeShipDesigns) ShipDesigns.ShipDesignContentWriter.Write(writer, content.ShipDesigns ?? throw new System.ArgumentException("Missing ship_designs content."));
         if (includeCombat) Combat.CombatContentWriter.Write(writer, content.Combat ?? throw new System.ArgumentException("Missing combat content."));
         if (includeFleets)

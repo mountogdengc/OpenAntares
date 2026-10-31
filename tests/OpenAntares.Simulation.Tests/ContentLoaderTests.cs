@@ -43,6 +43,7 @@ public class ContentLoaderTests
         {
             // The original economy fixture remains authoritative for old campaigns; species extensions have their own core tests.
             Expansion = null,
+            Diplomacy = null,
             ShipDesigns = null,
             Combat = null,
             FleetCommand = null,

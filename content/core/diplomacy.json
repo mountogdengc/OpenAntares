@@ -1,0 +1,18 @@
+{
+  "diplomacy": {
+    "algorithm_id": "cooperation_v1",
+    "setup_cost": 500,
+    "trade_output": 100,
+    "warmup": 3,
+    "minimum": 10,
+    "notice": 2,
+    "offer_lifetime": 3,
+    "cooldown": 5,
+    "streak_cap": 10,
+    "streak_step": 2,
+    "cancellation_penalty": 10,
+    "memory_lifetime": 10,
+    "accord_threshold": 0,
+    "trade_threshold": 10
+  }
+}
