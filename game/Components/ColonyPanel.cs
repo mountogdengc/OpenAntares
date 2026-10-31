@@ -106,6 +106,7 @@ public partial class ColonyPanel : VBoxContainer
             designs.Pressed+=()=>ShipDesignsRequested?.Invoke();
         }
 
+        if(view?.Colonies.FirstOrDefault(c=>c.Id==colony.Id) is {} bank&&view.Diplomacy is not null)AddChild(Wrapped($"Production bank {Format.Points(bank.ProductionReserve)}; diplomacy reserved {Format.Points(bank.ReservedProduction)}; spendable {Format.Points(bank.SpendableProduction)}.","SubtleLabel"));
         ReserveOutcome production = economy.Production;
         string status = production.TargetId is null
             ? $"No project: production is saved (reserve {Format.Points(production.Starting)})."

@@ -12,6 +12,7 @@ public partial class VesselPanel : VBoxContainer
 {
     public event Action<Command>? CommandIssued;
     public event Action<VesselId>? VesselSelected;
+    public event Action? DiplomacyRequested;
     public event Action<StarId>? DestinationSelected;
     public event Action? ScoutOverviewRequested;
     public event Action? FleetCommandRequested;
@@ -29,6 +30,7 @@ public partial class VesselPanel : VBoxContainer
         picker.ItemSelected += index => VesselSelected?.Invoke(new(picker.GetItemMetadata((int)index).AsInt32()));
         var vessel = view.Vessels.FirstOrDefault(v => v.Id == selected) ?? view.Vessels[0]; var role = content.Vessels[vessel.RoleId];
         if(Rules.HasShipDesigns(view.RulesVersion)&&vessel.Loadout?.Design is not null){var refit=new Button{Name="VesselOpenRefit",Text="Review equipment refit"};AddChild(refit);refit.Pressed+=()=>RefitRequested?.Invoke(vessel.Id);}
+        if(view.SettlementRestrictedSystems.Contains(vessel.StationaryStarId??default)&&role.CanFoundColony){AddChild(Text("Attention: a settlement accord blocks further founding here. Your vessel and passengers remain available."));DevelopmentUi.Button(this,"Review settlement accord",()=>DiplomacyRequested?.Invoke(),"FoundingDiplomacy");}
         if(vessel.Loadout?.Design is {} designId&&view.ShipDesigns?.Designs.SingleOrDefault(d=>d.Id==designId) is {} installed)
         {
             var equipment=Text(installed.Name+(installed.Archived?" (archived)":"")+"\n"+ShipDesignUi.EquipmentSummary(content,installed.Recipe));

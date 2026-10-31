@@ -120,7 +120,7 @@ public partial class TurnReportDialog : AcceptDialog
         if(report.DiplomacyEvents is {} diplomacyEvents&&!diplomacyEvents.IsEmpty){_body.AddChild(new Label{Text="Diplomacy",ThemeTypeVariation="HeaderLabel"});foreach(var e in diplomacyEvents)_body.AddChild(Wrapped(e.Kind.Replace('_',' ')+": "+e.Reason,"SubtleLabel"));DevelopmentUi.Button(_body,"Open diplomacy",()=>DiplomacyRequested?.Invoke(),"ReportOpenDiplomacy");}
         foreach (var encounter in report.EncounterEvents)
         {
-            if(encounter.Kind=="first_contact"&&report.DiplomacyEvents is {} de&&de.Any(e=>e.Kind=="first_contact"))continue;
+            if(encounter.Kind=="first_contact"&&report.DiplomacyEvents is {} de&&de.Any(e=>e.Kind=="first_contact"&&e.Other==encounter.OtherEmpireId))continue;
             string location = report.StarNames.TryGetValue(encounter.StarId,out var name) ? name : "system";
             string species = encounter.SpeciesName ?? "unidentified";
             string culture = encounter.CultureName is { } knownCulture ? $" ({knownCulture})" : string.Empty;
