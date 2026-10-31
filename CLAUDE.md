@@ -1,5 +1,7 @@
 # OpenAntares
 
+**M11 completed on isolated branch,2026-10-31:** Diplomacy is implemented and locally validated on `codex/diplomacy`, product `873f320`: rules11/writer12/67 explicit pairs. M11-P and M11-I/DIP-AC-001..011 Verified for local automated scope; DIP-AC-012/design approval remains separate. Fresh Suite2140/2140; all11 native scenarios pass at9ed0cbd, affected Diplomacy/Rival/Colony rerun0 diagnostics at873f320; final normal rebuild0warnings/errors excludes11 scenarios/2 helpers. One fresh whole-branch review and one regression-first correction pass complete; no open required findings. Read [validation report](reports/DIPLOMACY_VALIDATION_2026-10-30.md), final-machine-summary and archived ledger/rulings. Main/owner prose/7456 original QA/all10 worktrees/prior refs/stashes remain preserved. Parent17-row statuses/totals and human/platform/balance/security/release limits unchanged. No merge/push/release/cleanup; retain branch and workspace for owner disposition. Earlier planning/in-progress paragraphs are historical; do not repeat completed work or request method approval again.
+
 Open-source, turn-based space 4X game built in Godot 4.7 (.NET build, GL Compatibility renderer, Jolt physics). The setting, code, art, and systems are all original. Targets: Windows, Linux, macOS.
 
 [docs/CHARTER.md](docs/CHARTER.md) is the source of truth for scope and design intent. Read it before starting a new system. If a request conflicts with the charter, point that out instead of silently following either one.
