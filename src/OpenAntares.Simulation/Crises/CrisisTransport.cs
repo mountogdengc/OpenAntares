@@ -29,10 +29,10 @@ public static class CrisisTransport
             if(context.DepartureSources.TryGetValue((before.EmpireId,star),out var sources)&&sources.Length>0)Tag(candidate,context,vessel,sources[0],"Cargo contacted an infectious open port.");
         }
     }
-    public static void HandleArrivals(ContentSet content,GameState snapshot,GameState candidate,CrisisResolutionContext context)
+    public static void HandleArrivals(ContentSet content,GameState snapshot,GameState candidate,CrisisResolutionContext context,System.Collections.Generic.IEnumerable<VesselId>? onlyArrivals=null)
     {
         if(!Enabled(snapshot))return;
-        foreach(var id in context.ArrivedVessels.Distinct().OrderBy(v=>v))
+        foreach(var id in (onlyArrivals??context.ArrivedVessels).Distinct().OrderBy(v=>v))
         {
             var vessel=candidate.FindVessel(id);if(vessel is null||vessel.CarriedPopulation<=0||vessel.StationaryStarId is not {} star)continue;
             if(context.ClosedPorts.Contains((vessel.EmpireId,star)))

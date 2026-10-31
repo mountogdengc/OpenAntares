@@ -22,8 +22,9 @@ public static class EconomyCalculator
     public const int GrowthPerBirth = 100;
 
     public static TurnEconomy Calculate(ContentSet content, GameState state)
+        =>Calculate(content,state,state.ConflictCalculatorFrame??(Rules.HasConflict(state.RulesVersion)&&state.Conflict is not null?Conflict.ConflictBlockades.Capture(content,state):null));
+    internal static TurnEconomy Calculate(ContentSet content,GameState state,Conflict.ConflictBlockadeFrame? pressure)
     {
-        var pressure=state.ConflictCalculatorFrame??(Rules.HasConflict(state.RulesVersion)&&state.Conflict is not null?Conflict.ConflictBlockades.Capture(content,state):null);
         ImmutableArray<ColonyEconomy> colonies = state.Colonies
             .OrderBy(c => c.Id)
             .Select(colony => CalculateColony(content, state, colony,pressure))

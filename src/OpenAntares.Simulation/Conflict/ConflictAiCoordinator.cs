@@ -22,7 +22,7 @@ public static class ConflictAiCoordinator
                 EmpireView Current()
                 {
                     var current=EmpireViewProjector.Project(content,working,owner);
-                    return current with{ForeignVessels=initial.ForeignVessels,Conflict=current.Conflict! with{Military=initial.Conflict!.Military}};
+                    return current with{ForeignVessels=initial.ForeignVessels,Diplomacy=current.Diplomacy! with{Contacts=initial.Diplomacy!.Contacts},Conflict=current.Conflict! with{Military=initial.Conflict!.Military}};
                 }
                 void ApplyStage(ConflictPlanningStage stage)
                 {
@@ -40,10 +40,12 @@ public static class ConflictAiCoordinator
                 ApplyStage(ConflictPlanningStage.Responses);ApplyStage(ConflictPlanningStage.Declarations);ApplyStage(ConflictPlanningStage.Production);
                 for(int i=0;i<content.Conflict!.GroupingCommandLimit;i++)ApplyStage(ConflictPlanningStage.Grouping);
                 ApplyStage(ConflictPlanningStage.Orders);
-                var diplomacy=Diplomacy.DiplomacyTurnCoordinator.PrepareOwner(content,working,owner);if(!diplomacy.Succeeded)return new(snapshot,false);working=diplomacy.State;
+                var diplomacy=Diplomacy.DiplomacyTurnCoordinator.PrepareOwner(content,working,owner,Current());if(!diplomacy.Succeeded)return new(snapshot,false);working=diplomacy.State;
                 var expansion=RivalTurnPlanner.PrepareOwner(content,working,owner);if(!expansion.Succeeded)return new(snapshot,false);working=expansion.State;
             }
-            return GameStateValidator.Validate(content,working,true).Count==0?new(working,true):new(snapshot,false);
+            if(GameStateValidator.Validate(content,working,true).Count!=0)return new(snapshot,false);
+            Diplomacy.DiplomacyTurnCoordinator.PublishOfferDates(content,snapshot,working);
+            return new(working,true);
         }
         catch(Exception e)when(e is ArgumentException or InvalidOperationException or OverflowException or System.Collections.Generic.KeyNotFoundException){return new(snapshot,false);}
     }
