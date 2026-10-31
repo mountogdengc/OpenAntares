@@ -1,0 +1,27 @@
+{
+  "conflict": {
+    "algorithm_id": "limited_conflict_v1",
+    "truce": 10,
+    "offer_lifetime": 3,
+    "declaration_grievance": 30,
+    "grievance_peace_lifetime": 20,
+    "blockade_retained_percent": 50,
+    "peace_hull_target": 2,
+    "war_hull_target": 4,
+    "military_hull_cap": 6,
+    "formation_limit": 4,
+    "active_encounter_limit": 64,
+    "history_limit": 20,
+    "round_history_limit": 20,
+    "contact_gate": 5,
+    "claim_gate": 5,
+    "peace_earliest": 5,
+    "peace_deadline": 15,
+    "peace_inactivity": 10,
+    "peace_cooldown": 5,
+    "repair_hull_percent": 75,
+    "healthy_cohesion": 60,
+    "grouping_command_limit": 2,
+    "fleet_command_limit": 1
+  }
+}

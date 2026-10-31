@@ -17,6 +17,7 @@ public sealed record ContentSet(
     ImmutableSortedDictionary<string, BuildingDefinition> Buildings,
     ImmutableSortedDictionary<string, TechnologyDefinition> Technologies)
 {
+    public Conflict.ConflictDefinition? Conflict { get; init; }
     public Diplomacy.DiplomacyDefinition? Diplomacy { get; init; }
     public ShipDesigns.ShipDesignDefinition? ShipDesigns { get; init; }
     public Combat.CombatDefinition? Combat { get; init; }

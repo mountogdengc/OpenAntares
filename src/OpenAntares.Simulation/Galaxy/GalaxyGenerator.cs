@@ -32,6 +32,7 @@ public static class GalaxyGenerator
 
     public static NewGameResult CreateNewGame(ContentSet content, NewGameSettings settings)
     {
+        if(Rules.HasConflict(settings.RulesVersion)&&content.Conflict is null)return Fail("Conflict campaigns require explicit conflict content, including Solo.");
         if(Rules.HasDiplomacy(settings.RulesVersion)&&content.Diplomacy is null)return Fail("Diplomacy campaigns require explicit diplomacy content, including Solo.");
         if(Rules.HasShipDesigns(settings.RulesVersion)&&content.ShipDesigns is null)return Fail("Ship-design campaigns require explicit content, including Off.");
         if(Rules.HasCombat(settings.RulesVersion))
