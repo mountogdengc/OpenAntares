@@ -32,7 +32,7 @@ public static class ConflictTokens
             view.Turn,view.Viewer,view.RulesVersion,Ready=view.Research.Ready,
             Kind=action.GetType().Name,Action=JsonSerializer.Serialize(action,action.GetType()),
             Relation=own?.Relations.SingleOrDefault(r=>r.Other==other),
-            Ships=ships,Target=target,Encounter=encounter,
+            Ships=ships,Target=target,OpposingGroup=target is null?null:own?.Military.Where(m=>m.Owner==target.Owner&&m.Star==target.Star&&(target.Fleet is {} observedFleet?m.Fleet==observedFleet:m.Vessel==target.Vessel)).OrderBy(m=>m.Vessel).ToArray(),Encounter=encounter,
             Group=fleet is {} id?view.Fleets?.Fleets.SingleOrDefault(f=>f.Id==id):null,
             PendingAttack=own?.OwnAttacks.Where(a=>a.Fleet==fleet).ToArray(),
             OwnBlockade=own?.Blockades.SingleOrDefault(b=>b.Fleet==fleet),

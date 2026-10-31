@@ -4,6 +4,8 @@ using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Diplomacy;
 using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Conflict;
+public sealed record ConflictDestruction(ConflictEncounterId Encounter,VesselId Vessel,EmpireId Owner,string RoleId,StarId Star,bool Flagship);
+public sealed record ConflictAppliedRound(ConflictBattleFrame Frame,ConflictExchangeResult Result,bool Interception);
 public sealed class ConflictResolutionContext
 {
     public ImmutableArray<ConflictPeaceDecision> PeaceDecisions {get;internal set;}=ImmutableArray<ConflictPeaceDecision>.Empty;
@@ -18,6 +20,12 @@ public sealed class ConflictResolutionContext
     internal bool RelationsPrepared {get;set;}
     internal bool RelationsFinalized {get;set;}
     internal bool MatchingResolved {get;set;}
+    internal bool ExchangesResolved {get;set;}
+    internal HashSet<VesselId> VolleyParticipants {get;}=new();
+    internal List<ConflictDestruction> DestructionFacts {get;}=new();
+    internal List<ConflictAppliedRound> RoundFacts {get;}=new();
+    public ImmutableArray<ConflictDestruction> Destructions=>DestructionFacts.ToImmutableArray();
+    public ImmutableArray<ConflictAppliedRound> Rounds=>RoundFacts.ToImmutableArray();
     public GameState Snapshot {get;private init;}=null!;
     public int FromTurn {get;private init;}
     public static ConflictResolutionContext Capture(ContentSet content,GameState snapshot)=>new(){Snapshot=snapshot.Clone(),FromTurn=snapshot.Turn};

@@ -93,6 +93,7 @@ public sealed class ConflictEncounterState
     [JsonRequired] public long Revision {get;set;}=1;
     [JsonRequired] public long Round {get;set;}
     [JsonRequired] public int? LastResolvedTurn {get;set;}
+    [JsonRequired] public List<ConflictRoundReceipt> Rounds {get;set;}=new();
 }
 public sealed class ConflictHistoryEntry
 {

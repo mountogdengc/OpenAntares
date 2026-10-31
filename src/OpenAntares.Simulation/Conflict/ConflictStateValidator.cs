@@ -54,6 +54,20 @@ public static class ConflictStateValidator
         {
             if(e is null){Error("Null encounter.");continue;}
             if(e.Id.Value<=lastEncounter||e.Id.Value<1||e.Id.Value>=c.NextEncounterId||!encounterIds.Add(e.Id.Value)||e.Revision<1||e.Round<0||!Enum.IsDefined(e.Phase)||!Past(e.CreatedTurn)||!Past(e.CompletedTurn)||!Past(e.LastResolvedTurn)||state.FindStar(e.Star) is null)Error("Invalid encounter identity/phase/date.");lastEncounter=e.Id.Value;
+            if(e.Rounds is null||e.Rounds.Count>d.RoundHistoryLimit)Error("Bounded encounter receipts required.");
+            else
+            {
+                long priorRound=0;int priorTurn=-1;
+                foreach(var receipt in e.Rounds)
+                {
+                    if(receipt is null){Error("Null round receipt.");continue;}
+                    if(receipt.Round<=priorRound||receipt.Round>e.Round||receipt.Turn<=priorTurn||!Past(receipt.Turn)||receipt.Shots.IsDefault||receipt.Own.IsDefault||receipt.Opposing.IsDefault||receipt.Shots.Length>64||receipt.Own.Length>32||receipt.Opposing.Length>32)Error("Invalid bounded round receipt.");
+                    priorRound=receipt.Round;priorTurn=receipt.Turn;
+                    if(!receipt.Shots.IsDefault&&receipt.Shots.Any(s=>s is null||s.Source.Sentry||s.Target.Sentry||s.Source.Id<1||s.Source.Id>=state.NextEntityId||s.Target.Id<1||s.Target.Id>=state.NextEntityId||s.Source.Id==s.Target.Id||s.Damage<1))Error("Invalid real-vessel shot.");
+                    if(!receipt.Own.IsDefault&&!receipt.Opposing.IsDefault&&receipt.Own.Concat(receipt.Opposing).Any(x=>x is null||x.Id.Value<1||x.Id.Value>=state.NextEntityId||x.Before<1||x.After<0||x.After>x.Before||x.ActualLoss!=x.Before-x.After))Error("Invalid round damage.");
+                }
+                if(e.Round>0&&(e.Rounds.Count==0||e.Rounds[^1] is not {} latest||latest.Round!=e.Round||latest.Turn!=e.LastResolvedTurn)||e.Round==0&&e.Rounds.Count>0)Error("Latest applied round must survive report trimming.");
+            }
             var pair=c.Pairs.FirstOrDefault(p=>p?.Pair==e.Pair);
             bool live=e.Phase!=ConflictPhase.Completed;
             if(pair is null||live&&pair.Relation!=RelationKind.War)Error("A live encounter requires the matching war.");

@@ -8,7 +8,7 @@ using OpenAntares.Simulation.Knowledge;
 using OpenAntares.Simulation.ShipDesigns;
 using OpenAntares.Simulation.State;
 namespace OpenAntares.Simulation.Conflict;
-public static class ConflictQueries
+public static partial class ConflictQueries
 {
     public static ConflictView Project(ContentSet content,GameState state,EmpireId viewer)
     {
@@ -58,6 +58,6 @@ public static class ConflictQueries
             }
         }
         if(!allowed&&Rules.HasConflict(view.RulesVersion))allowed=ConflictEligibility.Allowed(content,view,action);
-        return new(allowed,allowed?null:"conflict_action_unavailable",token){EffectiveTurn=effective,Explanations=allowed&&action is ConflictAction.DeclareWar?ImmutableArray.Create("Declaration takes effect at the next publication; no attack or blockade is authorized this planning turn. Counterpart availability is rechecked at resolution."):allowed&&action is ConflictAction.Attack?ImmutableArray.Create("This commits only your armed fleet. The observed anchor is checked again at resolution; changed forces can prevent the attack. Protected civilians cannot be targeted."):allowed&&action is ConflictAction.Blockade?ImmutableArray.Create("The order can first reduce production after its next publication. Current planning income is unchanged. Movement, repair, refit or regrouping lifts it immediately."):allowed&&action is ConflictAction.ConfigureDefense?ImmutableArray.Create("These are standing defensive preferences. With no selected return port, withdrawal uses local Break contact and may take an interception volley."):ImmutableArray<string>.Empty};
+        return new(allowed,allowed?null:"conflict_action_unavailable",token){Volley=allowed?PreviewVolley(content,view,action):null,EffectiveTurn=effective,Explanations=allowed&&action is ConflictAction.DeclareWar?ImmutableArray.Create("Declaration takes effect at the next publication; no attack or blockade is authorized this planning turn. Counterpart availability is rechecked at resolution."):allowed&&action is ConflictAction.Attack?ImmutableArray.Create("This commits only your armed fleet. The observed anchor is checked again at resolution; changed forces can prevent the attack. Protected civilians cannot be targeted."):allowed&&action is ConflictAction.Blockade?ImmutableArray.Create("The order can first reduce production after its next publication. Current planning income is unchanged. Movement, repair, refit or regrouping lifts it immediately."):allowed&&action is ConflictAction.ConfigureDefense?ImmutableArray.Create("These are standing defensive preferences. With no selected return port, withdrawal uses local Break contact and may take an interception volley."):ImmutableArray<string>.Empty};
     }
 }

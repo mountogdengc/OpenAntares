@@ -12,7 +12,9 @@ public sealed record ConflictView(EmpireId Viewer,int Turn,long OwnRevision,Immu
 {public ImmutableArray<ConflictAttackIntent> OwnAttacks {get;init;}=ImmutableArray<ConflictAttackIntent>.Empty;}
 public sealed record ConflictPreview(bool Allowed,string? RejectionCode,string Token)
 {
+    public ConflictVolleyView? Volley {get;init;}
     public long? EffectiveTurn {get;init;}
     public long? TruceEndTurn {get;init;}
     public ImmutableArray<string> Explanations {get;init;}=ImmutableArray<string>.Empty;
 }
+public sealed record ConflictVolleyView(ImmutableArray<Combat.CombatShot> Shots,ImmutableArray<Combat.CombatShipDamage> Own,ImmutableArray<Combat.CombatShipDamage> Opposing,bool Conditional,string Explanation);
