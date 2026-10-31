@@ -34,7 +34,7 @@ public sealed class DiplomacyAgreement
     public HubOrigin? LowHub {get;set;} public HubOrigin? HighHub {get;set;}
     public int? LowNoticeTurn {get;set;} public int? HighNoticeTurn {get;set;} public int? EndTurn {get;set;}
 }
-public sealed record DiplomacyEvent(EmpireId Viewer,EmpireId Other,int Turn,string Kind,StarId? Star,ColonyId? OwnHub,string Reason);
+public sealed record DiplomacyEvent(EmpireId Viewer,EmpireId Other,int Turn,string Kind,StarId? Star,ColonyId? OwnHub,string Reason) {public long Paid {get;init;}}
 public sealed class DiplomacyPairState
 {
     public DiplomacyPair Pair {get;set;} public long NextOfferId {get;set;}=1; public long PublicRevision {get;set;}=1;
