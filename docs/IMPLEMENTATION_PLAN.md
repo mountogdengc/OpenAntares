@@ -1,5 +1,7 @@
 # OpenAntares continuation plan
 
+**M12 full design approved; implementation plan ready, 2026-10-31:** Owner “Looks good, write the implementation plan.” accepts the complete empire-conflict design at76312d1; [ADR-026](DECISIONS/ADR-026-approved-empire-conflict-design.md) records full gameplay/default approval. M12-D/ECF-AC-012 Verified for design only. The [separate22-task plan](superpowers/plans/2026-10-31-empire-conflict.md) and [author self-review](../reports/EMPIRE_CONFLICT_IMPLEMENTATION_PLAN_REVIEW_2026-10-31.md) are ready for concrete-plan review; M12-P In Progress, M12-I/functional ECF criteria Not Started. Native inline/no per-task agents/one final fresh whole-branch implementation reviewer retained; do not re-ask design defaults or execution method. Product remains873f320/rules11/writer12/67, proposed12/13/79 inactive. Documentation checks only; no execution checkout, genuine rules11 capture, product edit or gameplay build/test. Preserve all10 worktrees/branches/stashes/owner prose/exact peaceful paragraph/QA/futures/raw evidence/recovery and17 parent-row statuses/totals. No merge/push/release/cleanup. Next: review this concrete22-task plan before execution. Earlier proposal-pending paragraphs are historical.
+
 **M12 empire-conflict proposal, 2026-10-31:** Owner selected empire conflict and delegated drafting choices. The [complete proposal](superpowers/specs/2026-10-31-empire-conflict-design.md) and [fresh builder-check disposition](../reports/EMPIRE_CONFLICT_GAMEPLAY_REVIEW_2026-10-31.md) are ready for review. Proposed limited war/peace, protected civilians, armed fleet battles, nonstacking50% retained-production blockades, paid military AI and ten-boundary truce are drafter defaults. M12-D/ECF-AC-012 In Progress; separate plan/implementation and ECF-AC-001..011 Not Started. Main product remains873f320, rules11/writer12/67 pairs; proposed12/13/79 inactive. Documentation checks only; no gameplay test run, future capture, separate implementation plan or product changes. Retain Native inline/no per-task agents/one final implementation reviewer after later approvals, all10 worktrees/branches/owner prose/peaceful paragraph/QA/futures/raw evidence/recovery and17 parent-row statuses/totals. No push/release/cleanup. Next: owner review of the complete proposal before a separate plan. Earlier subsystem checkpoints are historical.
 
 **M11 locally integrated, 2026-10-31:** Owner “Looks good, merge diplomacy into main.” authorized the conflict-free fast-forward of `codex/diplomacy` (`0db760a`) into main from `ada622f`. Product `873f320` is unchanged; rules11/writer12/67 explicit pairs are active. Fresh main Suite2140/2140 and native Diplomacy pass; the native runner rebuilds ordinary code and verifies all11 scenario types and2 helpers absent. All66 recorded product files match the verified branch after Git line-ending normalization. One implementation review and its correction pass remain complete; no new review or gameplay change. Recovery: `codex/diplomacy-premerge-20261031`. All10 worktrees and branches retained. See [integration evidence](../reports/DIPLOMACY_INTEGRATION_2026-10-31.md). Earlier branch-only/in-progress paragraphs are historical. Parent17-row statuses/totals and human/platform/balance/security/release limits remain unchanged. No push, release or cleanup. Next: choose the next bounded milestone.
@@ -173,12 +175,12 @@ M10 full approval/planning,2026-10-29: owner “Looks good, write the implementa
 | M11-I | Implement after separate plan approval | Not Started |
 
 
-## M12 empire conflict — design review pending
+## M12 empire conflict — plan review pending
 
 | Milestone | Scope / gate | Status |
 | --- | --- | --- |
-| M12-D | Full owner review of [complete conflict proposal](superpowers/specs/2026-10-31-empire-conflict-design.md), defaults and fresh builder-check disposition | In Progress |
-| M12-P | Separate implementation plan after full design approval; not written here | Not Started |
+| M12-D | Complete gameplay/default approval in ADR-026 after fresh builder check | Verified for design |
+| M12-P | Separate22-task plan/self-review complete; concrete-plan review pending | In Progress |
 | M12-I | Implement only after concrete-plan approval; genuine rules11 freeze precedes product edits | Not Started |
 
-This is a milestone gate register, not an implementation task plan. Retain Native inline/no per-task implementation agents/one final fresh whole-branch implementation reviewer after later approvals. No product/default/schema change or implementation validation in this design turn.
+This register links the separate [22-task implementation plan](superpowers/plans/2026-10-31-empire-conflict.md); its approval remains pending. Retain Native inline/no per-task implementation agents/one final fresh whole-branch implementation reviewer after later approvals. No product/default/schema change or implementation validation in this design turn.

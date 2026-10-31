@@ -80,3 +80,6 @@ M8 full approval/planning2026-10-27: owner “0approved” accepts the complete 
 
 
 [ADR-025: Empire-conflict design entry](ADR-025-empire-conflict-design-entry.md) records owner-selected drafting and delegated defaults. Complete proposal and fresh builder check ready; M12-D In Progress, separate plan/implementation Not Started. Active product11/12/67 unchanged.
+
+
+[ADR-026: Approve empire-conflict gameplay design](ADR-026-approved-empire-conflict-design.md) records full owner design/default approval at76312d1. M12-D/ECF-AC-012 Verified for design; separate22-task plan/self-review ready, M12-P In Progress, implementation Not Started. Active11/12/67 unchanged.

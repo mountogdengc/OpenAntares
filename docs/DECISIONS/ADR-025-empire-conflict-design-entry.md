@@ -9,3 +9,6 @@ The [complete proposal](../superpowers/specs/2026-10-31-empire-conflict-design.m
 The [fresh read-only builder check](../../reports/EMPIRE_CONFLICT_GAMEPLAY_REVIEW_2026-10-31.md) raised refit interruption accounting; the proposal explicitly preserves all banked reserve and old equipment, cancels the unpaid job and leaves automation paused. This follows existing completion-only payment rules. No owner-only unanswered question remains at handoff, but the full design/defaults still need owner review.
 
 M12-D/ECF-AC-012 In Progress; M12-P/M12-I and functional ECF criteria Not Started. No separate implementation plan, product changes, gameplay test run or genuine future capture. Active product873f320/rules11/writer12/67 pairs unchanged; proposed12/13/79 inactive. Preserve Native/no per-task agents/one final implementation reviewer after later approvals, all10 worktrees/branches/owner prose/peaceful paragraph/QA/futures/raw reports/recovery and17 parent-row statuses/totals. No push/release/cleanup. Next: full owner review, then a separate plan.
+
+
+Full owner gameplay approval2026-10-31 is now recorded in [ADR-026](ADR-026-approved-empire-conflict-design.md). The separate22-task plan awaits review; earlier drafting-only status is historical.

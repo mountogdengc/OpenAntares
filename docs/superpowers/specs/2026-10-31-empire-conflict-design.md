@@ -1,5 +1,7 @@
 # Empire conflict: limited war, fleet battles and blockades
 
+**Full gameplay design approved, 2026-10-31:** Owner “Looks good, write the implementation plan.” accepts this complete description/defaults at `76312d1`, pre-approval SHA256 `4b3855423a9e97805cea49fd17063fa72454047d78ea321a5b46de04d3a64aaa`. [ADR-026](../../DECISIONS/ADR-026-approved-empire-conflict-design.md) records M12-D/ECF-AC-012 Verified for design only. The [separate22-task implementation plan](../plans/2026-10-31-empire-conflict.md) awaits concrete-plan review; M12-P In Progress, implementation/functional criteria Not Started. Earlier proposal-only paragraphs record drafting history. No gameplay work, test run or future capture occurred in this planning turn.
+
 Date: 2026-10-31, America/Denver. **Status: complete proposal for owner review.** M12-D / ECF-AC-012 In Progress; M12-P/M12-I and functional criteria Not Started. The owner requested “Ok, let's work on empire conflict. Use your own judgement and put together the design.” This delegates the starting choices in this document; it does not approve this unread proposal or authorize implementation.
 
 ## Intent, authority and starting point
