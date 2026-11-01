@@ -84,6 +84,8 @@ public sealed record ColonyReportView(ColonyEconomy Economy, ColonyId Id, StarId
 public sealed record EmpireTurnReportView(int FromTurn, int ToTurn, ImmutableArray<ColonyReportView> Colonies, EmpireEconomy Research, ImmutableArray<OpenAntares.Simulation.Turns.ExpansionEvent> Events, ImmutableDictionary<StarId, string> StarNames)
 {
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public Conflict.ConflictReportView? Conflict {get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public ImmutableArray<Diplomacy.DiplomacyEvent>? DiplomacyEvents {get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public ImmutableArray<ShipDesigns.ShipDesignEvent>? ShipDesignEvents {get;init;}

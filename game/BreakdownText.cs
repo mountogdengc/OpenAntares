@@ -48,6 +48,7 @@ public static class BreakdownText
             BreakdownKinds.CostPaid => $"Completes {Name(line.SourceId, content)}",
             "diplomacy_trade" => "Trade income",
             "diplomacy_setup_paid" => "Trade setup payment",
+            "conflict_blockade" => "Blockade reduction of ordinary production" + rounding,
             _ => line.Kind,
         };
     }

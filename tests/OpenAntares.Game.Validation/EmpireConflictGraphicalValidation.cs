@@ -23,7 +23,7 @@ public partial class EmpireConflictGraphicalValidation:Node
     public override async void _Ready()
     {
         string? error=null;
-        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Actual graphical Godot display");await PublishedWithdrawalAndSolo();await WarPeaceAndOwnPendingAnswersUseRealControls();}
+        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Actual graphical Godot display");EmpireConflictCampaignUiChecks.MixedDefenseAndLocalFallbackAreExplained(Check);await BlockadeIncomeAndReportsAgreeWithActualTurn();await MixedDefenseAndLocalFallbackAreExplained();await PublishedWithdrawalAndSolo();await WarPeaceAndOwnPendingAnswersUseRealControls();}
         catch(Exception e){error=e.ToString();GD.PrintErr(error);}
         finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{scenario="EmpireConflict",passed=error is null,error,method="Actual Godot control signals and Main Save/Load; labelled pre-session multi-human supplements; no physical-input or comprehension claim",checks=_checks,provenance=_provenance},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
     }
@@ -44,6 +44,29 @@ public partial class EmpireConflictGraphicalValidation:Node
     private LoadedGame PoliticalFixture()
     {
         var content=CompleteContent();var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,12,"harl",1,"peldra",CrisesEnabled:false,AmebasEnabled:false,SentriesEnabled:false));Check(generated.Succeeded,"Explicit12 source generation");var state=generated.State!;var a=state.Empires[0];var b=state.Empires[1];b.Controller=ControllerKind.Human;b.AiPolicyId=null;a.Contacts.Add(new(b.Id,b.SpeciesId!,0));b.Contacts.Add(new(a.Id,a.SpeciesId!,0));var pair=DiplomacyPair.For(a.Id,b.Id);state.Diplomacy!.Pairs.Add(new(){Pair=pair,Parties=new(){new(){Owner=pair.Low},new(){Owner=pair.High}}});state.Conflict!.Pairs.Add(new(){Pair=pair,Parties=new(){new(){Owner=pair.Low},new(){Owner=pair.High}}});Check(GameStateValidator.Validate(content,state).Count==0,"Labelled multi-human political supplement validates before mounting");return new(content,state);
+    }
+    private async Task MixedDefenseAndLocalFallbackAreExplained()
+    {
+        foreach(var size in new[]{new Vector2I(800,600),new Vector2I(1920,1080)})
+        {
+            GetTree().Root.Size=size;var fixture=PoliticalFixture();var s=fixture.State;var pair=s.Conflict!.Pairs.Single();pair.Relation=RelationKind.War;pair.WarTurn=0;pair.Declarers.Add(pair.Pair.Low);pair.Parties[1].DeclarationGrievance=true;pair.Parties[1].LastCounterpartDeclarationTurn=0;
+            var star=s.FindPlanet(s.Colonies.First(c=>c.EmpireId==pair.Pair.Low).PlanetId)!.StarId;
+            VesselState Armed(EmpireId owner){var v=new VesselState{Id=new(s.AllocateId()),EmpireId=owner,RoleId=fixture.Content.ShipDesigns!.WarshipRoleId,Design=new(1),StationaryStarId=star,Crisis=new()};OpenAntares.Simulation.Scouting.ScoutInitializer.InitializeVessel(fixture.Content,s.RulesVersion,v);OpenAntares.Simulation.Combat.CombatInitializer.InitializeVessel(fixture.Content,s,v);s.Vessels.Add(v);return v;}
+            var low=Armed(pair.Pair.Low);var high=Armed(pair.Pair.High);var role=fixture.Content.Species[s.Empires[0].SpeciesId!].AllowedVesselIds.Select(id=>fixture.Content.Vessels[id]).First(r=>r.CanFoundColony);
+            var civilian=new VesselState{Id=new(s.AllocateId()),EmpireId=pair.Pair.Low,RoleId=role.Id,CarriedPopulation=role.EmbarkPopulation,StationaryStarId=star,Crisis=new()};OpenAntares.Simulation.Combat.CombatInitializer.InitializeVessel(fixture.Content,s,civilian);s.Vessels.Add(civilian);
+            var fleets=s.Empires[0].Fleets!;var fleet=new OpenAntares.Simulation.Fleets.FleetRecord{Id=new(fleets.NextFleetId++),Name="Labelled mixed defense supplement",Flagship=civilian.Id,Members=new(){low.Id,civilian.Id}};fleets.Fleets.Add(fleet);low.Fleet=fleet.Id;civilian.Fleet=fleet.Id;
+            s.Conflict.Encounters.Add(new(){Id=new(1),Pair=pair.Pair,Star=star,CreatedTurn=0,LowSide=new(){Owner=pair.Pair.Low,Fleet=fleet.Id,Anchor=low.Id,Flagship=civilian.Id,Members=new(){low.Id},ProtectedCivilians=new(){civilian.Id},NeedsResponse=true},HighSide=new(){Owner=pair.Pair.High,Anchor=high.Id,Flagship=high.Id,Members=new(){high.Id}}});s.Conflict.NextEncounterId=2;
+            OpenAntares.Simulation.Knowledge.ObservationUpdater.Refresh(s,0);ConflictObservations.Refresh(fixture.Content,s);Check(GameStateValidator.Validate(fixture.Content,s).Count==0,"Labelled mixed-defense/revised-response supplement validates");
+            var (main,screen)=await Mount(fixture,"mixed-defense-"+size.X);
+            try
+            {
+                var session=Live(screen);Check(Descendants<Button>(screen).Single(b=>b.Text=="End Turn").Disabled,"Own response blocks Ready without accepting orders");screen=await SaveReload(main,screen,"pending-response-"+size.X);session=Live(screen);string before=Snapshot(session);
+                await Click(screen,"OpenConflictOrders");var dialog=Named<ConflictOrdersDialog>(screen,"ConflictOrdersDialog");Check(Named<Label>(dialog,"ConflictOwnDetails").Text.Contains("1 protected"),"Actual mixed-force panel names protected civilians");Check(!Named<Label>(dialog,"ConflictForeignDetails").Text.Contains("cohesion",StringComparison.OrdinalIgnoreCase),"Actual foreign details contain no private cohesion");Check(Snapshot(session)==before,"Opening conflict orders has no side effects");Check(Named<OptionButton>(dialog,"ConflictReturnPort").GetItemText(0).Contains("same system"),"Actual fallback picker explains same-system break");
+                await Click(dialog,"ConflictReviewRespond");Check(Snapshot(session)==before,"Review does not accept a response");await Click(dialog,"ConflictOrdersApply");Check(!session.View(pair.Pair.Low).Conflict!.Encounters.Single().OwnNeedsResponse,"Explicit apply accepts only own current force");Check(!Named<Button>(dialog,"ConflictOrdersApply").IsVisibleInTree()||Named<Button>(dialog,"ConflictOrdersApply").Disabled,"Submission cannot be duplicated");
+                await Click(screen,"OpenConflictOrders");await Click(dialog,"ConflictReviewWithdraw");Check(Named<Label>(dialog,"ConflictOrderPreview").Text.Contains("same system"),"Local withdrawal review describes actual fallback");await Capture(this,dialog,Path.Combine(_output,"mixed-defense-"+size.X+".png"));await Click(dialog,"ConflictOrdersApply");Check(session.View(pair.Pair.Low).Conflict!.Encounters.Single().OwnWithdrawQueued,"Explicit withdrawal queues own committed order");Check(!session.View(pair.Pair.High).Conflict!.Encounters.Single().OwnWithdrawQueued,"Independent opponent does not inherit own withdrawal");
+            }
+            finally{RemoveChild(main);main.QueueFree();await Frames(this);}
+        }
     }
     private async Task WarPeaceAndOwnPendingAnswersUseRealControls()
     {
@@ -71,6 +94,30 @@ public partial class EmpireConflictGraphicalValidation:Node
             }
             finally{RemoveChild(main);main.QueueFree();await Frames(this);}
         }
+    }
+    private async Task BlockadeIncomeAndReportsAgreeWithActualTurn()
+    {
+        string manifestPath=ProjectSettings.GlobalizePath("res://reports/conflict-execution/task-19/blockade-ui-supplement.json");
+        Check(File.Exists(manifestPath),"Queued simulation must first emit the labelled blockade supplement");using var manifest=JsonDocument.Parse(File.ReadAllText(manifestPath));
+        string savePath=ProjectSettings.GlobalizePath("res://"+manifest.RootElement.GetProperty("save").GetString());string raw=File.ReadAllText(savePath);
+        string hash=Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(raw))).ToLowerInvariant();Check(hash==manifest.RootElement.GetProperty("hash").GetString(),"Native blockade supplement content hash matches its retained source");
+        var load=SaveGame.Deserialize(raw);Check(load.Succeeded,"Labelled blockade supplement loads");var fixture=load.Game!;var a=fixture.State.Empires[0].Id;var b=fixture.State.Empires[1].Id;var neutral=fixture.State.Empires[2].Id;
+        var (main,screen)=await Mount(fixture,"blockade-report");
+        try
+        {
+            var session=Live(screen);Check(session.View(b).Colonies.Single().Economy.NetProduction.Total==450,"Own native source breakdown equals450");string blockader=ConflictBlockadePanel.Explain(session.View(a));Check(!blockader.Contains(session.View(b).Colonies.Single().ProductionReserve.ToString()),"Blockader presentation excludes target reserve");
+            await End(screen);var third=await Other(screen,neutral);try{await End(third);}finally{await RemoveOther(third,screen);}
+            var target=await Other(screen,b);
+            try
+            {
+                await End(target);var report=(OpenAntares.Simulation.Knowledge.EmpireTurnReportView)typeof(GameScreen).GetField("_latestReport",BindingFlags.NonPublic|BindingFlags.Instance)!.GetValue(target)!;
+                Check(report.Colonies.Single().Economy.NetProduction.Total==450,"Actual final human Ready applies450 production");Check(report.Conflict!.OwnPressure.Length==1,"Actual owner report retains its own pressure");
+                await Click(target,"ReportOpenBlockadeDiplomacy_"+a.Value);Check(Named<Label>(target,"ConflictRelationText").Text=="War","Blockade report opens the exact permitted opposing contact");
+                await Capture(this,Descendants<DiplomacyDialog>(target).Single(),Path.Combine(_output,"blockade-report-contact.png"));
+            }
+            finally{await RemoveOther(target,screen);}
+        }
+        finally{RemoveChild(main);main.QueueFree();await Frames(this);}
     }
     private static void HideWindows(Node screen){foreach(var window in Descendants<Window>(screen))window.Hide();}
     private static string Text(Node screen)=>string.Join(" ",Descendants<Label>(screen).Where(l=>l.IsVisibleInTree()).Select(l=>l.Text));

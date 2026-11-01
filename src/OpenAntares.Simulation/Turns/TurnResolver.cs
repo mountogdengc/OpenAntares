@@ -25,6 +25,8 @@ public sealed record TurnResolution(GameState State, TurnReport? Report, IReadOn
 public sealed record TurnReport(int FromTurn, int ToTurn, TurnEconomy Economy)
 {
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public ImmutableArray<Conflict.ConflictReportView>? ConflictReports {get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public ImmutableArray<Diplomacy.DiplomacyEvent>? DiplomacyEvents {get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public ImmutableArray<ShipDesigns.ShipDesignEvent>? ShipDesignEvents {get;init;}
@@ -271,6 +273,7 @@ public static class TurnResolver
             if(conflict is not null)
             {
                 Conflict.ConflictObservations.Refresh(content,candidate);
+                Conflict.ConflictReports.RetainFinalObservations(content,candidate,conflict!);
                 foreach(var owner in candidate.Empires)Conflict.ConflictAiCoordinator.RefreshVisibleTimers(candidate,EmpireViewProjector.Project(content,candidate,owner.Id));
                 conflictHook?.Invoke(Conflict.ConflictResolutionPhase.Observation);
             }
@@ -295,6 +298,7 @@ public static class TurnResolver
             if(fleet is not null)FleetReports.Finalize(content,candidate,fleet);
             if(combat is not null)Combat.CombatReports.Finalize(content,snapshot,candidate,combat);
             if(refits is not null)refitEvents=ShipDesigns.ShipDesignReports.Finalize(candidate);
+            var conflictReports=conflict is null?(ImmutableArray<Conflict.ConflictReportView>?)null:Conflict.ConflictReports.Finalize(content,snapshot,candidate,conflict);
             fleetHook?.Invoke(FleetResolutionPhase.Reports);combatHook?.Invoke(Combat.CombatResolutionPhase.Reports);
             scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Reports);
             conflictHook?.Invoke(Conflict.ConflictResolutionPhase.Reports);
@@ -311,7 +315,7 @@ public static class TurnResolver
                 fleetHook?.Invoke(FleetResolutionPhase.Validation);
                 scoutHook?.Invoke(Scouting.ScoutResolutionPhase.Validation);
                 var locations=crisis.Locations.SetItems(candidate.Colonies.Where(c=>!crisis.Locations.ContainsKey(c.Id)).Select(c=>new KeyValuePair<ColonyId,CrisisLocation>(c.Id,CrisisQueries.Location(candidate,c))));
-                crisisReport=new(snapshot.Turn,candidate.Turn,economy){DiplomacyEvents=Rules.HasDiplomacy(snapshot.RulesVersion)?diplomacyEvents:null,ShipDesignEvents=Rules.HasShipDesigns(snapshot.RulesVersion)?refitEvents:null,CombatDepartures=combat?.ReportDepartures??ImmutableArray<Combat.OwnedCombatDeparture>.Empty,CombatEvents=combat?.ReportEvents??ImmutableArray<Combat.OwnedCombatEvent>.Empty,CombatRounds=combat?.Rounds??ImmutableArray<Combat.CombatRoundReceipt>.Empty,ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations,ScoutEvents=scouting?.Events.ToImmutableArray()??ImmutableArray<Scouting.ScoutOrderEvent>.Empty,FleetEvents=fleet?.Events.ToImmutableArray()??ImmutableArray<FleetEvent>.Empty};
+                crisisReport=new(snapshot.Turn,candidate.Turn,economy){ConflictReports=conflictReports,DiplomacyEvents=Rules.HasDiplomacy(snapshot.RulesVersion)?diplomacyEvents:null,ShipDesignEvents=Rules.HasShipDesigns(snapshot.RulesVersion)?refitEvents:null,CombatDepartures=combat?.ReportDepartures??ImmutableArray<Combat.OwnedCombatDeparture>.Empty,CombatEvents=combat?.ReportEvents??ImmutableArray<Combat.OwnedCombatEvent>.Empty,CombatRounds=combat?.Rounds??ImmutableArray<Combat.CombatRoundReceipt>.Empty,ExpansionEvents=events.ToImmutableArray(),EncounterEvents=encounters,CrisisEvents=crisis.Events.ToImmutableArray(),ColonyLocations=locations,ScoutEvents=scouting?.Events.ToImmutableArray()??ImmutableArray<Scouting.ScoutOrderEvent>.Empty,FleetEvents=fleet?.Events.ToImmutableArray()??ImmutableArray<FleetEvent>.Empty};
             }
         }
         catch (OverflowException exception)

@@ -37,6 +37,8 @@ public partial class GameScreen : VBoxContainer
     private readonly Label _combatBadge=new(){Name="CombatAttentionBadge",ThemeTypeVariation="WarningLabel",AutowrapMode=TextServer.AutowrapMode.WordSmart};
     public string CombatPreferencesPath{get;set;}="user://combat-notifications.json";
     private readonly FleetCommandDialog _fleetCommand=new();
+    private readonly ConflictOrdersDialog _conflictOrders=new();
+    private readonly Label _conflictBadge=new(){Name="ConflictAttentionBadge",ThemeTypeVariation="WarningLabel",AutowrapMode=TextServer.AutowrapMode.WordSmart};
     private readonly ShipDesignDialog _shipDesigns=new();
     private readonly ShipDesignEditor _shipDesignEditor=new();
     private readonly RefitDialog _refit=new();
@@ -120,6 +122,9 @@ public partial class GameScreen : VBoxContainer
         _fleetCommand.CombatRequested+=action=>{_fleetCommand.Hide();Callable.From(()=>OpenCombat(action)).CallDeferred();};
         if(Rules.HasCombat(View.RulesVersion)){var row=new VBoxContainer();AddChild(row);row.AddChild(_combatBadge);var response=new Button{Name="OpenCombatResponses",Text="Review combat response / orders"};row.AddChild(response);response.Pressed+=OpenCombatResponse;}else{AddChild(_combatBadge);_combatBadge.Hide();}
         _fleetCommand.CommandIssued+=Execute;_assemblyRequest.CommandIssued+=Execute;_officerDetails.CommandIssued+=Execute;
+        AddChild(_conflictOrders);_conflictOrders.CommandIssued+=Execute;
+        _fleetCommand.ConflictOrdersRequested+=anchor=>{_fleetCommand.Hide();Callable.From(()=>OpenConflictOrders(anchor)).CallDeferred();};
+        if(Rules.HasConflict(View.RulesVersion)){var row=new VBoxContainer();AddChild(row);row.AddChild(_conflictBadge);var button=new Button{Name="OpenConflictOrders",Text="Empire conflict orders / revised force response"};row.AddChild(button);button.Pressed+=()=>OpenConflictOrders(null);}
         _fleetCommand.DisplayApplied+=()=>Callable.From(Refresh).CallDeferred();
         foreach(var dialog in new Window[]{_fleetCommand,_assemblyRequest,_officerDetails,_combatOrders,_shipDesigns,_shipDesignEditor,_refit})dialog.VisibilityChanged+=()=>Callable.From(OpenPendingCommandInterrupt).CallDeferred();
         _fleetCommand.RequestRequested+=request=>{_fleetCommand.Hide();Callable.From(()=>_assemblyRequest.ShowEditor(_session.Content,View,request)).CallDeferred();};
@@ -167,6 +172,7 @@ public partial class GameScreen : VBoxContainer
         _report.VesselRequested += vessel => { _selectedVessel = vessel; _courseDestination = null; Callable.From(Refresh).CallDeferred(); };
         _report.ChooseResearchRequested += _researchBar.OpenPicker;
         _report.FleetCommandRequested+=()=>{_report.Hide();OpenFleetCommand();};
+        _report.ConflictOrdersRequested+=anchor=>{_report.Hide();OpenConflictOrders(anchor);};
 
         var body = new HBoxContainer { SizeFlagsVertical = SizeFlags.ExpandFill };
         AddChild(body);
@@ -207,6 +213,7 @@ public partial class GameScreen : VBoxContainer
         _vessels.DestinationSelected += star => { _courseDestination = star; _map.Select(star); };
         _vessels.ScoutOverviewRequested+=()=>{if(View.Scouting is {} scouting)_scoutOverview.ShowScouting(_session.Content,scouting);};
         _vessels.FleetCommandRequested+=OpenFleetCommand;
+        _vessels.ConflictOrdersRequested+=()=>OpenConflictOrders(_selectedVessel);
 
         _map.ShowGalaxy(View.Galaxy);
         if (HomeStar() is { } start)
@@ -240,6 +247,7 @@ public partial class GameScreen : VBoxContainer
     private void Execute(Command command)
     {
         CommandOutcome outcome = _session.Execute(command);
+        if(command is OpenAntares.Simulation.Conflict.ConflictCommand&&_conflictOrders.Visible)_conflictOrders.ShowResult(outcome.Rejection?.Message??"",outcome.Accepted);
         ShowMessage(outcome.Rejection?.Message ?? string.Empty, isWarning: true);
         if(_combatOrders.Visible&&command is OpenAntares.Simulation.Combat.CombatActionCommand){if(outcome.Accepted)_combatOrders.Hide();else _combatOrders.ShowError(outcome.Rejection?.Message??"");}
         if(_refit.Visible&&command is OpenAntares.Simulation.ShipDesigns.RefitCommand refitCommand){if(outcome.Accepted){_refit.ShowError("");if(refitCommand.Action is OpenAntares.Simulation.ShipDesigns.RefitAction.Cancel)_refit.Hide();else _refit.ShowRefit(_session.Content,View,_refit.Vessel,false);}else _refit.ShowError(outcome.Rejection?.Message??"");}
@@ -278,6 +286,9 @@ public partial class GameScreen : VBoxContainer
         var view = View;
         _fleetCommand.CombatPreferencesPath=CombatPreferencesPath;_report.CombatPreferencesPath=CombatPreferencesPath;
         if(_combatOrders.Visible)_combatOrders.UpdateView(view);RefreshCombatAttention(view);
+        if(_conflictOrders.Visible)_conflictOrders.UpdateView(view);
+        int responses=view.Conflict?.Encounters.Count(e=>e.OwnNeedsResponse)??0;
+        _conflictBadge.Text=responses>0?$"Conflict Emergency: {responses} revised force response(s) required before Ready. Review your exact force and battle orders.":view.Conflict?.Encounters.Length>0?$"Empire conflict: {view.Conflict.Encounters.Length} active battle(s). Review damage, withdrawal and return orders.":"";
         _fleetCommand.PreferencesPath=FleetPreferencesPath;
         _report.FleetPreferencesPath=FleetPreferencesPath;
         if(_fleetCommand.Visible)_fleetCommand.ShowEmpire(_session.Content,view);
@@ -293,6 +304,7 @@ public partial class GameScreen : VBoxContainer
         if(_crisisOverview.Visible&&view.Crisis is {} currentCrisis)_crisisOverview.ShowCrisis(_session.Content,currentCrisis);
         _turnLabel.Text = $"Turn {view.Turn}";
         _endTurn.Text = view.Research.Ready ? "Waiting for others (cancel)" : "End Turn";
+        _endTurn.Disabled=responses>0&&!view.Research.Ready;
         _researchBar.ShowEmpire(_session.Content, view.Research);
         _map.ShowGalaxy(view.Galaxy);
         _map.ShowKnownAmebas(view.Scouting);
@@ -342,6 +354,7 @@ public partial class GameScreen : VBoxContainer
         Callable.From(Refresh).CallDeferred();
     }
     private void OpenFleetCommand(){if(Rules.HasFleets(View.RulesVersion)){_fleetCommand.PreferencesPath=FleetPreferencesPath;_fleetCommand.ShowEmpire(_session.Content,View);}}
+    private void OpenConflictOrders(VesselId? anchor){if(View.Conflict is not null)_conflictOrders.Open(_session.Content,View,anchor);}
     private void RefreshFleetAttention(EmpireView view)
     {
         if(view.Fleets is not {} fleets){_fleetBadge.Hide();return;}

@@ -33,6 +33,7 @@ public partial class TurnReportDialog : AcceptDialog
     public event Action<VesselId>? VesselRequested;
     public event Action? FleetCommandRequested;
     public event Action<EmpireId>? DiplomacyRequested;
+    public event Action<VesselId?>? ConflictOrdersRequested;
 
     public override void _Ready()
     {
@@ -56,8 +57,29 @@ public partial class TurnReportDialog : AcceptDialog
         _preferences = preferences ?? OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
         _crisisPreferences=crisisPreferences??OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
         Title = "Turn report";
-        if(empireView?.Conflict is {} conflict)foreach(var contact in conflict.Events.Where(e=>e.Turn==report.ToTurn).GroupBy(e=>e.Other))
-        {foreach(var entry in contact)_body.AddChild(DevelopmentUi.Text(entry.Reason));var other=contact.Key;DevelopmentUi.Button(_body,"Open conflict diplomacy",()=>DiplomacyRequested?.Invoke(other),"ReportOpenConflictDiplomacy_"+other.Value);}
+        if(report.Conflict is {} conflict)
+        {
+            foreach(var contact in conflict.Events.GroupBy(e=>e.Other))
+            {
+                foreach(var entry in contact){_body.AddChild(DevelopmentUi.Text(entry.Reason));if(entry.Star is {} star)DevelopmentUi.Button(_body,"Locate conflict system",()=>StarRequested?.Invoke(star),"ReportConflictEventStar_"+entry.Id);}
+                var other=contact.Key;DevelopmentUi.Button(_body,"Open conflict diplomacy",()=>DiplomacyRequested?.Invoke(other),"ReportOpenConflictDiplomacy_"+other.Value);
+            }
+            foreach(var battle in conflict.Encounters)
+            {
+                _body.AddChild(DevelopmentUi.Text($"Battle {battle.Id.Value}: {battle.OwnMembers.Length} own armed ships and {battle.ProtectedCivilians.Length} protected civilians. "+(battle.OwnNeedsResponse?"Your revised force needs a response before Ready.":"Review your committed orders and return route.")));
+                DevelopmentUi.Button(_body,"Review this force / withdrawal",()=>ConflictOrdersRequested?.Invoke(battle.OwnMembers.FirstOrDefault()),"ReportConflictOrders_"+battle.Id.Value);
+                DevelopmentUi.Button(_body,"Locate battle",()=>StarRequested?.Invoke(battle.Star),"ReportConflictStar_"+battle.Id.Value);
+            }
+            foreach(var round in conflict.Rounds)_body.AddChild(DevelopmentUi.Text($"Battle {round.Encounter.Value}, round {round.Receipt.Round}{(round.Receipt.Interception?" — interception":"")}: your hull lost {round.Receipt.Own.Sum(s=>s.ActualLoss)}; observed opposing hull lost {round.Receipt.Opposing.Sum(s=>s.ActualLoss)}. Enemy future orders are unknown."));
+            foreach(var blockade in conflict.Blockades)_body.AddChild(DevelopmentUi.Text($"Your fleet {blockade.Fleet.Value} blockade: {blockade.Status}; eligible from turn {blockade.EffectiveTurn}. Opposing production and reserves are unknown."));
+            foreach(var pressure in conflict.OwnPressure)
+            {
+                _body.AddChild(DevelopmentUi.Text($"Your colony system retains {pressure.RetainedPercent}% of ordinary net production before trade under current blockade pressure. Review your own income breakdown below."));
+                DevelopmentUi.Button(_body,"Open blockade diplomacy",()=>DiplomacyRequested?.Invoke(pressure.Other),"ReportOpenBlockadeDiplomacy_"+pressure.Other.Value);
+                DevelopmentUi.Button(_body,"Locate affected colony system",()=>StarRequested?.Invoke(pressure.Star),"ReportBlockadeStar_"+pressure.Star.Value);
+            }
+            if(!conflict.Rounds.IsEmpty)DevelopmentUi.Button(_body,"Review survivors, return and finite repair",()=>FleetCommandRequested?.Invoke(),"ReportConflictRepair");
+        }
         _body.AddChild(new Label { Text = $"Turn {report.FromTurn} results", ThemeTypeVariation = "HeaderLabel" });
         if(report.ShipDesignEvents is {} equipmentEvents&&!equipmentEvents.IsEmpty)
         {
