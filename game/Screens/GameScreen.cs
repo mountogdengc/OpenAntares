@@ -243,7 +243,7 @@ public partial class GameScreen : VBoxContainer
         ShowMessage(outcome.Rejection?.Message ?? string.Empty, isWarning: true);
         if(_combatOrders.Visible&&command is OpenAntares.Simulation.Combat.CombatActionCommand){if(outcome.Accepted)_combatOrders.Hide();else _combatOrders.ShowError(outcome.Rejection?.Message??"");}
         if(_refit.Visible&&command is OpenAntares.Simulation.ShipDesigns.RefitCommand refitCommand){if(outcome.Accepted){_refit.ShowError("");if(refitCommand.Action is OpenAntares.Simulation.ShipDesigns.RefitAction.Cancel)_refit.Hide();else _refit.ShowRefit(_session.Content,View,_refit.Vessel,false);}else _refit.ShowError(outcome.Rejection?.Message??"");}
-        if(command is OpenAntares.Simulation.Diplomacy.DiplomacyCommand)_diplomacy.ShowError(outcome.Rejection?.Message??"",outcome.Accepted);
+        if(command is OpenAntares.Simulation.Diplomacy.DiplomacyCommand or OpenAntares.Simulation.Conflict.ConflictCommand)_diplomacy.ShowError(outcome.Rejection?.Message??"",outcome.Accepted);
         if(_fleetCommand.Visible)_fleetCommand.ShowError(outcome.Rejection?.Message??"");
         if(_shipDesigns.Visible)_shipDesigns.ShowError(outcome.Rejection?.Message??"");
         if(_assemblyRequest.Visible)_assemblyRequest.ShowError(outcome.Rejection?.Message??"");
@@ -298,7 +298,7 @@ public partial class GameScreen : VBoxContainer
         _map.ShowKnownAmebas(view.Scouting);
         RefreshScoutAttention(view.Scouting);
         _contacts.Show(view);
-        if(GetNodeOrNull<Button>("OpenDiplomacy") is {} diplomacyEntry)diplomacyEntry.Text="Diplomacy"+(view.Diplomacy?.Contacts.Count(c=>c.Pending is {OwnAnswered:false} p&&p.Recipient==view.Viewer)>0?" — unanswered offers":"");
+        if(GetNodeOrNull<Button>("OpenDiplomacy") is {} diplomacyEntry)diplomacyEntry.Text="Diplomacy"+(view.Diplomacy?.Contacts.Count(c=>c.Pending is {OwnAnswered:false} p&&p.Recipient==view.Viewer)>0?" — unanswered offers":view.Conflict?.Notices.Length>0?" — conflict attention":"");
         if(_diplomacy.Visible)_diplomacy.ShowEmpire(_session.Content,view);
         RefreshCrisisAttention(view.Crisis);
         if (view.RulesVersion == Rules.LegacyVersion) ShowMessage("Legacy colony game - start a new game for exploration", false);

@@ -56,6 +56,8 @@ public partial class TurnReportDialog : AcceptDialog
         _preferences = preferences ?? OpenAntares.Game.Presentation.ColonyNotificationPreferences.Defaults;
         _crisisPreferences=crisisPreferences??OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults;
         Title = "Turn report";
+        if(empireView?.Conflict is {} conflict)foreach(var contact in conflict.Events.Where(e=>e.Turn==report.ToTurn).GroupBy(e=>e.Other))
+        {foreach(var entry in contact)_body.AddChild(DevelopmentUi.Text(entry.Reason));var other=contact.Key;DevelopmentUi.Button(_body,"Open conflict diplomacy",()=>DiplomacyRequested?.Invoke(other),"ReportOpenConflictDiplomacy_"+other.Value);}
         _body.AddChild(new Label { Text = $"Turn {report.FromTurn} results", ThemeTypeVariation = "HeaderLabel" });
         if(report.ShipDesignEvents is {} equipmentEvents&&!equipmentEvents.IsEmpty)
         {
