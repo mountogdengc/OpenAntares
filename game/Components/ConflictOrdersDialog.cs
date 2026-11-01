@@ -50,7 +50,7 @@ public partial class ConflictOrdersDialog:AcceptDialog
     {
         _content=content;_view=view;_anchors.Clear();_force.Clear();
         foreach(var ship in view.Conflict?.Ships.Where(s=>s.Military).OrderBy(s=>s.Id)??Enumerable.Empty<OwnConflictShipView>())
-        {if(ship.Fleet is {} f&&_anchors.Any(id=>view.Conflict!.Ships.Single(s=>s.Id==id).Fleet==f))continue;_anchors.Add(ship.Id);_force.AddItem(ship.Fleet is {} group?$"Fleet {group.Value} — ship {ship.Id.Value}":$"Ungrouped ship {ship.Id.Value}");}
+        {if(ship.Fleet is {} f&&_anchors.Any(id=>view.Conflict!.Ships.Single(s=>s.Id==id).Fleet==f))continue;_anchors.Add(ship.Id);_force.AddItem(ship.Fleet is {} group?$"Fleet {group.Value} — ship {ship.Id.Value}":$"Ungrouped ship {ship.Id.Value}");_force.SetItemMetadata(_force.ItemCount-1,ship.Id.Value);}
         if(anchor is {} selected&&view.Conflict?.Ships.SingleOrDefault(s=>s.Id==selected) is {} chosen){int i=_anchors.FindIndex(id=>id==selected||chosen.Fleet is {} f&&view.Conflict.Ships.Single(s=>s.Id==id).Fleet==f);if(i>=0)_force.Select(i);}
         SelectForce();PopupCenteredClamped(new(700,560));
     }
@@ -65,13 +65,13 @@ public partial class ConflictOrdersDialog:AcceptDialog
     private ConflictOrders Orders()=>new((CombatDoctrine)_doctrine.Selected,_port.Selected>=0&&_port.Selected<_ports.Count?_ports[_port.Selected]:null,(StragglerPolicy)_stragglers.Selected,(CombatArrivalOrder)_arrival.Selected);
     private void SelectForce()
     {
-        Invalidate();_target.Clear();_targets.Clear();_port.Clear();_ports.Clear();_port.AddItem("Local Break contact — same system");_ports.Add(null);
+        Invalidate();_target.Clear();_targets.Clear();_port.Clear();_ports.Clear();_port.AddItem("Local Break contact — same system");_ports.Add(null);_port.SetItemMetadata(0,0);
         var ship=Ship();var encounter=Encounter();var orders=encounter?.OwnOrders??_view?.Conflict?.OwnAttacks.SingleOrDefault(a=>a.Fleet==ship?.Fleet)?.Orders??ship?.Defense??ConflictOrders.Default;
         foreach(var colony in _view?.Colonies.OrderBy(c=>c.Id)??Enumerable.Empty<OwnedColonyView>())
-        {_ports.Add(colony.Id);_port.AddItem($"{_view!.Galaxy.Stars.Single(s=>s.Id==colony.StarId).Name} — colony {colony.Id.Value}");if(colony.Id==orders.ReturnColony)_port.Select(_ports.Count-1);}
+        {_ports.Add(colony.Id);_port.AddItem($"{_view!.Galaxy.Stars.Single(s=>s.Id==colony.StarId).Name} — colony {colony.Id.Value}");_port.SetItemMetadata(_port.ItemCount-1,colony.Id.Value);if(colony.Id==orders.ReturnColony)_port.Select(_ports.Count-1);}
         _doctrine.Select((int)orders.Doctrine);_stragglers.Select((int)orders.Stragglers);_arrival.Select((int)orders.OnArrival);
         foreach(var target in _view?.Conflict?.Military.Where(m=>m.Current&&m.Turn==_view.Turn&&m.Star==ship?.Star&&_view.Conflict.Relations.Any(r=>r.Other==m.Owner&&r.Relation==RelationKind.War)).OrderBy(m=>m.Vessel)??Enumerable.Empty<MilitaryObservation>())
-        {_targets.Add(target.Vessel);_target.AddItem($"Armed ship {target.Vessel.Value} — empire {target.Owner.Value}");}
+        {_targets.Add(target.Vessel);_target.AddItem($"Armed ship {target.Vessel.Value} — empire {target.Owner.Value}");_target.SetItemMetadata(_target.ItemCount-1,target.Vessel.Value);}
         _own.Text=ship is null?"No armed force is available.":$"Your ship {ship.Id.Value}: hull {ship.Hull}/{ship.MaxHull}, cohesion {ship.Cohesion}, attack {ship.Attack}, armor {ship.Armor}, effective speed {ship.Speed}."+(encounter is null?"":$"\nBattle round {encounter.Round}; {encounter.ProtectedCivilians.Length} protected civilian(s). {(encounter.OwnNeedsResponse?"Your revised force requires an explicit response before Ready.":encounter.OwnWithdrawQueued?"Your withdrawal is queued.":"Your battle orders are committed.")}");Foreign();RefreshActions();
     }
     private void Foreign(){_foreign.Text=_target.Selected>=0&&_target.Selected<_targets.Count&&_view?.Conflict?.Military.SingleOrDefault(m=>m.Vessel==_targets[_target.Selected]) is {} target?ForeignDetails(target):Encounter() is {} e?string.Join("\n",e.Opposing.Select(ForeignDetails)):"No current armed wartime target is observed here. Movement and opening this window never attack.";}
@@ -81,7 +81,7 @@ public partial class ConflictOrdersDialog:AcceptDialog
     {
         Invalidate();if(action is null||_content is null||_view is null)return;var preview=ConflictQueries.Preview(_content,_view,action);_error.Text=preview.Allowed?"":"Command unavailable. Check the selected force, current battle revision, target and return port.";if(!preview.Allowed)return;
         var lines=new List<string>(preview.Explanations){"One automatic exchange at most per strategic turn. Observed targets and public equipment may change before resolution. Enemy withdrawal, orders and officer effects are unknown."};
-        if(preview.Volley is {} volley){lines.Add(volley.Explanation);foreach(var row in volley.Own)lines.Add($"Your ship {row.Id.Value}: conditional hull {row.Before} → {row.After}.");foreach(var row in volley.Opposing)lines.Add($"Observed armed ship {row.Id.Value}: conditional hull {row.Before} → {row.After}.");}
+        if(preview.Volley is {} volley){lines.Add(volley.Explanation);foreach(var shot in volley.Shots)lines.Add($"Conditional ship {shot.Source.Id} → armed ship {shot.Target.Id}: {shot.Damage} damage after damage band and armor; frozen target, no spill. Enemy withdrawal and command effects can change whether this exchange occurs.");foreach(var row in volley.Own)lines.Add($"Your ship {row.Id.Value}: conditional hull {row.Before} → {row.After}.");foreach(var row in volley.Opposing)lines.Add($"Observed armed ship {row.Id.Value}: conditional hull {row.Before} → {row.After}.");}
         if(preview.Withdrawal is {} withdrawal){lines.Add(withdrawal.Explanation);lines.Add(withdrawal.Destination is {} destination?$"Conditional return toward {_view.Galaxy.Stars.Single(s=>s.Id==destination).Name}; finite repair starts after arrival, without an arrival healing tick.":LocalFallbackExplanation);foreach(var cohort in withdrawal.Cohorts)lines.Add($"Your cohort [{string.Join(", ",cohort.Members.Select(v=>v.Value))}]: speed {cohort.Speed}. Exposure depends on observed pursuit and changed forces at resolution.");}
         if(action is ConflictAction.Attack or ConflictAction.ChangeOrders or ConflictAction.ConfigureDefense)lines.Add($"Your reviewed orders: {_doctrine.GetItemText(_doctrine.Selected)}; {_port.GetItemText(_port.Selected)}; {_stragglers.GetItemText(_stragglers.Selected)}; on arrival {_arrival.GetItemText(_arrival.Selected)}.");
         if(action is ConflictAction.Respond)lines.Add("Accept only your currently displayed revised force and committed orders. No other player's response is implied.");

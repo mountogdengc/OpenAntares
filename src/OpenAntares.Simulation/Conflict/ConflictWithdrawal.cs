@@ -49,7 +49,7 @@ public static class ConflictWithdrawal
                 var groups=low?lowGroups:highGroups;var enemies=low?frame.High:frame.Low;
                 var exposed=groups.Where(g=>g.Speed<=enemies.Max(s=>s.EffectiveSpeed)).SelectMany(g=>g.Members).Where(id=>(low?frame.Low:frame.High).Any(s=>s.VesselId==id)).ToImmutableHashSet();
                 if(exposed.Count>0)
-                {var result=ConflictExchange.Calculate(frame,!low,!high,low?exposed:null,high?exposed:null);ConflictExchange.ApplyResult(content,candidate,context,frame,result,true);}
+                {var result=ConflictExchange.Calculate(frame,!low,!high,low?exposed:null,high?exposed:null,low?lowGroups.Select(g=>g.Members).ToImmutableArray():null,high?highGroups.Select(g=>g.Members).ToImmutableArray():null);ConflictExchange.ApplyResult(content,candidate,context,frame,result,true);}
             }
             if(low)Emit(encounter.LowSide,lowGroups,frame.LowDepartureStar);if(high)Emit(encounter.HighSide,highGroups,frame.HighDepartureStar);
             encounter.Phase=ConflictPhase.Completed;encounter.CompletedTurn=checked(context.FromTurn+1);

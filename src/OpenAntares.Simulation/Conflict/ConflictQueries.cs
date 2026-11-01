@@ -41,7 +41,7 @@ public static partial class ConflictQueries
         var blockadeFrame=ConflictBlockades.Capture(content,state);
         var blockades=blockadeFrame.Orders.Where(b=>b.Owner==viewer).Select(b=>new OwnBlockadeView(b.Fleet,b.Other,b.Star,b.EffectiveTurn,b.Status)).ToImmutableArray();
         var history=owner.History.Select(h=>new ConflictHistoryView(h.Encounter,h.Other,h.Star,h.StartedTurn,h.EndedTurn,h.Outcome,h.LostMembers.ToImmutableArray(),h.Rounds.ToImmutableArray())).ToImmutableArray();
-        return new(viewer,state.Turn,owner.Revision,relations,ships,military,encounters,blockades,owner.Events.ToImmutableArray(),owner.Notices.ToImmutableArray(),history){OwnAttacks=owner.Attacks.ToImmutableArray(),OwnPressure=ConflictForecastFrame.ForViewer(blockadeFrame,viewer)};
+        return new(viewer,state.Turn,owner.Revision,relations,ships,military,encounters,blockades,owner.Events.ToImmutableArray(),owner.Notices.ToImmutableArray(),history){OwnAttacks=owner.Attacks.ToImmutableArray(),OwnPressure=ConflictForecastFrame.PublishedForViewer(state,viewer)};
     }
     public static ConflictPreview Preview(ContentSet content,EmpireView view,ConflictAction action)
     {

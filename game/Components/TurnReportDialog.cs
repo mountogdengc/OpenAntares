@@ -70,7 +70,7 @@ public partial class TurnReportDialog : AcceptDialog
                 DevelopmentUi.Button(_body,"Review this force / withdrawal",()=>ConflictOrdersRequested?.Invoke(battle.OwnMembers.FirstOrDefault()),"ReportConflictOrders_"+battle.Id.Value);
                 DevelopmentUi.Button(_body,"Locate battle",()=>StarRequested?.Invoke(battle.Star),"ReportConflictStar_"+battle.Id.Value);
             }
-            foreach(var round in conflict.Rounds)_body.AddChild(DevelopmentUi.Text($"Battle {round.Encounter.Value}, round {round.Receipt.Round}{(round.Receipt.Interception?" — interception":"")}: your hull lost {round.Receipt.Own.Sum(s=>s.ActualLoss)}; observed opposing hull lost {round.Receipt.Opposing.Sum(s=>s.ActualLoss)}. Enemy future orders are unknown."));
+            foreach(var round in conflict.Rounds){_body.AddChild(DevelopmentUi.Text($"Battle {round.Encounter.Value}, round {round.Receipt.Round}{(round.Receipt.Interception?" — interception":"")}: your hull lost {round.Receipt.Own.Sum(s=>s.ActualLoss)}; observed opposing hull lost {round.Receipt.Opposing.Sum(s=>s.ActualLoss)}. Enemy future orders are unknown."));_body.AddChild(DevelopmentUi.Text(OpenAntares.Simulation.Conflict.ConflictReports.DescribeRound(round.Receipt)));}
             foreach(var blockade in conflict.Blockades)_body.AddChild(DevelopmentUi.Text($"Your fleet {blockade.Fleet.Value} blockade: {blockade.Status}; eligible from turn {blockade.EffectiveTurn}. Opposing production and reserves are unknown."));
             foreach(var pressure in conflict.OwnPressure)
             {

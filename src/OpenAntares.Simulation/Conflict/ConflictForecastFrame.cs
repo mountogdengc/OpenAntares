@@ -10,6 +10,7 @@ public sealed record OwnBlockadePressure(StarId Star,EmpireId Other,int Retained
 /// <summary>Pure own-fact adapter. These incomplete calculator frames must never be published.</summary>
 internal static class ConflictForecastFrame
 {
+    internal static ImmutableArray<OwnBlockadePressure> PublishedForViewer(GameState state,EmpireId viewer)=>state.Conflict!.Owners.Single(o=>o.Owner==viewer).PublishedPressure.ToImmutableArray();
     internal static ImmutableArray<OwnBlockadePressure> ForViewer(ConflictBlockadeFrame frame,EmpireId viewer)
         =>frame.Pressure.Where(p=>p.Victim==viewer).Select(p=>new OwnBlockadePressure(p.Star,p.Blockader,p.RetainedPercent)).ToImmutableArray();
     internal static void Apply(GameState frame,EmpireView view)

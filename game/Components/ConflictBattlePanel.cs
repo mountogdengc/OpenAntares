@@ -22,7 +22,7 @@ public partial class ConflictBattlePanel:VBoxContainer
         foreach(var history in own.History.OrderByDescending(h=>h.EndedTurn))
         {
             AddChild(DevelopmentUi.Text($"Turn {history.EndedTurn}: {history.Outcome.Replace('_',' ')}; {history.LostMembers.Length} own ship(s) lost. Surviving damaged ships require finite repair at a legal own port."));
-            foreach(var round in history.Rounds)AddChild(DevelopmentUi.Text($"Turn {round.Turn}, round {round.Round}{(round.Interception?" — interception":"")}: your hull lost {round.Own.Sum(s=>s.ActualLoss)}; observed opposing hull lost {round.Opposing.Sum(s=>s.ActualLoss)}."));
+            foreach(var round in history.Rounds){AddChild(DevelopmentUi.Text($"Turn {round.Turn}, round {round.Round}{(round.Interception?" — interception":"")}: your hull lost {round.Own.Sum(s=>s.ActualLoss)}; observed opposing hull lost {round.Opposing.Sum(s=>s.ActualLoss)}."));AddChild(DevelopmentUi.Text(ConflictReports.DescribeRound(round)));}
             DevelopmentUi.Button(this,"Locate aftermath / return route",()=>StarRequested?.Invoke(history.Star),"ConflictHistoryStar_"+history.Encounter.Value);
         }
         if(own.Encounters.IsEmpty&&own.History.IsEmpty)AddChild(DevelopmentUi.Text("No active battles or retained completed battles. Opening this panel never attacks or accepts a response."));

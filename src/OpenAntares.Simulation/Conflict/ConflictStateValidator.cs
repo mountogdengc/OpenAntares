@@ -74,7 +74,7 @@ public static class ConflictStateValidator
             if(e.LowSide is null||e.HighSide is null||e.LowSide.Owner!=e.Pair.Low||e.HighSide.Owner!=e.Pair.High){Error("Two correctly ordered sides required.");continue;}
             if(e.Revision==long.MaxValue||e.LowSide.ConsentRevision==long.MaxValue||e.HighSide.ConsentRevision==long.MaxValue)Error("Encounter consent counter exhausted.");
             if(e.Rounds is not null&&e.LowSide.Members is not null&&e.HighSide.Members is not null&&e.LowSide.DestroyedMembers is not null&&e.HighSide.DestroyedMembers is not null)
-                foreach(var receipt in e.Rounds)if(!ReceiptValid(receipt,e.LowSide.Members.Concat(e.LowSide.DestroyedMembers),e.HighSide.Members.Concat(e.HighSide.DestroyedMembers)))Error("Round shots and damage must match the recorded armed sides.");
+                foreach(var receipt in e.Rounds)if(!ReceiptValid(receipt,e.LowSide.Members.Concat(e.LowSide.DestroyedMembers),e.HighSide.Members.Concat(e.HighSide.DestroyedMembers),content.Combat))Error("Round shots and damage must match the recorded armed sides.");
             if(live&&e.CompletedTurn is not null||!live&&e.CompletedTurn is null)Error("Completed date must match encounter phase.");
             foreach(var side in new[]{e.LowSide,e.HighSide})
             {
@@ -98,6 +98,7 @@ public static class ConflictStateValidator
                 {
                     var f=state.FindEmpire(side.Owner)?.Fleets?.Fleets.SingleOrDefault(x=>x.Id==fleet);
                     if(f is null||side.Members.Any(x=>!f.Members.Contains(x))||side.ProtectedCivilians.Any(x=>!f.Members.Contains(x)))Error("Encounter fleet must retain its members.");
+                    if(f is not null&&side.Flagship!=f.Flagship)Error("Live encounter flagship must equal the current fleet flagship.");
                 }
                 else if(side.Members.Count!=1||side.ProtectedCivilians.Count!=0)Error("Ungrouped defending side must be a singleton.");
                 if(!side.Members.Contains(side.Anchor)&&!side.DestroyedMembers.Contains(side.Anchor))Error("Invalid side anchor.");
@@ -109,7 +110,7 @@ public static class ConflictStateValidator
         {
             if(o is null||state.FindEmpire(o.Owner) is null){Error("Invalid owner.");continue;}
             if(o.Revision<1||o.NextEventId<1||o.Revision==long.MaxValue||o.NextEventId==long.MaxValue)Error("Invalid owner counters.");
-            if(o.Preferences is null||o.Attacks is null||o.Blockades is null||o.Observations is null||o.Events is null||o.Notices is null||o.History is null){Error("Owner collections required.");continue;}
+            if(o.PublishedPressure is null||o.Preferences is null||o.Attacks is null||o.Blockades is null||o.Observations is null||o.Events is null||o.Notices is null||o.History is null){Error("Owner collections required.");continue;}
             if(o.Preferences.Count>state.Vessels.Count||o.Attacks.Count>64||o.Blockades.Count>64||o.History.Count>d.HistoryLimit||o.Events.Count>256||o.Notices.Count>256||o.Observations.Count>(long)state.Vessels.Count+256)Error("Owner collection bound exceeded.");
             var preferenceSlots=new HashSet<string>();
             foreach(var p in o.Preferences)
@@ -133,6 +134,7 @@ public static class ConflictStateValidator
                 if(state.FindEmpire(o.Owner)!.Fleets?.Fleets.All(f=>f.Id!=b.Fleet)!=false||b.Other==o.Owner||state.FindEmpire(b.Other) is null||state.FindStar(b.Star) is null||!Past(b.AcceptedTurn)||b.Revision<1||!tasked.Add(b.Fleet.Value)||c.Pairs.All(p=>p?.Pair!=DiplomacyPair.For(o.Owner,b.Other)||p.Relation!=RelationKind.War))Error("Invalid live blockade authority.");
                 // A historically selected target colony may have disappeared; resolution lifts it.
             }
+            if(o.PublishedPressure.Any(p=>p is null)||o.PublishedPressure.Count>state.Stars.Count||o.PublishedPressure.Select(p=>p.Star).Distinct().Count()!=o.PublishedPressure.Count||o.PublishedPressure.Any(p=>p is null||p.Other==o.Owner||state.FindEmpire(p.Other) is null||state.FindStar(p.Star) is null||p.RetainedPercent!=d.BlockadeRetainedPercent||!c.Pairs.Any(pair=>pair.Pair==DiplomacyPair.For(o.Owner,p.Other)&&pair.Relation==RelationKind.War)))Error("Invalid published own blockade pressure.");
             if(o.Observations.Any(x=>x is null)||o.Events.Any(x=>x is null)||o.Notices.Any(x=>x is null)||o.History.Any(x=>x is null)){Error("Null owner history row.");continue;}
             if(o.Observations.Select(x=>x.Vessel).Distinct().Count()!=o.Observations.Count)Error("Duplicate military observation.");
             foreach(var obs in o.Observations)
@@ -148,7 +150,7 @@ public static class ConflictStateValidator
             foreach(var h in o.History)
             {
                 if(h.Encounter.Value<1||h.Encounter.Value>=c.NextEncounterId||h.Other==o.Owner||state.FindEmpire(h.Other) is null||state.FindStar(h.Star) is null||!Past(h.StartedTurn)||!Past(h.EndedTurn)||h.EndedTurn<h.StartedTurn||!Text(h.Outcome,200)||h.LostMembers is null||h.Rounds is null||h.Rounds.Count>d.RoundHistoryLimit||h.LostMembers.Any(id=>id.Value<1||id.Value>=state.NextEntityId||state.FindVessel(id) is not null))Error("Invalid historical encounter receipt.");
-                if(h.Rounds is not null&&h.Rounds.Any(r=>!ReceiptValid(r)))Error("Historical round shots and damage are inconsistent.");
+                if(h.Rounds is not null&&h.Rounds.Any(r=>!ReceiptValid(r,definition:content.Combat)))Error("Historical round shots and damage are inconsistent.");
             }
         }
         return errors;
@@ -163,7 +165,7 @@ public static class ConflictStateValidator
         }
         bool Orders(ConflictOrders? orders,EmpireId owner)=>orders is not null&&Enum.IsDefined(orders.Doctrine)&&Enum.IsDefined(orders.Stragglers)&&Enum.IsDefined(orders.OnArrival)&&(orders.ReturnColony is not {} port||port.Value>0&&port.Value<state.NextEntityId&&(state.FindColony(port) is not {} colony||colony.EmpireId==owner));
     }
-    private static bool ReceiptValid(ConflictRoundReceipt? r,IEnumerable<VesselId>? low=null,IEnumerable<VesselId>? high=null)
+    private static bool ReceiptValid(ConflictRoundReceipt? r,IEnumerable<VesselId>? low=null,IEnumerable<VesselId>? high=null,Combat.CombatDefinition? definition=null)
     {
         if(r is null||r.Shots.IsDefaultOrEmpty||r.Own.IsDefaultOrEmpty||r.Opposing.IsDefaultOrEmpty||r.Own.Any(x=>x is null)||r.Opposing.Any(x=>x is null))return false;
         var rows=new Dictionary<long,(int Side,Combat.CombatShipDamage Damage)>();
@@ -177,6 +179,15 @@ public static class ConflictStateValidator
             sides.Add(source.Side);loss[shot.Target.Id]=loss.GetValueOrDefault(shot.Target.Id)+shot.Damage;
         }
         if(r.Interception?sides.Count!=1:sources.Count!=rows.Count)return false;
+        if(r.Calculations.IsDefault||r.Calculations.Length!=r.Shots.Length||r.Calculations.Any(c=>c is null)||r.Calculations.Select(c=>c.Source).Distinct().Count()!=r.Calculations.Length)return false;
+        foreach(var calculation in r.Calculations)
+        {
+            var shot=r.Shots.SingleOrDefault(s=>s.Source.Id==calculation.Source.Value&&s.Target.Id==calculation.Target.Value);
+            if(shot is null||calculation.BaseAttack<1||calculation.SourceHull<1||calculation.SourceMaxHull<calculation.SourceHull||calculation.TargetArmor<0||calculation.SourceHull!=rows[calculation.Source.Value].Damage.Before||calculation.Damage!=shot.Damage)return false;
+            int band=(int)Combat.CombatMath.Band(new(calculation.SourceMaxHull,calculation.BaseAttack,0),calculation.SourceHull,definition);
+            int percent=definition?.AttackPercent[band]??new[]{100,50,25}[band];
+            if(calculation.FirePercent!=percent||Int128.Max(1,(Int128)calculation.BaseAttack*percent/100-calculation.TargetArmor)!=calculation.Damage)return false;
+        }
         foreach(var row in rows.Values)if(row.Damage.Before<1||row.Damage.After<0||row.Damage.ActualLoss!=Int128.Min(row.Damage.Before,loss.GetValueOrDefault(row.Damage.Id.Value))||row.Damage.After!=row.Damage.Before-row.Damage.ActualLoss)return false;
         return true;
     }

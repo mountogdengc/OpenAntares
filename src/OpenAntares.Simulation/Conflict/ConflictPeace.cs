@@ -16,7 +16,7 @@ public static class ConflictPeace
         if(p.Relation!=RelationKind.War||turn==int.MaxValue)return false;
         return action switch
         {
-            ConflictAction.ProposePeace=>p.Peace is {} o?o.Proposer==owner||o.OwnAnswer is null or true:p.OwnPeaceProposed||p.NextOwnPeaceOfferTurn<=turn,
+            ConflictAction.ProposePeace=>p.Peace is {} o?o.Proposer==owner||o.OwnAnswer is null or true:true,
             ConflictAction.AnswerPeace a=>p.Peace is {} o&&o.Id==a.Offer&&o.Proposer!=owner&&(o.OwnAnswer is null||o.OwnAnswer==a.Accept),
             ConflictAction.RevokePeaceAnswer a=>p.Peace is {} o&&o.Id==a.Offer&&o.Proposer!=owner,
             ConflictAction.WithdrawPeace a=>a.Offer.Value==0?p.Peace is null&&p.OwnPeaceProposed:p.Peace is {} o&&o.Id==a.Offer&&o.Proposer==owner,
@@ -38,7 +38,7 @@ public static class ConflictPeace
                 if(pair.PendingPeace!.Answer is null)return false;pair.PendingPeace.Answer=null;return true;
             case ConflictAction.WithdrawPeace a:
                 if(a.Offer.Value==0)SetIntent(new(owner,state.Turn,true,true));
-                else {pair.PendingPeace=null;pair.Revision=checked(pair.Revision+1);pair.Parties.Single(p=>p.Owner!=owner).PrivateRevision=checked(pair.Parties.Single(p=>p.Owner!=owner).PrivateRevision+1);pair.Parties.Single(p=>p.Owner==owner).NextPeaceOfferTurn=(long)state.Turn+content.Conflict!.PeaceCooldown;}
+                else {pair.PendingPeace=null;pair.Revision=checked(pair.Revision+1);pair.Parties.Single(p=>p.Owner!=owner).PrivateRevision=checked(pair.Parties.Single(p=>p.Owner!=owner).PrivateRevision+1);pair.Parties.Single(p=>p.Owner==owner).NextPeaceOfferTurn=state.FindEmpire(owner)!.Controller==ControllerKind.Ai?(long)state.Turn+content.Conflict!.PeaceCooldown:0;}
                 return true;
             default:throw new ArgumentException("Unsupported peace edit.");
         }
@@ -90,7 +90,7 @@ public static class ConflictPeace
             {
                 pair.PendingPeace=null;
                 if(decision.Kind=="accepted"){pair.Relation=RelationKind.Peace;pair.LastPeaceTurn=candidate.Turn;pair.TruceEndTurn=(long)candidate.Turn+content.Conflict!.Truce;}
-                else pair.Parties.Single(p=>p.Owner==decision.Proposer).NextPeaceOfferTurn=(long)candidate.Turn+content.Conflict!.PeaceCooldown;
+                else pair.Parties.Single(p=>p.Owner==decision.Proposer).NextPeaceOfferTurn=candidate.FindEmpire(decision.Proposer)!.Controller==ControllerKind.Ai?(long)candidate.Turn+content.Conflict!.PeaceCooldown:0;
             }
             var viewers=decision.Kind=="withdrawn"?pair.PeaceIntents.Where(i=>i.Proposed).Select(i=>i.Owner):new[]{pair.Pair.Low,pair.Pair.High};
             foreach(var viewer in viewers)ConflictRelations.RecordEvent(candidate,viewer,pair.Pair.Other(viewer),"peace_"+(decision.Kind=="withdrawn"?"not_agreed":decision.Kind),decision.Kind=="accepted"?FormattableString.Invariant($"Peace is effective. No final exchange occurred. Combat and blockades have stopped; the bilateral truce ends at turn {pair.TruceEndTurn}."):decision.Kind=="offered"?"A peace offer is available. No answer is required to Ready.":"Peace was not agreed.");

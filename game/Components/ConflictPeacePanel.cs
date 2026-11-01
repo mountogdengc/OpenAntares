@@ -24,6 +24,6 @@ public partial class ConflictPeacePanel:VBoxContainer
             else{Order("Accept peace","ConflictAcceptPeace",new ConflictAction.AnswerPeace(relation.Other,offer.Id,true));Order("Decline peace","ConflictDeclinePeace",new ConflictAction.AnswerPeace(relation.Other,offer.Id,false));}
         }
         else if(relation.OwnPeaceProposed){AddChild(DevelopmentUi.Text($"Your peace proposal is queued for publication at turn {(long)view.Turn+1}."));Order("Withdraw queued peace proposal","ConflictWithdrawPeace",new ConflictAction.WithdrawPeace(relation.Other,new(0)));}
-        else{if(relation.NextOwnPeaceOfferTurn>view.Turn)AddChild(DevelopmentUi.Text($"Your next outgoing peace offer is available in planning turn {relation.NextOwnPeaceOfferTurn}. You may still answer an incoming offer."));Order("Propose unconditional peace","ConflictProposePeace",new ConflictAction.ProposePeace(relation.Other));}
+        else{Order("Propose unconditional peace","ConflictProposePeace",new ConflictAction.ProposePeace(relation.Other));}
     }
 }

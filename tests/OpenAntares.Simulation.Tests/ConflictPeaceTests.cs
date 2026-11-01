@@ -81,9 +81,9 @@ public sealed class ConflictPeaceTests
         var g=War();var a=g.State.Empires[0].Id;var b=g.State.Empires[1].Id;int events=g.State.Conflict!.Owners.Single(o=>o.Owner==b).Events.Count;
         ConflictDeclarationTests.Issue(g,a,new ConflictAction.ProposePeace(b));ConflictDeclarationTests.Issue(g,a,new ConflictAction.WithdrawPeace(b,new(0)));g=ConflictDeclarationTests.Publish(g);Assert.Equal(events,g.State.Conflict!.Owners.Single(o=>o.Owner==b).Events.Count);
     }
-    [Fact] public void WithdrawalCooldownUsesEmbeddedContent()
+    [Fact] public void HumanWithdrawalIsNotRestrictedByTheEmbeddedAiCooldown()
     {
         var original=War();var g=new GameSession(original.Content with{Conflict=original.Content.Conflict! with{PeaceCooldown=7}},original.State);var a=g.State.Empires[0].Id;var b=g.State.Empires[1].Id;
-        ConflictDeclarationTests.Issue(g,a,new ConflictAction.ProposePeace(b));g=ConflictDeclarationTests.Publish(g);var offer=g.State.Conflict!.Pairs[0].PendingPeace!;ConflictDeclarationTests.Issue(g,a,new ConflictAction.WithdrawPeace(b,offer.Id));Assert.Equal((long)g.State.Turn+7,g.State.Conflict.Pairs[0].Parties[0].NextPeaceOfferTurn);
+        ConflictDeclarationTests.Issue(g,a,new ConflictAction.ProposePeace(b));g=ConflictDeclarationTests.Publish(g);var offer=g.State.Conflict!.Pairs[0].PendingPeace!;ConflictDeclarationTests.Issue(g,a,new ConflictAction.WithdrawPeace(b,offer.Id));Assert.Equal(0,g.State.Conflict.Pairs[0].Parties[0].NextPeaceOfferTurn);Assert.True(ConflictQueries.Preview(g.Content,g.View(a),new ConflictAction.ProposePeace(b)).Allowed);
     }
 }

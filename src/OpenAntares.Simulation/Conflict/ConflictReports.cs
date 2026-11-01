@@ -9,6 +9,19 @@ public sealed record ConflictReportedRound(ConflictEncounterId Encounter,EmpireI
 public sealed record ConflictReportView(EmpireId Viewer,ImmutableArray<ConflictEvent> Events,ImmutableArray<OwnConflictEncounterView> Encounters,ImmutableArray<ConflictHistoryView> History,ImmutableArray<OwnBlockadeView> Blockades,ImmutableArray<OwnBlockadePressure> OwnPressure,ImmutableArray<ConflictReportedRound> Rounds);
 public static class ConflictReports
 {
+    public static string DescribeRound(ConflictRoundReceipt receipt)
+    {
+        var lines=receipt.Shots.Select(shot=>
+        {
+            var calculation=receipt.Calculations.SingleOrDefault(c=>c.Source.Value==shot.Source.Id&&c.Target.Value==shot.Target.Id);
+            string math=calculation is null?"damage after damaged attack and armor":$"max(1, attack {calculation.BaseAttack} × {calculation.FirePercent}% rounded down − armor {calculation.TargetArmor})";
+            return $"Ship {shot.Source.Id} → armed ship {shot.Target.Id}: {shot.Damage} damage; {math}.";
+        }).ToList();
+        lines.AddRange(receipt.Own.Select(h=>$"Your ship {h.Id.Value}: {h.Before} → {h.After}; actual hull loss {h.ActualLoss}."));
+        lines.AddRange(receipt.Opposing.Select(h=>$"Observed opposing ship {h.Id.Value}: {h.Before} → {h.After}; actual hull loss {h.ActualLoss}."));
+        lines.Add("Frozen targets; simultaneous shots still fire from destroyed actors. Loss is capped at the target's hull; excess damage has no spill or retargeting.");
+        return string.Join("\n",lines);
+    }
     internal static ImmutableArray<ConflictReportView> Finalize(ContentSet content,GameState snapshot,GameState candidate,ConflictResolutionContext context)
     {
         var conflict=candidate.Conflict!;var priorBlockades=ConflictBlockades.Capture(content,snapshot);var currentBlockades=ConflictBlockades.Capture(content,candidate);
@@ -50,7 +63,7 @@ public static class ConflictReports
         return conflict.Owners.OrderBy(o=>o.Owner).Select(owner=>
         {
             var view=ConflictQueries.Project(content,candidate,owner.Owner);
-            var rounds=context.Rounds.Where(r=>r.Frame.Pair.Contains(owner.Owner)).Select(r=>new ConflictReportedRound(r.Frame.Encounter,r.Frame.Pair.Other(owner.Owner),r.Frame.Star,new(context.FromTurn,r.Frame.Round+1,r.Interception,r.Result.Shots,owner.Owner==r.Frame.Pair.Low?r.Result.Low:r.Result.High,owner.Owner==r.Frame.Pair.Low?r.Result.High:r.Result.Low))).ToImmutableArray();
+            var rounds=context.Rounds.Where(r=>r.Frame.Pair.Contains(owner.Owner)).Select(r=>new ConflictReportedRound(r.Frame.Encounter,r.Frame.Pair.Other(owner.Owner),r.Frame.Star,ConflictExchange.Receipt(r.Frame,r.Result,r.Interception) with{Own=owner.Owner==r.Frame.Pair.Low?r.Result.Low:r.Result.High,Opposing=owner.Owner==r.Frame.Pair.Low?r.Result.High:r.Result.Low})).ToImmutableArray();
             return new ConflictReportView(owner.Owner,owner.Events.Where(e=>e.Turn==candidate.Turn).ToImmutableArray(),view.Encounters,view.History,view.Blockades,view.OwnPressure,rounds);
         }).ToImmutableArray();
     }

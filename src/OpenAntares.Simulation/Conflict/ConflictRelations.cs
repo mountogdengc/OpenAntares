@@ -51,6 +51,8 @@ public static partial class ConflictRelations
             }
             pair.Declarations.Clear();
         }
+        var published=ConflictBlockades.Capture(content,candidate);
+        foreach(var owner in candidate.Conflict!.Owners)owner.PublishedPressure=ConflictForecastFrame.ForViewer(published,owner.Owner).ToList();
     }
     internal static void RecordEvent(GameState state,EmpireId viewer,EmpireId other,string kind,string reason,StarId? star=null,bool attention=false)
     {

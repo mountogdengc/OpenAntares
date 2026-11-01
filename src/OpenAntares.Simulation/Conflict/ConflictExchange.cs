@@ -45,7 +45,7 @@ public static partial class ConflictExchange
             else {ship.Combat.Hull=damage.After;ship.Combat.Cohesion=result.LowForecasts.Concat(result.HighForecasts).Single(f=>f.Id==ship.Id).CohesionAfter;}
         }
         encounter.Round=checked(encounter.Round+1);encounter.LastResolvedTurn=context.FromTurn;encounter.Revision=checked(encounter.Revision+1);
-        encounter.Rounds.Add(new(context.FromTurn,encounter.Round,interception,result.Shots,result.Low,result.High));while(encounter.Rounds.Count>content.Conflict!.RoundHistoryLimit)encounter.Rounds.RemoveAt(0);
+        encounter.Rounds.Add(Receipt(frame,result,interception));while(encounter.Rounds.Count>content.Conflict!.RoundHistoryLimit)encounter.Rounds.RemoveAt(0);
         context.RoundFacts.Add(new(frame,result,interception));
         foreach(var side in new[]{encounter.LowSide,encounter.HighSide})
         {
@@ -64,7 +64,17 @@ public static partial class ConflictExchange
         else encounter.Phase=ConflictPhase.Active;
     }
     public static ConflictExchangeResult Calculate(ConflictBattleFrame frame)=>Calculate(frame,true,true,null,null);
-    internal static ConflictExchangeResult Calculate(ConflictBattleFrame frame,bool lowFires,bool highFires,IReadOnlySet<VesselId>? exposedLow,IReadOnlySet<VesselId>? exposedHigh)
+    internal static ConflictRoundReceipt Receipt(ConflictBattleFrame frame,ConflictExchangeResult result,bool interception)
+    {
+        var actors=frame.Low.Concat(frame.High).ToDictionary(a=>(long)a.VesselId.Value);
+        var calculations=result.Shots.Select(shot=>
+        {
+            var source=actors[shot.Source.Id];var target=actors[shot.Target.Id];int percent=frame.Definition.AttackPercent[(int)CombatMath.Band(new(source.MaxHull,source.Attack,source.Armor),source.Hull,frame.Definition)];
+            return new ConflictShotCalculation(source.VesselId,target.VesselId,source.Attack,source.Hull,source.MaxHull,percent,target.Armor,shot.Damage);
+        }).ToImmutableArray();
+        return new(frame.Turn,frame.Round+1,interception,result.Shots,result.Low,result.High){Calculations=calculations};
+    }
+    internal static ConflictExchangeResult Calculate(ConflictBattleFrame frame,bool lowFires,bool highFires,IReadOnlySet<VesselId>? exposedLow,IReadOnlySet<VesselId>? exposedHigh,ImmutableArray<ImmutableArray<VesselId>>? lowCohorts=null,ImmutableArray<ImmutableArray<VesselId>>? highCohorts=null)
     {
         if(frame.Definition is null||frame.Low.IsDefaultOrEmpty||frame.High.IsDefaultOrEmpty||frame.Low.Length>32||frame.High.Length>32||frame.Low.Concat(frame.High).Select(s=>s.VesselId).Distinct().Count()!=frame.Low.Length+frame.High.Length)throw new ArgumentException("A bounded two-sided armed frame is required.");
         var low=frame.Low.OrderBy(s=>s.VesselId).ToArray();var high=frame.High.OrderBy(s=>s.VesselId).ToArray();
@@ -82,15 +92,20 @@ public static partial class ConflictExchange
         ImmutableArray<CombatShipDamage> Damage(CombatShipFrame[] ships)=>ships.Select(s=>
         {Int128 total=0;foreach(var shot in ordered)if(shot.Target.Id==s.VesselId.Value)total=checked(total+shot.Damage);int loss=checked((int)Int128.Min(s.Hull,total));return new CombatShipDamage(s.VesselId,s.Hull,s.Hull-loss,loss);}).ToImmutableArray();
         var own=Damage(low);var other=Damage(high);var destroyed=own.Concat(other).Where(s=>s.After==0).Select(s=>s.Id).OrderBy(id=>id).ToImmutableArray();
-        return new(own,other,ordered,destroyed){LowForecasts=Forecast(frame,low,own),HighForecasts=Forecast(frame,high,other)};
+        return new(own,other,ordered,destroyed){LowForecasts=Forecast(frame,low,own,lowCohorts),HighForecasts=Forecast(frame,high,other,highCohorts)};
     }
-    private static ImmutableArray<CombatShipForecast> Forecast(ConflictBattleFrame frame,CombatShipFrame[] ships,ImmutableArray<CombatShipDamage> damage)
+    private static ImmutableArray<CombatShipForecast> Forecast(ConflictBattleFrame frame,CombatShipFrame[] ships,ImmutableArray<CombatShipDamage> damage,ImmutableArray<ImmutableArray<VesselId>>? cohorts)
     {
         var d=frame.Definition;
-        int destroyed=damage.Count(s=>s.After==0);int crippled=ships.Count(s=>damage.Single(v=>v.Id==s.VesselId).After>0&&Band(s,s.Hull)!=CombatDamageBand.Crippled&&Band(s,damage.Single(v=>v.Id==s.VesselId).After)==CombatDamageBand.Crippled);
-        bool flagship=ships.Any(s=>s.Flagship&&damage.Single(v=>v.Id==s.VesselId).After==0);
-        int loss=checked((int)Int128.Min(100,(Int128)destroyed*d.DestroyedCohesionLoss+(Int128)crippled*d.CrippledCohesionLoss+(flagship?d.FlagshipCohesionLoss:0)));
-        return ships.Select(s=>{int hull=damage.Single(v=>v.Id==s.VesselId).After;return new CombatShipForecast(s.VesselId,Band(s,s.Hull),hull>0?Band(s,hull):null,s.Cohesion,hull>0?Math.Max(0,s.Cohesion-loss):s.Cohesion);}).ToImmutableArray();
+        return ships.Select(s=>
+        {
+            var group=cohorts is {} groups?groups.Single(g=>g.Contains(s.VesselId)):ships.Select(a=>a.VesselId).ToImmutableArray();
+            var actors=ships.Where(a=>group.Contains(a.VesselId)).ToArray();var losses=damage.Where(a=>group.Contains(a.Id)).ToArray();
+            int destroyed=losses.Count(a=>a.After==0);int crippled=actors.Count(a=>losses.Single(v=>v.Id==a.VesselId).After>0&&Band(a,a.Hull)!=CombatDamageBand.Crippled&&Band(a,losses.Single(v=>v.Id==a.VesselId).After)==CombatDamageBand.Crippled);
+            bool flagship=actors.Any(a=>a.Flagship&&losses.Single(v=>v.Id==a.VesselId).After==0);
+            int loss=checked((int)Int128.Min(100,(Int128)destroyed*d.DestroyedCohesionLoss+(Int128)crippled*d.CrippledCohesionLoss+(flagship?d.FlagshipCohesionLoss:0)));
+            int hull=damage.Single(v=>v.Id==s.VesselId).After;return new CombatShipForecast(s.VesselId,Band(s,s.Hull),hull>0?Band(s,hull):null,s.Cohesion,hull>0?Math.Max(0,s.Cohesion-loss):s.Cohesion);
+        }).ToImmutableArray();
         CombatDamageBand Band(CombatShipFrame ship,int hull)=>CombatMath.Band(new(ship.MaxHull,ship.Attack,ship.Armor),hull,d);
     }
 }

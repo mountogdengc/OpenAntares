@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.Json;
 using OpenAntares.Simulation;
 using OpenAntares.Simulation.Commands;
+using OpenAntares.Simulation.Combat;
 using OpenAntares.Simulation.Conflict;
 using OpenAntares.Simulation.Content;
 using OpenAntares.Simulation.Fleets;
@@ -21,19 +22,50 @@ namespace OpenAntares.Game.Validation;
 // Engine-free command rehearsal. These saves are NOT Main UI evidence.
 public static class EmpireConflictCampaignChecks
 {
+    public static object JournalCommand(Command command)
+    {
+        object? action=command switch{ConflictCommand c=>c.Action,FleetCommand c=>c.Action,CombatActionCommand c=>c.Action,OpenAntares.Simulation.Diplomacy.DiplomacyCommand c=>c.Action,_=>null};
+        return new{type=command.GetType().FullName,payload=JsonSerializer.SerializeToElement(command,command.GetType()),actionType=action?.GetType().FullName,action=action is null?(JsonElement?)null:JsonSerializer.SerializeToElement(action,action.GetType())};
+    }
+    public static Command ReadJournalCommand(JsonElement step)
+    {
+        var payload=step.GetProperty("payload");string name=step.GetProperty("type").GetString()!.Split(',')[0];var issuer=payload.GetProperty("Issuer").Deserialize<EmpireId>();int turn=payload.GetProperty("ExpectedTurn").GetInt32();
+        object Action(Type parent){string name=step.GetProperty("actionType").GetString()!.Split(',')[0];var type=parent.GetNestedTypes().Single(t=>t.FullName==name&&parent.IsAssignableFrom(t));return step.GetProperty("action").Deserialize(type)!;}
+        if(name==typeof(ConflictCommand).FullName)return new ConflictCommand(issuer,turn,(ConflictAction)Action(typeof(ConflictAction)),payload.GetProperty("Token").GetString()!);
+        if(name==typeof(FleetCommand).FullName)return new FleetCommand(issuer,turn,(FleetAction)Action(typeof(FleetAction))){Fingerprint=payload.GetProperty("Fingerprint").GetString()};
+        if(name==typeof(CombatActionCommand).FullName)return new CombatActionCommand(issuer,turn,(CombatAction)Action(typeof(CombatAction)),payload.GetProperty("PreviewToken").GetString()!);
+        if(name==typeof(OpenAntares.Simulation.Diplomacy.DiplomacyCommand).FullName)return new OpenAntares.Simulation.Diplomacy.DiplomacyCommand(issuer,turn,payload.GetProperty("Other").Deserialize<EmpireId>(),payload.GetProperty("PublicRevision").GetInt64(),payload.GetProperty("PrivateRevision").GetInt64(),(OpenAntares.Simulation.Diplomacy.DiplomacyAction)Action(typeof(OpenAntares.Simulation.Diplomacy.DiplomacyAction)));
+        var allowed=new[]{typeof(SetReadyCommand),typeof(SetWorkforceCommand),typeof(SetProductionTargetCommand),typeof(SetMoveOrderCommand),typeof(SetFoundingOrderCommand),typeof(SetResearchTargetCommand)};
+        return (Command)payload.Deserialize(allowed.Single(t=>t.FullName==name))!;
+    }
+    public static void VerifySaveProof(string savePath,string proofPath)
+    {
+        if(new FileInfo(savePath).Length>16*1024*1024||new FileInfo(proofPath).Length>8*1024*1024)throw new InvalidOperationException("Proof exceeds its declared size bound.");
+        var load=SaveGame.ReadFile(savePath);if(!load.Succeeded||load.Game!.State.RulesVersion!=12)throw new InvalidOperationException("Actual save failed authoritative load/validation.");
+        using var proof=JsonDocument.Parse(File.ReadAllText(proofPath));var data=proof.RootElement;string key=data.TryGetProperty("mainSaveSha256",out var expected)?"mainSaveSha256":"saveSha256";
+        string bytes=Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(savePath))).ToLowerInvariant();if(data.GetProperty(key).GetString()!=bytes)throw new InvalidOperationException("Proof references different save bytes.");
+        var session=new GameSession(load.Game.Content,load.Game.State);int boundaries=0,commands=0;
+        foreach(var boundary in data.GetProperty("hashes").EnumerateArray())
+        {
+            int before=session.State.Turn;
+            foreach(var item in boundary.GetProperty("commands").EnumerateArray()){if(++commands>4096)throw new InvalidOperationException("Proof command bound exceeded.");var command=ReadJournalCommand(item.GetProperty("command"));var result=session.Execute(command);if(result.Accepted!=item.GetProperty("accepted").GetBoolean())throw new InvalidOperationException("Recorded command acceptance differs.");}
+            if(session.State.Turn!=before+1||Hash(SaveGame.Serialize(session.Content,session.State))!=boundary.GetProperty("save").GetString()||Hash(JsonSerializer.Serialize(session.State))!=boundary.GetProperty("state").GetString())throw new InvalidOperationException("Recorded complete future boundary differs.");boundaries++;
+        }
+        if(boundaries<3||boundaries!=data.GetProperty("equalFutureBoundaries").GetInt32())throw new InvalidOperationException("Three complete equal future boundaries are required.");
+    }
     public const int TurnBudget=160;
     public static readonly string[] RequiredStages={"pending-declaration","queued-peace-answer","pending-attack","active-battle","queued-withdrawal","effective-blockade","truce"};
     public static string Hash(string value)=>Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(value))).ToLowerInvariant();
     public static bool Run(ContentSet content,string species,ulong seed,string output)
     {
         if(seed is <42 or >49||!new[]{"harl","peldra","sulan","wenth"}.Contains(species))throw new ArgumentException("Approved species and seeds42..49 only.");
-        Directory.CreateDirectory(output);var journal=new List<object>();var stages=new Dictionary<string,string>();var futures=new List<object>();var expiry=new List<object>();var payments=new Dictionary<EmpireId,long>();var incomes=new Dictionary<EmpireId,long>();var completed=new Dictionary<EmpireId,int>();var startingBanks=new Dictionary<EmpireId,long>();bool battleDamage=false,repair=false,repairTick=false,contested=false,lifted=false;string? error=null;GameSession? game=null;
+        Directory.CreateDirectory(output);var journal=new List<object>();var stages=new Dictionary<string,string>();var uninterrupted=new Dictionary<string,GameState>();var futures=new List<object>();var expiry=new List<object>();var payments=new Dictionary<EmpireId,long>();var incomes=new Dictionary<EmpireId,long>();var completed=new Dictionary<EmpireId,int>();var startingBanks=new Dictionary<EmpireId,long>();var coreBanks=new Dictionary<EmpireId,long>();int? coreTurn=null;bool battleDamage=false,repair=false,repairTick=false,contested=false,lifted=false;string? error=null;GameSession? game=null;
         try
         {
             var generated=GalaxyGenerator.CreateNewGame(content,new("small",seed,12,species,1,"wenth",CrisesEnabled:false,AmebasEnabled:false,SentriesEnabled:false));if(!generated.Succeeded)throw new InvalidOperationException(generated.Error);
-            game=new(content,generated.State!);var owner=game.State.Empires[0].Id;var other=game.State.Empires[1].Id;
+            game=new(content,generated.State!);File.WriteAllText(Path.Combine(output,"start.engine-save.json"),SaveGame.Serialize(content,game.State));var owner=game.State.Empires[0].Id;var other=game.State.Empires[1].Id;
             foreach(var empire in game.State.Empires){startingBanks[empire.Id]=game.State.Colonies.Where(c=>c.EmpireId==empire.Id).Sum(c=>c.ProductionReserve);payments[empire.Id]=0;incomes[empire.Id]=0;completed[empire.Id]=0;}
-            void Capture(string name){if(stages.ContainsKey(name))return;string saved=SaveGame.Serialize(content,game.State);stages.Add(name,saved);File.WriteAllText(Path.Combine(output,name+".engine-save.json"),saved);}
+            void Capture(string name){if(stages.ContainsKey(name))return;uninterrupted.Add(name,game.State.Clone());string saved=SaveGame.Serialize(content,game.State);stages.Add(name,saved);File.WriteAllText(Path.Combine(output,name+".engine-save.json"),saved);}
             bool Send(Command command,string? stage=null)
             {
                 if(command is FleetCommand fleet){var preview=FleetQueries.PreviewAction(content,game.View(owner),fleet.Action);if(!preview.Allowed)return false;command=fleet with{Fingerprint=preview.Fingerprint};}
@@ -110,11 +142,12 @@ public static class EmpireConflictCampaignChecks
                 if(!Send(new SetReadyCommand(owner,game.State.Turn,true)))throw new InvalidOperationException("Public Ready failed; inspect concrete journal.");
                 if(RequiredStages.All(stages.ContainsKey)&&game.State.Colonies.Count(c=>c.EmpireId==owner)>=2&&game.State.Colonies.Count(c=>c.EmpireId==other)>=2&&completed.Values.All(n=>n>0)&&battleDamage&&repairTick&&contested&&lifted)break;
             }
+            coreTurn=game.State.Turn;foreach(var empire in game.State.Empires){coreBanks[empire.Id]=game.State.Colonies.Where(c=>c.EmpireId==empire.Id).Sum(c=>c.ProductionReserve);if(startingBanks[empire.Id]+incomes[empire.Id]-payments[empire.Id]!=coreBanks[empire.Id])throw new InvalidOperationException("Core production ledger does not reconcile for owner "+empire.Id.Value);}
             var missing=RequiredStages.Where(s=>!stages.ContainsKey(s)).ToArray();if(missing.Length>0||!battleDamage||!repairTick||!contested||!lifted||completed.Values.Any(n=>n==0))throw new InvalidOperationException("Required earned coverage absent: "+string.Join(", ",missing)+$"; paid hulls {string.Join(",",completed.Values)}; damage={battleDamage}, repair tick={repairTick}, contested={contested}, lifted={lifted}.");
             foreach(var stage in stages)
             {
-                var loaded=SaveGame.Deserialize(stage.Value);if(!loaded.Succeeded)throw new InvalidOperationException("Stage reload failed: "+stage.Key);var original=new GameSession(content,loaded.Game!.State.Clone());var replay=new GameSession(loaded.Game.Content,loaded.Game.State);
-                var hashes=new List<string>();for(int i=0;i<3;i++){Future(content,original,owner);Future(content,replay,owner);string saved=SaveGame.Serialize(original.Content,original.State);if(saved!=SaveGame.Serialize(replay.Content,replay.State))throw new InvalidOperationException("Future differs: "+stage.Key);hashes.Add(Hash(saved));}futures.Add(new{stage=stage.Key,equalFutureBoundaries=3,hashes});
+                var loaded=SaveGame.Deserialize(stage.Value);if(!loaded.Succeeded)throw new InvalidOperationException("Stage reload failed: "+stage.Key);var original=new GameSession(content,uninterrupted[stage.Key].Clone());var replay=new GameSession(loaded.Game!.Content,loaded.Game.State);
+                var hashes=new List<object>();for(int i=0;i<3;i++){var commands=new List<object>();Future(content,original,owner,(command,accepted)=>commands.Add(new{command=JournalCommand(command),accepted}));Future(content,replay,owner);string saved=SaveGame.Serialize(original.Content,original.State),state=JsonSerializer.Serialize(original.State);if(saved!=SaveGame.Serialize(replay.Content,replay.State)||state!=JsonSerializer.Serialize(replay.State))throw new InvalidOperationException("Future differs: "+stage.Key);hashes.Add(new{save=Hash(saved),state=Hash(state),commands});}var proof=new{stage=stage.Key,equalFutureBoundaries=3,hashes,saveSha256=Hash(stage.Value)};futures.Add(proof);string proofPath=Path.Combine(output,"future-"+stage.Key+".json");File.WriteAllText(proofPath,JsonSerializer.Serialize(proof,new JsonSerializerOptions{WriteIndented=true}));VerifySaveProof(Path.Combine(output,stage.Key+".engine-save.json"),proofPath);
             }
             bool expired=false;for(int i=0;i<40;i++){Future(content,game,owner);var relation=game.View(owner).Conflict!.Relations.Single();expiry.Add(new{turn=game.State.Turn,relation.Relation,relation.TruceEndTurn,relation.OwnGrievance,relation.OtherGrievance,hash=Hash(SaveGame.Serialize(content,game.State))});if(relation.Relation==RelationKind.Peace&&relation.TruceEndTurn<=game.State.Turn&&relation.OwnGrievance==0&&relation.OtherGrievance==0){expired=true;break;}}if(!expired)throw new InvalidOperationException("Truce/grievance expiry not witnessed within40 extra boundaries.");
         }
@@ -124,14 +157,28 @@ public static class EmpireConflictCampaignChecks
             if(game is not null)File.WriteAllText(Path.Combine(output,"final.engine-save.json"),SaveGame.Serialize(content,game.State));
             File.WriteAllText(Path.Combine(output,"journal.json"),JsonSerializer.Serialize(journal,new JsonSerializerOptions{WriteIndented=true}));
             File.WriteAllText(Path.Combine(output,"three-futures.json"),JsonSerializer.Serialize(futures,new JsonSerializerOptions{WriteIndented=true}));File.WriteAllText(Path.Combine(output,"expiry-continuation.json"),JsonSerializer.Serialize(expiry,new JsonSerializerOptions{WriteIndented=true}));
-            File.WriteAllText(Path.Combine(output,"result.json"),JsonSerializer.Serialize(new{species,seed,rules=12,TurnBudget,turn=game?.State.Turn,passed=error is null,error,injectedAssets=false,method="Engine-free real public commands; NOT Main saves/native acceptance",nativeAcceptancePending=true,stages=stages.Keys,payments=payments.Select(p=>new{owner=p.Key.Value,paid=p.Value,income=incomes[p.Key],startingBank=startingBanks[p.Key],finalBank=game?.State.Colonies.Where(c=>c.EmpireId==p.Key).Sum(c=>c.ProductionReserve),paidHulls=completed[p.Key]}),battleDamage,repairOrder=repair,repairTick,contested,lifted},new JsonSerializerOptions{WriteIndented=true}));
+            File.WriteAllText(Path.Combine(output,"result.json"),JsonSerializer.Serialize(new{species,seed,rules=12,TurnBudget,coreTurn,turn=game?.State.Turn,passed=error is null,error,injectedAssets=false,method="Engine-free real public commands; NOT Main saves/native acceptance",nativeAcceptancePending=true,stages=stages.Keys,payments=payments.Select(p=>new{owner=p.Key.Value,paid=p.Value,income=incomes[p.Key],startingBank=startingBanks[p.Key],coreFinalBank=coreBanks.GetValueOrDefault(p.Key),continuationFinalBank=game?.State.Colonies.Where(c=>c.EmpireId==p.Key).Sum(c=>c.ProductionReserve),paidHulls=completed[p.Key]}),battleDamage,repairOrder=repair,repairTick,contested,lifted},new JsonSerializerOptions{WriteIndented=true}));
         }
         return error is null;
     }
-    private static void Future(ContentSet content,GameSession game,EmpireId owner)
+    public static void Future(ContentSet content,GameSession game,EmpireId owner,Action<Command,bool>? record=null)
     {
-        foreach(var e in game.View(owner).Conflict!.Encounters.Where(e=>e.OwnNeedsResponse)){var action=new ConflictAction.Respond(e.Id,e.Revision);var p=ConflictQueries.Preview(content,game.View(owner),action);if(!game.Execute(new ConflictCommand(owner,game.State.Turn,action,p.Token)).Accepted)throw new InvalidOperationException("Future response failed.");}
-        if(!game.Execute(new SetReadyCommand(owner,game.State.Turn,true)).Accepted)throw new InvalidOperationException("Future boundary failed.");
+        bool Apply(Command command){var result=game.Execute(command);record?.Invoke(command,result.Accepted);return result.Accepted;}
+
+        var view=game.View(owner);var relation=view.Conflict!.Relations.Single();
+        if(relation.Relation==RelationKind.War)
+        {
+            ConflictAction? peace=relation.Peace is {} incoming&&incoming.Proposer!=owner?new ConflictAction.AnswerPeace(relation.Other,incoming.Id,true):relation.Peace is null&&!relation.OwnPeaceProposed?new ConflictAction.ProposePeace(relation.Other):null;
+            if(peace is not null){var p=ConflictQueries.Preview(content,view,peace);if(p.Allowed)Apply(new ConflictCommand(owner,view.Turn,peace,p.Token));}
+        }
+        else if(view.Diplomacy!.Contacts.SingleOrDefault() is {} contact)
+        {
+            OpenAntares.Simulation.Diplomacy.DiplomacyAction? action=contact.Pending is {} offer&&offer.Recipient==owner&&!offer.OwnAnswered?new OpenAntares.Simulation.Diplomacy.DiplomacyAction.Answer(offer.Id,true,offer.Kind==OpenAntares.Simulation.Diplomacy.AgreementKind.Trade?view.Diplomacy.Hubs.Where(h=>h.NewCommitment.Allowed).Select(h=>(ColonyId?)h.Id).FirstOrDefault():null):null;
+            if(action is null&&contact.Pending is null&&contact.Agreements.IsEmpty&&relation.OtherGrievance==0&&view.Stars.FirstOrDefault(s=>s.Current&&view.Colonies.Any(c=>c.StarId==s.Chart.Id)&&s.Planets is {} planets&&planets.Any(p=>p.OwnerId==relation.Other)) is {} shared)action=new OpenAntares.Simulation.Diplomacy.DiplomacyAction.OfferSettlement(shared.Chart.Id);
+            if(action is not null)Apply(new OpenAntares.Simulation.Diplomacy.DiplomacyCommand(owner,view.Turn,relation.Other,contact.PublicRevision,contact.PrivateRevision,action));
+        }
+        foreach(var e in game.View(owner).Conflict!.Encounters.Where(e=>e.OwnNeedsResponse)){var action=new ConflictAction.Respond(e.Id,e.Revision);var p=ConflictQueries.Preview(content,game.View(owner),action);if(!Apply(new ConflictCommand(owner,game.State.Turn,action,p.Token)))throw new InvalidOperationException("Future response failed.");}
+        if(!Apply(new SetReadyCommand(owner,game.State.Turn,true)))throw new InvalidOperationException("Future boundary failed.");
     }
     private static void PilotEconomyAndExpansion(ContentSet content,GameSession game,EmpireId owner,Func<Command,bool> send)
     {
@@ -139,7 +186,7 @@ public static class EmpireConflictCampaignChecks
         foreach(var colony in view.Colonies)
         {
             var target=colony.ProjectId is null?null:new ProductionTarget(colony.ProjectKind,colony.ProjectId);
-            for(int support=0;support<=colony.Population;support++)
+            for(int support=target is {Kind:ProductionKinds.Vessel} build?content.Vessels[build.ContentId].EmbarkPopulation:0;support<=colony.Population;support++)
             {var work=new Workforce(support,colony.Population-support,0);var estimate=context.Forecast(colony.Id,work,target);if(estimate is null||estimate.SupportProduced.Total<estimate.SupportRequired.Total)continue;if(colony.Population<colony.Economy.Growth.Capacity&&work.Production>0)work=work with{Support=work.Support+1,Production=work.Production-1};if(work!=colony.Workforce)send(new SetWorkforceCommand(owner,view.Turn,colony.Id,work));break;}
         }
         view=game.View(owner);context=RivalPlanningQueries.Create(content,game.State,owner);

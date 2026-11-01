@@ -23,7 +23,7 @@ public static class EmpireViewProjector
         // Forecast only this empire; foreign reserves/outputs cannot affect permitted rendering.
         var owned = state.Clone(); owned.Colonies.RemoveAll(c => c.EmpireId != viewer); owned.Empires.RemoveAll(e => e.Id != viewer);
         owned.Vessels.RemoveAll(v=>v.EmpireId!=viewer);
-        if(Rules.HasConflict(state.RulesVersion))Conflict.ConflictForecastFrame.Apply(owned,viewer,Conflict.ConflictForecastFrame.ForViewer(Conflict.ConflictBlockades.Capture(content,state),viewer));
+        if(Rules.HasConflict(state.RulesVersion))Conflict.ConflictForecastFrame.Apply(owned,viewer,Conflict.ConflictForecastFrame.PublishedForViewer(state,viewer));
         var forecast = EconomyCalculator.Calculate(content, owned);
         var crisis=Rules.HasCrises(state.RulesVersion)?CrisisQueries.Project(content,owned,viewer):null;
         var profile = EconomyProfile.For(content,owned,viewer);

@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)EmpireConflictGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EmpireConflictCampaignUiChecks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)EmpireConflictCampaignChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EmpireConflictEarnedUiChecks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiplomacyCampaignChecks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DiplomacyCampaignUiChecks.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ShipDesignCampaignChecks.cs" />

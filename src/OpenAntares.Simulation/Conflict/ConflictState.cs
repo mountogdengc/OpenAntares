@@ -31,7 +31,9 @@ public sealed record MilitaryObservation(VesselId Vessel,EmpireId Owner,string R
 }
 public sealed record ConflictEvent(long Id,int Turn,EmpireId Viewer,EmpireId Other,string Kind,string Reason,StarId? Star=null,FleetId? OwnFleet=null,VesselId? OwnVessel=null,ConflictEncounterId? Encounter=null);
 public sealed record ConflictNotice(string Key,ConflictNoticeLevel Level,string Reason,EmpireId? Other=null,StarId? Star=null,FleetId? OwnFleet=null,ConflictEncounterId? Encounter=null,long? Revision=null);
-public sealed record ConflictRoundReceipt(int Turn,long Round,bool Interception,ImmutableArray<CombatShot> Shots,ImmutableArray<CombatShipDamage> Own,ImmutableArray<CombatShipDamage> Opposing);
+public sealed record ConflictShotCalculation(VesselId Source,VesselId Target,int BaseAttack,int SourceHull,int SourceMaxHull,int FirePercent,int TargetArmor,int Damage);
+public sealed record ConflictRoundReceipt(int Turn,long Round,bool Interception,ImmutableArray<CombatShot> Shots,ImmutableArray<CombatShipDamage> Own,ImmutableArray<CombatShipDamage> Opposing)
+{[JsonRequired] public ImmutableArray<ConflictShotCalculation> Calculations {get;init;}=ImmutableArray<ConflictShotCalculation>.Empty;}
 public sealed class PeaceOfferState
 {
     [JsonRequired] public PeaceOfferId Id {get;set;}
@@ -114,6 +116,7 @@ public sealed class ConflictOwnerState
     [JsonRequired] public List<ConflictDefensePreference> Preferences {get;set;}=new();
     [JsonRequired] public List<ConflictAttackIntent> Attacks {get;set;}=new();
     [JsonRequired] public List<BlockadeOrderState> Blockades {get;set;}=new();
+    [JsonRequired] public List<OwnBlockadePressure> PublishedPressure {get;set;}=new();
     [JsonRequired] public List<MilitaryObservation> Observations {get;set;}=new();
     [JsonRequired] public List<ConflictEvent> Events {get;set;}=new();
     [JsonRequired] public List<ConflictNotice> Notices {get;set;}=new();
