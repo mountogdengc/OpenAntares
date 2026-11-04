@@ -1,6 +1,6 @@
 # Newer UI and empire conflict integration — 2026-11-04
 
-Status: Combined automated acceptance verified in the isolated checkout. Authorized main merge pending.
+Status: Merged locally into main. Combined automated acceptance and fresh actual-main checks passed.
 
 The owner requested combining the newer UI with conflict in an isolated checkout, running fresh combined acceptance, then merging into main after passing. Push, release and cleanup remain outside scope.
 
@@ -46,3 +46,30 @@ All initial/targeted failures remain under `reports/conflict-ui-integration-2026
 All prior branches/worktrees/stashes,owner prose,saves/raw evidence and local conflict-document edits are retained. No second implementation reviewer was dispatched: the prior conflict implementation review and separate UI review remain. Parent17 requirement rows/totals are unchanged. All current Godot launches use explicit log files. The earlier owner-approved exception for exactly three historical diagnostic logs remains unchanged;8219 other original QA files and all saves/screenshots were preserved in that audit. No complete8222-file survival claim is made.
 
 This establishes combined local automated acceptance through real rendered controls/signals and saved-game replay. It does not establish physical input, human readability,accessibility,platform/export,balance,security or release acceptance; their existing checklist and scopes remain separate. No push,release or cleanup.
+
+## Main integration and fresh verification
+
+Fast-forwarded clean main from `234b45e5eab968d768095d7c858c95bfa12e92f0` to `d9e1fd16393e0e6cb516b9edc73d09fa740cf390` after isolated acceptance passed. Recovery branch: `codex/conflict-ui-premerge-20261104`. Both newer UI and conflict commits remain ancestors. All408 authoritative source inputs match the tested source byte for byte;2259 committed raw acceptance/native artifacts matched their Git objects. No newer UI was replaced by the older conflict layout.
+
+Fresh checks executed from `F:/Projects-PCGames/OpenAntares`: solution build passed; full Windows2402/2402,0failed/skipped passed; ordinary assembly metadata confirms all13 scenario types,both helpers and the entire validation namespace are absent. Source snapshots before/after each native job match. [Postmerge verification](conflict-ui-integration-20261104/postmerge/verification.json), [merge identity](conflict-ui-integration-20261104/postmerge/merge.json).
+
+The isolated acceptance summary retains its original premerge source/branch identity. This postmerge record establishes the exact source relationship and fresh main checks; no recorded evidence was relabeled. All prior branches/worktrees and the isolated integration checkout remain. No push,release or cleanup.
+
+## Separate owner-operated physical follow-up
+
+Prerequisites: .NET8,the installed Godot4.7.2 Mono build,the ordinary assembly verified above,and fresh QA save names. Keep the retained saves/evidence unchanged. These checks assess physical input and human understanding; the automated merge gate above is complete.
+
+Build from main with `& 'F:/Projects-PCGames/OpenAntares/tools/Test-Queued.ps1' -SourceRoot 'F:/Projects-PCGames/OpenAntares' -Suite build`. Launch the ordinary game from PowerShell:
+
+```powershell
+$qaLog = Join-Path $env:TEMP ('OpenAntares-combined-ui-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'.log')
+& 'F:/Projects-PCGames/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe' --path 'F:/Projects-PCGames/OpenAntares' --log-file $qaLog
+```
+
+1. At800x600,use mouse and keyboard on New Game. Scroll every setting and activate Start. Expected:Start/Load remain reachable,default rules12 Standard opens on the map,and no control is clipped.
+2. Visit each bottom-navigation workspace,open a picker,scroll and Tab/Shift+Tab,then resize between800x600 and1920x1080. Expected:focused controls remain visible,popups stay reachable,return restores the map,and navigation/resize does not advance the campaign or submit an order.
+3. Copy `F:/Projects-PCGames/OpenAntares/reports/conflict-ui-integration-20261104/final07-EmpireConflict/earned/harl/main-active-battle.json` to a fresh timestamped `qa-combined-human-...json` name under `C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves`; retain the original. Load that copy through Main. Open conflict orders,battle/blockade reports and permitted system/fleet links. Expected:readable controls and clear own authority/response requirements,no private opposing orders/equipment assumptions,and no automatic command from opening or resizing.
+4. Physically review and apply one legal order,acknowledge only its intended report,and advance one boundary. Save under another fresh QA name and reload. Expected:one submission,clear outcome,retained orders/damage/dates and no duplicate report/action. The dated truce and other six saved stages are available beside the active-battle input for the corresponding checks in the retained historical checklist; use these actual Main saves as inputs.
+5. Load a fresh QA copy of a genuine rules11 archive. Expected:the older rules and peaceful rival behavior remain;opening current conflict controls creates no war or orphan label. Return to New Game and verify the current default remains rules12.
+
+Report back:main commit,engine/display size,input method,QA filename/seed,action,expected/actual result,pass/fail and screenshot/log path. Those results unlock any human-usability/accessibility corrections and their focused regressions;platform/export,balance,security and release remain separately scoped.

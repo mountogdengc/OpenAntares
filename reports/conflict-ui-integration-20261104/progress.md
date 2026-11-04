@@ -31,3 +31,5 @@
 - Active session67694: Run-NativeMatrix.ps1 -RunName final07 -Scenarios Expansion,Species,Rival,Crisis,Fleet,Combat,ShipDesign,Diplomacy,EmpireConflict -EarnedConflictCampaigns. It complements Gate06 on the exact same b9cb837 source. Do not edit authoritative source while running. Main merge still pending, as are final layout/full Windows/cleanup/evidence replay, evidence commit and post-merge verification.
 
 - FinalGates09 passed: Windows2402,layout107,cleanup8/9/11/12,original verifier7 self-tests and authoritative28 Main-save replays. Source d49e63c; nine equivalence controls also pass. Premerge preservation/source invariants verified; final evidence/docs preparation complete. Main merge is pending.
+
+- Main fast-forward completed at d9e1fd16393e0e6cb516b9edc73d09fa740cf390; fresh actual-main build and Windows2402 pass. All408 source bytes match; ordinary namespace empty. See postmerge/verification.json. No push/release/cleanup.
