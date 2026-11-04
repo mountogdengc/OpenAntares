@@ -78,6 +78,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         foreach(var dimensions in new[]{new Vector2I(800,600),new(1152,648),new(1280,720),new(1600,900),new(1920,1080)})
         {
             GetTree().Root.Size=dimensions;await Frames();rival.GrabFocus();await Frames();
+            File.AppendAllText(Path.Combine(_output,"setup-geometry.jsonl"),JsonSerializer.Serialize(new{dimensions,viewport=GetViewport().GetVisibleRect().ToString(),root=setup.GetGlobalRect().ToString(),rival=rival.GetGlobalRect().ToString(),start=Button(setup,"Start").GetGlobalRect().ToString(),focus=GetViewport().GuiGetFocusOwner()?.Name.ToString()})+"\n");
             Check(GetViewport().GuiGetFocusOwner()==rival && VisibleInWindow(rival) && VisibleInWindow(Button(setup,"Start")),"Setup controls/focus fit "+dimensions);
             await Capture("rival-setup-"+dimensions.X+"x"+dimensions.Y);
         }
@@ -188,12 +189,12 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         }
     }
     private async Task Reach(Control control)
-    {UiNavigation.Reveal(control);
+    {control=UiNavigation.Reveal(control);
         control.GrabFocus();await Frames();Node? ancestor=control.GetParent();while(ancestor is not null && ancestor is not ScrollContainer)ancestor=ancestor.GetParent();
         if(ancestor is ScrollContainer scroll){scroll.EnsureControlVisible(control);await Frames();Check(scroll.GetGlobalRect().Intersects(control.GetGlobalRect()),"Rival loop focus/scroll reaches "+control.GetType().Name);}
     }
     private static void SelectNumber(OptionButton picker,int id)
-    {UiNavigation.Reveal(picker);
+    {picker=UiNavigation.Reveal(picker);
         int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);
     }
     private async Task SelectVessel(GameScreen screen,VesselId id)

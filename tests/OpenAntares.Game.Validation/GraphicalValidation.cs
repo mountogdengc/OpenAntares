@@ -359,18 +359,18 @@ public partial class GraphicalValidation : Node
     {
         var candidates=Descendants<Button>(node).Where(b=>b.Text==text).ToArray();
         var button=candidates.SingleOrDefault(b=>b.IsVisibleInTree()&&b.GetWindow().Visible)??candidates.Single();
-        UiNavigation.Reveal(button);
+        button=UiNavigation.Reveal(button);
         if(!button.IsVisibleInTree()||!button.GetWindow().Visible)throw new InvalidOperationException("Unreachable action: "+text);
         return button;
     }
-    protected static Button Step(Node node, string tooltip) => Descendants<Button>(node).Single(b => b.TooltipText == tooltip);
+    protected static Button Step(Node node, string tooltip) { if(node is Control panel) UiNavigation.Reveal(panel); return Descendants<Button>(node).Single(b => b.TooltipText == tooltip); }
     protected static void Press(Button button)
-    {UiNavigation.Reveal(button);
+    {button=UiNavigation.Reveal(button);
         if (button.Disabled) throw new InvalidOperationException("Cannot press disabled button: " + button.Text);
         button.EmitSignal(Godot.Button.SignalName.Pressed);
     }
     protected static void Select(OptionButton picker, string id)
-    {UiNavigation.Reveal(picker);
+    {picker=UiNavigation.Reveal(picker);
         int index = Enumerable.Range(0, picker.ItemCount).Single(i => picker.GetItemMetadata(i).AsString() == id);
         if (picker.IsItemDisabled(index)) throw new InvalidOperationException("Cannot select disabled option: " + id);
         picker.Select(index);

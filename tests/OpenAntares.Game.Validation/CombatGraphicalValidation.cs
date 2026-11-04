@@ -68,11 +68,11 @@ public partial class CombatGraphicalValidation:Node
     }
     private static GameSession Live(GameScreen screen)=>(GameSession)typeof(GameScreen).GetField("_session",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!.GetValue(screen)!;
     private async Task Click(Control control)
-    {UiNavigation.Reveal(control);
+    {control=UiNavigation.Reveal(control);
         Check(control.IsVisibleInTree()&&control.GetWindow().Visible,"Reachable "+control.Name);for(Node? p=control.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(control);control.GrabFocus();await Frames(this);if(control is Button b)Press(b);else throw new InvalidOperationException("Expected button");await Frames(this);
     }
     private Task Click(Node root,string name)=>Click(Named<Button>(root,name));
-    private async Task Pick(OptionButton picker,int i){UiNavigation.Reveal(picker);picker.Select(i);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)i);await Frames(this);}
+    private async Task Pick(OptionButton picker,int i){picker=UiNavigation.Reveal(picker);picker.Select(i);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)i);await Frames(this);}
     private Task PickId(OptionButton picker,int id)=>Pick(picker,Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id));
     private async Task Select(ItemList list,int index){list.DeselectAll();list.Select(index);if(list.SelectMode==ItemList.SelectModeEnum.Multi)list.EmitSignal(ItemList.SignalName.MultiSelected,(long)index,true);else list.EmitSignal(ItemList.SignalName.ItemSelected,(long)index);await Frames(this);}
     private async Task Tab(Node root,int index){Named<TabContainer>(root,"FleetTabs").CurrentTab=index;await Frames(this);}

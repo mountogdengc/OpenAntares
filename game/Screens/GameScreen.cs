@@ -20,7 +20,7 @@ public partial class GameScreen : VBoxContainer
     private readonly Label _turnLabel = new();
     private readonly ResearchBar _researchBar = new();
     private readonly Label _message = new() { Name = "CommandFeedback", ThemeTypeVariation = "WarningLabel", Visible = false };
-    private readonly Label _legacyNotice = new() { Text = "Legacy colony game â€” original campaign rules retained.", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart };
+    private readonly Label _legacyNotice = new() { Text = "Legacy colony game — original campaign rules retained.", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart };
     private readonly Button _alertsEntry = new() { Name = "OpenAttentionConsole", Text = "Alerts", Visible = false };
     private readonly GalaxyMap _map = new();
     private readonly StarPanel _starPanel = new();

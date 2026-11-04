@@ -38,8 +38,10 @@ public partial class NewGameScreen : CenterContainer
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         var panel = new PanelContainer(); AddChild(panel);
-        void FitSetupPanel() => panel.CustomMinimumSize = new Vector2(Math.Min(600, Size.X), Math.Min(720, Size.Y));
-        Resized += FitSetupPanel;
+        var viewport = GetViewport();
+        void FitSetupPanel() { var size = viewport.GetVisibleRect().Size; panel.CustomMinimumSize = new Vector2(Math.Min(600, size.X), Math.Min(720, size.Y)); }
+        viewport.SizeChanged += FitSetupPanel;
+        TreeExiting += () => viewport.SizeChanged -= FitSetupPanel;
         FitSetupPanel();
         var margin = new MarginContainer { ThemeTypeVariation = "PanelPadding" }; panel.AddChild(margin);
         var column = new VBoxContainer(); margin.AddChild(column);
@@ -131,7 +133,7 @@ public partial class NewGameScreen : CenterContainer
         var roles = sp.AllowedVesselIds.Concat(Rules.HasCombat(Rules.CurrentVersion)?_content.Vessels.Values.Where(v=>v.CombatOnly).Select(v=>v.Id):Array.Empty<string>()).Distinct(StringComparer.Ordinal).Select(id => _content.Vessels[id]).Select(role => role.CanFoundColony
             ? $"{role.Name}: {Format.Points(role.Cost)} production; cargo {role.EmbarkPopulation} {sp.PopulationUnitLabel}; minimum colony {role.MinimumSourcePopulation}." + (role.RequiresFullColony ? " Must be full at its current capacity." : string.Empty) + (role.FoundsSealedHabitat ? " Creates a sealed habitat." : " Creates a native colony.")
             : Rules.HasCombat(Rules.CurrentVersion)&&_content.Combat!.RoleProfiles[role.Id] is{Attack:>0} profile?$"{role.Name}: {Format.Points(role.Cost)} production; hull {profile.MaxHull}, attack {profile.Attack}, armor {profile.Armor}, speed {role.Speed}; no cargo.":$"{role.Name}: {Format.Points(role.Cost)} production; surveys systems.");
-        _summary.Text = $"{sp.Name} â€” {sp.CultureName}\n{sp.Description}\n\nColony crises: {(_crisisPicker.Selected==0?"Standard":"Off")}. Standard includes plague warnings and response choices; Off keeps crises dormant.\n\nStarting population: {sp.StartingPopulation} ({sp.PopulationUnitLabel}); capacity {economy.Growth.Capacity}." +
+        _summary.Text = $"{sp.Name} — {sp.CultureName}\n{sp.Description}\n\nColony crises: {(_crisisPicker.Selected==0?"Standard":"Off")}. Standard includes plague warnings and response choices; Off keeps crises dormant.\n\nStarting population: {sp.StartingPopulation} ({sp.PopulationUnitLabel}); capacity {economy.Growth.Capacity}." +
             (sp.SealedBaseCapacity is { } sealedCapacity ? $" Sealed capacity {sealedCapacity}." : string.Empty) +
             $"\nWorkers: {sp.StartingWorkforce.Support} support / {sp.StartingWorkforce.Production} production / {sp.StartingWorkforce.Research} research.\nSupport {Format.Points(economy.SupportProduced.Total)} / {Format.Points(economy.SupportRequired.Total)}; production {Format.Points(economy.NetProduction.Total)}, research {Format.Points(economy.NetResearch.Total)} per turn.\nGrowth +{Format.Points(economy.GrowthEarned.Total)} per turn; base +{Format.Points(sp.BaseGrowth)}, surplus bonus up to +{Format.Points(sp.MaxSurplusGrowth)}.\n\n" + string.Join("\n", roles);
         _summary.TooltipText = BreakdownText.Describe(economy.NetProduction, _content, "Production") + "\n\n" + BreakdownText.Describe(economy.GrowthEarned, _content, "Growth");

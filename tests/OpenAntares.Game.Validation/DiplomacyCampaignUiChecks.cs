@@ -19,7 +19,7 @@ public partial class DiplomacyGraphicalValidation
 {
     private static GameSession Live(GameScreen screen)=>(GameSession)typeof(GameScreen).GetField("_session",BindingFlags.NonPublic|BindingFlags.Instance)!.GetValue(screen)!;
     private void Paths(GameScreen screen,string folder){screen.CombatPreferencesPath=Path.Combine(folder,"combat-prefs.json");screen.FleetPreferencesPath=Path.Combine(folder,"fleet-prefs.json");screen.ScoutPreferencesPath=Path.Combine(folder,"scout-prefs.json");screen.CrisisPreferencesPath=Path.Combine(folder,"crisis-prefs.json");screen.NotificationPreferencesPath=Path.Combine(folder,"colony-prefs.json");}
-    private async Task PressControl(Button button){UiNavigation.Reveal(button);Check(!button.Disabled&&button.IsVisibleInTree(),"Reachable "+button.Text);button.EmitSignal(Button.SignalName.Pressed);await Frames(this);}
+    private async Task PressControl(Button button){button=UiNavigation.Reveal(button);Check(!button.Disabled&&button.IsVisibleInTree(),"Reachable "+button.Text);button.EmitSignal(Button.SignalName.Pressed);await Frames(this);}
     private async Task<GameScreen> SaveReload(Control main,GameScreen screen,string folder,string label)
     {
         string before=Snapshot(Live(screen)),name="qa-diplomacy-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-"+label;

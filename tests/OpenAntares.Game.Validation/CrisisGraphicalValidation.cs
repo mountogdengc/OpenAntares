@@ -299,7 +299,7 @@ public partial class CrisisGraphicalValidation:Node
         One<CrisisOverviewDialog>(screen).Hide();await Frames();
     }
     private static OptionButton Picker(Node node,string name)=>Named<OptionButton>(node,name);
-    private static void Select(OptionButton picker,string id){UiNavigation.Reveal(picker);int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsString()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
+    private static void Select(OptionButton picker,string id){picker=UiNavigation.Reveal(picker);int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsString()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
     private static void Toggle(Node node,string name,bool value){var box=Named<CheckBox>(node,name);box.SetPressedNoSignal(value);box.EmitSignal(BaseButton.SignalName.Toggled,value);}
     private async Task QueueGeneratedProject(GameScreen screen,string kind,string id)
     {
@@ -381,7 +381,7 @@ public partial class CrisisGraphicalValidation:Node
         _results.Add(new{name="generated-harl-cargo provenance",passed=true,source="explicit rules8 Main Load; complete embedded core content",seed=42,rivals=1,rules=8,amebas=false,scoutVisited=visited.Count,targetStar=destination!.Value.Value,targetPlanet=targetPlanet!.Value.Value,completionTurn,departureTurn,secondaryTurn=session.State.Turn,liveOutcomeInjections=0});
         SaveEvidence(session,"generated-harl-cargo-secondary-warning");RemoveChild(main);main.QueueFree();await Frames();
     }
-    private static void SelectNumber(OptionButton picker,int id){UiNavigation.Reveal(picker);int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
+    private static void SelectNumber(OptionButton picker,int id){picker=UiNavigation.Reveal(picker);int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
     private async Task LabelledPortWait()
     {
         var content=Content();var state=Labelled(content);var ship=state.Vessels.Single(v=>v.EmpireId==state.Empires[0].Id);ship.RoleId="harl_settler";ship.CarriedPopulation=1;ship.Crisis!.CarrierEpisode=1;ship.Crisis.InspectionDueTurn=23;
@@ -435,10 +435,10 @@ public partial class CrisisGraphicalValidation:Node
     private GameScreen Screen(GameSession session,EmpireId owner)=>new(session,owner){NotificationPreferencesPath=Path.Combine(_output,"colony-prefs.json"),CrisisPreferencesPath=Path.Combine(_output,"crisis-prefs.json")};
     private void SaveEvidence(GameSession session,string label){string path=SaveFiles.PathFor($"qa-{_runId}-crisis-{label}");SaveGame.WriteFile(path,session.Content,session.State);_savePaths.Add(path);}
     private static T Named<T>(Node n,string name)where T:Node=>Descendants<T>(n).Single(c=>c.Name==name);
-    private async Task Reach(Control c){UiNavigation.Reveal(c);c.GrabFocus();await Frames();for(Node? p=c.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(c);await Frames();Check(c.IsVisibleInTree(),"Reach control "+c.Name);}
+    private async Task Reach(Control c){c=UiNavigation.Reveal(c);c.GrabFocus();await Frames();for(Node? p=c.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(c);await Frames();Check(c.IsVisibleInTree(),"Reach control "+c.Name);}
     private void Check(bool yes,string name){_results.Add(new{name,passed=yes});if(!yes)throw new InvalidOperationException(name);}
     private static IEnumerable<T> Descendants<T>(Node n)where T:Node{foreach(Node c in n.GetChildren()){if(c is T t)yield return t;foreach(var d in Descendants<T>(c))yield return d;}}
-    private static void Press(Button b){UiNavigation.Reveal(b);if(b.Disabled)throw new InvalidOperationException("Disabled: "+b.Text);b.EmitSignal(BaseButton.SignalName.Pressed);}
+    private static void Press(Button b){b=UiNavigation.Reveal(b);if(b.Disabled)throw new InvalidOperationException("Disabled: "+b.Text);b.EmitSignal(BaseButton.SignalName.Pressed);}
     private async Task Frames(){await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
     private async Task Capture(string name){await Frames();await Frames();await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);GetViewport().GetTexture().GetImage().SavePng(Path.Combine(_output,name+".png"));}
     private static T One<T>(Node n)where T:Node=>Descendants<T>(n).Single();

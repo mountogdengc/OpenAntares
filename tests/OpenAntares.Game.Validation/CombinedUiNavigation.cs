@@ -18,21 +18,24 @@ internal static class CombinedUiNavigation
         if(!menu.IsVisibleInTree() || menu.Disabled) throw new InvalidOperationException("Game menu is unreachable");
         menu.GetPopup().EmitSignal(PopupMenu.SignalName.IdPressed,(long)id);
     }
-    internal static void Reveal(Control control)
+    internal static T Reveal<T>(T control) where T:Control
     {
-        if(control.IsVisibleInTree()) return;
-        GameScreen? screen=null; string? workspace=null;
+        if(control.IsVisibleInTree()) return control;
+        GameScreen? screen=null; string? workspace=null; Control? host=null;
+        string originalName=control.Name, tooltip=control.TooltipText;
+        string? text=control is Button action ? action.Text : control is Label label ? label.Text : null;
         for(Node? node=control;node is not null;node=node.GetParent())
         {
-            if(node is ColonyPanel) workspace="OpenColonyWorkspace";
-            else if(node is ColonyList) workspace="OpenColonyOverview";
-            else if(node is VesselPanel) workspace="OpenVesselWorkspace";
-            else if(node is StarPanel) workspace="InspectSelectedSystem";
-            else if(node is ContactsPanel) workspace="OpenContactsWorkspace";
-            else if(node is ResearchBar || node.Name=="EmpireConsole") workspace="OpenGalaxyWorkspace";
+            if(node is ColonyPanel panel) {workspace="OpenColonyWorkspace";host=panel;}
+            else if(node is ColonyList panelColonyList) {workspace="OpenColonyOverview";host=panelColonyList;}
+            else if(node is VesselPanel panelVesselPanel) {workspace="OpenVesselWorkspace";host=panelVesselPanel;}
+            else if(node is StarPanel panelStarPanel) {workspace="InspectSelectedSystem";host=panelStarPanel;}
+            else if(node is ContactsPanel panelContactsPanel) {workspace="OpenContactsWorkspace";host=panelContactsPanel;}
+            else if(node is ResearchBar panelResearchBar) {workspace="OpenGalaxyWorkspace";host=panelResearchBar;}
+            else if(node.Name=="EmpireConsole") {workspace="OpenGalaxyWorkspace";host=(Control)node;}
             if(node is GameScreen owner) {screen=owner;break;}
         }
-        if(screen is null || workspace is null) return;
+        if(screen is null || workspace is null) return control;
         void Navigate(string name)
         {
             var button=All<Button>(screen).Single(b=>b.Name==name);
@@ -41,6 +44,13 @@ internal static class CombinedUiNavigation
         }
         if(workspace is "OpenColonyOverview" or "OpenVesselWorkspace" or "InspectSelectedSystem") Navigate("OpenGalaxyWorkspace");
         Navigate(workspace);
-        if(!control.IsVisibleInTree()) throw new InvalidOperationException("Workspace did not reveal control: "+control.Name);
+        if(control.IsInsideTree() && control.IsVisibleInTree()) return control;
+        // Workspace navigation may synchronously refresh a panel. Reacquire the
+        // corresponding current control rather than dispatching to a detached one.
+        var candidates=All<T>(host ?? screen).Where(c=>c.IsVisibleInTree() && c.GetType()==control.GetType());
+        T? replacement = originalName.StartsWith("@",StringComparison.Ordinal)
+            ? candidates.SingleOrDefault(c=>c.TooltipText==tooltip && (c is Button b ? b.Text : c is Label l ? l.Text : null)==text)
+            : candidates.SingleOrDefault(c=>c.Name==originalName);
+        return replacement ?? throw new InvalidOperationException("Workspace did not reveal control: "+originalName);
     }
 }
