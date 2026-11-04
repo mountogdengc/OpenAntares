@@ -26,3 +26,6 @@
 # UI validation output is retained byte-for-byte, including engine log spacing.
 /reports/ui-layout-trial/** -text -whitespace
 /reports/ui-layout-integration-20261103/** -text -whitespace
+
+# Native queued test results retain original TRX/log bytes.
+/reports/native-tests/** -text -whitespace

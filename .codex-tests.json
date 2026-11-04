@@ -1,0 +1,51 @@
+{
+  "schema": 2,
+  "execution": "native",
+  "project": "openantares",
+  "runner": "F:/Tools/CodexTestRunner/runner.py",
+  "source_root": "F:/Projects-PCGames/OpenAntares",
+  "include": [
+    "src/OpenAntares.Simulation/**/*.cs",
+    "src/OpenAntares.Simulation/*.csproj",
+    "src/OpenAntares.Simulation/BannedSymbols.txt",
+    "tests/OpenAntares.Simulation.Tests/**/*.cs",
+    "tests/OpenAntares.Simulation.Tests/*.csproj",
+    "tests/OpenAntares.Simulation.Tests/Fixtures/**/*",
+    "OpenAntares.sln",
+    "content/core/**/*.json",
+    "OpenAntares.csproj",
+    "project.godot",
+    "game/**/*.cs",
+    "game/theme/**/*.tres"
+  ],
+  "max_source_mb": 192,
+  "suites": {
+    "default": {
+      "timeout": 900,
+      "kind": "trx",
+      "command": [
+        "dotnet",
+        "test",
+        "tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj",
+        "--nologo",
+        "--disable-build-servers",
+        "--logger",
+        "trx;LogFileName=simulation.trx",
+        "--results-directory",
+        "{output}"
+      ],
+      "report": "simulation.trx"
+    },
+    "build": {
+      "timeout": 900,
+      "kind": "command",
+      "command": [
+        "dotnet",
+        "build",
+        "OpenAntares.sln",
+        "--nologo",
+        "--disable-build-servers"
+      ]
+    }
+  }
+}
