@@ -18,6 +18,7 @@ namespace OpenAntares.Game.Components;
 public partial class ColonyPanel : VBoxContainer
 {
     private OptionButton? _projectPicker;
+    private GridContainer? _columns;
     private OpenAntares.Game.Presentation.PlanetStyleCatalog? _styles;
     private OpenAntares.Game.Presentation.PlanetPortraitCache? _cache;
     public void ConfigurePortraits(OpenAntares.Game.Presentation.PlanetStyleCatalog styles,OpenAntares.Game.Presentation.PlanetPortraitCache cache){_styles=styles;_cache=cache;}
@@ -27,6 +28,13 @@ public partial class ColonyPanel : VBoxContainer
     public event Action<VesselId>? RefitRequested;
     public event Action? ShipDesignsRequested;
 
+    public override void _Ready() => Resized += UpdateColumns;
+
+    private void UpdateColumns()
+    {
+        if (_columns is not null) _columns.Columns = Size.X >= 900 ? 2 : 1;
+    }
+
     public void ShowColony(ContentSet content, OwnedColonyView colony, EmpireView? view = null)
     {
         Clear();
@@ -35,28 +43,33 @@ public partial class ColonyPanel : VBoxContainer
         AddChild(new HSeparator());
         AddChild(new Label { Text = "Colony", ThemeTypeVariation = "HeaderLabel" });
 
-        if (view is not null) { var orders = new ColonyOrdersPanel(); AddChild(orders); orders.CommandIssued += c => CommandIssued?.Invoke(c); orders.RefitRequested+=v=>RefitRequested?.Invoke(v); orders.ShowColony(content, view, colony); }
+        _columns = new GridContainer { Name = "ColonyWorkColumns", Columns = Size.X >= 900 ? 2 : 1 };
+        AddChild(_columns);
+        var overview = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        var construction = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        _columns.AddChild(overview);
+        _columns.AddChild(construction);
 
-        if (view is not null && Rules.HasDevelopment(view.RulesVersion)) { var known=view.Stars.FirstOrDefault(s=>s.Chart.Id==colony.StarId)?.Planets?.FirstOrDefault(p=>p.Id==colony.PlanetId);var portrait=new PlanetPortrait();AddChild(portrait);if(_styles is not null&&_cache is not null)portrait.Configure(_styles,_cache);portrait.ShowPlanet(known); }
+        if (view is not null && Rules.HasDevelopment(view.RulesVersion)) { var known=view.Stars.FirstOrDefault(s=>s.Chart.Id==colony.StarId)?.Planets?.FirstOrDefault(p=>p.Id==colony.PlanetId);var portrait=new PlanetPortrait();overview.AddChild(portrait);if(_styles is not null&&_cache is not null)portrait.Configure(_styles,_cache);portrait.ShowPlanet(known); }
 
         // Population and growth.
         string unit = colony.PopulationUnitLabel;
         string title = char.ToUpperInvariant(unit[0]) + unit[1..];
-        AddChild(new Label { Text = $"{title} {colony.Population} of {economy.Growth.Capacity}" });
+        overview.AddChild(new Label { Text = $"{title} {colony.Population} of {economy.Growth.Capacity}" });
         if (colony.SpeciesId is { } speciesId)
         {
             var species = content.Species[speciesId];
-            AddChild(Wrapped($"{species.Name} — {species.CultureName}; {colony.HabitatMode} habitat.", "SubtleLabel"));
+            overview.AddChild(Wrapped($"{species.Name} — {species.CultureName}; {colony.HabitatMode} habitat.", "SubtleLabel"));
         }
-        AddChild(Readout(
+        overview.AddChild(Readout(
             "Growth",
             $"{BreakdownText.Signed(economy.GrowthEarned.Total)} per turn, progress {Format.Points(colony.GrowthProgress)} / 1",
             BreakdownText.Describe(economy.GrowthEarned, content, "Growth this turn")));
 
         // Workforce. Support is the remainder; production and research move workers to and from it.
-        AddChild(new Label { Text = "Workforce", ThemeTypeVariation = "SubtleLabel" });
+        overview.AddChild(new Label { Text = "Workforce", ThemeTypeVariation = "SubtleLabel" });
         var grid = new GridContainer { Columns = 5 };
-        AddChild(grid);
+        overview.AddChild(grid);
         Workforce workforce = colony.Workforce;
 
         AddWorkforceRow(grid, "Support", workforce.Support, null, null,
@@ -80,66 +93,66 @@ public partial class ColonyPanel : VBoxContainer
 
         if (economy.SupportDeficit > 0)
         {
-            AddChild(Wrapped(
+            overview.AddChild(Wrapped(
                 $"Support shortage of {Format.Points(economy.SupportDeficit)}: production and research are reduced and growth is paused.",
                 "WarningLabel"));
         }
         else if (economy.GrowthEarned.Lines.Any(line => line.Kind == BreakdownKinds.CapacityLimit))
         {
-            AddChild(Wrapped("At capacity: growth is blocked. The growth breakdown shows potential growth before this limit.", "SubtleLabel"));
+            overview.AddChild(Wrapped("At capacity: growth is blocked. The growth breakdown shows potential growth before this limit.", "SubtleLabel"));
         }
         else if (economy.UnusedSupport > 0)
         {
-            AddChild(Wrapped(
+            overview.AddChild(Wrapped(
                 $"{Format.Points(economy.UnusedSupport)} support is unused: growth is already at its bonus limit.",
                 "SubtleLabel"));
         }
 
         // Construction.
-        AddChild(new HSeparator());
-        AddChild(new Label { Text = "Construction", ThemeTypeVariation = "HeaderLabel" });
+        construction.AddChild(new Label { Text = "Construction", ThemeTypeVariation = "HeaderLabel" });
         _projectPicker = ProjectPicker(content, colony, colony.Turn,view);
-        AddChild(_projectPicker);
+        construction.AddChild(_projectPicker);
         if(view is not null&&Rules.HasShipDesigns(view.RulesVersion))
         {
-            var designs=new Button{Name="ColonyShipDesigns",Text="Ship designs"};AddChild(designs);
+            var designs=new Button{Name="ColonyShipDesigns",Text="Ship designs"};construction.AddChild(designs);
             designs.Pressed+=()=>ShipDesignsRequested?.Invoke();
         }
 
-        if(view?.Colonies.FirstOrDefault(c=>c.Id==colony.Id) is {} bank&&view.Diplomacy is not null)AddChild(Wrapped($"Production bank {Format.Points(bank.ProductionReserve)}; diplomacy reserved {Format.Points(bank.ReservedProduction)}; spendable {Format.Points(bank.SpendableProduction)}.","SubtleLabel"));
+        if(view?.Colonies.FirstOrDefault(c=>c.Id==colony.Id) is {} bank&&view.Diplomacy is not null)construction.AddChild(Wrapped($"Production bank {Format.Points(bank.ProductionReserve)}; diplomacy reserved {Format.Points(bank.ReservedProduction)}; spendable {Format.Points(bank.SpendableProduction)}.","SubtleLabel"));
         if(view?.Colonies.FirstOrDefault(c=>c.Id==colony.Id)?.ProductionIfSetupReleased is {} released)
-            AddChild(Wrapped("Conditional on setup reservation release: "+BreakdownText.Progress(released)+"; "+BreakdownText.Estimate(released.Estimate)+". This assumes the offer ends without activation; a partner's queued answer remains private.","SubtleLabel"));
+            construction.AddChild(Wrapped("Conditional on setup reservation release: "+BreakdownText.Progress(released)+"; "+BreakdownText.Estimate(released.Estimate)+". This assumes the offer ends without activation; a partner's queued answer remains private.","SubtleLabel"));
         ReserveOutcome production = economy.Production;
         string status = production.TargetId is null
             ? $"No project: production is saved (reserve {Format.Points(production.Starting)})."
             : production.BlockedReasonCode is not null ? colony.ProjectKind==ProductionKinds.Refit?$"{BreakdownText.Progress(production)}; refit paused — review Resume or Cancel.":$"{BreakdownText.Progress(production)}; banking until embarkation is possible" : $"{BreakdownText.Progress(production)}, {BreakdownText.Estimate(production.Estimate)}";
-        AddChild(Wrapped(status, "SubtleLabel"));
+        construction.AddChild(Wrapped(status, "SubtleLabel"));
         if (colony.ProjectKind == ProductionKinds.Vessel && colony.ProjectId is { } roleId && content.Vessels[roleId].CanFoundColony)
         {
             var role = content.Vessels[roleId];
             string full = Rules.HasSpecies(colony.RulesVersion) && role.RequiresFullColony ? $" Requires a full colony at current capacity {economy.Growth.Capacity}." : string.Empty;
-            AddChild(Wrapped($"{role.Name}: requires {unit} {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers; transfers {role.EmbarkPopulation} {unit} on completion. Delays construction of a building." + full, "SubtleLabel"));
+            construction.AddChild(Wrapped($"{role.Name}: requires {unit} {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers; transfers {role.EmbarkPopulation} {unit} on completion. Delays construction of a building." + full, "SubtleLabel"));
         }
         if (production.BlockedReasonCode is not null && colony.ProjectKind==ProductionKinds.Vessel && colony.ProjectId is { } blockedRoleId)
         {
             var role = content.Vessels[blockedRoleId];
             if (Rules.HasSpecies(colony.RulesVersion))
             {
-                AddChild(Wrapped("Awaiting embarkation. Production is retained.", "WarningLabel"));
-                foreach (var requirement in production.BlockedRequirements) AddChild(Wrapped(BreakdownText.EmbarkRequirement(requirement, unit), "WarningLabel"));
+                construction.AddChild(Wrapped("Awaiting embarkation. Production is retained.", "WarningLabel"));
+                foreach (var requirement in production.BlockedRequirements) construction.AddChild(Wrapped(BreakdownText.EmbarkRequirement(requirement, unit), "WarningLabel"));
             }
-            else AddChild(Wrapped($"Awaiting embarkation: requires population {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers. Production is retained.", "WarningLabel"));
+            else construction.AddChild(Wrapped($"Awaiting embarkation: requires population {role.MinimumSourcePopulation} and {role.EmbarkPopulation} support workers. Production is retained.", "WarningLabel"));
         }
         if (economy.EmbarkOutcome is { } embark)
         {
-            AddChild(Wrapped($"After embarkation: {unit} {embark.PopulationAfter}, support {embark.WorkforceAfter.Support}, production {embark.WorkforceAfter.Production}, research {embark.WorkforceAfter.Research}. Next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));
-            if (embark.ReassignmentNeeded) AddChild(Wrapped("Reassign workers after completion to avoid a support shortage.", "WarningLabel"));
+            construction.AddChild(Wrapped($"After embarkation: {unit} {embark.PopulationAfter}, support {embark.WorkforceAfter.Support}, production {embark.WorkforceAfter.Production}, research {embark.WorkforceAfter.Research}. Next support {Format.Points(embark.NextSupportProduced.Total)} / {Format.Points(embark.NextSupportRequired.Total)}.", embark.ReassignmentNeeded ? "WarningLabel" : "SubtleLabel"));
+            if (embark.ReassignmentNeeded) construction.AddChild(Wrapped("Reassign workers after completion to avoid a support shortage.", "WarningLabel"));
         }
 
         if (colony.CompletedBuildingIds.Length > 0)
         {
-            AddChild(Wrapped("Built: " + string.Join(", ", BreakdownText.Names(colony.CompletedBuildingIds, content)), "SubtleLabel"));
+            construction.AddChild(Wrapped("Built: " + string.Join(", ", BreakdownText.Names(colony.CompletedBuildingIds, content)), "SubtleLabel"));
         }
+        if (view is not null) { var orders = new ColonyOrdersPanel(); AddChild(orders); orders.CommandIssued += c => CommandIssued?.Invoke(c); orders.RefitRequested+=v=>RefitRequested?.Invoke(v); orders.ShowColony(content, view, colony); }
     }
 
     /// <summary>Opens the construction list, e.g. after a building completes.</summary>
@@ -164,6 +177,7 @@ public partial class ColonyPanel : VBoxContainer
     public void Clear()
     {
         _projectPicker = null;
+        _columns = null;
         foreach (Node child in GetChildren())
         {
             RemoveChild(child);
@@ -185,6 +199,7 @@ public partial class ColonyPanel : VBoxContainer
             TooltipText = tooltip,
             MouseFilter = MouseFilterEnum.Stop,
             SizeFlagsHorizontal = SizeFlags.ExpandFill,
+            AutowrapMode = TextServer.AutowrapMode.WordSmart,
         });
     }
 
@@ -202,7 +217,7 @@ public partial class ColonyPanel : VBoxContainer
     /// <summary>Lists buildable projects, then locked ones (disabled) with what they need.</summary>
     private OptionButton ProjectPicker(ContentSet content, OwnedColonyView colony, int turn,EmpireView? view)
     {
-        var picker = new OptionButton { Name = "ColonyProjectPicker", SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        var picker = new OptionButton { Name = "ColonyProjectPicker", FitToLongestItem = false, ClipText = true, SizeFlagsHorizontal = SizeFlags.ExpandFill };
         picker.AddItem("No project");
         picker.SetItemMetadata(0, string.Empty);
 
@@ -273,6 +288,8 @@ public partial class ColonyPanel : VBoxContainer
             TooltipText = tooltip,
             MouseFilter = MouseFilterEnum.Stop,
             ThemeTypeVariation = "SubtleLabel",
+            SizeFlagsHorizontal = SizeFlags.ExpandFill,
+            AutowrapMode = TextServer.AutowrapMode.WordSmart,
         });
         return row;
     }

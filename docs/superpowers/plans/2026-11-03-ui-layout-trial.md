@@ -1,0 +1,13 @@
+# UI layout trial
+
+Owner approved the interactive layout on 2026-11-03 and explicitly requested a playable trial to assess how it feels. This is a reversible presentation experiment, not a gameplay milestone or an integration request. Execute inline; no further design/plan approval is needed for this trial.
+
+Baseline: main `5df255b`, separate `codex/ui-layout-trial` worktree. Pending empire-conflict implementation and all existing worktrees remain untouched. Native worktree creation could not accept the repository nested below the chat workspace; Git fallback created this checkout.
+
+Outcome: all three trial tasks are complete for scoped automation/preparation. One fresh review/corrections,107headless assertions,2134portable tests, matching source hashes, ordinary-assembly exclusions and asset/Main preparation are retained in [the trial report](../../../reports/UI_LAYOUT_TRIAL_2026-11-03.md). Human feel/rendered/physical-input acceptance remains pending; keep the uncommitted branch/worktree for that trial.
+
+1. Retain a headless Godot control regression covering map-first startup, persistent bottom navigation/right console, workspace switches without state changes, legacy/current colony access, workforce/project/research commands, report follow-ups and layout bounds at 800x600, 1152x648, 1600x900 and 1920x1080. Run against unchanged product first. Headless evidence does not establish rendering or physical input.
+2. Recompose `GameScreen`: expanding map, compact scrollable console (turn, own counts, research, selected system and existing alerts), persistent wrapping navigation with End Turn, separate colony/system/vessel workspaces. Reuse existing dialogs and command paths. Make `ResearchBar` vertical and constrained; arrange colony workforce/construction side by side when width permits. All styling stays in the shared theme. Preserve known/current/last-seen privacy, legacy controls, readiness, notifications, report links and save semantics.
+3. Build, run retained headless checks and the installed portable simulation profile through `F:/Tools/CodexTestRunner/runner.py` using this actual source root. Verify ordinary assembly excludes the trial harness; inspect final diff. Record evidence, limits and exact playable launch/checklist. Do not merge, commit, publish, clean evidence or close other milestones.
+
+Review focus: hidden workspaces must be revealed before report-driven focus/popups; wide picker labels must not force console overflow; navigation must remain reachable at small sizes; switching views must never mutate simulation; old campaigns must retain colony/travel controls. Human comfort and rendered readability remain owner checks after independent work is complete.

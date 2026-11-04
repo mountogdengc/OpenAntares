@@ -10,11 +10,11 @@ using OpenAntares.Simulation.Knowledge;
 namespace OpenAntares.Game.Components;
 
 /// <summary>The empire's research: target picker, output per turn with breakdown, and progress.</summary>
-public partial class ResearchBar : HBoxContainer
+public partial class ResearchBar : VBoxContainer
 {
-    private readonly OptionButton _picker = new();
+    private readonly OptionButton _picker = new() { FitToLongestItem = false, ClipText = true, SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly Label _output = new() { MouseFilter = MouseFilterEnum.Stop };
-    private readonly Label _progress = new() { ThemeTypeVariation = "SubtleLabel" };
+    private readonly Label _progress = new() { ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart };
     private EmpireId _empire;
     private int _turn;
 
@@ -23,7 +23,7 @@ public partial class ResearchBar : HBoxContainer
 
     public override void _Ready()
     {
-        AddChild(new Label { Text = "Research" });
+        AddChild(new Label { Text = "Research", ThemeTypeVariation = "ConsoleHeading" });
         AddChild(_picker);
         AddChild(_output);
         AddChild(_progress);
@@ -35,10 +35,12 @@ public partial class ResearchBar : HBoxContainer
     }
 
     /// <summary>Opens the target list, e.g. after a technology completes.</summary>
-    public void OpenPicker()
+    public async void OpenPicker()
     {
         _picker.GrabFocus();
-        _picker.ShowPopup();
+        // The right console may need to scroll before the popup is positioned.
+        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+        if (IsInsideTree() && _picker.IsVisibleInTree()) _picker.ShowPopup();
     }
 
     public void ShowEmpire(ContentSet content, OwnResearchView empire)
@@ -70,6 +72,8 @@ public partial class ResearchBar : HBoxContainer
             _picker.SetItemMetadata(_picker.ItemCount - 1, technology.Id);
             _picker.SetItemDisabled(_picker.ItemCount - 1, true);
         }
+
+        _picker.TooltipText = _picker.GetItemText(_picker.Selected);
 
         _output.Text = $"{Format.Points(economy.NetResearch.Total)} per turn";
         _output.TooltipText = BreakdownText.Describe(economy.NetResearch, content, "Research per turn", id => empire.ColonyNames.TryGetValue(id, out string? name) ? name : id);
