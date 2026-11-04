@@ -33,3 +33,9 @@
 
 # Native queue artifacts retain exact hashes across checkouts.
 /reports/native-tests/** -text -whitespace
+
+# Combined UI/conflict raw acceptance artifacts retain exact bytes.
+/reports/conflict-ui-integration-20261104/** -text -whitespace
+
+# Retain raw scout side outputs from combined native checks.
+/reports/scout-execution/task14-*-20261104-*.json -text -whitespace
