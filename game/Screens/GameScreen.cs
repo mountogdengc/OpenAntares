@@ -346,11 +346,14 @@ public partial class GameScreen : VBoxContainer
 
     private async void KeepFocusVisibleAfterResize(ScrollContainer scroll)
     {
-        // FollowFocus runs when focus changes. A resize can hide a control that already owns focus.
+        // FollowFocus owns newly acquired focus. Only repair a control that already
+        // held focus when resizing began; otherwise both paths can scroll in one frame.
+        if (!IsInsideTree()) return;
+        Control? alreadyFocused = GetViewport().GuiGetFocusOwner();
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         if (!GodotObject.IsInstanceValid(this) || !GodotObject.IsInstanceValid(scroll) || !IsInsideTree()) return;
         Control? focused = GetViewport().GuiGetFocusOwner();
-        if (focused is not null && scroll.IsAncestorOf(focused)) scroll.EnsureControlVisible(focused);
+        if (focused is not null && object.ReferenceEquals(focused, alreadyFocused) && scroll.IsAncestorOf(focused)) scroll.EnsureControlVisible(focused);
     }
 
     private async void ChooseProject(ColonyId colony)

@@ -195,6 +195,13 @@ public partial class GraphicalValidation : Node
         AddChild(screen);
         await Frames();
         ScrollContainer scroll = Descendants<ScrollContainer>(screen).Single(s => s.Name=="WorkspaceScroll");
+        void TracePopupFocus(string phase)
+        {
+            if (!GodotObject.IsInstanceValid(screen) || !screen.IsInsideTree()) return;
+            var currentPicker = Descendants<OptionButton>(One<ColonyPanel>(screen)).SingleOrDefault(p => p.Name=="ColonyProjectPicker");
+            File.AppendAllText(Path.Combine(_output,"popup-focus-geometry.jsonl"),JsonSerializer.Serialize(new { phase, size, dimensions=dimensions.ToString(), otherSelected, embedded, offset=scroll.ScrollVertical, scroll=scroll.GetGlobalRect().ToString(), picker=currentPicker is null?null:currentPicker.GetGlobalRect().ToString(), focus=GetViewport().GuiGetFocusOwner()?.Name.ToString() })+"\n");
+        }
+        scroll.Resized += () => TracePopupFocus("resize");
         // Force overflow within the new colony workspace, independently of the console height.
         // This preserves the focused-picker/popup regression at every window size.
         scroll.CustomMinimumSize = new Vector2(0, 96);
@@ -203,8 +210,9 @@ public partial class GraphicalValidation : Node
         StarId home = session.State.FindPlanet(session.State.Colonies.Single().PlanetId)!.StarId;
         if (otherSelected) One<GalaxyMap>(screen).Select(session.State.Stars.First(s => s.Id != home).Id);
         await EndTurn(screen);
+        TracePopupFocus("before-follow-up");
         Press(Button(One<TurnReportDialog>(screen), "Choose next project"));
-        await Frames(8);
+        for (int frame=0; frame<8; frame++) { await Frames(1); TracePopupFocus("follow-up-frame-"+frame); }
         OptionButton picker = Descendants<OptionButton>(One<ColonyPanel>(screen)).Single();
         PopupMenu popup = picker.GetPopup();
         string label = $"{size}-{dimensions.X}x{dimensions.Y}-{(otherSelected ? "other" : "home")}-{(embedded ? "embedded" : "native")}";
