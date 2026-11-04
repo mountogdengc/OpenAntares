@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -90,7 +91,7 @@ internal static class ScoutUiControlChecks
     internal static void SelectDestination(GameScreen screen,StarId target){var picker=Named<OptionButton>(screen,"DestinationPicker");int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==target.Value);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)index);}
     internal static IEnumerable<T> Descendants<T>(Node node)where T:Node{foreach(Node child in node.GetChildren()){if(child is T value)yield return value;foreach(var nested in Descendants<T>(child))yield return nested;}}
     internal static T Named<T>(Node root,string name)where T:Node=>Descendants<T>(root).Single(n=>n.Name==name);
-    internal static void Press(Button button){if(button.Disabled)throw new InvalidOperationException("Disabled control: "+button.Name);button.EmitSignal(BaseButton.SignalName.Pressed);}
+    internal static void Press(Button button){UiNavigation.Reveal(button);if(button.Disabled)throw new InvalidOperationException("Disabled control: "+button.Name);button.EmitSignal(BaseButton.SignalName.Pressed);}
     internal static async Task Frames(Node root){await root.ToSignal(root.GetTree(),SceneTree.SignalName.ProcessFrame);await root.ToSignal(root.GetTree(),SceneTree.SignalName.ProcessFrame);}
     internal static string Snapshot(GameSession s)=>SaveGame.Serialize(s.Content,s.State);
     internal static async Task Capture(Node root,Window window,string file){window.Hide();window.ForceNative=false;window.PopupCenteredClamped(new(740,540));await Frames(root);await root.ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);using var image=root.GetViewport().GetTexture().GetImage();image.SavePng(file);}

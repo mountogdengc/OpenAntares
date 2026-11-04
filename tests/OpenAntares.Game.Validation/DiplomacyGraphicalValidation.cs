@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.IO;
 using System.Linq;
@@ -61,7 +62,7 @@ public partial class DiplomacyGraphicalValidation:Node
 }
         finally{RemoveChild(screen);screen.QueueFree();await Frames(this);}
     }
-    private async Task Click(Node root,string name){var b=Named<Button>(root,name);Check(!b.Disabled&&b.IsVisibleInTree(),"Enabled visible control "+name);for(Node? n=b.GetParent();n is not null;n=n.GetParent())if(n is ScrollContainer scroll)scroll.EnsureControlVisible(b);b.GrabFocus();await Frames(this);b.EmitSignal(Button.SignalName.Pressed);await Frames(this);}
+    private async Task Click(Node root,string name){var b=Named<Button>(root,name);UiNavigation.Reveal(b);Check(!b.Disabled&&b.IsVisibleInTree(),"Enabled visible control "+name);for(Node? n=b.GetParent();n is not null;n=n.GetParent())if(n is ScrollContainer scroll)scroll.EnsureControlVisible(b);b.GrabFocus();await Frames(this);b.EmitSignal(Button.SignalName.Pressed);await Frames(this);}
 
     private async Task OpenOfferExpiry()
     {

@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.IO;
 using System.Linq;
@@ -187,12 +188,12 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         }
     }
     private async Task Reach(Control control)
-    {
+    {UiNavigation.Reveal(control);
         control.GrabFocus();await Frames();Node? ancestor=control.GetParent();while(ancestor is not null && ancestor is not ScrollContainer)ancestor=ancestor.GetParent();
         if(ancestor is ScrollContainer scroll){scroll.EnsureControlVisible(control);await Frames();Check(scroll.GetGlobalRect().Intersects(control.GetGlobalRect()),"Rival loop focus/scroll reaches "+control.GetType().Name);}
     }
     private static void SelectNumber(OptionButton picker,int id)
-    {
+    {UiNavigation.Reveal(picker);
         int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);
     }
     private async Task SelectVessel(GameScreen screen,VesselId id)

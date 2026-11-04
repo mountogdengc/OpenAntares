@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.IO;
 using System.Linq;
@@ -18,13 +19,13 @@ public partial class DiplomacyGraphicalValidation
 {
     private static GameSession Live(GameScreen screen)=>(GameSession)typeof(GameScreen).GetField("_session",BindingFlags.NonPublic|BindingFlags.Instance)!.GetValue(screen)!;
     private void Paths(GameScreen screen,string folder){screen.CombatPreferencesPath=Path.Combine(folder,"combat-prefs.json");screen.FleetPreferencesPath=Path.Combine(folder,"fleet-prefs.json");screen.ScoutPreferencesPath=Path.Combine(folder,"scout-prefs.json");screen.CrisisPreferencesPath=Path.Combine(folder,"crisis-prefs.json");screen.NotificationPreferencesPath=Path.Combine(folder,"colony-prefs.json");}
-    private async Task PressControl(Button button){Check(!button.Disabled&&button.IsVisibleInTree(),"Reachable "+button.Text);button.EmitSignal(Button.SignalName.Pressed);await Frames(this);}
+    private async Task PressControl(Button button){UiNavigation.Reveal(button);Check(!button.Disabled&&button.IsVisibleInTree(),"Reachable "+button.Text);button.EmitSignal(Button.SignalName.Pressed);await Frames(this);}
     private async Task<GameScreen> SaveReload(Control main,GameScreen screen,string folder,string label)
     {
         string before=Snapshot(Live(screen)),name="qa-diplomacy-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-"+label;
         foreach(var window in Descendants<Window>(screen))window.Hide();
-        await PressControl(Descendants<Button>(screen).Single(b=>b.Text=="Save"));var save=Descendants<SaveGameDialog>(screen).Single();Descendants<LineEdit>(save).Single().Text=name;await PressControl(save.GetOkButton());Check(File.Exists(SaveFiles.PathFor(name)),"Actual Save wrote unique retained QA file");File.AppendAllText(Path.Combine(folder,"saved-files.jsonl"),JsonSerializer.Serialize(new{label,path=SaveFiles.PathFor(name),sha256=Digest(before)})+"\n");
-        await PressControl(Descendants<Button>(screen).Single(b=>b.Text=="Load"));var load=Descendants<LoadGameDialog>(main).Single();var list=Descendants<ItemList>(load).Single();int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,(long)index);await PressControl(load.GetOkButton());screen=Descendants<GameScreen>(main).Single();Paths(screen,folder);Check(Snapshot(Live(screen))==before,"Actual Main Save/Load exactly preserves "+label);Check(!Descendants<TurnReportDialog>(screen).Single().Visible,"Loading a planning save does not replay historical turn reports");return screen;
+        UiNavigation.GameMenu(screen,0);await Frames(this);var save=Descendants<SaveGameDialog>(screen).Single();Descendants<LineEdit>(save).Single().Text=name;await PressControl(save.GetOkButton());Check(File.Exists(SaveFiles.PathFor(name)),"Actual Save wrote unique retained QA file");File.AppendAllText(Path.Combine(folder,"saved-files.jsonl"),JsonSerializer.Serialize(new{label,path=SaveFiles.PathFor(name),sha256=Digest(before)})+"\n");
+        UiNavigation.GameMenu(screen,1);await Frames(this);var load=Descendants<LoadGameDialog>(main).Single();var list=Descendants<ItemList>(load).Single();int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,(long)index);await PressControl(load.GetOkButton());screen=Descendants<GameScreen>(main).Single();Paths(screen,folder);Check(Snapshot(Live(screen))==before,"Actual Main Save/Load exactly preserves "+label);Check(!Descendants<TurnReportDialog>(screen).Single().Visible,"Loading a planning save does not replay historical turn reports");return screen;
     }
     private async Task EarnedCampaignUi(string species)
     {

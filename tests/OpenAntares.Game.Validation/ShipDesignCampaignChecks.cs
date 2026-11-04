@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.IO;
 using System.Linq;
@@ -28,11 +29,11 @@ public partial class ShipDesignGraphicalValidation
     }
     private static GameSession Live(GameScreen screen)=>(GameSession)typeof(GameScreen).GetField("_session",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!.GetValue(screen)!;
     private async Task Click(Control control)
-    {
+    {UiNavigation.Reveal(control);
         Check(control.IsVisibleInTree()&&control.GetWindow().Visible,"Reachable "+control.Name);for(Node? p=control.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(control);control.GrabFocus();await Frames(this);if(control is Button b)Press(b);else throw new InvalidOperationException("Expected button");await Frames(this);
     }
     private Task Click(Node root,string name)=>Click(Named<Button>(root,name));
-    private async Task Pick(OptionButton picker,int i){picker.Select(i);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)i);await Frames(this);}
+    private async Task Pick(OptionButton picker,int i){UiNavigation.Reveal(picker);picker.Select(i);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)i);await Frames(this);}
     private Task PickId(OptionButton picker,int id)=>Pick(picker,Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id));
     private async Task Select(ItemList list,int index){list.DeselectAll();list.Select(index);if(list.SelectMode==ItemList.SelectModeEnum.Multi)list.EmitSignal(ItemList.SignalName.MultiSelected,(long)index,true);else list.EmitSignal(ItemList.SignalName.ItemSelected,(long)index);await Frames(this);}
     private async Task Tab(Node root,int index){Named<TabContainer>(root,"FleetTabs").CurrentTab=index;await Frames(this);}
@@ -43,7 +44,7 @@ public partial class ShipDesignGraphicalValidation
     }
     private async Task<GameScreen> SaveReload(Control main,GameScreen screen,string label)
     {
-        string before=Snapshot(Live(screen)),name="qa-ship-design-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-"+label;await Click(Descendants<Button>(screen).Single(b=>b.Text=="Save"));var dialog=Descendants<SaveGameDialog>(screen).Single();Descendants<LineEdit>(dialog).Single().Text=name;await Click(dialog.GetOkButton());Check(File.Exists(SaveFiles.PathFor(name)),"Actual combat Save dialog wrote unique retained QA save");await Click(Descendants<Button>(screen).Single(b=>b.Text=="Load"));await Load(main,name);screen=Descendants<GameScreen>(main).Single();Paths(screen,label);Check(before==Snapshot(Live(screen)),"Actual Main Save/Load preserves pending combat, damage, consent and all streams");_campaignSaves.Add(new{source="Actual ordinary Main Save/Load controls",file=SaveFiles.PathFor(name)});return screen;
+        string before=Snapshot(Live(screen)),name="qa-ship-design-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-"+label;UiNavigation.GameMenu(screen,0);await Frames(this);var dialog=Descendants<SaveGameDialog>(screen).Single();Descendants<LineEdit>(dialog).Single().Text=name;await Click(dialog.GetOkButton());Check(File.Exists(SaveFiles.PathFor(name)),"Actual combat Save dialog wrote unique retained QA save");UiNavigation.GameMenu(screen,1);await Frames(this);await Load(main,name);screen=Descendants<GameScreen>(main).Single();Paths(screen,label);Check(before==Snapshot(Live(screen)),"Actual Main Save/Load preserves pending combat, damage, consent and all streams");_campaignSaves.Add(new{source="Actual ordinary Main Save/Load controls",file=SaveFiles.PathFor(name)});return screen;
     }
     private async Task<AcceptDialog> Combat(GameScreen screen)
     {

@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -135,7 +136,7 @@ public partial class CrisisGraphicalValidation:Node
         var session=new GameSession(content,state);var screen=Screen(session,owner);AddChild(screen);await Frames();Check(!One<CrisisOverviewDialog>(screen).Visible,"Initial screen restores saved facts without treating them as a new popup");
         Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();var report=One<TurnReportDialog>(screen);Check(session.State.Turn==23&&report.Visible&&session.View(owner).Crisis!.PendingReceipts.Length==1,"Actual turn creates a new critical revision alongside one turn report");
         Press(report.GetOkButton());report.Hide();await Frames();var overview=One<CrisisOverviewDialog>(screen);Check(overview.Visible,"Interrupt opens one crisis overview after the report closes");
-        overview.Hide();await Frames();Press(Named<Button>(screen,"ViewLatestTurnReport"));await Frames();report=One<TurnReportDialog>(screen);report.Hide();await Frames();Check(!overview.Visible,"Reopening and closing a report does not repeat an already-shown interruption");
+        overview.Hide();await Frames();UiNavigation.GameMenu(screen,2);await Frames();report=One<TurnReportDialog>(screen);report.Hide();await Frames();Check(!overview.Visible,"Reopening and closing a report does not repeat an already-shown interruption");
         RemoveChild(screen);screen.QueueFree();await Frames();
     }
     private async Task WaivedInterrupt()
@@ -212,11 +213,11 @@ public partial class CrisisGraphicalValidation:Node
     private async Task<string> SaveThroughDialog(GameScreen screen,string label)
     {
         string name=$"qa-{_runId}-{label}",path=SaveFiles.PathFor(name);if(File.Exists(path))throw new InvalidOperationException("QA save collision");
-        One<CrisisOverviewDialog>(screen).Hide();await Frames();Press(Descendants<Button>(screen).Single(b=>b.Text=="Save"));await Frames();var dialog=One<SaveGameDialog>(screen);One<LineEdit>(dialog).Text=name;Press(dialog.GetOkButton());await Frames();Check(File.Exists(path),label+": UI Save writes file");_savePaths.Add(path);return name;
+        One<CrisisOverviewDialog>(screen).Hide();await Frames();UiNavigation.GameMenu(screen,0);await Frames();var dialog=One<SaveGameDialog>(screen);One<LineEdit>(dialog).Text=name;Press(dialog.GetOkButton());await Frames();Check(File.Exists(path),label+": UI Save writes file");_savePaths.Add(path);return name;
     }
     private async Task<GameScreen> LoadThroughDialog(Control main,string name)
     {
-        var current=One<GameScreen>(main);One<CrisisOverviewDialog>(current).Hide();await Frames();Press(Descendants<Button>(current).Single(b=>b.Text=="Load"));await Frames();var dialog=One<LoadGameDialog>(main);var list=One<ItemList>(dialog);int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,index);Press(dialog.GetOkButton());await Frames();return One<GameScreen>(main);
+        var current=One<GameScreen>(main);One<CrisisOverviewDialog>(current).Hide();await Frames();UiNavigation.GameMenu(current,1);await Frames();var dialog=One<LoadGameDialog>(main);var list=One<ItemList>(dialog);int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,index);Press(dialog.GetOkButton());await Frames();return One<GameScreen>(main);
     }
     private async Task GeneratedCampaigns()
     {
@@ -298,7 +299,7 @@ public partial class CrisisGraphicalValidation:Node
         One<CrisisOverviewDialog>(screen).Hide();await Frames();
     }
     private static OptionButton Picker(Node node,string name)=>Named<OptionButton>(node,name);
-    private static void Select(OptionButton picker,string id){int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsString()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
+    private static void Select(OptionButton picker,string id){UiNavigation.Reveal(picker);int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsString()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
     private static void Toggle(Node node,string name,bool value){var box=Named<CheckBox>(node,name);box.SetPressedNoSignal(value);box.EmitSignal(BaseButton.SignalName.Toggled,value);}
     private async Task QueueGeneratedProject(GameScreen screen,string kind,string id)
     {
@@ -380,7 +381,7 @@ public partial class CrisisGraphicalValidation:Node
         _results.Add(new{name="generated-harl-cargo provenance",passed=true,source="explicit rules8 Main Load; complete embedded core content",seed=42,rivals=1,rules=8,amebas=false,scoutVisited=visited.Count,targetStar=destination!.Value.Value,targetPlanet=targetPlanet!.Value.Value,completionTurn,departureTurn,secondaryTurn=session.State.Turn,liveOutcomeInjections=0});
         SaveEvidence(session,"generated-harl-cargo-secondary-warning");RemoveChild(main);main.QueueFree();await Frames();
     }
-    private static void SelectNumber(OptionButton picker,int id){int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
+    private static void SelectNumber(OptionButton picker,int id){UiNavigation.Reveal(picker);int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
     private async Task LabelledPortWait()
     {
         var content=Content();var state=Labelled(content);var ship=state.Vessels.Single(v=>v.EmpireId==state.Empires[0].Id);ship.RoleId="harl_settler";ship.CarriedPopulation=1;ship.Crisis!.CarrierEpisode=1;ship.Crisis.InspectionDueTurn=23;
@@ -434,10 +435,10 @@ public partial class CrisisGraphicalValidation:Node
     private GameScreen Screen(GameSession session,EmpireId owner)=>new(session,owner){NotificationPreferencesPath=Path.Combine(_output,"colony-prefs.json"),CrisisPreferencesPath=Path.Combine(_output,"crisis-prefs.json")};
     private void SaveEvidence(GameSession session,string label){string path=SaveFiles.PathFor($"qa-{_runId}-crisis-{label}");SaveGame.WriteFile(path,session.Content,session.State);_savePaths.Add(path);}
     private static T Named<T>(Node n,string name)where T:Node=>Descendants<T>(n).Single(c=>c.Name==name);
-    private async Task Reach(Control c){c.GrabFocus();await Frames();for(Node? p=c.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(c);await Frames();Check(c.IsVisibleInTree(),"Reach control "+c.Name);}
+    private async Task Reach(Control c){UiNavigation.Reveal(c);c.GrabFocus();await Frames();for(Node? p=c.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(c);await Frames();Check(c.IsVisibleInTree(),"Reach control "+c.Name);}
     private void Check(bool yes,string name){_results.Add(new{name,passed=yes});if(!yes)throw new InvalidOperationException(name);}
     private static IEnumerable<T> Descendants<T>(Node n)where T:Node{foreach(Node c in n.GetChildren()){if(c is T t)yield return t;foreach(var d in Descendants<T>(c))yield return d;}}
-    private static void Press(Button b){if(b.Disabled)throw new InvalidOperationException("Disabled: "+b.Text);b.EmitSignal(BaseButton.SignalName.Pressed);}
+    private static void Press(Button b){UiNavigation.Reveal(b);if(b.Disabled)throw new InvalidOperationException("Disabled: "+b.Text);b.EmitSignal(BaseButton.SignalName.Pressed);}
     private async Task Frames(){await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
     private async Task Capture(string name){await Frames();await Frames();await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);GetViewport().GetTexture().GetImage().SavePng(Path.Combine(_output,name+".png"));}
     private static T One<T>(Node n)where T:Node=>Descendants<T>(n).Single();

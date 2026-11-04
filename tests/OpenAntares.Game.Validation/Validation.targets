@@ -1,6 +1,7 @@
 <Project>
   <!-- Opt-in only: the normal game build continues to exclude tests/**. -->
   <ItemGroup Condition="'$(MSBuildProjectName)' == 'OpenAntares'">
+    <Compile Include="$(MSBuildThisFileDirectory)CombinedUiNavigation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExpansionGraphicalValidation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SpeciesGraphicalValidation.cs" />

@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.IO;
 using System.Linq;
@@ -30,7 +31,7 @@ public partial class EmpireConflictGraphicalValidation:Node
     private static GameSession Live(GameScreen screen)=>(GameSession)typeof(GameScreen).GetField("_session",BindingFlags.NonPublic|BindingFlags.Instance)!.GetValue(screen)!;
     private static string Snapshot(GameSession session)=>SaveGame.Serialize(session.Content,session.State);
     private void Paths(GameScreen screen,string label){screen.CombatPreferencesPath=Path.Combine(_output,label+"-combat-prefs.json");screen.FleetPreferencesPath=Path.Combine(_output,label+"-fleet-prefs.json");screen.ScoutPreferencesPath=Path.Combine(_output,label+"-scout-prefs.json");screen.CrisisPreferencesPath=Path.Combine(_output,label+"-crisis-prefs.json");screen.NotificationPreferencesPath=Path.Combine(_output,label+"-colony-prefs.json");}
-    private async Task Click(Button button){Check(!button.Disabled&&button.IsVisibleInTree(),"Reachable "+button.Name);for(Node? node=button.GetParent();node is not null;node=node.GetParent())if(node is ScrollContainer scroll)scroll.EnsureControlVisible(button);button.GrabFocus();await Frames(this);button.EmitSignal(Button.SignalName.Pressed);await Frames(this);}
+    private async Task Click(Button button){UiNavigation.Reveal(button);Check(!button.Disabled&&button.IsVisibleInTree(),"Reachable "+button.Name);for(Node? node=button.GetParent();node is not null;node=node.GetParent())if(node is ScrollContainer scroll)scroll.EnsureControlVisible(button);button.GrabFocus();await Frames(this);button.EmitSignal(Button.SignalName.Pressed);await Frames(this);}
     private Task Click(Node root,string name)=>Click(Named<Button>(root,name));
     private async Task Load(Control main,string name){var load=Descendants<LoadGameDialog>(main).Single();var list=Descendants<ItemList>(load).Single();int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,(long)index);await Click(load.GetOkButton());}
     private async Task<(Control Main,GameScreen Screen)> Mount(LoadedGame fixture,string label)
@@ -39,7 +40,7 @@ public partial class EmpireConflictGraphicalValidation:Node
     }
     private async Task<GameScreen> SaveReload(Control main,GameScreen screen,string label)
     {
-        string before=Snapshot(Live(screen)),name="qa-empire-conflict-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-"+label;foreach(var window in Descendants<Window>(screen))window.Hide();await Click(Descendants<Button>(screen).Single(b=>b.Text=="Save"));var save=Descendants<SaveGameDialog>(screen).Single();Descendants<LineEdit>(save).Single().Text=name;await Click(save.GetOkButton());Check(File.Exists(SaveFiles.PathFor(name)),"Actual Save dialog wrote "+label);await Click(Descendants<Button>(screen).Single(b=>b.Text=="Load"));await Load(main,name);screen=Descendants<GameScreen>(main).Single();Paths(screen,label);Check(Snapshot(Live(screen))==before,"Actual Main Save/Load preserves "+label);_provenance.Add(new{source="Actual Main Save/Load controls",file=SaveFiles.PathFor(name)});return screen;
+        string before=Snapshot(Live(screen)),name="qa-empire-conflict-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-"+label;foreach(var window in Descendants<Window>(screen))window.Hide();UiNavigation.GameMenu(screen,0);await Frames(this);var save=Descendants<SaveGameDialog>(screen).Single();Descendants<LineEdit>(save).Single().Text=name;await Click(save.GetOkButton());Check(File.Exists(SaveFiles.PathFor(name)),"Actual Save dialog wrote "+label);UiNavigation.GameMenu(screen,1);await Frames(this);await Load(main,name);screen=Descendants<GameScreen>(main).Single();Paths(screen,label);Check(Snapshot(Live(screen))==before,"Actual Main Save/Load preserves "+label);_provenance.Add(new{source="Actual Main Save/Load controls",file=SaveFiles.PathFor(name)});return screen;
     }
     private LoadedGame PoliticalFixture()
     {

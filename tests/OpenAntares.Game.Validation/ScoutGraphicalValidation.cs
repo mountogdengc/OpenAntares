@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -146,11 +147,11 @@ public partial class ScoutGraphicalValidation:Node
     }
     private async Task<string> Save(GameScreen screen,string label)
     {
-        string name=$"qa-{_run}-{++_saveIndex}-{label}",path=SaveFiles.PathFor(name);Check(!File.Exists(path),"Unique QA save name");Named<AcceptDialog>(screen,"ScoutOverview").Hide();foreach(var report in Descendants<TurnReportDialog>(screen))report.Hide();await Frames(this);Press(Descendants<Button>(screen).Single(b=>b.Text=="Save"));await Frames(this);var dialog=Descendants<SaveGameDialog>(screen).Single();Descendants<LineEdit>(dialog).Single().Text=name;Press(dialog.GetOkButton());await Frames(this);Check(File.Exists(path),label+": actual UI Save writes flushed campaign");_saves.Add(path);return name;
+        string name=$"qa-{_run}-{++_saveIndex}-{label}",path=SaveFiles.PathFor(name);Check(!File.Exists(path),"Unique QA save name");Named<AcceptDialog>(screen,"ScoutOverview").Hide();foreach(var report in Descendants<TurnReportDialog>(screen))report.Hide();await Frames(this);UiNavigation.GameMenu(screen,0);await Frames(this);var dialog=Descendants<SaveGameDialog>(screen).Single();Descendants<LineEdit>(dialog).Single().Text=name;Press(dialog.GetOkButton());await Frames(this);Check(File.Exists(path),label+": actual UI Save writes flushed campaign");_saves.Add(path);return name;
     }
     private async Task<GameScreen> Load(Control main,string name)
     {
-        var current=Descendants<GameScreen>(main).Single();Named<AcceptDialog>(current,"ScoutOverview").Hide();foreach(var report in Descendants<TurnReportDialog>(current))report.Hide();await Frames(this);Press(Descendants<Button>(current).Single(b=>b.Text=="Load"));await Frames(this);var dialog=Descendants<LoadGameDialog>(main).Single();var list=Descendants<ItemList>(dialog).Single();int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,index);Press(dialog.GetOkButton());await Frames(this);return Descendants<GameScreen>(main).Single();
+        var current=Descendants<GameScreen>(main).Single();Named<AcceptDialog>(current,"ScoutOverview").Hide();foreach(var report in Descendants<TurnReportDialog>(current))report.Hide();await Frames(this);UiNavigation.GameMenu(current,1);await Frames(this);var dialog=Descendants<LoadGameDialog>(main).Single();var list=Descendants<ItemList>(dialog).Single();int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal));list.Select(index);list.EmitSignal(ItemList.SignalName.ItemSelected,index);Press(dialog.GetOkButton());await Frames(this);return Descendants<GameScreen>(main).Single();
     }
     private void ConfigurePaths(GameScreen screen){screen.ScoutPreferencesPath=Path.Combine(_output,"generated-scout-prefs.json");screen.NotificationPreferencesPath=Path.Combine(_output,"generated-colony-prefs.json");screen.CrisisPreferencesPath=Path.Combine(_output,"generated-crisis-prefs.json");}
     private static GameSession Session(GameScreen screen)=>(GameSession)typeof(GameScreen).GetField("_session",BindingFlags.NonPublic|BindingFlags.Instance)!.GetValue(screen)!;

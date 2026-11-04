@@ -37,12 +37,19 @@ public partial class NewGameScreen : CenterContainer
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
-        var panel = new PanelContainer { CustomMinimumSize = new Vector2(600, 0) }; AddChild(panel);
+        var panel = new PanelContainer(); AddChild(panel);
+        void FitSetupPanel() => panel.CustomMinimumSize = new Vector2(Math.Min(600, Size.X), Math.Min(720, Size.Y));
+        Resized += FitSetupPanel;
+        FitSetupPanel();
         var margin = new MarginContainer { ThemeTypeVariation = "PanelPadding" }; panel.AddChild(margin);
         var column = new VBoxContainer(); margin.AddChild(column);
         column.AddChild(new Label { Text = "OpenAntares", ThemeTypeVariation = "TitleLabel", HorizontalAlignment = HorizontalAlignment.Center });
         column.AddChild(new Label { Text = "New Game", ThemeTypeVariation = "HeaderLabel", HorizontalAlignment = HorizontalAlignment.Center });
-        var form = new GridContainer { Columns = 2 }; column.AddChild(form);
+        var setupScroll = new ScrollContainer { Name = "SetupFormScroll", SizeFlagsVertical = SizeFlags.ExpandFill, HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, FollowFocus = true };
+        column.AddChild(setupScroll);
+        var formColumn = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
+        setupScroll.AddChild(formColumn);
+        var form = new GridContainer { Columns = 2 }; formColumn.AddChild(form);
         form.AddChild(new Label { Text = "Species" });
         foreach (var sp in _species) { _speciesPicker.AddItem(sp.Name); _speciesPicker.SetItemMetadata(_speciesPicker.ItemCount - 1, sp.Id); }
         int harl = Array.FindIndex(_species, s => s.Id == "harl");
@@ -74,8 +81,8 @@ public partial class NewGameScreen : CenterContainer
         _seedField.TooltipText = "The same seed, size and rival count reproduce galaxy facts across species.";
         seedRow.AddChild(_seedField); var random = new Button { Text = "Random" }; random.Pressed += RandomizeSeed; seedRow.AddChild(random); form.AddChild(seedRow);
         var details = new ScrollContainer { CustomMinimumSize = new Vector2(0, 140), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, FollowFocus = true, FocusMode = FocusModeEnum.All };
-        column.AddChild(details); details.AddChild(_summary);
-        column.AddChild(new Label { Text = "Explore, settle and negotiate with rivals who can declare limited war. Optional sentry battles can clear one guarded system for ordinary founding.", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart });
+        formColumn.AddChild(details); details.AddChild(_summary);
+        formColumn.AddChild(new Label { Text = "Explore, settle and negotiate with rivals who can declare limited war. Optional sentry battles can clear one guarded system for ordinary founding.", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart });
         column.AddChild(_error); _start.Pressed += Start; column.AddChild(_start);
         var load = new Button { Text = "Load Game" }; load.Pressed += () => LoadRequested?.Invoke(); column.AddChild(load);
         _start.Disabled = _species.Length == 0 || _sizes.Length == 0 || _content.RivalAi is null || _content.GovernorTemplates.IsEmpty || _content.Plagues.Count!=1 || Rules.HasShipDesigns(Rules.CurrentVersion)&&_content.ShipDesigns is null || Rules.HasScouting(Rules.CurrentVersion)&&_content.SpaceAmeba is null||Rules.HasCombat(Rules.CurrentVersion)&&_content.Combat is null||Rules.HasConflict(Rules.CurrentVersion)&&_content.Conflict is null;
@@ -124,7 +131,7 @@ public partial class NewGameScreen : CenterContainer
         var roles = sp.AllowedVesselIds.Concat(Rules.HasCombat(Rules.CurrentVersion)?_content.Vessels.Values.Where(v=>v.CombatOnly).Select(v=>v.Id):Array.Empty<string>()).Distinct(StringComparer.Ordinal).Select(id => _content.Vessels[id]).Select(role => role.CanFoundColony
             ? $"{role.Name}: {Format.Points(role.Cost)} production; cargo {role.EmbarkPopulation} {sp.PopulationUnitLabel}; minimum colony {role.MinimumSourcePopulation}." + (role.RequiresFullColony ? " Must be full at its current capacity." : string.Empty) + (role.FoundsSealedHabitat ? " Creates a sealed habitat." : " Creates a native colony.")
             : Rules.HasCombat(Rules.CurrentVersion)&&_content.Combat!.RoleProfiles[role.Id] is{Attack:>0} profile?$"{role.Name}: {Format.Points(role.Cost)} production; hull {profile.MaxHull}, attack {profile.Attack}, armor {profile.Armor}, speed {role.Speed}; no cargo.":$"{role.Name}: {Format.Points(role.Cost)} production; surveys systems.");
-        _summary.Text = $"{sp.Name} — {sp.CultureName}\n{sp.Description}\n\nColony crises: {(_crisisPicker.Selected==0?"Standard":"Off")}. Standard includes plague warnings and response choices; Off keeps crises dormant.\n\nStarting population: {sp.StartingPopulation} ({sp.PopulationUnitLabel}); capacity {economy.Growth.Capacity}." +
+        _summary.Text = $"{sp.Name} â€” {sp.CultureName}\n{sp.Description}\n\nColony crises: {(_crisisPicker.Selected==0?"Standard":"Off")}. Standard includes plague warnings and response choices; Off keeps crises dormant.\n\nStarting population: {sp.StartingPopulation} ({sp.PopulationUnitLabel}); capacity {economy.Growth.Capacity}." +
             (sp.SealedBaseCapacity is { } sealedCapacity ? $" Sealed capacity {sealedCapacity}." : string.Empty) +
             $"\nWorkers: {sp.StartingWorkforce.Support} support / {sp.StartingWorkforce.Production} production / {sp.StartingWorkforce.Research} research.\nSupport {Format.Points(economy.SupportProduced.Total)} / {Format.Points(economy.SupportRequired.Total)}; production {Format.Points(economy.NetProduction.Total)}, research {Format.Points(economy.NetResearch.Total)} per turn.\nGrowth +{Format.Points(economy.GrowthEarned.Total)} per turn; base +{Format.Points(sp.BaseGrowth)}, surplus bonus up to +{Format.Points(sp.MaxSurplusGrowth)}.\n\n" + string.Join("\n", roles);
         _summary.TooltipText = BreakdownText.Describe(economy.NetProduction, _content, "Production") + "\n\n" + BreakdownText.Describe(economy.GrowthEarned, _content, "Growth");

@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.IO;
 using System.Collections.Immutable;
@@ -95,7 +96,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         }
     }
     private static void SelectNumber(OptionButton picker,int id)
-    {
+    {UiNavigation.Reveal(picker);
         int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);
     }
 
@@ -198,7 +199,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
     }
     private bool InViewport(Control control) => GetViewport().GetVisibleRect().Encloses(control.GetGlobalRect());
     private async Task Reach(Control control)
-    {
+    {UiNavigation.Reveal(control);
         bool alreadyFocused=control.HasFocus();control.GrabFocus();await Frames();Node? parent=control.GetParent();while(parent is not null && parent is not ScrollContainer)parent=parent.GetParent();
         if(parent is ScrollContainer scroll)
         {

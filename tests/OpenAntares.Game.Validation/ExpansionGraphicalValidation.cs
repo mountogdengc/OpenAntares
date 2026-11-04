@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.IO;
 using System.Linq;
@@ -147,12 +148,12 @@ public partial class ExpansionGraphicalValidation : GraphicalValidation
         RemoveChild(main);main.QueueFree();await Frames();
     }
     private async Task Reach(Button button)
-    {
+    {UiNavigation.Reveal(button);
         button.GrabFocus();await Frames();Node? n=button.GetParent();while(n is not null && n is not ScrollContainer)n=n.GetParent();
         if(n is ScrollContainer scroll)Check(scroll.GetGlobalRect().Intersects(button.GetGlobalRect()),$"Action reachable by focus/scroll: {button.Text}");
     }
     private static void SelectInt(OptionButton picker,int id)
-    {
+    {UiNavigation.Reveal(picker);
         int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);
     }
     private static ContentSet FrozenExpansionContent() => SaveGame.ReadFile(ProjectSettings.GlobalizePath("res://tests/OpenAntares.Simulation.Tests/Fixtures/legacy-rules2-v3-save.json")).Game!.Content;

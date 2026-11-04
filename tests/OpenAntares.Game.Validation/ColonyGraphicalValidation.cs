@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.IO;
 using System.Linq;
@@ -127,7 +128,7 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
                 Press(dialog.GetOkButton());await Frames();
             }
             bool Badge(string id)=>Descendants<Label>(One<ColonyList>(screen)).Any(l=>l.Name==id&&l.Visible);
-            async Task ReopenReport(){var button=Descendants<Button>(screen).Single(b=>b.Name=="ViewLatestTurnReport");await Reach(button);Press(button);await Frames();}
+            async Task ReopenReport(){UiNavigation.GameMenu(screen,2);await Frames();}
             string canonical=Snapshot(Session(screen));await SetLevels(NotificationLevel.Attention);
             Check(!Badge("CompletionAttentionBadge"),"Attention does not fabricate completed work from a finishable forecast");
             Check(Snapshot(Session(screen))==canonical,"Changing notification levels preserves campaign and Ready");
@@ -248,7 +249,7 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
     }
     private static OptionButton Picker(Node node,string name)=>Descendants<OptionButton>(node).Single(p=>p.Name==name);
     private static void Toggle(Node node,string name,bool value){var b=Descendants<CheckBox>(node).Single(b=>b.Name==name);if(b.Disabled)throw new InvalidOperationException("Disabled toggle "+name);b.SetPressedNoSignal(value);b.EmitSignal(BaseButton.SignalName.Toggled,value);}
-    private async Task Reach(Control control){if(control.FocusMode!=Control.FocusModeEnum.None)control.GrabFocus();await Frames();for(Node? p=control.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(control);await Frames();}
+    private async Task Reach(Control control){UiNavigation.Reveal(control);if(control.FocusMode!=Control.FocusModeEnum.None)control.GrabFocus();await Frames();for(Node? p=control.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(control);await Frames();}
     private async Task Click(Node node,string text){var b=Button(node,text);await Reach(b);Press(b);await Frames();}
     private static bool Visible(Control c)=>c.IsVisibleInTree()&&c.GetViewport().GetVisibleRect().Encloses(c.GetGlobalRect());
     private async Task BlockedCargoControls() {
@@ -324,7 +325,7 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
     private async Task EndPlanningWithoutResolution(GameScreen screen) {
         var session=Session(screen);int turn=session.State.Turn;var button=Descendants<Button>(screen).Single(b=>b.Text=="End Turn"||b.Text=="Waiting for others (cancel)");Press(button);await Frames();Check(session.State.Turn==turn,"Labelled nonfinal Ready/withdraw does not resolve the two-human turn");
     }
-    private static void SelectNumber(OptionButton picker,int id){int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
+    private static void SelectNumber(OptionButton picker,int id){UiNavigation.Reveal(picker);int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
     private async Task OwnColony(GameScreen screen,OpenAntares.Simulation.ColonyId colony){SelectNumber(Descendants<OptionButton>(One<ColonyList>(screen)).Single(),colony.Value);await Frames();}
     private async Task AssignGeneratedTemplate(GameScreen screen,string template){Select(Picker(screen,"GovernorTemplatePicker"),template);await Click(screen,"Apply template");Toggle(screen,"WorkforceGovernorToggle",true);await Frames();Toggle(screen,"ConstructionGovernorToggle",true);await Frames();}
     private async Task QueueGeneratedProject(GameScreen screen,string kind,string id){await Click(screen,"Edit queue");var editor=One<ConstructionQueueEditor>(screen);Select(Picker(editor,"QueueTargetPicker"),kind+"|"+id);Press(Button(editor,"Add project"));Press(editor.GetOkButton());await Frames();}

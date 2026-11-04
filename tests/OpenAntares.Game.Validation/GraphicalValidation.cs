@@ -1,3 +1,4 @@
+using UiNavigation = OpenAntares.Game.Validation.CombinedUiNavigation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -193,7 +194,7 @@ public partial class GraphicalValidation : Node
         var screen = new GameScreen(session, session.State.Empires.Single().Id);
         AddChild(screen);
         await Frames();
-        ScrollContainer scroll = Descendants<ScrollContainer>(screen).Single(s => s.GetWindow()==screen.GetWindow());
+        ScrollContainer scroll = Descendants<ScrollContainer>(screen).Single(s => s.Name=="WorkspaceScroll");
         // Canvas scaling preserves logical height at small window sizes. Explicitly force
         // the formerly failing focus-scroll path without changing production layout code.
         scroll.CustomMinimumSize = new Vector2(0, 240);
@@ -268,7 +269,7 @@ public partial class GraphicalValidation : Node
         string name = $"qa-{_runId}-{suffix}";
         string path = SaveFiles.PathFor(name);
         Check(!File.Exists(path), "QA save name is unique");
-        Press(Button(screen, "Save"));
+        UiNavigation.GameMenu(screen,0);
         await Frames();
         SaveGameDialog dialog = One<SaveGameDialog>(screen);
         Check(dialog.Visible, $"{suffix}: Save dialog opens");
@@ -284,7 +285,7 @@ public partial class GraphicalValidation : Node
     protected async Task<GameScreen> LoadThroughDialog(Control main, string name)
     {
         GameScreen previous = One<GameScreen>(main);
-        Press(Button(previous, "Load"));
+        UiNavigation.GameMenu(previous,1);
         await Frames();
         LoadGameDialog dialog = One<LoadGameDialog>(main);
         ItemList list = One<ItemList>(dialog);
@@ -354,15 +355,22 @@ public partial class GraphicalValidation : Node
     protected static IEnumerable<T> Descendants<T>(Node node) where T : Node => node.GetChildren().SelectMany(child =>
         (child is T match ? new[] { match } : Array.Empty<T>()).Concat(Descendants<T>(child)));
     protected static T One<T>(Node node) where T : Node => Descendants<T>(node).Single();
-    protected static Button Button(Node node, string text) => Descendants<Button>(node).Single(b => b.Text == text && b.IsVisibleInTree() && b.GetWindow().Visible);
+    protected static Button Button(Node node, string text)
+    {
+        var candidates=Descendants<Button>(node).Where(b=>b.Text==text).ToArray();
+        var button=candidates.SingleOrDefault(b=>b.IsVisibleInTree()&&b.GetWindow().Visible)??candidates.Single();
+        UiNavigation.Reveal(button);
+        if(!button.IsVisibleInTree()||!button.GetWindow().Visible)throw new InvalidOperationException("Unreachable action: "+text);
+        return button;
+    }
     protected static Button Step(Node node, string tooltip) => Descendants<Button>(node).Single(b => b.TooltipText == tooltip);
     protected static void Press(Button button)
-    {
+    {UiNavigation.Reveal(button);
         if (button.Disabled) throw new InvalidOperationException("Cannot press disabled button: " + button.Text);
         button.EmitSignal(Godot.Button.SignalName.Pressed);
     }
     protected static void Select(OptionButton picker, string id)
-    {
+    {UiNavigation.Reveal(picker);
         int index = Enumerable.Range(0, picker.ItemCount).Single(i => picker.GetItemMetadata(i).AsString() == id);
         if (picker.IsItemDisabled(index)) throw new InvalidOperationException("Cannot select disabled option: " + id);
         picker.Select(index);
