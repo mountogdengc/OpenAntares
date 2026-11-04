@@ -195,10 +195,10 @@ public partial class GraphicalValidation : Node
         AddChild(screen);
         await Frames();
         ScrollContainer scroll = Descendants<ScrollContainer>(screen).Single(s => s.Name=="WorkspaceScroll");
-        // Canvas scaling preserves logical height at small window sizes. Explicitly force
-        // the formerly failing focus-scroll path without changing production layout code.
-        scroll.CustomMinimumSize = new Vector2(0, 240);
-        scroll.GetParent().GetParent<Control>().SizeFlagsVertical = Control.SizeFlags.ShrinkBegin;
+        // Force overflow within the new colony workspace, independently of the console height.
+        // This preserves the focused-picker/popup regression at every window size.
+        scroll.CustomMinimumSize = new Vector2(0, 96);
+        scroll.SizeFlagsVertical = Control.SizeFlags.Fill;
         await Frames();
         StarId home = session.State.FindPlanet(session.State.Colonies.Single().PlanetId)!.StarId;
         if (otherSelected) One<GalaxyMap>(screen).Select(session.State.Stars.First(s => s.Id != home).Id);

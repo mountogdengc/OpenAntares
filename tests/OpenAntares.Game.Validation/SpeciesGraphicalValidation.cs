@@ -136,7 +136,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         var planet=species=="sulan" && !forceHarbor ? surveyed.FirstOrDefault(p=>p.EnvironmentId=="shelf_sea") ?? surveyed[0] : surveyed[0];
         string role=species switch{"peldra"=>"peldra_settler","harl"=>"harl_settler","wenth"=>"daughter_seed",_=>!forceHarbor && planet.EnvironmentId=="shelf_sea"?"settler":"harbor_settler"};
         One<GalaxyMap>(screen).Select(home.Chart.Id);await Frames();
-        var projects=Descendants<OptionButton>(One<ColonyPanel>(screen)).Single();await Reach(projects);Select(projects,"vessel|"+role);await Frames();
+        var projects=Descendants<OptionButton>(One<ColonyPanel>(screen)).Single();projects=await Reach(projects);Select(projects,"vessel|"+role);await Frames();
         Check(session.State.FindColony(source)!.ProjectId==role,label+": role selected through actual project control");
         if(species=="wenth" && session.Forecast().Colony(source).Production.BlockedReasonCode is not null)
         {
@@ -164,15 +164,15 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         for(int guard=0;session.Forecast().Colony(source).SupportDeficit>0 && guard<10;guard++)
         {
             var colony=session.State.FindColony(source)!;string tip=colony.Workforce.Research>0?"Move a worker from research to support":"Move a worker from production to support";
-            var step=Step(One<ColonyPanel>(screen),tip);await Reach(step);Press(step);await Frames();
+            var step=Step(One<ColonyPanel>(screen),tip);step=await Reach(step);Press(step);await Frames();
         }
         Check(session.Forecast().Colony(source).SupportDeficit==0,label+": actual workforce controls repair source support");
         SelectNumber(Descendants<OptionButton>(One<VesselPanel>(screen)).Single(p=>p.Name=="VesselPicker"),founder.Id.Value);await Frames();One<GalaxyMap>(screen).Select(target.Chart.Id);await Frames();await Reach(Button(One<VesselPanel>(screen),"Set course"));Press(Button(One<VesselPanel>(screen),"Set course"));await Frames();
         int travel=TravelCalculator.Duration(home.Chart.X,home.Chart.Y,target.Chart.X,target.Chart.Y,session.Content.Vessels[role].Speed);
         for(int t=0;t<travel;t++){await EndTurn(screen);One<TurnReportDialog>(screen).Hide();}
         Check(session.State.FindVessel(founder.Id)!.StationaryStarId==target.Chart.Id && session.State.Colonies.Count==1,label+": exact travel arrives without automatic founding");
-        One<GalaxyMap>(screen).Select(target.Chart.Id);await Frames();var world=Button(One<StarPanel>(screen),$"Select planet {planet.Orbit}");await Reach(world);Press(world);await Frames();
-        var found=Button(One<VesselPanel>(screen),"Found colony");Check(!found.Disabled,label+": shared permitted eligibility enables founding");await Reach(found);Press(found);await Frames();
+        One<GalaxyMap>(screen).Select(target.Chart.Id);await Frames();var world=Button(One<StarPanel>(screen),$"Select planet {planet.Orbit}");world=await Reach(world);Press(world);await Frames();
+        var found=Button(One<VesselPanel>(screen),"Found colony");Check(!found.Disabled,label+": shared permitted eligibility enables founding");found=await Reach(found);Press(found);await Frames();
         string intent=await SaveThroughDialog(screen,label+"-founding");screen=await LoadThroughDialog(main,intent);session=Session(screen);
         Check(session.State.FindVessel(founder.Id)!.PendingFounding==planet.Id,label+": explicit founding intent survives reload");
         await EndTurn(screen);var report=One<TurnReportDialog>(screen);Check(session.State.Colonies.Count==2 && session.State.FindVessel(founder.Id) is null,label+": founding creates one colony and consumes exactly its vessel");report.Hide();
@@ -181,14 +181,14 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         if(species=="harl"){Check(child.Population==1,label+": Harl launches a one-unit daughter");for(int t=0;session.State.FindColony(child.Id)!.Population<2 && t<10;t++){await EndTurn(screen);One<TurnReportDialog>(screen).Hide();}Check(session.State.FindColony(child.Id)!.Population>=2,label+": Harl daughter recovers through real economic turns");}
         if(species=="wenth")Check(session.Forecast().Colony(child.Id).Growth.Capacity==6,label+": Wenth daughter has unbuilt capacity6");
         SelectNumber(Descendants<OptionButton>(One<ColonyList>(screen)).Single(),source.Value);await Frames();Select(Descendants<OptionButton>(One<ColonyPanel>(screen)).Single(),"vessel|scout");await Frames();
-        SelectNumber(Descendants<OptionButton>(One<ColonyList>(screen)).Single(),child.Id.Value);await Frames();var researchStep=Step(One<ColonyPanel>(screen),"Move a worker from support to research");await Reach(researchStep);Press(researchStep);await Frames();Select(Descendants<OptionButton>(One<ColonyPanel>(screen)).Single(),"fabrication_hall");await Frames();
+        SelectNumber(Descendants<OptionButton>(One<ColonyList>(screen)).Single(),child.Id.Value);await Frames();var researchStep=Step(One<ColonyPanel>(screen),"Move a worker from support to research");researchStep=await Reach(researchStep);Press(researchStep);await Frames();Select(Descendants<OptionButton>(One<ColonyPanel>(screen)).Single(),"fabrication_hall");await Frames();
         Check(session.State.FindColony(source)!.ProjectId=="scout" && session.State.FindColony(child.Id)!.ProjectId=="fabrication_hall",label+": exact colony controls keep independent typed projects");
         var aggregate=session.Forecast();Check(aggregate.Empire(viewer).NetResearch.Total==aggregate.Colonies.Sum(c=>c.NetResearch.Total) && aggregate.Colony(child.Id).NetResearch.Total>0,label+": both owned colonies contribute once to shared research");
         string snapshot=Snapshot(session);
         foreach(var sizePixels in new[]{new Vector2I(800,600),new Vector2I(1152,648),new Vector2I(1280,720),new Vector2I(1600,900),new Vector2I(1920,1080)})
         {
             GetTree().Root.Size=sizePixels;await Frames();Check(Snapshot(session)==snapshot,label+$": resize{sizePixels.X}x{sizePixels.Y} preserves authoritative state");
-            var picker=Descendants<OptionButton>(One<ColonyPanel>(screen)).Single();await Reach(picker);Check(InViewport(picker) && InViewport(Button(screen,"End Turn")),label+$": critical controls remain in bounds at{sizePixels.X}x{sizePixels.Y}");
+            var picker=Descendants<OptionButton>(One<ColonyPanel>(screen)).Single();picker=await Reach(picker);Check(InViewport(picker) && InViewport(Button(screen,"End Turn")),label+$": critical controls remain in bounds at{sizePixels.X}x{sizePixels.Y}");
             if(size=="small" && sizePixels.X==800 && !forceHarbor)await Capture(label+"-two-colonies-800");
         }
         await Capture(label+"-two-colonies-1920");
@@ -198,7 +198,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         RemoveChild(main);main.QueueFree();await Frames();
     }
     private bool InViewport(Control control) => GetViewport().GetVisibleRect().Encloses(control.GetGlobalRect());
-    private async Task Reach(Control control)
+    private async Task<T> Reach<T>(T control) where T:Control
     {control=UiNavigation.Reveal(control);
         bool alreadyFocused=control.HasFocus();control.GrabFocus();await Frames();Node? parent=control.GetParent();while(parent is not null && parent is not ScrollContainer)parent=parent.GetParent();
         if(parent is ScrollContainer scroll)
@@ -214,6 +214,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
             if(alreadyFocused)Check(scroll.GetGlobalRect().Intersects(control.GetGlobalRect()),"Already-focused control remains visible after resize");
             Check(scroll.GetGlobalRect().Intersects(control.GetGlobalRect()),"Focus/scroll reaches "+control.GetType().Name);
         }
+        return control;
     }
     private static GameState HabitatFixture(bool reversed)
     {
