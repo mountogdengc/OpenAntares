@@ -9,13 +9,27 @@ namespace OpenAntares.Simulation.ShipDesigns;
 public sealed record RefitApplyResult(TurnEconomy Economy,ImmutableArray<ShipDesignEvent> Events);
 public static class RefitResolver
 {
-    public static RefitApplyResult Apply(ContentSet content,GameState snapshot,GameState candidate,RefitResolutionContext context,TurnEconomy economy)
+    public static RefitApplyResult Apply(ContentSet content,GameState snapshot,GameState candidate,RefitResolutionContext context,TurnEconomy economy,Conflict.ConflictResolutionContext? conflict=null)
     {
         if(context.Applied||context.FromTurn!=snapshot.Turn||candidate.Turn!=snapshot.Turn)throw new InvalidOperationException("Refit phase already applied or snapshot changed.");
         context.Applied=true;var outcomes=economy.Colonies.ToBuilder();var events=ImmutableArray.CreateBuilder<ShipDesignEvent>();
         foreach(var captured in context.Jobs)
         {
-            var original=captured.Job;var data=candidate.FindEmpire(captured.Owner)!.ShipDesigns!;var job=data.Refits.SingleOrDefault(j=>j.Id==original.Id)??throw new InvalidOperationException("Committed refit disappeared during resolution.");
+            var original=captured.Job;var data=candidate.FindEmpire(captured.Owner)!.ShipDesigns!;var job=data.Refits.SingleOrDefault(j=>j.Id==original.Id);
+            if(job is null)
+            {
+                if(conflict is null||!Conflict.ConflictAftermath.ProvesInterruption(snapshot,candidate,conflict,captured.Owner,original))throw new InvalidOperationException("Committed refit disappeared during resolution.");
+                foreach(var frozenFact in new[]{captured.Before,captured.After})
+                {
+                    var row=data.Designs.Single(d=>d.Id==frozenFact.Id);
+                    if(!ShipDesignStateValidator.SameRecipe(row.Recipe,frozenFact.Recipe)||ShipDesignMath.Calculate(content.ShipDesigns!,row.Recipe)!=frozenFact.Stats)throw new InvalidOperationException("Interrupted refit recipe or embedded stats changed.");
+                }
+                int interruptedIndex=Array.FindIndex(economy.Colonies.ToArray(),r=>r.Colony==original.Port);if(interruptedIndex<0)throw new InvalidOperationException("Interrupted refit economic receipt missing.");
+                var interrupted=outcomes[interruptedIndex];var frozen=interrupted.RefitPlan;
+                if(frozen is null||frozen.Job!=original.Id||frozen.Owner!=captured.Owner||frozen.Source!=original.SourceDesign||frozen.Target!=original.TargetDesign||frozen.Price!=original.Price||frozen.Vessel!=original.Vessel||frozen.Port!=original.Port)throw new InvalidOperationException("Interrupted refit accounting identity changed.");
+                outcomes[interruptedIndex]=interrupted with{RefitPlan=frozen with{Covered=false},Production=interrupted.Production with{CompletedId=null,BlockedReasonCode="refit_interrupted",Estimate=new TurnEstimate(null)}};
+                events.Add(ShipDesignReports.Record(candidate,captured.Owner,"refit_cancelled","An empire encounter interrupted this unpaid refit before its first defensive volley. Installed equipment, banked reserve and the unstarted queue are retained; construction remains paused.",original.Vessel,original.Port,captured.Before,captured.After,0));continue;
+            }
             if(job.Vessel!=original.Vessel||job.Port!=original.Port||job.SourceDesign!=original.SourceDesign||job.TargetDesign!=original.TargetDesign||job.Price!=original.Price||job.Revision!=original.Revision||job.Status!=original.Status||job.AcceptedTurn!=original.AcceptedTurn)throw new InvalidOperationException("Committed refit identity changed during resolution.");
             foreach(var fact in new[]{captured.Before,captured.After})
             {

@@ -54,11 +54,13 @@ public partial class GraphicalValidation : Node
                 File.WriteAllText(Path.Combine(_output, "results.json"), JsonSerializer.Serialize(new
                 {
                     runId = _runId,
+                    scenario = "Legacy",
                     godot = Engine.GetVersionInfo()["string"].AsString(),
                     display = DisplayServer.GetName(),
                     method = "In-process real UI control signals/handlers, graphical layout and framebuffer assertions; no OS input claims",
                     passed = error is null,
                     error,
+                    checks = _results,
                     results = _results,
                     retainedQaSavePaths = _savePaths,
                 }, new JsonSerializerOptions { WriteIndented = true }));

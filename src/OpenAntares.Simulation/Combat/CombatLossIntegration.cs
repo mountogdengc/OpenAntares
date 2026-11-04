@@ -11,6 +11,15 @@ internal static class CombatLossIntegration
         if(!Rules.HasCombat(snapshot.RulesVersion))return;
         if(!ReferenceEquals(fleet,combat.FleetContext)||snapshot.Turn!=combat.FromTurn)throw new InvalidOperationException("Combat losses require their shared snapshot officer context.");
         if(combat.Destructions.Any(d=>candidate.FindVessel(d.Vessel) is not null))throw new InvalidOperationException("Consumed combat vessel is still live.");
+        Integrate(content,snapshot,candidate,fleet);
+    }
+    internal static void ApplyConflict(ContentSet content,GameState snapshot,GameState candidate,FleetResolutionContext fleet,Conflict.ConflictResolutionContext conflict)
+    {
+        if(!Rules.HasConflict(snapshot.RulesVersion)||!ReferenceEquals(fleet,conflict.FleetContext)||snapshot.Turn!=conflict.FromTurn||conflict.Destructions.Any(d=>candidate.FindVessel(d.Vessel) is not null))throw new InvalidOperationException("Conflict losses require their shared officer context and absent destroyed vessels.");
+        Integrate(content,snapshot,candidate,fleet);
+    }
+    private static void Integrate(ContentSet content,GameState snapshot,GameState candidate,FleetResolutionContext fleet)
+    {
         var missing=snapshot.Vessels.Where(v=>candidate.FindVessel(v.Id) is null&&!fleet.IntegratedLosses.Contains(v.Id)).OrderBy(v=>v.Id).ToArray();if(missing.Length==0)return;
         FleetResolver.NormalizeAfterLosses(content,snapshot,candidate,fleet);
         foreach(var vessel in missing)

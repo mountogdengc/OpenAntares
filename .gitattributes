@@ -28,4 +28,8 @@
 /reports/ui-layout-integration-20261103/** -text -whitespace
 
 # Native queued test results retain original TRX/log bytes.
+/tests/OpenAntares.Simulation.Tests/Fixtures/rules11-conflict-baselines/** -text -whitespace
+/reports/conflict-execution/** -text -whitespace
+
+# Native queue artifacts retain exact hashes across checkouts.
 /reports/native-tests/** -text -whitespace

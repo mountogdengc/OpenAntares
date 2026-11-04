@@ -16,12 +16,14 @@ public partial class VesselPanel : VBoxContainer
     public event Action<StarId>? DestinationSelected;
     public event Action? ScoutOverviewRequested;
     public event Action? FleetCommandRequested;
+    public event Action? ConflictOrdersRequested;
     public event Action<VesselId>? RefitRequested;
     public void ShowVessels(ContentSet content, EmpireView view, VesselId? selected, StarId? destination, PlanetId? selectedPlanet)
     {
         foreach (Node child in GetChildren()) { RemoveChild(child); child.QueueFree(); }
         Visible = Rules.HasExpansion(view.RulesVersion); if (!Visible) return;
         if(Rules.HasFleets(view.RulesVersion)){var fleets=new Button{Name="InspectFleetCommand",Text="Fleet command"};AddChild(fleets);fleets.Pressed+=()=>FleetCommandRequested?.Invoke();}
+        if(Rules.HasConflict(view.RulesVersion)){var conflict=new Button{Name="InspectConflictOrders",Text="Empire conflict orders / defense"};AddChild(conflict);conflict.Pressed+=()=>ConflictOrdersRequested?.Invoke();}
         AddChild(new HSeparator()); AddChild(new Label { Text = "Expeditions", ThemeTypeVariation = "HeaderLabel" });
         foreach (var foreign in view.ForeignVessels) AddChild(Text($"Observed {view.Contacts.FirstOrDefault(c=>c.OtherEmpireId==foreign.EmpireId)?.CultureName ?? foreign.EmpireId.ToString()}: {content.Vessels[foreign.RoleId].Name} at {view.Stars.First(s => s.Chart.Id == foreign.StarId).Chart.Name} (turn {view.Turn})"));
         if (view.Vessels.Length == 0) { AddChild(Text("No vessels. Build a scout or settler in a colony.")); return; }

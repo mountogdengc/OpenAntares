@@ -14,20 +14,20 @@ using Xunit;
 namespace OpenAntares.Simulation.Tests;
 public sealed class DiplomacySaveTests
 {
-    [Fact] public void All67PairsAndLiveDiplomacyStagesRoundTrip()
+    [Fact] public void All79PairsAndLiveDiplomacyStagesRoundTrip()
     {
-        Assert.Equal(12,SaveGame.SchemaVersion);
+        Assert.Equal(13,SaveGame.SchemaVersion);
         string[] old={"legacy-v2-save.json","legacy-rules2-v3-save.json","legacy-rules3-v4-save.json","legacy-rules4-v5-save.json","legacy-rules5-v6-save.json"};
-        var sources=Enumerable.Range(1,11).ToDictionary(r=>r,r=>r==11?Encode(Case("offer")):r==10?SaveGame.Serialize(ShipDesignFixtures.Session().Content,ShipDesignFixtures.Session().State):r==9?SaveGame.Serialize(CombatFixtures.Game().Content,CombatFixtures.Game().State):r==8?SaveGame.Serialize(FleetFixtures.Game().Content,FleetFixtures.Game().State):r==7?SaveGame.Serialize(ScoutingFixtures.Content(),ScoutingFixtures.Game().State):r==6?SaveGame.Serialize(CrisisFixtures.Content(),CrisisFixtures.Game().State):File.ReadAllText(CompatibilityFixtures.PathFor(old[r-1])));
+        var sources=Enumerable.Range(1,12).ToDictionary(r=>r,r=>r==12?SaveGame.Serialize(ConflictFixtures.Create().Content,ConflictFixtures.Create().State):r==11?Encode(Case("offer")):r==10?SaveGame.Serialize(ShipDesignFixtures.Session().Content,ShipDesignFixtures.Session().State):r==9?SaveGame.Serialize(CombatFixtures.Game().Content,CombatFixtures.Game().State):r==8?SaveGame.Serialize(FleetFixtures.Game().Content,FleetFixtures.Game().State):r==7?SaveGame.Serialize(ScoutingFixtures.Content(),ScoutingFixtures.Game().State):r==6?SaveGame.Serialize(CrisisFixtures.Content(),CrisisFixtures.Game().State):File.ReadAllText(CompatibilityFixtures.PathFor(old[r-1])));
         int accepted=0;
-        for(int schema=1;schema<=13;schema++)for(int rules=1;rules<=12;rules++)
+        for(int schema=1;schema<=14;schema++)for(int rules=1;rules<=13;rules++)
         {
-            var n=JsonNode.Parse(sources[Math.Min(rules,11)])!;n["schema_version"]=schema;n["rules_version"]=rules;
+            var n=JsonNode.Parse(sources[Math.Min(rules,12)])!;n["schema_version"]=schema;n["rules_version"]=rules;
             if(schema==1&&rules==1)n=JsonNode.Parse(File.ReadAllText(CompatibilityFixtures.PathFor("legacy-v1-save.json")))!;
-            bool expected=(schema,rules) is (1,1) or (2,1)||schema is >=3 and <=12&&rules<schema;
+            bool expected=(schema,rules) is (1,1) or (2,1)||schema is >=3 and <=13&&rules<schema;
             var loaded=SaveGame.Deserialize(n.ToJsonString());Assert.True(expected==loaded.Succeeded,$"({schema},{rules}): {string.Join("; ",loaded.Errors)}");if(loaded.Succeeded)accepted++;
         }
-        Assert.Equal(67,accepted);
+        Assert.Equal(79,accepted);
     }
     [Theory] [InlineData("unmet")][InlineData("offer")][InlineData("answered")][InlineData("declined")][InlineData("revoked")][InlineData("warmup")][InlineData("notice")][InlineData("cooldown")][InlineData("first_ready")][InlineData("lost_hub")]
     public void EveryLivePhaseRoundTripsAndContinuesExactly(string phase)

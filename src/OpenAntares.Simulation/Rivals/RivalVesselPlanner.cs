@@ -15,6 +15,7 @@ internal static class RivalVesselPlanner
         {
             var context = current(); var view = context.View; var vessel = view.Vessels.Single(v => v.Id == id);
             var role = context.Content.Vessels[vessel.RoleId];
+            if(Rules.HasConflict(view.RulesVersion)&&view.Conflict!.Ships.Any(s=>s.Id==id&&s.Military))continue;
             if(Rules.HasScouting(view.RulesVersion)&&view.Scouting?.Vessels.FirstOrDefault(v=>v.Id==id) is {Posture:Scouting.ScoutPosture.Observe})
             {
                 if(!emit(new SetScoutPostureCommand(view.Viewer,view.Turn,id,Scouting.ScoutPosture.AvoidEncounters)))return false;

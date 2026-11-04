@@ -19,7 +19,7 @@ internal static class RivalStateValidator
             errors.Add("Rival rules require supported embedded policy content.");
         foreach (var empire in state.Empires)
         {
-            if (empire.Controller == ControllerKind.Human ? empire.AiPolicyId is not null : empire.AiPolicyId != "expansion_v1")
+            if (empire.Controller == ControllerKind.Human ? empire.AiPolicyId is not null : empire.AiPolicyId != "expansion_v1"&&!(Rules.HasConflict(state.RulesVersion)&&empire.AiPolicyId=="limited_conflict_v1"))
                 errors.Add($"{empire.Id}: invalid ai_policy_id for controller.");
             int previous = 0;
             foreach (var contact in empire.Contacts)

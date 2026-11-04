@@ -15,6 +15,8 @@ public partial class FleetCommandDialog:AcceptDialog
 {
     public event Action<Command>? CommandIssued;
     public event Action<CombatAction>? CombatRequested;
+    public event Action<VesselId?>? ConflictOrdersRequested;
+    private readonly ConflictBattlePanel _conflictReport=new(){Name="FleetConflictReport"};
     public string CombatPreferencesPath {get;set;}="user://combat-notifications.json";
     private readonly CombatReportPanel _combatReport=new(){Name="FleetCombatReport"};
     public event Action<VesselId>? InspectRequested;
@@ -70,6 +72,7 @@ public partial class FleetCommandDialog:AcceptDialog
         var history=Page("Reports");history.AddChild(DevelopmentUi.Text("Attention remains visible in the command badge and service/request records. Routine display is local to this computer."));var levels=new OptionButton{Name="FleetRoutineDisplay"};levels.AddItem("Routine: Summary");levels.AddItem("Routine: Off");history.AddChild(levels);DevelopmentUi.Button(history,"Apply local display",()=>{try{new FleetNotificationPreferences(levels.Selected==0).Save(ProjectSettings.GlobalizePath(PreferencesPath));Events();DisplayApplied?.Invoke();}catch(Exception e)when(e is System.IO.IOException or UnauthorizedAccessException or ArgumentException){_error.Text="Display setting was not saved: "+e.Message;}},"FleetApplyDisplay");Navigation(history,"FleetEvents",_eventPages,delta=>{_eventPage+=delta;Events();});history.AddChild(_events);
         history.AddChild(_combatReport);var combatLevel=new OptionButton{Name="CombatRoutineDisplay"};combatLevel.AddItem("Combat routine: Summary");combatLevel.AddItem("Combat routine: Off");history.AddChild(combatLevel);
         DevelopmentUi.Button(history,"Apply local combat display",()=>{try{new CombatNotificationPreferences(combatLevel.Selected==0).Save(ProjectSettings.GlobalizePath(CombatPreferencesPath));CombatReport();DisplayApplied?.Invoke();}catch(Exception e)when(e is System.IO.IOException or UnauthorizedAccessException or ArgumentException){_error.Text="Combat display was not saved: "+e.Message;}},"CombatApplyDisplay");
+        var conflict=Page("Empire conflict");conflict.AddChild(_conflictReport);_conflictReport.OrdersRequested+=anchor=>ConflictOrdersRequested?.Invoke(anchor);_conflictReport.StarRequested+=star=>StarRequested?.Invoke(star);
         _error.Name="FleetError";_confirmationText.Name="FleetConfirmationDetails";_body.AddChild(_error);AddChild(_confirm);DevelopmentUi.DialogBody(_confirm).AddChild(_confirmationText);_confirm.Confirmed+=()=>{if(_pending is {} command)CommandIssued?.Invoke(command);_pending=null;};
         _filter.ItemSelected+=_=>{_shipPage=0;Rows();};_roleFilter.ItemSelected+=_=>{_shipPage=0;Rows();};_sort.ItemSelected+=_=>{_shipPage=0;Rows();};_ships.MultiSelected+=(_,_)=>Details();_fleets.MultiSelected+=(_,_)=>GroupDetails();_requests.ItemSelected+=_=>RequestDetails();
     }
@@ -79,6 +82,7 @@ public partial class FleetCommandDialog:AcceptDialog
     public void ShowEmpire(ContentSet content,EmpireView view)
     {
         _content=content;_view=view;if(view.Fleets is null)return;
+        _conflictReport.SetView(view.Conflict);_tabs.SetTabHidden(_tabs.GetTabCount()-1,view.Conflict is null);
         NamedDesignEntry();
         if(view.Combat is not null&&_filter.ItemCount==7)foreach(var label in new[]{"Warships","In combat","Withdrawing","Damaged","Crippled","Repairing"})_filter.AddItem(label);
         if(view.Combat is null)while(_filter.ItemCount>7)_filter.RemoveItem(_filter.ItemCount-1);

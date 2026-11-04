@@ -20,7 +20,7 @@ public static class FleetQueries
                 var ids=move.Vessels.Concat(move.Fleets.SelectMany(id=>view.Fleets!.Fleets.Single(f=>f.Id==id).Members)).Distinct().OrderBy(id=>id);
                 routes=ids.Select(id=>{var ship=view.Vessels.Single(v=>v.Id==id);return new FleetRouteConsequence(id,view.Fleets!.Ships.Single(v=>v.Id==id).Fleet,ship.StationaryStarId!.Value,target,FleetTravel.PreviewDuration(content,view,ship,target));}).ToImmutableArray();
             }
-            return new(true, null, action is FleetAction.DetachSelection ? "Selected ships become independent; affected request slots pause without replacement." : "Apply the displayed fleet selection atomically.", fingerprint){Routes=routes,Detachments=action is FleetAction.DetachSelection detach?detach.Vessels.Distinct().OrderBy(id=>id).ToImmutableArray():ImmutableArray<VesselId>.Empty};
+            return new(true, null, action is FleetAction.DetachSelection ? "Selected ships become independent; affected request slots pause without replacement." : "Apply the displayed fleet selection atomically."+(view.Conflict?.Blockades.IsEmpty==false?" Changing a blockading fleet movement, membership or activity lifts its blockade immediately.":""), fingerprint){Routes=routes,Detachments=action is FleetAction.DetachSelection detach?detach.Vessels.Distinct().OrderBy(id=>id).ToImmutableArray():ImmutableArray<VesselId>.Empty};
         }
         catch (Exception e) when (e is ArgumentException or InvalidOperationException or OverflowException) { return new(false, e.Message, "", fingerprint); }
     }

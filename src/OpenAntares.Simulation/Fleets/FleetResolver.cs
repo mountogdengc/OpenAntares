@@ -69,7 +69,7 @@ internal static class FleetResolver
             RequestQueueAuthority.SafetyPause(candidate,owner,r.Id,"A participating colony was lost; review remaining finite work.");
         }
     }
-    internal static void AfterFounding(GameState candidate,FleetResolutionContext context,IReadOnlyList<ExpansionEvent> events)
+    internal static void AfterFounding(GameState candidate,FleetResolutionContext context,IReadOnlyList<ExpansionEvent> events,Conflict.ConflictResolutionContext? conflict=null)
     {
         foreach(var founded in events.Where(e=>e.Kind=="colony_founded"))
         {
@@ -82,6 +82,11 @@ internal static class FleetResolver
                 fleet.Members.Remove(vessel);fleet.Order=new(FleetOrderKind.Hold);fleet.Cohort=null;
                 if(fleet.Members.Count==0){f.Fleets.Remove(fleet);RequestQueueAuthority.RallyDisbanded(candidate,founded.Owner,fleet.Id);}else if(fleet.Flagship==vessel)fleet.Flagship=fleet.Members.Min();
             }
+        }
+        if(conflict is not null)
+        {
+            if(!ReferenceEquals(context,conflict.FleetContext)||!conflict.AftermathApplied||conflict.FromTurn!=candidate.Turn)throw new InvalidOperationException("Conflict founding reconciliation requires shared aftermath.");
+            Conflict.ConflictAftermath.NormalizeProtectedMembership(candidate);
         }
     }
     internal static void ObserveAssembly(ContentSet content,GameState candidate,FleetResolutionContext context)

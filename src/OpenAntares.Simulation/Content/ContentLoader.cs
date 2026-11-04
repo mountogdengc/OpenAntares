@@ -44,9 +44,9 @@ public static partial class ContentLoader
         return Load(sources);
     }
 
-    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false, bool requireDevelopment = false, bool requireCrises = false, bool requireScouting = false, bool requireFleets = false, bool requireCombat = false, bool requireShipDesigns = false, bool requireDiplomacy = false)
+    public static ContentLoadResult Load(IEnumerable<ContentSource> sources, bool requireSpecies = false, bool requireRivals = false, bool requireDevelopment = false, bool requireCrises = false, bool requireScouting = false, bool requireFleets = false, bool requireCombat = false, bool requireShipDesigns = false, bool requireDiplomacy = false, bool requireConflict = false)
     {
-        var builder = new Builder(requireSpecies || requireRivals || requireDevelopment || requireCrises || requireScouting || requireFleets || requireCombat || requireShipDesigns || requireDiplomacy, requireRivals || requireDevelopment || requireCrises || requireScouting || requireFleets || requireCombat || requireShipDesigns || requireDiplomacy, requireDevelopment || requireCrises || requireScouting || requireFleets || requireCombat || requireShipDesigns || requireDiplomacy, requireCrises || requireScouting || requireFleets || requireCombat || requireShipDesigns || requireDiplomacy, requireScouting || requireFleets || requireCombat || requireShipDesigns || requireDiplomacy, requireFleets || requireCombat || requireShipDesigns || requireDiplomacy, requireCombat || requireShipDesigns || requireDiplomacy, requireShipDesigns || requireDiplomacy, requireDiplomacy);
+        var builder = new Builder(requireSpecies || requireRivals || requireDevelopment || requireCrises || requireScouting || requireFleets || requireCombat || requireShipDesigns || requireDiplomacy || requireConflict, requireRivals || requireDevelopment || requireCrises || requireScouting || requireFleets || requireCombat || requireShipDesigns || requireDiplomacy || requireConflict, requireDevelopment || requireCrises || requireScouting || requireFleets || requireCombat || requireShipDesigns || requireDiplomacy || requireConflict, requireCrises || requireScouting || requireFleets || requireCombat || requireShipDesigns || requireDiplomacy || requireConflict, requireScouting || requireFleets || requireCombat || requireShipDesigns || requireDiplomacy || requireConflict, requireFleets || requireCombat || requireShipDesigns || requireDiplomacy || requireConflict, requireCombat || requireShipDesigns || requireDiplomacy || requireConflict, requireShipDesigns || requireDiplomacy || requireConflict, requireDiplomacy || requireConflict, requireConflict);
         foreach (ContentSource source in sources.OrderBy(s => s.Name, StringComparer.Ordinal))
         {
             builder.AddFile(source);
@@ -55,9 +55,10 @@ public static partial class ContentLoader
         return builder.Build();
     }
 
-    private sealed partial class Builder(bool requireSpecies, bool requireRivals, bool requireDevelopment, bool requireCrises, bool requireScouting, bool requireFleets, bool requireCombat, bool requireShipDesigns, bool requireDiplomacy)
+    private sealed partial class Builder(bool requireSpecies, bool requireRivals, bool requireDevelopment, bool requireCrises, bool requireScouting, bool requireFleets, bool requireCombat, bool requireShipDesigns, bool requireDiplomacy, bool requireConflict)
     {
         private readonly List<ContentError> _errors = new();
+        private (Conflict.ConflictDefinition Value, string File)? _conflict;
         private (Diplomacy.DiplomacyDefinition Value, string File)? _diplomacy;
         private (ShipDesigns.ShipDesignDefinition Value, string File)? _shipDesigns;
         private (Combat.CombatDefinition Value, string File)? _combat;
@@ -97,6 +98,9 @@ public static partial class ContentLoader
                 {
                     switch (section.Name)
                     {
+                        case "conflict":
+                            SetOnce(ref _conflict, Conflict.ConflictContentReader.Read(section.Value, file, _errors), file, "conflict");
+                            break;
                         case "diplomacy":
                             SetOnce(ref _diplomacy, Diplomacy.DiplomacyContentReader.Read(section.Value, file, _errors), file, "diplomacy");
                             break;
@@ -165,6 +169,8 @@ public static partial class ContentLoader
 
         public ContentLoadResult Build()
         {
+            if (_conflict is {} conflict) Conflict.ConflictContentReader.Validate(conflict.Value,_vessels.Values.Select(v=>v.Value),_combat?.Value,conflict.File,_errors);
+            else if(requireConflict) _errors.Add(new ContentError(AllFiles,"conflict","conflict","Conflict campaigns require explicit conflict content, including Solo."));
             if (_diplomacy is {} diplomacy) Diplomacy.DiplomacyContentReader.Validate(diplomacy.Value,diplomacy.File,_errors);
             else if(requireDiplomacy) _errors.Add(new ContentError(AllFiles,"diplomacy","diplomacy","Diplomacy campaigns require explicit diplomacy content, including Solo."));
             if (_shipDesigns is {} ships) ShipDesigns.ShipDesignContentReader.Validate(ships.Value, _vessels.Values.Select(v => v.Value), _combat?.Value, _technologies.Values.Select(t => t.Value), ships.File, _errors);
@@ -216,6 +222,7 @@ public static partial class ContentLoader
                 _buildings.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal),
                 _technologies.ToImmutableSortedDictionary(p => p.Key, p => p.Value.Value, StringComparer.Ordinal))
             {
+                Conflict = _conflict?.Value,
                 Diplomacy = _diplomacy?.Value,
                 ShipDesigns = _shipDesigns?.Value,
                 Combat = _combat?.Value,

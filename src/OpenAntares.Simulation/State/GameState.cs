@@ -13,6 +13,9 @@ namespace OpenAntares.Simulation.State;
 /// </summary>
 public sealed class GameState
 {
+    [System.Text.Json.Serialization.JsonIgnore]
+    internal Conflict.ConflictBlockadeFrame? ConflictCalculatorFrame {get;set;}
+    public Conflict.ConflictState? Conflict {get;set;}
     public Diplomacy.DiplomacyState? Diplomacy {get;set;}
     public Combat.CombatGameState? Combat {get;set;}
     public Scouting.ScoutGameState? Scouting { get; set; }
@@ -56,6 +59,8 @@ public sealed class GameState
 
     public GameState Clone() => new()
     {
+        ConflictCalculatorFrame = ConflictCalculatorFrame,
+        Conflict = Conflict?.Clone(),
         Diplomacy = Diplomacy?.Clone(),
         Combat = Combat?.Clone(),
         Scouting = Scouting?.Clone(),

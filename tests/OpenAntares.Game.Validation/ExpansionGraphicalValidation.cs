@@ -32,7 +32,7 @@ public partial class ExpansionGraphicalValidation : GraphicalValidation
         catch(Exception ex){error=ex.ToString();GD.PrintErr(error);}
         finally
         {
-            if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Expansion",method="Real controls/signals/handlers; generated campaigns and separately labelled synthetic fixtures. No physical OS input or player-understanding claim.",godot=Engine.GetVersionInfo()["string"].AsString(),display=DisplayServer.GetName(),passed=error is null,error,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));
+            if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Expansion",method="Real controls/signals/handlers; generated campaigns and separately labelled synthetic fixtures. No physical OS input or player-understanding claim.",godot=Engine.GetVersionInfo()["string"].AsString(),display=DisplayServer.GetName(),passed=error is null,error,checks=_results,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));
             GetTree().Quit(error is null?0:1);
         }
     }

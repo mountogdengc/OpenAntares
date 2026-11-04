@@ -46,6 +46,7 @@ public static class CombatQueries
         if(!Rules.HasCombat(view.RulesVersion)||content.Combat is not {} d||view.Combat is not {} combat||view.Fleets is not {} fleets)return Reject();
         try
         {
+            if(Conflict.ConflictCommandGuards.Conflicts(view,new CombatActionCommand(view.Viewer,view.Turn,action,string.Empty)))return Reject();
             if(ShipDesigns.RefitGuards.Conflicts(view,new CombatActionCommand(view.Viewer,view.Turn,action,string.Empty)))return Reject();
             if(action is CombatAction.SetRepair repair)return RepairPreview(content,view,repair);
             CombatEncounterView? existing=null;FleetId fleetId;PocketId pocketId;CombatOrders orders;bool cargoConsent;bool withdrawal=false,remain=false;

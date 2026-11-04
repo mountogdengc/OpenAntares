@@ -40,7 +40,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         catch(Exception ex){error=ex.ToString();GD.PrintErr(error);}
         finally
         {
-            if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Rival",method="Actual control signals and commands; no physical OS input or human-comprehension claim.",passed=error is null,error,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));
+            if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Rival",method="Actual control signals and commands; no physical OS input or human-comprehension claim.",passed=error is null,error,checks=_results,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));
             GetTree().Quit(error is null?0:1);
         }
     }
@@ -70,7 +70,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         var count=Picker(setup,"RivalCountPicker");var human=Picker(setup,"SpeciesPicker");var rival=Picker(setup,"RivalSpeciesPicker");
         Check(count.GetSelectedMetadata().AsString()=="1" && human.GetSelectedMetadata().AsString()=="harl" && rival.GetSelectedMetadata().AsString()=="peldra","Visible defaults are One / Harl / Peldra");
         NewGameSettings? selected=null;setup.StartRequested+=s=>selected=s;setup.Configure("small",42);Press(Button(setup,"Start"));
-        Check(selected is {RulesVersion:11,SentriesEnabled:true,RivalCount:1,SpeciesId:"harl",RivalSpeciesId:"peldra",CrisesEnabled:true},"Visible current defaults reach simulation unchanged");
+        Check(selected is {RulesVersion:12,SentriesEnabled:true,RivalCount:1,SpeciesId:"harl",RivalSpeciesId:"peldra",CrisesEnabled:true},"Visible current defaults reach simulation unchanged");
         Select(human,"peldra");Check(rival.GetSelectedMetadata().AsString()=="peldra","Human selection does not swap rival; mirrors legal");Press(Button(setup,"Start"));Check(selected?.RivalSpeciesId=="peldra" && selected.SpeciesId=="peldra","Mirror settings reach simulation");
         Select(count,"0");Press(Button(setup,"Start"));Check(rival.Disabled && selected is {RivalCount:0,RivalSpeciesId:null},"Solo disables rival and passes null identity");
         Select(count,"1");Check(!rival.Disabled,"One enables the retained rival choice");
@@ -180,7 +180,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
             var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();
             var setup=One<NewGameScreen>(main);setup.Configure("small",42,species,rivals,"peldra",false,false);Press(Button(setup,"Start"));await Frames();
             var screen=One<GameScreen>(main);var session=Session(screen);var human=session.State.Empires[0].Id;
-            Check(session.State.RulesVersion==11 && !session.State.Crisis!.Enabled && session.State.Empires[0].SpeciesId==species && session.State.Empires.Count==rivals+1,$"{species}/rivals{rivals}: visible Off settings create correct empires");
+            Check(session.State.RulesVersion==12 && !session.State.Crisis!.Enabled && session.State.Empires[0].SpeciesId==species && session.State.Empires.Count==rivals+1,$"{species}/rivals{rivals}: visible Off settings create correct empires");
             var expected=new GameSession(session.Content,session.State.Clone());Check(expected.Execute(new SetReadyCommand(human,0,true)).Accepted,"Reference turn resolves");
             string name=await SaveThroughDialog(screen,$"human-{species}-rivals{rivals}");screen=await LoadThroughDialog(main,name);await EndTurn(screen);
             Check(Snapshot(Session(screen))==Snapshot(expected),$"{species}/rivals{rivals}: UI save/load preserves future continuation");One<TurnReportDialog>(screen).Hide();await Drop(main);

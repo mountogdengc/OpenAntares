@@ -14,17 +14,19 @@ public static class RivalTurnPlanner
 {
     internal const string FailureMessage = "The turn could not be completed.";
 
-    public static RivalPlanningOutcome Prepare(ContentSet content, GameState snapshot) => Prepare(content,snapshot,ExpansionRivalPlanner.Plan);
+    public static RivalPlanningOutcome Prepare(ContentSet content, GameState snapshot) => Rules.HasConflict(snapshot.RulesVersion)?Conflict.ConflictAiCoordinator.Prepare(content,snapshot):Prepare(content,snapshot,ExpansionRivalPlanner.Plan);
+    internal static RivalPlanningOutcome PrepareOwner(ContentSet content,GameState snapshot,EmpireId owner)=>PrepareCore(content,snapshot,ExpansionRivalPlanner.Plan,owner);
 
     internal static RivalPlanningOutcome Prepare(ContentSet content, GameState snapshot,
-        Func<Func<IRivalPlanningContext>,Func<Command,bool>,RivalPlanningResult> plan)
+        Func<Func<IRivalPlanningContext>,Func<Command,bool>,RivalPlanningResult> plan)=>PrepareCore(content,snapshot,plan,null);
+    private static RivalPlanningOutcome PrepareCore(ContentSet content,GameState snapshot,Func<Func<IRivalPlanningContext>,Func<Command,bool>,RivalPlanningResult> plan,EmpireId? onlyOwner)
     {
         if (GameStateValidator.Validate(content,snapshot,allowAllHumansReady:true).Count != 0) return new(snapshot,false);
         if (!Rules.HasRivals(snapshot.RulesVersion)) return new(snapshot,true);
         var working = snapshot.Clone();
         try
         {
-            foreach (var owner in snapshot.Empires.Where(e => e.Controller == ControllerKind.Ai).OrderBy(e => e.Id))
+            foreach (var owner in snapshot.Empires.Where(e => e.Controller == ControllerKind.Ai && (onlyOwner is null||e.Id==onlyOwner)).OrderBy(e => e.Id))
             {
                 long submitted = 0;
                 long budget = 2L*working.Colonies.Count(c => c.EmpireId == owner.Id)+(Rules.HasScouting(snapshot.RulesVersion)?2L:1L)*working.Vessels.Count(v => v.EmpireId == owner.Id)+1;

@@ -22,10 +22,12 @@ public static class EconomyCalculator
     public const int GrowthPerBirth = 100;
 
     public static TurnEconomy Calculate(ContentSet content, GameState state)
+        =>Calculate(content,state,state.ConflictCalculatorFrame??(Rules.HasConflict(state.RulesVersion)&&state.Conflict is not null?Conflict.ConflictBlockades.Capture(content,state):null));
+    internal static TurnEconomy Calculate(ContentSet content,GameState state,Conflict.ConflictBlockadeFrame? pressure)
     {
         ImmutableArray<ColonyEconomy> colonies = state.Colonies
             .OrderBy(c => c.Id)
-            .Select(colony => CalculateColony(content, state, colony))
+            .Select(colony => CalculateColony(content, state, colony,pressure))
             .ToImmutableArray();
 
         ImmutableArray<EmpireEconomy> empires = state.Empires
@@ -56,7 +58,8 @@ public static class EconomyCalculator
         return new TurnEstimate(checked((long)((remaining + perTurn - 1) / perTurn)));
     }
 
-    internal static ColonyEconomy CalculateColony(ContentSet content, GameState state, ColonyState colony)
+    internal static ColonyEconomy CalculateColony(ContentSet content, GameState state, ColonyState colony)=>CalculateColony(content,state,colony,state.ConflictCalculatorFrame??(Rules.HasConflict(state.RulesVersion)&&state.Conflict is not null?Conflict.ConflictBlockades.Capture(content,state):null));
+    private static ColonyEconomy CalculateColony(ContentSet content, GameState state, ColonyState colony,Conflict.ConflictBlockadeFrame? pressure)
     {
         PlanetState planet = state.FindPlanet(colony.PlanetId)
             ?? throw new InvalidOperationException($"{colony.Id} refers to missing {colony.PlanetId}.");
@@ -105,6 +108,7 @@ public static class EconomyCalculator
             grossProduction, grossResearch, netProduction, netResearch,
             growthEarned, growth, production) { PopulationUnitLabel = profile.PopulationUnitLabel };
         result = CrisisEconomy.ApplyColony(content,state,colony,result);
+        if(pressure is not null)result=Conflict.ConflictEconomy.Apply(content,state,colony,result,pressure);
         if(Rules.HasDiplomacy(state.RulesVersion))
         {
             long trade=Diplomacy.DiplomacyEconomy.TradeOutput(content,Diplomacy.DiplomacyFrame.Capture(content,state),colony.Id);

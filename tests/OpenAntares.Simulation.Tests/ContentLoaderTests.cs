@@ -42,6 +42,7 @@ public class ContentLoaderTests
         var legacy = result.Content! with
         {
             // The original economy fixture remains authoritative for old campaigns; species extensions have their own core tests.
+            Conflict = null,
             Expansion = null,
             Diplomacy = null,
             ShipDesigns = null,

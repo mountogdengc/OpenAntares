@@ -16,6 +16,7 @@ public static class RefitQueries
         if(!Rules.HasShipDesigns(view.RulesVersion)||content.ShipDesigns is null||view.ShipDesigns is not {} own||view.Fleets is null||view.Combat is null||action is null)return Reject("refit_unavailable");
         try
         {
+            if(Conflict.ConflictCommandGuards.Conflicts(view,new RefitCommand(view.Viewer,view.Turn,action,string.Empty)))return Reject("refit_activity");
             RefitView? job=null;VesselId shipId;ColonyId portId;DesignId targetId;
             switch(action)
             {

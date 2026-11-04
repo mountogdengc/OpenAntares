@@ -104,7 +104,7 @@ public sealed class FleetSaveTests
             bool expected=(schema,rules) is (1,1) or (2,1)||schema is >=3 and <=8&&rules>=1&&rules<=schema-1||schema==9&&rules is >=1 and <=8;
             var loaded=SaveGame.Deserialize(root.ToJsonString());Assert.True(expected==loaded.Succeeded,$"({schema},{rules}) expected {expected}: {string.Join(";",loaded.Errors)}");if(loaded.Succeeded)accepted++;
         }
-        Assert.Equal(37,accepted);Assert.Equal(12,SaveGame.SchemaVersion);Assert.Equal(11,Rules.CurrentVersion);
+        Assert.Equal(37,accepted);Assert.Equal(13,SaveGame.SchemaVersion);Assert.Equal(12,Rules.CurrentVersion);
     }
     [Fact]
     public void EveryPendingPhaseRoundTripsToIdenticalFuture()

@@ -1,0 +1,2 @@
+# Engine sidecars from historical report images are local cache, not QA evidence.
+*.import

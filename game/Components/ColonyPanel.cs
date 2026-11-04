@@ -39,6 +39,7 @@ public partial class ColonyPanel : VBoxContainer
     {
         Clear();
         ColonyEconomy economy = colony.Economy;
+        if(view?.Conflict is not null){var pressure=new ConflictBlockadePanel{Name="ColonyBlockadePressure"};AddChild(pressure);pressure.SetView(view,colony.StarId);}
 
         AddChild(new HSeparator());
         AddChild(new Label { Text = "Colony", ThemeTypeVariation = "HeaderLabel" });

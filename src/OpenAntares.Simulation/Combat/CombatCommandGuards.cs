@@ -9,6 +9,7 @@ internal static class CombatCommandGuards
 {
     internal static bool Conflicts(EmpireView view,Command command)
     {
+        if(Conflict.ConflictCommandGuards.Conflicts(view,command))return true;
         if(!Rules.HasCombat(view.RulesVersion)||view.Combat is not {} combat||combat.Encounters.IsEmpty)return false;
         var locked=combat.Encounters.SelectMany(e=>e.Members).ToHashSet();var fleets=combat.Encounters.Select(e=>e.Fleet).ToHashSet();
         bool Ships(IEnumerable<VesselId> ids)=>ids.Any(locked.Contains);

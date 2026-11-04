@@ -62,6 +62,8 @@ public sealed record EmpireView(int Turn, EmpireId Viewer, int RulesVersion, Gal
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public Diplomacy.DiplomacyView? Diplomacy {get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public Conflict.ConflictView? Conflict {get;init;}
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public ShipDesigns.ShipDesignEmpireView? ShipDesigns {get;init;}
     public Combat.CombatEmpireView? Combat {get;init;}
     public Fleets.FleetEmpireView? Fleets { get; init; }
@@ -81,6 +83,8 @@ public sealed record ColonyReportView(ColonyEconomy Economy, ColonyId Id, StarId
 }
 public sealed record EmpireTurnReportView(int FromTurn, int ToTurn, ImmutableArray<ColonyReportView> Colonies, EmpireEconomy Research, ImmutableArray<OpenAntares.Simulation.Turns.ExpansionEvent> Events, ImmutableDictionary<StarId, string> StarNames)
 {
+    [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
+    public Conflict.ConflictReportView? Conflict {get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]
     public ImmutableArray<Diplomacy.DiplomacyEvent>? DiplomacyEvents {get;init;}
     [System.Text.Json.Serialization.JsonIgnore(Condition=System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull)]

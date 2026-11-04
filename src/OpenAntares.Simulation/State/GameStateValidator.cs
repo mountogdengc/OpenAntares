@@ -21,6 +21,7 @@ public static class GameStateValidator
     private static IReadOnlyList<string> ValidateCore(ContentSet content,GameState state,bool allowAllHumansReady,bool skipEffectiveScoutConsent)
     {
         var errors = new List<string>();
+        if(state.ConflictCalculatorFrame is not null)errors.Add("Calculator-only conflict facts cannot be published, saved or resolved.");
 
         if (!Rules.IsSupported(state.RulesVersion))
         {
@@ -48,6 +49,7 @@ public static class GameStateValidator
         RivalStateValidator.Validate(content, state, errors);
         Development.DevelopmentStateValidator.Validate(content, state, errors);
         Crises.CrisisStateValidator.Validate(content,state,errors);
+        errors.AddRange(Conflict.ConflictStateValidator.Validate(content,state));
         errors.AddRange(Diplomacy.DiplomacyStateValidator.Validate(content,state));
         errors.AddRange(ShipDesigns.ShipDesignStateValidator.Validate(content,state));
         errors.AddRange(Combat.CombatStateValidator.Validate(content,state,!skipEffectiveScoutConsent));

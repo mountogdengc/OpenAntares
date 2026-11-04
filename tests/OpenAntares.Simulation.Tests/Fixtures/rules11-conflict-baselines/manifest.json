@@ -1,0 +1,709 @@
+{
+  "rulesVersion": 11,
+  "writerVersion": 12,
+  "generatedSources": 32,
+  "generatedCheckpoints": 64,
+  "supplementalSources": 6,
+  "sourceCommit": "5df255bd76e2c394765448223164744a007ddafe",
+  "approvedPlanCommit": "5df255b",
+  "productTree": "9ef0cf5e5ca6757212d919b271190858c7157505",
+  "compiler": "8.0.33",
+  "engineSha256": "0ae26a9497c19e7b7a80d0ca9e762339a8c9898bba1749cf9f42e716b6f2d6e3",
+  "programSha256": "f3e3a830f86661e6811fa58ed8a3740953a44045e9e00e21a0dec9c88e107d7b",
+  "origins": [
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\harl\\start.json",
+      "save": "sources/harl-start.json",
+      "sha256": "9bfc58db6a5f3fd029690c949a8bf82196387929d07ff3a01f03fe5b904e7a01",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\harl\\pending-offer.json",
+      "save": "sources/harl-pending-offer.json",
+      "sha256": "5d6100c08c79c09cd177f9678e9994f791267acef38c57d8157681bd14b4794e",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\harl\\queued-answer.json",
+      "save": "sources/harl-queued-answer.json",
+      "sha256": "489f9810a7fa011b90fe05cad568d5a6fc6fda6c9313fed777e78a837ccd33d5",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\harl\\blocked-founder.json",
+      "save": "sources/harl-blocked-founder.json",
+      "sha256": "6b6a6702fc27294b35101c6e5b93495bb4f74b3f08a58821f9e2925cbdcb437e",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\harl\\trade-earmark.json",
+      "save": "sources/harl-trade-earmark.json",
+      "sha256": "dea0a6c1fd8b700956de27b347f9376b5ad9cc4a2f5109559c991538daeb7f5c",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\harl\\warmup.json",
+      "save": "sources/harl-warmup.json",
+      "sha256": "79d695ae63386d2148960a15ea2975727eedf280eb0f0c32d9f29f73979074ec",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\harl\\accord-notice.json",
+      "save": "sources/harl-accord-notice.json",
+      "sha256": "4d1198bb40d072fad9d5976b9be927dbbf15d124c1731e347054ce7d5258fdd4",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\harl\\trade-notice.json",
+      "save": "sources/harl-trade-notice.json",
+      "sha256": "f79aa2c538f19ecbf30533ecd962ed6d9bf5a7a25e65a8e25675881c7b68cecb",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\peldra\\start.json",
+      "save": "sources/peldra-start.json",
+      "sha256": "ac01bb3a8db2eb1b9594631d2837490acd7e31e6618d92fd85ce5eaf71caefa0",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\peldra\\pending-offer.json",
+      "save": "sources/peldra-pending-offer.json",
+      "sha256": "e7ee7ccae4198f17779dfa27b4d9c4664a10a338963040e20e689e3c90a8681e",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\peldra\\queued-answer.json",
+      "save": "sources/peldra-queued-answer.json",
+      "sha256": "5f5fada5d65b78fa6bf484374b098930708d163337db3311e8f8953092397b57",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\peldra\\blocked-founder.json",
+      "save": "sources/peldra-blocked-founder.json",
+      "sha256": "d272a4a28269ba8ee718c18c0f2041e5d5055bfa797ebc081508c9e0d65969fc",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\peldra\\trade-earmark.json",
+      "save": "sources/peldra-trade-earmark.json",
+      "sha256": "7557548bef12813856e5144a191ab74829096ae1db20769ac9a7097d802735f1",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\peldra\\warmup.json",
+      "save": "sources/peldra-warmup.json",
+      "sha256": "67ce413a8108390b143aa5f96842487fc1638faaf7eff9eb9a8e0de85dab5e67",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\peldra\\accord-notice.json",
+      "save": "sources/peldra-accord-notice.json",
+      "sha256": "1fb699d38658ed09f824b6d34dbcb4d0e930053f43e388f4bbbccfe6c130a8af",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\peldra\\trade-notice.json",
+      "save": "sources/peldra-trade-notice.json",
+      "sha256": "605d4d4df5b02fb573f1b6a8ede371ecd71403dc9ac53f46f5627feb40bc694d",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\sulan\\start.json",
+      "save": "sources/sulan-start.json",
+      "sha256": "3e82f9d27f29101f3d2ffd8e4fd8a3ae68056d8d3733d2e8fcd392765f8dc859",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\sulan\\pending-offer.json",
+      "save": "sources/sulan-pending-offer.json",
+      "sha256": "18625dbcdba7f81a0a24ab42fe0eab0944b5fce39bade58bc001cb37b06f2e92",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\sulan\\queued-answer.json",
+      "save": "sources/sulan-queued-answer.json",
+      "sha256": "8e20b24128c468d9dce44699bb15758197301e6ad510a4184b6efb8bb347518b",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\sulan\\blocked-founder.json",
+      "save": "sources/sulan-blocked-founder.json",
+      "sha256": "f435121a1025c74cda7e065f5ab66a8d1f9edaca126b409132859c121f8fbbfb",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\sulan\\trade-earmark.json",
+      "save": "sources/sulan-trade-earmark.json",
+      "sha256": "1ede072c38ce174388e504bf6b53f5f47372de95c0c7dd1bdd152ade458f8c2c",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\sulan\\warmup.json",
+      "save": "sources/sulan-warmup.json",
+      "sha256": "5eca5ccd75695742e05513cfd18e1b64141d414b2b50ae1a5b1266e7464c5470",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\sulan\\accord-notice.json",
+      "save": "sources/sulan-accord-notice.json",
+      "sha256": "c532f09dbc5db2e27493c7a35bc7f3bd59131def57d84d3e69911887522ca811",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\sulan\\trade-notice.json",
+      "save": "sources/sulan-trade-notice.json",
+      "sha256": "e5c23c03879e8218db57b162a3042a3e936a781ea8a29499ce7f7519ddfd9322",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\wenth\\start.json",
+      "save": "sources/wenth-start.json",
+      "sha256": "fdab6cd53244fd00b4c8c448638a7b67bce657d984ceb030cf097780f885b4f4",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\wenth\\pending-offer.json",
+      "save": "sources/wenth-pending-offer.json",
+      "sha256": "fe9400b2de49c8eeeebadfd51aab2965d22335f5c4042edb84dfcdceac003ce5",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\wenth\\queued-answer.json",
+      "save": "sources/wenth-queued-answer.json",
+      "sha256": "8839a29561e5ff62911367fe4045af3f3e5fd8b3557aa19a6d24cfd7dbfe403a",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\wenth\\blocked-founder.json",
+      "save": "sources/wenth-blocked-founder.json",
+      "sha256": "8cfba0ac8864f347032b681e70971aac660ce20c1c7ab3758d1095bcdcdc39db",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\wenth\\trade-earmark.json",
+      "save": "sources/wenth-trade-earmark.json",
+      "sha256": "be80411330d2d56d430607e9cd7df8cc1bef15312bdaf61bd3c448dd63e260a7",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\wenth\\warmup.json",
+      "save": "sources/wenth-warmup.json",
+      "sha256": "f80616947cca2c70d45dd504d6ac5aa267493d19cc8d86aa9f94bb4ecbbddcba",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\wenth\\accord-notice.json",
+      "save": "sources/wenth-accord-notice.json",
+      "sha256": "4fa6356f56397ac8a1149698416c81f931f5b6389d3474a13525b51c58c5654b",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\reports\\diplomacy-integration-20261031\\diplomacy\\earned\\wenth\\trade-notice.json",
+      "save": "sources/wenth-trade-notice.json",
+      "sha256": "bd54bf0bc702c632611e39444b099c96978a0f6f2a89e42f0ea35f7c7caaabde",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules11-conflict-baselines.attempt-20261031T1848302633124\\primed\\first-human-ready.json",
+      "save": "sources/first-human-ready.json",
+      "sha256": "f7c8b49153dff5528bca2e9cd5deca78085026026d6b7d427d758f4a4164d355",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session two-human controller fixture; real first-human Ready; no turn or earned reward injected."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules11-conflict-baselines.attempt-20261031T1848302633124\\primed\\all-hazards-setup.json",
+      "save": "sources/all-hazards-setup.json",
+      "sha256": "0e95b0c74c705bbfa69f438c0ded503e71cdb3b169311150d3a3b1225651c474",
+      "category": "supplemental",
+      "provenance": "Labelled ordinary rules11 setup with plague, ameba and sentries enabled; unchanged future streams; no earned-campaign claim."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules11-conflict-baselines.attempt-20261031T1848302633124\\primed\\refit-completing.json",
+      "save": "sources/refit-completing.json",
+      "sha256": "1507276bf91234da5b6dd5811043499f3336826d56584e1d0b3a6f48b25fc042",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session armed hull/technology/bank fixture; real unpaid refit command and actual unchanged-engine completion accounting, not earned resources."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules11-conflict-baselines.attempt-20261031T1848302633124\\primed\\sentry-pending.json",
+      "save": "sources/sentry-pending.json",
+      "sha256": "c352564c4de172277140933d0001dc240969b1caa4df898e5feda4fe2d27b031",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session positioned/conditioned armed hull with real fleet/officer/attack commands; tests unchanged sentry/officer mortality or Wenth link, not an earned campaign."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules11-conflict-baselines.attempt-20261031T1848302633124\\primed\\officer-loss-harl.json",
+      "save": "sources/officer-loss-harl.json",
+      "sha256": "0456e3b32bb59087104f724cb26481f26c0b108430f889e71a66b853c516b047",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session positioned/conditioned armed hull with real fleet/officer/attack commands; tests unchanged sentry/officer mortality or Wenth link, not an earned campaign."
+    },
+    {
+      "source": "C:\\Users\\david\\OneDrive\\Documents\\ChatGPT\\OpenAnteres\\.worktrees\\empire-conflict\\tests\\OpenAntares.Simulation.Tests\\Fixtures\\rules11-conflict-baselines.attempt-20261031T1848302633124\\primed\\officer-loss-wenth.json",
+      "save": "sources/officer-loss-wenth.json",
+      "sha256": "39eb7611c5a3be1392147c12426a0c72180f8b0c45ac616bf6db7fab9bf31f27",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session positioned/conditioned armed hull with real fleet/officer/attack commands; tests unchanged sentry/officer mortality or Wenth link, not an earned campaign."
+    }
+  ],
+  "files": {
+    "checkpoints/all-hazards-setup.json": "3853e781f1e07e809e875ce45c2172ef9aa348730941934e6738a17c54c5b846",
+    "checkpoints/first-human-ready.json": "ab3bc5c345882936b193d97a79500fbd0a8b1a474806393eff77a4e6ad5d6d8a",
+    "checkpoints/harl-accord-notice.json": "bbffcf65525c2feb5f27ddd9cc7581803c7aa6827b74c223fc2d556f5f5e0c2a",
+    "checkpoints/harl-blocked-founder.json": "3ce5d32d179a76ce8883bf3ebaf9d08b02b2f3be61b2f561be4a31b6f2eb54a0",
+    "checkpoints/harl-pending-offer.json": "90940a15562a0d86cf16c6459c4c828042ff9ae664bacd9aa5657189903c65ef",
+    "checkpoints/harl-queued-answer.json": "50c97715e2eb884c2854ef58daa97df0284e35e04e18724d45e3e2c97239eb4d",
+    "checkpoints/harl-start.json": "3590de08a0931870f38426f18f47a88ba2e85f16d451761835be61e039c77772",
+    "checkpoints/harl-trade-earmark.json": "c545ffdf147f077d43e23dd860fd0b15c5d543ef89598d23c7d3fc4d43045c78",
+    "checkpoints/harl-trade-notice.json": "5364660559e2940f6d69678aa3fd502b3406486caf1800129fd43bfe7ed9db77",
+    "checkpoints/harl-warmup.json": "a1bd52ebecdf75c956468b96c63be40e546cbb9f26dfcaf99af341098969ac4c",
+    "checkpoints/officer-loss-harl.json": "befdb9cd75293e8d009deda2df89b6ea01de0390cc37e45ff51b64c9d62c5765",
+    "checkpoints/officer-loss-wenth.json": "972b665cc42a0d3fb24a4323dd2b27afd2d25e59eca24333fae192857941fcb0",
+    "checkpoints/peldra-accord-notice.json": "f836ede154c4d6c7e1a925e850a7159b1c23f9997a53280bf37167642f3e2bf1",
+    "checkpoints/peldra-blocked-founder.json": "24df66a5f4359bff4f62cda0ef778d3345b126a269b04ce048282cc572bdbdf1",
+    "checkpoints/peldra-pending-offer.json": "734260b7f5478998e9d8a754abc3e0805fc367475c78850ae493f06d77e27e46",
+    "checkpoints/peldra-queued-answer.json": "7263425ba3cb0fc2e810f143d36655dd443b875fa49e07314602a4d1a7b88d9b",
+    "checkpoints/peldra-start.json": "143d9df50ea48629135cae98eace7a9c2bce3cf17c50c2207dd7c394e9cf7869",
+    "checkpoints/peldra-trade-earmark.json": "671e8d9cb223513e7b6c296e879b3ea89cb5dfec4a93deabcb1a4bf69a42a1e0",
+    "checkpoints/peldra-trade-notice.json": "0c67a226e0b490b358f9faa4a1a8ec1cb89fc916190bc972feff040170be161a",
+    "checkpoints/peldra-warmup.json": "33c5736219771afd15c0d3787f552baae386707ec5c93b754293710aa9ec3102",
+    "checkpoints/refit-completing.json": "d6ef4b7d7cb29bafd7630a976f7d9e95791db45dee5eb77946a864d414d55349",
+    "checkpoints/sentry-pending.json": "9ef3ae1c700e2ca7ea0a435c737f9b2239b0e8953030a7c4e40825390c8a1f83",
+    "checkpoints/sulan-accord-notice.json": "811b72a4f70e0547b89c8022513ddb76d311da464d4c80566e5df8de9b021d6d",
+    "checkpoints/sulan-blocked-founder.json": "1219f97011a17da4938e5505cb16059f7fcf0d49e92582a3894fe96160260f16",
+    "checkpoints/sulan-pending-offer.json": "eeca7bff6c69771e419e925b91ba3107750b61edcfe441390df5784b803a83ec",
+    "checkpoints/sulan-queued-answer.json": "07adef1f9ecb15ebcbd219171dde9e95bcd3701dbe459d69d048deb10486bdcb",
+    "checkpoints/sulan-start.json": "2ac721ca841fa025613c9948ccb5a5a44978b78e5cf7c491532fda884ff6622e",
+    "checkpoints/sulan-trade-earmark.json": "7c8a178985e077d7a505b26348191d10df5a0cebbe40a5c79f8231441f11e736",
+    "checkpoints/sulan-trade-notice.json": "673cc39c712d14975d63c11421581bfb12ef09193e94b6e671bab9f2e039fa1a",
+    "checkpoints/sulan-warmup.json": "9fcf45eaf8184f2f70e4bc01abff37eb63a3a5c1f1fc65bcf77b030015f61742",
+    "checkpoints/wenth-accord-notice.json": "8fa9f5eced170854cc79b6a27c3cb72aa45f1d79773be5affb2046123b7ea6fb",
+    "checkpoints/wenth-blocked-founder.json": "002ec4a1853ac0658236ceef29f1b9dd0056ddf82fcd2aa91f34ebfd7d01e4ea",
+    "checkpoints/wenth-pending-offer.json": "6c388e6c8721f73f1644a99f269b0dbaa74fb00b736d02e3bbb771db20fbc111",
+    "checkpoints/wenth-queued-answer.json": "14a2c74c76331c14db5ec150cdfc31b63239e988059d1ef99d0c7c4a4a8a334b",
+    "checkpoints/wenth-start.json": "28e0fdfb22630a5a913f625a4717ccd780b66f1f7ebda752806704ea27a16a06",
+    "checkpoints/wenth-trade-earmark.json": "fc7cb11183797827e7385305aa0011f2506645fe23e04e7ca8b58c689e90e266",
+    "checkpoints/wenth-trade-notice.json": "f327822106759c36f9f524d7c769fc9a5f333f2c853089f1945adee191308098",
+    "checkpoints/wenth-warmup.json": "7b1e69dbb0c436ad176083f05a7d30e7e9724a0ec14847c655492abe41e53222",
+    "commands/all-hazards-setup.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/first-human-ready.json": "0d55e6d656b8f7e9fbda18cf7c40004a66529f194276c7e6059c103dcf773de3",
+    "commands/harl-accord-notice.json": "9503bfddd297ebd8ccf2fdef90f1d625ed51a9bbc6a384b638c4a37584e73a89",
+    "commands/harl-blocked-founder.json": "393a51f348c07531dba52814293c24ba4e5d3389ab56c36b9c7664a5e356f584",
+    "commands/harl-pending-offer.json": "a5b852fab30b745ace14330a333f2015e8ea8c4f01bc91eeaeedebe4b575d836",
+    "commands/harl-queued-answer.json": "a5b852fab30b745ace14330a333f2015e8ea8c4f01bc91eeaeedebe4b575d836",
+    "commands/harl-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/harl-trade-earmark.json": "c47d63cd348d238132dc67ecdd98a15fa9d9e35f82327701f1efd3243f697375",
+    "commands/harl-trade-notice.json": "b01e5c3c5a7460bb470356fcb6a69686b58a931dcbadb25dca856be8cd4052d1",
+    "commands/harl-warmup.json": "1ee62ff7506941bc08f18aabf5fb1dbc6967c8d25d86bbc3179f0a24717c045d",
+    "commands/officer-loss-harl.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/officer-loss-wenth.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/peldra-accord-notice.json": "9503bfddd297ebd8ccf2fdef90f1d625ed51a9bbc6a384b638c4a37584e73a89",
+    "commands/peldra-blocked-founder.json": "393a51f348c07531dba52814293c24ba4e5d3389ab56c36b9c7664a5e356f584",
+    "commands/peldra-pending-offer.json": "a5b852fab30b745ace14330a333f2015e8ea8c4f01bc91eeaeedebe4b575d836",
+    "commands/peldra-queued-answer.json": "a5b852fab30b745ace14330a333f2015e8ea8c4f01bc91eeaeedebe4b575d836",
+    "commands/peldra-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/peldra-trade-earmark.json": "c47d63cd348d238132dc67ecdd98a15fa9d9e35f82327701f1efd3243f697375",
+    "commands/peldra-trade-notice.json": "b01e5c3c5a7460bb470356fcb6a69686b58a931dcbadb25dca856be8cd4052d1",
+    "commands/peldra-warmup.json": "1ee62ff7506941bc08f18aabf5fb1dbc6967c8d25d86bbc3179f0a24717c045d",
+    "commands/refit-completing.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/sentry-pending.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/sulan-accord-notice.json": "9503bfddd297ebd8ccf2fdef90f1d625ed51a9bbc6a384b638c4a37584e73a89",
+    "commands/sulan-blocked-founder.json": "393a51f348c07531dba52814293c24ba4e5d3389ab56c36b9c7664a5e356f584",
+    "commands/sulan-pending-offer.json": "a5b852fab30b745ace14330a333f2015e8ea8c4f01bc91eeaeedebe4b575d836",
+    "commands/sulan-queued-answer.json": "a5b852fab30b745ace14330a333f2015e8ea8c4f01bc91eeaeedebe4b575d836",
+    "commands/sulan-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/sulan-trade-earmark.json": "c47d63cd348d238132dc67ecdd98a15fa9d9e35f82327701f1efd3243f697375",
+    "commands/sulan-trade-notice.json": "b01e5c3c5a7460bb470356fcb6a69686b58a931dcbadb25dca856be8cd4052d1",
+    "commands/sulan-warmup.json": "1ee62ff7506941bc08f18aabf5fb1dbc6967c8d25d86bbc3179f0a24717c045d",
+    "commands/wenth-accord-notice.json": "9503bfddd297ebd8ccf2fdef90f1d625ed51a9bbc6a384b638c4a37584e73a89",
+    "commands/wenth-blocked-founder.json": "393a51f348c07531dba52814293c24ba4e5d3389ab56c36b9c7664a5e356f584",
+    "commands/wenth-pending-offer.json": "a5b852fab30b745ace14330a333f2015e8ea8c4f01bc91eeaeedebe4b575d836",
+    "commands/wenth-queued-answer.json": "a5b852fab30b745ace14330a333f2015e8ea8c4f01bc91eeaeedebe4b575d836",
+    "commands/wenth-start.json": "ea51b0de2f08ce64dec4332e13c7ac9c290ea64139e63032c7b5f7d6b0a92e47",
+    "commands/wenth-trade-earmark.json": "c47d63cd348d238132dc67ecdd98a15fa9d9e35f82327701f1efd3243f697375",
+    "commands/wenth-trade-notice.json": "b01e5c3c5a7460bb470356fcb6a69686b58a931dcbadb25dca856be8cd4052d1",
+    "commands/wenth-warmup.json": "1ee62ff7506941bc08f18aabf5fb1dbc6967c8d25d86bbc3179f0a24717c045d",
+    "primed/all-hazards-setup.json": "0e95b0c74c705bbfa69f438c0ded503e71cdb3b169311150d3a3b1225651c474",
+    "primed/first-human-ready.json": "f7c8b49153dff5528bca2e9cd5deca78085026026d6b7d427d758f4a4164d355",
+    "primed/officer-loss-harl.json": "0456e3b32bb59087104f724cb26481f26c0b108430f889e71a66b853c516b047",
+    "primed/officer-loss-wenth.json": "39eb7611c5a3be1392147c12426a0c72180f8b0c45ac616bf6db7fab9bf31f27",
+    "primed/refit-completing.json": "1507276bf91234da5b6dd5811043499f3336826d56584e1d0b3a6f48b25fc042",
+    "primed/sentry-pending.json": "c352564c4de172277140933d0001dc240969b1caa4df898e5feda4fe2d27b031",
+    "sources/all-hazards-setup.json": "0e95b0c74c705bbfa69f438c0ded503e71cdb3b169311150d3a3b1225651c474",
+    "sources/first-human-ready.json": "f7c8b49153dff5528bca2e9cd5deca78085026026d6b7d427d758f4a4164d355",
+    "sources/harl-accord-notice.json": "4d1198bb40d072fad9d5976b9be927dbbf15d124c1731e347054ce7d5258fdd4",
+    "sources/harl-blocked-founder.json": "6b6a6702fc27294b35101c6e5b93495bb4f74b3f08a58821f9e2925cbdcb437e",
+    "sources/harl-pending-offer.json": "5d6100c08c79c09cd177f9678e9994f791267acef38c57d8157681bd14b4794e",
+    "sources/harl-queued-answer.json": "489f9810a7fa011b90fe05cad568d5a6fc6fda6c9313fed777e78a837ccd33d5",
+    "sources/harl-start.json": "9bfc58db6a5f3fd029690c949a8bf82196387929d07ff3a01f03fe5b904e7a01",
+    "sources/harl-trade-earmark.json": "dea0a6c1fd8b700956de27b347f9376b5ad9cc4a2f5109559c991538daeb7f5c",
+    "sources/harl-trade-notice.json": "f79aa2c538f19ecbf30533ecd962ed6d9bf5a7a25e65a8e25675881c7b68cecb",
+    "sources/harl-warmup.json": "79d695ae63386d2148960a15ea2975727eedf280eb0f0c32d9f29f73979074ec",
+    "sources/officer-loss-harl.json": "0456e3b32bb59087104f724cb26481f26c0b108430f889e71a66b853c516b047",
+    "sources/officer-loss-wenth.json": "39eb7611c5a3be1392147c12426a0c72180f8b0c45ac616bf6db7fab9bf31f27",
+    "sources/peldra-accord-notice.json": "1fb699d38658ed09f824b6d34dbcb4d0e930053f43e388f4bbbccfe6c130a8af",
+    "sources/peldra-blocked-founder.json": "d272a4a28269ba8ee718c18c0f2041e5d5055bfa797ebc081508c9e0d65969fc",
+    "sources/peldra-pending-offer.json": "e7ee7ccae4198f17779dfa27b4d9c4664a10a338963040e20e689e3c90a8681e",
+    "sources/peldra-queued-answer.json": "5f5fada5d65b78fa6bf484374b098930708d163337db3311e8f8953092397b57",
+    "sources/peldra-start.json": "ac01bb3a8db2eb1b9594631d2837490acd7e31e6618d92fd85ce5eaf71caefa0",
+    "sources/peldra-trade-earmark.json": "7557548bef12813856e5144a191ab74829096ae1db20769ac9a7097d802735f1",
+    "sources/peldra-trade-notice.json": "605d4d4df5b02fb573f1b6a8ede371ecd71403dc9ac53f46f5627feb40bc694d",
+    "sources/peldra-warmup.json": "67ce413a8108390b143aa5f96842487fc1638faaf7eff9eb9a8e0de85dab5e67",
+    "sources/refit-completing.json": "1507276bf91234da5b6dd5811043499f3336826d56584e1d0b3a6f48b25fc042",
+    "sources/sentry-pending.json": "c352564c4de172277140933d0001dc240969b1caa4df898e5feda4fe2d27b031",
+    "sources/sulan-accord-notice.json": "c532f09dbc5db2e27493c7a35bc7f3bd59131def57d84d3e69911887522ca811",
+    "sources/sulan-blocked-founder.json": "f435121a1025c74cda7e065f5ab66a8d1f9edaca126b409132859c121f8fbbfb",
+    "sources/sulan-pending-offer.json": "18625dbcdba7f81a0a24ab42fe0eab0944b5fce39bade58bc001cb37b06f2e92",
+    "sources/sulan-queued-answer.json": "8e20b24128c468d9dce44699bb15758197301e6ad510a4184b6efb8bb347518b",
+    "sources/sulan-start.json": "3e82f9d27f29101f3d2ffd8e4fd8a3ae68056d8d3733d2e8fcd392765f8dc859",
+    "sources/sulan-trade-earmark.json": "1ede072c38ce174388e504bf6b53f5f47372de95c0c7dd1bdd152ade458f8c2c",
+    "sources/sulan-trade-notice.json": "e5c23c03879e8218db57b162a3042a3e936a781ea8a29499ce7f7519ddfd9322",
+    "sources/sulan-warmup.json": "5eca5ccd75695742e05513cfd18e1b64141d414b2b50ae1a5b1266e7464c5470",
+    "sources/wenth-accord-notice.json": "4fa6356f56397ac8a1149698416c81f931f5b6389d3474a13525b51c58c5654b",
+    "sources/wenth-blocked-founder.json": "8cfba0ac8864f347032b681e70971aac660ce20c1c7ab3758d1095bcdcdc39db",
+    "sources/wenth-pending-offer.json": "fe9400b2de49c8eeeebadfd51aab2965d22335f5c4042edb84dfcdceac003ce5",
+    "sources/wenth-queued-answer.json": "8839a29561e5ff62911367fe4045af3f3e5fd8b3557aa19a6d24cfd7dbfe403a",
+    "sources/wenth-start.json": "fdab6cd53244fd00b4c8c448638a7b67bce657d984ceb030cf097780f885b4f4",
+    "sources/wenth-trade-earmark.json": "be80411330d2d56d430607e9cd7df8cc1bef15312bdaf61bd3c448dd63e260a7",
+    "sources/wenth-trade-notice.json": "bd54bf0bc702c632611e39444b099c96978a0f6f2a89e42f0ea35f7c7caaabde",
+    "sources/wenth-warmup.json": "f80616947cca2c70d45dd504d6ac5aa267493d19cc8d86aa9f94bb4ecbbddcba"
+  },
+  "cases": [
+    {
+      "name": "harl-start",
+      "save": "sources/harl-start.json",
+      "commands": "commands/harl-start.json",
+      "checkpoints": "checkpoints/harl-start.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "harl-pending-offer",
+      "save": "sources/harl-pending-offer.json",
+      "commands": "commands/harl-pending-offer.json",
+      "checkpoints": "checkpoints/harl-pending-offer.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "harl-queued-answer",
+      "save": "sources/harl-queued-answer.json",
+      "commands": "commands/harl-queued-answer.json",
+      "checkpoints": "checkpoints/harl-queued-answer.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "harl-blocked-founder",
+      "save": "sources/harl-blocked-founder.json",
+      "commands": "commands/harl-blocked-founder.json",
+      "checkpoints": "checkpoints/harl-blocked-founder.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "harl-trade-earmark",
+      "save": "sources/harl-trade-earmark.json",
+      "commands": "commands/harl-trade-earmark.json",
+      "checkpoints": "checkpoints/harl-trade-earmark.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "harl-warmup",
+      "save": "sources/harl-warmup.json",
+      "commands": "commands/harl-warmup.json",
+      "checkpoints": "checkpoints/harl-warmup.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "harl-accord-notice",
+      "save": "sources/harl-accord-notice.json",
+      "commands": "commands/harl-accord-notice.json",
+      "checkpoints": "checkpoints/harl-accord-notice.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "harl-trade-notice",
+      "save": "sources/harl-trade-notice.json",
+      "commands": "commands/harl-trade-notice.json",
+      "checkpoints": "checkpoints/harl-trade-notice.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "peldra-start",
+      "save": "sources/peldra-start.json",
+      "commands": "commands/peldra-start.json",
+      "checkpoints": "checkpoints/peldra-start.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "peldra-pending-offer",
+      "save": "sources/peldra-pending-offer.json",
+      "commands": "commands/peldra-pending-offer.json",
+      "checkpoints": "checkpoints/peldra-pending-offer.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "peldra-queued-answer",
+      "save": "sources/peldra-queued-answer.json",
+      "commands": "commands/peldra-queued-answer.json",
+      "checkpoints": "checkpoints/peldra-queued-answer.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "peldra-blocked-founder",
+      "save": "sources/peldra-blocked-founder.json",
+      "commands": "commands/peldra-blocked-founder.json",
+      "checkpoints": "checkpoints/peldra-blocked-founder.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "peldra-trade-earmark",
+      "save": "sources/peldra-trade-earmark.json",
+      "commands": "commands/peldra-trade-earmark.json",
+      "checkpoints": "checkpoints/peldra-trade-earmark.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "peldra-warmup",
+      "save": "sources/peldra-warmup.json",
+      "commands": "commands/peldra-warmup.json",
+      "checkpoints": "checkpoints/peldra-warmup.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "peldra-accord-notice",
+      "save": "sources/peldra-accord-notice.json",
+      "commands": "commands/peldra-accord-notice.json",
+      "checkpoints": "checkpoints/peldra-accord-notice.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "peldra-trade-notice",
+      "save": "sources/peldra-trade-notice.json",
+      "commands": "commands/peldra-trade-notice.json",
+      "checkpoints": "checkpoints/peldra-trade-notice.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "sulan-start",
+      "save": "sources/sulan-start.json",
+      "commands": "commands/sulan-start.json",
+      "checkpoints": "checkpoints/sulan-start.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "sulan-pending-offer",
+      "save": "sources/sulan-pending-offer.json",
+      "commands": "commands/sulan-pending-offer.json",
+      "checkpoints": "checkpoints/sulan-pending-offer.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "sulan-queued-answer",
+      "save": "sources/sulan-queued-answer.json",
+      "commands": "commands/sulan-queued-answer.json",
+      "checkpoints": "checkpoints/sulan-queued-answer.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "sulan-blocked-founder",
+      "save": "sources/sulan-blocked-founder.json",
+      "commands": "commands/sulan-blocked-founder.json",
+      "checkpoints": "checkpoints/sulan-blocked-founder.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "sulan-trade-earmark",
+      "save": "sources/sulan-trade-earmark.json",
+      "commands": "commands/sulan-trade-earmark.json",
+      "checkpoints": "checkpoints/sulan-trade-earmark.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "sulan-warmup",
+      "save": "sources/sulan-warmup.json",
+      "commands": "commands/sulan-warmup.json",
+      "checkpoints": "checkpoints/sulan-warmup.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "sulan-accord-notice",
+      "save": "sources/sulan-accord-notice.json",
+      "commands": "commands/sulan-accord-notice.json",
+      "checkpoints": "checkpoints/sulan-accord-notice.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "sulan-trade-notice",
+      "save": "sources/sulan-trade-notice.json",
+      "commands": "commands/sulan-trade-notice.json",
+      "checkpoints": "checkpoints/sulan-trade-notice.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "wenth-start",
+      "save": "sources/wenth-start.json",
+      "commands": "commands/wenth-start.json",
+      "checkpoints": "checkpoints/wenth-start.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "wenth-pending-offer",
+      "save": "sources/wenth-pending-offer.json",
+      "commands": "commands/wenth-pending-offer.json",
+      "checkpoints": "checkpoints/wenth-pending-offer.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "wenth-queued-answer",
+      "save": "sources/wenth-queued-answer.json",
+      "commands": "commands/wenth-queued-answer.json",
+      "checkpoints": "checkpoints/wenth-queued-answer.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "wenth-blocked-founder",
+      "save": "sources/wenth-blocked-founder.json",
+      "commands": "commands/wenth-blocked-founder.json",
+      "checkpoints": "checkpoints/wenth-blocked-founder.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "wenth-trade-earmark",
+      "save": "sources/wenth-trade-earmark.json",
+      "commands": "commands/wenth-trade-earmark.json",
+      "checkpoints": "checkpoints/wenth-trade-earmark.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "wenth-warmup",
+      "save": "sources/wenth-warmup.json",
+      "commands": "commands/wenth-warmup.json",
+      "checkpoints": "checkpoints/wenth-warmup.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "wenth-accord-notice",
+      "save": "sources/wenth-accord-notice.json",
+      "commands": "commands/wenth-accord-notice.json",
+      "checkpoints": "checkpoints/wenth-accord-notice.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "wenth-trade-notice",
+      "save": "sources/wenth-trade-notice.json",
+      "commands": "commands/wenth-trade-notice.json",
+      "checkpoints": "checkpoints/wenth-trade-notice.json",
+      "category": "generated",
+      "provenance": "Actual earned rules11 diplomacy campaign; original bytes from accepted main evidence."
+    },
+    {
+      "name": "first-human-ready",
+      "save": "sources/first-human-ready.json",
+      "commands": "commands/first-human-ready.json",
+      "checkpoints": "checkpoints/first-human-ready.json",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session two-human controller fixture; real first-human Ready; no turn or earned reward injected."
+    },
+    {
+      "name": "all-hazards-setup",
+      "save": "sources/all-hazards-setup.json",
+      "commands": "commands/all-hazards-setup.json",
+      "checkpoints": "checkpoints/all-hazards-setup.json",
+      "category": "supplemental",
+      "provenance": "Labelled ordinary rules11 setup with plague, ameba and sentries enabled; unchanged future streams; no earned-campaign claim."
+    },
+    {
+      "name": "refit-completing",
+      "save": "sources/refit-completing.json",
+      "commands": "commands/refit-completing.json",
+      "checkpoints": "checkpoints/refit-completing.json",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session armed hull/technology/bank fixture; real unpaid refit command and actual unchanged-engine completion accounting, not earned resources."
+    },
+    {
+      "name": "sentry-pending",
+      "save": "sources/sentry-pending.json",
+      "commands": "commands/sentry-pending.json",
+      "checkpoints": "checkpoints/sentry-pending.json",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session positioned/conditioned armed hull with real fleet/officer/attack commands; tests unchanged sentry/officer mortality or Wenth link, not an earned campaign."
+    },
+    {
+      "name": "officer-loss-harl",
+      "save": "sources/officer-loss-harl.json",
+      "commands": "commands/officer-loss-harl.json",
+      "checkpoints": "checkpoints/officer-loss-harl.json",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session positioned/conditioned armed hull with real fleet/officer/attack commands; tests unchanged sentry/officer mortality or Wenth link, not an earned campaign."
+    },
+    {
+      "name": "officer-loss-wenth",
+      "save": "sources/officer-loss-wenth.json",
+      "commands": "commands/officer-loss-wenth.json",
+      "checkpoints": "checkpoints/officer-loss-wenth.json",
+      "category": "supplemental",
+      "provenance": "Labelled pre-session positioned/conditioned armed hull with real fleet/officer/attack commands; tests unchanged sentry/officer mortality or Wenth link, not an earned campaign."
+    }
+  ]
+}
