@@ -32,7 +32,7 @@ try {
                 $frameLimit=if($Scenario -in @('Combat','ShipDesign','EmpireConflict')){72000}else{7200}
         $validationArguments=@("--validation-output=$outputPath")
         if($EarnedConflictCampaigns){$validationArguments+='--validation-earned-conflict'}
-        & $godotPath --path $repoRoot --quit-after $frameLimit --scene $scene --log-file (Join-Path $outputPath 'godot.log') -- @validationArguments
+        & $godotPath --path $repoRoot --quit-after $frameLimit --scene $scene --log-file (Join-Path $outputPath 'godot.log') -- @validationArguments 2>&1 | Tee-Object -FilePath (Join-Path $outputPath 'console.log')
         $nativeExit=$LASTEXITCODE
         if ($LASTEXITCODE -ne 0) { throw "Graphical validation failed with exit $LASTEXITCODE." }
         if (-not (Test-Path -LiteralPath (Join-Path $outputPath 'results.json'))) { throw 'No validation results were written.' }
@@ -48,7 +48,10 @@ try {
             $stable=@($source.files|Where-Object{!(Test-Path -LiteralPath (Join-Path $repoRoot $_.path)) -or (Get-FileHash -LiteralPath (Join-Path $repoRoot $_.path) -Algorithm SHA256).Hash.ToLowerInvariant() -ne $_.sha256}).Count -eq 0
             $diagnostics=@()
             if(Test-Path -LiteralPath (Join-Path $outputPath 'godot.log')){$diagnostics=@(Get-Content -LiteralPath (Join-Path $outputPath 'godot.log')|Where-Object{$_ -match '^\s*(ERROR:|SCRIPT ERROR:|WARNING:)'})}else{$diagnostics=@('Engine log missing')}
+            if(Test-Path -LiteralPath (Join-Path $outputPath 'console.log')){$diagnostics+=@(Get-Content -LiteralPath (Join-Path $outputPath 'console.log')|Where-Object{$_ -match '^\s*(ERROR:|SCRIPT ERROR:|WARNING:)'})}else{$diagnostics+=@('Engine console log missing')}
             [ordered]@{scenario=$Scenario;earnedConflictCampaigns=$EarnedConflictCampaigns.IsPresent;exitCode=$nativeExit;diagnostics=@($diagnostics);sourceStable=$stable;sourceSha256=(Get-FileHash -LiteralPath $sourcePath -Algorithm SHA256).Hash.ToLowerInvariant();assemblySha256=$source.assembly.sha256}|ConvertTo-Json -Depth 6|Set-Content -LiteralPath (Join-Path $outputPath 'execution.json') -Encoding utf8
+            if(!$stable){throw 'Validation source changed during execution.'}
+            if($diagnostics.Count -gt 0){throw 'Engine diagnostics prevent acceptance; inspect console.log and godot.log.'}
         }
     }
 }

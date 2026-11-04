@@ -124,7 +124,7 @@ public partial class GameScreen : VBoxContainer
         _fleetCommand.CommandIssued+=Execute;_assemblyRequest.CommandIssued+=Execute;_officerDetails.CommandIssued+=Execute;
         AddChild(_conflictOrders);_conflictOrders.CommandIssued+=Execute;
         _fleetCommand.ConflictOrdersRequested+=anchor=>{_fleetCommand.Hide();Callable.From(()=>OpenConflictOrders(anchor)).CallDeferred();};
-        if(Rules.HasConflict(View.RulesVersion)){var row=new VBoxContainer();AddChild(row);row.AddChild(_conflictBadge);var button=new Button{Name="OpenConflictOrders",Text="Empire conflict orders / revised force response"};row.AddChild(button);button.Pressed+=()=>OpenConflictOrders(null);}
+        if(Rules.HasConflict(View.RulesVersion)){var row=new VBoxContainer();AddChild(row);row.AddChild(_conflictBadge);var button=new Button{Name="OpenConflictOrders",Text="Empire conflict orders / revised force response"};row.AddChild(button);button.Pressed+=()=>OpenConflictOrders(null);}else{AddChild(_conflictBadge);_conflictBadge.Hide();}
         _fleetCommand.DisplayApplied+=()=>Callable.From(Refresh).CallDeferred();
         foreach(var dialog in new Window[]{_fleetCommand,_assemblyRequest,_officerDetails,_combatOrders,_shipDesigns,_shipDesignEditor,_refit})dialog.VisibilityChanged+=()=>Callable.From(OpenPendingCommandInterrupt).CallDeferred();
         _fleetCommand.RequestRequested+=request=>{_fleetCommand.Hide();Callable.From(()=>_assemblyRequest.ShowEditor(_session.Content,View,request)).CallDeferred();};
