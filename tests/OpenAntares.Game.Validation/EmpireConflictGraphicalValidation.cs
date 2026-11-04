@@ -172,7 +172,9 @@ public partial class EmpireConflictGraphicalValidation:Node
                 Check(Text(setup).Contains("limited war")&&Text(setup).Contains("Solo has no opponent"),"Current setup explains limited war and Solo");
                 await Click(Descendants<Button>(setup).Single(b=>b.Text=="Start"));
                 Check(settings is{RulesVersion:12,RivalCount:0},"Actual current Solo Start submits rules12");
-                await Capture(this,setup.GetWindow(),Path.Combine(_output,"current-conflict-setup-"+size.X+".png"));
+                await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);
+                using var setupImage=GetViewport().GetTexture().GetImage();
+                Check(setupImage.SavePng(Path.Combine(_output,"current-conflict-setup-"+size.X+".png"))==Error.Ok,"Current setup screenshot retained without changing the main window");
             }
             finally{RemoveChild(setup);setup.QueueFree();await Frames(this);}
             setup=new NewGameScreen(content with{Conflict=null});AddChild(setup);await Frames(this);
