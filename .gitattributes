@@ -25,3 +25,6 @@
 
 /tests/OpenAntares.Simulation.Tests/Fixtures/rules11-conflict-baselines/** -text -whitespace
 /reports/conflict-execution/** -text -whitespace
+
+# Native queue artifacts retain exact hashes across checkouts.
+/reports/native-tests/** -text -whitespace
