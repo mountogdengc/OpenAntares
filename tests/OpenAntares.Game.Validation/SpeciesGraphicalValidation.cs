@@ -40,7 +40,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         catch(Exception ex){error=ex.ToString();GD.PrintErr(error);}
         finally
         {
-            if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Species",method="Actual controls/signals/commands; no physical OS input or human-comprehension claim.",passed=error is null,error,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));
+            if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Species",method="Actual controls/signals/commands; no physical OS input or human-comprehension claim.",passed=error is null,error,checks=_results,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));
             GetTree().Quit(error is null?0:1);
         }
     }

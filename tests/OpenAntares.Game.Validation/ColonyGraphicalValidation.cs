@@ -41,7 +41,7 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
             await ManualOverrideDigest();
             await GeneratedDevelopmentCampaigns();
         }catch(Exception ex){error=ex.ToString();GD.PrintErr(error);}
-        finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Colony",method="Actual controls/signals with labelled fixtures; no physical OS input or human-readability claim.",passed=error is null,error,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
+        finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{runId=_runId,scenario="Colony",method="Actual controls/signals with labelled fixtures; no physical OS input or human-readability claim.",passed=error is null,error,checks=_results,results=_results,retainedQaSavePaths=_savePaths},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
     }
     private static ContentSet DevelopmentContent(){var loaded=ContentLoader.Load(new[]{new ContentSource("labelled-colony-content",File.ReadAllText(ProjectSettings.GlobalizePath("res://tests/OpenAntares.Simulation.Tests/Fixtures/colony-development-content.json")))},requireDevelopment:true);return loaded.Content??throw new InvalidOperationException(string.Join("; ",loaded.Errors));}
     private async Task PolishHistoryChecks()
