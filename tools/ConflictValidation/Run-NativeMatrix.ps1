@@ -39,7 +39,7 @@ try {
    if(@($negative.presentScenarioTypes).Count -ne 12 -or @($negative.presentHelpers).Count -ne 2){throw 'Actual twelve-case opt-in inventory is incomplete'}
    python tools/ConflictValidation/Verify-Evidence.py --capture-source (Join-Path $output 'source.json') --assembly $assembly *> (Join-Path $output 'source-capture.log')
    if($LASTEXITCODE -ne 0){throw 'Committed source and assembly capture failed'}
-   $frameLimit=if($scenario -in @('Expansion','Combat','ShipDesign','EmpireConflict')){72000}else{7200}
+   $frameLimit=if($scenario -in @('Expansion','Rival','Combat','ShipDesign','EmpireConflict')){72000}else{7200}
    $arguments=@("--validation-output=$output")
    if($record.earnedConflictCampaigns){$arguments+='--validation-earned-conflict'}
    Write-Output "Native matrix scenario: $scenario"
