@@ -21,7 +21,7 @@ public partial class DiplomacyGraphicalValidation
     private static string Digest(string value)=>Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(value))).ToLowerInvariant();
     public static EarnedCampaign BuildCampaign(ContentSet content,string species,ulong seed)
     {
-        var generated=GalaxyGenerator.CreateNewGame(content,new("small",seed,11,species,1,"wenth",CrisesEnabled:false,AmebasEnabled:false,SentriesEnabled:false));if(!generated.Succeeded)throw new InvalidOperationException(generated.Error);
+        var generated=GalaxyGenerator.CreateNewGame(content,new("small",seed,Rules.CurrentVersion,species,1,"wenth",CrisesEnabled:false,AmebasEnabled:false,SentriesEnabled:false));if(!generated.Succeeded)throw new InvalidOperationException(generated.Error);
         var s=new GameSession(content,generated.State!);var owner=s.State.Empires[0].Id;var other=s.State.Empires[1].Id;var home=s.View(owner).Colonies.Single().Id;var steps=new List<CampaignStep>();long paid=0,income=0,bothPaid=0,earnedProduction=0;int founded=0;StarId? shared=null;bool secondOrdered=false,blocked=false;var stages=new HashSet<string>();
         void Send(Command command,string? stage=null,bool accepted=true)
         {

@@ -23,7 +23,7 @@ public partial class EmpireConflictGraphicalValidation:Node
     public override async void _Ready()
     {
         string? error=null;
-        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Actual graphical Godot display");EmpireConflictCampaignUiChecks.MixedDefenseAndLocalFallbackAreExplained(Check);await AttackChangeBlockadeAndLiftUseReviewedControls();await BlockadeIncomeAndReportsAgreeWithActualTurn();await MixedDefenseAndLocalFallbackAreExplained();await PublishedWithdrawalAndSolo();await WarPeaceAndOwnPendingAnswersUseRealControls();if(OS.GetCmdlineUserArgs().Contains("--validation-earned-conflict"))foreach(var species in new[]{"harl","peldra","sulan","wenth"})await EarnedMainCampaign(species);}
+        try{_output=OS.GetCmdlineUserArgs().Single(a=>a.StartsWith("--validation-output="))[20..];Directory.CreateDirectory(_output);Check(DisplayServer.GetName()!="headless","Actual graphical Godot display");EmpireConflictCampaignUiChecks.MixedDefenseAndLocalFallbackAreExplained(Check);await CurrentSetupRequiresConflict();await AttackChangeBlockadeAndLiftUseReviewedControls();await BlockadeIncomeAndReportsAgreeWithActualTurn();await MixedDefenseAndLocalFallbackAreExplained();await PublishedWithdrawalAndSolo();await WarPeaceAndOwnPendingAnswersUseRealControls();if(OS.GetCmdlineUserArgs().Contains("--validation-earned-conflict"))foreach(var species in new[]{"harl","peldra","sulan","wenth"})await EarnedMainCampaign(species);}
         catch(Exception e){error=e.ToString();GD.PrintErr(error);}
         finally{if(_output.Length>0)File.WriteAllText(Path.Combine(_output,"results.json"),JsonSerializer.Serialize(new{scenario="EmpireConflict",passed=error is null,error,method="Actual Godot control signals and Main Save/Load; labelled pre-session multi-human supplements; no physical-input or comprehension claim",checks=_checks,provenance=_provenance},new JsonSerializerOptions{WriteIndented=true}));GetTree().Quit(error is null?0:1);}
     }
@@ -158,6 +158,34 @@ public partial class EmpireConflictGraphicalValidation:Node
     private async Task End(GameScreen screen){HideWindows(screen);await Click(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));}
     private async Task<GameScreen> Other(GameScreen primary,EmpireId viewer){HideWindows(primary);primary.Hide();var other=new GameScreen(Live(primary),viewer);Paths(other,"other-"+viewer.Value);AddChild(other);await Frames(this);return other;}
     private async Task RemoveOther(GameScreen other,GameScreen primary){HideWindows(other);RemoveChild(other);other.QueueFree();primary.Show();typeof(GameScreen).GetMethod("Refresh",BindingFlags.NonPublic|BindingFlags.Instance)!.Invoke(primary,null);await Frames(this);}
+    private async Task CurrentSetupRequiresConflict()
+    {
+        foreach(var size in new[]{new Vector2I(800,600),new Vector2I(1920,1080)})
+        {
+            GetTree().Root.Size=size;
+            var content=CompleteContent();
+            var setup=new NewGameScreen(content){Theme=GD.Load<Theme>("res://game/theme/openantares_theme.tres")};AddChild(setup);await Frames(this);
+            try
+            {
+                NewGameSettings? settings=null;setup.StartRequested+=value=>settings=value;
+                setup.Configure("small",42,"harl",0,crisesEnabled:false,amebasEnabled:false,sentriesEnabled:false);
+                Check(Text(setup).Contains("limited war")&&Text(setup).Contains("Solo has no opponent"),"Current setup explains limited war and Solo");
+                await Click(Descendants<Button>(setup).Single(b=>b.Text=="Start"));
+                Check(settings is{RulesVersion:12,RivalCount:0},"Actual current Solo Start submits rules12");
+                await Capture(this,setup.GetWindow(),Path.Combine(_output,"current-conflict-setup-"+size.X+".png"));
+            }
+            finally{RemoveChild(setup);setup.QueueFree();await Frames(this);}
+            setup=new NewGameScreen(content with{Conflict=null});AddChild(setup);await Frames(this);
+            try
+            {
+                bool started=false,load=false;setup.StartRequested+=_=>started=true;setup.LoadRequested+=()=>load=true;
+                Check(Descendants<Button>(setup).Single(b=>b.Text=="Start").Disabled,"Missing conflict content disables current Start including Solo");
+                setup.Start();Check(!started&&Text(setup).Contains("Conflict definitions are required"),"Direct Start cannot bypass missing conflict definition");
+                await Click(Descendants<Button>(setup).Single(b=>b.Text=="Load Game"));Check(load,"Missing conflict content retains Load recovery");
+            }
+            finally{RemoveChild(setup);setup.QueueFree();await Frames(this);}
+        }
+    }
     private async Task PublishedWithdrawalAndSolo()
     {
         GetTree().Root.Size=new(800,600);var fixture=PoliticalFixture();var state=fixture.State;state.Turn=10;OpenAntares.Simulation.Knowledge.ObservationUpdater.Refresh(state,10);ConflictObservations.Refresh(fixture.Content,state);var pair=state.Conflict!.Pairs.Single();pair.Relation=RelationKind.War;pair.WarTurn=5;pair.Declarers.Add(pair.Pair.Low);pair.Parties[1].DeclarationGrievance=true;pair.Parties[1].LastCounterpartDeclarationTurn=5;pair.PendingPeace=new(){Id=new(1),Proposer=pair.Pair.Low,CreatedTurn=10,ExpiryTurn=13,Answer=true};pair.NextPeaceOfferId=2;pair.Revision=3;var errors=GameStateValidator.Validate(fixture.Content,state);Check(errors.Count==0,"Labelled published-offer/queued-answer supplement validates: "+string.Join("; ",errors));var (main,screen)=await Mount(fixture,"published-withdrawal");

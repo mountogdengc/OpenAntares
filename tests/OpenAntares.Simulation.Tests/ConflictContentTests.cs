@@ -49,9 +49,9 @@ public sealed class ConflictContentTests
         Assert.True(embedded.Succeeded,string.Join("; ",embedded.Errors));Assert.Equal(7,embedded.Content!.Conflict!.Truce);Assert.Equal(65,embedded.Content.Conflict.BlockadeRetainedPercent);
         using var old=new MemoryStream();using(var w=new Utf8JsonWriter(old))ContentWriter.Write(w,alternate.Content!,11);
         Assert.DoesNotContain("\"conflict\"",Encoding.UTF8.GetString(old.ToArray()));
-        Assert.Equal(11,Rules.CurrentVersion);
+        Assert.Equal(12,Rules.CurrentVersion);
     }
-    [Fact] public void CoreDefinitionExistsWithoutActivatingRules12()
+    [Fact] public void CoreDefinitionAvailableForCurrentConflictRules()
     {var c=ContentLoader.LoadDirectory(ContentLoaderTests.CoreContentDirectory());Assert.True(c.Succeeded);Assert.NotNull(c.Content!.Conflict);Assert.Equal(4,c.Content.Conflict!.WarHullTarget);}
     [Theory]
     [InlineData("truce",0)][InlineData("offer_lifetime",1001)][InlineData("declaration_grievance",1001)]

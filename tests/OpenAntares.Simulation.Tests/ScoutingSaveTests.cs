@@ -22,7 +22,7 @@ public sealed class ScoutingSaveTests
     }
     [Fact] public void CurrentWriterRoundTripsEveryExplicitScoutShape()
     {
-        Assert.Equal(13,SaveGame.SchemaVersion);Assert.Equal(11,Rules.CurrentVersion);
+        Assert.Equal(13,SaveGame.SchemaVersion);Assert.Equal(12,Rules.CurrentVersion);
         foreach(var g in Cases()){string before=SaveGame.Serialize(g.Content,g.State);var r=SaveGame.Deserialize(before);Assert.True(r.Succeeded,string.Join("; ",r.Errors));Assert.Equal(before,SaveGame.Serialize(r.Game!.Content,r.Game.State));}
     }
     [Fact] public void ExactTwentyNinePairsAcceptAndAllOtherNearbyPairsReject()
