@@ -1,16 +1,8 @@
-**Current packet ready for owner observations after automated work,2026-11-07:** the sixth fix passes the full development8/40/120 audit and four-size report regression, with ordinary build restored. Human acceptance remains Pending. Strict committed-source gates and commit authorization are separate. Earlier blocking/proposal text below is historical; use the current QA index here and preserve all originals. The source evidence is `task10-sixth-final-all-01`, manifestSHA `c9bd68c63fdf655e1ce46f03cdebc38eb54aaf72663afb6fae512b49f45315da`.
-
-Current actual-Main QA names (latest fixed-source audit):
-
-- harl/Standard turn 0: `qa-m13-20261107-154839-0765705-campaign-harl-Standard-t0`
-- harl/Standard turn 25: `qa-m13-20261107-154936-4919310-campaign-harl-Standard-t25`
-- harl/Standard turn 80: `qa-m13-20261107-155110-3145580-campaign-harl-Standard-t80`
-
-**Blocked,2026-11-07:** do not begin owner acceptance yet. A required Wenth/Solo turn7 report reproducibly triggers a native rendering fault. The five scoped product fixes are used; a single-fix amendment5→6 is awaiting approval. This prepared packet is retained for use after the crash and automated gates are resolved. It is not a human pass or an instruction to bypass the blocker.
+**Ready for owner playtest: all final automated checks passed and the ordinary game build is restored.** Source `4880d95`, isolated `codex/playability-polish`. Human observations remain Pending. The previous packet and its historical blocker are retained under `reports/playability-execution/task10-recorded-closeout/pre-recorded-owner-packet.md`.
 
 # M13 owner-operated playtest packet
 
-Prepared for review; human acceptance remains Pending. Run this after automated work and the ordinary build finish. Native control signals establish functional automation only. No human answer is inferred from silence. This packet unlocks human disposition of PLY-AC-007/011/012, not merge/release authority.
+Ready for owner observations; human acceptance remains Pending. All independent authorized automated work has finished. Native control signals establish functional automation only. No human answer is inferred from silence. This packet unlocks human disposition of PLY-AC-007/011/012, not merge/release authority.
 
 ## Prerequisites and build
 
@@ -18,7 +10,7 @@ Close any OpenAntares process from this checkout before building. Keep existing 
 
 `C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/m13-playability`
 
-Record the source reported by `git rev-parse HEAD` and `git status --short`; at packet preparation the product is uncommitted on baseline60044af. A later authorized source commit must be recorded here/on your report before final recorded acceptance.
+Record the source reported by `git rev-parse HEAD` and `git status --short`; the tested implementation commit is `4880d95380efe869774a2926973b56e8e3a1d644` on `codex/playability-polish`. Record any later changes separately.
 
 ```powershell
 $sourceRoot='C:/Users/david/OneDrive/Documents/ChatGPT/OpenAnteres/.worktrees/m13-playability'
@@ -37,11 +29,11 @@ Repeat with1920x1080 and a fresh `$ownerLog`. Keep ANGLE,60FPS,VSync and origina
 
 ## Retained actual-Main QA saves
 
-The Load list already contains the following Main-written saves (names without.json). Originals remain under `C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves`. Their byte-identical evidence copies/provenance live in `reports/playability-execution/task08-campaign-green-01-Campaigns/campaigns/harl-Standard`. Load them, then Save As a fresh owner name before advancing. Do not overwrite original QA names.
+The Load list already contains the following Main-written saves (names without.json). Originals remain under `C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves`. Their byte-identical evidence copies/provenance live in `reports/playability-execution/task10-recorded-all-02-Campaigns/campaigns/harl-Standard`. Load them, then Save As a fresh owner name before advancing. Do not overwrite original QA names.
 
-- harl/Standard turn 0: `qa-m13-20261107-101213-6355950-campaign-harl-Standard-t0`
-- harl/Standard turn 25: `qa-m13-20261107-101309-9716377-campaign-harl-Standard-t25`
-- harl/Standard turn 80: `qa-m13-20261107-101441-3829943-campaign-harl-Standard-t80`
+- harl/Standard turn 0: `qa-m13-20261107-200646-8245384-campaign-harl-Standard-t0`
+- harl/Standard turn 25: `qa-m13-20261107-200744-6775580-campaign-harl-Standard-t25`
+- harl/Standard turn 80: `qa-m13-20261107-200918-7063326-campaign-harl-Standard-t80`
 
 ## Numbered journeys — repeat at both sizes
 

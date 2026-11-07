@@ -27,16 +27,16 @@
 
 ## Tasks
 
-- [x] Task 1 — development complete; committed-source final gates pending
-- [x] Task 2 — development complete; committed-source final gates pending
-- [x] Task 3 — development complete; committed-source final gates pending
-- [x] Task 4 — development complete; committed-source final gates pending
-- [x] Task 5 — development complete; committed-source final gates pending
-- [x] Task 6 — development complete; committed-source final gates pending
-- [x] Task 7 — development complete; committed-source final gates pending
-- [x] Task 8 — development complete; committed-source final gates pending
+- [x] Task 1 — implemented; final committed-source automated gates verified; human scope separate
+- [x] Task 2 — implemented; final committed-source automated gates verified; human scope separate
+- [x] Task 3 — implemented; final committed-source automated gates verified; human scope separate
+- [x] Task 4 — implemented; final committed-source automated gates verified; human scope separate
+- [x] Task 5 — implemented; final committed-source automated gates verified; human scope separate
+- [x] Task 6 — implemented; final committed-source automated gates verified; human scope separate
+- [x] Task 7 — implemented; final committed-source automated gates verified; human scope separate
+- [x] Task 8 — implemented; final committed-source automated gates verified; human scope separate
 - [x] Task 9 — six authorized repairs development-verified; owner packet delivered/prepared, human observations pending
-- [ ] Task 10
+- [x] Task 10 — final committed-source automated acceptance and owner handoff complete; physical observations Pending
 
 Task 1: start; BASE60044afd6132710b88c853b9b4c4943b5b9c29ce. Baseline/build/layout and fail-closed evidence RED→GREEN pending.
 
@@ -174,3 +174,9 @@ Shared slot released; task10-recorded-all-01 strict runner exits0 with acceptedt
 First strict original matrix task10-recorded-regression-01 finishes failed, with ordinary restoration successful queue19730a3e123c44c7a90e7cd056d303be. Eight cases quiet/pass plus all4 earned conflict campaigns seven stages/expiry; Rival fails after5checks from repeated successful Start on consumed standalone setup. Fleet/Combat/ShipDesign assertions pass but20/50/20distinct engine exclusive-window messages (both streams double counts40/100/40) keep them failed. Traces prove tests press background EndTurn/Save/refit with restored Fleet parent still modal after child Close. Preserve first matrix as failed, not a pass. Applied only5 test files: Rival fresh standalone setup per successful Start with disabled-consumed checks; Fleet/Combat/ShipDesign close Fleet via visible actual OK before affected background actions, assert closed. All original assertions retained; no product change/seventhfix. Affected4 development regression task10-harness-lifecycle-green-01 session15608 active, source frozen. Must verify, commit harness under existing owner authority, rerun final same-commit gates; do not relabel5f5900c evidence. Prepared diagnostic reports/task10-recorded-closeout/rival-diagnosis.md.
 
 All affected harness paths development-verified: Fleet1704/Combat3292 quiet in green01; Rival1203/ShipDesign2039 quiet in fresh green02, source stable and ordinary restored queue de74f88b9f344e17ad178b180094c944. Retain green01 failed24check Rival/customfixture and4ShipDesign diagnostics as failures. Only5native test files changed, no product/seventhrepair. Commit verified correction using existing explicit M13 owner commit authority, then run final same-commit gates from fresh names.
+
+Verified harness correction committed4880d95380efe869774a2926973b56e8e3a1d644 on codex/playability-polish; only5testfiles plusnote/ledger, no productchange. Final sequential orchestration reports/playability-execution/Run-FinalRecorded-02.ps1 session1695 active, authoritative source frozen. Fresh solution20261107-200240-5be965e4 andWindows20261107-200304-64977427 pass2402/0failed/skipped; layout02 passes107; M13all02 started. All final evidence freshprefix02. Nextcontrols/replay02/original12+four02/originalverifier; finalpreservationhelper02 prepared. No merge/push/release/cleanup/humanpass.
+
+Final4880d95 strict original task10-recorded-regression-02 passes all12 with zero diagnostics and source/DLL stability; four earned Main campaigns all7stages/expiry. Ordinary restored. Stage orchestrator session1695 now on LAST original unchanged Verify-Evidence.py queuef3fb8e2d7b4b4a2a8e436596cec63dab (validates13sourceinventories×438gitblobs plus28savedfuture replays; long but active). Stage journal records8successes, lastverifierpending. Finalpreservation02 passes121/3/33refs/15worktrees/40MainLoadtraces/main/protected sources/parentplan/no new exception. Finalreportwriter reports/playability-execution/close-recorded-02.py is prepared and syntaxvalid; DO NOT run until9stagejournal entries all0. It reads authoritative finalcounts and refuses missing gate. After success runwriter, finishownerpacket4880/newQA02, updateactiveAGENTS/PROJECT_STATUS prefixes/ledger task10 automatedcompletehumanpending, finaldocs review. No source edits, no merge/push/release/cleanup.
+
+Final original verifier queuef3fb8e2d7b4b4a2a8e436596cec63dab completes exit0/passedtrue/errors[];28 actual Main conflict saves and84futureboundaries reloaded/replayed. All9finalstagejournal entries exit0. Final4880d95 passesM139887/original15980/Windows2402/layout107/67controls/8campaign40Main120future/four earned conflict28Main84future; allzero diagnostics, stable source/DLL and ordinary namespace empty. Finalpreservation02 passes; final report/machine and owner packet updated to actual finalcommit/newQA02. Exactly one whole-M13 implementation review;6of6productrepairs, native-harness lifecycle corrections not seventhproductfix. Owner physical observations remain Pending, no feedback inferred. Independent authorized automated work exhausted; packet now handed off. No merge/push/release/cleanup; main remains60044af.
