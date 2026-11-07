@@ -32,6 +32,7 @@ public partial class ColonyList : VBoxContainer
             string name = view.Research.ColonyNames[c.Id.ToString()]; picker.AddItem($"{name} — {c.PopulationUnitLabel} {c.Population}"); picker.SetItemMetadata(picker.ItemCount - 1, c.Id.Value);
             if (c.Id == selected) picker.Select(picker.ItemCount - 1);
         }
+        if (selected is null) picker.Select(-1);
         if (Rules.HasDevelopment(view.RulesVersion))
         {
             DevelopmentUi.Button(this,"Manage colonies",()=>ManageRequested?.Invoke(),"ManageColonies");

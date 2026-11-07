@@ -1,0 +1,189 @@
+{
+  "purpose": "User-supplied Master of Orion II interaction/menu reference material, not implementation instructions or game assets",
+  "references": [
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-27-23.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-27-23.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "b5561208e06edd000d0db34243c130a218dfa0579a7f7cb6090b181dc0cfbaae",
+      "bytes": 340041
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-27-37.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-27-37.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "b9e42b0abcdc3ff2a65a89597221255b58498a852b8c3b5ae5ffc1a0d2b34b8e",
+      "bytes": 284488
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-27-49.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-27-49.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "9e10d387e1349f704c37e24d58b9e3e9ddecbee330e0a0bf457b13e75faff861",
+      "bytes": 301943
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-28-01.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-28-01.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "c92304ae0dff66876a246390211fef3243dd6111c524fdef84b1ec82bf3a9f5c",
+      "bytes": 133029
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-28-09.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-28-09.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "7539cd5bbf8089a6cda732a0a68a8cf4344d83b715c3da51301cffdbe8d9b673",
+      "bytes": 214447
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-28-22.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-28-22.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "4c0893794403c8384900a2ebe972f094e03d67c7901ef03c7b65748c76cb92c8",
+      "bytes": 202630
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-28-37.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-28-37.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "2ed7a3a69b9e06f841308adf4f1724af24a02bd4e3eeb1863b8f59b761c06afd",
+      "bytes": 223436
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-28-54.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-28-54.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "79419fadf792867feb6a50a469b6cc11e79fce3fdadb0a8f48704b509934a6c5",
+      "bytes": 223606
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-29-04.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-29-04.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "7b2ef3768907a958d028e11b44847abdc4da096d8dd278fb89c8a06b0b1682cc",
+      "bytes": 224160
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-29-16.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-29-16.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "473de9448e2dd240ae945a99c9bc95d9c78d79ef1e7e734109ccf7f029f3cc8a",
+      "bytes": 223065
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-29-25.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-29-25.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "b8e8ba8326c5d99af2a01edffe49e4fa507ff67117d6d6c530b75fa4db8e40a3",
+      "bytes": 197207
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-29-35.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-29-35.PNG",
+      "batch": 1,
+      "ownerLabel": null,
+      "sha256": "025a5833c8a64b66e5372b82567572aa96016ddfa8cba47d12dfbec60ed056b3",
+      "bytes": 322205
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-33-17.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-33-17.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "25511937c003ef6b4ad20570d11f087c50d8985658a0fca9682db2829169e25c",
+      "bytes": 123829
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-33-59.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-33-59.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "b30d0a4828f924ef9216ef99b3725ca48facdcc9ace87de7a64f7e3b88ebb38d",
+      "bytes": 131117
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-34-56.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-34-56.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "53d023326d02f1bfd0905ac9908c2c1961d07eb26d3380d9483e4402a68001ad",
+      "bytes": 172350
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-35-21.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-35-21.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "5d6d24ed0a26a3ea9ee9fbaf67cc2f0d0b6ed2c7a3e64f91b11d5b9387919981",
+      "bytes": 57309
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-35-30.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-35-30.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "93ba54668e2f1ab9a95d542b389942cabde0096f115420a6b47f50ad8686c778",
+      "bytes": 106534
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-35-39.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-35-39.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "b92cdc3c03f552777f2bcd601b7585a492b9f2a976b6917fdfbc40c57a9d9a41",
+      "bytes": 115522
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-35-50.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-35-50.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "305ea48c7578280387a6aa434c49a29d9edc2b1310d9c4aa34fe8c8f99cba4b6",
+      "bytes": 73692
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-36-00.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-36-00.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "6961dde7c3ccff72d041b175c57de7b18e3a399beadeb8d013d689459c48b06f",
+      "bytes": 85678
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-36-11.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-36-11.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "033c01d2bcbe9c434e19fcee6dbfcbd619bdb1defa3f05f06ffd8c521cfe20ef",
+      "bytes": 110416
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-36-44.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-36-44.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "6fef9f518242d7ed316806ef27e119de0c51dfc875d78acb741828d4fc7144d5",
+      "bytes": 200926
+    },
+    {
+      "file": "docs/design-notes/m13-20261106/references/2026-11-06_23-36-55.PNG",
+      "sourcePath": "C:\\Users\\david\\AppData\\Local\\Temp\\SnagitTemp\\2026-11-06_23-36-55.PNG",
+      "batch": 2,
+      "ownerLabel": "Menues",
+      "sha256": "0c43043517633f57907cadbb2e1522ecaac073f6959a719f605aff31ae9fcc29",
+      "bytes": 199082
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+**Development result:** authorized sixth repair is resolved in the current complete8/40/120 run. Controlled isolation identified console scrollbar/wrapped-text feedback; final code reserves console scroll space. All report-width candidate changes are reverted to pre-sixth canonical hashes. One same POL06 issue, six total product repairs, no seventh. Fresh strict recorded/human acceptance remain separate.
+
+**Approved2026-11-07:** owner selected “Extend to six fixes (recommended)”. ADR-028 authorizes the single sixth report-layout repair and reruns, with gameplay/content unchanged. Earlier proposal/pending wording below is retained historically.
+
+# Proposed M13 scope amendment — one additional report-layout repair
+
+Status: **Awaiting explicit owner approval.** Current approved product-fix allowance5/5 is used. No sixth product repair has been applied, committed or merged.
+
+The required Wenth/Solo report reproducibly fails after ordinary turn7. A fresh process repeats the exact21 accepted UI commands and canonical before/after state hashes from the original failed eight-profile run. It then produces the same callback flood. Captured visible report text columns are1pixel wide, with individual text blocks855–2797pixels high inside a524pixel-wide scroll area. This implicates report wrapping/container sizing; exact corrective behavior still needs regression validation. A separate immediate-disposal/semantic-focus probe completed quietly and does not support that initial hypothesis.
+
+Proposed amendment: increase the unique post-audit **product fix cap from5 to6**, solely to resolve M13-POL-06, the reproduced required-report rendering crash. Constrain grouped report content/nested wrapping to its actual available width before showing it, retain all explanations/actions and saved acknowledgement requirements, and add a regression using the actual observed turn7 state/report at all four sizes. Do not alter simulation, content, schemas, balance, engine version, original theme or renderer defaults. If the cause needs a different subsystem/new rule, return for revised scope.
+
+After the repair: rerun the precise fresh-process reproduction, affected report/navigation/scouting/colony tests, complete current-source M13 seven-case/eight-profile40/120 audit, full Windows/layout/build and normal-namespace/diagnostic gates. Existing strict committed-source twelve-case/four-earned-conflict gates and separate commit authorization remain mandatory. Human playtest stays blocked until independently executable crash work is resolved. No old or partial pass substitutes for final source evidence.
+
+Evidence: `reports/playability-execution/task09-triage/blocking-sixth-finding.json`; failed original run; both fresh-process probes; read-only native-observed canonical state7/visible UI trace. The diagnostic state file is not an actual Main checkpoint and is never counted in40 earned saves. All raw logs, original DLL/source, partial saves and failure results are retained. Each diagnostic/recovery restores the ordinary build and verifies an empty validation namespace.
+
+Technical clues only: official Godot reports [108407](https://github.com/godotengine/godot/issues/108407) and [118501](https://github.com/godotengine/godot/issues/118501) report similar faults around container sizing/wrapped text. These are analogous observations, not proof of this project's exact cause; no upstream workaround or engine upgrade has been applied.

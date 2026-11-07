@@ -70,6 +70,7 @@ public partial class Main : Control
         }
 
         ShowGame(new GameSession(_content!, result.State));
+        if (_screen is GameScreen started) started.ShowFirstTurnOrientation();
     }
 
     /// <summary>Shows a game, new or loaded, to its first human empire.</summary>

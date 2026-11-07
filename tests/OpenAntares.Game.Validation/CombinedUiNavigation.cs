@@ -18,8 +18,24 @@ internal static class CombinedUiNavigation
         if(!menu.IsVisibleInTree() || menu.Disabled) throw new InvalidOperationException("Game menu is unreachable");
         menu.GetPopup().EmitSignal(PopupMenu.SignalName.IdPressed,(long)id);
     }
+    internal static void ExpandSetup(NewGameScreen setup)
+    {
+        var options=All<Control>(setup).Single(c=>c.Name=="AdvancedSetupOptions");
+        if(options.Visible)return;
+        var toggle=All<Button>(setup).Single(c=>c.Name=="AdvancedSetupToggle");
+        if(toggle.Disabled||!toggle.IsVisibleInTree())throw new InvalidOperationException("Advanced setup entry is unreachable");
+        toggle.EmitSignal(Button.SignalName.Pressed);
+        if(!options.Visible)throw new InvalidOperationException("Advanced setup did not expand");
+    }
     internal static T Reveal<T>(T control) where T:Control
     {
+        for(Node? parent=control;parent is not null;parent=parent.GetParent())
+            if(parent is NewGameScreen setup)
+            {
+                var options=All<Control>(setup).Single(c=>c.Name=="AdvancedSetupOptions");
+                if(options.IsAncestorOf(control))ExpandSetup(setup);
+                break;
+            }
         if(control.IsVisibleInTree()) return control;
         GameScreen? screen=null; string? workspace=null; Control? host=null;
         string originalName=control.Name, tooltip=control.TooltipText;

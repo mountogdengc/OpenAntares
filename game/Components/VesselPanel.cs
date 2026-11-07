@@ -30,7 +30,9 @@ public partial class VesselPanel : VBoxContainer
         var picker = new OptionButton { SizeFlagsHorizontal = SizeFlags.ExpandFill, Name = "VesselPicker" }; AddChild(picker);
         foreach (var unit in view.Vessels) { picker.AddItem($"{(unit.Loadout?.Design is {} id?ShipDesignUi.DesignName(content,view,id):content.Vessels[unit.RoleId].Name)} {unit.Id.Value}"); picker.SetItemMetadata(picker.ItemCount - 1, unit.Id.Value); if (unit.Id == selected) picker.Select(picker.ItemCount - 1); }
         picker.ItemSelected += index => VesselSelected?.Invoke(new(picker.GetItemMetadata((int)index).AsInt32()));
-        var vessel = view.Vessels.FirstOrDefault(v => v.Id == selected) ?? view.Vessels[0]; var role = content.Vessels[vessel.RoleId];
+        var vessel = view.Vessels.FirstOrDefault(v => v.Id == selected);
+        if (vessel is null) { picker.Select(-1); AddChild(Text("Choose an owned vessel to review its route and orders.")); return; }
+        var role = content.Vessels[vessel.RoleId];
         if(Rules.HasShipDesigns(view.RulesVersion)&&vessel.Loadout?.Design is not null){var refit=new Button{Name="VesselOpenRefit",Text="Review equipment refit"};AddChild(refit);refit.Pressed+=()=>RefitRequested?.Invoke(vessel.Id);}
         if(view.SettlementRestrictedSystems.Contains(vessel.StationaryStarId??default)&&role.CanFoundColony){AddChild(Text("Attention: a settlement accord blocks further founding here. Your vessel and passengers remain available."));DevelopmentUi.Button(this,"Review settlement accord",()=>DiplomacyRequested?.Invoke(),"FoundingDiplomacy");}
         if(vessel.Loadout?.Design is {} designId&&view.ShipDesigns?.Designs.SingleOrDefault(d=>d.Id==designId) is {} installed)

@@ -1,0 +1,46 @@
+{
+  "documentationChecksPassed": true,
+  "baseline": "60044afd6132710b88c853b9b4c4943b5b9c29ce",
+  "implementationStarted": false,
+  "committed": false,
+  "referenceImages": 23,
+  "tasks": 10,
+  "criteria": 12,
+  "priorDocuments": [
+    {
+      "path": "AGENTS.md",
+      "beforeSha256": "27ebbe3b6e374bf10a45c01cce0109b4a9c895dd0dd52159b118d57acb1ce13a",
+      "afterSha256": "4c8823db81fba3dae55265b52cceeb5ef5f172dd239fb192f41f00b0a588bf9a",
+      "priorBodyPreservedByteForByte": true
+    },
+    {
+      "path": "PROJECT_STATUS.md",
+      "beforeSha256": "2049ef37582dcc8804ed6b0fe1e0839b1f1fe855eac94dde5ccc5d8f902d32f7",
+      "afterSha256": "c12ae15f3e93381c58ba7d1ba72e34b2d15911c7fe807aa60a57c450edcf2825",
+      "priorBodyPreservedByteForByte": true
+    },
+    {
+      "path": "docs/IMPLEMENTATION_PLAN.md",
+      "beforeSha256": "532efe9501b306422da8427eb37aa4af1322d821e647624e4354c05da112a536",
+      "afterSha256": "48d5319a77dcf18812dbc0ead0c2ea3021d01f73591fe86584e482b6ff1ce173",
+      "priorBodyPreservedByteForByte": true
+    }
+  ],
+  "documents": [
+    {
+      "path": "docs/superpowers/specs/2026-11-06-playability-and-campaign-polish-design.md",
+      "sha256": "753a196e3f59240bb562d057a7e60d6ceaa3629e12df06db36991d4edccf14cd"
+    },
+    {
+      "path": "docs/superpowers/plans/2026-11-06-playability-and-campaign-polish.md",
+      "sha256": "f138ac8754e5ae2c3912bd4605727a0e1e82b3302b178862abfe5da8c3ee97b5"
+    },
+    {
+      "path": "reports/M13_PROPOSAL_REVIEW_2026-11-06.md",
+      "sha256": "d90f4a5f2f71fc3a39b151c3c7127cd4efcea6a19f0058e78ed6e4b94eb288e3"
+    }
+  ],
+  "productSourceChanged": false,
+  "buildsOrGameplayTestsRun": false,
+  "nextAction": "Owner reviews scope and provisional plan; implementation requires approval."
+}

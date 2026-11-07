@@ -6,7 +6,7 @@ $reader=$null
 try {
     $reader=[System.Reflection.PortableExecutable.PEReader]::new($stream)
     $metadata=[System.Reflection.Metadata.PEReaderExtensions]::GetMetadataReader($reader)
-    $forbidden=@('GraphicalValidation','ExpansionGraphicalValidation','SpeciesGraphicalValidation','RivalGraphicalValidation','ColonyGraphicalValidation','CrisisGraphicalValidation','ScoutGraphicalValidation','FleetGraphicalValidation','CombatGraphicalValidation','ShipDesignGraphicalValidation','DiplomacyGraphicalValidation','EmpireConflictGraphicalValidation','LayoutTrialValidation')
+    $forbidden=@('GraphicalValidation','ExpansionGraphicalValidation','SpeciesGraphicalValidation','RivalGraphicalValidation','ColonyGraphicalValidation','CrisisGraphicalValidation','ScoutGraphicalValidation','FleetGraphicalValidation','CombatGraphicalValidation','ShipDesignGraphicalValidation','DiplomacyGraphicalValidation','EmpireConflictGraphicalValidation','LayoutTrialValidation','PlayabilityGraphicalValidation')
     $helpers=@('FrozenContent','ScoutUiControlChecks')
     $names=@(foreach($handle in $metadata.TypeDefinitions){$definition=$metadata.GetTypeDefinition($handle);$metadata.GetString($definition.Name)})
     $validationNamespaceTypes=@(foreach($handle in $metadata.TypeDefinitions){$definition=$metadata.GetTypeDefinition($handle);if($metadata.GetString($definition.Namespace) -eq 'OpenAntares.Game.Validation'){$metadata.GetString($definition.Name)}})
@@ -16,7 +16,7 @@ try {
     if($found.Count -gt 0){Write-Output ('Harness types present: '+($found -join ', '));exit 1}
     if($foundHelpers.Count -gt 0){Write-Output ('Harness helpers present: '+($foundHelpers -join ', '));exit 1}
     if($validationNamespaceTypes.Count -gt 0){Write-Output ('Validation namespace types present: '+($validationNamespaceTypes -join ', '));exit 1}
-    Write-Output 'All thirteen validation types and both test helpers are absent from the ordinary assembly.'
+    Write-Output 'All fourteen validation types and both test helpers are absent from the ordinary assembly.'
 } finally {if($null -ne $reader){$reader.Dispose()};$stream.Dispose()}
 exit 0
 

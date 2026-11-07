@@ -12,7 +12,8 @@ namespace OpenAntares.Game.Components;
 /// <summary>The empire's research: target picker, output per turn with breakdown, and progress.</summary>
 public partial class ResearchBar : VBoxContainer
 {
-    private readonly OptionButton _picker = new() { FitToLongestItem = false, ClipText = true, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+    private readonly OptionButton _picker = new() { Name = "ResearchTargetPicker", FitToLongestItem = false, ClipText = true, SizeFlagsHorizontal = SizeFlags.ExpandFill };
+    private readonly Label _choice = new() { Name = "ResearchChoiceDetails", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart };
     private readonly Label _output = new() { MouseFilter = MouseFilterEnum.Stop };
     private readonly Label _progress = new() { ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart };
     private EmpireId _empire;
@@ -20,13 +21,16 @@ public partial class ResearchBar : VBoxContainer
 
     /// <summary>Raised when the player picks a target. The screen executes it and refreshes.</summary>
     public event Action<Command>? CommandIssued;
+    public event Action? PickerClosed;
 
     public override void _Ready()
     {
         AddChild(new Label { Text = "Research", ThemeTypeVariation = "ConsoleHeading" });
         AddChild(_picker);
+        AddChild(_choice);
         AddChild(_output);
         AddChild(_progress);
+        _picker.GetPopup().VisibilityChanged += () => { if (!_picker.GetPopup().Visible) PickerClosed?.Invoke(); };
         _picker.ItemSelected += index =>
         {
             string id = _picker.GetItemMetadata((int)index).AsString();
@@ -75,6 +79,7 @@ public partial class ResearchBar : VBoxContainer
 
         _picker.TooltipText = _picker.GetItemText(_picker.Selected);
 
+        _choice.Text = OpenAntares.Game.Presentation.ChoiceDetails.Research(content, empire);
         _output.Text = $"{Format.Points(economy.NetResearch.Total)} per turn";
         _output.TooltipText = BreakdownText.Describe(economy.NetResearch, content, "Research per turn", id => empire.ColonyNames.TryGetValue(id, out string? name) ? name : id);
 

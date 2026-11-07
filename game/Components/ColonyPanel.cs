@@ -39,6 +39,10 @@ public partial class ColonyPanel : VBoxContainer
     {
         Clear();
         ColonyEconomy economy = colony.Economy;
+        string name = (view is not null && view.Research.ColonyNames.TryGetValue(colony.Id.ToString(), out var colonyName) ? colonyName : null) ?? colony.Id.ToString();
+        var summary = Wrapped($"{name} — {colony.Population} {colony.PopulationUnitLabel} / {economy.Growth.Capacity} capacity\nSupport {Format.Points(economy.SupportProduced.Total)} / {Format.Points(economy.SupportRequired.Total)} required · Production {Format.Points(economy.NetProduction.Total)} · Research {Format.Points(economy.NetResearch.Total)} per turn\n{(economy.Production.TargetId is null ? "No project: production is saved." : BreakdownText.Progress(economy.Production) + "; " + BreakdownText.Estimate(economy.Production.Estimate))}", "SubtleLabel");
+        summary.Name = "ColonyDecisionSummary";
+        AddChild(summary);
         if(view?.Conflict is not null){var pressure=new ConflictBlockadePanel{Name="ColonyBlockadePressure"};AddChild(pressure);pressure.SetView(view,colony.StarId);}
 
         AddChild(new HSeparator());
@@ -191,9 +195,9 @@ public partial class ColonyPanel : VBoxContainer
         OwnedColonyView? colony = null, int turn = 0)
     {
         grid.AddChild(new Label { Text = name });
-        grid.AddChild(colony is null ? new Control() : StepButton("−", fewer, colony, turn, $"Move a worker from {name.ToLowerInvariant()} to support"));
+        grid.AddChild(colony is null ? new Control() : StepButton("−", fewer, colony, turn, $"Move a worker from {name.ToLowerInvariant()} to support", name + "WorkforceLess"));
         grid.AddChild(new Label { Text = count.ToString(System.Globalization.CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Center, CustomMinimumSize = new Vector2(32, 0) });
-        grid.AddChild(colony is null ? new Control() : StepButton("+", more, colony, turn, $"Move a worker from support to {name.ToLowerInvariant()}"));
+        grid.AddChild(colony is null ? new Control() : StepButton("+", more, colony, turn, $"Move a worker from support to {name.ToLowerInvariant()}", name + "WorkforceMore"));
         grid.AddChild(new Label
         {
             Text = output,
@@ -204,9 +208,9 @@ public partial class ColonyPanel : VBoxContainer
         });
     }
 
-    private Button StepButton(string text, Workforce? target, OwnedColonyView colony, int turn, string tooltip)
+    private Button StepButton(string text, Workforce? target, OwnedColonyView colony, int turn, string tooltip, string semanticName)
     {
-        var button = new Button { Text = text, Disabled = target is null, TooltipText = tooltip };
+        var button = new Button { Name = semanticName, Text = text, Disabled = target is null, TooltipText = tooltip };
         if (target is { } workforce)
         {
             button.Pressed += () => CommandIssued?.Invoke(new SetWorkforceCommand(colony.EmpireId, turn, colony.Id, workforce));

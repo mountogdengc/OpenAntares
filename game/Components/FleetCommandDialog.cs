@@ -87,7 +87,7 @@ public partial class FleetCommandDialog:AcceptDialog
         if(view.Combat is not null&&_filter.ItemCount==7)foreach(var label in new[]{"Warships","In combat","Withdrawing","Damaged","Crippled","Repairing"})_filter.AddItem(label);
         if(view.Combat is null)while(_filter.ItemCount>7)_filter.RemoveItem(_filter.ItemCount-1);
         foreach(var id in new[]{"FleetCombatOrders","FleetRepair","FleetStopRepair","CombatRoutineDisplay","CombatApplyDisplay"})FindChild(id,true,false)?.Set("visible",view.Combat is not null);
-        CombatReport();FillRoles();FillDestinations(_destination);FillDestinations(_groupDestination);Rows();GroupRows();RequestRows();Events();PopupCenteredClamped(new(760,560));
+        CombatReport();FillRoles();FillDestinations(_destination);FillDestinations(_groupDestination);Rows();GroupRows();RequestRows();Events();if(!Visible)PopupCenteredClamped(new(760,560));
     }
     private void NamedDesignEntry(){if(FindChild("FleetOpenRefit",true,false) is Button refit)refit.Visible=OpenAntares.Simulation.Rules.HasShipDesigns(_view.RulesVersion);if(FindChild("OpenShipDesigns",true,false) is Button button)button.Visible=OpenAntares.Simulation.Rules.HasShipDesigns(_view.RulesVersion);}
     private void CombatReport(){_combatReport.ShowRoutine=CombatNotificationPreferences.Load(ProjectSettings.GlobalizePath(CombatPreferencesPath)).ShowRoutine;if(FindChild("CombatRoutineDisplay",true,false) is OptionButton picker)picker.Select(_combatReport.ShowRoutine?0:1);_combatReport.SetView(_view.Combat);}

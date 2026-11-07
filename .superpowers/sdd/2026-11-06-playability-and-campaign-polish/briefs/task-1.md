@@ -1,0 +1,8 @@
+### Task 1: Freeze the baseline and establish honest M13 evidence
+
+**Files:** new M13 harness/targets/runner/verifier from the file map; extend `tests/OpenAntares.Game.Validation/Verify-NormalAssembly.ps1`. Evidence under a fresh `reports/playability-execution/` directory. No product behavior change.
+
+- [ ] After approval, create the isolated execution checkout using `superpowers:using-git-worktrees`; record actual main HEAD, status, refs/stashes/worktrees and owner-file hashes. Record preservation baselines and separate genuine current/legacy canonical fixtures before UI edits. Stop for reconciliation if the inspected source differs materially from the reviewed one.
+- [ ] Add verifier negative cases for missing source/input inventory, missing result, changed DLL, missing Main save/future checkpoint, diagnostic log and failed restoration. Run through the shared queue and confirm they fail closed before implementing acceptance logic.
+- [ ] Define the Task 8 evidence contract in the runner/verifier; implement selected-case reporting, authoritative tracked-source inventories before/after, retained opt-in DLL, explicit logs, opt-in negative metadata and mandatory ordinary rebuild in `finally`. Include all new runner/verifier inputs in source capture. Keep common `Validation.targets` unchanged; add the one M13 scenario to ordinary forbidden-type detection, preserving existing twelve-present checks.
+- [ ] Run baseline queued build/full suite and existing layout checks; record exact current counts. Exercise a deliberately opted-in M13 DLL (negative metadata control) and restored ordinary DLL (empty validation namespace). Selected baseline checks pass; PLY functionality remains Not Started.

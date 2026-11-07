@@ -25,6 +25,10 @@ public partial class NewGameScreen : CenterContainer
     private readonly Label _summary = new() { Name = "SpeciesSummary", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart, SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly Label _error = new() { ThemeTypeVariation = "WarningLabel", Visible = false, AutowrapMode = TextServer.AutowrapMode.WordSmart };
     private readonly Button _start = new() { Text = "Start" };
+    private readonly Label _review = new() { Name = "SetupReviewSummary", AutowrapMode = TextServer.AutowrapMode.WordSmart };
+    private GridContainer? _advanced;
+    private bool _starting;
+    private bool _canStart;
     public event Action<NewGameSettings>? StartRequested;
     public event Action? LoadRequested;
 
@@ -67,27 +71,35 @@ public partial class NewGameScreen : CenterContainer
         if(rival<0) rival = Array.FindIndex(_species,s=>s.Id!=(_speciesPicker.Selected>=0?_species[_speciesPicker.Selected].Id:null));
         if(_species.Length>0) _rivalSpeciesPicker.Select(rival>=0?rival:0); else _rivalSpeciesPicker.Disabled=true;
         form.AddChild(_rivalSpeciesPicker);
-        form.AddChild(new Label { Text = "Colony crises" });
+        var advancedToggle = new Button { Name = "AdvancedSetupToggle", Text = "Advanced options: seed and hazards" };
+        formColumn.AddChild(advancedToggle);
+        var advanced = new GridContainer { Name = "AdvancedSetupOptions", Columns = 2, Visible = false };
+        _advanced = advanced;
+        formColumn.AddChild(advanced);
+        advancedToggle.Pressed += () => { advanced.Visible = !advanced.Visible; };
+        advanced.AddChild(new Label { Text = "Colony crises" });
         _crisisPicker.AddItem("Standard");_crisisPicker.SetItemMetadata(0,true);
-        _crisisPicker.AddItem("Off");_crisisPicker.SetItemMetadata(1,false);_crisisPicker.Select(0);form.AddChild(_crisisPicker);
-        if(Rules.HasScouting(Rules.CurrentVersion)){form.AddChild(new Label{Text="Space ameba"});_amebaPicker.AddItem("Standard");_amebaPicker.SetItemMetadata(0,true);_amebaPicker.AddItem("Off");_amebaPicker.SetItemMetadata(1,false);_amebaPicker.Select(0);form.AddChild(_amebaPicker);_amebaPicker.ItemSelected+=_=>UpdateSummary();}
+        _crisisPicker.AddItem("Off");_crisisPicker.SetItemMetadata(1,false);_crisisPicker.Select(0);advanced.AddChild(_crisisPicker);
+        if(Rules.HasScouting(Rules.CurrentVersion)){advanced.AddChild(new Label{Text="Space ameba"});_amebaPicker.AddItem("Standard");_amebaPicker.SetItemMetadata(0,true);_amebaPicker.AddItem("Off");_amebaPicker.SetItemMetadata(1,false);_amebaPicker.Select(0);advanced.AddChild(_amebaPicker);_amebaPicker.ItemSelected+=_=>UpdateSummary();}
         else{_amebaPicker.Hide();column.AddChild(_amebaPicker);}
-        if(Rules.HasCombat(Rules.CurrentVersion)){form.AddChild(new Label{Text="Sentries"});_sentriesPicker.AddItem("Standard");_sentriesPicker.SetItemMetadata(0,true);_sentriesPicker.AddItem("Off");_sentriesPicker.SetItemMetadata(1,false);_sentriesPicker.Select(0);form.AddChild(_sentriesPicker);_sentriesPicker.ItemSelected+=_=>UpdateSummary();}
+        if(Rules.HasCombat(Rules.CurrentVersion)){advanced.AddChild(new Label{Text="Sentries"});_sentriesPicker.AddItem("Standard");_sentriesPicker.SetItemMetadata(0,true);_sentriesPicker.AddItem("Off");_sentriesPicker.SetItemMetadata(1,false);_sentriesPicker.Select(0);advanced.AddChild(_sentriesPicker);_sentriesPicker.ItemSelected+=_=>UpdateSummary();}
         else{_sentriesPicker.Hide();column.AddChild(_sentriesPicker);}
         form.AddChild(new Label { Text = "Galaxy size" });
         foreach (var size in _sizes) _sizePicker.AddItem($"{size.Name} ({size.StarCount} stars)");
         _sizePicker.SizeFlagsHorizontal = SizeFlags.ExpandFill; form.AddChild(_sizePicker);
-        form.AddChild(new Label { Text = "Seed" });
+        advanced.AddChild(new Label { Text = "Seed" });
         var seedRow = new HBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         _seedField.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         _seedField.TooltipText = "The same seed, size and rival count reproduce galaxy facts across species.";
-        seedRow.AddChild(_seedField); var random = new Button { Text = "Random" }; random.Pressed += RandomizeSeed; seedRow.AddChild(random); form.AddChild(seedRow);
+        seedRow.AddChild(_seedField); var random = new Button { Text = "Random" }; random.Pressed += RandomizeSeed; seedRow.AddChild(random); advanced.AddChild(seedRow);
+        formColumn.AddChild(_review);
         var details = new ScrollContainer { CustomMinimumSize = new Vector2(0, 140), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, FollowFocus = true, FocusMode = FocusModeEnum.All };
         formColumn.AddChild(details); details.AddChild(_summary);
         formColumn.AddChild(new Label { Text = "Explore, settle and negotiate with rivals who can declare limited war. Optional sentry battles can clear one guarded system for ordinary founding.", ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart });
         column.AddChild(_error); _start.Pressed += Start; column.AddChild(_start);
         var load = new Button { Text = "Load Game" }; load.Pressed += () => LoadRequested?.Invoke(); column.AddChild(load);
         _start.Disabled = _species.Length == 0 || _sizes.Length == 0 || _content.RivalAi is null || _content.GovernorTemplates.IsEmpty || _content.Plagues.Count!=1 || Rules.HasShipDesigns(Rules.CurrentVersion)&&_content.ShipDesigns is null || Rules.HasScouting(Rules.CurrentVersion)&&_content.SpaceAmeba is null||Rules.HasCombat(Rules.CurrentVersion)&&_content.Combat is null||Rules.HasConflict(Rules.CurrentVersion)&&_content.Conflict is null;
+        _canStart = !_start.Disabled;
         _rivalCountPicker.ItemSelected += _ => { _rivalSpeciesPicker.Disabled = _rivalCountPicker.Selected == 0 || _species.Length == 0; UpdateSummary(); };
         _rivalSpeciesPicker.ItemSelected += _ => UpdateSummary();
         _speciesPicker.ItemSelected += _ => UpdateSummary(); _sizePicker.ItemSelected += _ => UpdateSummary(); _crisisPicker.ItemSelected += _ => UpdateSummary(); _seedField.TextChanged += _ => UpdateSummary();
@@ -108,6 +120,7 @@ public partial class NewGameScreen : CenterContainer
     }
     public void Start()
     {
+        if (_starting) return;
         if(Rules.HasConflict(Rules.CurrentVersion)&&_content.Conflict is null){ShowError("Conflict definitions are required for current campaigns, including Solo. Load an existing campaign instead.");return;}
         if(Rules.HasShipDesigns(Rules.CurrentVersion)&&_content.ShipDesigns is null){ShowError("Ship-design definitions are required for current campaigns, including Sentries Off. Load an existing campaign instead.");return;}
         if(Rules.HasCombat(Rules.CurrentVersion)&&_content.Combat is null){ShowError("Combat definitions are required for current campaigns, including Sentries Off. Load an existing campaign instead.");return;}
@@ -118,15 +131,18 @@ public partial class NewGameScreen : CenterContainer
         if (_rivalCountPicker.Selected < 0 || (_rivalCountPicker.Selected == 1 && _rivalSpeciesPicker.Selected < 0)) { ShowError("Select a defined rival count and species."); return; }
         if (_sizes.Length == 0 || _sizePicker.Selected < 0) { ShowError("No galaxy sizes are defined in the content files."); return; }
         if (_species.Length == 0 || _speciesPicker.Selected < 0) { ShowError("Select a defined species before starting a new campaign."); return; }
-        if (!ulong.TryParse(_seedField.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out ulong seed)) { ShowError($"The seed must be a whole number from 0 to {ulong.MaxValue}."); return; }
+        if (!ulong.TryParse(_seedField.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out ulong seed)) { UpdateSummary(); if (_advanced is not null) _advanced.Show(); _seedField.GrabFocus(); ShowError($"The seed must be a whole number from 0 to {ulong.MaxValue}."); return; }
         _error.Visible = false;
+        _starting = true;
+        _start.Disabled = true;
         StartRequested?.Invoke(new(_sizes[_sizePicker.Selected].Id, seed, Rules.CurrentVersion, _species[_speciesPicker.Selected].Id, _rivalCountPicker.Selected, _rivalCountPicker.Selected == 1 ? _species[_rivalSpeciesPicker.Selected].Id : null,_crisisPicker.Selected==0,Rules.HasScouting(Rules.CurrentVersion)?_amebaPicker.Selected==0:(bool?)null,Rules.HasCombat(Rules.CurrentVersion)?_sentriesPicker.Selected==0:(bool?)null));
     }
     private void UpdateSummary()
     {
         if (_speciesPicker.Selected < 0 || _species.Length == 0 || _sizes.Length == 0 || _rivalCountPicker.Selected < 0 || (_rivalCountPicker.Selected == 1 && _rivalSpeciesPicker.Selected < 0)) { _summary.Text = "Load a saved campaign to continue with its original embedded rules."; return; }
         var sp = _species[_speciesPicker.Selected];
-        if (!ulong.TryParse(_seedField.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out ulong seed)) { _summary.Text = sp.Description; return; }
+        if (!ulong.TryParse(_seedField.Text.Trim(), NumberStyles.None, CultureInfo.InvariantCulture, out ulong seed)) { _review.Text = "Enter a valid seed to review these settings."; _summary.Text = sp.Description; return; }
+        _review.Text = $"{sp.Name} · {_sizes[_sizePicker.Selected].Name} · {(_rivalCountPicker.Selected == 0 ? "Solo" : "One rival: " + _species[_rivalSpeciesPicker.Selected].Name)}\nSeed {seed} · Rules {Rules.CurrentVersion}\nCrises {(_crisisPicker.Selected == 0 ? "Standard" : "Off")} · Ameba {(_amebaPicker.Selected == 0 ? "Standard" : "Off")} · Sentries {(_sentriesPicker.Selected == 0 ? "Standard" : "Off")}";
         var preview = GalaxyGenerator.CreateNewGame(_content, new(_sizes[_sizePicker.Selected].Id, seed, Rules.CurrentVersion, sp.Id, _rivalCountPicker.Selected, _rivalCountPicker.Selected == 1 ? _species[_rivalSpeciesPicker.Selected].Id : null,_crisisPicker.Selected==0,Rules.HasScouting(Rules.CurrentVersion)?_amebaPicker.Selected==0:(bool?)null,Rules.HasCombat(Rules.CurrentVersion)?_sentriesPicker.Selected==0:(bool?)null));
         if (preview.State is null) { _summary.Text = sp.Description + "\n" + preview.Error; return; }
         var economy = EmpireViewProjector.Project(_content, preview.State, preview.State.Empires[0].Id).Colonies[0].Economy;
@@ -144,6 +160,6 @@ public partial class NewGameScreen : CenterContainer
         if(Rules.HasCombat(Rules.CurrentVersion))_summary.Text+=$"\n\nSentries: {(_sentriesPicker.Selected==0?"Standard":"Off")}. Standard places one pocket of two automated sentries, blocking founding until cleared. Ordinary passage and survey stay safe; battles require a separate fleet attack order. Off keeps warship construction and repair available.";
         if(preview.State.Scouting is {Enabled:true,Habitat:null})_summary.Text+="\nThis setup will not place a space ameba: there is not enough eligible non-home habitat.";
     }
-    public void ShowError(string message) { _error.Text = message; _error.Visible = true; }
+    public void ShowError(string message) { _starting = false; _start.Disabled = !_canStart; _error.Text = message; _error.Visible = true; }
     private void RandomizeSeed() { _seedField.Text = (GD.Randi() % 1_000_000).ToString(CultureInfo.InvariantCulture); UpdateSummary(); }
 }

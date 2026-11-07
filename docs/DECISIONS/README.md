@@ -1,3 +1,5 @@
+**M13 approval, 2026-11-06:** [ADR-027](ADR-027-approved-playability-and-campaign-polish.md) records owner approval of the exact scope and ten-task plan. Implementation is authorized on an isolated branch; functional/human acceptance and commit/integration authority remain separate.
+
 # Established decision index
 
 Created by reconciliation on 2026-10-22. No prior `docs/DECISIONS/` or ADR-014/015 was found. ADR-001 through ADR-004 recover existing OpenAntares choices; their date is the recovery date, not a claimed original approval date. ADR-005 through ADR-014 record subsequent explicit owner decisions/drafting direction. ADR-007 authorized drafting; ADR-008 subsequently approves the complete species design and requests a separate implementation plan.
@@ -83,3 +85,5 @@ M8 full approval/planning2026-10-27: owner “0approved” accepts the complete 
 
 
 [ADR-026: Approve empire-conflict gameplay design](ADR-026-approved-empire-conflict-design.md) records full owner design/default approval at76312d1. M12-D/ECF-AC-012 Verified for design; separate22-task plan/self-review ready, M12-P In Progress, implementation Not Started. Active11/12/67 unchanged.
+
+- [ADR-028: One additional M13 report-layout repair](ADR-028-m13-sixth-report-layout-fix.md) — Accepted2026-11-07; cap6 solely for M13-POL-06, no commit/integration authority.

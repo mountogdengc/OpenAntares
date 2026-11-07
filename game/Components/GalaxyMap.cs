@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Godot;
+using OpenAntares.Game.Presentation;
 using OpenAntares.Simulation;
 using OpenAntares.Simulation.Galaxy;
 using OpenAntares.Simulation.Knowledge;
@@ -27,9 +29,16 @@ public partial class GalaxyMap : Control
     private int _minY;
     private int _maxX = 1;
     private int _maxY = 1;
+    private readonly Dictionary<StarId, Rect2> _ownedMarkerBounds = new();
+    private readonly List<Rect2> _visibleLabelBounds = new();
 
     /// <summary>Raised when the player clicks a star.</summary>
     public event Action<StarId>? StarSelected;
+    /// <summary>Inspect owned stationary ships at this star; no order is implied.</summary>
+    public event Action<StarId>? OwnedVesselsSelected;
+
+    public IReadOnlyDictionary<StarId, Rect2> OwnedMarkerBounds => _ownedMarkerBounds;
+    public IReadOnlyList<Rect2> VisibleLabelBounds => _visibleLabelBounds;
 
     public StarId? Selected => _selected;
 
@@ -37,13 +46,17 @@ public partial class GalaxyMap : Control
     {
         FocusMode = FocusModeEnum.Click;
         MouseFilter = MouseFilterEnum.Stop;
+        ClipContents = true;
     }
 
     public void ShowGalaxy(GalaxyMapView state)
     {
+        _ownedMarkerBounds.Clear();
+        _visibleLabelBounds.Clear();
         _stars = state.Stars;
         _units = state.Units;
         _homeStars = state.HomeMarkers.ToHashSet();
+        TooltipText = _stars.FirstOrDefault(s => s.Id == _selected)?.Name ?? "";
         if (state.Seed is { } seed && state.ShapeId == "spiral"
             && state.Width is { } width && state.Height is { } height)
         {
@@ -66,7 +79,10 @@ public partial class GalaxyMap : Control
 
     public void Select(StarId star)
     {
+        var charted = _stars.FirstOrDefault(s => s.Id == star);
+        if (charted is null) return;
         _selected = star;
+        TooltipText = charted.Name;
         QueueRedraw();
         StarSelected?.Invoke(star);
     }
@@ -75,14 +91,18 @@ public partial class GalaxyMap : Control
     {
         if (what == NotificationResized || what == NotificationThemeChanged)
         {
+            _ownedMarkerBounds.Clear();
+            _visibleLabelBounds.Clear();
             QueueRedraw();
         }
     }
 
     public override void _Draw()
     {
+        _ownedMarkerBounds.Clear();
+        _visibleLabelBounds.Clear();
         DrawRect(new Rect2(Vector2.Zero, Size), GetThemeColor("background", ThemeType));
-        if (_stars.Count == 0)
+        if (_stars.Count == 0 || Size.X <= 0 || Size.Y <= 0)
         {
             return;
         }
@@ -101,6 +121,9 @@ public partial class GalaxyMap : Control
         int fontSize = GetThemeFontSize("label", ThemeType);
         const float LabelWidth = 160;
         MapTransform transform = BuildTransform();
+        var labels = new List<(StarId Id, string Text, Rect2 Bounds)>();
+        float textHeight = font.GetHeight(fontSize);
+        float ascent = font.GetAscent(fontSize);
 
         foreach (var point in _backgroundPoints)
         {
@@ -123,10 +146,32 @@ public partial class GalaxyMap : Control
                 DrawArc(position, selectionRadius, 0, Mathf.Tau, 48, selectionColor, 2, antialiased: true);
             }
 
+            if (_units.Any(v => v.Owned && v.Station == star.Id) && Size.X >= 8 && Size.Y >= 8)
+            {
+                var marker = new Rect2(new Vector2(
+                    Mathf.Clamp(position.X + (home ? homeRadius : starRadius) + 3, 0, Size.X - 8),
+                    Mathf.Clamp(position.Y - 4, 0, Size.Y - 8)), new Vector2(8, 8));
+                _ownedMarkerBounds.Add(star.Id, marker);
+                DrawRect(marker, selectionColor, filled: false, width: 2);
+            }
+
             int units = _units.Count(v => v.Station == star.Id);
             string label = (units > 0 ? $"{star.Name} [{units}]" : star.Name)+(_knownAmebas.Contains(star.Id)?" [ameba]":"");
-            DrawString(font, position + new Vector2(-LabelWidth / 2, labelOffset), label,
-                HorizontalAlignment.Center, LabelWidth, fontSize, labelColor);
+            if (Size.Y < textHeight) continue;
+            string fitted = FitLabel(font, label, fontSize, Math.Min(LabelWidth, Size.X));
+            if (fitted.Length == 0) continue;
+            float width = font.GetStringSize(fitted, HorizontalAlignment.Left, -1, fontSize).X;
+            var rect = new Rect2(new Vector2(
+                Mathf.Clamp(position.X - width / 2, 0, Math.Max(0, Size.X - width)),
+                Mathf.Clamp(position.Y + labelOffset - ascent, 0, Math.Max(0, Size.Y - textHeight))), new Vector2(width, textHeight));
+            labels.Add((star.Id, fitted, rect));
+        }
+        var placed = MapLabelLayout.Place(labels.Select(l => new MapLabelCandidate(l.Id, l.Bounds, l.Id == _selected, _homeStars.Contains(l.Id))).ToArray(), new Rect2(Vector2.Zero, Size)).ToHashSet();
+        foreach (var label in labels.Where(l => placed.Contains(l.Id)))
+        {
+            _visibleLabelBounds.Add(label.Bounds);
+            DrawString(font, label.Bounds.Position + new Vector2(0, ascent), label.Text,
+                HorizontalAlignment.Left, label.Bounds.Size.X, fontSize, labelColor);
         }
     }
 
@@ -137,12 +182,21 @@ public partial class GalaxyMap : Control
             return;
         }
 
+        foreach (var marker in _ownedMarkerBounds.Where(p => p.Value.HasPoint(click.Position))
+            .OrderBy(p => p.Value.GetCenter().DistanceSquaredTo(click.Position)).ThenBy(p => p.Key))
+        {
+            OwnedVesselsSelected?.Invoke(marker.Key);
+            AcceptEvent();
+            return;
+        }
+
         float pickRadius = GetThemeConstant("selection_radius", ThemeType) * 1.5f;
         MapTransform transform = BuildTransform();
         ChartedStar? nearest = _stars
             .Select(star => (star, distance: ToScreen(star.X, star.Y, transform).DistanceTo(click.Position)))
             .Where(candidate => candidate.distance <= pickRadius)
             .OrderBy(candidate => candidate.distance)
+            .ThenBy(candidate => candidate.star.Id)
             .Select(candidate => candidate.star)
             .FirstOrDefault();
 
@@ -151,6 +205,21 @@ public partial class GalaxyMap : Control
             Select(nearest.Id);
             AcceptEvent();
         }
+    }
+
+    private static string FitLabel(Font font, string text, int fontSize, float width)
+    {
+        if (font.GetStringSize(text, HorizontalAlignment.Left, -1, fontSize).X <= width) return text;
+        const string ellipsis = "…";
+        if (font.GetStringSize(ellipsis, HorizontalAlignment.Left, -1, fontSize).X > width) return "";
+        // Truncate by text elements rather than splitting a surrogate or combining mark.
+        int[] elements = StringInfo.ParseCombiningCharacters(text);
+        for (int count = elements.Length - 1; count > 0; count--)
+        {
+            string candidate = text[..elements[count]] + ellipsis;
+            if (font.GetStringSize(candidate, HorizontalAlignment.Left, -1, fontSize).X <= width) return candidate;
+        }
+        return ellipsis;
     }
 
     /// <summary>Maps galaxy coordinates into the control, preserving aspect ratio and centring the result.</summary>

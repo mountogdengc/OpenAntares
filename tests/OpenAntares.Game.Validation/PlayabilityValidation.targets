@@ -1,0 +1,20 @@
+<Project>
+  <!-- M13 is deliberately separate from the accepted twelve-scenario target. -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'OpenAntares'">
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityGraphicalValidation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityCampaignChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityCampaignObserver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityCampaignControls.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityCampaignResponses.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EmpireConflictCampaignChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CombinedUiNavigation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityMapChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilitySelectionChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilitySetupChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityColonyChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityMenuChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityNavigationChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityGuidanceChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlayabilityGuidanceFixtures.cs" />
+  </ItemGroup>
+</Project>
