@@ -72,8 +72,19 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         Check(count.GetSelectedMetadata().AsString()=="1" && human.GetSelectedMetadata().AsString()=="harl" && rival.GetSelectedMetadata().AsString()=="peldra","Visible defaults are One / Harl / Peldra");
         NewGameSettings? selected=null;setup.StartRequested+=s=>selected=s;setup.Configure("small",42);Press(Button(setup,"Start"));
         Check(selected is {RulesVersion:12,SentriesEnabled:true,RivalCount:1,SpeciesId:"harl",RivalSpeciesId:"peldra",CrisesEnabled:true},"Visible current defaults reach simulation unchanged");
+        async Task FreshSetup()
+        {
+            Check(Button(setup,"Start").Disabled,"Successful standalone Start disables its consumed setup screen");
+            await Drop(setup);
+            setup=new NewGameScreen(core){Theme=GD.Load<Theme>("res://game/theme/openantares_theme.tres")};AddChild(setup);await Frames();
+            count=Picker(setup,"RivalCountPicker");human=Picker(setup,"SpeciesPicker");rival=Picker(setup,"RivalSpeciesPicker");
+            selected=null;setup.StartRequested+=s=>selected=s;setup.Configure("small",42);
+        }
+        await FreshSetup();
         Select(human,"peldra");Check(rival.GetSelectedMetadata().AsString()=="peldra","Human selection does not swap rival; mirrors legal");Press(Button(setup,"Start"));Check(selected?.RivalSpeciesId=="peldra" && selected.SpeciesId=="peldra","Mirror settings reach simulation");
+        await FreshSetup();
         Select(count,"0");Press(Button(setup,"Start"));Check(rival.Disabled && selected is {RivalCount:0,RivalSpeciesId:null},"Solo disables rival and passes null identity");
+        await FreshSetup();
         Select(count,"1");Check(!rival.Disabled,"One enables the retained rival choice");
         foreach(var dimensions in new[]{new Vector2I(800,600),new(1152,648),new(1280,720),new(1600,900),new(1920,1080)})
         {
@@ -102,6 +113,9 @@ public partial class RivalGraphicalValidation : GraphicalValidation
                 Check(Picker(ui,"RivalSpeciesPicker").GetSelectedMetadata().AsString()==entry.Rival,"Alternative rival defaults to distinct choice or sole mirror: "+entry.Rival);
                 NewGameSettings? chosen=null;ui.StartRequested+=settings=>chosen=settings;ui.Configure("small",42);Press(Button(ui,"Start"));
                 Check(chosen?.SpeciesId==entry.Human && chosen.RivalSpeciesId==entry.Rival && chosen.RivalCount==1,"Actual alternative Start uses both initial identities");
+                Check(Button(ui,"Start").Disabled,"Successful alternative Start consumes its standalone setup screen");
+                await Drop(ui);ui=new NewGameScreen(alternative){Theme=GD.Load<Theme>("res://game/theme/openantares_theme.tres")};AddChild(ui);await Frames();
+                chosen=null;ui.StartRequested+=settings=>chosen=settings;ui.Configure("small",42);
                 Select(Picker(ui,"SpeciesPicker"),entry.Rival);Press(Button(ui,"Start"));
                 Check(chosen?.SpeciesId==entry.Rival && chosen.RivalSpeciesId==entry.Rival,"Later manual mirror remains legal without rival auto-swap");
             }

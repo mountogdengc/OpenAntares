@@ -47,7 +47,14 @@ public partial class FleetGraphicalValidation:Node
     private async Task PickId(OptionButton picker,int id){int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);await Pick(picker,index);}
     private async Task Select(ItemList list,int index,bool clear=true){if(clear)list.DeselectAll();list.Select(index,clear);if(list.SelectMode==ItemList.SelectModeEnum.Multi)list.EmitSignal(ItemList.SignalName.MultiSelected,(long)index,true);else list.EmitSignal(ItemList.SignalName.ItemSelected,(long)index);await Frames(this);}
     private async Task Tab(Node parent,int index){Named<TabContainer>(parent,"FleetTabs").CurrentTab=index;await Frames(this);}
-    private async Task End(GameScreen screen,GameSession session){int turn=session.State.Turn;await Click(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));Check(session.State.Turn==turn+1,"Actual End Turn resolves once");await Close(Descendants<TurnReportDialog>(screen).Single());}
+    // Fleet child dialogs return to their invoking Fleet menu. Close it through
+    // its visible button before dispatching a background Main action.
+    private async Task LeaveFleet(GameScreen screen)
+    {
+        var fleet=Descendants<FleetCommandDialog>(screen).SingleOrDefault();
+        if(fleet is {Visible:true}){await Close(fleet);Check(!fleet.Visible,"Restored Fleet closes before background Main action");}
+    }
+    private async Task End(GameScreen screen,GameSession session){await LeaveFleet(screen);int turn=session.State.Turn;await Click(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));Check(session.State.Turn==turn+1,"Actual End Turn resolves once");await Close(Descendants<TurnReportDialog>(screen).Single());}
     private async Task Shot(Window window,string name){await Capture(this,window,Path.Combine(_output,name+".png"));Check(window.Size.X<=GetTree().Root.Size.X&&window.Size.Y<=GetTree().Root.Size.Y,"Clamped window "+name);}
     private async Task Primary(Vector2I size)
     {
@@ -135,6 +142,7 @@ public partial class FleetGraphicalValidation:Node
     }
     private async Task<GameScreen> SaveLoadMain(Control main,GameScreen screen,string label)
     {
+        await LeaveFleet(screen);
         string before=Snapshot(Live(screen)),name="qa-fleet-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-"+label,path=SaveFiles.PathFor(name);Check(!File.Exists(path),"Unique retained QA save");UiNavigation.GameMenu(screen,0);await Frames(this);var save=Descendants<SaveGameDialog>(screen).Single();Descendants<LineEdit>(save).Single().Text=name;await Click(save.GetOkButton());Check(File.Exists(path),"Actual Main Save dialog wrote campaign");UiNavigation.GameMenu(screen,1);await Frames(this);var load=Descendants<LoadGameDialog>(main).Single();var list=Descendants<ItemList>(load).Single();await Select(list,Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemText(i).StartsWith(name+"    ",StringComparison.Ordinal)));await Click(load.GetOkButton());screen=Descendants<GameScreen>(main).Single();PrivatePaths(screen,label);Check(Snapshot(Live(screen))==before,"Actual Main Load dialog restores complete canonical state");_provenance.Add(new{source="Actual Main Save/Load unique retained QA file",label,path,sha256=Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(File.ReadAllBytes(path)))});return screen;
     }
     private async Task SpeciesCampaign(string species)

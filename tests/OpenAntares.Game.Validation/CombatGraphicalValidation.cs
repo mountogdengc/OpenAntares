@@ -93,14 +93,23 @@ public partial class CombatGraphicalValidation:Node
     }
     private async Task<GameScreen> SaveReload(Control main,GameScreen screen,string label)
     {
+        await LeaveFleet(screen);
         string before=Snapshot(Live(screen)),name="qa-combat-"+DateTime.UtcNow.ToString("yyyyMMdd-HHmmss-fffffff")+"-"+label;UiNavigation.GameMenu(screen,0);await Frames(this);var dialog=Descendants<SaveGameDialog>(screen).Single();Descendants<LineEdit>(dialog).Single().Text=name;await Click(dialog.GetOkButton());Check(File.Exists(SaveFiles.PathFor(name)),"Actual combat Save dialog wrote unique retained QA save");UiNavigation.GameMenu(screen,1);await Frames(this);await Load(main,name);screen=Descendants<GameScreen>(main).Single();Paths(screen,label);Check(before==Snapshot(Live(screen)),"Actual Main Save/Load preserves pending combat, damage, consent and all streams");_provenance.Add(new{source="Actual ordinary Main Save/Load controls",file=SaveFiles.PathFor(name)});return screen;
     }
     private async Task<AcceptDialog> Combat(GameScreen screen)
     {
         await Click(screen,"OpenFleetCommand");var fleet=Descendants<FleetCommandDialog>(screen).Single();await Tab(fleet,1);await Select(Named<ItemList>(fleet,"FleetGroupList"),0);await Click(fleet,"FleetCombatOrders");return Named<AcceptDialog>(screen,"CombatOrdersDialog");
     }
+    // Fleet child dialogs return to their invoking Fleet menu. Close it through
+    // its visible button before dispatching a background Main action.
+    private async Task LeaveFleet(GameScreen screen)
+    {
+        var fleet=Descendants<FleetCommandDialog>(screen).SingleOrDefault();
+        if(fleet is {Visible:true}){await Close(fleet);Check(!fleet.Visible,"Restored Fleet closes before background Main action");}
+    }
     private async Task End(GameScreen screen)
     {
+        await LeaveFleet(screen);
         var session=Live(screen);int before=session.State.Turn;var prior=session.State;await Click(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));RecordUi(screen,prior,new SetReadyCommand(prior.Empires.First(e=>e.Controller==ControllerKind.Human).Id,before,true),"End Turn");Check(session.State.Turn==before+1,"Actual End Turn resolves one automatic boundary");Check(Descendants<TurnReportDialog>(screen).Single().Visible,"Actual combat turn report is visible");
     }
     private async Task Primary(Vector2I size)

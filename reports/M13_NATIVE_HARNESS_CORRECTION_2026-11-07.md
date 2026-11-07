@@ -1,0 +1,9 @@
+# M13 native test lifecycle correction — 2026-11-07
+
+Product source remains exactly M13 commit5f5900c. The first strict12-case matrix is retained as failed. Rival reused consumed standalone NewGameScreen objects after successful Start; M13 intentionally allows exactly one successful dispatch. Recreate standalone setup for each default/mirror/Solo/custom-species successful submission and assert the consumed screen disabled Start. Keep all original settings assertions.
+
+Fleet, Combat and ShipDesign tests pressed background EndTurn/Save/refit actions with the restored Fleet parent still modal after closing its child. Follow its actual visible OK/close button before those background actions and assert it closed. Keep all original authoritative command/save/future assertions and zero-diagnostic gate. No product code, original strict runner/verifier, common targets, gameplay, content, rules, schema, balance or release behavior changes. These are test interaction corrections, not a seventh product repair.
+
+Development verification: task10-harness-lifecycle-green-01 retains passing Fleet1704 and Combat3292 with source stable/zero diagnostics/ordinary restoration. Its Rival and ShipDesign failures remain failed and were repaired in their remaining matching fixtures/helpers. Fresh task10-harness-lifecycle-green-02 passes Rival1203 and ShipDesign2039, zero diagnostics/source stable and ordinary restoration (queuede74f88b9f344e17ad178b180094c944). All previous failed logs/saves/artifacts retained. Exactly one fresh whole-M13 review remains; no additional implementation review dispatched.
+
+Owner explicitly authorized M13 commit and final checks. Commit only these five native test files, this note and the canonical ledger. Final same-commit solution/Windows/layout/all7M13/original12+four/replay/preservation remain pending after this verified correction; do not promote prior-source records. No merge/push/release/cleanup.
