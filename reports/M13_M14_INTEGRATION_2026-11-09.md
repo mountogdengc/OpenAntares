@@ -6,7 +6,7 @@ Existing evidence is source-scoped: M13 final acceptance4880d95, M14 final revie
 
 Owner preservation: main’s34 pending planning/reference files have exact raw copies in local reports/integration-20261109/main-before-merge with hashes and a retained named Git stash. Recovery branch codex/pre-m13-m14-integration-20261109 preserves prior main. Source/draft variants, branches/worktrees and every existing evidence file remain retained. Uncommitted project.godot editor-only defaults/reordering remain in the source worktree and are excluded from the commit. Generated screenshots/logs/DLLs/campaign evidence and installed player saves are not added to this commit. Practice generator source is included; installed practice save remains local.
 
-Human acceptance remains Pending. No release or cleanup is authorized. The remote push follows this recording commit and is verified separately before the owner completion report.
+Human acceptance remains Pending. No release or cleanup is authorized. Push succeeded: origin/main advanced63ec608→b34188a. A fresh ls-remote confirmed the remote and local main both at b34188a45ceab0a789fab1c4c30e7547ecff893d. This final delivery record is included in the same authorized push scope.
 
 
 ## Integration verification
