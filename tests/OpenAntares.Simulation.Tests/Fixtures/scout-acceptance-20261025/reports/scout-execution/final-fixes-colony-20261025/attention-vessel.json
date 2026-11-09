@@ -1,0 +1,11 @@
+{
+  "format": "OpenAntaresColonyNotifications",
+  "version": 1,
+  "levels": {
+    "completions": "Attention",
+    "construction_locked": "Attention",
+    "embarkation_wait": "Attention",
+    "governor_actions": "Attention",
+    "support_shortage": "Attention"
+  }
+}

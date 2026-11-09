@@ -1,0 +1,21 @@
+{
+  "format": "OpenAntaresGovernorTemplates",
+  "version": 1,
+  "templates": [
+    {
+      "name": "Factory revised",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "production_complex",
+        "habitat_extension"
+      ],
+      "support_target": "minimum",
+      "production_weight": 3,
+      "research_weight": 1
+    }
+  ]
+}

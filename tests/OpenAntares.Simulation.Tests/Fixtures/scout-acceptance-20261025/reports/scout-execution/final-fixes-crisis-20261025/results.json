@@ -1,0 +1,1954 @@
+{
+  "runId": "20261025-213427-664",
+  "scenario": "Crisis",
+  "method": "Actual Godot controls/signals; labelled pre-session fixtures, no physical input or human acceptance claim.",
+  "passed": true,
+  "error": null,
+  "results": [
+    {
+      "name": "Real graphical display",
+      "passed": true
+    },
+    {
+      "name": "Actual current setup defaults Harl, One Peldra rival and Standard crises",
+      "passed": true
+    },
+    {
+      "name": "Actual current Start uses rules7 Standard and manual required acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Actual Off control updates new-game preview without starting a campaign",
+      "passed": true
+    },
+    {
+      "name": "Actual Off Start keeps rules7 crisis streams dormant",
+      "passed": true
+    },
+    {
+      "name": "Missing current plague prevents even an Off new-game start",
+      "passed": true
+    },
+    {
+      "name": "Missing current plague still offers old-save Load recovery",
+      "passed": true
+    },
+    {
+      "name": "Urgent labelled case validates before UI session",
+      "passed": true
+    },
+    {
+      "name": "Digest does not interrupt for initial urgent facts",
+      "passed": true
+    },
+    {
+      "name": "Digest retains persistent Critical badge and endangered count",
+      "passed": true
+    },
+    {
+      "name": "Unacknowledged emergency blocks next turn before any preparation",
+      "passed": true
+    },
+    {
+      "name": "Local Digest/Off and saved requirement appear as separate settings",
+      "passed": true
+    },
+    {
+      "name": "Local display level 1 saves without touching canonical campaign",
+      "passed": true
+    },
+    {
+      "name": "Critical badge persists at display level 1",
+      "passed": true
+    },
+    {
+      "name": "Local display level 0 saves without touching canonical campaign",
+      "passed": true
+    },
+    {
+      "name": "Critical badge persists at display level 0",
+      "passed": true
+    },
+    {
+      "name": "Local display level 2 saves without touching canonical campaign",
+      "passed": true
+    },
+    {
+      "name": "Critical badge persists at display level 2",
+      "passed": true
+    },
+    {
+      "name": "Explicit waiver consequence shown before saved change",
+      "passed": true
+    },
+    {
+      "name": "Saved opt-out records waived revision, never read",
+      "passed": true
+    },
+    {
+      "name": "Re-enable renews current urgent revision",
+      "passed": true
+    },
+    {
+      "name": "Exact pending revision listed for acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Acknowledge selected handles the displayed revision once",
+      "passed": true
+    },
+    {
+      "name": "Active endangered colony remains visible after acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Labelled30-case two-human attention fixture validates before session: ",
+      "passed": true
+    },
+    {
+      "name": "Actual UI load retains all30 pending revisions",
+      "passed": true
+    },
+    {
+      "name": "Blocked Ready preserves prior other-human Ready and all planning",
+      "passed": true
+    },
+    {
+      "name": "attention-thirty-still-pending: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "Actual Save/Load never implicitly acknowledges thirty cases",
+      "passed": true
+    },
+    {
+      "name": "One grouped overview lists all30 own urgent facts",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisAttentionList",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisAttentionList",
+      "passed": true
+    },
+    {
+      "name": "All30 exact revisions selected in one batch",
+      "passed": true
+    },
+    {
+      "name": "Grouped acknowledgement handles each displayed revision exactly once",
+      "passed": true
+    },
+    {
+      "name": "Other human\u0027s accepted Ready remains intact after acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "attention-thirty-handled: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "Actual UI reload preserves handled revisions and canonical state",
+      "passed": true
+    },
+    {
+      "name": "Labelled resolved receipt older than ten-turn history validates: ",
+      "passed": true
+    },
+    {
+      "name": "Actual UI load retains resolved receipt beyond ten-turn history",
+      "passed": true
+    },
+    {
+      "name": "Resolved old receipt still blocks Ready after UI reload",
+      "passed": true
+    },
+    {
+      "name": "Resolved lost-history receipt remains available for deliberate acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Explicit acknowledgement clears the old resolved receipt",
+      "passed": true
+    },
+    {
+      "name": "Labelled threshold-crossing crisis validates before session",
+      "passed": true
+    },
+    {
+      "name": "Initial screen restores saved facts without treating them as a new popup",
+      "passed": true
+    },
+    {
+      "name": "Actual turn creates a new critical revision alongside one turn report",
+      "passed": true
+    },
+    {
+      "name": "Interrupt opens one crisis overview after the report closes",
+      "passed": true
+    },
+    {
+      "name": "Reopening and closing a report does not repeat an already-shown interruption",
+      "passed": true
+    },
+    {
+      "name": "Waived Interrupt fixture validates",
+      "passed": true
+    },
+    {
+      "name": "Waived initial threat does not interrupt on load",
+      "passed": true
+    },
+    {
+      "name": "New escalation is waived without a Ready blocker",
+      "passed": true
+    },
+    {
+      "name": "New waived material still honors local Interrupt preference",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: explicit rules7 plague Standard/ameba Off seed42 generation succeeds",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: untouched generated turn0 with one rival and Standard crises",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: actual New Game Start produces untouched generated initial state and complete core content",
+      "passed": true
+    },
+    {
+      "name": "generated-harl-initial: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: generated provenance",
+      "passed": true,
+      "source": "complete content/core/*.json",
+      "species": "harl",
+      "seed": 42,
+      "rivals": 1,
+      "rules": 7,
+      "amebas": false,
+      "initialHash": "b380f3cbe72a43e656c6f7735bb7ce4e0ff7e484ebe35557a41f252c673f2974",
+      "turn": 0,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "name": "generated-harl: actual colony controls enable Industrial workforce and construction",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: spontaneous human Warning2 occurs exactly at turn20",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: ordinary foundation completes before the spontaneous crisis",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: first warning interval retains grace1",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: second warning interval becomes Active",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: actual preview and confirm contain the generated source",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: actual cure-share control allocates future research",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: ordinary research increases cure progress after containment; before=0, after=600, forecast=600",
+      "passed": true
+    },
+    {
+      "name": "generated-harl-contained: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: actual UI load preserves complete generated state",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: UI reload future turn 1 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: UI reload future turn 2 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-harl: UI reload future turn 3 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: explicit rules7 plague Standard/ameba Off seed42 generation succeeds",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: untouched generated turn0 with one rival and Standard crises",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: actual New Game Start produces untouched generated initial state and complete core content",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra-initial: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: generated provenance",
+      "passed": true,
+      "source": "complete content/core/*.json",
+      "species": "peldra",
+      "seed": 42,
+      "rivals": 1,
+      "rules": 7,
+      "amebas": false,
+      "initialHash": "6c21bd1f9a61f6e07e63959bbf41da3fafff27d1a8effea6cf46f738ecb7c5b5",
+      "turn": 0,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "name": "generated-peldra: actual colony controls enable Industrial workforce and construction",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: spontaneous human Warning2 occurs exactly at turn20",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: ordinary foundation completes before the spontaneous crisis",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: first warning interval retains grace1",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: second warning interval becomes Active",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: actual preview and confirm contain the generated source",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: actual cure-share control allocates future research",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: ordinary research increases cure progress after containment; before=0, after=360, forecast=360",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra-contained: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: actual UI load preserves complete generated state",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: UI reload future turn 1 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: UI reload future turn 2 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-peldra: UI reload future turn 3 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: explicit rules7 plague Standard/ameba Off seed42 generation succeeds",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: untouched generated turn0 with one rival and Standard crises",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: actual New Game Start produces untouched generated initial state and complete core content",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan-initial: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: generated provenance",
+      "passed": true,
+      "source": "complete content/core/*.json",
+      "species": "sulan",
+      "seed": 42,
+      "rivals": 1,
+      "rules": 7,
+      "amebas": false,
+      "initialHash": "3de508acc209dd3933b70a7cd4bdd59430151a4ec8571861ccbfac7e40341839",
+      "turn": 0,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "name": "generated-sulan: actual colony controls enable Industrial workforce and construction",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: spontaneous human Warning2 occurs exactly at turn20",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: ordinary foundation completes before the spontaneous crisis",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: first warning interval retains grace1",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: second warning interval becomes Active",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: actual preview and confirm contain the generated source",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: actual cure-share control allocates future research",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: ordinary research increases cure progress after containment; before=0, after=480, forecast=480",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan-contained: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: actual UI load preserves complete generated state",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: UI reload future turn 1 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: UI reload future turn 2 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-sulan: UI reload future turn 3 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: explicit rules7 plague Standard/ameba Off seed42 generation succeeds",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: untouched generated turn0 with one rival and Standard crises",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: actual New Game Start produces untouched generated initial state and complete core content",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth-initial: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: generated provenance",
+      "passed": true,
+      "source": "complete content/core/*.json",
+      "species": "wenth",
+      "seed": 42,
+      "rivals": 1,
+      "rules": 7,
+      "amebas": false,
+      "initialHash": "17c66743f9acd8f5474c491cde0a41c8b0414347dfb758a14a207fbd8399aadb",
+      "turn": 0,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "name": "generated-wenth: actual colony controls enable Industrial workforce and construction",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: spontaneous human Warning2 occurs exactly at turn20",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: ordinary foundation completes before the spontaneous crisis",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: first warning interval retains grace1",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: second warning interval becomes Active",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: actual preview and confirm contain the generated source",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: actual cure-share control allocates future research",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: ordinary research increases cure progress after containment; before=0, after=1020, forecast=380",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth-contained: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: actual UI load preserves complete generated state",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: UI reload future turn 1 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: UI reload future turn 2 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: reference follows ordinary selected research",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: uninterrupted reference resolves next turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "generated-wenth: UI reload future turn 3 equals uninterrupted canonical state",
+      "passed": true
+    },
+    {
+      "name": "Generated Harl neglect starts from untouched Standard seed42",
+      "passed": true
+    },
+    {
+      "name": "Actual Standard Start matches untouched Harl neglect seed",
+      "passed": true
+    },
+    {
+      "name": "generated-harl-neglect-initial: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated Harl neglect reaches Active with open source and no cure allocation",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated open Harl plague causes actual population loss before natural recovery",
+      "passed": true
+    },
+    {
+      "name": "Generated neglect and natural closure remain within 120 crisis turns",
+      "passed": true
+    },
+    {
+      "name": "generated-harl-neglect provenance",
+      "passed": true,
+      "source": "complete content/core/*.json",
+      "seed": 42,
+      "rivals": 1,
+      "rules": 7,
+      "amebas": false,
+      "openSource": true,
+      "cureShare": 0,
+      "activePopulation": 10,
+      "minimumPopulation": 8,
+      "resolvedTurn": 28,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "name": "Generated Harl cargo starts from untouched Standard seed42",
+      "passed": true
+    },
+    {
+      "name": "Actual Standard Start matches untouched Harl cargo seed",
+      "passed": true
+    },
+    {
+      "name": "generated-harl-cargo-initial: UI Save writes file",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated scout surveys an eligible remote world before Harl source becomes Active; visited=2",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign acknowledges every current own urgent fact through the actual grouped UI",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated Harl founder completes after source became Active",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Generated infected founder has legal surveyed destination",
+      "passed": true
+    },
+    {
+      "name": "Generated campaign resolves one ordinary turn through End Turn",
+      "passed": true
+    },
+    {
+      "name": "Actual turn report combines colony founding with secondary crisis exposure",
+      "passed": true
+    },
+    {
+      "name": "Generated founder departs infected open source and creates secondary Warning2 with combined report within120 turns; completion=23, departure=24, final=25",
+      "passed": true
+    },
+    {
+      "name": "generated-harl-cargo provenance",
+      "passed": true,
+      "source": "complete content/core/*.json",
+      "seed": 42,
+      "rivals": 1,
+      "rules": 7,
+      "amebas": false,
+      "scoutVisited": 2,
+      "targetStar": 9,
+      "targetPlanet": 31,
+      "completionTurn": 23,
+      "departureTurn": 24,
+      "secondaryTurn": 25,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "name": "Labelled held-carrier fixture validates before UI session: ",
+      "passed": true
+    },
+    {
+      "name": "Actual overview shows labelled carrier port wait and due turn",
+      "passed": true
+    },
+    {
+      "name": "N1 overview names imminent colony loss",
+      "passed": true
+    },
+    {
+      "name": "Late quarantine warns that the colony will be lost despite containment",
+      "passed": true
+    },
+    {
+      "name": "Edited plague civic factor is stated exactly before purge",
+      "passed": true
+    },
+    {
+      "name": "Pending infectious founder fixture validates",
+      "passed": true
+    },
+    {
+      "name": "Pending founder is inspectable at owned port: ship star:3, port star:3, carrier 1, hold ",
+      "passed": true
+    },
+    {
+      "name": "Quarantine lists the exact pending cargo order it would cancel",
+      "passed": true
+    },
+    {
+      "name": "Cancelling quarantine preserves infectious founder order",
+      "passed": true
+    },
+    {
+      "name": "Inspect control exists: CrisisSelectAllAttention,CrisisAcknowledgeSelected,CrisisFilter,CrisisSelectAll,CrisisInspect,CrisisQuarantine,CrisisQuarantineKeep,CrisisReopen,CrisisPurge,CrisisResume,CrisisResearchShare,CrisisSetAuthority,CrisisInspectVessel_vessel_45,CrisisAuthorityPicker,CrisisAuthorityShare,CrisisApplyAuthority",
+      "passed": true
+    },
+    {
+      "name": "Inspection previews exact cancelled move before mutation",
+      "passed": true
+    },
+    {
+      "name": "Open-port inspection warns of continuing contact risk",
+      "passed": true
+    },
+    {
+      "name": "Cancelling inspection preserves campaign and pending order",
+      "passed": true
+    },
+    {
+      "name": "Confirmed inspection cancels displayed move and holds full interval",
+      "passed": true
+    },
+    {
+      "name": "Completion then colony-loss fixture validates",
+      "passed": true
+    },
+    {
+      "name": "Real resolution completes then loses only source colony",
+      "passed": true
+    },
+    {
+      "name": "Historical report retains lost colony completion",
+      "passed": true
+    },
+    {
+      "name": "Lost completion remains visible without a stale project action for surviving colony",
+      "passed": true
+    },
+    {
+      "name": "Carrier-only episode validates",
+      "passed": true
+    },
+    {
+      "name": "Carrier-only episode keeps persistent Critical threat badge",
+      "passed": true
+    },
+    {
+      "name": "Warning and immune colony view validates",
+      "passed": true
+    },
+    {
+      "name": "Warning recovery count includes grace",
+      "passed": true
+    },
+    {
+      "name": "All-colony overview displays current immunity expiry",
+      "passed": true
+    },
+    {
+      "name": "N5 reserve901 labelled fixture validates before session",
+      "passed": true
+    },
+    {
+      "name": "Actual crisis overview control exists",
+      "passed": true
+    },
+    {
+      "name": "Preview shows kept reserve4.5 points",
+      "passed": true
+    },
+    {
+      "name": "Preview shows N5 loss3 and civic expiry T\u002B5",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisConfirmPurge",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisConfirmPurge",
+      "passed": true
+    },
+    {
+      "name": "Cancel preserves exact campaign",
+      "passed": true
+    },
+    {
+      "name": "Ordinary other-case quarantine changes full preview consequences",
+      "passed": true
+    },
+    {
+      "name": "Stale confirmation rejects without loss",
+      "passed": true
+    },
+    {
+      "name": "Actual fresh purge applies displayed costs",
+      "passed": true
+    },
+    {
+      "name": "Normal containment preview describes shared port and economics",
+      "passed": true
+    },
+    {
+      "name": "Quarantine preview cancel preserves canonical state",
+      "passed": true
+    },
+    {
+      "name": "Actual quarantine response follows its full preview",
+      "passed": true
+    },
+    {
+      "name": "All three explicit crisis authority choices are available",
+      "passed": true
+    },
+    {
+      "name": "Automatic authority offers only valid25/50/100 research shares",
+      "passed": true
+    },
+    {
+      "name": "Actual authority dialog sets automatic containment and research",
+      "passed": true
+    },
+    {
+      "name": "Actual manual response overrides the automatic case policy without changing colony governor",
+      "passed": true
+    },
+    {
+      "name": "N1 confirmation explains assets and recovery",
+      "passed": true
+    },
+    {
+      "name": "Selected N1 colony removal refreshes safely",
+      "passed": true
+    },
+    {
+      "name": "Zero-colony overview explains surviving founder recovery",
+      "passed": true
+    },
+    {
+      "name": "Stored loss location remains visible",
+      "passed": true
+    },
+    {
+      "name": "Labelled 1-case scale fixture validates before session",
+      "passed": true
+    },
+    {
+      "name": "All 1 own cases shown",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisCaseList",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisPurge",
+      "passed": true
+    },
+    {
+      "name": "Close reachable 1/800",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisCaseList",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisPurge",
+      "passed": true
+    },
+    {
+      "name": "Close reachable 1/1920",
+      "passed": true
+    },
+    {
+      "name": "Opening/selecting/scrolling 1 cases preserves exact state",
+      "passed": true
+    },
+    {
+      "name": "Labelled 6-case scale fixture validates before session",
+      "passed": true
+    },
+    {
+      "name": "All 6 own cases shown",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisCaseList",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisPurge",
+      "passed": true
+    },
+    {
+      "name": "Close reachable 6/800",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisCaseList",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisPurge",
+      "passed": true
+    },
+    {
+      "name": "Close reachable 6/1920",
+      "passed": true
+    },
+    {
+      "name": "Opening/selecting/scrolling 6 cases preserves exact state",
+      "passed": true
+    },
+    {
+      "name": "Labelled 11-case scale fixture validates before session",
+      "passed": true
+    },
+    {
+      "name": "All 11 own cases shown",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisCaseList",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisPurge",
+      "passed": true
+    },
+    {
+      "name": "Close reachable 11/800",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisCaseList",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisPurge",
+      "passed": true
+    },
+    {
+      "name": "Close reachable 11/1920",
+      "passed": true
+    },
+    {
+      "name": "Opening/selecting/scrolling 11 cases preserves exact state",
+      "passed": true
+    },
+    {
+      "name": "Labelled 30-case scale fixture validates before session",
+      "passed": true
+    },
+    {
+      "name": "All 30 own cases shown",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisCaseList",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisPurge",
+      "passed": true
+    },
+    {
+      "name": "Close reachable 30/800",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisCaseList",
+      "passed": true
+    },
+    {
+      "name": "Reach control CrisisPurge",
+      "passed": true
+    },
+    {
+      "name": "Close reachable 30/1920",
+      "passed": true
+    },
+    {
+      "name": "Opening/selecting/scrolling 30 cases preserves exact state",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Live warning is projected before acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Study75%, late95%, combined7125/10000 from shared projection",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual scout overview exists",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Unresolved loaded warning opens the grouped overview by default",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning discloses its effective destination, duration and own observation before acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning route consequences are reachable in the scroll at 800",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Emergency badge remains visible",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual End Turn cannot bypass exact acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Study confirmation shows exact two-stage retention",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cancelling study preserves canonical state",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Stale study confirmation rejects after an actual course change",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Study queues one-boundary risk without rolling",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual grouped acknowledge saves exact current consequence",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Report owns the modal window before the next ameba prompt",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Ready resolves generated first draw55 into Exposed",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Study report retains earned600",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Exposed requires fresh exact consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual withdrawal uses ordinary pending travel",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 1 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 2 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 0 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Grouped panel fits 800x600",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Focused response is reachable within scroll at 800",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning explains survival overriding peaceful neutral caution with the route",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Neutral override explanation is reachable at 800",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cargo with no route visibly requires a response instead of claiming departure",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Remain confirmation explicitly loses vessel and cargo",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual cargo Remain/Acknowledge/Ready consumes exact expedition",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cargo loss stays readable without a live vessel",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Reopening a report retains the queued emergency without a competing exclusive window",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Live warning is projected before acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Study75%, late95%, combined7125/10000 from shared projection",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual scout overview exists",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Unresolved loaded warning opens the grouped overview by default",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning discloses its effective destination, duration and own observation before acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning route consequences are reachable in the scroll at 1920",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Emergency badge remains visible",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual End Turn cannot bypass exact acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Study confirmation shows exact two-stage retention",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cancelling study preserves canonical state",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Stale study confirmation rejects after an actual course change",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Study queues one-boundary risk without rolling",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual grouped acknowledge saves exact current consequence",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Report owns the modal window before the next ameba prompt",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Ready resolves generated first draw55 into Exposed",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Study report retains earned600",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Exposed requires fresh exact consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual withdrawal uses ordinary pending travel",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 1 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 2 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 0 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Grouped panel fits 1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Focused response is reachable within scroll at 1920",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning explains survival overriding peaceful neutral caution with the route",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Neutral override explanation is reachable at 1920",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cargo with no route visibly requires a response instead of claiming departure",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Remain confirmation explicitly loses vessel and cargo",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual cargo Remain/Acknowledge/Ready consumes exact expedition",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cargo loss stays readable without a live vessel",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Reopening a report retains the queued emergency without a competing exclusive window",
+      "passed": true
+    }
+  ],
+  "retainedQaSavePaths": [
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-labelled-attention-handled.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-attention-thirty-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-attention-thirty-still-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-attention-thirty-handled.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-resolved-old-receipt.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-generated-harl-initial.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-generated-harl-onset.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-generated-harl-contained.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-generated-harl-continued.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-generated-peldra-initial.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-generated-peldra-onset.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-generated-peldra-contained.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-generated-peldra-continued.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-generated-sulan-initial.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-generated-sulan-onset.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-generated-sulan-contained.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-generated-sulan-continued.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-generated-wenth-initial.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-generated-wenth-onset.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-generated-wenth-contained.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-generated-wenth-continued.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-generated-harl-neglect-initial.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-generated-harl-neglect-recovered.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-generated-harl-cargo-initial.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-generated-harl-cargo-secondary-warning.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-labelled-port-wait.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-labelled-n5-response.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213427-664-crisis-labelled-n1-loss.json"
+  ]
+}

@@ -22,7 +22,8 @@ public sealed class ScoutingIntegrationTests
     [Fact] public void FinalAcceptanceMapsEveryCriterionToExecutedArtifactsAndPreservation()
     {
         string root=new DirectoryInfo(ContentLoaderTests.CoreContentDirectory()).Parent!.Parent!.FullName;
-        string path=Path.Combine(root,"reports/scout-execution/final-machine-summary.json");
+        string EvidencePath(string relative)=>Path.Combine(relative.StartsWith("reports/",StringComparison.Ordinal)?Path.Combine(root,"tests/OpenAntares.Simulation.Tests/Fixtures/scout-acceptance-20261025"):root,relative);
+        string path=EvidencePath("reports/scout-execution/final-machine-summary.json");
         Assert.True(File.Exists(path),"Final acceptance requires actual criterion, runtime and preservation artifacts.");
         var summary=JsonNode.Parse(File.ReadAllText(path))!;
         var criteria=summary["criteria"]!.AsArray();
@@ -30,18 +31,18 @@ public sealed class ScoutingIntegrationTests
         foreach(var criterion in criteria)
         {
             var evidence=criterion!["executedEvidence"]!.AsArray();Assert.NotEmpty(evidence);
-            foreach(var item in evidence)Assert.True(File.Exists(Path.Combine(root,item!.GetValue<string>())),item.GetValue<string>());
+            foreach(var item in evidence)Assert.True(File.Exists(EvidencePath(item!.GetValue<string>())),item.GetValue<string>());
         }
         var runs=summary["runtime"]!.AsArray();Assert.Equal(7,runs.Count);
         foreach(var run in runs)
         {
             Assert.Equal(0,run!["exitCode"]!.GetValue<int>());Assert.Empty(run["diagnostics"]!.AsArray());
-            string folder=Path.Combine(root,run["artifact"]!.GetValue<string>());
+            string folder=EvidencePath(run["artifact"]!.GetValue<string>());
             var result=JsonNode.Parse(File.ReadAllText(Path.Combine(folder,"results.json")))!;Assert.True(result["passed"]!.GetValue<bool>());
             var optIn=JsonNode.Parse(File.ReadAllText(Path.Combine(folder,"opt-in-metadata.json")))!;
             var ordinary=JsonNode.Parse(File.ReadAllText(Path.Combine(folder,"normal-metadata.json")))!;
             Assert.Equal(7,optIn["presentScenarioTypes"]!.AsArray().Count);Assert.Empty(ordinary["presentScenarioTypes"]!.AsArray());Assert.Empty(ordinary["presentHelpers"]!.AsArray());
-            foreach(var file in run["files"]!.AsArray())Assert.Equal(file!["sha256"]!.GetValue<string>(),Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(Path.Combine(root,file["path"]!.GetValue<string>())))).ToLowerInvariant());
+            foreach(var file in run["files"]!.AsArray())Assert.Equal(file!["sha256"]!.GetValue<string>(),Convert.ToHexString(SHA256.HashData(File.ReadAllBytes(EvidencePath(file["path"]!.GetValue<string>())))).ToLowerInvariant());
         }
         var preservation=summary["preservation"]!;Assert.True(preservation["primaryOwnerHashesUnchanged"]!.GetValue<bool>());
         Assert.Equal(7,preservation["worktrees"]!.AsArray().Count);Assert.Equal(4,preservation["ownerFiles"]!.AsArray().Count);

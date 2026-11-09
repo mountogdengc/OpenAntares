@@ -1,0 +1,1149 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 3090
+
+PASS: Rival validation requires a graphical display
+PASS: Visible rival count selector exists
+PASS: Visible defaults are One / Harl / Peldra
+PASS: Visible current defaults reach simulation unchanged
+PASS: Human selection does not swap rival; mirrors legal
+PASS: Mirror settings reach simulation
+PASS: Solo disables rival and passes null identity
+PASS: One enables the retained rival choice
+PASS: Setup controls/focus fit (800, 600)
+PASS: Screenshot saved: rival-setup-800x600
+PASS: Setup controls/focus fit (1152, 648)
+PASS: Screenshot saved: rival-setup-1152x648
+PASS: Setup controls/focus fit (1280, 720)
+PASS: Screenshot saved: rival-setup-1280x720
+PASS: Setup controls/focus fit (1600, 900)
+PASS: Screenshot saved: rival-setup-1600x900
+PASS: Setup controls/focus fit (1920, 1080)
+PASS: Screenshot saved: rival-setup-1920x1080
+PASS: Alternative human defaults to peldra
+PASS: Alternative rival defaults to distinct choice or sole mirror: sulan
+PASS: Actual alternative Start uses both initial identities
+PASS: Later manual mirror remains legal without rival auto-swap
+PASS: Alternative human defaults to harl
+PASS: Alternative rival defaults to distinct choice or sole mirror: sulan
+PASS: Actual alternative Start uses both initial identities
+PASS: Later manual mirror remains legal without rival auto-swap
+PASS: Alternative human defaults to sulan
+PASS: Alternative rival defaults to distinct choice or sole mirror: wenth
+PASS: Actual alternative Start uses both initial identities
+PASS: Later manual mirror remains legal without rival auto-swap
+PASS: Alternative human defaults to peldra
+PASS: Alternative rival defaults to distinct choice or sole mirror: peldra
+PASS: Actual alternative Start uses both initial identities
+PASS: Later manual mirror remains legal without rival auto-swap
+PASS: Alternative human defaults to harl
+PASS: Alternative rival defaults to distinct choice or sole mirror: harl
+PASS: Actual alternative Start uses both initial identities
+PASS: Later manual mirror remains legal without rival auto-swap
+PASS: Alternative human defaults to wenth
+PASS: Alternative rival defaults to distinct choice or sole mirror: wenth
+PASS: Actual alternative Start uses both initial identities
+PASS: Later manual mirror remains legal without rival auto-swap
+PASS: No species disables Start
+PASS: No species retains Load
+PASS: Renamed/reordered alternative definitions initialize in ordinal order with a distinct rival
+PASS: Missing policy disables new rules-4 game
+PASS: Missing policy retains Load
+PASS: Failed generation retains setup without replacing a session
+PASS: Failed generation shows an actionable error
+PASS: Invalid-content legacy QA name is unique
+PASS: Long invalid disk-content result comes from the real loader
+PASS: Invalid disk content keeps Load Game available
+PASS: Long content-error recovery action stays inside the 800x600 viewport
+PASS: Long content diagnostics scroll while recovery action stays visible
+PASS: Screenshot saved: long-content-error-recovery-800
+PASS: Invalid disk content still loads original embedded rules3 campaign
+PASS: Labelled pre-session observation fixture validates
+PASS: Contact UI shows observed culture identity
+PASS: Ownership UI dates its observation
+PASS: Screenshot saved: rival-observed-contact
+PASS: Contact UI shows observed culture identity
+PASS: Ownership UI dates its observation
+PASS: Rendered labels and tooltips ignore hidden rival reserves and orders
+PASS: encounter-report-details: labelled pre-session fixture validates
+PASS: encounter-report-details: fixture path unique
+PASS: End Turn advances once and opens report
+PASS: Actual encounter report distinguishes Peldra colony at observed orbit 2 with culture/date
+PASS: Actual encounter report distinguishes Peldra colony at observed orbit 3 with culture/date
+PASS: First-contact report identifies species without inventing a planet
+PASS: Encounter wording describes observation rather than unknown founding history
+PASS: Report scrolling exposes both exact observed worlds at 800x600
+PASS: Screenshot saved: encounter-report-details-800
+PASS: Screenshot saved: encounter-report-details-1920
+PASS: Labelled report reference resolves normally
+PASS: Report identity/orbit/text ignores hidden foreign mutations and retains dated facts
+PASS: harl/rivals0: visible Off settings create correct empires
+PASS: Reference turn resolves
+PASS: QA save name is unique
+PASS: human-harl-rivals0: Save dialog opens
+PASS: human-harl-rivals0: Save dialog writes and closes
+PASS: human-harl-rivals0: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: harl/rivals0: UI save/load preserves future continuation
+PASS: harl/rivals1: visible Off settings create correct empires
+PASS: Reference turn resolves
+PASS: QA save name is unique
+PASS: human-harl-rivals1: Save dialog opens
+PASS: human-harl-rivals1: Save dialog writes and closes
+PASS: human-harl-rivals1: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: harl/rivals1: UI save/load preserves future continuation
+PASS: peldra/rivals0: visible Off settings create correct empires
+PASS: Reference turn resolves
+PASS: QA save name is unique
+PASS: human-peldra-rivals0: Save dialog opens
+PASS: human-peldra-rivals0: Save dialog writes and closes
+PASS: human-peldra-rivals0: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: peldra/rivals0: UI save/load preserves future continuation
+PASS: peldra/rivals1: visible Off settings create correct empires
+PASS: Reference turn resolves
+PASS: QA save name is unique
+PASS: human-peldra-rivals1: Save dialog opens
+PASS: human-peldra-rivals1: Save dialog writes and closes
+PASS: human-peldra-rivals1: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: peldra/rivals1: UI save/load preserves future continuation
+PASS: sulan/rivals0: visible Off settings create correct empires
+PASS: Reference turn resolves
+PASS: QA save name is unique
+PASS: human-sulan-rivals0: Save dialog opens
+PASS: human-sulan-rivals0: Save dialog writes and closes
+PASS: human-sulan-rivals0: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: sulan/rivals0: UI save/load preserves future continuation
+PASS: sulan/rivals1: visible Off settings create correct empires
+PASS: Reference turn resolves
+PASS: QA save name is unique
+PASS: human-sulan-rivals1: Save dialog opens
+PASS: human-sulan-rivals1: Save dialog writes and closes
+PASS: human-sulan-rivals1: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: sulan/rivals1: UI save/load preserves future continuation
+PASS: wenth/rivals0: visible Off settings create correct empires
+PASS: Reference turn resolves
+PASS: QA save name is unique
+PASS: human-wenth-rivals0: Save dialog opens
+PASS: human-wenth-rivals0: Save dialog writes and closes
+PASS: human-wenth-rivals0: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: wenth/rivals0: UI save/load preserves future continuation
+PASS: wenth/rivals1: visible Off settings create correct empires
+PASS: Reference turn resolves
+PASS: QA save name is unique
+PASS: human-wenth-rivals1: Save dialog opens
+PASS: human-wenth-rivals1: Save dialog writes and closes
+PASS: human-wenth-rivals1: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: wenth/rivals1: UI save/load preserves future continuation
+PASS: rival-native: labelled pre-session fixture validates
+PASS: rival-native: fixture path unique
+PASS: End Turn advances once and opens report
+PASS: Labelled rival Sulan explicitly founds native
+PASS: Screenshot saved: labelled-rival-native
+PASS: rival-sealed: labelled pre-session fixture validates
+PASS: rival-sealed: fixture path unique
+PASS: End Turn advances once and opens report
+PASS: Labelled rival Sulan explicitly founds sealed
+PASS: Screenshot saved: labelled-rival-sealed
+PASS: rival-extended: labelled pre-session fixture validates
+PASS: rival-extended: fixture path unique
+PASS: End Turn advances once and opens report
+PASS: Labelled AI Wenth waits for current capacity eight, including growth-to-eight snapshot
+PASS: End Turn advances once and opens report
+PASS: Labelled AI Wenth waits for current capacity eight, including growth-to-eight snapshot
+PASS: End Turn advances once and opens report
+PASS: Labelled AI Wenth waits for current capacity eight, including growth-to-eight snapshot
+PASS: End Turn advances once and opens report
+PASS: Labelled AI Wenth waits for current capacity eight, including growth-to-eight snapshot
+PASS: End Turn advances once and opens report
+PASS: Labelled AI extended Wenth transfers eight to parent5 plus seed3
+PASS: End Turn advances once and opens report
+PASS: Labelled AI Wenth daughter is unbuilt capacity six
+PASS: Screenshot saved: labelled-rival-extended
+PASS: rival-race: labelled pre-session fixture validates
+PASS: rival-race: fixture path unique
+PASS: End Turn advances once and opens report
+PASS: Labelled simultaneous race preserves lower EmpireId winner
+PASS: Labelled race loser retains cargo
+PASS: Winner report does not disclose a hidden losing order
+PASS: Screenshot saved: labelled-rival-race
+PASS: rival-alternate: labelled pre-session fixture validates
+PASS: rival-alternate: fixture path unique
+PASS: QA save name is unique
+PASS: rival-renamed-policy: Save dialog opens
+PASS: rival-renamed-policy: Save dialog writes and closes
+PASS: rival-renamed-policy: saved state matches session
+PASS: Renamed embedded policy reference resolves
+PASS: Renamed embedded policy reference resolves
+PASS: Renamed embedded policy reference resolves
+PASS: Renamed embedded policy reference resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: Renamed species and nondefault embedded policy continue exactly through UI load
+PASS: Screenshot saved: labelled-rival-alternate
+PASS: rival-peldra-small: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-peldra-small-pending: Save dialog opens
+PASS: rival-peldra-small-pending: Save dialog writes and closes
+PASS: rival-peldra-small-pending: saved state matches session
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-peldra-small-transit: Save dialog opens
+PASS: rival-peldra-small-transit: Save dialog writes and closes
+PASS: rival-peldra-small-transit: saved state matches session
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-peldra-small-founding: Save dialog opens
+PASS: rival-peldra-small-founding: Save dialog writes and closes
+PASS: rival-peldra-small-founding: saved state matches session
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: actual End Turn equals canonical reference
+PASS: rival-peldra-small: generated loop stays within core turn bound
+PASS: rival-peldra-small: rival founded a real second colony
+PASS: rival-peldra-small: human observed the rival
+PASS: rival-peldra-small: real human settlement
+PASS: rival-peldra-small: pending/transit/founding saved order stages
+PASS: rival-peldra-small: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-peldra-small-expanded: Save dialog opens
+PASS: rival-peldra-small-expanded: Save dialog writes and closes
+PASS: rival-peldra-small-expanded: saved state matches session
+PASS: rival-peldra-small: reference future resolves
+PASS: rival-peldra-small: reference future resolves
+PASS: rival-peldra-small: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-small: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-small: game controls fit (800, 600)
+PASS: Screenshot saved: rival-peldra-small-observed-800
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-small: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-small: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-small: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-small: game controls fit (1920, 1080)
+PASS: Screenshot saved: rival-peldra-small-observed-1920
+PASS: rival-peldra-medium: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-peldra-medium-pending: Save dialog opens
+PASS: rival-peldra-medium-pending: Save dialog writes and closes
+PASS: rival-peldra-medium-pending: saved state matches session
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-peldra-medium-transit: Save dialog opens
+PASS: rival-peldra-medium-transit: Save dialog writes and closes
+PASS: rival-peldra-medium-transit: saved state matches session
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-peldra-medium-founding: Save dialog opens
+PASS: rival-peldra-medium-founding: Save dialog writes and closes
+PASS: rival-peldra-medium-founding: saved state matches session
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: actual End Turn equals canonical reference
+PASS: rival-peldra-medium: generated loop stays within core turn bound
+PASS: rival-peldra-medium: rival founded a real second colony
+PASS: rival-peldra-medium: human observed the rival
+PASS: rival-peldra-medium: real human settlement
+PASS: rival-peldra-medium: pending/transit/founding saved order stages
+PASS: rival-peldra-medium: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-peldra-medium-expanded: Save dialog opens
+PASS: rival-peldra-medium-expanded: Save dialog writes and closes
+PASS: rival-peldra-medium-expanded: saved state matches session
+PASS: rival-peldra-medium: reference future resolves
+PASS: rival-peldra-medium: reference future resolves
+PASS: rival-peldra-medium: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-medium: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-medium: game controls fit (800, 600)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-medium: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-medium: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-medium: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-medium: game controls fit (1920, 1080)
+PASS: rival-peldra-large: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-peldra-large-pending: Save dialog opens
+PASS: rival-peldra-large-pending: Save dialog writes and closes
+PASS: rival-peldra-large-pending: saved state matches session
+PASS: rival-peldra-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-large: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-peldra-large-transit: Save dialog opens
+PASS: rival-peldra-large-transit: Save dialog writes and closes
+PASS: rival-peldra-large-transit: saved state matches session
+PASS: rival-peldra-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-large: actual End Turn equals canonical reference
+PASS: rival-peldra-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-large: actual End Turn equals canonical reference
+PASS: rival-peldra-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-peldra-large-founding: Save dialog opens
+PASS: rival-peldra-large-founding: Save dialog writes and closes
+PASS: rival-peldra-large-founding: saved state matches session
+PASS: rival-peldra-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-peldra-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-large: actual End Turn equals canonical reference
+PASS: rival-peldra-large: generated loop stays within core turn bound
+PASS: rival-peldra-large: rival founded a real second colony
+PASS: rival-peldra-large: human observed the rival
+PASS: rival-peldra-large: real human settlement
+PASS: rival-peldra-large: pending/transit/founding saved order stages
+PASS: rival-peldra-large: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-peldra-large-expanded: Save dialog opens
+PASS: rival-peldra-large-expanded: Save dialog writes and closes
+PASS: rival-peldra-large-expanded: saved state matches session
+PASS: rival-peldra-large: reference future resolves
+PASS: rival-peldra-large: reference future resolves
+PASS: rival-peldra-large: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-peldra-large: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-large: game controls fit (800, 600)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-large: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-large: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-large: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-peldra-large: game controls fit (1920, 1080)
+PASS: rival-harl-small: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-harl-small-pending: Save dialog opens
+PASS: rival-harl-small-pending: Save dialog writes and closes
+PASS: rival-harl-small-pending: saved state matches session
+PASS: rival-harl-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-small: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-harl-small-transit: Save dialog opens
+PASS: rival-harl-small-transit: Save dialog writes and closes
+PASS: rival-harl-small-transit: saved state matches session
+PASS: rival-harl-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-harl-small-founding: Save dialog opens
+PASS: rival-harl-small-founding: Save dialog writes and closes
+PASS: rival-harl-small-founding: saved state matches session
+PASS: rival-harl-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-small: actual End Turn equals canonical reference
+PASS: rival-harl-small: generated loop stays within core turn bound
+PASS: rival-harl-small: rival founded a real second colony
+PASS: rival-harl-small: human observed the rival
+PASS: rival-harl-small: real human settlement
+PASS: rival-harl-small: pending/transit/founding saved order stages
+PASS: rival-harl-small: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-harl-small-expanded: Save dialog opens
+PASS: rival-harl-small-expanded: Save dialog writes and closes
+PASS: rival-harl-small-expanded: saved state matches session
+PASS: rival-harl-small: reference future resolves
+PASS: rival-harl-small: reference future resolves
+PASS: rival-harl-small: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-harl-small: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-small: game controls fit (800, 600)
+PASS: Screenshot saved: rival-harl-small-observed-800
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-small: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-small: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-small: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-small: game controls fit (1920, 1080)
+PASS: Screenshot saved: rival-harl-small-observed-1920
+PASS: rival-harl-medium: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-harl-medium-pending: Save dialog opens
+PASS: rival-harl-medium-pending: Save dialog writes and closes
+PASS: rival-harl-medium-pending: saved state matches session
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-harl-medium-transit: Save dialog opens
+PASS: rival-harl-medium-transit: Save dialog writes and closes
+PASS: rival-harl-medium-transit: saved state matches session
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-harl-medium-founding: Save dialog opens
+PASS: rival-harl-medium-founding: Save dialog writes and closes
+PASS: rival-harl-medium-founding: saved state matches session
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: actual End Turn equals canonical reference
+PASS: rival-harl-medium: generated loop stays within core turn bound
+PASS: rival-harl-medium: rival founded a real second colony
+PASS: rival-harl-medium: human observed the rival
+PASS: rival-harl-medium: real human settlement
+PASS: rival-harl-medium: pending/transit/founding saved order stages
+PASS: rival-harl-medium: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-harl-medium-expanded: Save dialog opens
+PASS: rival-harl-medium-expanded: Save dialog writes and closes
+PASS: rival-harl-medium-expanded: saved state matches session
+PASS: rival-harl-medium: reference future resolves
+PASS: rival-harl-medium: reference future resolves
+PASS: rival-harl-medium: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-harl-medium: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-medium: game controls fit (800, 600)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-medium: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-medium: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-medium: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-medium: game controls fit (1920, 1080)
+PASS: rival-harl-large: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-harl-large-pending: Save dialog opens
+PASS: rival-harl-large-pending: Save dialog writes and closes
+PASS: rival-harl-large-pending: saved state matches session
+PASS: rival-harl-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-large: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-harl-large-transit: Save dialog opens
+PASS: rival-harl-large-transit: Save dialog writes and closes
+PASS: rival-harl-large-transit: saved state matches session
+PASS: rival-harl-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-large: actual End Turn equals canonical reference
+PASS: rival-harl-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-large: actual End Turn equals canonical reference
+PASS: rival-harl-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-harl-large-founding: Save dialog opens
+PASS: rival-harl-large-founding: Save dialog writes and closes
+PASS: rival-harl-large-founding: saved state matches session
+PASS: rival-harl-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-harl-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-harl-large: actual End Turn equals canonical reference
+PASS: rival-harl-large: generated loop stays within core turn bound
+PASS: rival-harl-large: rival founded a real second colony
+PASS: rival-harl-large: human observed the rival
+PASS: rival-harl-large: real human settlement
+PASS: rival-harl-large: pending/transit/founding saved order stages
+PASS: rival-harl-large: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-harl-large-expanded: Save dialog opens
+PASS: rival-harl-large-expanded: Save dialog writes and closes
+PASS: rival-harl-large-expanded: saved state matches session
+PASS: rival-harl-large: reference future resolves
+PASS: rival-harl-large: reference future resolves
+PASS: rival-harl-large: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-harl-large: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-large: game controls fit (800, 600)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-large: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-large: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-large: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-harl-large: game controls fit (1920, 1080)
+PASS: rival-sulan-small: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-sulan-small-pending: Save dialog opens
+PASS: rival-sulan-small-pending: Save dialog writes and closes
+PASS: rival-sulan-small-pending: saved state matches session
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-sulan-small-transit: Save dialog opens
+PASS: rival-sulan-small-transit: Save dialog writes and closes
+PASS: rival-sulan-small-transit: saved state matches session
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-sulan-small-founding: Save dialog opens
+PASS: rival-sulan-small-founding: Save dialog writes and closes
+PASS: rival-sulan-small-founding: saved state matches session
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: actual End Turn equals canonical reference
+PASS: rival-sulan-small: generated loop stays within core turn bound
+PASS: rival-sulan-small: rival founded a real second colony
+PASS: rival-sulan-small: human observed the rival
+PASS: rival-sulan-small: real human settlement
+PASS: rival-sulan-small: pending/transit/founding saved order stages
+PASS: rival-sulan-small: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-sulan-small-expanded: Save dialog opens
+PASS: rival-sulan-small-expanded: Save dialog writes and closes
+PASS: rival-sulan-small-expanded: saved state matches session
+PASS: rival-sulan-small: reference future resolves
+PASS: rival-sulan-small: reference future resolves
+PASS: rival-sulan-small: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-small: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-small: game controls fit (800, 600)
+PASS: Screenshot saved: rival-sulan-small-observed-800
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-small: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-small: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-small: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-small: game controls fit (1920, 1080)
+PASS: Screenshot saved: rival-sulan-small-observed-1920
+PASS: rival-sulan-medium: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-sulan-medium-pending: Save dialog opens
+PASS: rival-sulan-medium-pending: Save dialog writes and closes
+PASS: rival-sulan-medium-pending: saved state matches session
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-sulan-medium-transit: Save dialog opens
+PASS: rival-sulan-medium-transit: Save dialog writes and closes
+PASS: rival-sulan-medium-transit: saved state matches session
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-sulan-medium-founding: Save dialog opens
+PASS: rival-sulan-medium-founding: Save dialog writes and closes
+PASS: rival-sulan-medium-founding: saved state matches session
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: actual End Turn equals canonical reference
+PASS: rival-sulan-medium: generated loop stays within core turn bound
+PASS: rival-sulan-medium: rival founded a real second colony
+PASS: rival-sulan-medium: human observed the rival
+PASS: rival-sulan-medium: real human settlement
+PASS: rival-sulan-medium: pending/transit/founding saved order stages
+PASS: rival-sulan-medium: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-sulan-medium-expanded: Save dialog opens
+PASS: rival-sulan-medium-expanded: Save dialog writes and closes
+PASS: rival-sulan-medium-expanded: saved state matches session
+PASS: rival-sulan-medium: reference future resolves
+PASS: rival-sulan-medium: reference future resolves
+PASS: rival-sulan-medium: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-medium: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-medium: game controls fit (800, 600)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-medium: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-medium: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-medium: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-medium: game controls fit (1920, 1080)
+PASS: rival-sulan-large: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-sulan-large-pending: Save dialog opens
+PASS: rival-sulan-large-pending: Save dialog writes and closes
+PASS: rival-sulan-large-pending: saved state matches session
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-sulan-large-transit: Save dialog opens
+PASS: rival-sulan-large-transit: Save dialog writes and closes
+PASS: rival-sulan-large-transit: saved state matches session
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-sulan-large-founding: Save dialog opens
+PASS: rival-sulan-large-founding: Save dialog writes and closes
+PASS: rival-sulan-large-founding: saved state matches session
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-sulan-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: actual End Turn equals canonical reference
+PASS: rival-sulan-large: generated loop stays within core turn bound
+PASS: rival-sulan-large: rival founded a real second colony
+PASS: rival-sulan-large: human observed the rival
+PASS: rival-sulan-large: real human settlement
+PASS: rival-sulan-large: pending/transit/founding saved order stages
+PASS: rival-sulan-large: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-sulan-large-expanded: Save dialog opens
+PASS: rival-sulan-large-expanded: Save dialog writes and closes
+PASS: rival-sulan-large-expanded: saved state matches session
+PASS: rival-sulan-large: reference future resolves
+PASS: rival-sulan-large: reference future resolves
+PASS: rival-sulan-large: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-sulan-large: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-large: game controls fit (800, 600)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-large: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-large: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-large: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-sulan-large: game controls fit (1920, 1080)
+PASS: rival-wenth-small: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-wenth-small-pending: Save dialog opens
+PASS: rival-wenth-small-pending: Save dialog writes and closes
+PASS: rival-wenth-small-pending: saved state matches session
+PASS: rival-wenth-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-small: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-wenth-small-transit: Save dialog opens
+PASS: rival-wenth-small-transit: Save dialog writes and closes
+PASS: rival-wenth-small-transit: saved state matches session
+PASS: rival-wenth-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-wenth-small-founding: Save dialog opens
+PASS: rival-wenth-small-founding: Save dialog writes and closes
+PASS: rival-wenth-small-founding: saved state matches session
+PASS: rival-wenth-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-small: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-small: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-small: actual End Turn equals canonical reference
+PASS: rival-wenth-small: generated loop stays within core turn bound
+PASS: rival-wenth-small: rival founded a real second colony
+PASS: rival-wenth-small: human observed the rival
+PASS: rival-wenth-small: real human settlement
+PASS: rival-wenth-small: pending/transit/founding saved order stages
+PASS: rival-wenth-small: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-wenth-small-expanded: Save dialog opens
+PASS: rival-wenth-small-expanded: Save dialog writes and closes
+PASS: rival-wenth-small-expanded: saved state matches session
+PASS: rival-wenth-small: reference future resolves
+PASS: rival-wenth-small: reference future resolves
+PASS: rival-wenth-small: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-small: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-small: game controls fit (800, 600)
+PASS: Screenshot saved: rival-wenth-small-observed-800
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-small: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-small: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-small: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-small: game controls fit (1920, 1080)
+PASS: Screenshot saved: rival-wenth-small-observed-1920
+PASS: rival-wenth-medium: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-wenth-medium-pending: Save dialog opens
+PASS: rival-wenth-medium-pending: Save dialog writes and closes
+PASS: rival-wenth-medium-pending: saved state matches session
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-wenth-medium-transit: Save dialog opens
+PASS: rival-wenth-medium-transit: Save dialog writes and closes
+PASS: rival-wenth-medium-transit: saved state matches session
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-wenth-medium-founding: Save dialog opens
+PASS: rival-wenth-medium-founding: Save dialog writes and closes
+PASS: rival-wenth-medium-founding: saved state matches session
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-medium: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: actual End Turn equals canonical reference
+PASS: rival-wenth-medium: generated loop stays within core turn bound
+PASS: rival-wenth-medium: rival founded a real second colony
+PASS: rival-wenth-medium: human observed the rival
+PASS: rival-wenth-medium: real human settlement
+PASS: rival-wenth-medium: pending/transit/founding saved order stages
+PASS: rival-wenth-medium: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-wenth-medium-expanded: Save dialog opens
+PASS: rival-wenth-medium-expanded: Save dialog writes and closes
+PASS: rival-wenth-medium-expanded: saved state matches session
+PASS: rival-wenth-medium: reference future resolves
+PASS: rival-wenth-medium: reference future resolves
+PASS: rival-wenth-medium: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-medium: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-medium: game controls fit (800, 600)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-medium: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-medium: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-medium: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-medium: game controls fit (1920, 1080)
+PASS: rival-wenth-large: actual UI starts generated rules7 plague/ameba Off seed42 campaign
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-wenth-large-pending: Save dialog opens
+PASS: rival-wenth-large-pending: Save dialog writes and closes
+PASS: rival-wenth-large-pending: saved state matches session
+PASS: rival-wenth-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-large: actual End Turn equals canonical reference
+PASS: QA save name is unique
+PASS: rival-wenth-large-transit: Save dialog opens
+PASS: rival-wenth-large-transit: Save dialog writes and closes
+PASS: rival-wenth-large-transit: saved state matches session
+PASS: rival-wenth-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-large: actual End Turn equals canonical reference
+PASS: rival-wenth-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-large: actual End Turn equals canonical reference
+PASS: rival-wenth-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: Rival loop focus/scroll reaches Button
+PASS: QA save name is unique
+PASS: rival-wenth-large-founding: Save dialog opens
+PASS: rival-wenth-large-founding: Save dialog writes and closes
+PASS: rival-wenth-large-founding: saved state matches session
+PASS: rival-wenth-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-large: actual End Turn equals canonical reference
+PASS: Rival loop focus/scroll reaches Button
+PASS: rival-wenth-large: uninterrupted turn is valid
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-large: actual End Turn equals canonical reference
+PASS: rival-wenth-large: generated loop stays within core turn bound
+PASS: rival-wenth-large: rival founded a real second colony
+PASS: rival-wenth-large: human observed the rival
+PASS: rival-wenth-large: real human settlement
+PASS: rival-wenth-large: pending/transit/founding saved order stages
+PASS: rival-wenth-large: real development and observed contact report
+PASS: QA save name is unique
+PASS: rival-wenth-large-expanded: Save dialog opens
+PASS: rival-wenth-large-expanded: Save dialog writes and closes
+PASS: rival-wenth-large-expanded: saved state matches session
+PASS: rival-wenth-large: reference future resolves
+PASS: rival-wenth-large: reference future resolves
+PASS: rival-wenth-large: reference future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: rival-wenth-large: three future turns after UI reload match uninterrupted campaign
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-large: game controls fit (800, 600)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-large: game controls fit (1152, 648)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-large: game controls fit (1280, 720)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-large: game controls fit (1600, 900)
+PASS: Rival loop focus/scroll reaches OptionButton
+PASS: rival-wenth-large: game controls fit (1920, 1080)
+PASS: Each rival species completed real research in a generated campaign

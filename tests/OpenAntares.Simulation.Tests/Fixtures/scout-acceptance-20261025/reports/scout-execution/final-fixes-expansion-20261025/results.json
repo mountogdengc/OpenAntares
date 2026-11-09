@@ -1,0 +1,1133 @@
+{
+  "runId": "20261025-212746-223",
+  "scenario": "Expansion",
+  "method": "Real controls/signals/handlers; generated campaigns and separately labelled synthetic fixtures. No physical OS input or player-understanding claim.",
+  "godot": "4.7.2-stable (official)",
+  "display": "Windows",
+  "passed": true,
+  "error": null,
+  "results": [
+    {
+      "name": "Graphical display required",
+      "passed": true
+    },
+    {
+      "name": "Default window 1920x1080",
+      "passed": true
+    },
+    {
+      "name": "small: frozen expansion campaign uses rules 2",
+      "passed": true
+    },
+    {
+      "name": "small: one starting scout",
+      "passed": true
+    },
+    {
+      "name": "small: home-only survey",
+      "passed": true
+    },
+    {
+      "name": "small: generated route exercises saved transit",
+      "passed": true
+    },
+    {
+      "name": "small: unsurveyed inspector hides planet count",
+      "passed": true
+    },
+    {
+      "name": "small: settler selection uses typed production",
+      "passed": true
+    },
+    {
+      "name": "Action reachable by focus/scroll: Set course",
+      "passed": true
+    },
+    {
+      "name": "small: pending scout route",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "small-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "small-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "small-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "small: saved pending move retained",
+      "passed": true
+    },
+    {
+      "name": "small: reload initially previews queued route",
+      "passed": true
+    },
+    {
+      "name": "small: destination picker retains replacement preview",
+      "passed": true
+    },
+    {
+      "name": "small: replacement travel preview uses selected destination",
+      "passed": true
+    },
+    {
+      "name": "small: preview alone preserves queued route",
+      "passed": true
+    },
+    {
+      "name": "small: Set course replaces queued route",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "small-replaced-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "small-replaced-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "small-replaced-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "small: replaced route remains selected after reload",
+      "passed": true
+    },
+    {
+      "name": "small: queued route can be replaced again after reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: launch advances first transit step",
+      "passed": true
+    },
+    {
+      "name": "small: transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "small-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "small-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "small-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: forecast equals resolved production at turn 2",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: forecast equals resolved production at turn 3",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: forecast equals resolved production at turn 4",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: forecast equals resolved production at turn 5",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: forecast equals resolved production at turn 6",
+      "passed": true
+    },
+    {
+      "name": "small: embark report warns about next-turn support",
+      "passed": true
+    },
+    {
+      "name": "small: one settler completed",
+      "passed": true
+    },
+    {
+      "name": "small: two existing support workers embarked",
+      "passed": true
+    },
+    {
+      "name": "small: real workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: settler arrives at exact integer duration",
+      "passed": true
+    },
+    {
+      "name": "small: arrival never founds automatically",
+      "passed": true
+    },
+    {
+      "name": "Action reachable by focus/scroll: Found colony",
+      "passed": true
+    },
+    {
+      "name": "small: explicit founding intent",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "small-pending-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "small-pending-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "small-pending-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "small: saved founding intent retained",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: founding creates second colony",
+      "passed": true
+    },
+    {
+      "name": "small: founding consumes correct settler",
+      "passed": true
+    },
+    {
+      "name": "small: no founding-turn colony economy",
+      "passed": true
+    },
+    {
+      "name": "small: exact colony selection selects correct system",
+      "passed": true
+    },
+    {
+      "name": "small: independent colony projects",
+      "passed": true
+    },
+    {
+      "name": "small: empire research includes each colony once",
+      "passed": true
+    },
+    {
+      "name": "small: settled colony contributes from next snapshot",
+      "passed": true
+    },
+    {
+      "name": "small: resize 800x600 preserves state",
+      "passed": true
+    },
+    {
+      "name": "small: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: small-two-colonies-800",
+      "passed": true
+    },
+    {
+      "name": "small: resize 1152x648 preserves state",
+      "passed": true
+    },
+    {
+      "name": "small: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "small: resize 1600x900 preserves state",
+      "passed": true
+    },
+    {
+      "name": "small: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "small: resize 1920x1080 preserves state",
+      "passed": true
+    },
+    {
+      "name": "small: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: small-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "small-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "small-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "small-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "Predicted continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "small: UI reload continuation equals uninterrupted result",
+      "passed": true
+    },
+    {
+      "name": "medium: frozen expansion campaign uses rules 2",
+      "passed": true
+    },
+    {
+      "name": "medium: one starting scout",
+      "passed": true
+    },
+    {
+      "name": "medium: home-only survey",
+      "passed": true
+    },
+    {
+      "name": "medium: generated route exercises saved transit",
+      "passed": true
+    },
+    {
+      "name": "medium: unsurveyed inspector hides planet count",
+      "passed": true
+    },
+    {
+      "name": "medium: settler selection uses typed production",
+      "passed": true
+    },
+    {
+      "name": "Action reachable by focus/scroll: Set course",
+      "passed": true
+    },
+    {
+      "name": "medium: pending scout route",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "medium-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "medium-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "medium-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "medium: saved pending move retained",
+      "passed": true
+    },
+    {
+      "name": "medium: reload initially previews queued route",
+      "passed": true
+    },
+    {
+      "name": "medium: destination picker retains replacement preview",
+      "passed": true
+    },
+    {
+      "name": "medium: replacement travel preview uses selected destination",
+      "passed": true
+    },
+    {
+      "name": "medium: preview alone preserves queued route",
+      "passed": true
+    },
+    {
+      "name": "medium: Set course replaces queued route",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "medium-replaced-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "medium-replaced-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "medium-replaced-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "medium: replaced route remains selected after reload",
+      "passed": true
+    },
+    {
+      "name": "medium: queued route can be replaced again after reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: launch advances first transit step",
+      "passed": true
+    },
+    {
+      "name": "medium: transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "medium-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "medium-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "medium-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: forecast equals resolved production at turn 2",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: forecast equals resolved production at turn 3",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: forecast equals resolved production at turn 4",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: forecast equals resolved production at turn 5",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: forecast equals resolved production at turn 6",
+      "passed": true
+    },
+    {
+      "name": "medium: embark report warns about next-turn support",
+      "passed": true
+    },
+    {
+      "name": "medium: one settler completed",
+      "passed": true
+    },
+    {
+      "name": "medium: two existing support workers embarked",
+      "passed": true
+    },
+    {
+      "name": "medium: real workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: settler arrives at exact integer duration",
+      "passed": true
+    },
+    {
+      "name": "medium: arrival never founds automatically",
+      "passed": true
+    },
+    {
+      "name": "Action reachable by focus/scroll: Found colony",
+      "passed": true
+    },
+    {
+      "name": "medium: explicit founding intent",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "medium-pending-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "medium-pending-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "medium-pending-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "medium: saved founding intent retained",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: founding creates second colony",
+      "passed": true
+    },
+    {
+      "name": "medium: founding consumes correct settler",
+      "passed": true
+    },
+    {
+      "name": "medium: no founding-turn colony economy",
+      "passed": true
+    },
+    {
+      "name": "medium: exact colony selection selects correct system",
+      "passed": true
+    },
+    {
+      "name": "medium: independent colony projects",
+      "passed": true
+    },
+    {
+      "name": "medium: empire research includes each colony once",
+      "passed": true
+    },
+    {
+      "name": "medium: settled colony contributes from next snapshot",
+      "passed": true
+    },
+    {
+      "name": "medium: resize 800x600 preserves state",
+      "passed": true
+    },
+    {
+      "name": "medium: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: medium-two-colonies-800",
+      "passed": true
+    },
+    {
+      "name": "medium: resize 1152x648 preserves state",
+      "passed": true
+    },
+    {
+      "name": "medium: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "medium: resize 1600x900 preserves state",
+      "passed": true
+    },
+    {
+      "name": "medium: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "medium: resize 1920x1080 preserves state",
+      "passed": true
+    },
+    {
+      "name": "medium: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: medium-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "medium-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "medium-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "medium-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "Predicted continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "medium: UI reload continuation equals uninterrupted result",
+      "passed": true
+    },
+    {
+      "name": "large: frozen expansion campaign uses rules 2",
+      "passed": true
+    },
+    {
+      "name": "large: one starting scout",
+      "passed": true
+    },
+    {
+      "name": "large: home-only survey",
+      "passed": true
+    },
+    {
+      "name": "large: generated route exercises saved transit",
+      "passed": true
+    },
+    {
+      "name": "large: unsurveyed inspector hides planet count",
+      "passed": true
+    },
+    {
+      "name": "large: settler selection uses typed production",
+      "passed": true
+    },
+    {
+      "name": "Action reachable by focus/scroll: Set course",
+      "passed": true
+    },
+    {
+      "name": "large: pending scout route",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "large-pending-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "large-pending-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "large-pending-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "large: saved pending move retained",
+      "passed": true
+    },
+    {
+      "name": "large: reload initially previews queued route",
+      "passed": true
+    },
+    {
+      "name": "large: destination picker retains replacement preview",
+      "passed": true
+    },
+    {
+      "name": "large: replacement travel preview uses selected destination",
+      "passed": true
+    },
+    {
+      "name": "large: preview alone preserves queued route",
+      "passed": true
+    },
+    {
+      "name": "large: Set course replaces queued route",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "large-replaced-move: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "large-replaced-move: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "large-replaced-move: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "large: replaced route remains selected after reload",
+      "passed": true
+    },
+    {
+      "name": "large: queued route can be replaced again after reload",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: launch advances first transit step",
+      "passed": true
+    },
+    {
+      "name": "large: transit controls disabled",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "large-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "large-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "large-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: forecast equals resolved production at turn 2",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: forecast equals resolved production at turn 3",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: forecast equals resolved production at turn 4",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: forecast equals resolved production at turn 5",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: forecast equals resolved production at turn 6",
+      "passed": true
+    },
+    {
+      "name": "large: embark report warns about next-turn support",
+      "passed": true
+    },
+    {
+      "name": "large: one settler completed",
+      "passed": true
+    },
+    {
+      "name": "large: two existing support workers embarked",
+      "passed": true
+    },
+    {
+      "name": "large: real workforce controls repair source support",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: settler arrives at exact integer duration",
+      "passed": true
+    },
+    {
+      "name": "large: arrival never founds automatically",
+      "passed": true
+    },
+    {
+      "name": "Action reachable by focus/scroll: Found colony",
+      "passed": true
+    },
+    {
+      "name": "large: explicit founding intent",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "large-pending-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "large-pending-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "large-pending-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "large: saved founding intent retained",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: founding creates second colony",
+      "passed": true
+    },
+    {
+      "name": "large: founding consumes correct settler",
+      "passed": true
+    },
+    {
+      "name": "large: no founding-turn colony economy",
+      "passed": true
+    },
+    {
+      "name": "large: exact colony selection selects correct system",
+      "passed": true
+    },
+    {
+      "name": "large: independent colony projects",
+      "passed": true
+    },
+    {
+      "name": "large: empire research includes each colony once",
+      "passed": true
+    },
+    {
+      "name": "large: settled colony contributes from next snapshot",
+      "passed": true
+    },
+    {
+      "name": "large: resize 800x600 preserves state",
+      "passed": true
+    },
+    {
+      "name": "large: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: large-two-colonies-800",
+      "passed": true
+    },
+    {
+      "name": "large: resize 1152x648 preserves state",
+      "passed": true
+    },
+    {
+      "name": "large: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "large: resize 1600x900 preserves state",
+      "passed": true
+    },
+    {
+      "name": "large: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "large: resize 1920x1080 preserves state",
+      "passed": true
+    },
+    {
+      "name": "large: map remains reachable after resize",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: large-two-colonies-1920",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "large-two-colonies: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "large-two-colonies: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "large-two-colonies: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "Predicted continuation resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "large: UI reload continuation equals uninterrupted result",
+      "passed": true
+    },
+    {
+      "name": "Labelled synthetic fixture is valid",
+      "passed": true
+    },
+    {
+      "name": "Synthetic same-system selection commands the exact second colony",
+      "passed": true
+    },
+    {
+      "name": "Synthetic unoccupied world remains selected beside owned colonies",
+      "passed": true
+    },
+    {
+      "name": "Action reachable by focus/scroll: Found colony",
+      "passed": true
+    },
+    {
+      "name": "Synthetic founding order targets exact same-system world",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: synthetic-same-system-world",
+      "passed": true
+    },
+    {
+      "name": "Changed hidden synthetic truth remains valid",
+      "passed": true
+    },
+    {
+      "name": "Hidden world counts/types/ownership/cargo/orders do not alter visible UI text actions or tooltips",
+      "passed": true
+    },
+    {
+      "name": "Nondefault embedded-content fixture is valid",
+      "passed": true
+    },
+    {
+      "name": "Blocked embarkation instructions use embedded minimum and cargo",
+      "passed": true
+    },
+    {
+      "name": "Founding preview uses actual owned cargo",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: nondefault-content-instructions",
+      "passed": true
+    },
+    {
+      "name": "Legacy schema 1 UI load preserves original content/state",
+      "passed": true
+    },
+    {
+      "name": "Legacy schema 1 banner",
+      "passed": true
+    },
+    {
+      "name": "Legacy schema 1 expansion controls absent",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: legacy-v1-expansion-build",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Legacy schema 1 continues old loop",
+      "passed": true
+    },
+    {
+      "name": "Legacy schema 2 UI load preserves original content/state",
+      "passed": true
+    },
+    {
+      "name": "Legacy schema 2 banner",
+      "passed": true
+    },
+    {
+      "name": "Legacy schema 2 expansion controls absent",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: legacy-v2-expansion-build",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Legacy schema 2 continues old loop",
+      "passed": true
+    }
+  ],
+  "retainedQaSavePaths": [
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-small-frozen-expansion.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-small-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-small-replaced-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-small-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-small-pending-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-small-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-medium-frozen-expansion.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-medium-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-medium-replaced-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-medium-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-medium-pending-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-medium-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-large-frozen-expansion.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-large-pending-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-large-replaced-move.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-large-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-large-pending-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-large-two-colonies.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-expansion-legacy-v1.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212746-223-expansion-legacy-v2.json"
+  ]
+}

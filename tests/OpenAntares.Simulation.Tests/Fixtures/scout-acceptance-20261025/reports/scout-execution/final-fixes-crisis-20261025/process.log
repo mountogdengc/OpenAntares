@@ -1,0 +1,20 @@
+  OpenAntares.Simulation -> C:\Users\david\OneDrive\Documents\ChatGPT\OpenAnteres\.worktrees\colony-development-design\src\OpenAntares.Simulation\bin\Debug\net8.0\OpenAntares.Simulation.dll
+  OpenAntares -> C:\Users\david\OneDrive\Documents\ChatGPT\OpenAnteres\.worktrees\colony-development-design\.godot\mono\temp\bin\Debug\OpenAntares.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:06.32
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 3090
+
+  OpenAntares.Simulation -> C:\Users\david\OneDrive\Documents\ChatGPT\OpenAnteres\.worktrees\colony-development-design\src\OpenAntares.Simulation\bin\Debug\net8.0\OpenAntares.Simulation.dll
+  OpenAntares -> C:\Users\david\OneDrive\Documents\ChatGPT\OpenAnteres\.worktrees\colony-development-design\.godot\mono\temp\bin\Debug\OpenAntares.dll
+  OpenAntares.Simulation.Tests -> C:\Users\david\OneDrive\Documents\ChatGPT\OpenAnteres\.worktrees\colony-development-design\tests\OpenAntares.Simulation.Tests\bin\Debug\net8.0\OpenAntares.Simulation.Tests.dll
+
+Build succeeded.
+    0 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:11.67

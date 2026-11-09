@@ -1,0 +1,669 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 3090
+
+PASS: Colony validation uses a graphical display
+PASS: Actual current Start sends rules7 Standard
+PASS: Actual current Start loads seven buildings, six technologies, four defaults and the approved plague
+PASS: Balanced suggestion is selected while initial colony remains manual
+PASS: Current campaign starts with no automated takeover or free buildings
+PASS: Frozen genuine rules5 content remains separately generatable
+PASS: Screenshot saved: current-rules7-start
+PASS: Recorded manual override detail remains available
+PASS: Labelled current shortage differs from stored report condition count
+PASS: Screenshot saved: polish-history-pending
+PASS: Off retains accessible historical override records
+PASS: Historical report rendering and Off do not mutate campaign
+PASS: Recorded manual override detail remains available
+PASS: Labelled current shortage differs from stored report condition count
+PASS: Screenshot saved: polish-history-resolved
+PASS: Off retains accessible historical override records
+PASS: Historical report rendering and Off do not mutate campaign
+PASS: Pending and resolved summaries identify recorded historical conditions, not current unresolved issues
+PASS: Labelled30-reference deletion fixture validates before session
+PASS: Actual rejected Delete opens scrollable affected-colony/inheritance dialog
+PASS: Deletion explains all30 distinct owned colony references
+PASS: Deletion names and IDs follow stable colony order
+PASS: Deletion identifies assigned inheritance even with both switches off
+PASS: All deletion references and Close reachable at800
+PASS: Screenshot saved: polish-template-references-800
+PASS: All deletion references and Close reachable at1920
+PASS: Screenshot saved: polish-template-references-1920
+PASS: Rejected UI deletion preserves canonical campaign and Ready
+PASS: Reordered diagnostic references retain own-ID fallback and omit foreign/unknown identities
+PASS: Labelled notification completion fixture validates before session
+PASS: Attention does not fabricate completed work from a finishable forecast
+PASS: Changing notification levels preserves campaign and Ready
+PASS: End Turn advances once and opens report
+PASS: Summary displays exactly two completion notices including any expedition wording
+PASS: Summary does not raise routine Attention badges
+PASS: Attention raises nonblocking recorded-action and actual-completion badges
+PASS: Production and research count once each, without duplicate vessel events
+PASS: Attention highlights exactly two completion notices including any expedition wording
+PASS: Attention visibly highlights recorded governor actions
+PASS: Screenshot saved: polish-attention-building-800
+PASS: Screenshot saved: polish-attention-building-1920
+PASS: Off suppresses routine Attention badges
+PASS: Off suppresses all completion notices including expedition wording
+PASS: Off keeps stored governor detail available
+PASS: Summary Attention Off and reopening reports change no campaign bytes
+PASS: QA save name is unique
+PASS: attention-building-history: Save dialog opens
+PASS: attention-building-history: Save dialog writes and closes
+PASS: attention-building-history: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: Next resolution replaces stale completion badge with actual zero completions
+PASS: Saved governor history and Attention survive actual UI reload
+PASS: Reload does not invent an unsaved economic turn report
+PASS: Labelled notification completion fixture validates before session
+PASS: Attention does not fabricate completed work from a finishable forecast
+PASS: Changing notification levels preserves campaign and Ready
+PASS: End Turn advances once and opens report
+PASS: Summary displays exactly two completion notices including any expedition wording
+PASS: Summary does not raise routine Attention badges
+PASS: Unified vessel completion retains choose-next-project navigation
+PASS: Unified vessel completion retains completed-vessel navigation
+PASS: Attention raises nonblocking recorded-action and actual-completion badges
+PASS: Production and research count once each, without duplicate vessel events
+PASS: Attention highlights exactly two completion notices including any expedition wording
+PASS: Attention visibly highlights recorded governor actions
+PASS: Screenshot saved: polish-attention-vessel-800
+PASS: Screenshot saved: polish-attention-vessel-1920
+PASS: Off suppresses routine Attention badges
+PASS: Off suppresses all completion notices including expedition wording
+PASS: Off keeps stored governor detail available
+PASS: Summary Attention Off and reopening reports change no campaign bytes
+PASS: QA save name is unique
+PASS: attention-vessel-history: Save dialog opens
+PASS: attention-vessel-history: Save dialog writes and closes
+PASS: attention-vessel-history: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: Next resolution replaces stale completion badge with actual zero completions
+PASS: Saved governor history and Attention survive actual UI reload
+PASS: Reload does not invent an unsaved economic turn report
+PASS: Labelled replacement-preview fixture validates before session
+PASS: Screenshot saved: replacement-individual-preview
+PASS: individual: replacement clears target immediately and retains reserve
+PASS: Labelled nonfinal Ready/withdraw does not resolve the two-human turn
+PASS: individual: actual next Ready prepares Discovery Center and2/1/3 without spending reserve
+PASS: Labelled replacement-preview fixture validates before session
+PASS: Screenshot saved: replacement-bulk-preview
+PASS: bulk: replacement clears target immediately and retains reserve
+PASS: Labelled nonfinal Ready/withdraw does not resolve the two-human turn
+PASS: bulk: actual next Ready prepares Discovery Center and2/1/3 without spending reserve
+PASS: Both replacement controls forecast actual next Ready: 
+PASS: Missing current templates disables Start
+PASS: Missing template definitions retain Load recovery
+PASS: Malformed defaults produce80 located load errors
+PASS: Long development errors retain reachable Load at800
+PASS: Screenshot saved: invalid-development-content-recovery-800
+PASS: Invalid current defaults still load original embedded rules4 campaign
+PASS: Actual surveyed/owned planet portrait image exists
+PASS: Screenshot saved: portrait-owned-800
+PASS: Resizing preserves observed portrait signature
+PASS: Screenshot saved: portrait-owned-1920
+PASS: Resizing preserves observed portrait signature
+PASS: Rendering and resizing do not mutate state, RNG or counters
+PASS: QA save name is unique
+PASS: portrait-signature: Save dialog opens
+PASS: portrait-signature: Save dialog writes and closes
+PASS: portrait-signature: saved state matches session
+PASS: Actual Save/Load preserves identical portrait pixels
+PASS: Portrait Save/Load preserves canonical campaign
+PASS: Owned management thumbnail uses permitted appearance
+PASS: Mounted inspection and management share one bounded cache
+PASS: Screenshot saved: portrait-management
+PASS: Leaving GameScreen clears its shared cache ownership
+PASS: Unknown portrait is neutral and does not invent a descriptor
+PASS: Labelled stale illustration ignores hidden live descriptor changes
+PASS: Eight rendered structures for barren_rock/dry at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-barren_rock-dry-800
+PASS: Eight rendered structures for barren_rock/open_ocean at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-barren_rock-open_ocean-800
+PASS: Eight rendered structures for barren_rock/shelf_sea at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-barren_rock-shelf_sea-800
+PASS: Eight rendered structures for crystal_world/dry at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-crystal_world-dry-800
+PASS: Eight rendered structures for crystal_world/open_ocean at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-crystal_world-open_ocean-800
+PASS: Eight rendered structures for crystal_world/shelf_sea at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-crystal_world-shelf_sea-800
+PASS: Eight rendered structures for forge_world/dry at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-forge_world-dry-800
+PASS: Eight rendered structures for forge_world/open_ocean at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-forge_world-open_ocean-800
+PASS: Eight rendered structures for forge_world/shelf_sea at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-forge_world-shelf_sea-800
+PASS: Eight rendered structures for verdant_world/dry at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-verdant_world-dry-800
+PASS: Eight rendered structures for verdant_world/open_ocean at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-verdant_world-open_ocean-800
+PASS: Eight rendered structures for verdant_world/shelf_sea at800
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-verdant_world-shelf_sea-800
+PASS: Eight rendered structures for barren_rock/dry at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-barren_rock-dry-1920
+PASS: Eight rendered structures for barren_rock/open_ocean at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-barren_rock-open_ocean-1920
+PASS: Eight rendered structures for barren_rock/shelf_sea at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-barren_rock-shelf_sea-1920
+PASS: Eight rendered structures for crystal_world/dry at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-crystal_world-dry-1920
+PASS: Eight rendered structures for crystal_world/open_ocean at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-crystal_world-open_ocean-1920
+PASS: Eight rendered structures for crystal_world/shelf_sea at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-crystal_world-shelf_sea-1920
+PASS: Eight rendered structures for forge_world/dry at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-forge_world-dry-1920
+PASS: Eight rendered structures for forge_world/open_ocean at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-forge_world-open_ocean-1920
+PASS: Eight rendered structures for forge_world/shelf_sea at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-forge_world-shelf_sea-1920
+PASS: Eight rendered structures for verdant_world/dry at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-verdant_world-dry-1920
+PASS: Eight rendered structures for verdant_world/open_ocean at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-verdant_world-open_ocean-1920
+PASS: Eight rendered structures for verdant_world/shelf_sea at1920
+PASS: Gallery cache remains bounded
+PASS: Screenshot saved: gallery-verdant_world-shelf_sea-1920
+PASS: All twelve gallery pages captured at both800 and1920
+PASS: More than128 distinct requests retain exactly128 cache entries
+PASS: Eviction retains a still-bound texture
+PASS: Cache Clear drops ownership without invalidating visible textures
+PASS: Generic modded type fallback retains eight structural signatures
+PASS: Complete gallery/cache exercise leaves source campaign bytes unchanged
+PASS: Labelled rules5 initial campaign generated normally
+PASS: Initial fixture path unique
+PASS: Ordinary Load opens embedded rules5 campaign
+PASS: Governor template picker exists on actual colony panel
+PASS: Four defaults plus manual are visible
+PASS: Invalid empty name is diagnosed in place
+PASS: Invalid zero weights are diagnosed before publication
+PASS: Actual copy control creates an independent template
+PASS: Apply assigns revision1 snapshot
+PASS: Workforce switch is independent
+PASS: Construction switch is independent
+PASS: Library edit does not change an assigned snapshot
+PASS: Explicit reapply advances assigned revision
+PASS: Actual queue editor retains locked first and legal next entries
+PASS: End Turn advances once and opens report
+PASS: Ready chooses legal next queue entry
+PASS: Locked first entry remains queued
+PASS: Applying a different template retains active work by default
+PASS: Explicit replacement retains reserve
+PASS: Explicit preset export writes selected path
+PASS: Preset import creates new local IDs
+PASS: Invalid preset import preserves the complete campaign
+PASS: Apply template focus reachable at(800, 600)
+PASS: Copy template focus reachable at(800, 600)
+PASS: Edit custom template focus reachable at(800, 600)
+PASS: Delete custom template focus reachable at(800, 600)
+PASS: Edit queue focus reachable at(800, 600)
+PASS: Template presets focus reachable at(800, 600)
+PASS: Screenshot saved: colony-controls-800
+PASS: Template confirm and cancel reachable at(800, 600)
+PASS: Screenshot saved: colony-template-800
+PASS: Queue confirmation reachable at(800, 600)
+PASS: Screenshot saved: colony-queue-800
+PASS: Apply template focus reachable at(1920, 1080)
+PASS: Copy template focus reachable at(1920, 1080)
+PASS: Edit custom template focus reachable at(1920, 1080)
+PASS: Delete custom template focus reachable at(1920, 1080)
+PASS: Edit queue focus reachable at(1920, 1080)
+PASS: Template presets focus reachable at(1920, 1080)
+PASS: Screenshot saved: colony-controls-1920
+PASS: Template confirm and cancel reachable at(1920, 1080)
+PASS: Screenshot saved: colony-template-1920
+PASS: Queue confirmation reachable at(1920, 1080)
+PASS: Screenshot saved: colony-queue-1920
+PASS: QA save name is unique
+PASS: colony-controls-roundtrip: Save dialog opens
+PASS: colony-controls-roundtrip: Save dialog writes and closes
+PASS: colony-controls-roundtrip: saved state matches session
+PASS: Actual UI save/reload preserves queues, revisions and reports
+PASS: Actual preset import reaches bounded library64
+PASS: Full library rejects copy with useful diagnostics and unchanged campaign
+PASS: Labelled Wenth initial campaign generates normally
+PASS: End Turn advances once and opens report
+PASS: Unembarkable explicit vessel remains active and queued
+PASS: Blocked cargo explains waiting through ordinary colony UI
+PASS: Screenshot saved: colony-wenth-cargo-800
+PASS: Loading old campaign preserves original rules and hides unavailable controls
+PASS: Malformed preference version safely restores defaults
+PASS: Malformed or repeated preference fields restore safe defaults
+PASS: Malformed or repeated preference fields restore safe defaults
+PASS: Malformed or repeated preference fields restore safe defaults
+PASS: Malformed or repeated preference fields restore safe defaults
+PASS: Missing preferences do not create a file
+PASS: Immutable preference copy round-trips
+PASS: Failed local preference write preserves destination and cleans its own temporary file
+PASS: Labelled 1-colony fixture validates before loading
+PASS: Actual empire-management entry exists for1
+PASS: Management lists all 1 owned colonies
+PASS: Initial manual filter is read-only
+PASS: Opening/filtering dashboard issues no command
+PASS: Management Close reachable with 1 colonies at (800, 600)
+PASS: Screenshot saved: management-1-800
+PASS: Management Close reachable with 1 colonies at (1920, 1080)
+PASS: Screenshot saved: management-1-1920
+PASS: Explicit Apply saves only injected local preference path
+PASS: Notification preference changes leave campaign bytes unchanged
+PASS: Labelled 6-colony fixture validates before loading
+PASS: Actual empire-management entry exists for6
+PASS: Management lists all 6 owned colonies
+PASS: Initial manual filter is read-only
+PASS: Opening/filtering dashboard issues no command
+PASS: Favorite colony remains manual outside bulk selection
+PASS: Bulk apply delegates only selected colonies
+PASS: Template filter shows assigned colonies
+PASS: Healthy colonies produce no exception rows
+PASS: Management Close reachable with 6 colonies at (800, 600)
+PASS: Screenshot saved: management-6-800
+PASS: Management Close reachable with 6 colonies at (1920, 1080)
+PASS: Screenshot saved: management-6-1920
+PASS: One nonmodal size suggestion is visible
+PASS: Size suggestion can be cleared without a command
+PASS: Explicit Apply saves only injected local preference path
+PASS: Notification preference changes leave campaign bytes unchanged
+PASS: Manual favorite can expose an unresolved support condition
+PASS: Off notification does not hide derived dashboard exceptions
+PASS: Screenshot saved: management-off-still-shows-shortage
+PASS: Labelled 11-colony fixture validates before loading
+PASS: Actual empire-management entry exists for11
+PASS: Management lists all 11 owned colonies
+PASS: Initial manual filter is read-only
+PASS: Opening/filtering dashboard issues no command
+PASS: Favorite colony remains manual outside bulk selection
+PASS: Bulk apply delegates only selected colonies
+PASS: Template filter shows assigned colonies
+PASS: Healthy colonies produce no exception rows
+PASS: Management Close reachable with 11 colonies at (800, 600)
+PASS: Screenshot saved: management-11-800
+PASS: Management Close reachable with 11 colonies at (1920, 1080)
+PASS: Screenshot saved: management-11-1920
+PASS: One nonmodal size suggestion is visible
+PASS: Size suggestion can be cleared without a command
+PASS: Explicit Apply saves only injected local preference path
+PASS: Notification preference changes leave campaign bytes unchanged
+PASS: Labelled 30-colony fixture validates before loading
+PASS: Actual empire-management entry exists for30
+PASS: Management lists all 30 owned colonies
+PASS: Initial manual filter is read-only
+PASS: Opening/filtering dashboard issues no command
+PASS: Favorite colony remains manual outside bulk selection
+PASS: Bulk apply delegates only selected colonies
+PASS: Template filter shows assigned colonies
+PASS: Healthy colonies produce no exception rows
+PASS: Management Close reachable with 30 colonies at (800, 600)
+PASS: Screenshot saved: management-30-800
+PASS: Management Close reachable with 30 colonies at (1920, 1080)
+PASS: Screenshot saved: management-30-1920
+PASS: One nonmodal size suggestion is visible
+PASS: Size suggestion can be cleared without a command
+PASS: Explicit Apply saves only injected local preference path
+PASS: Notification preference changes leave campaign bytes unchanged
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: End Turn advances once and opens report
+PASS: Thirty worlds share one turn report, without individual acknowledgements
+PASS: Real turns retain exactly ten governor reports
+PASS: Ten-turn history is accessible despite routine Off
+PASS: Screenshot saved: management-thirty-history
+PASS: QA save name is unique
+PASS: management-thirty-history: Save dialog opens
+PASS: management-thirty-history: Save dialog writes and closes
+PASS: management-thirty-history: saved state matches session
+PASS: Management history survives actual Save/Load
+PASS: Labelled two-human state prepares only first human by ordinary Ready
+PASS: Labelled nonfinal Ready/withdraw does not resolve the two-human turn
+PASS: Labelled nonfinal Ready/withdraw does not resolve the two-human turn
+PASS: QA save name is unique
+PASS: labelled-two-human-pending-ready: Save dialog opens
+PASS: labelled-two-human-pending-ready: Save dialog writes and closes
+PASS: labelled-two-human-pending-ready: saved state matches session
+PASS: Labelled two-human actual nonfinal Ready survives UI Save/Load
+PASS: Actual manual control marks prepared workforce action overridden
+PASS: Stored digest does not attribute manual intervention to governor success
+PASS: Manual override explanation is reachable by scrolling
+PASS: Screenshot saved: management-manual-override
+PASS: generated-colony-harl: actual current form produces seed42 Small/plague Off/ameba Off with one Peldra rival
+PASS: QA save name is unique
+PASS: generated-colony-harl-queued-foundation: Save dialog opens
+PASS: generated-colony-harl-queued-foundation: Save dialog writes and closes
+PASS: generated-colony-harl-queued-foundation: saved state matches session
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: QA save name is unique
+PASS: generated-colony-harl-queued-expedition: Save dialog opens
+PASS: generated-colony-harl-queued-expedition: Save dialog writes and closes
+PASS: generated-colony-harl-queued-expedition: saved state matches session
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: QA save name is unique
+PASS: generated-colony-harl-pending-founding: Save dialog opens
+PASS: generated-colony-harl-pending-founding: Save dialog writes and closes
+PASS: generated-colony-harl-pending-founding: saved state matches session
+PASS: generated-colony-harl: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: actual End Turn matches complete canonical reference
+PASS: generated-colony-harl: ordinary founded colony waits until next snapshot
+PASS: QA save name is unique
+PASS: generated-colony-harl-manual-favorite-and-delegated-child: Save dialog opens
+PASS: generated-colony-harl-manual-favorite-and-delegated-child: Save dialog writes and closes
+PASS: generated-colony-harl-manual-favorite-and-delegated-child: saved state matches session
+PASS: generated-colony-harl: paused favorite and delegated child survive UI Save/Load
+PASS: generated-colony-harl: all required generated outcomes complete within160-turn QA guard; population=9, built=analysis_lab,cultivation_hub,fabrication_hall,production_complex
+PASS: Screenshot saved: generated-colony-harl-developed-800
+PASS: Screenshot saved: generated-colony-harl-developed-1920
+PASS: QA save name is unique
+PASS: generated-colony-harl-developed: Save dialog opens
+PASS: generated-colony-harl-developed: Save dialog writes and closes
+PASS: generated-colony-harl-developed: saved state matches session
+PASS: generated-colony-harl: uninterrupted future resolves
+PASS: generated-colony-harl: uninterrupted future resolves
+PASS: generated-colony-harl: uninterrupted future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: generated-colony-harl: three future turns after UI reload equal uninterrupted canonical continuation
+PASS: generated-colony-peldra: actual current form produces seed42 Small/plague Off/ameba Off with one Peldra rival
+PASS: QA save name is unique
+PASS: generated-colony-peldra-queued-foundation: Save dialog opens
+PASS: generated-colony-peldra-queued-foundation: Save dialog writes and closes
+PASS: generated-colony-peldra-queued-foundation: saved state matches session
+PASS: generated-colony-peldra: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: actual End Turn matches complete canonical reference
+PASS: generated-colony-peldra: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: actual End Turn matches complete canonical reference
+PASS: generated-colony-peldra: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: actual End Turn matches complete canonical reference
+PASS: generated-colony-peldra: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: actual End Turn matches complete canonical reference
+PASS: generated-colony-peldra: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: actual End Turn matches complete canonical reference
+PASS: generated-colony-peldra: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: actual End Turn matches complete canonical reference
+PASS: generated-colony-peldra: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: actual End Turn matches complete canonical reference
+PASS: generated-colony-peldra: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: actual End Turn matches complete canonical reference
+PASS: generated-colony-peldra: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: actual End Turn matches complete canonical reference
+PASS: generated-colony-peldra: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: actual End Turn matches complete canonical reference
+PASS: generated-colony-peldra: all required generated outcomes complete within160-turn QA guard; population=7, built=analysis_lab,cultivation_hub,discovery_center,fabrication_hall
+PASS: Screenshot saved: generated-colony-peldra-developed-800
+PASS: Screenshot saved: generated-colony-peldra-developed-1920
+PASS: QA save name is unique
+PASS: generated-colony-peldra-developed: Save dialog opens
+PASS: generated-colony-peldra-developed: Save dialog writes and closes
+PASS: generated-colony-peldra-developed: saved state matches session
+PASS: generated-colony-peldra: uninterrupted future resolves
+PASS: generated-colony-peldra: uninterrupted future resolves
+PASS: generated-colony-peldra: uninterrupted future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: generated-colony-peldra: three future turns after UI reload equal uninterrupted canonical continuation
+PASS: generated-colony-sulan: actual current form produces seed42 Small/plague Off/ameba Off with one Peldra rival
+PASS: QA save name is unique
+PASS: generated-colony-sulan-queued-foundation: Save dialog opens
+PASS: generated-colony-sulan-queued-foundation: Save dialog writes and closes
+PASS: generated-colony-sulan-queued-foundation: saved state matches session
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: actual End Turn matches complete canonical reference
+PASS: generated-colony-sulan: all required generated outcomes complete within160-turn QA guard; population=13, built=analysis_lab,cultivation_hub,fabrication_hall,habitat_extension,habitat_network
+PASS: Screenshot saved: generated-colony-sulan-developed-800
+PASS: Screenshot saved: generated-colony-sulan-developed-1920
+PASS: QA save name is unique
+PASS: generated-colony-sulan-developed: Save dialog opens
+PASS: generated-colony-sulan-developed: Save dialog writes and closes
+PASS: generated-colony-sulan-developed: saved state matches session
+PASS: generated-colony-sulan: uninterrupted future resolves
+PASS: generated-colony-sulan: uninterrupted future resolves
+PASS: generated-colony-sulan: uninterrupted future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: generated-colony-sulan: three future turns after UI reload equal uninterrupted canonical continuation
+PASS: generated-colony-wenth: actual current form produces seed42 Small/plague Off/ameba Off with one Peldra rival
+PASS: QA save name is unique
+PASS: generated-colony-wenth-queued-foundation: Save dialog opens
+PASS: generated-colony-wenth-queued-foundation: Save dialog writes and closes
+PASS: generated-colony-wenth-queued-foundation: saved state matches session
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: ordinary capacity completion changes six to eight while population stays six
+PASS: QA save name is unique
+PASS: generated-colony-wenth-queued-expedition: Save dialog opens
+PASS: generated-colony-wenth-queued-expedition: Save dialog writes and closes
+PASS: generated-colony-wenth-queued-expedition: saved state matches session
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: explicit seed waits for the current full capacity
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: growth to capacity cannot retroactively embark this snapshot
+PASS: generated-colony-wenth: explicit seed waits for the current full capacity
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: growth to capacity cannot retroactively embark this snapshot
+PASS: generated-colony-wenth: explicit seed waits for the current full capacity
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: growth to capacity cannot retroactively embark this snapshot
+PASS: generated-colony-wenth: uninterrupted reference Ready resolves
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: actual End Turn matches complete canonical reference
+PASS: generated-colony-wenth: full eight conserves parent five plus seed three
+PASS: generated-colony-wenth: all required generated outcomes complete within160-turn QA guard; population=5, built=analysis_lab,cultivation_hub,fabrication_hall,habitat_extension,production_complex
+PASS: Screenshot saved: generated-colony-wenth-developed-800
+PASS: Screenshot saved: generated-colony-wenth-developed-1920
+PASS: QA save name is unique
+PASS: generated-colony-wenth-developed: Save dialog opens
+PASS: generated-colony-wenth-developed: Save dialog writes and closes
+PASS: generated-colony-wenth-developed: saved state matches session
+PASS: generated-colony-wenth: uninterrupted future resolves
+PASS: generated-colony-wenth: uninterrupted future resolves
+PASS: generated-colony-wenth: uninterrupted future resolves
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: generated-colony-wenth: three future turns after UI reload equal uninterrupted canonical continuation

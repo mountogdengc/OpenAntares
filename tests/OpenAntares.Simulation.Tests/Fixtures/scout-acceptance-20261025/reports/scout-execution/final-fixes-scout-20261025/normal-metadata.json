@@ -1,0 +1,17 @@
+{
+  "expectedScenarioTypes": [
+    "GraphicalValidation",
+    "ExpansionGraphicalValidation",
+    "SpeciesGraphicalValidation",
+    "RivalGraphicalValidation",
+    "ColonyGraphicalValidation",
+    "CrisisGraphicalValidation",
+    "ScoutGraphicalValidation"
+  ],
+  "presentScenarioTypes": [],
+  "expectedHelpers": [
+    "FrozenContent",
+    "ScoutUiControlChecks"
+  ],
+  "presentHelpers": []
+}

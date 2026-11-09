@@ -1,0 +1,469 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 3090
+
+PASS: A graphical display is required
+PASS: Actual default window is 1920x1080
+PASS: small: old-loop fixture is legacy rules 1
+PASS: small: exact selectable system count 12
+PASS: small: starting population
+PASS: small: map handler selects Pallis
+PASS: small: inspector updates for Pallis
+PASS: small: map handler selects Vessar
+PASS: small: inspector updates for Vessar
+PASS: small: map handler selects Oberra
+PASS: small: inspector updates for Oberra
+PASS: small: map handler selects Tarrow
+PASS: small: inspector updates for Tarrow
+PASS: small: map handler selects Evandry
+PASS: small: inspector updates for Evandry
+PASS: small: map handler selects Zerith
+PASS: small: inspector updates for Zerith
+PASS: small: map handler selects Javeth
+PASS: small: inspector updates for Javeth
+PASS: small: map handler selects Nesh
+PASS: small: inspector updates for Nesh
+PASS: small: map handler selects Bessaro
+PASS: small: inspector updates for Bessaro
+PASS: small: map handler selects Dellith
+PASS: small: inspector updates for Dellith
+PASS: small: map handler selects Wardel
+PASS: small: inspector updates for Wardel
+PASS: small: map handler selects Xandre
+PASS: small: inspector updates for Xandre
+PASS: small: background point cannot be selected
+PASS: Screenshot saved: small-initial
+PASS: small: live resize to 800x600
+PASS: small: resize leaves authoritative state unchanged
+PASS: small: map remains laid out after resize
+PASS: Screenshot saved: small-resize-800x600
+PASS: small: live resize to 1152x648
+PASS: small: resize leaves authoritative state unchanged
+PASS: small: map remains laid out after resize
+PASS: small: live resize to 1600x900
+PASS: small: resize leaves authoritative state unchanged
+PASS: small: map remains laid out after resize
+PASS: Screenshot saved: small-resize-1600x900
+PASS: small: live resize to 1920x1080
+PASS: small: resize leaves authoritative state unchanged
+PASS: small: map remains laid out after resize
+PASS: small: shortage forecast
+PASS: small: visible shortage warning
+PASS: small: supported allocation increases growth
+PASS: End Turn advances once and opens report
+PASS: small: end turn 1
+PASS: End Turn advances once and opens report
+PASS: small: end turn 2
+PASS: QA save name is unique
+PASS: small-pre: Save dialog opens
+PASS: small-pre: Save dialog writes and closes
+PASS: small-pre: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: small: building completes
+PASS: small: research completes
+PASS: small: building applies to next snapshot
+PASS: small: completed targets clear
+PASS: QA save name is unique
+PASS: small-post: Save dialog opens
+PASS: small-post: Save dialog writes and closes
+PASS: small-post: saved state matches session
+PASS: small: UI reload before completion preserves state/content
+PASS: small: UI reload preserves map bounds
+PASS: End Turn advances once and opens report
+PASS: small: continuation after UI reload matches uninterrupted result
+PASS: small: UI reload after completion preserves state/content
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: small: population advances through real End Turn control
+PASS: Invalid QA name is unique
+PASS: Corrupt UI load retains the current screen and state
+PASS: Corrupt UI load shows an error
+PASS: Legacy schema-1 UI load preserves original state/layout
+PASS: Legacy UI load does not invent galaxy metadata
+PASS: Screenshot saved: legacy-v1-loaded
+PASS: End Turn advances once and opens report
+PASS: Legacy UI load can continue a turn
+PASS: End Turn advances once and opens report
+PASS: small-800x600-home-native: FP-001 popup opens
+PASS: small-800x600-home-native: focus-scroll path exercised
+PASS: small-800x600-home-native: picker is inside the visible scroll region
+PASS: small-800x600-home-native: home selected
+PASS: small-800x600-home-native: FP-002 position equals normal reopening
+PASS: small-800x600-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: small-800x600-other-native: FP-001 popup opens
+PASS: small-800x600-other-native: focus-scroll path exercised
+PASS: small-800x600-other-native: picker is inside the visible scroll region
+PASS: small-800x600-other-native: home selected
+PASS: small-800x600-other-native: FP-002 position equals normal reopening
+PASS: Screenshot saved: small-800x600-other-native-construction-parent
+PASS: small-800x600-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: small-1152x648-home-native: FP-001 popup opens
+PASS: small-1152x648-home-native: focus-scroll path exercised
+PASS: small-1152x648-home-native: picker is inside the visible scroll region
+PASS: small-1152x648-home-native: home selected
+PASS: small-1152x648-home-native: FP-002 position equals normal reopening
+PASS: small-1152x648-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: small-1152x648-other-native: FP-001 popup opens
+PASS: small-1152x648-other-native: focus-scroll path exercised
+PASS: small-1152x648-other-native: picker is inside the visible scroll region
+PASS: small-1152x648-other-native: home selected
+PASS: small-1152x648-other-native: FP-002 position equals normal reopening
+PASS: small-1152x648-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: small-1600x900-home-native: FP-001 popup opens
+PASS: small-1600x900-home-native: focus-scroll path exercised
+PASS: small-1600x900-home-native: picker is inside the visible scroll region
+PASS: small-1600x900-home-native: home selected
+PASS: small-1600x900-home-native: FP-002 position equals normal reopening
+PASS: small-1600x900-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: small-1600x900-other-native: FP-001 popup opens
+PASS: small-1600x900-other-native: focus-scroll path exercised
+PASS: small-1600x900-other-native: picker is inside the visible scroll region
+PASS: small-1600x900-other-native: home selected
+PASS: small-1600x900-other-native: FP-002 position equals normal reopening
+PASS: small-1600x900-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: small-1920x1080-home-native: FP-001 popup opens
+PASS: small-1920x1080-home-native: focus-scroll path exercised
+PASS: small-1920x1080-home-native: picker is inside the visible scroll region
+PASS: small-1920x1080-home-native: home selected
+PASS: small-1920x1080-home-native: FP-002 position equals normal reopening
+PASS: small-1920x1080-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: small-1920x1080-other-native: FP-001 popup opens
+PASS: small-1920x1080-other-native: focus-scroll path exercised
+PASS: small-1920x1080-other-native: picker is inside the visible scroll region
+PASS: small-1920x1080-other-native: home selected
+PASS: small-1920x1080-other-native: FP-002 position equals normal reopening
+PASS: small-1920x1080-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: small-800x600-other-embedded: FP-001 popup opens
+PASS: small-800x600-other-embedded: focus-scroll path exercised
+PASS: small-800x600-other-embedded: picker is inside the visible scroll region
+PASS: small-800x600-other-embedded: home selected
+PASS: small-800x600-other-embedded: FP-002 position equals normal reopening
+PASS: small-800x600-other-embedded: supplementary visual popup is actually embedded
+PASS: Screenshot saved: small-800x600-other-embedded-construction-parent
+PASS: small-800x600-other-embedded: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: small: research follow-up opens picker
+PASS: medium: old-loop fixture is legacy rules 1
+PASS: medium: exact selectable system count 16
+PASS: medium: starting population
+PASS: medium: map handler selects Pallis
+PASS: medium: inspector updates for Pallis
+PASS: medium: map handler selects Vessar
+PASS: medium: inspector updates for Vessar
+PASS: medium: map handler selects Oberra
+PASS: medium: inspector updates for Oberra
+PASS: medium: map handler selects Tarrow
+PASS: medium: inspector updates for Tarrow
+PASS: medium: map handler selects Evandry
+PASS: medium: inspector updates for Evandry
+PASS: medium: map handler selects Zerith
+PASS: medium: inspector updates for Zerith
+PASS: medium: map handler selects Javeth
+PASS: medium: inspector updates for Javeth
+PASS: medium: map handler selects Nesh
+PASS: medium: inspector updates for Nesh
+PASS: medium: map handler selects Bessaro
+PASS: medium: inspector updates for Bessaro
+PASS: medium: map handler selects Dellith
+PASS: medium: inspector updates for Dellith
+PASS: medium: map handler selects Wardel
+PASS: medium: inspector updates for Wardel
+PASS: medium: map handler selects Xandre
+PASS: medium: inspector updates for Xandre
+PASS: medium: map handler selects Ulvane
+PASS: medium: inspector updates for Ulvane
+PASS: medium: map handler selects Savett
+PASS: medium: inspector updates for Savett
+PASS: medium: map handler selects Faldis
+PASS: medium: inspector updates for Faldis
+PASS: medium: map handler selects Corvane
+PASS: medium: inspector updates for Corvane
+PASS: medium: background point cannot be selected
+PASS: Screenshot saved: medium-initial
+PASS: medium: live resize to 800x600
+PASS: medium: resize leaves authoritative state unchanged
+PASS: medium: map remains laid out after resize
+PASS: Screenshot saved: medium-resize-800x600
+PASS: medium: live resize to 1152x648
+PASS: medium: resize leaves authoritative state unchanged
+PASS: medium: map remains laid out after resize
+PASS: medium: live resize to 1600x900
+PASS: medium: resize leaves authoritative state unchanged
+PASS: medium: map remains laid out after resize
+PASS: Screenshot saved: medium-resize-1600x900
+PASS: medium: live resize to 1920x1080
+PASS: medium: resize leaves authoritative state unchanged
+PASS: medium: map remains laid out after resize
+PASS: medium: shortage forecast
+PASS: medium: visible shortage warning
+PASS: medium: supported allocation increases growth
+PASS: End Turn advances once and opens report
+PASS: medium: end turn 1
+PASS: End Turn advances once and opens report
+PASS: medium: end turn 2
+PASS: QA save name is unique
+PASS: medium-pre: Save dialog opens
+PASS: medium-pre: Save dialog writes and closes
+PASS: medium-pre: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: medium: building completes
+PASS: medium: research completes
+PASS: medium: building applies to next snapshot
+PASS: medium: completed targets clear
+PASS: QA save name is unique
+PASS: medium-post: Save dialog opens
+PASS: medium-post: Save dialog writes and closes
+PASS: medium-post: saved state matches session
+PASS: medium: UI reload before completion preserves state/content
+PASS: medium: UI reload preserves map bounds
+PASS: End Turn advances once and opens report
+PASS: medium: continuation after UI reload matches uninterrupted result
+PASS: medium: UI reload after completion preserves state/content
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: medium: population advances through real End Turn control
+PASS: End Turn advances once and opens report
+PASS: medium-800x600-home-native: FP-001 popup opens
+PASS: medium-800x600-home-native: focus-scroll path exercised
+PASS: medium-800x600-home-native: picker is inside the visible scroll region
+PASS: medium-800x600-home-native: home selected
+PASS: medium-800x600-home-native: FP-002 position equals normal reopening
+PASS: medium-800x600-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: medium-800x600-other-native: FP-001 popup opens
+PASS: medium-800x600-other-native: focus-scroll path exercised
+PASS: medium-800x600-other-native: picker is inside the visible scroll region
+PASS: medium-800x600-other-native: home selected
+PASS: medium-800x600-other-native: FP-002 position equals normal reopening
+PASS: Screenshot saved: medium-800x600-other-native-construction-parent
+PASS: medium-800x600-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: medium-1152x648-home-native: FP-001 popup opens
+PASS: medium-1152x648-home-native: focus-scroll path exercised
+PASS: medium-1152x648-home-native: picker is inside the visible scroll region
+PASS: medium-1152x648-home-native: home selected
+PASS: medium-1152x648-home-native: FP-002 position equals normal reopening
+PASS: medium-1152x648-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: medium-1152x648-other-native: FP-001 popup opens
+PASS: medium-1152x648-other-native: focus-scroll path exercised
+PASS: medium-1152x648-other-native: picker is inside the visible scroll region
+PASS: medium-1152x648-other-native: home selected
+PASS: medium-1152x648-other-native: FP-002 position equals normal reopening
+PASS: medium-1152x648-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: medium-1600x900-home-native: FP-001 popup opens
+PASS: medium-1600x900-home-native: focus-scroll path exercised
+PASS: medium-1600x900-home-native: picker is inside the visible scroll region
+PASS: medium-1600x900-home-native: home selected
+PASS: medium-1600x900-home-native: FP-002 position equals normal reopening
+PASS: medium-1600x900-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: medium-1600x900-other-native: FP-001 popup opens
+PASS: medium-1600x900-other-native: focus-scroll path exercised
+PASS: medium-1600x900-other-native: picker is inside the visible scroll region
+PASS: medium-1600x900-other-native: home selected
+PASS: medium-1600x900-other-native: FP-002 position equals normal reopening
+PASS: medium-1600x900-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: medium-1920x1080-home-native: FP-001 popup opens
+PASS: medium-1920x1080-home-native: focus-scroll path exercised
+PASS: medium-1920x1080-home-native: picker is inside the visible scroll region
+PASS: medium-1920x1080-home-native: home selected
+PASS: medium-1920x1080-home-native: FP-002 position equals normal reopening
+PASS: medium-1920x1080-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: medium-1920x1080-other-native: FP-001 popup opens
+PASS: medium-1920x1080-other-native: focus-scroll path exercised
+PASS: medium-1920x1080-other-native: picker is inside the visible scroll region
+PASS: medium-1920x1080-other-native: home selected
+PASS: medium-1920x1080-other-native: FP-002 position equals normal reopening
+PASS: medium-1920x1080-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: medium-800x600-other-embedded: FP-001 popup opens
+PASS: medium-800x600-other-embedded: focus-scroll path exercised
+PASS: medium-800x600-other-embedded: picker is inside the visible scroll region
+PASS: medium-800x600-other-embedded: home selected
+PASS: medium-800x600-other-embedded: FP-002 position equals normal reopening
+PASS: medium-800x600-other-embedded: supplementary visual popup is actually embedded
+PASS: Screenshot saved: medium-800x600-other-embedded-construction-parent
+PASS: medium-800x600-other-embedded: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: medium: research follow-up opens picker
+PASS: large: old-loop fixture is legacy rules 1
+PASS: large: exact selectable system count 20
+PASS: large: starting population
+PASS: large: map handler selects Faldis
+PASS: large: inspector updates for Faldis
+PASS: large: map handler selects Xandre
+PASS: large: inspector updates for Xandre
+PASS: large: map handler selects Quillon
+PASS: large: inspector updates for Quillon
+PASS: large: map handler selects Savett
+PASS: large: inspector updates for Savett
+PASS: large: map handler selects Dellith
+PASS: large: inspector updates for Dellith
+PASS: large: map handler selects Ambrel
+PASS: large: inspector updates for Ambrel
+PASS: large: map handler selects Javeth
+PASS: large: inspector updates for Javeth
+PASS: large: map handler selects Kestra
+PASS: large: inspector updates for Kestra
+PASS: large: map handler selects Vessar
+PASS: large: inspector updates for Vessar
+PASS: large: map handler selects Oberra
+PASS: large: inspector updates for Oberra
+PASS: large: map handler selects Hollin
+PASS: large: inspector updates for Hollin
+PASS: large: map handler selects Zerith
+PASS: large: inspector updates for Zerith
+PASS: large: map handler selects Esmorra
+PASS: large: inspector updates for Esmorra
+PASS: large: map handler selects Bessaro
+PASS: large: inspector updates for Bessaro
+PASS: large: map handler selects Lorvan
+PASS: large: inspector updates for Lorvan
+PASS: large: map handler selects Wardel
+PASS: large: inspector updates for Wardel
+PASS: large: map handler selects Pallis
+PASS: large: inspector updates for Pallis
+PASS: large: map handler selects Ulvane
+PASS: large: inspector updates for Ulvane
+PASS: large: map handler selects Corvane
+PASS: large: inspector updates for Corvane
+PASS: large: map handler selects Evandry
+PASS: large: inspector updates for Evandry
+PASS: large: background point cannot be selected
+PASS: Screenshot saved: large-initial
+PASS: large: live resize to 800x600
+PASS: large: resize leaves authoritative state unchanged
+PASS: large: map remains laid out after resize
+PASS: Screenshot saved: large-resize-800x600
+PASS: large: live resize to 1152x648
+PASS: large: resize leaves authoritative state unchanged
+PASS: large: map remains laid out after resize
+PASS: large: live resize to 1600x900
+PASS: large: resize leaves authoritative state unchanged
+PASS: large: map remains laid out after resize
+PASS: Screenshot saved: large-resize-1600x900
+PASS: large: live resize to 1920x1080
+PASS: large: resize leaves authoritative state unchanged
+PASS: large: map remains laid out after resize
+PASS: large: shortage forecast
+PASS: large: visible shortage warning
+PASS: large: supported allocation increases growth
+PASS: End Turn advances once and opens report
+PASS: large: end turn 1
+PASS: End Turn advances once and opens report
+PASS: large: end turn 2
+PASS: QA save name is unique
+PASS: large-pre: Save dialog opens
+PASS: large-pre: Save dialog writes and closes
+PASS: large-pre: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: large: building completes
+PASS: large: research completes
+PASS: large: building applies to next snapshot
+PASS: large: completed targets clear
+PASS: QA save name is unique
+PASS: large-post: Save dialog opens
+PASS: large-post: Save dialog writes and closes
+PASS: large-post: saved state matches session
+PASS: large: UI reload before completion preserves state/content
+PASS: large: UI reload preserves map bounds
+PASS: End Turn advances once and opens report
+PASS: large: continuation after UI reload matches uninterrupted result
+PASS: large: UI reload after completion preserves state/content
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: large: population advances through real End Turn control
+PASS: End Turn advances once and opens report
+PASS: large-800x600-home-native: FP-001 popup opens
+PASS: large-800x600-home-native: focus-scroll path exercised
+PASS: large-800x600-home-native: picker is inside the visible scroll region
+PASS: large-800x600-home-native: home selected
+PASS: large-800x600-home-native: FP-002 position equals normal reopening
+PASS: large-800x600-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: large-800x600-other-native: FP-001 popup opens
+PASS: large-800x600-other-native: focus-scroll path exercised
+PASS: large-800x600-other-native: picker is inside the visible scroll region
+PASS: large-800x600-other-native: home selected
+PASS: large-800x600-other-native: FP-002 position equals normal reopening
+PASS: Screenshot saved: large-800x600-other-native-construction-parent
+PASS: large-800x600-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: large-1152x648-home-native: FP-001 popup opens
+PASS: large-1152x648-home-native: focus-scroll path exercised
+PASS: large-1152x648-home-native: picker is inside the visible scroll region
+PASS: large-1152x648-home-native: home selected
+PASS: large-1152x648-home-native: FP-002 position equals normal reopening
+PASS: large-1152x648-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: large-1152x648-other-native: FP-001 popup opens
+PASS: large-1152x648-other-native: focus-scroll path exercised
+PASS: large-1152x648-other-native: picker is inside the visible scroll region
+PASS: large-1152x648-other-native: home selected
+PASS: large-1152x648-other-native: FP-002 position equals normal reopening
+PASS: large-1152x648-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: large-1600x900-home-native: FP-001 popup opens
+PASS: large-1600x900-home-native: focus-scroll path exercised
+PASS: large-1600x900-home-native: picker is inside the visible scroll region
+PASS: large-1600x900-home-native: home selected
+PASS: large-1600x900-home-native: FP-002 position equals normal reopening
+PASS: large-1600x900-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: large-1600x900-other-native: FP-001 popup opens
+PASS: large-1600x900-other-native: focus-scroll path exercised
+PASS: large-1600x900-other-native: picker is inside the visible scroll region
+PASS: large-1600x900-other-native: home selected
+PASS: large-1600x900-other-native: FP-002 position equals normal reopening
+PASS: large-1600x900-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: large-1920x1080-home-native: FP-001 popup opens
+PASS: large-1920x1080-home-native: focus-scroll path exercised
+PASS: large-1920x1080-home-native: picker is inside the visible scroll region
+PASS: large-1920x1080-home-native: home selected
+PASS: large-1920x1080-home-native: FP-002 position equals normal reopening
+PASS: large-1920x1080-home-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: large-1920x1080-other-native: FP-001 popup opens
+PASS: large-1920x1080-other-native: focus-scroll path exercised
+PASS: large-1920x1080-other-native: picker is inside the visible scroll region
+PASS: large-1920x1080-other-native: home selected
+PASS: large-1920x1080-other-native: FP-002 position equals normal reopening
+PASS: large-1920x1080-other-native: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: large-800x600-other-embedded: FP-001 popup opens
+PASS: large-800x600-other-embedded: focus-scroll path exercised
+PASS: large-800x600-other-embedded: picker is inside the visible scroll region
+PASS: large-800x600-other-embedded: home selected
+PASS: large-800x600-other-embedded: FP-002 position equals normal reopening
+PASS: large-800x600-other-embedded: supplementary visual popup is actually embedded
+PASS: Screenshot saved: large-800x600-other-embedded-construction-parent
+PASS: large-800x600-other-embedded: selected project reaches command path
+PASS: End Turn advances once and opens report
+PASS: large: research follow-up opens picker

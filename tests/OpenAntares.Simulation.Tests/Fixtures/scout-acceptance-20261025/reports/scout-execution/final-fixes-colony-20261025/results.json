@@ -1,0 +1,2792 @@
+{
+  "runId": "20261025-213229-564",
+  "scenario": "Colony",
+  "method": "Actual controls/signals with labelled fixtures; no physical OS input or human-readability claim.",
+  "passed": true,
+  "error": null,
+  "results": [
+    {
+      "name": "Colony validation uses a graphical display",
+      "passed": true
+    },
+    {
+      "name": "Actual current Start sends rules7 Standard",
+      "passed": true
+    },
+    {
+      "name": "Actual current Start loads seven buildings, six technologies, four defaults and the approved plague",
+      "passed": true
+    },
+    {
+      "name": "Balanced suggestion is selected while initial colony remains manual",
+      "passed": true
+    },
+    {
+      "name": "Current campaign starts with no automated takeover or free buildings",
+      "passed": true
+    },
+    {
+      "name": "Frozen genuine rules5 content remains separately generatable",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: current-rules7-start",
+      "passed": true
+    },
+    {
+      "name": "Recorded manual override detail remains available",
+      "passed": true
+    },
+    {
+      "name": "Labelled current shortage differs from stored report condition count",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: polish-history-pending",
+      "passed": true
+    },
+    {
+      "name": "Off retains accessible historical override records",
+      "passed": true
+    },
+    {
+      "name": "Historical report rendering and Off do not mutate campaign",
+      "passed": true
+    },
+    {
+      "name": "Recorded manual override detail remains available",
+      "passed": true
+    },
+    {
+      "name": "Labelled current shortage differs from stored report condition count",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: polish-history-resolved",
+      "passed": true
+    },
+    {
+      "name": "Off retains accessible historical override records",
+      "passed": true
+    },
+    {
+      "name": "Historical report rendering and Off do not mutate campaign",
+      "passed": true
+    },
+    {
+      "name": "Pending and resolved summaries identify recorded historical conditions, not current unresolved issues",
+      "passed": true
+    },
+    {
+      "name": "Labelled30-reference deletion fixture validates before session",
+      "passed": true
+    },
+    {
+      "name": "Actual rejected Delete opens scrollable affected-colony/inheritance dialog",
+      "passed": true
+    },
+    {
+      "name": "Deletion explains all30 distinct owned colony references",
+      "passed": true
+    },
+    {
+      "name": "Deletion names and IDs follow stable colony order",
+      "passed": true
+    },
+    {
+      "name": "Deletion identifies assigned inheritance even with both switches off",
+      "passed": true
+    },
+    {
+      "name": "All deletion references and Close reachable at800",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: polish-template-references-800",
+      "passed": true
+    },
+    {
+      "name": "All deletion references and Close reachable at1920",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: polish-template-references-1920",
+      "passed": true
+    },
+    {
+      "name": "Rejected UI deletion preserves canonical campaign and Ready",
+      "passed": true
+    },
+    {
+      "name": "Reordered diagnostic references retain own-ID fallback and omit foreign/unknown identities",
+      "passed": true
+    },
+    {
+      "name": "Labelled notification completion fixture validates before session",
+      "passed": true
+    },
+    {
+      "name": "Attention does not fabricate completed work from a finishable forecast",
+      "passed": true
+    },
+    {
+      "name": "Changing notification levels preserves campaign and Ready",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Summary displays exactly two completion notices including any expedition wording",
+      "passed": true
+    },
+    {
+      "name": "Summary does not raise routine Attention badges",
+      "passed": true
+    },
+    {
+      "name": "Attention raises nonblocking recorded-action and actual-completion badges",
+      "passed": true
+    },
+    {
+      "name": "Production and research count once each, without duplicate vessel events",
+      "passed": true
+    },
+    {
+      "name": "Attention highlights exactly two completion notices including any expedition wording",
+      "passed": true
+    },
+    {
+      "name": "Attention visibly highlights recorded governor actions",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: polish-attention-building-800",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: polish-attention-building-1920",
+      "passed": true
+    },
+    {
+      "name": "Off suppresses routine Attention badges",
+      "passed": true
+    },
+    {
+      "name": "Off suppresses all completion notices including expedition wording",
+      "passed": true
+    },
+    {
+      "name": "Off keeps stored governor detail available",
+      "passed": true
+    },
+    {
+      "name": "Summary Attention Off and reopening reports change no campaign bytes",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "attention-building-history: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "attention-building-history: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "attention-building-history: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Next resolution replaces stale completion badge with actual zero completions",
+      "passed": true
+    },
+    {
+      "name": "Saved governor history and Attention survive actual UI reload",
+      "passed": true
+    },
+    {
+      "name": "Reload does not invent an unsaved economic turn report",
+      "passed": true
+    },
+    {
+      "name": "Labelled notification completion fixture validates before session",
+      "passed": true
+    },
+    {
+      "name": "Attention does not fabricate completed work from a finishable forecast",
+      "passed": true
+    },
+    {
+      "name": "Changing notification levels preserves campaign and Ready",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Summary displays exactly two completion notices including any expedition wording",
+      "passed": true
+    },
+    {
+      "name": "Summary does not raise routine Attention badges",
+      "passed": true
+    },
+    {
+      "name": "Unified vessel completion retains choose-next-project navigation",
+      "passed": true
+    },
+    {
+      "name": "Unified vessel completion retains completed-vessel navigation",
+      "passed": true
+    },
+    {
+      "name": "Attention raises nonblocking recorded-action and actual-completion badges",
+      "passed": true
+    },
+    {
+      "name": "Production and research count once each, without duplicate vessel events",
+      "passed": true
+    },
+    {
+      "name": "Attention highlights exactly two completion notices including any expedition wording",
+      "passed": true
+    },
+    {
+      "name": "Attention visibly highlights recorded governor actions",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: polish-attention-vessel-800",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: polish-attention-vessel-1920",
+      "passed": true
+    },
+    {
+      "name": "Off suppresses routine Attention badges",
+      "passed": true
+    },
+    {
+      "name": "Off suppresses all completion notices including expedition wording",
+      "passed": true
+    },
+    {
+      "name": "Off keeps stored governor detail available",
+      "passed": true
+    },
+    {
+      "name": "Summary Attention Off and reopening reports change no campaign bytes",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "attention-vessel-history: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "attention-vessel-history: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "attention-vessel-history: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Next resolution replaces stale completion badge with actual zero completions",
+      "passed": true
+    },
+    {
+      "name": "Saved governor history and Attention survive actual UI reload",
+      "passed": true
+    },
+    {
+      "name": "Reload does not invent an unsaved economic turn report",
+      "passed": true
+    },
+    {
+      "name": "Labelled replacement-preview fixture validates before session",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: replacement-individual-preview",
+      "passed": true
+    },
+    {
+      "name": "individual: replacement clears target immediately and retains reserve",
+      "passed": true
+    },
+    {
+      "name": "Labelled nonfinal Ready/withdraw does not resolve the two-human turn",
+      "passed": true
+    },
+    {
+      "name": "individual: actual next Ready prepares Discovery Center and2/1/3 without spending reserve",
+      "passed": true
+    },
+    {
+      "name": "Labelled replacement-preview fixture validates before session",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: replacement-bulk-preview",
+      "passed": true
+    },
+    {
+      "name": "bulk: replacement clears target immediately and retains reserve",
+      "passed": true
+    },
+    {
+      "name": "Labelled nonfinal Ready/withdraw does not resolve the two-human turn",
+      "passed": true
+    },
+    {
+      "name": "bulk: actual next Ready prepares Discovery Center and2/1/3 without spending reserve",
+      "passed": true
+    },
+    {
+      "name": "Both replacement controls forecast actual next Ready: ",
+      "passed": true
+    },
+    {
+      "name": "Missing current templates disables Start",
+      "passed": true
+    },
+    {
+      "name": "Missing template definitions retain Load recovery",
+      "passed": true
+    },
+    {
+      "name": "Malformed defaults produce80 located load errors",
+      "passed": true
+    },
+    {
+      "name": "Long development errors retain reachable Load at800",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: invalid-development-content-recovery-800",
+      "passed": true
+    },
+    {
+      "name": "Invalid current defaults still load original embedded rules4 campaign",
+      "passed": true
+    },
+    {
+      "name": "Actual surveyed/owned planet portrait image exists",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: portrait-owned-800",
+      "passed": true
+    },
+    {
+      "name": "Resizing preserves observed portrait signature",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: portrait-owned-1920",
+      "passed": true
+    },
+    {
+      "name": "Resizing preserves observed portrait signature",
+      "passed": true
+    },
+    {
+      "name": "Rendering and resizing do not mutate state, RNG or counters",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "portrait-signature: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "portrait-signature: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "portrait-signature: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "Actual Save/Load preserves identical portrait pixels",
+      "passed": true
+    },
+    {
+      "name": "Portrait Save/Load preserves canonical campaign",
+      "passed": true
+    },
+    {
+      "name": "Owned management thumbnail uses permitted appearance",
+      "passed": true
+    },
+    {
+      "name": "Mounted inspection and management share one bounded cache",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: portrait-management",
+      "passed": true
+    },
+    {
+      "name": "Leaving GameScreen clears its shared cache ownership",
+      "passed": true
+    },
+    {
+      "name": "Unknown portrait is neutral and does not invent a descriptor",
+      "passed": true
+    },
+    {
+      "name": "Labelled stale illustration ignores hidden live descriptor changes",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for barren_rock/dry at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-barren_rock-dry-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for barren_rock/open_ocean at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-barren_rock-open_ocean-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for barren_rock/shelf_sea at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-barren_rock-shelf_sea-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for crystal_world/dry at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-crystal_world-dry-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for crystal_world/open_ocean at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-crystal_world-open_ocean-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for crystal_world/shelf_sea at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-crystal_world-shelf_sea-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for forge_world/dry at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-forge_world-dry-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for forge_world/open_ocean at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-forge_world-open_ocean-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for forge_world/shelf_sea at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-forge_world-shelf_sea-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for verdant_world/dry at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-verdant_world-dry-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for verdant_world/open_ocean at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-verdant_world-open_ocean-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for verdant_world/shelf_sea at800",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-verdant_world-shelf_sea-800",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for barren_rock/dry at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-barren_rock-dry-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for barren_rock/open_ocean at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-barren_rock-open_ocean-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for barren_rock/shelf_sea at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-barren_rock-shelf_sea-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for crystal_world/dry at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-crystal_world-dry-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for crystal_world/open_ocean at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-crystal_world-open_ocean-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for crystal_world/shelf_sea at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-crystal_world-shelf_sea-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for forge_world/dry at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-forge_world-dry-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for forge_world/open_ocean at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-forge_world-open_ocean-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for forge_world/shelf_sea at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-forge_world-shelf_sea-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for verdant_world/dry at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-verdant_world-dry-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for verdant_world/open_ocean at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-verdant_world-open_ocean-1920",
+      "passed": true
+    },
+    {
+      "name": "Eight rendered structures for verdant_world/shelf_sea at1920",
+      "passed": true
+    },
+    {
+      "name": "Gallery cache remains bounded",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: gallery-verdant_world-shelf_sea-1920",
+      "passed": true
+    },
+    {
+      "name": "All twelve gallery pages captured at both800 and1920",
+      "passed": true
+    },
+    {
+      "name": "More than128 distinct requests retain exactly128 cache entries",
+      "passed": true
+    },
+    {
+      "name": "Eviction retains a still-bound texture",
+      "passed": true
+    },
+    {
+      "name": "Cache Clear drops ownership without invalidating visible textures",
+      "passed": true
+    },
+    {
+      "name": "Generic modded type fallback retains eight structural signatures",
+      "passed": true
+    },
+    {
+      "name": "Complete gallery/cache exercise leaves source campaign bytes unchanged",
+      "passed": true
+    },
+    {
+      "name": "Labelled rules5 initial campaign generated normally",
+      "passed": true
+    },
+    {
+      "name": "Initial fixture path unique",
+      "passed": true
+    },
+    {
+      "name": "Ordinary Load opens embedded rules5 campaign",
+      "passed": true
+    },
+    {
+      "name": "Governor template picker exists on actual colony panel",
+      "passed": true
+    },
+    {
+      "name": "Four defaults plus manual are visible",
+      "passed": true
+    },
+    {
+      "name": "Invalid empty name is diagnosed in place",
+      "passed": true
+    },
+    {
+      "name": "Invalid zero weights are diagnosed before publication",
+      "passed": true
+    },
+    {
+      "name": "Actual copy control creates an independent template",
+      "passed": true
+    },
+    {
+      "name": "Apply assigns revision1 snapshot",
+      "passed": true
+    },
+    {
+      "name": "Workforce switch is independent",
+      "passed": true
+    },
+    {
+      "name": "Construction switch is independent",
+      "passed": true
+    },
+    {
+      "name": "Library edit does not change an assigned snapshot",
+      "passed": true
+    },
+    {
+      "name": "Explicit reapply advances assigned revision",
+      "passed": true
+    },
+    {
+      "name": "Actual queue editor retains locked first and legal next entries",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Ready chooses legal next queue entry",
+      "passed": true
+    },
+    {
+      "name": "Locked first entry remains queued",
+      "passed": true
+    },
+    {
+      "name": "Applying a different template retains active work by default",
+      "passed": true
+    },
+    {
+      "name": "Explicit replacement retains reserve",
+      "passed": true
+    },
+    {
+      "name": "Explicit preset export writes selected path",
+      "passed": true
+    },
+    {
+      "name": "Preset import creates new local IDs",
+      "passed": true
+    },
+    {
+      "name": "Invalid preset import preserves the complete campaign",
+      "passed": true
+    },
+    {
+      "name": "Apply template focus reachable at(800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Copy template focus reachable at(800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Edit custom template focus reachable at(800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Delete custom template focus reachable at(800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Edit queue focus reachable at(800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Template presets focus reachable at(800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: colony-controls-800",
+      "passed": true
+    },
+    {
+      "name": "Template confirm and cancel reachable at(800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: colony-template-800",
+      "passed": true
+    },
+    {
+      "name": "Queue confirmation reachable at(800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: colony-queue-800",
+      "passed": true
+    },
+    {
+      "name": "Apply template focus reachable at(1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Copy template focus reachable at(1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Edit custom template focus reachable at(1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Delete custom template focus reachable at(1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Edit queue focus reachable at(1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Template presets focus reachable at(1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: colony-controls-1920",
+      "passed": true
+    },
+    {
+      "name": "Template confirm and cancel reachable at(1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: colony-template-1920",
+      "passed": true
+    },
+    {
+      "name": "Queue confirmation reachable at(1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: colony-queue-1920",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "colony-controls-roundtrip: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "colony-controls-roundtrip: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "colony-controls-roundtrip: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "Actual UI save/reload preserves queues, revisions and reports",
+      "passed": true
+    },
+    {
+      "name": "Actual preset import reaches bounded library64",
+      "passed": true
+    },
+    {
+      "name": "Full library rejects copy with useful diagnostics and unchanged campaign",
+      "passed": true
+    },
+    {
+      "name": "Labelled Wenth initial campaign generates normally",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Unembarkable explicit vessel remains active and queued",
+      "passed": true
+    },
+    {
+      "name": "Blocked cargo explains waiting through ordinary colony UI",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: colony-wenth-cargo-800",
+      "passed": true
+    },
+    {
+      "name": "Loading old campaign preserves original rules and hides unavailable controls",
+      "passed": true
+    },
+    {
+      "name": "Malformed preference version safely restores defaults",
+      "passed": true
+    },
+    {
+      "name": "Malformed or repeated preference fields restore safe defaults",
+      "passed": true
+    },
+    {
+      "name": "Malformed or repeated preference fields restore safe defaults",
+      "passed": true
+    },
+    {
+      "name": "Malformed or repeated preference fields restore safe defaults",
+      "passed": true
+    },
+    {
+      "name": "Malformed or repeated preference fields restore safe defaults",
+      "passed": true
+    },
+    {
+      "name": "Missing preferences do not create a file",
+      "passed": true
+    },
+    {
+      "name": "Immutable preference copy round-trips",
+      "passed": true
+    },
+    {
+      "name": "Failed local preference write preserves destination and cleans its own temporary file",
+      "passed": true
+    },
+    {
+      "name": "Labelled 1-colony fixture validates before loading",
+      "passed": true
+    },
+    {
+      "name": "Actual empire-management entry exists for1",
+      "passed": true
+    },
+    {
+      "name": "Management lists all 1 owned colonies",
+      "passed": true
+    },
+    {
+      "name": "Initial manual filter is read-only",
+      "passed": true
+    },
+    {
+      "name": "Opening/filtering dashboard issues no command",
+      "passed": true
+    },
+    {
+      "name": "Management Close reachable with 1 colonies at (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-1-800",
+      "passed": true
+    },
+    {
+      "name": "Management Close reachable with 1 colonies at (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-1-1920",
+      "passed": true
+    },
+    {
+      "name": "Explicit Apply saves only injected local preference path",
+      "passed": true
+    },
+    {
+      "name": "Notification preference changes leave campaign bytes unchanged",
+      "passed": true
+    },
+    {
+      "name": "Labelled 6-colony fixture validates before loading",
+      "passed": true
+    },
+    {
+      "name": "Actual empire-management entry exists for6",
+      "passed": true
+    },
+    {
+      "name": "Management lists all 6 owned colonies",
+      "passed": true
+    },
+    {
+      "name": "Initial manual filter is read-only",
+      "passed": true
+    },
+    {
+      "name": "Opening/filtering dashboard issues no command",
+      "passed": true
+    },
+    {
+      "name": "Favorite colony remains manual outside bulk selection",
+      "passed": true
+    },
+    {
+      "name": "Bulk apply delegates only selected colonies",
+      "passed": true
+    },
+    {
+      "name": "Template filter shows assigned colonies",
+      "passed": true
+    },
+    {
+      "name": "Healthy colonies produce no exception rows",
+      "passed": true
+    },
+    {
+      "name": "Management Close reachable with 6 colonies at (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-6-800",
+      "passed": true
+    },
+    {
+      "name": "Management Close reachable with 6 colonies at (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-6-1920",
+      "passed": true
+    },
+    {
+      "name": "One nonmodal size suggestion is visible",
+      "passed": true
+    },
+    {
+      "name": "Size suggestion can be cleared without a command",
+      "passed": true
+    },
+    {
+      "name": "Explicit Apply saves only injected local preference path",
+      "passed": true
+    },
+    {
+      "name": "Notification preference changes leave campaign bytes unchanged",
+      "passed": true
+    },
+    {
+      "name": "Manual favorite can expose an unresolved support condition",
+      "passed": true
+    },
+    {
+      "name": "Off notification does not hide derived dashboard exceptions",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-off-still-shows-shortage",
+      "passed": true
+    },
+    {
+      "name": "Labelled 11-colony fixture validates before loading",
+      "passed": true
+    },
+    {
+      "name": "Actual empire-management entry exists for11",
+      "passed": true
+    },
+    {
+      "name": "Management lists all 11 owned colonies",
+      "passed": true
+    },
+    {
+      "name": "Initial manual filter is read-only",
+      "passed": true
+    },
+    {
+      "name": "Opening/filtering dashboard issues no command",
+      "passed": true
+    },
+    {
+      "name": "Favorite colony remains manual outside bulk selection",
+      "passed": true
+    },
+    {
+      "name": "Bulk apply delegates only selected colonies",
+      "passed": true
+    },
+    {
+      "name": "Template filter shows assigned colonies",
+      "passed": true
+    },
+    {
+      "name": "Healthy colonies produce no exception rows",
+      "passed": true
+    },
+    {
+      "name": "Management Close reachable with 11 colonies at (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-11-800",
+      "passed": true
+    },
+    {
+      "name": "Management Close reachable with 11 colonies at (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-11-1920",
+      "passed": true
+    },
+    {
+      "name": "One nonmodal size suggestion is visible",
+      "passed": true
+    },
+    {
+      "name": "Size suggestion can be cleared without a command",
+      "passed": true
+    },
+    {
+      "name": "Explicit Apply saves only injected local preference path",
+      "passed": true
+    },
+    {
+      "name": "Notification preference changes leave campaign bytes unchanged",
+      "passed": true
+    },
+    {
+      "name": "Labelled 30-colony fixture validates before loading",
+      "passed": true
+    },
+    {
+      "name": "Actual empire-management entry exists for30",
+      "passed": true
+    },
+    {
+      "name": "Management lists all 30 owned colonies",
+      "passed": true
+    },
+    {
+      "name": "Initial manual filter is read-only",
+      "passed": true
+    },
+    {
+      "name": "Opening/filtering dashboard issues no command",
+      "passed": true
+    },
+    {
+      "name": "Favorite colony remains manual outside bulk selection",
+      "passed": true
+    },
+    {
+      "name": "Bulk apply delegates only selected colonies",
+      "passed": true
+    },
+    {
+      "name": "Template filter shows assigned colonies",
+      "passed": true
+    },
+    {
+      "name": "Healthy colonies produce no exception rows",
+      "passed": true
+    },
+    {
+      "name": "Management Close reachable with 30 colonies at (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-30-800",
+      "passed": true
+    },
+    {
+      "name": "Management Close reachable with 30 colonies at (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-30-1920",
+      "passed": true
+    },
+    {
+      "name": "One nonmodal size suggestion is visible",
+      "passed": true
+    },
+    {
+      "name": "Size suggestion can be cleared without a command",
+      "passed": true
+    },
+    {
+      "name": "Explicit Apply saves only injected local preference path",
+      "passed": true
+    },
+    {
+      "name": "Notification preference changes leave campaign bytes unchanged",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Thirty worlds share one turn report, without individual acknowledgements",
+      "passed": true
+    },
+    {
+      "name": "Real turns retain exactly ten governor reports",
+      "passed": true
+    },
+    {
+      "name": "Ten-turn history is accessible despite routine Off",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-thirty-history",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "management-thirty-history: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "management-thirty-history: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "management-thirty-history: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "Management history survives actual Save/Load",
+      "passed": true
+    },
+    {
+      "name": "Labelled two-human state prepares only first human by ordinary Ready",
+      "passed": true
+    },
+    {
+      "name": "Labelled nonfinal Ready/withdraw does not resolve the two-human turn",
+      "passed": true
+    },
+    {
+      "name": "Labelled nonfinal Ready/withdraw does not resolve the two-human turn",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "labelled-two-human-pending-ready: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "labelled-two-human-pending-ready: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "labelled-two-human-pending-ready: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "Labelled two-human actual nonfinal Ready survives UI Save/Load",
+      "passed": true
+    },
+    {
+      "name": "Actual manual control marks prepared workforce action overridden",
+      "passed": true
+    },
+    {
+      "name": "Stored digest does not attribute manual intervention to governor success",
+      "passed": true
+    },
+    {
+      "name": "Manual override explanation is reachable by scrolling",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: management-manual-override",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual current form produces seed42 Small/plague Off/ameba Off with one Peldra rival",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-queued-foundation: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-queued-foundation: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-queued-foundation: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-queued-expedition: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-queued-expedition: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-queued-expedition: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-pending-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-pending-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-pending-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: ordinary founded colony waits until next snapshot",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-manual-favorite-and-delegated-child: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-manual-favorite-and-delegated-child: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-manual-favorite-and-delegated-child: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: paused favorite and delegated child survive UI Save/Load",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: all required generated outcomes complete within160-turn QA guard; population=9, built=analysis_lab,cultivation_hub,fabrication_hall,production_complex",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: generated-colony-harl-developed-800",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: generated-colony-harl-developed-1920",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "size": "small",
+      "humanSpecies": "harl",
+      "rivalSpecies": "peldra",
+      "template": "industrial",
+      "specialist": "production_complex",
+      "resolvedTurns": 24,
+      "ownedColonies": 2,
+      "foundations": 3,
+      "liveOutcomeInjections": 0,
+      "rerolls": 0,
+      "guard": 160,
+      "wenthExpandedCapacity": false,
+      "wenthBlockedBeforeMaturity": false,
+      "wenthParentFiveSeedThree": false,
+      "manualFavorite": true,
+      "provenance": "Unmodified actual current form; decisions use own EmpireView/public definitions/shared previews through real controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-developed: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-developed: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl-developed: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-harl: three future turns after UI reload equal uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual current form produces seed42 Small/plague Off/ameba Off with one Peldra rival",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra-queued-foundation: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra-queued-foundation: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra-queued-foundation: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: all required generated outcomes complete within160-turn QA guard; population=7, built=analysis_lab,cultivation_hub,discovery_center,fabrication_hall",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: generated-colony-peldra-developed-800",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: generated-colony-peldra-developed-1920",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "size": "small",
+      "humanSpecies": "peldra",
+      "rivalSpecies": "peldra",
+      "template": "research",
+      "specialist": "discovery_center",
+      "resolvedTurns": 10,
+      "ownedColonies": 1,
+      "foundations": 3,
+      "liveOutcomeInjections": 0,
+      "rerolls": 0,
+      "guard": 160,
+      "wenthExpandedCapacity": false,
+      "wenthBlockedBeforeMaturity": false,
+      "wenthParentFiveSeedThree": false,
+      "manualFavorite": false,
+      "provenance": "Unmodified actual current form; decisions use own EmpireView/public definitions/shared previews through real controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra-developed: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra-developed: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra-developed: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-peldra: three future turns after UI reload equal uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual current form produces seed42 Small/plague Off/ameba Off with one Peldra rival",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan-queued-foundation: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan-queued-foundation: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan-queued-foundation: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: all required generated outcomes complete within160-turn QA guard; population=13, built=analysis_lab,cultivation_hub,fabrication_hall,habitat_extension,habitat_network",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: generated-colony-sulan-developed-800",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: generated-colony-sulan-developed-1920",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "size": "small",
+      "humanSpecies": "sulan",
+      "rivalSpecies": "peldra",
+      "template": "growth",
+      "specialist": "habitat_network",
+      "resolvedTurns": 15,
+      "ownedColonies": 1,
+      "foundations": 3,
+      "liveOutcomeInjections": 0,
+      "rerolls": 0,
+      "guard": 160,
+      "wenthExpandedCapacity": false,
+      "wenthBlockedBeforeMaturity": false,
+      "wenthParentFiveSeedThree": false,
+      "manualFavorite": false,
+      "provenance": "Unmodified actual current form; decisions use own EmpireView/public definitions/shared previews through real controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan-developed: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan-developed: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan-developed: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-sulan: three future turns after UI reload equal uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual current form produces seed42 Small/plague Off/ameba Off with one Peldra rival",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth-queued-foundation: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth-queued-foundation: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth-queued-foundation: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: ordinary capacity completion changes six to eight while population stays six",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth-queued-expedition: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth-queued-expedition: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth-queued-expedition: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: explicit seed waits for the current full capacity",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: growth to capacity cannot retroactively embark this snapshot",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: explicit seed waits for the current full capacity",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: growth to capacity cannot retroactively embark this snapshot",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: explicit seed waits for the current full capacity",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: growth to capacity cannot retroactively embark this snapshot",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted reference Ready resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: actual End Turn matches complete canonical reference",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: full eight conserves parent five plus seed three",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: all required generated outcomes complete within160-turn QA guard; population=5, built=analysis_lab,cultivation_hub,fabrication_hall,habitat_extension,production_complex",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: generated-colony-wenth-developed-800",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: generated-colony-wenth-developed-1920",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "size": "small",
+      "humanSpecies": "wenth",
+      "rivalSpecies": "peldra",
+      "template": "balanced",
+      "specialist": "production_complex",
+      "resolvedTurns": 17,
+      "ownedColonies": 1,
+      "foundations": 3,
+      "liveOutcomeInjections": 0,
+      "rerolls": 0,
+      "guard": 160,
+      "wenthExpandedCapacity": true,
+      "wenthBlockedBeforeMaturity": true,
+      "wenthParentFiveSeedThree": true,
+      "manualFavorite": false,
+      "provenance": "Unmodified actual current form; decisions use own EmpireView/public definitions/shared previews through real controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth-developed: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth-developed: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth-developed: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: uninterrupted future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "generated-colony-wenth: three future turns after UI reload equal uninterrupted canonical continuation",
+      "passed": true
+    }
+  ],
+  "retainedQaSavePaths": [
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-template-references.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-notification-building.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-attention-building-history.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-notification-vessel.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-attention-vessel-history.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-replacement-individual.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-replacement-bulk.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-invalid-content-original4.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-portrait-initial.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-portrait-signature.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-colony-initial.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-colony-controls-roundtrip.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-colony-wenth-initial.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-colony-original-rules4.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-management-1.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-management-6.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-management-11.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-management-30.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-management-thirty-history.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-management-pending-human.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-labelled-two-human-pending-ready.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-harl-queued-foundation.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-harl-queued-expedition.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-harl-pending-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-harl-manual-favorite-and-delegated-child.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-harl-developed.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-peldra-queued-foundation.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-peldra-developed.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-sulan-queued-foundation.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-sulan-developed.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-wenth-queued-foundation.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-wenth-queued-expedition.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213229-564-generated-colony-wenth-developed.json"
+  ]
+}

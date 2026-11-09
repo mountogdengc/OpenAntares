@@ -11,3 +11,6 @@ TestResults/
 
 # Local research material
 /docs/research/
+
+# Godot sidecars for standalone tooling are generated, not game resources.
+/tools/**/*.cs.uid

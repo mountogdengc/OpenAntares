@@ -1,0 +1,199 @@
+{
+  "pages": 24,
+  "coreCombinations": 96,
+  "maximumCache": 128,
+  "provenance": [
+    {
+      "type": "barren_rock",
+      "environment": "dry",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-barren_rock-dry-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "barren_rock",
+      "environment": "open_ocean",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-barren_rock-open_ocean-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "barren_rock",
+      "environment": "shelf_sea",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-barren_rock-shelf_sea-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "crystal_world",
+      "environment": "dry",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-crystal_world-dry-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "crystal_world",
+      "environment": "open_ocean",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-crystal_world-open_ocean-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "crystal_world",
+      "environment": "shelf_sea",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-crystal_world-shelf_sea-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "forge_world",
+      "environment": "dry",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-forge_world-dry-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "forge_world",
+      "environment": "open_ocean",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-forge_world-open_ocean-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "forge_world",
+      "environment": "shelf_sea",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-forge_world-shelf_sea-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "verdant_world",
+      "environment": "dry",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-verdant_world-dry-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "verdant_world",
+      "environment": "open_ocean",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-verdant_world-open_ocean-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "verdant_world",
+      "environment": "shelf_sea",
+      "variants": 8,
+      "size": 800,
+      "file": "gallery-verdant_world-shelf_sea-800.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "barren_rock",
+      "environment": "dry",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-barren_rock-dry-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "barren_rock",
+      "environment": "open_ocean",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-barren_rock-open_ocean-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "barren_rock",
+      "environment": "shelf_sea",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-barren_rock-shelf_sea-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "crystal_world",
+      "environment": "dry",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-crystal_world-dry-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "crystal_world",
+      "environment": "open_ocean",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-crystal_world-open_ocean-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "crystal_world",
+      "environment": "shelf_sea",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-crystal_world-shelf_sea-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "forge_world",
+      "environment": "dry",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-forge_world-dry-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "forge_world",
+      "environment": "open_ocean",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-forge_world-open_ocean-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "forge_world",
+      "environment": "shelf_sea",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-forge_world-shelf_sea-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "verdant_world",
+      "environment": "dry",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-verdant_world-dry-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "verdant_world",
+      "environment": "open_ocean",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-verdant_world-open_ocean-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    },
+    {
+      "type": "verdant_world",
+      "environment": "shelf_sea",
+      "variants": 8,
+      "size": 1920,
+      "file": "gallery-verdant_world-shelf_sea-1920.png",
+      "method": "Labelled presentation-only combinations, including zero generation weights."
+    }
+  ]
+}

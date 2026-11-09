@@ -1,0 +1,4839 @@
+{
+  "runId": "20261025-213018-229",
+  "scenario": "Rival",
+  "method": "Actual control signals and commands; no physical OS input or human-comprehension claim.",
+  "passed": true,
+  "error": null,
+  "results": [
+    {
+      "name": "Rival validation requires a graphical display",
+      "passed": true
+    },
+    {
+      "name": "Visible rival count selector exists",
+      "passed": true
+    },
+    {
+      "name": "Visible defaults are One / Harl / Peldra",
+      "passed": true
+    },
+    {
+      "name": "Visible current defaults reach simulation unchanged",
+      "passed": true
+    },
+    {
+      "name": "Human selection does not swap rival; mirrors legal",
+      "passed": true
+    },
+    {
+      "name": "Mirror settings reach simulation",
+      "passed": true
+    },
+    {
+      "name": "Solo disables rival and passes null identity",
+      "passed": true
+    },
+    {
+      "name": "One enables the retained rival choice",
+      "passed": true
+    },
+    {
+      "name": "Setup controls/focus fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-setup-800x600",
+      "passed": true
+    },
+    {
+      "name": "Setup controls/focus fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-setup-1152x648",
+      "passed": true
+    },
+    {
+      "name": "Setup controls/focus fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-setup-1280x720",
+      "passed": true
+    },
+    {
+      "name": "Setup controls/focus fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-setup-1600x900",
+      "passed": true
+    },
+    {
+      "name": "Setup controls/focus fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-setup-1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Alternative human defaults to peldra",
+      "passed": true
+    },
+    {
+      "name": "Alternative rival defaults to distinct choice or sole mirror: sulan",
+      "passed": true
+    },
+    {
+      "name": "Actual alternative Start uses both initial identities",
+      "passed": true
+    },
+    {
+      "name": "Later manual mirror remains legal without rival auto-swap",
+      "passed": true
+    },
+    {
+      "name": "Alternative human defaults to harl",
+      "passed": true
+    },
+    {
+      "name": "Alternative rival defaults to distinct choice or sole mirror: sulan",
+      "passed": true
+    },
+    {
+      "name": "Actual alternative Start uses both initial identities",
+      "passed": true
+    },
+    {
+      "name": "Later manual mirror remains legal without rival auto-swap",
+      "passed": true
+    },
+    {
+      "name": "Alternative human defaults to sulan",
+      "passed": true
+    },
+    {
+      "name": "Alternative rival defaults to distinct choice or sole mirror: wenth",
+      "passed": true
+    },
+    {
+      "name": "Actual alternative Start uses both initial identities",
+      "passed": true
+    },
+    {
+      "name": "Later manual mirror remains legal without rival auto-swap",
+      "passed": true
+    },
+    {
+      "name": "Alternative human defaults to peldra",
+      "passed": true
+    },
+    {
+      "name": "Alternative rival defaults to distinct choice or sole mirror: peldra",
+      "passed": true
+    },
+    {
+      "name": "Actual alternative Start uses both initial identities",
+      "passed": true
+    },
+    {
+      "name": "Later manual mirror remains legal without rival auto-swap",
+      "passed": true
+    },
+    {
+      "name": "Alternative human defaults to harl",
+      "passed": true
+    },
+    {
+      "name": "Alternative rival defaults to distinct choice or sole mirror: harl",
+      "passed": true
+    },
+    {
+      "name": "Actual alternative Start uses both initial identities",
+      "passed": true
+    },
+    {
+      "name": "Later manual mirror remains legal without rival auto-swap",
+      "passed": true
+    },
+    {
+      "name": "Alternative human defaults to wenth",
+      "passed": true
+    },
+    {
+      "name": "Alternative rival defaults to distinct choice or sole mirror: wenth",
+      "passed": true
+    },
+    {
+      "name": "Actual alternative Start uses both initial identities",
+      "passed": true
+    },
+    {
+      "name": "Later manual mirror remains legal without rival auto-swap",
+      "passed": true
+    },
+    {
+      "name": "No species disables Start",
+      "passed": true
+    },
+    {
+      "name": "No species retains Load",
+      "passed": true
+    },
+    {
+      "name": "Renamed/reordered alternative definitions initialize in ordinal order with a distinct rival",
+      "passed": true
+    },
+    {
+      "name": "Missing policy disables new rules-4 game",
+      "passed": true
+    },
+    {
+      "name": "Missing policy retains Load",
+      "passed": true
+    },
+    {
+      "name": "Failed generation retains setup without replacing a session",
+      "passed": true
+    },
+    {
+      "name": "Failed generation shows an actionable error",
+      "passed": true
+    },
+    {
+      "name": "Invalid-content legacy QA name is unique",
+      "passed": true
+    },
+    {
+      "name": "Long invalid disk-content result comes from the real loader",
+      "passed": true
+    },
+    {
+      "name": "Invalid disk content keeps Load Game available",
+      "passed": true
+    },
+    {
+      "name": "Long content-error recovery action stays inside the 800x600 viewport",
+      "passed": true
+    },
+    {
+      "name": "Long content diagnostics scroll while recovery action stays visible",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: long-content-error-recovery-800",
+      "passed": true
+    },
+    {
+      "name": "Invalid disk content still loads original embedded rules3 campaign",
+      "passed": true
+    },
+    {
+      "name": "Labelled pre-session observation fixture validates",
+      "passed": true
+    },
+    {
+      "name": "Contact UI shows observed culture identity",
+      "passed": true
+    },
+    {
+      "name": "Ownership UI dates its observation",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-observed-contact",
+      "passed": true
+    },
+    {
+      "name": "Contact UI shows observed culture identity",
+      "passed": true
+    },
+    {
+      "name": "Ownership UI dates its observation",
+      "passed": true
+    },
+    {
+      "name": "Rendered labels and tooltips ignore hidden rival reserves and orders",
+      "passed": true
+    },
+    {
+      "name": "encounter-report-details: labelled pre-session fixture validates",
+      "passed": true
+    },
+    {
+      "name": "encounter-report-details: fixture path unique",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Actual encounter report distinguishes Peldra colony at observed orbit 2 with culture/date",
+      "passed": true
+    },
+    {
+      "name": "Actual encounter report distinguishes Peldra colony at observed orbit 3 with culture/date",
+      "passed": true
+    },
+    {
+      "name": "First-contact report identifies species without inventing a planet",
+      "passed": true
+    },
+    {
+      "name": "Encounter wording describes observation rather than unknown founding history",
+      "passed": true
+    },
+    {
+      "name": "Report scrolling exposes both exact observed worlds at 800x600",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: encounter-report-details-800",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: encounter-report-details-1920",
+      "passed": true
+    },
+    {
+      "name": "Labelled report reference resolves normally",
+      "passed": true
+    },
+    {
+      "name": "Report identity/orbit/text ignores hidden foreign mutations and retains dated facts",
+      "passed": true
+    },
+    {
+      "name": "harl/rivals0: visible Off settings create correct empires",
+      "passed": true
+    },
+    {
+      "name": "Reference turn resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "human-harl-rivals0: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "human-harl-rivals0: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "human-harl-rivals0: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "harl/rivals0: UI save/load preserves future continuation",
+      "passed": true
+    },
+    {
+      "name": "harl/rivals1: visible Off settings create correct empires",
+      "passed": true
+    },
+    {
+      "name": "Reference turn resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "human-harl-rivals1: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "human-harl-rivals1: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "human-harl-rivals1: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "harl/rivals1: UI save/load preserves future continuation",
+      "passed": true
+    },
+    {
+      "name": "peldra/rivals0: visible Off settings create correct empires",
+      "passed": true
+    },
+    {
+      "name": "Reference turn resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "human-peldra-rivals0: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "human-peldra-rivals0: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "human-peldra-rivals0: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "peldra/rivals0: UI save/load preserves future continuation",
+      "passed": true
+    },
+    {
+      "name": "peldra/rivals1: visible Off settings create correct empires",
+      "passed": true
+    },
+    {
+      "name": "Reference turn resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "human-peldra-rivals1: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "human-peldra-rivals1: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "human-peldra-rivals1: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "peldra/rivals1: UI save/load preserves future continuation",
+      "passed": true
+    },
+    {
+      "name": "sulan/rivals0: visible Off settings create correct empires",
+      "passed": true
+    },
+    {
+      "name": "Reference turn resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "human-sulan-rivals0: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "human-sulan-rivals0: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "human-sulan-rivals0: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "sulan/rivals0: UI save/load preserves future continuation",
+      "passed": true
+    },
+    {
+      "name": "sulan/rivals1: visible Off settings create correct empires",
+      "passed": true
+    },
+    {
+      "name": "Reference turn resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "human-sulan-rivals1: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "human-sulan-rivals1: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "human-sulan-rivals1: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "sulan/rivals1: UI save/load preserves future continuation",
+      "passed": true
+    },
+    {
+      "name": "wenth/rivals0: visible Off settings create correct empires",
+      "passed": true
+    },
+    {
+      "name": "Reference turn resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "human-wenth-rivals0: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "human-wenth-rivals0: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "human-wenth-rivals0: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "wenth/rivals0: UI save/load preserves future continuation",
+      "passed": true
+    },
+    {
+      "name": "wenth/rivals1: visible Off settings create correct empires",
+      "passed": true
+    },
+    {
+      "name": "Reference turn resolves",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "human-wenth-rivals1: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "human-wenth-rivals1: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "human-wenth-rivals1: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "wenth/rivals1: UI save/load preserves future continuation",
+      "passed": true
+    },
+    {
+      "name": "rival-native: labelled pre-session fixture validates",
+      "passed": true
+    },
+    {
+      "name": "rival-native: fixture path unique",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Labelled rival Sulan explicitly founds native",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: labelled-rival-native",
+      "passed": true
+    },
+    {
+      "name": "rival-sealed: labelled pre-session fixture validates",
+      "passed": true
+    },
+    {
+      "name": "rival-sealed: fixture path unique",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Labelled rival Sulan explicitly founds sealed",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: labelled-rival-sealed",
+      "passed": true
+    },
+    {
+      "name": "rival-extended: labelled pre-session fixture validates",
+      "passed": true
+    },
+    {
+      "name": "rival-extended: fixture path unique",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Labelled AI Wenth waits for current capacity eight, including growth-to-eight snapshot",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Labelled AI Wenth waits for current capacity eight, including growth-to-eight snapshot",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Labelled AI Wenth waits for current capacity eight, including growth-to-eight snapshot",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Labelled AI Wenth waits for current capacity eight, including growth-to-eight snapshot",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Labelled AI extended Wenth transfers eight to parent5 plus seed3",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Labelled AI Wenth daughter is unbuilt capacity six",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: labelled-rival-extended",
+      "passed": true
+    },
+    {
+      "name": "rival-race: labelled pre-session fixture validates",
+      "passed": true
+    },
+    {
+      "name": "rival-race: fixture path unique",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Labelled simultaneous race preserves lower EmpireId winner",
+      "passed": true
+    },
+    {
+      "name": "Labelled race loser retains cargo",
+      "passed": true
+    },
+    {
+      "name": "Winner report does not disclose a hidden losing order",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: labelled-rival-race",
+      "passed": true
+    },
+    {
+      "name": "rival-alternate: labelled pre-session fixture validates",
+      "passed": true
+    },
+    {
+      "name": "rival-alternate: fixture path unique",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-renamed-policy: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-renamed-policy: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-renamed-policy: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "Renamed embedded policy reference resolves",
+      "passed": true
+    },
+    {
+      "name": "Renamed embedded policy reference resolves",
+      "passed": true
+    },
+    {
+      "name": "Renamed embedded policy reference resolves",
+      "passed": true
+    },
+    {
+      "name": "Renamed embedded policy reference resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "Renamed species and nondefault embedded policy continue exactly through UI load",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: labelled-rival-alternate",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "peldra",
+      "size": "small",
+      "resolvedTurns": 14,
+      "rivalSecondColonyTurn": 8,
+      "contactTurn": 2,
+      "rivalResearchCompletions": 1,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-peldra-small-observed-800",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-small: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-peldra-small-observed-1920",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "peldra",
+      "size": "medium",
+      "resolvedTurns": 12,
+      "rivalSecondColonyTurn": 7,
+      "contactTurn": 12,
+      "rivalResearchCompletions": 0,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-medium: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "peldra",
+      "size": "large",
+      "resolvedTurns": 9,
+      "rivalSecondColonyTurn": 9,
+      "contactTurn": 5,
+      "rivalResearchCompletions": 0,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-peldra-large: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "harl",
+      "size": "small",
+      "resolvedTurns": 6,
+      "rivalSecondColonyTurn": 6,
+      "contactTurn": 2,
+      "rivalResearchCompletions": 1,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-harl-small-observed-800",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-small: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-harl-small-observed-1920",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "harl",
+      "size": "medium",
+      "resolvedTurns": 12,
+      "rivalSecondColonyTurn": 5,
+      "contactTurn": 12,
+      "rivalResearchCompletions": 3,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-medium: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "harl",
+      "size": "large",
+      "resolvedTurns": 7,
+      "rivalSecondColonyTurn": 7,
+      "contactTurn": 5,
+      "rivalResearchCompletions": 1,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-harl-large: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "sulan",
+      "size": "small",
+      "resolvedTurns": 11,
+      "rivalSecondColonyTurn": 11,
+      "contactTurn": 2,
+      "rivalResearchCompletions": 2,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-sulan-small-observed-800",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-small: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-sulan-small-observed-1920",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "sulan",
+      "size": "medium",
+      "resolvedTurns": 12,
+      "rivalSecondColonyTurn": 10,
+      "contactTurn": 12,
+      "rivalResearchCompletions": 2,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-medium: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "sulan",
+      "size": "large",
+      "resolvedTurns": 11,
+      "rivalSecondColonyTurn": 11,
+      "contactTurn": 5,
+      "rivalResearchCompletions": 2,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-sulan-large: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "wenth",
+      "size": "small",
+      "resolvedTurns": 7,
+      "rivalSecondColonyTurn": 7,
+      "contactTurn": 2,
+      "rivalResearchCompletions": 1,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-wenth-small-observed-800",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-small: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Screenshot saved: rival-wenth-small-observed-1920",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "wenth",
+      "size": "medium",
+      "resolvedTurns": 12,
+      "rivalSecondColonyTurn": 6,
+      "contactTurn": 12,
+      "rivalResearchCompletions": 1,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-medium: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: actual UI starts generated rules7 plague/ameba Off seed42 campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-pending: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-pending: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-pending: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-transit: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-transit: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-transit: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-founding: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-founding: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-founding: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches Button",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: uninterrupted turn is valid",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: actual End Turn equals canonical reference",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: generated loop stays within core turn bound",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: rival founded a real second colony",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: human observed the rival",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: real human settlement",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: pending/transit/founding saved order stages",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: real development and observed contact report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: generated provenance",
+      "passed": true,
+      "seed": 42,
+      "humanSpecies": "harl",
+      "rivalSpecies": "wenth",
+      "size": "large",
+      "resolvedTurns": 8,
+      "rivalSecondColonyTurn": 8,
+      "contactTurn": 5,
+      "rivalResearchCompletions": 1,
+      "liveOutcomeInjections": 0,
+      "operationBound": "2*ownedColonies\u002BownedVessels\u002B1 (unit enforced)",
+      "provenance": "Unmodified generated campaign; human choices from own view through actual controls."
+    },
+    {
+      "name": "QA save name is unique",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-expanded: Save dialog opens",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-expanded: Save dialog writes and closes",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large-expanded: saved state matches session",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: reference future resolves",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "End Turn advances once and opens report",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: three future turns after UI reload match uninterrupted campaign",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: game controls fit (800, 600)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: game controls fit (1152, 648)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: game controls fit (1280, 720)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: game controls fit (1600, 900)",
+      "passed": true
+    },
+    {
+      "name": "Rival loop focus/scroll reaches OptionButton",
+      "passed": true
+    },
+    {
+      "name": "rival-wenth-large: game controls fit (1920, 1080)",
+      "passed": true
+    },
+    {
+      "name": "Each rival species completed real research in a generated campaign",
+      "passed": true
+    }
+  ],
+  "retainedQaSavePaths": [
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-invalid-disk-content-legacy.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-labelled-encounter-report-details.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-human-harl-rivals0.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-human-harl-rivals1.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-human-peldra-rivals0.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-human-peldra-rivals1.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-human-sulan-rivals0.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-human-sulan-rivals1.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-human-wenth-rivals0.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-human-wenth-rivals1.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-labelled-rival-native.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-labelled-rival-sealed.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-labelled-rival-extended.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-labelled-rival-race.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-labelled-rival-alternate.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-renamed-policy.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-small-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-small-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-small-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-small-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-medium-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-medium-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-medium-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-medium-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-large-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-large-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-large-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-peldra-large-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-small-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-small-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-small-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-small-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-medium-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-medium-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-medium-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-medium-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-large-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-large-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-large-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-harl-large-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-small-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-small-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-small-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-small-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-medium-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-medium-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-medium-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-medium-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-large-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-large-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-large-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-sulan-large-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-small-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-small-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-small-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-small-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-medium-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-medium-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-medium-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-medium-expanded.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-large-pending.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-large-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-large-founding.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-213018-229-rival-wenth-large-expanded.json"
+  ]
+}

@@ -1,0 +1,1060 @@
+{
+  "format": "OpenAntaresGovernorTemplates",
+  "version": 1,
+  "templates": [
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    },
+    {
+      "name": "Balanced",
+      "foundation_ids": [
+        "fabrication_hall",
+        "cultivation_hub",
+        "analysis_lab"
+      ],
+      "development_ids": [
+        "habitat_extension",
+        "production_complex",
+        "discovery_center",
+        "habitat_network"
+      ],
+      "support_target": "minimum",
+      "production_weight": 1,
+      "research_weight": 1
+    }
+  ]
+}

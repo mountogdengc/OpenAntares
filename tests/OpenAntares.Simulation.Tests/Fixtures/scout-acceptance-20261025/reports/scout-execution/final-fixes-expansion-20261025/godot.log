@@ -1,0 +1,278 @@
+Godot Engine v4.7.2.stable.mono.official.ed1daf0bf - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 617.42 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 3090
+
+PASS: Graphical display required
+PASS: Default window 1920x1080
+PASS: small: frozen expansion campaign uses rules 2
+PASS: small: one starting scout
+PASS: small: home-only survey
+PASS: small: generated route exercises saved transit
+PASS: small: unsurveyed inspector hides planet count
+PASS: small: settler selection uses typed production
+PASS: Action reachable by focus/scroll: Set course
+PASS: small: pending scout route
+PASS: QA save name is unique
+PASS: small-pending-move: Save dialog opens
+PASS: small-pending-move: Save dialog writes and closes
+PASS: small-pending-move: saved state matches session
+PASS: small: saved pending move retained
+PASS: small: reload initially previews queued route
+PASS: small: destination picker retains replacement preview
+PASS: small: replacement travel preview uses selected destination
+PASS: small: preview alone preserves queued route
+PASS: small: Set course replaces queued route
+PASS: QA save name is unique
+PASS: small-replaced-move: Save dialog opens
+PASS: small-replaced-move: Save dialog writes and closes
+PASS: small-replaced-move: saved state matches session
+PASS: small: replaced route remains selected after reload
+PASS: small: queued route can be replaced again after reload
+PASS: End Turn advances once and opens report
+PASS: small: launch advances first transit step
+PASS: small: transit controls disabled
+PASS: QA save name is unique
+PASS: small-transit: Save dialog opens
+PASS: small-transit: Save dialog writes and closes
+PASS: small-transit: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: small: forecast equals resolved production at turn 2
+PASS: End Turn advances once and opens report
+PASS: small: forecast equals resolved production at turn 3
+PASS: End Turn advances once and opens report
+PASS: small: forecast equals resolved production at turn 4
+PASS: End Turn advances once and opens report
+PASS: small: forecast equals resolved production at turn 5
+PASS: End Turn advances once and opens report
+PASS: small: forecast equals resolved production at turn 6
+PASS: small: embark report warns about next-turn support
+PASS: small: one settler completed
+PASS: small: two existing support workers embarked
+PASS: small: real workforce controls repair source support
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: small: settler arrives at exact integer duration
+PASS: small: arrival never founds automatically
+PASS: Action reachable by focus/scroll: Found colony
+PASS: small: explicit founding intent
+PASS: QA save name is unique
+PASS: small-pending-founding: Save dialog opens
+PASS: small-pending-founding: Save dialog writes and closes
+PASS: small-pending-founding: saved state matches session
+PASS: small: saved founding intent retained
+PASS: End Turn advances once and opens report
+PASS: small: founding creates second colony
+PASS: small: founding consumes correct settler
+PASS: small: no founding-turn colony economy
+PASS: small: exact colony selection selects correct system
+PASS: small: independent colony projects
+PASS: small: empire research includes each colony once
+PASS: small: settled colony contributes from next snapshot
+PASS: small: resize 800x600 preserves state
+PASS: small: map remains reachable after resize
+PASS: Screenshot saved: small-two-colonies-800
+PASS: small: resize 1152x648 preserves state
+PASS: small: map remains reachable after resize
+PASS: small: resize 1600x900 preserves state
+PASS: small: map remains reachable after resize
+PASS: small: resize 1920x1080 preserves state
+PASS: small: map remains reachable after resize
+PASS: Screenshot saved: small-two-colonies-1920
+PASS: QA save name is unique
+PASS: small-two-colonies: Save dialog opens
+PASS: small-two-colonies: Save dialog writes and closes
+PASS: small-two-colonies: saved state matches session
+PASS: Predicted continuation resolves
+PASS: End Turn advances once and opens report
+PASS: small: UI reload continuation equals uninterrupted result
+PASS: medium: frozen expansion campaign uses rules 2
+PASS: medium: one starting scout
+PASS: medium: home-only survey
+PASS: medium: generated route exercises saved transit
+PASS: medium: unsurveyed inspector hides planet count
+PASS: medium: settler selection uses typed production
+PASS: Action reachable by focus/scroll: Set course
+PASS: medium: pending scout route
+PASS: QA save name is unique
+PASS: medium-pending-move: Save dialog opens
+PASS: medium-pending-move: Save dialog writes and closes
+PASS: medium-pending-move: saved state matches session
+PASS: medium: saved pending move retained
+PASS: medium: reload initially previews queued route
+PASS: medium: destination picker retains replacement preview
+PASS: medium: replacement travel preview uses selected destination
+PASS: medium: preview alone preserves queued route
+PASS: medium: Set course replaces queued route
+PASS: QA save name is unique
+PASS: medium-replaced-move: Save dialog opens
+PASS: medium-replaced-move: Save dialog writes and closes
+PASS: medium-replaced-move: saved state matches session
+PASS: medium: replaced route remains selected after reload
+PASS: medium: queued route can be replaced again after reload
+PASS: End Turn advances once and opens report
+PASS: medium: launch advances first transit step
+PASS: medium: transit controls disabled
+PASS: QA save name is unique
+PASS: medium-transit: Save dialog opens
+PASS: medium-transit: Save dialog writes and closes
+PASS: medium-transit: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: medium: forecast equals resolved production at turn 2
+PASS: End Turn advances once and opens report
+PASS: medium: forecast equals resolved production at turn 3
+PASS: End Turn advances once and opens report
+PASS: medium: forecast equals resolved production at turn 4
+PASS: End Turn advances once and opens report
+PASS: medium: forecast equals resolved production at turn 5
+PASS: End Turn advances once and opens report
+PASS: medium: forecast equals resolved production at turn 6
+PASS: medium: embark report warns about next-turn support
+PASS: medium: one settler completed
+PASS: medium: two existing support workers embarked
+PASS: medium: real workforce controls repair source support
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: medium: settler arrives at exact integer duration
+PASS: medium: arrival never founds automatically
+PASS: Action reachable by focus/scroll: Found colony
+PASS: medium: explicit founding intent
+PASS: QA save name is unique
+PASS: medium-pending-founding: Save dialog opens
+PASS: medium-pending-founding: Save dialog writes and closes
+PASS: medium-pending-founding: saved state matches session
+PASS: medium: saved founding intent retained
+PASS: End Turn advances once and opens report
+PASS: medium: founding creates second colony
+PASS: medium: founding consumes correct settler
+PASS: medium: no founding-turn colony economy
+PASS: medium: exact colony selection selects correct system
+PASS: medium: independent colony projects
+PASS: medium: empire research includes each colony once
+PASS: medium: settled colony contributes from next snapshot
+PASS: medium: resize 800x600 preserves state
+PASS: medium: map remains reachable after resize
+PASS: Screenshot saved: medium-two-colonies-800
+PASS: medium: resize 1152x648 preserves state
+PASS: medium: map remains reachable after resize
+PASS: medium: resize 1600x900 preserves state
+PASS: medium: map remains reachable after resize
+PASS: medium: resize 1920x1080 preserves state
+PASS: medium: map remains reachable after resize
+PASS: Screenshot saved: medium-two-colonies-1920
+PASS: QA save name is unique
+PASS: medium-two-colonies: Save dialog opens
+PASS: medium-two-colonies: Save dialog writes and closes
+PASS: medium-two-colonies: saved state matches session
+PASS: Predicted continuation resolves
+PASS: End Turn advances once and opens report
+PASS: medium: UI reload continuation equals uninterrupted result
+PASS: large: frozen expansion campaign uses rules 2
+PASS: large: one starting scout
+PASS: large: home-only survey
+PASS: large: generated route exercises saved transit
+PASS: large: unsurveyed inspector hides planet count
+PASS: large: settler selection uses typed production
+PASS: Action reachable by focus/scroll: Set course
+PASS: large: pending scout route
+PASS: QA save name is unique
+PASS: large-pending-move: Save dialog opens
+PASS: large-pending-move: Save dialog writes and closes
+PASS: large-pending-move: saved state matches session
+PASS: large: saved pending move retained
+PASS: large: reload initially previews queued route
+PASS: large: destination picker retains replacement preview
+PASS: large: replacement travel preview uses selected destination
+PASS: large: preview alone preserves queued route
+PASS: large: Set course replaces queued route
+PASS: QA save name is unique
+PASS: large-replaced-move: Save dialog opens
+PASS: large-replaced-move: Save dialog writes and closes
+PASS: large-replaced-move: saved state matches session
+PASS: large: replaced route remains selected after reload
+PASS: large: queued route can be replaced again after reload
+PASS: End Turn advances once and opens report
+PASS: large: launch advances first transit step
+PASS: large: transit controls disabled
+PASS: QA save name is unique
+PASS: large-transit: Save dialog opens
+PASS: large-transit: Save dialog writes and closes
+PASS: large-transit: saved state matches session
+PASS: End Turn advances once and opens report
+PASS: large: forecast equals resolved production at turn 2
+PASS: End Turn advances once and opens report
+PASS: large: forecast equals resolved production at turn 3
+PASS: End Turn advances once and opens report
+PASS: large: forecast equals resolved production at turn 4
+PASS: End Turn advances once and opens report
+PASS: large: forecast equals resolved production at turn 5
+PASS: End Turn advances once and opens report
+PASS: large: forecast equals resolved production at turn 6
+PASS: large: embark report warns about next-turn support
+PASS: large: one settler completed
+PASS: large: two existing support workers embarked
+PASS: large: real workforce controls repair source support
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: End Turn advances once and opens report
+PASS: large: settler arrives at exact integer duration
+PASS: large: arrival never founds automatically
+PASS: Action reachable by focus/scroll: Found colony
+PASS: large: explicit founding intent
+PASS: QA save name is unique
+PASS: large-pending-founding: Save dialog opens
+PASS: large-pending-founding: Save dialog writes and closes
+PASS: large-pending-founding: saved state matches session
+PASS: large: saved founding intent retained
+PASS: End Turn advances once and opens report
+PASS: large: founding creates second colony
+PASS: large: founding consumes correct settler
+PASS: large: no founding-turn colony economy
+PASS: large: exact colony selection selects correct system
+PASS: large: independent colony projects
+PASS: large: empire research includes each colony once
+PASS: large: settled colony contributes from next snapshot
+PASS: large: resize 800x600 preserves state
+PASS: large: map remains reachable after resize
+PASS: Screenshot saved: large-two-colonies-800
+PASS: large: resize 1152x648 preserves state
+PASS: large: map remains reachable after resize
+PASS: large: resize 1600x900 preserves state
+PASS: large: map remains reachable after resize
+PASS: large: resize 1920x1080 preserves state
+PASS: large: map remains reachable after resize
+PASS: Screenshot saved: large-two-colonies-1920
+PASS: QA save name is unique
+PASS: large-two-colonies: Save dialog opens
+PASS: large-two-colonies: Save dialog writes and closes
+PASS: large-two-colonies: saved state matches session
+PASS: Predicted continuation resolves
+PASS: End Turn advances once and opens report
+PASS: large: UI reload continuation equals uninterrupted result
+PASS: Labelled synthetic fixture is valid
+PASS: Synthetic same-system selection commands the exact second colony
+PASS: Synthetic unoccupied world remains selected beside owned colonies
+PASS: Action reachable by focus/scroll: Found colony
+PASS: Synthetic founding order targets exact same-system world
+PASS: Screenshot saved: synthetic-same-system-world
+PASS: Changed hidden synthetic truth remains valid
+PASS: Hidden world counts/types/ownership/cargo/orders do not alter visible UI text actions or tooltips
+PASS: Nondefault embedded-content fixture is valid
+PASS: Blocked embarkation instructions use embedded minimum and cargo
+PASS: Founding preview uses actual owned cargo
+PASS: Screenshot saved: nondefault-content-instructions
+PASS: Legacy schema 1 UI load preserves original content/state
+PASS: Legacy schema 1 banner
+PASS: Legacy schema 1 expansion controls absent
+PASS: Screenshot saved: legacy-v1-expansion-build
+PASS: End Turn advances once and opens report
+PASS: Legacy schema 1 continues old loop
+PASS: Legacy schema 2 UI load preserves original content/state
+PASS: Legacy schema 2 banner
+PASS: Legacy schema 2 expansion controls absent
+PASS: Screenshot saved: legacy-v2-expansion-build
+PASS: End Turn advances once and opens report
+PASS: Legacy schema 2 continues old loop

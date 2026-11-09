@@ -1,0 +1,6 @@
+{
+  "format": "OpenAntaresCrisisNotifications",
+  "version": 1,
+  "critical": "Interrupt",
+  "routine": "Summary"
+}

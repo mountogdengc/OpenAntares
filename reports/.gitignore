@@ -1,2 +1,15 @@
-# Engine sidecars from historical report images are local cache, not QA evidence.
+# Generated execution evidence and saved-game captures stay local.
+# Required regression inputs live under tests/.../Fixtures instead.
+*
+!*/
+!*.md
+!*.py
+!*.ps1
+!*.cs
+!*.targets
+!*.csproj
+!*.tscn
+!.gitignore
+!.gdignore
+__pycache__/
 *.import

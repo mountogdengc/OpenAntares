@@ -1,0 +1,246 @@
+{
+  "runId": "20261025-213427-664",
+  "provenance": "Labelled valid pre-session fixtures derived from complete generated core; in-process actual controls, no physical input claim",
+  "checks": [
+    {
+      "passed": true,
+      "text": "Live warning is projected before acknowledgement"
+    },
+    {
+      "passed": true,
+      "text": "Study75%, late95%, combined7125/10000 from shared projection"
+    },
+    {
+      "passed": true,
+      "text": "Actual scout overview exists"
+    },
+    {
+      "passed": true,
+      "text": "Unresolved loaded warning opens the grouped overview by default"
+    },
+    {
+      "passed": true,
+      "text": "Actual Warning discloses its effective destination, duration and own observation before acknowledgement"
+    },
+    {
+      "passed": true,
+      "text": "Actual Warning route consequences are reachable in the scroll at 800"
+    },
+    {
+      "passed": true,
+      "text": "Emergency badge remains visible"
+    },
+    {
+      "passed": true,
+      "text": "Actual End Turn cannot bypass exact acknowledgement"
+    },
+    {
+      "passed": true,
+      "text": "Study confirmation shows exact two-stage retention"
+    },
+    {
+      "passed": true,
+      "text": "Cancelling study preserves canonical state"
+    },
+    {
+      "passed": true,
+      "text": "Stale study confirmation rejects after an actual course change"
+    },
+    {
+      "passed": true,
+      "text": "Actual Study queues one-boundary risk without rolling"
+    },
+    {
+      "passed": true,
+      "text": "Actual grouped acknowledge saves exact current consequence"
+    },
+    {
+      "passed": true,
+      "text": "Report owns the modal window before the next ameba prompt"
+    },
+    {
+      "passed": true,
+      "text": "Actual Ready resolves generated first draw55 into Exposed"
+    },
+    {
+      "passed": true,
+      "text": "Actual Study report retains earned600"
+    },
+    {
+      "passed": true,
+      "text": "Exposed requires fresh exact consent"
+    },
+    {
+      "passed": true,
+      "text": "Actual withdrawal uses ordinary pending travel"
+    },
+    {
+      "passed": true,
+      "text": "Local display mode 1 preserves canonical state and consent"
+    },
+    {
+      "passed": true,
+      "text": "Local display mode 2 preserves canonical state and consent"
+    },
+    {
+      "passed": true,
+      "text": "Local display mode 0 preserves canonical state and consent"
+    },
+    {
+      "passed": true,
+      "text": "Grouped panel fits 800x600"
+    },
+    {
+      "passed": true,
+      "text": "Focused response is reachable within scroll at 800"
+    },
+    {
+      "passed": true,
+      "text": "Actual Warning explains survival overriding peaceful neutral caution with the route"
+    },
+    {
+      "passed": true,
+      "text": "Neutral override explanation is reachable at 800"
+    },
+    {
+      "passed": true,
+      "text": "Cargo with no route visibly requires a response instead of claiming departure"
+    },
+    {
+      "passed": true,
+      "text": "Remain confirmation explicitly loses vessel and cargo"
+    },
+    {
+      "passed": true,
+      "text": "Actual cargo Remain/Acknowledge/Ready consumes exact expedition"
+    },
+    {
+      "passed": true,
+      "text": "Cargo loss stays readable without a live vessel"
+    },
+    {
+      "passed": true,
+      "text": "Reopening a report retains the queued emergency without a competing exclusive window"
+    },
+    {
+      "passed": true,
+      "text": "Live warning is projected before acknowledgement"
+    },
+    {
+      "passed": true,
+      "text": "Study75%, late95%, combined7125/10000 from shared projection"
+    },
+    {
+      "passed": true,
+      "text": "Actual scout overview exists"
+    },
+    {
+      "passed": true,
+      "text": "Unresolved loaded warning opens the grouped overview by default"
+    },
+    {
+      "passed": true,
+      "text": "Actual Warning discloses its effective destination, duration and own observation before acknowledgement"
+    },
+    {
+      "passed": true,
+      "text": "Actual Warning route consequences are reachable in the scroll at 1920"
+    },
+    {
+      "passed": true,
+      "text": "Emergency badge remains visible"
+    },
+    {
+      "passed": true,
+      "text": "Actual End Turn cannot bypass exact acknowledgement"
+    },
+    {
+      "passed": true,
+      "text": "Study confirmation shows exact two-stage retention"
+    },
+    {
+      "passed": true,
+      "text": "Cancelling study preserves canonical state"
+    },
+    {
+      "passed": true,
+      "text": "Stale study confirmation rejects after an actual course change"
+    },
+    {
+      "passed": true,
+      "text": "Actual Study queues one-boundary risk without rolling"
+    },
+    {
+      "passed": true,
+      "text": "Actual grouped acknowledge saves exact current consequence"
+    },
+    {
+      "passed": true,
+      "text": "Report owns the modal window before the next ameba prompt"
+    },
+    {
+      "passed": true,
+      "text": "Actual Ready resolves generated first draw55 into Exposed"
+    },
+    {
+      "passed": true,
+      "text": "Actual Study report retains earned600"
+    },
+    {
+      "passed": true,
+      "text": "Exposed requires fresh exact consent"
+    },
+    {
+      "passed": true,
+      "text": "Actual withdrawal uses ordinary pending travel"
+    },
+    {
+      "passed": true,
+      "text": "Local display mode 1 preserves canonical state and consent"
+    },
+    {
+      "passed": true,
+      "text": "Local display mode 2 preserves canonical state and consent"
+    },
+    {
+      "passed": true,
+      "text": "Local display mode 0 preserves canonical state and consent"
+    },
+    {
+      "passed": true,
+      "text": "Grouped panel fits 1920x1080"
+    },
+    {
+      "passed": true,
+      "text": "Focused response is reachable within scroll at 1920"
+    },
+    {
+      "passed": true,
+      "text": "Actual Warning explains survival overriding peaceful neutral caution with the route"
+    },
+    {
+      "passed": true,
+      "text": "Neutral override explanation is reachable at 1920"
+    },
+    {
+      "passed": true,
+      "text": "Cargo with no route visibly requires a response instead of claiming departure"
+    },
+    {
+      "passed": true,
+      "text": "Remain confirmation explicitly loses vessel and cargo"
+    },
+    {
+      "passed": true,
+      "text": "Actual cargo Remain/Acknowledge/Ready consumes exact expedition"
+    },
+    {
+      "passed": true,
+      "text": "Cargo loss stays readable without a live vessel"
+    },
+    {
+      "passed": true,
+      "text": "Reopening a report retains the queued emergency without a competing exclusive window"
+    }
+  ]
+}

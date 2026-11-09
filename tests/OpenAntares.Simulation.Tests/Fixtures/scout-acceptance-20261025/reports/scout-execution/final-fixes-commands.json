@@ -1,0 +1,58 @@
+[
+  {
+    "command": "Run-Validation.ps1 -Godot 'F:/Projects-PCGames/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe' -Scenario Scout -OutputDirectory reports/scout-execution/final-fixes-scout-20261025",
+    "artifact": "reports/scout-execution/final-fixes-scout-20261025",
+    "exitCode": 0,
+    "startedUtc": "2026-10-25T21:26:00.8890668Z",
+    "scenario": "Scout",
+    "finishedUtc": "2026-10-25T21:26:42.6791777Z"
+  },
+  {
+    "command": "Run-Validation.ps1 -Godot 'F:/Projects-PCGames/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe' -Scenario Legacy -OutputDirectory reports/scout-execution/final-fixes-legacy-20261025",
+    "artifact": "reports/scout-execution/final-fixes-legacy-20261025",
+    "exitCode": 0,
+    "startedUtc": "2026-10-25T21:26:42.6827414Z",
+    "scenario": "Legacy",
+    "finishedUtc": "2026-10-25T21:27:31.9358388Z"
+  },
+  {
+    "command": "Run-Validation.ps1 -Godot 'F:/Projects-PCGames/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe' -Scenario Expansion -OutputDirectory reports/scout-execution/final-fixes-expansion-20261025",
+    "artifact": "reports/scout-execution/final-fixes-expansion-20261025",
+    "exitCode": 0,
+    "startedUtc": "2026-10-25T21:27:31.9393057Z",
+    "scenario": "Expansion",
+    "finishedUtc": "2026-10-25T21:28:24.4787733Z"
+  },
+  {
+    "command": "Run-Validation.ps1 -Godot 'F:/Projects-PCGames/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe' -Scenario Species -OutputDirectory reports/scout-execution/final-fixes-species-20261025",
+    "artifact": "reports/scout-execution/final-fixes-species-20261025",
+    "exitCode": 0,
+    "startedUtc": "2026-10-25T21:28:24.4821007Z",
+    "scenario": "Species",
+    "finishedUtc": "2026-10-25T21:30:08.3051650Z"
+  },
+  {
+    "command": "Run-Validation.ps1 -Godot 'F:/Projects-PCGames/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe' -Scenario Rival -OutputDirectory reports/scout-execution/final-fixes-rival-20261025",
+    "artifact": "reports/scout-execution/final-fixes-rival-20261025",
+    "exitCode": 0,
+    "startedUtc": "2026-10-25T21:30:08.3075593Z",
+    "scenario": "Rival",
+    "finishedUtc": "2026-10-25T21:32:20.0412515Z"
+  },
+  {
+    "command": "Run-Validation.ps1 -Godot 'F:/Projects-PCGames/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe' -Scenario Colony -OutputDirectory reports/scout-execution/final-fixes-colony-20261025",
+    "artifact": "reports/scout-execution/final-fixes-colony-20261025",
+    "exitCode": 0,
+    "startedUtc": "2026-10-25T21:32:20.0446037Z",
+    "scenario": "Colony",
+    "finishedUtc": "2026-10-25T21:34:18.0263960Z"
+  },
+  {
+    "command": "Run-Validation.ps1 -Godot 'F:/Projects-PCGames/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64/Godot_v4.7.2-stable_mono_win64_console.exe' -Scenario Crisis -OutputDirectory reports/scout-execution/final-fixes-crisis-20261025",
+    "artifact": "reports/scout-execution/final-fixes-crisis-20261025",
+    "exitCode": 0,
+    "startedUtc": "2026-10-25T21:34:18.0291910Z",
+    "scenario": "Crisis",
+    "finishedUtc": "2026-10-25T21:35:46.7101389Z"
+  }
+]

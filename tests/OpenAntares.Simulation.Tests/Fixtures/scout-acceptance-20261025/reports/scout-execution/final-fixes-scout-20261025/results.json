@@ -1,0 +1,907 @@
+{
+  "scenario": "Scout",
+  "runId": "20261025-212609-013",
+  "passed": true,
+  "error": null,
+  "method": "Actual Godot controls/signals, generated campaigns and separately labelled pre-session supplements; no physical input or human acceptance claim",
+  "checks": [
+    {
+      "name": "Real graphical display",
+      "passed": true
+    },
+    {
+      "name": "Actual opt-in assembly contains all seven scenario classes",
+      "passed": true
+    },
+    {
+      "name": "Normal-assembly negative control explicitly detects the seventh scout type",
+      "passed": true
+    },
+    {
+      "name": "Actual current setup visibly exposes rules7 ameba choice",
+      "passed": true
+    },
+    {
+      "name": "Actual ameba choice defaults to Standard",
+      "passed": true
+    },
+    {
+      "name": "Actual default controls submit independent Standard ameba/plague and One Peldra",
+      "passed": true
+    },
+    {
+      "name": "Actual visible Off/Solo choices remain independent",
+      "passed": true
+    },
+    {
+      "name": "Missing current hazard blocks new campaigns including Off",
+      "passed": true
+    },
+    {
+      "name": "Missing current hazard retains usable Load Game recovery",
+      "passed": true
+    },
+    {
+      "name": "Explicit complete-core rules7 generated campaign starts",
+      "passed": true
+    },
+    {
+      "name": "Generated initial state is untouched through actual Start/Load",
+      "passed": true
+    },
+    {
+      "name": "Unique QA save name",
+      "passed": true
+    },
+    {
+      "name": "generated-scout-initial: actual UI Save writes flushed campaign",
+      "passed": true
+    },
+    {
+      "name": "Own-view unknown exploration has a finite next charted destination",
+      "passed": true
+    },
+    {
+      "name": "Actual course control queues own-view unknown destination",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Own-view unknown exploration has a finite next charted destination",
+      "passed": true
+    },
+    {
+      "name": "Actual course control queues own-view unknown destination",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Own-view unknown exploration has a finite next charted destination",
+      "passed": true
+    },
+    {
+      "name": "Actual course control queues own-view unknown destination",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Own-view unknown exploration has a finite next charted destination",
+      "passed": true
+    },
+    {
+      "name": "Actual course control queues own-view unknown destination",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Own-view unknown exploration has a finite next charted destination",
+      "passed": true
+    },
+    {
+      "name": "Actual course control queues own-view unknown destination",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Own-view unknown exploration has a finite next charted destination",
+      "passed": true
+    },
+    {
+      "name": "Actual course control queues own-view unknown destination",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Untouched generated campaign discovers ameba through own-view exploration within160 turns",
+      "passed": true
+    },
+    {
+      "name": "Generated discovery publishes full safe Warning",
+      "passed": true
+    },
+    {
+      "name": "Own habitat observation records the actual latest presence turn",
+      "passed": true
+    },
+    {
+      "name": "Unique QA save name",
+      "passed": true
+    },
+    {
+      "name": "generated-scout-warning: actual UI Save writes flushed campaign",
+      "passed": true
+    },
+    {
+      "name": "Actual UI warning Save/Load preserves exact state and unacknowledged consent",
+      "passed": true
+    },
+    {
+      "name": "Unresolved warning reopens by default after actual Load",
+      "passed": true
+    },
+    {
+      "name": "warning: independent canonical reload succeeds",
+      "passed": true
+    },
+    {
+      "name": "warning: reference current acknowledgement accepted",
+      "passed": true
+    },
+    {
+      "name": "warning: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "warning: actual UI future 1 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "warning: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "warning: actual UI future 2 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "warning: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "warning: actual UI future 3 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "warning: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "warning: actual UI future 4 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "Own chart supports an ordinary committed transit boundary",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Actual safe departure starts the selected multi-turn route",
+      "passed": true
+    },
+    {
+      "name": "Unique QA save name",
+      "passed": true
+    },
+    {
+      "name": "generated-scout-committed-transit: actual UI Save writes flushed campaign",
+      "passed": true
+    },
+    {
+      "name": "transit: independent canonical reload succeeds",
+      "passed": true
+    },
+    {
+      "name": "transit: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "transit: actual UI future 1 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "transit: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "transit: actual UI future 2 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "transit: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "transit: actual UI future 3 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "transit: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "transit: actual UI future 4 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Generated Study consumes its first actual owner draw exactly once",
+      "passed": true
+    },
+    {
+      "name": "Generated seed42 actual Study draw55 survives without reroll",
+      "passed": true
+    },
+    {
+      "name": "Unique QA save name",
+      "passed": true
+    },
+    {
+      "name": "generated-scout-exposed: actual UI Save writes flushed campaign",
+      "passed": true
+    },
+    {
+      "name": "exposed: independent canonical reload succeeds",
+      "passed": true
+    },
+    {
+      "name": "exposed: reference current acknowledgement accepted",
+      "passed": true
+    },
+    {
+      "name": "exposed: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "exposed: actual UI future 1 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "exposed: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "exposed: actual UI future 2 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "exposed: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "exposed: actual UI future 3 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "exposed: reference boundary resolves",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "exposed: actual UI future 4 equals uninterrupted canonical continuation",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 74, True, 300): actual risk confirmation opens",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 74, True, 300): actual survival outcome matches literal threshold",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 74, True, 300): one owner draw, no hidden reroll",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 75, False, 300): actual risk confirmation opens",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 75, False, 300): actual survival outcome matches literal threshold",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 75, False, 300): one owner draw, no hidden reroll",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 49, True, 200): actual risk confirmation opens",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 49, True, 200): actual survival outcome matches literal threshold",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 49, True, 200): one owner draw, no hidden reroll",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 50, False, 200): actual risk confirmation opens",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 50, False, 200): actual survival outcome matches literal threshold",
+      "passed": true
+    },
+    {
+      "name": "Labelled (study, 50, False, 200): one owner draw, no hidden reroll",
+      "passed": true
+    },
+    {
+      "name": "Labelled (escape, 94, True, 300): actual risk confirmation opens",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Labelled (escape, 94, True, 300): actual survival outcome matches literal threshold",
+      "passed": true
+    },
+    {
+      "name": "Labelled (escape, 94, True, 300): one owner draw, no hidden reroll",
+      "passed": true
+    },
+    {
+      "name": "Labelled (escape, 95, False, 300): actual risk confirmation opens",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Labelled (escape, 95, False, 300): actual survival outcome matches literal threshold",
+      "passed": true
+    },
+    {
+      "name": "Labelled (escape, 95, False, 300): one owner draw, no hidden reroll",
+      "passed": true
+    },
+    {
+      "name": "Labelled30-vessel/two-human fixture validates before UI session",
+      "passed": true
+    },
+    {
+      "name": "One grouped overview contains all30 exact live responses",
+      "passed": true
+    },
+    {
+      "name": "Selecting last row preserves all30 tokens at 800",
+      "passed": true
+    },
+    {
+      "name": "Selected last encounter remains scrolled into view after panel refresh at 800",
+      "passed": true
+    },
+    {
+      "name": "Selecting last row preserves all30 tokens at 1920",
+      "passed": true
+    },
+    {
+      "name": "Selected last encounter remains scrolled into view after panel refresh at 1920",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Grouped human response safely departs all30 without a risk draw",
+      "passed": true
+    },
+    {
+      "name": "Labelled no-colony/no-known-retreat fixture validates before UI session",
+      "passed": true
+    },
+    {
+      "name": "Acknowledged no-fallback warning still blocks actual End Turn without a response",
+      "passed": true
+    },
+    {
+      "name": "Actual End Turn advances exactly one boundary",
+      "passed": true
+    },
+    {
+      "name": "Actual unknown manual route recovers from no known fallback",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture acknowledges its own pre-session encounter",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Labelled history fixture advances by ordinary pre-session simulation",
+      "passed": true
+    },
+    {
+      "name": "Expired history retires obsolete vessel facts without resurrecting cargo",
+      "passed": true
+    },
+    {
+      "name": "Expired history leaves no phantom loss Emergency",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Live warning is projected before acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Study75%, late95%, combined7125/10000 from shared projection",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual scout overview exists",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Unresolved loaded warning opens the grouped overview by default",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning discloses its effective destination, duration and own observation before acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning route consequences are reachable in the scroll at 800",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Emergency badge remains visible",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual End Turn cannot bypass exact acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Study confirmation shows exact two-stage retention",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cancelling study preserves canonical state",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Stale study confirmation rejects after an actual course change",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Study queues one-boundary risk without rolling",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual grouped acknowledge saves exact current consequence",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Report owns the modal window before the next ameba prompt",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Ready resolves generated first draw55 into Exposed",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Study report retains earned600",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Exposed requires fresh exact consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual withdrawal uses ordinary pending travel",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 1 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 2 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 0 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Grouped panel fits 800x600",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Focused response is reachable within scroll at 800",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning explains survival overriding peaceful neutral caution with the route",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Neutral override explanation is reachable at 800",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cargo with no route visibly requires a response instead of claiming departure",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Remain confirmation explicitly loses vessel and cargo",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual cargo Remain/Acknowledge/Ready consumes exact expedition",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cargo loss stays readable without a live vessel",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Reopening a report retains the queued emergency without a competing exclusive window",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Live warning is projected before acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Study75%, late95%, combined7125/10000 from shared projection",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual scout overview exists",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Unresolved loaded warning opens the grouped overview by default",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning discloses its effective destination, duration and own observation before acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning route consequences are reachable in the scroll at 1920",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Emergency badge remains visible",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual End Turn cannot bypass exact acknowledgement",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Study confirmation shows exact two-stage retention",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cancelling study preserves canonical state",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Stale study confirmation rejects after an actual course change",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Study queues one-boundary risk without rolling",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual grouped acknowledge saves exact current consequence",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Report owns the modal window before the next ameba prompt",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Ready resolves generated first draw55 into Exposed",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Study report retains earned600",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Exposed requires fresh exact consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual withdrawal uses ordinary pending travel",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 1 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 2 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Local display mode 0 preserves canonical state and consent",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Grouped panel fits 1920x1080",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Focused response is reachable within scroll at 1920",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual Warning explains survival overriding peaceful neutral caution with the route",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Neutral override explanation is reachable at 1920",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cargo with no route visibly requires a response instead of claiming departure",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Remain confirmation explicitly loses vessel and cargo",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Actual cargo Remain/Acknowledge/Ready consumes exact expedition",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Cargo loss stays readable without a live vessel",
+      "passed": true
+    },
+    {
+      "name": "Scout supplemental: Reopening a report retains the queued emergency without a competing exclusive window",
+      "passed": true
+    }
+  ],
+  "provenance": [
+    {
+      "source": "Actual untouched rules7 New Game UI, complete content/core, Solo/plague Off/ameba Standard",
+      "seed": 42,
+      "size": "small",
+      "species": "harl",
+      "rivals": 0,
+      "crises": false,
+      "amebas": true,
+      "initialHash": "1021aec3ffc151820030e65d745c8e867ea80dd658ce747698c082ba22997f01",
+      "liveOutcomeInjections": 0
+    },
+    {
+      "source": "Actual generated campaign Study",
+      "turn": 8,
+      "riskRolls": 1,
+      "survived": true,
+      "researchAward": 600
+    },
+    {
+      "source": "Generated actual UI save/future comparison",
+      "warningHash": "7d718172bf7e79d29290ca03b95023f7106597d71391a1030183f91dd4eb8761",
+      "fourFuturesPerBoundary": 4,
+      "boundaries": [
+        "warning",
+        "exposed",
+        "transit"
+      ]
+    },
+    {
+      "source": "Labelled pre-session threshold fixture; not generated luck",
+      "action": "study",
+      "nextDraw": 74,
+      "expectedSurvived": true,
+      "speed": 300,
+      "priorRolls": 86,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "source": "Labelled pre-session threshold fixture; not generated luck",
+      "action": "study",
+      "nextDraw": 75,
+      "expectedSurvived": false,
+      "speed": 300,
+      "priorRolls": 47,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "source": "Labelled pre-session threshold fixture; not generated luck",
+      "action": "study",
+      "nextDraw": 49,
+      "expectedSurvived": true,
+      "speed": 200,
+      "priorRolls": 30,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "source": "Labelled pre-session threshold fixture; not generated luck",
+      "action": "study",
+      "nextDraw": 50,
+      "expectedSurvived": false,
+      "speed": 200,
+      "priorRolls": 537,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "source": "Labelled pre-session threshold fixture; not generated luck",
+      "action": "escape",
+      "nextDraw": 94,
+      "expectedSurvived": true,
+      "speed": 300,
+      "priorRolls": 88,
+      "liveOutcomeInjections": 0
+    },
+    {
+      "source": "Labelled pre-session threshold fixture; not generated luck",
+      "action": "escape",
+      "nextDraw": 95,
+      "expectedSurvived": false,
+      "speed": 300,
+      "priorRolls": 106,
+      "liveOutcomeInjections": 0
+    }
+  ],
+  "retainedQaSavePaths": [
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212609-013-1-generated-scout-initial.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212609-013-2-generated-scout-warning.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212609-013-3-generated-scout-committed-transit.json",
+    "C:/Users/david/AppData/Roaming/Godot/app_userdata/OpenAntares/saves\\qa-20261025-212609-013-4-generated-scout-exposed.json"
+  ]
+}
