@@ -192,3 +192,12 @@ Playtests should ask players to explain an allocation choice and a turn result w
 The [first playable economy and turn specification](FIRST_PLAYABLE_ECONOMY.md) and [spiral galaxy design](superpowers/specs/2026-10-05-spiral-galaxy-design.md) have implementations. Playtest the complete loop, including allocation forecasts, turn reports, galaxy readability, and save/load continuation. Record where choices or results are unclear before changing balance or adding content.
 
 The next focused design decision is exploration and expansion: empire-specific knowledge, travel, and founding another colony. The current all-visible inspection policy is a prototype; new visibility rules must preserve the command, determinism, and save boundaries already in place. Broader systems remain directional until the colony loop demonstrates understandable results and worthwhile choices in play.
+# M14 console presentation
+
+The presentation theme remains `game/theme/openantares_theme.tres`: fonts, palette, metrics, frames and control states live there. Original frame and icon provenance is in `art/ui/README.md`; bundled font licenses are recorded in `LICENSING.md`.
+
+The one shader exception is `game/theme/console_screen.gdshader`. It adds static scanlines and a light vignette to the galaxy viewing surface only, never game data. Its tint and strength come from the shared theme. Game → Screen effects and Reduced effects control it; preferences are stored outside campaign saves in `user://presentation.cfg`, only when explicitly changed. There is no animation or new randomness.
+
+Use short instrument labels and concrete actions: Colonies, Research, Set course, Back. Keep optional planning advice separate from decisions that require a response. Explain rules in tooltips and detail views without presenting implementation vocabulary to players. Display fixed-point resources as points, and population as population; projected growth points are not population gains. Production totals describe local reserves rather than implying a shared treasury.
+
+Player acceptance is a playthrough about comprehension and control. Use the journeys in `docs/playtests/m14-player-acceptance-2026-11-08.md`; do not ask players to inspect source identity, control inventories or diagnostic logs.

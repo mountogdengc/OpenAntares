@@ -25,6 +25,25 @@ public partial class GalaxyMap : Control
     private HashSet<StarId> _knownAmebas = new();
     public void ShowKnownAmebas(OpenAntares.Simulation.Scouting.ScoutView? view){_knownAmebas=view?.Habitats.Select(h=>h.Star).ToHashSet()??new();QueueRedraw();}
     private StarId? _selected;
+    private float _zoom = 1;
+    private Vector2? _cameraCenter;
+    public float ZoomLevel => _zoom;
+    public void ResetView() { _zoom = 1; _cameraCenter = null; QueueRedraw(); }
+    public void CenterOn(StarId id)
+    {
+        var star = _stars.FirstOrDefault(s => s.Id == id);
+        if (star is not null) { _cameraCenter = new Vector2(star.X, star.Y); QueueRedraw(); }
+    }
+    public void ZoomAt(Vector2 anchor, bool zoomIn)
+    {
+        var old = BuildTransform();
+        Vector2 world = new Vector2(_minX, _minY) + (anchor - old.Offset) / old.Scale;
+        float next = Mathf.Clamp(_zoom * (zoomIn ? 1.25f : 0.8f), 1, 8);
+        if (next <= 1) { ResetView(); return; }
+        _zoom = next;
+        _cameraCenter = world - (anchor - Size / 2) / BuildTransform().Scale;
+        QueueRedraw();
+    }
     private int _minX;
     private int _minY;
     private int _maxX = 1;
@@ -36,6 +55,14 @@ public partial class GalaxyMap : Control
     public event Action<StarId>? StarSelected;
     /// <summary>Inspect owned stationary ships at this star; no order is implied.</summary>
     public event Action<StarId>? OwnedVesselsSelected;
+    public event Action<StarId>? StarClicked;
+    public event Action<StarId?>? HoverStarChanged;
+    public event Action? SelectionCleared;
+    private StarId? _hovered;
+    public void Deselect()
+    {
+        _selected=null;_hovered=null;_previewRoute=null;TooltipText="";QueueRedraw();SelectionCleared?.Invoke();
+    }
 
     public IReadOnlyDictionary<StarId, Rect2> OwnedMarkerBounds => _ownedMarkerBounds;
     public IReadOnlyList<Rect2> VisibleLabelBounds => _visibleLabelBounds;
@@ -47,6 +74,7 @@ public partial class GalaxyMap : Control
         FocusMode = FocusModeEnum.Click;
         MouseFilter = MouseFilterEnum.Stop;
         ClipContents = true;
+        MouseExited += () => { _hovered=null;HoverStarChanged?.Invoke(null); };
     }
 
     public void ShowGalaxy(GalaxyMapView state)
@@ -125,19 +153,22 @@ public partial class GalaxyMap : Control
         float textHeight = font.GetHeight(fontSize);
         float ascent = font.GetAscent(fontSize);
 
+        for (int i = 0; i < _backgroundPoints.Count; i += 71)
+        {
+            var point = _backgroundPoints[i];
+            DrawCircle(ToScreen(point.X, point.Y, transform), GetThemeConstant("nebula_radius", ThemeType), GetThemeColor("nebula", ThemeType));
+        }
+
         foreach (var point in _backgroundPoints)
         {
             DrawCircle(ToScreen(point.X, point.Y, transform), backgroundStarRadius, backgroundStarColor);
         }
 
-        foreach (var unit in _units.Where(v => v.Owned && v.Origin.HasValue && v.Destination.HasValue))
-        {
-            var origin = _stars.First(s => s.Id == unit.Origin); var destination = _stars.First(s => s.Id == unit.Destination);
-            DrawLine(ToScreen(origin.X, origin.Y, transform), ToScreen(destination.X, destination.Y, transform), selectionColor, 1, true);
-        }
+        DrawMapDressing(transform, font, fontSize);
         foreach (ChartedStar star in _stars)
         {
             Vector2 position = ToScreen(star.X, star.Y, transform);
+            if (!new Rect2(Vector2.Zero, Size).HasPoint(position)) continue;
             bool home = _homeStars.Contains(star.Id);
             DrawCircle(position, home ? homeRadius : starRadius, home ? homeColor : starColor);
 
@@ -148,11 +179,12 @@ public partial class GalaxyMap : Control
 
             if (_units.Any(v => v.Owned && v.Station == star.Id) && Size.X >= 8 && Size.Y >= 8)
             {
-                var marker = new Rect2(new Vector2(
-                    Mathf.Clamp(position.X + (home ? homeRadius : starRadius) + 3, 0, Size.X - 8),
-                    Mathf.Clamp(position.Y - 4, 0, Size.Y - 8)), new Vector2(8, 8));
-                _ownedMarkerBounds.Add(star.Id, marker);
-                DrawRect(marker, selectionColor, filled: false, width: 2);
+                int flagSize = GetThemeConstant("fleet_flag_size", ThemeType);
+                var marker = new Rect2(position + new Vector2((home ? homeRadius : starRadius) + GetThemeConstant("fleet_marker_gap", ThemeType), -flagSize / 2f), new Vector2(flagSize, flagSize));
+                var hit = marker.Intersection(new Rect2(Vector2.Zero, Size));
+                if (hit.HasArea()) _ownedMarkerBounds.Add(star.Id, hit);
+                DrawLine(marker.Position, marker.Position + new Vector2(0, flagSize), selectionColor, 2, true);
+                DrawColoredPolygon(new[]{marker.Position,marker.Position + new Vector2(flagSize,flagSize/3f),marker.Position+new Vector2(0,flagSize*2/3f)},selectionColor);
             }
 
             int units = _units.Count(v => v.Station == star.Id);
@@ -177,6 +209,22 @@ public partial class GalaxyMap : Control
 
     public override void _GuiInput(InputEvent @event)
     {
+        if(@event is InputEventMouseButton{Pressed:true,ButtonIndex:MouseButton.Right})
+        { Deselect();AcceptEvent();return; }
+        if (@event is InputEventMouseButton { Pressed: true } wheel && wheel.ButtonIndex is MouseButton.WheelUp or MouseButton.WheelDown)
+        { ZoomAt(wheel.Position, wheel.ButtonIndex == MouseButton.WheelUp); AcceptEvent(); return; }
+        if (@event is InputEventMouseMotion motion && (motion.ButtonMask & MouseButtonMask.Middle) != 0)
+        {
+            var panTransform = BuildTransform();
+            _cameraCenter = (_cameraCenter ?? new Vector2((_minX + _maxX) / 2f, (_minY + _maxY) / 2f)) - motion.Relative / panTransform.Scale;
+            QueueRedraw(); AcceptEvent(); return;
+        }
+        if(@event is InputEventMouseMotion hover)
+        {
+            var hovered=PickStar(hover.Position)?.Id;
+            if(hovered!=_hovered){_hovered=hovered;HoverStarChanged?.Invoke(hovered);}
+            return;
+        }
         if (@event is not InputEventMouseButton { Pressed: true, ButtonIndex: MouseButton.Left } click)
         {
             return;
@@ -190,21 +238,19 @@ public partial class GalaxyMap : Control
             return;
         }
 
-        float pickRadius = GetThemeConstant("selection_radius", ThemeType) * 1.5f;
-        MapTransform transform = BuildTransform();
-        ChartedStar? nearest = _stars
-            .Select(star => (star, distance: ToScreen(star.X, star.Y, transform).DistanceTo(click.Position)))
-            .Where(candidate => candidate.distance <= pickRadius)
-            .OrderBy(candidate => candidate.distance)
-            .ThenBy(candidate => candidate.star.Id)
-            .Select(candidate => candidate.star)
-            .FirstOrDefault();
+        ChartedStar? nearest = PickStar(click.Position);
 
         if (nearest is not null)
         {
             Select(nearest.Id);
+            StarClicked?.Invoke(nearest.Id);
             AcceptEvent();
         }
+    }
+    private ChartedStar? PickStar(Vector2 position)
+    {
+        float radius=GetThemeConstant("selection_radius",ThemeType)*1.5f;var transform=BuildTransform();
+        return _stars.Select(star=>(star,distance:ToScreen(star.X,star.Y,transform).DistanceTo(position))).Where(x=>x.distance<=radius).OrderBy(x=>x.distance).ThenBy(x=>x.star.Id).Select(x=>x.star).FirstOrDefault();
     }
 
     private static string FitLabel(Font font, string text, int fontSize, float width)
@@ -230,8 +276,9 @@ public partial class GalaxyMap : Control
         float spanY = Math.Max(1, _maxY - _minY);
 
         Vector2 available = new(Math.Max(1, Size.X - 2 * margin), Math.Max(1, Size.Y - 2 * margin));
-        float scale = Math.Min(available.X / spanX, available.Y / spanY);
-        Vector2 offset = new Vector2(margin, margin) + (available - new Vector2(spanX, spanY) * scale) / 2;
+        float scale = Math.Min(available.X / spanX, available.Y / spanY) * _zoom;
+        Vector2 center = _cameraCenter ?? new Vector2((_minX + _maxX) / 2f, (_minY + _maxY) / 2f);
+        Vector2 offset = Size / 2 - (center - new Vector2(_minX, _minY)) * scale;
 
         return new MapTransform(scale, offset);
     }

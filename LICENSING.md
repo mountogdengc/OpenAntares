@@ -25,3 +25,15 @@ The original planetary style palettes and structure catalogue in `art/planets/pl
 By contributing, you agree that your contributions are released under the license that covers that kind of content, as described above.
 
 The project does not accept copyrighted assets from other commercial games.
+
+
+## M14 presentation fonts and original UI art
+
+The new UI PNG/SVG artwork under `art/ui/` is original CC0 1.0 work; see `art/ui/README.md`. Fonts are unmodified SIL OFL 1.1 assets with their own included license texts.
+
+| Font file | Version | Source | License |
+| --- | --- | --- |
+| `art/fonts/oxanium/Oxanium-Variable.ttf` | Version 2.000 | https://raw.githubusercontent.com/google/fonts/main/ofl/oxanium/Oxanium%5Bwght%5D.ttf | `art/fonts/oxanium/OFL.txt` |
+| `art/fonts/barlow/Barlow-Regular.ttf` | Version 1.408 | https://raw.githubusercontent.com/google/fonts/main/ofl/barlow/Barlow-Regular.ttf | `art/fonts/barlow/OFL.txt` |
+| `art/fonts/barlow/Barlow-SemiBold.ttf` | Version 1.408 | https://raw.githubusercontent.com/google/fonts/main/ofl/barlow/Barlow-SemiBold.ttf | `art/fonts/barlow/OFL.txt` |
+| `art/fonts/sharetechmono/ShareTechMono-Regular.ttf` | Version 1.003 | https://raw.githubusercontent.com/google/fonts/main/ofl/sharetechmono/ShareTechMono-Regular.ttf | `art/fonts/sharetechmono/OFL.txt` |

@@ -35,6 +35,7 @@ public partial class ShipDesignGraphicalValidation
     private Task Click(Node root,string name)=>Click(Named<Button>(root,name));
     private async Task Pick(OptionButton picker,int i){picker=UiNavigation.Reveal(picker);picker.Select(i);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)i);await Frames(this);}
     private Task PickId(OptionButton picker,int id)=>Pick(picker,Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id));
+    private async Task Select(FleetList list,int index,bool clear=true){list.Select(index,clear);list.NotifySelectionChanged();await Frames(this);}
     private async Task Select(ItemList list,int index){list.DeselectAll();list.Select(index);if(list.SelectMode==ItemList.SelectModeEnum.Multi)list.EmitSignal(ItemList.SignalName.MultiSelected,(long)index,true);else list.EmitSignal(ItemList.SignalName.ItemSelected,(long)index);await Frames(this);}
     private async Task Tab(Node root,int index){Named<TabContainer>(root,"FleetTabs").CurrentTab=index;await Frames(this);}
     private async Task Close(AcceptDialog dialog){if(dialog.Visible)await Click(dialog.GetOkButton());}
@@ -100,7 +101,7 @@ public partial class ShipDesignGraphicalValidation
         await Click(screen,"OpenFleetCommand");var fleet=Descendants<FleetCommandDialog>(screen).Single();
         if(action is FleetAction.Create create)
         {
-            await Tab(fleet,0);var list=Named<ItemList>(fleet,"FleetShipList");list.DeselectAll();foreach(var id in create.Members){int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemMetadata(i).AsInt32()==id.Value);list.Select(index,false);}list.EmitSignal(ItemList.SignalName.MultiSelected,0L,true);Named<LineEdit>(fleet,"FleetName").Text=create.Name;await Frames(this);
+            await Tab(fleet,0);var list=Named<FleetList>(fleet,"FleetShipList");list.DeselectAll();foreach(var id in create.Members){int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemMetadata(i).AsInt32()==id.Value);list.Select(index,false);}list.NotifySelectionChanged();Named<LineEdit>(fleet,"FleetName").Text=create.Name;await Frames(this);
         }
         else
         {

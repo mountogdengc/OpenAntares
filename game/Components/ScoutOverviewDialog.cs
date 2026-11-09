@@ -69,7 +69,7 @@ public partial class ScoutOverviewDialog:AcceptDialog
             _body.AddChild(DevelopmentUi.Text($"Turn {entry.Turn}, {content.Vessels[entry.RoleId].Name} {entry.Vessel.Value}: {entry.Kind}. {entry.Reason}"+(entry.ResearchAward>0?$" Earned {Format.Points(entry.ResearchAward)} research.":""),entry.Kind=="loss"?"WarningLabel":"SubtleLabel"));
             var star=entry.Star;DevelopmentUi.Button(_body,"Show recorded system",()=>StarRequested?.Invoke(star));
         }
-        PopupCenteredClamped(new(740,560));
+        if(!Visible)PopupCenteredClamped(new(740,560));
     }
     private void Confirm(Command? command,string consequence){if(command is null)return;_pending=command;_confirm.DialogText=consequence;_confirm.PopupCenteredClamped(new(640,380));}
 }

@@ -103,9 +103,9 @@ internal sealed partial class PlayabilityCampaignControls
     }
     private async Task Ships(FleetCommandDialog dialog,ImmutableArray<VesselId> ids)
     {
-        Named<TabContainer>(dialog,"FleetTabs").CurrentTab=0;await _observer.Frames();var list=Named<ItemList>(dialog,"FleetShipList");list.DeselectAll();
+        Named<TabContainer>(dialog,"FleetTabs").CurrentTab=0;await _observer.Frames();var list=Named<FleetList>(dialog,"FleetShipList");list.DeselectAll();
         foreach(var id in ids){int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemMetadata(i).AsInt32()==id.Value);list.Select(index,false);}
-        if(list.ItemCount>0)list.EmitSignal(ItemList.SignalName.MultiSelected,0L,true);await _observer.Frames();
+        if(list.ItemCount>0)list.NotifySelectionChanged();await _observer.Frames();
     }
     private async Task Groups(FleetCommandDialog dialog,ImmutableArray<FleetId> ids)
     {

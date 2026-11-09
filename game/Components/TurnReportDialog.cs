@@ -18,7 +18,16 @@ namespace OpenAntares.Game.Components;
 public partial class TurnReportDialog : AcceptDialog
 {
     private readonly VBoxContainer _body = new();
-    private readonly ScrollContainer _scroll = new() { Name = "TurnReportScroll", CustomMinimumSize = new Vector2(520, 360), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled };
+    private readonly ScrollContainer _scroll = new() { Name = "TurnReportScroll", HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, VerticalScrollMode = ScrollContainer.ScrollMode.Reserve, FollowFocus = true, SizeFlagsVertical = Control.SizeFlags.ExpandFill };
+    private Window? _host;
+    private Control? _dock;
+    public void DockTo(Control dock)
+    {
+        if(_dock is not null)_dock.Resized-=FitReport;
+        _dock=dock;_dock.Resized+=FitReport;
+        Borderless=true;OkButtonText="Close report";
+        _scroll.CustomMinimumSize=Vector2.Zero;
+    }
     private VBoxContainer _outcomes = null!, _routine = null!;
     public event Action<string>? GuidanceDestinationRequested;
     public event Action? NavigationStarting;
@@ -27,6 +36,7 @@ public partial class TurnReportDialog : AcceptDialog
     public async void RestorePosition(OpenAntares.Game.Presentation.PlayabilityReturn position)
     {
         Show();
+        FitReport();
         await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
         if (!IsInstanceValid(this) || !IsInsideTree() || !Visible) return;
         if (FindChild(position.FocusKey, true, false) is Control focus && focus.IsVisibleInTree()) focus.GrabFocus();
@@ -58,7 +68,28 @@ public partial class TurnReportDialog : AcceptDialog
         _body.SizeFlagsHorizontal = Control.SizeFlags.ExpandFill;
         padding.AddChild(scroll);
         AddChild(padding);
+        scroll.CustomMinimumSize = new Vector2(scroll.GetThemeConstant("turn_report_min_width", "ConsoleMetrics"), scroll.GetThemeConstant("turn_report_min_height", "ConsoleMetrics"));
+        ForceNative = false; Exclusive = false; WrapControls = false; MinSize = Vector2I.Zero;
+        _host = GetTree().Root; _host.SizeChanged += FitReport;
     }
+
+    private void FitReport()
+    {
+        if (!Visible || _host is null || !IsInsideTree()) return;
+        if(_dock is not null)
+        {
+            var rect=_dock.GetGlobalRect();
+            if(rect.Size.X<32||rect.Size.Y<32)rect=(_dock.GetParent() as Control)?.GetGlobalRect()??rect;
+            if(rect.Size.X<32||rect.Size.Y<32)return;
+            _scroll.CustomMinimumSize=Vector2.Zero;
+            Position=(Vector2I)rect.Position;Size=(Vector2I)rect.Size;return;
+        }
+        int width = Math.Min(_body.GetThemeConstant("turn_report_width", "ConsoleMetrics"), (int)(_host.Size.X * 0.8));
+        int height = Math.Min(_body.GetThemeConstant("turn_report_height", "ConsoleMetrics"), (int)(_host.Size.Y * 0.8));
+        Size = new Vector2I(width, height);
+        Position = (_host.Size - Size) / 2;
+    }
+    public override void _ExitTree() { if (_host is not null && IsInstanceValid(_host)) _host.SizeChanged -= FitReport; if(_dock is not null&&IsInstanceValid(_dock))_dock.Resized-=FitReport; }
 
     public void ShowReport(ContentSet content, EmpireTurnReportView report, EmpireView? empireView = null, OpenAntares.Game.Presentation.ColonyNotificationPreferences? preferences = null,OpenAntares.Game.Presentation.CrisisNotificationPreferences? crisisPreferences = null)
     {
@@ -192,7 +223,24 @@ public partial class TurnReportDialog : AcceptDialog
                 : $"Observed a {species} colony{culture} at {world} on turn {encounter.ObservedTurn}.","SubtleLabel"));
         }
         if (_routine.GetChildCount() == 1) _routine.AddChild(Wrapped("No routine details under the current notification preferences.", "SubtleLabel"));
-        PopupCentered(new Vector2I(580, 440));
+        if(_dock is not null)FitDockContent(_body);
+        PopupCenteredClamped(new Vector2I(_body.GetThemeConstant("turn_report_width", "ConsoleMetrics"), _body.GetThemeConstant("turn_report_height", "ConsoleMetrics")));
+        FitReport();
+        Callable.From(FitReport).CallDeferred();
+    }
+    private static void FitDockContent(Node node)
+    {
+        foreach(Node child in node.GetChildren())
+        {
+            if(child is Control control)control.CustomMinimumSize=new Vector2(0,control.CustomMinimumSize.Y);
+            if(child is Button button){button.ClipText=true;if(string.IsNullOrEmpty(button.TooltipText))button.TooltipText=button.Text;}
+            if(child is Label label)
+            {
+                label.AutowrapMode=TextServer.AutowrapMode.WordSmart;
+                if(label.ThemeTypeVariation=="HeaderLabel")label.ThemeTypeVariation="ConsoleHeading";
+            }
+            FitDockContent(child);
+        }
     }
 
     private Label CompletionNotice(string text)

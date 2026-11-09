@@ -31,7 +31,7 @@ public partial class Main : Control
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
 
-        var background = new Panel();
+        var background = new Panel { ThemeTypeVariation = "ConsoleBackdrop" };
         background.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
         AddChild(background);
 
@@ -70,7 +70,6 @@ public partial class Main : Control
         }
 
         ShowGame(new GameSession(_content!, result.State));
-        if (_screen is GameScreen started) started.ShowFirstTurnOrientation();
     }
 
     /// <summary>Shows a game, new or loaded, to its first human empire.</summary>
@@ -79,7 +78,18 @@ public partial class Main : Control
         EmpireId viewer = session.State.Empires.First(e => e.Controller == ControllerKind.Human).Id;
         var screen = new GameScreen(session, viewer);
         screen.LoadRequested += _loadDialog.Open;
+        screen.MainMenuRequested += () => ShowMainMenu(session);
         SetScreen(screen);
+    }
+
+    private void ShowMainMenu(GameSession session)
+    {
+        // Keep the campaign itself; resuming creates a fresh screen over the exact same session.
+        var menu = new MainMenuScreen();
+        menu.ResumeRequested += () => ShowGame(session);
+        menu.NewGameRequested += () => ShowNewGame();
+        menu.LoadRequested += _loadDialog.Open;
+        SetScreen(menu);
     }
 
     private void SetScreen(Control screen)

@@ -27,7 +27,7 @@ public partial class ShipDesignDialog:AcceptDialog
         _error.Name="CatalogueError";body.AddChild(_error);
         _list.ItemSelected+=_=>{_selected=Selected()?.Id;Details();};_search.TextChanged+=_=>{_page=0;Rows();};_archived.Toggled+=_=>{_page=0;Rows();};if(_content is not null)ShowCatalogue(_content,_view);
     }
-    public void ShowCatalogue(ContentSet content,EmpireView view){_content=content;_view=view;Rows();PopupCenteredClamped(new(720,560));}
+    public void ShowCatalogue(ContentSet content,EmpireView view){_content=content;_view=view;Rows();if(!Visible)PopupCenteredClamped(new(720,560));}
     public void ShowError(string error)=>_error.Text=error;
     private DesignView? Selected(){int i=_list.GetSelectedItems().FirstOrDefault(-1);return i>=0&&i<_rows.Rows.Length?_rows.Rows[i].Design:null;}
     private void Act(Func<DesignId,ShipDesignAction> action){if(Selected() is {} d)ActionRequested?.Invoke(action(d.Id));}

@@ -1,0 +1,221 @@
+{
+  "fonts": [
+    {
+      "family": "oxanium",
+      "path": "art/fonts/oxanium/Oxanium-Variable.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/oxanium/Oxanium%5Bwght%5D.ttf",
+      "version": "Version 2.000",
+      "sha256": "2ce01d946e1e1ffc8d7eecfffbda8623bedd63eaf811a20488c4b69af45babb0",
+      "licence": "SIL OFL 1.1",
+      "licencePath": "art/fonts/oxanium/OFL.txt",
+      "licenceSha256": "fe17c0f2581d71b4e1ea7e636e7f4877c29223e11bb1dd1a871e8c3f2a86336b"
+    },
+    {
+      "family": "barlow",
+      "path": "art/fonts/barlow/Barlow-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlow/Barlow-Regular.ttf",
+      "version": "Version 1.408",
+      "sha256": "95aa02c7c43096e0dd44d787ba6216864a67157e402adab59b35572e0c1577ea",
+      "licence": "SIL OFL 1.1",
+      "licencePath": "art/fonts/barlow/OFL.txt",
+      "licenceSha256": "186d750eb496a4c17a76385f82be6aea2ac1cf2de074a811d63786cf374ea73f"
+    },
+    {
+      "family": "barlow",
+      "path": "art/fonts/barlow/Barlow-SemiBold.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/barlow/Barlow-SemiBold.ttf",
+      "version": "Version 1.408",
+      "sha256": "86577cb32f8abe3673db53ca0f4221e6856751a4f6730c867e00f720f8bb1fc5",
+      "licence": "SIL OFL 1.1",
+      "licencePath": "art/fonts/barlow/OFL.txt",
+      "licenceSha256": "186d750eb496a4c17a76385f82be6aea2ac1cf2de074a811d63786cf374ea73f"
+    },
+    {
+      "family": "sharetechmono",
+      "path": "art/fonts/sharetechmono/ShareTechMono-Regular.ttf",
+      "source": "https://raw.githubusercontent.com/google/fonts/main/ofl/sharetechmono/ShareTechMono-Regular.ttf",
+      "version": "Version 1.003",
+      "sha256": "9ceab1f87414829af259c0f537573ae03ef7dd3147c0b27a36a1a0beb6732677",
+      "licence": "SIL OFL 1.1",
+      "licencePath": "art/fonts/sharetechmono/OFL.txt",
+      "licenceSha256": "9d96f445b6e9c701428811d0177f894874f8d6f07ecc30d568c506542368f3ff"
+    }
+  ],
+  "frames": [
+    {
+      "path": "art/ui/frames/command_disabled.png",
+      "sha256": "2951cfb114e149957924aee3a21ad084ba7bf53441cc427dadf21f89a32c2ca2",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/command_focus.png",
+      "sha256": "a76babd23b8903af6f49e8226e1aee007862bd5e8c95f4e135ee8843174fade7",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/command_hover.png",
+      "sha256": "3cac6e95653adb03b518c107d2d8775b79bfd61c26cff5e03691c7f8074556e1",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/command_normal.png",
+      "sha256": "724e4d53642d1e3939c0e9f4ee9a8de6bf8afd2ba77d57c55de30c094a55368e",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/command_pressed.png",
+      "sha256": "cb5f8419ebf38f809cc78f1ba728058fa1cb03c820fd2a7f1378023a302a8f1e",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/end_turn_disabled.png",
+      "sha256": "49e8585a90981489396ec4b393942f9865e855fb3252fdeb65b7fd718ee50f7f",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/end_turn_focus.png",
+      "sha256": "bcb464c25e725b92c065309f9b093999de65b02120a34f3f8766c1638e586ead",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/end_turn_hover.png",
+      "sha256": "87e47d35d2cb2839d55fcd24ec880a75a1da46c58841e6ad4f02baba2cba6d46",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/end_turn_normal.png",
+      "sha256": "bcb464c25e725b92c065309f9b093999de65b02120a34f3f8766c1638e586ead",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/end_turn_pressed.png",
+      "sha256": "e314c7398f9d7a7506a0c8ef70bc46bc8c3c0b8816d696cb40329cf9af083275",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/outer_frame.png",
+      "sha256": "54d41d097cd3a4cffe8583727504cfb8eef1841b02d784fb86e9b0fcfcee4aee",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/screen_inset.png",
+      "sha256": "bc307ee9a0930edf58bd82e34ea4b6d03c972260d501fde8283915c4993a1d6b",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/tab_latched.png",
+      "sha256": "fa88d4d85ed86597cd11a22133faa376e05a865bcc59feb79716ddbb3a6b7524",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/tab_unlatched.png",
+      "sha256": "2214e257cc177163106b0c2b275caafe48d530b0f4742f3e6cecce89e52763e3",
+      "scale": 2
+    },
+    {
+      "path": "art/ui/frames/workspace_frame.png",
+      "sha256": "8bd6bcc4829a24b8841f7aa1764db027dec37872109f7891fe09bbf361e1f67f",
+      "scale": 2
+    }
+  ],
+  "icons": [
+    {
+      "path": "art/ui/icons/alert.svg",
+      "sha256": "aad13aa991b00ac047644f3e7b8f3f36586879bfbc00bf1df2155b2a743189a5"
+    },
+    {
+      "path": "art/ui/icons/back.svg",
+      "sha256": "fe298abe24021438ae1cc4fc704d623071c3b0c7b74dee3f38faf9397fb0f696"
+    },
+    {
+      "path": "art/ui/icons/combat.svg",
+      "sha256": "5b25c4c0f9b3f406680520ab542357e55f0ac3026f069df135969fec76f13ddf"
+    },
+    {
+      "path": "art/ui/icons/damaged.svg",
+      "sha256": "34ee1c1bdabff0ee876749bf3b607dff08f50f2228082af98d8a57dfe235565d"
+    },
+    {
+      "path": "art/ui/icons/escort.svg",
+      "sha256": "da2290349a1536714663cd832422aee27ef349ab02b07a0ad6620e0edb486d25"
+    },
+    {
+      "path": "art/ui/icons/gear.svg",
+      "sha256": "3eeee40cf241d3fbdeb9cef1ec0233c24c73bb356631fe608ea91a0b189f405e"
+    },
+    {
+      "path": "art/ui/icons/idle.svg",
+      "sha256": "131fcd36b7ecc9e0a119e6689454b05d42759295b08c0008d456e6bd94dee5a5"
+    },
+    {
+      "path": "art/ui/icons/map.svg",
+      "sha256": "a5b90665721c705cde9d0109f3eb65dd549ff34023ba54641e9c5b793d2669fa"
+    },
+    {
+      "path": "art/ui/icons/moving.svg",
+      "sha256": "e9e2f08bf5e67a26853651d07c5dfcfda5f50db25e10ad68099c59e9ac9d564e"
+    },
+    {
+      "path": "art/ui/icons/population.svg",
+      "sha256": "050c66cd89e3562a5beea3dffa16f4da17306a34fec3d46d23ab799f7e37acd5"
+    },
+    {
+      "path": "art/ui/icons/production.svg",
+      "sha256": "4f38f3325ae1300c03e384b5840a898c0c95f7bd3f459d9887dc6f5cea7f6a0e"
+    },
+    {
+      "path": "art/ui/icons/research.svg",
+      "sha256": "8b3b2e7dabdc12770d7108c0341faeeae913436a935451303f45a5b22fa8aa8d"
+    },
+    {
+      "path": "art/ui/icons/role_daughter_seed.svg",
+      "sha256": "917506b8923f98936d7b0cf790653707656b237873494e60b9f168ffdd3df317"
+    },
+    {
+      "path": "art/ui/icons/role_escort.svg",
+      "sha256": "da2290349a1536714663cd832422aee27ef349ab02b07a0ad6620e0edb486d25"
+    },
+    {
+      "path": "art/ui/icons/role_harbor_settler.svg",
+      "sha256": "917506b8923f98936d7b0cf790653707656b237873494e60b9f168ffdd3df317"
+    },
+    {
+      "path": "art/ui/icons/role_harl_settler.svg",
+      "sha256": "917506b8923f98936d7b0cf790653707656b237873494e60b9f168ffdd3df317"
+    },
+    {
+      "path": "art/ui/icons/role_peldra_settler.svg",
+      "sha256": "917506b8923f98936d7b0cf790653707656b237873494e60b9f168ffdd3df317"
+    },
+    {
+      "path": "art/ui/icons/role_scout.svg",
+      "sha256": "99956854331b34d3521a85cb6c6014713ae143d810f71e0622d6af09694aae8a"
+    },
+    {
+      "path": "art/ui/icons/role_settler.svg",
+      "sha256": "917506b8923f98936d7b0cf790653707656b237873494e60b9f168ffdd3df317"
+    },
+    {
+      "path": "art/ui/icons/scout.svg",
+      "sha256": "99956854331b34d3521a85cb6c6014713ae143d810f71e0622d6af09694aae8a"
+    },
+    {
+      "path": "art/ui/icons/settler.svg",
+      "sha256": "917506b8923f98936d7b0cf790653707656b237873494e60b9f168ffdd3df317"
+    },
+    {
+      "path": "art/ui/icons/worker_production.svg",
+      "sha256": "7057cb08f0801f81f1a3940863ebfeddf8caa3daa7ece8970e1806ede8c9c135"
+    },
+    {
+      "path": "art/ui/icons/worker_research.svg",
+      "sha256": "1f284e6d0bfad3ca21802ea1d3d35b1c607f58362f04a510b23486c7a295b64d"
+    },
+    {
+      "path": "art/ui/icons/worker_support.svg",
+      "sha256": "e60232d2d41fb97f2d6a836561aee58c747c932c6a85cff37de14f365183f0ec"
+    }
+  ],
+  "originalArt": "New geometric command-console art authored for OpenAntares; CC0 dedication, no commercial-game source assets",
+  "retrievedUtc": "2026-11-08T18:55:10.480153+00:00"
+}

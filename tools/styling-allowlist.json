@@ -1,0 +1,214 @@
+{
+  "baselineCommit": "800a6012a4edfd0eae7c0d07841e03171c4c18dd",
+  "policy": "Only these exact baseline fragments and occurrence budgets are allowed. Historical line locations are provenance; allowance may only shrink.",
+  "entries": [
+    {
+      "path": "game/Components/AssemblyRequestDialog.cs",
+      "line": 20,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _colonies=new(){Name=\"RequestColonies\",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,100)},_idle=new(){Name=\"RequestIdleShips\",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,90)};",
+      "sha256": "3ac10f86ba3c496083b8b6dd5edaf941477b53318b3af37efcd269b2eb0d0205",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/ColonyOrdersPanel.cs",
+      "line": 52,
+      "kind": "literal_minimum",
+      "fragment": "var queue=new ItemList{Name=\"ConstructionQueue\",CustomMinimumSize=new(0,90)};AddChild(queue);foreach(var entry in d.Queue){string title=ShipDesignUi.Name(content,view,entry.Target);bool locked=entry.Target.Kind==\"building\"&&content.Buildings[entry.Target.ContentId].PrerequisiteTechnologyIds.Any(id=>!view.Research.KnownTechnologyIds.Contains(id));queue.AddItem(title+(locked?\" (technology locked)\":\"\")+(entry.Token==d.ActiveQueueToken?\" (active)\":\"\"));}",
+      "sha256": "98ac662d143c82545e339788db548d7b512f69225de215674d6c3a7f3b02ab74",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/ColonyPanel.cs",
+      "line": 199,
+      "kind": "literal_minimum",
+      "fragment": "grid.AddChild(new Label { Text = count.ToString(System.Globalization.CultureInfo.InvariantCulture), HorizontalAlignment = HorizontalAlignment.Center, CustomMinimumSize = new Vector2(32, 0) });",
+      "sha256": "3c339fbd540886ea12ba904b09ef2d244e76bc4cffb56d076b43a21d78e3e15a",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/ConstructionQueueEditor.cs",
+      "line": 29,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _list=new(){Name=\"QueueEntries\",CustomMinimumSize=new(0,160)};",
+      "sha256": "4f4605cb034004cb78438b99a1aeed72e9d01967b27bd8503b1f5803547ade8f",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/CrisisOverviewDialog.cs",
+      "line": 25,
+      "kind": "literal_minimum",
+      "fragment": "_attentionList=new(){Name=\"CrisisAttentionList\",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,100)};_body.AddChild(_attentionList);",
+      "sha256": "9c3523f1e3b38b34a882f079833af2985abe10be8284dd571f5f935fd4c67eea",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/CrisisOverviewDialog.cs",
+      "line": 31,
+      "kind": "literal_minimum",
+      "fragment": "_list=new(){Name=\"CrisisCaseList\",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,160)};_body.AddChild(_list);_filter.ItemSelected+=i=>{_all=i==1;Rows();};Rows();",
+      "sha256": "52917d03c15cf3371552598210cfda3592db4a0aab4aa0c5ead8832ef350defc",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/EmpireManagementDialog.cs",
+      "line": 20,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _list=new(){Name=\"ManagementColonyList\",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,160),FixedIconSize=new(48,48)};",
+      "sha256": "cd8a1b0cf0fcdd78e2608e2f8c139eb56cc3b10eb2acba3306a241b3b7b1402e",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/FleetCommandDialog.cs",
+      "line": 32,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _ships=new(){Name=\"FleetShipList\",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,140)};",
+      "sha256": "a8d21b702b002bd40a60ba135cf85b6adf073682b3be1acf9f4eb0dd07b3d387",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/FleetCommandDialog.cs",
+      "line": 33,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _fleets=new(){Name=\"FleetGroupList\",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,120)};",
+      "sha256": "041fb29b24f398bc74a3363dad49f07f6415193be672406e672953ddc8346029",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/FleetCommandDialog.cs",
+      "line": 34,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _members=new(){Name=\"FleetMemberList\",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,100)};",
+      "sha256": "ad6e818bc3e334526729b6ff34b470d59bca1c09e03670be3a9673c542f6b9c3",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/FleetCommandDialog.cs",
+      "line": 35,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _requests=new(){Name=\"FleetRequestList\",CustomMinimumSize=new(0,140)};",
+      "sha256": "46e947e289f6bbfab129c6a1a6adefe0d0011f2e3fd7cf9aaaf8bc23b22244e3",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/GovernorTemplateDialog.cs",
+      "line": 87,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _list=new(){CustomMinimumSize=new(0,80)};private readonly OptionButton _picker=new(){SizeFlagsHorizontal=SizeFlags.ExpandFill};private readonly List<string> _ids=new();private ContentSet? _content;",
+      "sha256": "10e3769ac5e00db4ea9a3fea9f1c666a5f1ab5fe0e6292e375541f1aab871fc7",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/GovernorTemplateDialog.cs",
+      "line": 109,
+      "kind": "literal_minimum",
+      "fragment": "internal static VBoxContainer DialogBody(Window dialog){var margin=new MarginContainer{ThemeTypeVariation=\"PanelPadding\"};dialog.AddChild(margin);var scroll=new ScrollContainer{CustomMinimumSize=new(500,320),HorizontalScrollMode=ScrollContainer.ScrollMode.Disabled,FollowFocus=true};margin.AddChild(scroll);var body=new VBoxContainer{SizeFlagsHorizontal=Control.SizeFlags.ExpandFill};scroll.AddChild(body);return body;}",
+      "sha256": "b0afeac8f41079494c14a19d560c5442ecd4992c2f2f49d7de654e48354b131b",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/LoadGameDialog.cs",
+      "line": 15,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _saves = new() { CustomMinimumSize = new Vector2(460, 220) };",
+      "sha256": "9c9f4c57710626871f258b0183bec41b53cce2bb1e7a602dfcac4d17db96b9fe",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/LoadGameDialog.cs",
+      "line": 21,
+      "kind": "literal_minimum",
+      "fragment": "CustomMinimumSize = new Vector2(460, 0),",
+      "sha256": "44fce986202b61c636b9f54aa78c3fdea0cbd8ab8f389fb0fb585c9ded2c8875",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/OfficerDetailDialog.cs",
+      "line": 16,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _list=new(){Name=\"OfficerList\",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,120)};",
+      "sha256": "1137dc8ee1b5cdc9cb69d66b79bae009ea27d4b98b8f8d5e4ae79ea8d29b8fb9",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/PlanetPortrait.cs",
+      "line": 7,
+      "kind": "literal_minimum",
+      "fragment": "private readonly TextureRect _image=new(){Name=\"PlanetImage\",ExpandMode=TextureRect.ExpandModeEnum.IgnoreSize,StretchMode=TextureRect.StretchModeEnum.KeepAspectCentered,CustomMinimumSize=new(0,170),SizeFlagsHorizontal=SizeFlags.ExpandFill,SizeFlagsVertical=SizeFlags.ExpandFill};",
+      "sha256": "f56225963c8ea37e742b5cfa33ffc7c62982ccc88a77faff972cc0b6d3043ce9",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/SaveGameDialog.cs",
+      "line": 12,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _existing = new() { CustomMinimumSize = new Vector2(420, 180) };",
+      "sha256": "402ae1930ee79e71d113b9caa59ec52597e483a2c250506f384a1052d3e1436a",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/ScoutOverviewDialog.cs",
+      "line": 26,
+      "kind": "literal_minimum",
+      "fragment": "var list=new ItemList{Name=\"ScoutVesselList\",CustomMinimumSize=new(0,100)};_body.AddChild(list);",
+      "sha256": "cbfa7a6269d2f866f2261344610a44fb5316051a35f527e7088bed5ef7c29c8b",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/ShipDesignDialog.cs",
+      "line": 13,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ItemList _list=new(){Name=\"DesignCatalogue\",CustomMinimumSize=new(0,170)};",
+      "sha256": "418a22edf3869713d94a8f324bddeb8e0d2d58cd97e6527e0ffa711944f17f33",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/TurnReportDialog.cs",
+      "line": 21,
+      "kind": "literal_minimum",
+      "fragment": "private readonly ScrollContainer _scroll = new() { Name = \"TurnReportScroll\", CustomMinimumSize = new Vector2(520, 360), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled };",
+      "sha256": "0857f82c0c3c0a327d63bc6193140acf3a8ae61f61a88638dd883a47c8402e8d",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Components/TurnReportDialog.cs",
+      "line": 287,
+      "kind": "literal_minimum",
+      "fragment": "CustomMinimumSize = new Vector2(400, 0),",
+      "sha256": "6e206f37ed260f277422ae1fc5f261a5934cdc12ec4828eccb902a5a3812baa4",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Presentation/PlanetPortraitRenderer.cs",
+      "line": 11,
+      "kind": "color",
+      "fragment": "var image=Image.CreateEmpty(size.X,size.Y,false,Image.Format.Rgba8);image.Fill(Colors.Transparent);",
+      "sha256": "e260fcb6e06ada2dbded23557a914cf314c5ea19768e9cf5ea0d0aa8d9085674",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Screens/GameScreen.cs",
+      "line": 382,
+      "kind": "literal_minimum",
+      "fragment": "_consolePanel.CustomMinimumSize = new Vector2(System.Math.Clamp(Size.X * 0.21f, 260, 340), 0);",
+      "sha256": "30679c26715f8d53a9d7a294c6b9c24c59bac683322e2496f3f80de2300f36a6",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Screens/NewGameScreen.cs",
+      "line": 46,
+      "kind": "literal_minimum",
+      "fragment": "void FitSetupPanel() { var size = viewport.GetVisibleRect().Size; panel.CustomMinimumSize = new Vector2(Math.Min(600, size.X), Math.Min(720, size.Y)); }",
+      "sha256": "90bf078f49b8e779605bf6ff21bff8e14850296d20f78ba47544d6aee124f5f6",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    },
+    {
+      "path": "game/Screens/NewGameScreen.cs",
+      "line": 96,
+      "kind": "literal_minimum",
+      "fragment": "var details = new ScrollContainer { CustomMinimumSize = new Vector2(0, 140), HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, FollowFocus = true, FocusMode = FocusModeEnum.All };",
+      "sha256": "86c01b0e78e1d8ff58ba897e37b337a98344393f5509fb2865b38eaea8e6e191",
+      "justification": "Pre-M14 occurrence retained at baseline; existing geometry or procedural planet rendering. No new styling occurrence may consume extra allowance; replace with theme values when touched."
+    }
+  ]
+}

@@ -120,7 +120,7 @@ public partial class GameScreen
         {
             if (previous.Star is { } star && view.Stars.Any(s => s.Chart.Id == star)) _map.Select(star);
             _courseDestination = previous.Destination;
-            ShowWorkspace(previous.Workspace == "Galaxy" || _pages.ContainsKey(previous.Workspace) ? previous.Workspace : "Galaxy");
+            if (!RestoreVisualWorkspace(previous.Workspace)) ShowWorkspace(previous.Workspace == "Galaxy" || _pages.ContainsKey(previous.Workspace) ? previous.Workspace : "Galaxy");
             Refresh();
         }
         finally { _restoringNavigation = false; }
@@ -159,7 +159,7 @@ public partial class GameScreen
         _report.NavigationStarting += BeginReportExcursion;
         _report.VisibilityChanged += () =>
         {
-            if (!_report.Visible && !_returnToReport && _reportOrigin is { } origin)
+            if (!_changingVisualWorkspace && !_report.Visible && !_returnToReport && _reportOrigin is { } origin)
             { _reportOrigin = null; RestoreWorkspace(origin); }
         };
         foreach (var window in PresentationNodes<Window>(this).Where(w => w != _report))
@@ -196,8 +196,11 @@ public partial class GameScreen
 
     public override void _UnhandledKeyInput(InputEvent input)
     {
-        if (input is not InputEventKey { Pressed: true, Echo: false, Keycode: Key.Escape } || PresentationNodes<Window>(this).Any(w => w.Visible)) return;
+        if (input is not InputEventKey { Pressed: true, Echo: false, Keycode: Key.Escape } || PresentationNodes<Window>(this).Any(w => w.Visible && w != _visualWindow)) return;
+        if (_workspace == "Galaxy" && _mapFleetSelection.Count > 0)
+        { ClearMapFleetSelection(); Refresh(); GetViewport().SetInputAsHandled(); return; }
         if (_workspace == "Galaxy" && !_returnToReport) return;
+        CloseVisualWorkspace();
         ReturnFromWorkspace();
         GetViewport().SetInputAsHandled();
     }

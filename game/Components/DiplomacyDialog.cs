@@ -17,7 +17,7 @@ public partial class DiplomacyDialog:AcceptDialog
     public override void _Ready(){Name="DiplomacyDialog";Title="Diplomacy";OkButtonText="Close";_body=DevelopmentUi.DialogBody(this);AddChild(_offer);_offer.CommandIssued+=c=>CommandIssued?.Invoke(c);AddChild(_declaration);_declaration.CommandIssued+=c=>CommandIssued?.Invoke(c);VisibilityChanged+=()=>{if(!Visible){_offer.Hide();_declaration.Hide();}};}
     public void ShowEmpire(ContentSet content,EmpireView view,EmpireId? selected=null)
     {
-        if(!Visible)ForceNative=view.Conflict is not null;
+        if(!Visible)ForceNative=false;
         _selected=selected??_selected;DevelopmentUi.Clear(_body);
         if(view.Diplomacy is not {} diplomacy){_body.AddChild(DevelopmentUi.Text("Diplomacy is unavailable in this historical ruleset."));}
         else if(diplomacy.Contacts.IsEmpty){_body.AddChild(DevelopmentUi.Text("No other civilization has been met. Explore to establish contact. Solo games have no diplomatic partners."));}
@@ -67,7 +67,7 @@ public partial class DiplomacyDialog:AcceptDialog
         }
         if(_offer.Visible)_offer.UpdateView(view);
         if(_declaration.Visible)_declaration.UpdateView(view);
-        PopupCenteredClamped(new(700,540));
+        if(!Visible)PopupCenteredClamped(new(700,540));
     }
 }
 

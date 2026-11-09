@@ -1,0 +1,12 @@
+# M14 owner playtest feedback
+
+Goal: apply the owner's concrete 2026-11-08 usability changes to the existing OpenAntares working copy. The owner authorizes this next revision; the earlier six-fix handoff cap does not block these explicitly requested changes. No commit, main integration, gameplay/rules/content changes or another whole-M14 review.
+
+1. Remove automatic campaign-start banner. Add Game → Main menu, with Resume preserving the in-memory campaign and New Game/Load Game using the existing root flows. Existing menu IDs0–4 stay intact; Main menu is ID5.
+2. Make bottom empire keys toggle their current workspace closed to Galaxy. Galaxy always shows Galaxy; when already there it centers the home system. Remove the visible Back-to-X header control, retain Escape navigation, keep primary workspace sizes. Research opens its workspace without opening its option list.
+3. Keep map fleet selection separate from automatically reconciled inspector selections. System glyph and fleet flag have distinct hit areas. Only explicit fleet selection enables an ETA. Destination click previews a course and Set course confirms it directly on the map. Resolve named fleets as entire groups and use the existing atomic FleetAction.MoveSelection plus query fingerprint; old campaigns retain their existing single-ship command path. Never create movement authority, consent, detachment or rules in presentation.
+4. Add cursor-anchored wheel zoom, +/−/Fit controls and middle-drag panning, using the same transform for drawing and hit testing. Zoom-out to fit resets the camera. Galaxy-again centers home without issuing commands.
+5. Keep Turn Report as a compact scrollable popup, not a full-screen workspace. Preserve report excursions and Continue return behavior; intentional bottom navigation dismisses it without reopening an untracked window.
+6. Verify only these changed interactions in the isolated native PlaytestFeedback case at800×600 and1920×1080, with existing-command state equivalence for the map move and exact campaign preservation for Main menu/Resume. No full suite, campaign audit or unrelated scenario matrix. Update the player walkthrough and actual status.
+
+Files: Main.cs/new MainMenuScreen.cs; GameScreen.cs/Playability.cs/VisualOverhaul.cs/new MapNavigation partial; GalaxyMap.cs/MapOverlays.cs/new pure MapFleetOrders helper; TurnReportDialog.cs; minimal shared-theme metrics; isolated PlaytestFeedbackChecks.cs and its runner/verifier registration. Preserve all existing work and the user's project.godot editor changes.

@@ -36,29 +36,35 @@ internal static class CombinedUiNavigation
                 if(options.IsAncestorOf(control))ExpandSetup(setup);
                 break;
             }
+        if(control.Name=="OpenScoutOverview" || control.Name=="OpenContactsWorkspace")
+        {
+            GameScreen? owner=null;for(Node? n=control;n is not null;n=n.GetParent())if(n is GameScreen found){owner=found;break;}
+            if(owner is not null&&!control.IsVisibleInTree())All<Button>(owner).Single(b=>b.Name==(control.Name=="OpenScoutOverview"?"OpenFleetCommand":"OpenDiplomacy")&&b.GetWindow()==owner.GetWindow()).EmitSignal(BaseButton.SignalName.Pressed);
+        }
         if(control.IsVisibleInTree()) return control;
         GameScreen? screen=null; string? workspace=null; Control? host=null;
         string originalName=control.Name, tooltip=control.TooltipText;
         string? text=control is Button action ? action.Text : control is Label label ? label.Text : null;
         for(Node? node=control;node is not null;node=node.GetParent())
         {
-            if(node is ColonyPanel panel) {workspace="OpenColonyWorkspace";host=panel;}
+            if(node is ColonyPanel panel) {workspace="ManageSelectedColony";host=panel;}
             else if(node is ColonyList panelColonyList) {workspace="OpenColonyOverview";host=panelColonyList;}
             else if(node is VesselPanel panelVesselPanel) {workspace="OpenVesselWorkspace";host=panelVesselPanel;}
             else if(node is StarPanel panelStarPanel) {workspace="InspectSelectedSystem";host=panelStarPanel;}
             else if(node is ContactsPanel panelContactsPanel) {workspace="OpenContactsWorkspace";host=panelContactsPanel;}
-            else if(node is ResearchBar panelResearchBar) {workspace="OpenGalaxyWorkspace";host=panelResearchBar;}
+            else if(node is ResearchBar panelResearchBar) {workspace="OpenResearch";host=panelResearchBar;}
             else if(node.Name=="EmpireConsole") {workspace="OpenGalaxyWorkspace";host=(Control)node;}
             if(node is GameScreen owner) {screen=owner;break;}
         }
         if(screen is null || workspace is null) return control;
         void Navigate(string name)
         {
-            var button=All<Button>(screen).Single(b=>b.Name==name);
+            var button=All<Button>(screen).Single(b=>b.Name==name&&b.GetWindow()==screen.GetWindow());
             if(button.Disabled || !button.IsVisibleInTree()) throw new InvalidOperationException("Workspace navigation unreachable: "+name);
             button.EmitSignal(Button.SignalName.Pressed);
         }
-        if(workspace is "OpenColonyOverview" or "OpenVesselWorkspace" or "InspectSelectedSystem") Navigate("OpenGalaxyWorkspace");
+        if(workspace is "OpenColonyOverview" or "OpenVesselWorkspace" or "InspectSelectedSystem" or "ManageSelectedColony") { Navigate("OpenGalaxyWorkspace");All<TabContainer>(screen).Single(c=>c.Name=="ContextConsole").CurrentTab=0; }
+        if(workspace=="OpenContactsWorkspace") Navigate("OpenDiplomacy");
         Navigate(workspace);
         if(control.IsInsideTree() && control.IsVisibleInTree()) return control;
         // Workspace navigation may synchronously refresh a panel. Reacquire the

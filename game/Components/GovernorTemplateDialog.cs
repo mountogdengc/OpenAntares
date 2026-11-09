@@ -51,7 +51,7 @@ internal partial class BuildingPreferenceEditor:VBoxContainer
 internal static class DevelopmentUi
 {
     internal static Label Text(string text,string variation="SubtleLabel")=>new(){Text=text,ThemeTypeVariation=variation,AutowrapMode=TextServer.AutowrapMode.WordSmart,SizeFlagsHorizontal=Control.SizeFlags.ExpandFill};
-    internal static Button Button(Node parent,string text,Action action,string? name=null){var button=new Button{Text=text,Name=name??text.Replace(" ","")};button.Pressed+=action;parent.AddChild(button);return button;}
-    internal static VBoxContainer DialogBody(Window dialog){var margin=new MarginContainer{ThemeTypeVariation="PanelPadding"};dialog.AddChild(margin);var scroll=new ScrollContainer{CustomMinimumSize=new(500,320),HorizontalScrollMode=ScrollContainer.ScrollMode.Disabled,FollowFocus=true};margin.AddChild(scroll);var body=new VBoxContainer{SizeFlagsHorizontal=Control.SizeFlags.ExpandFill};scroll.AddChild(body);return body;}
+    internal static Button Button(Node parent,string text,Action action,string? name=null){var button=new Button{Text=text,Name=name??text.Replace(" ",""),ClipText=true,TooltipText=text,SizeFlagsHorizontal=Control.SizeFlags.ExpandFill};button.Pressed+=action;parent.AddChild(button);return button;}
+    internal static VBoxContainer DialogBody(Window dialog){var margin=new MarginContainer{ThemeTypeVariation="PanelPadding"};dialog.AddChild(margin);var scroll=new ScrollContainer{SizeFlagsVertical=Control.SizeFlags.ExpandFill,HorizontalScrollMode=ScrollContainer.ScrollMode.Disabled,VerticalScrollMode=ScrollContainer.ScrollMode.Reserve,FollowFocus=true};margin.AddChild(scroll);var body=new VBoxContainer{SizeFlagsHorizontal=Control.SizeFlags.ExpandFill};scroll.AddChild(body);return body;}
     internal static void Clear(Node node){foreach(Node child in node.GetChildren()){node.RemoveChild(child);child.QueueFree();}}
 }
