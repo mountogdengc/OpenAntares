@@ -42,7 +42,7 @@ internal sealed partial class PlayabilityCampaignControls
         };
         await _observer.Navigate("Review exact own conflict force",async()=>
         {
-            await Click(Screen,"OpenConflictOrders");var dialog=All<ConflictOrdersDialog>(Screen).Single();var picker=Named<OptionButton>(dialog,"ConflictOwnForce");var selected=own.Ships.Single(s=>s.Id==anchor);
+            await Click(Screen,"DecisionsConflictOrders");var dialog=All<ConflictOrdersDialog>(Screen).Single();var picker=Named<OptionButton>(dialog,"ConflictOwnForce");var selected=own.Ships.Single(s=>s.Id==anchor);
             int index=Enumerable.Range(0,picker.ItemCount).Single(i=>{var id=new VesselId(picker.GetItemMetadata(i).AsInt32());var ship=own.Ships.Single(s=>s.Id==id);return id==anchor||selected.Fleet is {} fleet&&ship.Fleet==fleet;});await Pick(picker,index);
             var orders=action switch{ConflictAction.Attack a=>a.Orders,ConflictAction.ConfigureDefense a=>a.Orders,ConflictAction.ChangeOrders a=>a.Orders,_=>null};
             if(orders is not null){await Pick(Named<OptionButton>(dialog,"ConflictDoctrine"),(int)orders.Doctrine);await Pick(Named<OptionButton>(dialog,"ConflictStragglers"),(int)orders.Stragglers);await Pick(Named<OptionButton>(dialog,"ConflictArrival"),(int)orders.OnArrival);await PickId(Named<OptionButton>(dialog,"ConflictReturnPort"),orders.ReturnColony?.Value??0);}

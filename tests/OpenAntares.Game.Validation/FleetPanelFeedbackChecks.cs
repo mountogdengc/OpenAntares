@@ -102,4 +102,26 @@ public partial class VisualOverhaulValidation
         RemoveChild(screen);screen.QueueFree();_main=original;original.Show();await Frames();
     }
 
+    private async Task MapKeyboardFeedback()
+    {
+        var screen=await Start();var session=Live(screen);var view=session.View(session.State.Empires.First(e=>e.Controller==ControllerKind.Human).Id);var map=All<GalaxyMap>(screen).Single();var home=view.Colonies[0].StarId;
+        Vector2 At(StarId id){var star=view.Stars.Single(s=>s.Chart.Id==id).Chart;var t=typeof(GalaxyMap).GetMethod("BuildTransform",BindingFlags.NonPublic|BindingFlags.Instance)!.Invoke(map,null)!;return (Vector2)typeof(GalaxyMap).GetMethod("ToScreen",BindingFlags.NonPublic|BindingFlags.Instance)!.Invoke(map,new object[]{star.X,star.Y,t})!;}
+        async Task Keypress(Key code,Key physical=Key.None){Input.ParseInputEvent(new InputEventKey{Pressed=true,Keycode=code,PhysicalKeycode=physical});await Frames();Input.ParseInputEvent(new InputEventKey{Pressed=false,Keycode=code,PhysicalKeycode=physical});await Frames();}
+        void Flag()=>map._GuiInput(new InputEventMouseButton{Pressed=true,ButtonIndex=MouseButton.Left,Position=map.OwnedMarkerBounds[home].GetCenter()});
+        string before=Snapshot(session);map.Select(view.Stars.First(s=>s.Chart.Id!=home).Chart.Id);await Frames();Flag();await Frames();
+        Check(map.Selected is null,"Fleet flag clears the system highlight without selecting that system");Check(All<MapFleetRow>(screen).Any(r=>r.IsVisibleInTree()),"Fleet flag still opens individual fleet rows");
+        map._GuiInput(new InputEventMouseButton{Pressed=true,ButtonIndex=MouseButton.Left,Position=At(home)});await Frames();Check(map.Selected==home,"System glyph still selects the system independently");
+        Flag();await Frames();Press(All<MapFleetRow>(screen).First(r=>r.IsVisibleInTree()));await Frames();Check(map.Selected is null,"Selecting a fleet row does not highlight its system");
+        float zoom=map.ZoomLevel;await Keypress(Key.KpAdd);Check(map.ZoomLevel>zoom,"Numpad plus zooms in with a fleet row focused");
+        var position=At(home);await Keypress(Key.Kp6);Check(At(home).X<position.X,"Numpad6 pans right");position=At(home);await Keypress(Key.Kp4);Check(At(home).X>position.X,"Numpad4 pans left");
+        position=At(home);await Keypress(Key.Kp8);Check(At(home).Y>position.Y,"Numpad8 pans up");position=At(home);await Keypress(Key.Kp2);Check(At(home).Y<position.Y,"Numpad2 pans down");
+        position=At(home);await Keypress(Key.Up,Key.Kp8);Check(At(home).Y>position.Y,"Physical numpad key pans when NumLock-off reports an arrow key");
+        position=At(home);await Keypress(Key.Key6);Check(At(home).IsEqualApprox(position),"Ordinary number-row6 does not pan");
+        var entry=new LineEdit{Name="MapKeyTextEntry"};screen.AddChild(entry);entry.GrabFocus();await Frames();position=At(home);zoom=map.ZoomLevel;await Keypress(Key.Kp6);await Keypress(Key.KpAdd);Check(At(home).IsEqualApprox(position)&&map.ZoomLevel==zoom,"Typing focus suppresses numpad pan and zoom");screen.RemoveChild(entry);entry.QueueFree();map.GrabFocus();await Frames();
+        var popup=All<MenuButton>(screen).Single(m=>m.Name=="GameMenu").GetPopup();popup.Popup();await Frames();position=At(home);await Keypress(Key.Kp6);Check(At(home).IsEqualApprox(position),"Open Game popup suppresses map keys");popup.Hide();await Frames();
+        Press(Route("OpenResearch"));await Frames();position=At(home);zoom=map.ZoomLevel;await Keypress(Key.Kp6);await Keypress(Key.KpAdd);Check(At(home).IsEqualApprox(position)&&map.ZoomLevel==zoom,"Research workspace suppresses map keys");Press(Route("OpenGalaxyWorkspace"));await Frames();map.GrabFocus();
+        zoom=map.ZoomLevel;await Keypress(Key.KpSubtract);Check(map.ZoomLevel<zoom,"Numpad minus zooms out");Check(Snapshot(session)==before,"Flag and keyboard navigation never submit gameplay orders");
+        await Capture("MapKeys",new Vector2I(1920,1080));
+    }
+
 }

@@ -30,8 +30,8 @@ public partial class FleetCommandDialog:AcceptDialog
     private ContentSet _content=null!;private EmpireView _view=null!;private VBoxContainer _body=null!;
     private readonly TabContainer _tabs=new(){Name="FleetTabs",SizeFlagsHorizontal=Control.SizeFlags.ExpandFill};
     private readonly FleetList _ships=new(){Name="FleetShipList",SizeFlagsVertical=Control.SizeFlags.ExpandFill};
-    private readonly ItemList _fleets=new(){Name="FleetGroupList",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,120)};
-    private readonly ItemList _members=new(){Name="FleetMemberList",SelectMode=ItemList.SelectModeEnum.Multi,CustomMinimumSize=new(0,100)};
+    private readonly FleetRowList _fleets=new(){Name="FleetGroupList"};
+    private readonly FleetRowList _members=new(){Name="FleetMemberList"};
     private readonly ItemList _requests=new(){Name="FleetRequestList",CustomMinimumSize=new(0,140)};
     private readonly OptionButton _filter=new(){Name="FleetShipFilter"},_roleFilter=new(){Name="FleetRoleFilter",FitToLongestItem=false,SizeFlagsHorizontal=Control.SizeFlags.ExpandFill},_sort=new(){Name="FleetSort"},_destination=new(){Name="FleetDestination"},_groupDestination=new(){Name="FleetGroupDestination"},_order=new(){Name="FleetStandingOrder"},_flagship=new(){Name="FleetFlagshipPicker"};
     private readonly LineEdit _name=new(){Name="FleetName",PlaceholderText="Fleet name",MaxLength=80},_groupName=new(){Name="FleetGroupName",PlaceholderText="New or edited fleet name",MaxLength=80};
@@ -60,13 +60,13 @@ public partial class FleetCommandDialog:AcceptDialog
         DevelopmentUi.Button(ships,"Locate selected ship",()=>{if(Ships().Length!=1)return;var ship=_view.Vessels.Single(v=>v.Id==Ships()[0]);StarRequested?.Invoke(ship.StationaryStarId??ship.Transit!.Destination);},"FleetLocateShip");
         DevelopmentUi.Button(ships,"Preview Repair for selected ships",()=>CombatRequested?.Invoke(new CombatAction.SetRepair(Ships(),true)),"FleetRepair");
         DevelopmentUi.Button(ships,"Preview Hold / stop finite repair",()=>CombatRequested?.Invoke(new CombatAction.SetRepair(Ships(),false)),"FleetStopRepair");
-        var groups=Page("Fleets");groups.AddChild(_fleets);groups.AddChild(_groupDetail);groups.AddChild(_groupDestination);groups.AddChild(_order);foreach(var order in Enum.GetValues<FleetOrderKind>())_order.AddItem(order.ToString());groups.AddChild(_groupName);var groupActions=new GridContainer{Columns=2};groups.AddChild(groupActions);
+        var groups=Page("Fleets");groups.AddChild(_fleets);_fleets.CustomMinimumSize=new(0,GetThemeConstant("fleet_group_list_height","ConsoleMetrics"));groups.AddChild(_groupDetail);groups.AddChild(_groupDestination);groups.AddChild(_order);foreach(var order in Enum.GetValues<FleetOrderKind>())_order.AddItem(order.ToString());groups.AddChild(_groupName);var groupActions=new GridContainer{Columns=2};groups.AddChild(groupActions);
         DevelopmentUi.Button(groupActions,"Preview fleet move",()=>Review(new FleetAction.MoveSelection(ImmutableArray<VesselId>.Empty,Groups(),Target(_groupDestination))),"FleetPreviewGroupMove");
         DevelopmentUi.Button(groupActions,"Apply standing order",()=>Review(new FleetAction.SetOrder(Groups(),new((FleetOrderKind)_order.Selected,_order.Selected is 0 or 2?null:Target(_groupDestination)))),"FleetSetStandingOrder");
         DevelopmentUi.Button(groupActions,"Rename fleet",()=>SingleGroup(id=>Review(new FleetAction.Rename(id,_groupName.Text))),"FleetRename");
         DevelopmentUi.Button(groupActions,"Disband fleet",()=>SingleGroup(id=>Review(new FleetAction.Disband(id))),"FleetDisband");
         DevelopmentUi.Button(groupActions,"Merge into lowest selected fleet ID",()=>{var ids=Groups();if(ids.Length>1)Review(new FleetAction.Merge(ids[0],ids.Skip(1).ToImmutableArray()));else _error.Text="Select at least two co-located fleets.";},"FleetMerge");
-        groups.AddChild(DevelopmentUi.Text("Selected fleet members; choose a flagship or an explicit subset to split."));groups.AddChild(_members);groups.AddChild(_flagship);
+        groups.AddChild(DevelopmentUi.Text("Selected fleet members; choose a flagship or an explicit subset to split."));groups.AddChild(_members);_members.CustomMinimumSize=new(0,GetThemeConstant("fleet_member_list_height","ConsoleMetrics"));groups.AddChild(_flagship);
         DevelopmentUi.Button(groups,"Set flagship",()=>SingleGroup(id=>{if(_flagship.ItemCount>0)Review(new FleetAction.SetFlagship(id,new(_flagship.GetSelectedMetadata().AsInt32())));}),"FleetSetFlagship");
         DevelopmentUi.Button(groups,"Split selected members into named fleet",()=>SingleGroup(id=>Review(new FleetAction.Split(id,_groupName.Text,_members.GetSelectedItems().Select(i=>_memberRows[i]).ToImmutableArray()))),"FleetSplit");
         DevelopmentUi.Button(groups,"Attack / combat orders / Withdraw",()=>SingleGroup(CombatOrder),"FleetCombatOrders");
@@ -76,7 +76,7 @@ public partial class FleetCommandDialog:AcceptDialog
         DevelopmentUi.Button(history,"Apply local combat display",()=>{try{new CombatNotificationPreferences(combatLevel.Selected==0).Save(ProjectSettings.GlobalizePath(CombatPreferencesPath));CombatReport();DisplayApplied?.Invoke();}catch(Exception e)when(e is System.IO.IOException or UnauthorizedAccessException or ArgumentException){_error.Text="Combat display was not saved: "+e.Message;}},"CombatApplyDisplay");
         var conflict=Page("Empire conflict");conflict.AddChild(_conflictReport);_conflictReport.OrdersRequested+=anchor=>ConflictOrdersRequested?.Invoke(anchor);_conflictReport.StarRequested+=star=>StarRequested?.Invoke(star);
         _error.Name="FleetError";_confirmationText.Name="FleetConfirmationDetails";_body.AddChild(_error);AddChild(_confirm);DevelopmentUi.DialogBody(_confirm).AddChild(_confirmationText);_confirm.Confirmed+=()=>{if(_pending is {} command)CommandIssued?.Invoke(command);_pending=null;};
-        _filter.ItemSelected+=_=>{Rows();};_roleFilter.ItemSelected+=_=>{Rows();};_sort.ItemSelected+=_=>{Rows();};_ships.MultiSelected+=(_,_,_)=>Details();_fleets.MultiSelected+=(_,_)=>GroupDetails();_requests.ItemSelected+=_=>RequestDetails();
+        _filter.ItemSelected+=_=>{Rows();};_roleFilter.ItemSelected+=_=>{Rows();};_sort.ItemSelected+=_=>{Rows();};_ships.MultiSelected+=(_,_)=>Details();_fleets.MultiSelected+=(_,_)=>GroupDetails();_requests.ItemSelected+=_=>RequestDetails();
     }
     private void Navigation(VBoxContainer parent,string id,Label label,Action<int> changed){var row=new HBoxContainer();parent.AddChild(row);DevelopmentUi.Button(row,"Previous page",()=>changed(-1),id+"Previous");row.AddChild(label);DevelopmentUi.Button(row,"Next page",()=>changed(1),id+"Next");}
     private static System.Collections.Generic.IEnumerable<T> VisiblePage<T>(System.Collections.Generic.IEnumerable<T> items,ref int page,int size,Label label){var rows=items.ToArray();int count=Math.Max(1,(rows.Length+size-1)/size);page=Math.Clamp(page,0,count-1);label.Text=$"Page {page+1}/{count}; {rows.Length} total";return rows.Skip(page*size).Take(size);}
@@ -116,25 +116,52 @@ public partial class FleetCommandDialog:AcceptDialog
     private string Star(StarId id)=>_view.Stars.FirstOrDefault(s=>s.Chart.Id==id)?.Chart.Name??id.ToString();
     private void Rows()
     {
-        var selected=Ships().ToHashSet();_ships.Clear();_shipRows.Clear();var rows=_view.Fleets!.Ships.Where(s=>_filter.Selected switch{1=>s.Transit is null&&s.PendingMove is null&&_view.Vessels.Single(v=>v.Id==s.Id).PendingFounding is null,2=>s.Fleet is null&&s.Request is null,3=>s.NewlyCompleted,4=>s.Transit is not null,5=>s.Request is not null,6=>Attention(s.Id),7=>_content.Combat!.RoleProfiles[s.RoleId].Attack>0,8=>_view.Combat!.Encounters.Any(e=>e.Members.Contains(s.Id)),9=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.Status is CombatShipStatus.WithdrawalQueued or CombatShipStatus.ReturnOrdered or CombatShipStatus.Returning),10=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.Hull<v.MaxHull),11=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.DamageBand==CombatDamageBand.Crippled),12=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.Status is CombatShipStatus.Repairing or CombatShipStatus.RepairBlocked),_=>true});
+        var selected=Ships().ToHashSet();_shipRows.Clear();var rows=_view.Fleets!.Ships.Where(s=>_filter.Selected switch{1=>s.Transit is null&&s.PendingMove is null&&_view.Vessels.Single(v=>v.Id==s.Id).PendingFounding is null,2=>s.Fleet is null&&s.Request is null,3=>s.NewlyCompleted,4=>s.Transit is not null,5=>s.Request is not null,6=>Attention(s.Id),7=>_content.Combat!.RoleProfiles[s.RoleId].Attack>0,8=>_view.Combat!.Encounters.Any(e=>e.Members.Contains(s.Id)),9=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.Status is CombatShipStatus.WithdrawalQueued or CombatShipStatus.ReturnOrdered or CombatShipStatus.Returning),10=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.Hull<v.MaxHull),11=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.DamageBand==CombatDamageBand.Crippled),12=>_view.Combat!.Ships.Any(v=>v.Id==s.Id&&v.Status is CombatShipStatus.Repairing or CombatShipStatus.RepairBlocked),_=>true});
         string role=_roleFilter.GetSelectedMetadata().AsString();if(role.Length>0)rows=rows.Where(s=>s.RoleId==role);
         if(_quickRole>0&&_content.Combat is {} profiles)rows=rows.Where(s=>profiles.RoleProfiles.TryGetValue(s.RoleId,out var profile)&&(_quickRole==1?profile.Attack>0:profile.Attack==0));
         rows=_sort.Selected switch{1=>rows.OrderBy(s=>_content.Vessels[s.RoleId].Name,StringComparer.Ordinal).ThenBy(s=>s.Id),2=>rows.OrderBy(Location,StringComparer.Ordinal).ThenBy(s=>s.Id),_=>rows.OrderBy(s=>s.Id)};
-        foreach(var ship in rows){_ships.BeginGroup(GroupKey(ship),Location(ship)+" / "+_content.Vessels[ship.RoleId].Name+(ship.Fleet is {} grouped?$" / fleet {grouped.Value}":""));_shipRows.Add(ship.Id);string text=$"{(ship.Design is {} design?ShipDesignUi.DesignName(_content,_view,design):_content.Vessels[ship.RoleId].Name)} #{ship.Id.Value} | {Location(ship)} | {(ship.Fleet is {} f?$"fleet {f.Value}":"independent")}{(ship.Request is {} r?$" / request {r.Value}":"")}{(ship.NewlyCompleted?" / NEW":"")}{(Attention(ship.Id)?" / ATTENTION":"")}";if(_view.Combat?.Ships.FirstOrDefault(s=>s.Id==ship.Id) is {} combat)text+=$" | {CombatReportPanel.Status(combat)} | hull {combat.Hull}/{combat.MaxHull}, cohesion {combat.Cohesion}, {combat.DamageBand}, speed {combat.EffectiveSpeed}";_ships.AddItem(text);_ships.SetItemMetadata(_ships.ItemCount-1,ship.Id.Value);_ships.SetItemTooltip(_ships.ItemCount-1,text);if(selected.Contains(ship.Id))_ships.Select(_ships.ItemCount-1,_ships.GetSelectedItems().Length==0);}Details();Callable.From(()=>{if(IsInstanceValid(_ships)&&_ships.IsInsideTree()&&_ships.GetSelectedItems().Length>0)_ships.EnsureCurrentIsVisible();}).CallDeferred();
+        var ordered=rows.ToArray();_shipRows.AddRange(ordered.Select(s=>s.Id));
+        _ships.ShowShips(_content,_view,ordered.Select(s=>_view.Vessels.Single(v=>v.Id==s.Id)).ToArray());_ships.RestoreShips(selected);
+        Details();Callable.From(()=>{if(IsInstanceValid(_ships)&&_ships.IsInsideTree()&&_ships.GetSelectedItems().Length>0)_ships.EnsureCurrentIsVisible();}).CallDeferred();
     }
-    private string GroupKey(FleetShipView ship)
+    private Texture2D FleetRoleIcon(string role)=>GetThemeIcon(HasThemeIcon("role_"+role,"Icons")?"role_"+role:"escort","Icons");
+    private void Details()
     {
-        var own = _view.Vessels.Single(v=>v.Id==ship.Id);
-        var combat = _view.Combat?.Ships.FirstOrDefault(v=>v.Id==ship.Id);
-        // Explicit order commitments, cargo, damage and identities must never disappear into a stack.
-        var combatFacts = combat is null ? null : new { combat.Hull, combat.Cohesion, combat.ReturnColony, combat.OnArrival, combat.Repairing, combat.MaxHull, combat.DamageBand, combat.Firepower, combat.Armor, combat.EffectiveSpeed, combat.Status, combat.RepairIntervals, combat.HullLost, combat.HullRepaired };
-        var health = own.Crisis;
-        var healthFacts = health is null ? null : new { health.RoleId, health.Population, health.CarrierEpisode, health.InspectionDueTurn, health.Station, health.Transit, health.PendingMove, health.PendingFounding, health.PortClosed, health.Held, health.CanDecontaminate, health.ContactRisks };
-        return System.Text.Json.JsonSerializer.Serialize(new { ship.Station, ship.RoleId, ship.Design, ship.Fleet, ship.Request, ship.PendingMove, ship.Transit, ship.ApproachAcceptance, own.PendingFounding, own.CarriedPopulation, healthFacts, combatFacts });
+        var ids=Ships();_detail.Text=$"{ids.Length} selected; {_shipRows.Count} shown / {_view.Fleets!.Ships.Length} owned. Named/request ships need explicit detachment for incompatible individual orders. New ships remain independent until you assign them.";
+        var chosen=_view.Vessels.Where(s=>ids.Contains(s.Id)).ToArray();
+        var groups=chosen.Length>8?chosen.GroupBy(s=>FleetRoster.Key(_view,s)).Select(g=>g.ToArray()):chosen.Select(s=>new[]{s});
+        foreach(var group in groups)
+        {
+            _detail.Text+="\n"+FleetRoster.Title(_content,_view,group)+": "+FleetRoster.Status(_view,group,true);
+            if(_view.Combat?.Ships.FirstOrDefault(s=>s.Id==group[0].Id) is {} combat)
+                _detail.Text+=$"; cohesion {combat.Cohesion}, {combat.DamageBand}; attack {combat.Firepower}, armor {combat.Armor}, speed {combat.EffectiveSpeed}; repair {combat.RepairIntervals} eligible interval(s).";
+        }
     }
-    private void Details(){var ids=Ships();_detail.Text=$"{ids.Length} selected; {_shipRows.Count} shown / {_view.Fleets!.Ships.Length} owned. Named/request ships need explicit detachment for incompatible individual orders. New ships remain independent until you assign them.";if(_view.Combat is {} combat)_detail.Text+="\n"+string.Join("\n",combat.Ships.Where(s=>ids.Contains(s.Id)).Select(s=>$"Ship {s.Id.Value}: {CombatReportPanel.Status(s)}; hull {s.Hull}/{s.MaxHull}, cohesion {s.Cohesion}, {s.DamageBand}; attack {s.Firepower}, armor {s.Armor}, speed {s.EffectiveSpeed}; repair {s.RepairIntervals} eligible interval(s)."));}
-    private void GroupRows(){var selected=Groups().ToHashSet();_fleets.Clear();_fleetRows.Clear();foreach(var f in _view.Fleets!.Fleets.OrderBy(f=>f.Id)){_fleetRows.Add(f.Id);_fleets.AddItem($"{f.Name} [{f.Id.Value}] — {f.Members.Length} ships, {f.Order.Kind}, flagship {f.Flagship.Value}");if(selected.Contains(f.Id))_fleets.Select(_fleets.ItemCount-1,_fleets.GetSelectedItems().Length==0);}GroupDetails();}
-    private void GroupDetails(){_members.Clear();_memberRows.Clear();_flagship.Clear();var ids=Groups();_groupDetail.Text=$"{ids.Length} selected fleet(s). Mixed-speed groups travel at their slowest effective member speed; launched transit is committed.";if(ids.Length!=1)return;var f=_view.Fleets!.Fleets.Single(f=>f.Id==ids[0]);_groupDetail.Text+=$" {f.Attention}";foreach(var id in f.Members){_memberRows.Add(id);_members.AddItem($"{_content.Vessels[_view.Fleets.Ships.Single(s=>s.Id==id).RoleId].Name} #{id.Value}");_flagship.AddItem($"Flagship #{id.Value}");_flagship.SetItemMetadata(_flagship.ItemCount-1,id.Value);if(id==f.Flagship)_flagship.Select(_flagship.ItemCount-1);}}
+    private void GroupRows()
+    {
+        var selected=Groups().ToHashSet();_fleets.Clear();_fleetRows.Clear();
+        foreach(var fleet in _view.Fleets!.Fleets.OrderBy(f=>f.Id))
+        {
+            _fleetRows.Add(fleet.Id);var members=_view.Vessels.Where(v=>fleet.Members.Contains(v.Id)).ToArray();
+            var flagship=members.First(v=>v.Id==fleet.Flagship);
+            string location=flagship.StationaryStarId is {} at?" · "+FleetNaming.Star(_view,at):"";
+            _fleets.AddRow(FleetNaming.Fleet(fleet),FleetNaming.Status(_view,members,fleet)+location,FleetRoleIcon(flagship.RoleId));
+            _fleets.SetItemMetadata(_fleets.ItemCount-1,fleet.Id.Value);if(selected.Contains(fleet.Id))_fleets.Select(_fleets.ItemCount-1,false);
+        }
+        GroupDetails();
+    }
+    private void GroupDetails()
+    {
+        _members.Clear();_memberRows.Clear();_flagship.Clear();var ids=Groups();
+        _groupDetail.Text=$"{ids.Length} selected fleet(s). Mixed-speed groups travel at their slowest effective member speed; launched transit is committed.";
+        if(ids.Length!=1)return;var fleet=_view.Fleets!.Fleets.Single(f=>f.Id==ids[0]);_groupDetail.Text+=$" {fleet.Attention}";
+        foreach(var id in fleet.Members)
+        {
+            var ship=_view.Vessels.Single(v=>v.Id==id);_memberRows.Add(id);
+            _members.AddRow(FleetNaming.Ship(_content,_view,ship),FleetRoster.Status(_view,new[]{ship}),FleetRoleIcon(ship.RoleId));_members.SetItemMetadata(_members.ItemCount-1,id.Value);
+            _flagship.AddItem($"Flagship #{id.Value}");_flagship.SetItemMetadata(_flagship.ItemCount-1,id.Value);if(id==fleet.Flagship)_flagship.Select(_flagship.ItemCount-1);
+        }
+    }
     private void RequestRows(){int old=_requests.GetSelectedItems().FirstOrDefault(-1);RequestId? selected=old>=0?_requestRows[old]:null;_requests.Clear();_requestRows.Clear();foreach(var r in VisiblePage(_view.Fleets!.Requests.OrderBy(r=>r.Id),ref _requestPage,32,_requestPages)){_requestRows.Add(r.Id);_requests.AddItem($"{r.Name} [{r.Id.Value}] — {r.Status}, {r.Priority}, {r.Slots.Count(s=>s.Status==SlotStatus.Arrived)}/{r.Slots.Length} arrived");if(r.Id==selected)_requests.Select(_requests.ItemCount-1);}RequestDetails();}
     private void RequestDetails(){int i=_requests.GetSelectedItems().FirstOrDefault(-1);_requestDetail.Text=i<0?"Finite quotas never refill a missing or lost ship automatically.":_view.Fleets!.Requests.Single(r=>r.Id==_requestRows[i]).Attention??"Review slots, yard authority, rally and conditional estimates before changing this request.";}
     private void Events(){DevelopmentUi.Clear(_events);bool routine=FleetNotificationPreferences.Load(ProjectSettings.GlobalizePath(PreferencesPath)).ShowRoutine;foreach(var e in VisiblePage(_view.Fleets!.Events.Where(e=>routine||e.Importance==FleetImportance.Attention).OrderByDescending(e=>e.Id),ref _eventPage,100,_eventPages))_events.AddChild(DevelopmentUi.Text($"Turn {e.Turn}: {e.Kind.Replace('_',' ')}. {e.Reason}",e.Importance==FleetImportance.Attention?"WarningLabel":"SubtleLabel"));}

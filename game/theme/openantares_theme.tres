@@ -902,6 +902,8 @@ GalaxyMap/colors/threat = Color(1, 0.5, 0.43, 1)
 GalaxyMap/colors/range = Color(0.65, 0.95, 0.82, 1)
 
 ConsoleMetrics/constants/fleet_list_height = 220
+ConsoleMetrics/constants/fleet_group_list_height = 120
+ConsoleMetrics/constants/fleet_member_list_height = 100
 
 GalaxyMap/colors/star_glow = Color(0.45, 0.87, 0.9, 0.07)
 GalaxyMap/colors/owner_0 = Color(0.45, 0.87, 0.9, 0.55)
@@ -935,3 +937,5 @@ ConsoleMetrics/constants/turn_report_min_height = 240
 ConsoleMetrics/constants/fleet_split_width = 640
 ConsoleMetrics/constants/fleet_split_height = 500
 GalaxyMap/colors/route_rejected = Color(1, 0.5, 0.43, 1)
+
+GalaxyMap/constants/keyboard_pan_step = 64

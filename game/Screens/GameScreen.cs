@@ -29,7 +29,6 @@ public partial class GameScreen : VBoxContainer
     private readonly DiplomacyDialog _diplomacy = new();
     private readonly ColonyList _colonies = new();
     private readonly VesselPanel _vessels = new();
-    private readonly SelectionSummaryPanel _selectionCard = new() { Name = "SelectionSummary", ShowInspectLink = false };
     private readonly VBoxContainer _mainArea = new() { SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly PanelContainer _consolePanel = new() { Name = "EmpireConsole", ThemeTypeVariation = "ConsoleFrame" };
     private readonly ScrollContainer _workspaceScroll = new() { Name = "WorkspaceScroll", SizeFlagsVertical = SizeFlags.ExpandFill, HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled, FollowFocus = true };
@@ -182,7 +181,7 @@ public partial class GameScreen : VBoxContainer
         _mainArea.SizeFlagsVertical = SizeFlags.ExpandFill;
         _map.SizeFlagsHorizontal = SizeFlags.ExpandFill;
         _map.SizeFlagsVertical = SizeFlags.ExpandFill;
-        _map.StarSelected += star => { if (!_restoringNavigation) _requireColonyChoice = false; _courseDestination = star; _contextTabs.CurrentTab = 0; Refresh(); };
+        _map.StarSelected += star => { if (!_restoringNavigation) _requireColonyChoice = false; _courseDestination = star; if (_mapFleetSelection.Count == 0) _fleetListStar = null; Refresh(); };
         _map.OwnedVesselsSelected += SelectOwnedVesselsAt;
         var overlays = new HFlowContainer { Name = "MapOverlays" };
         _mainArea.AddChild(overlays);
@@ -225,6 +224,7 @@ public partial class GameScreen : VBoxContainer
         AddWorkspace("System").AddChild(_starPanel);
         AddWorkspace("Vessels").AddChild(_vessels);
         AddWorkspace("Contacts").AddChild(_contacts);
+        BuildDecisionsPage(AddWorkspace("Decisions"));
         _colonies.ColonySelected += SelectColony;
         _starPanel.PlanetSelected += planet => { _selectedPlanet = planet; _selectedColony = View.Colonies.FirstOrDefault(c => c.PlanetId == planet)?.Id; if (_selectedColony is not null) ShowWorkspace("Colony"); Callable.From(Refresh).CallDeferred(); };
         _colonyPanel.CommandIssued += Execute;
@@ -253,59 +253,12 @@ public partial class GameScreen : VBoxContainer
         var console = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         consoleScroll.AddChild(console);
         console.AddChild(_legacyNotice);
+        // The console shows only what is selected on the map: a system card or a fleet card.
+        // Empire-wide notices and overviews live behind the command bar (Decisions, Colonies, Fleets).
+        BuildSelectionHeader(console);
         WireFleetPanel(console);
-        BuildMapOrders(console);
-        console.AddChild(_contextDivider);
-        var contextTabs = _contextTabs;
-        console.AddChild(contextTabs);
-        var systemContext = new VBoxContainer { Name = "System" };
-        var empireContext = new VBoxContainer { Name = "Empire" };
-        var fleetContext = new VBoxContainer { Name = "Fleets" };
-        contextTabs.AddChild(systemContext); contextTabs.AddChild(empireContext); contextTabs.AddChild(fleetContext);
-        var system = systemContext;
-        system.AddChild(_selectionTitle);
-        system.AddChild(_selectionSummary);
-        system.AddChild(_systemCard);
-        var inspect = new Button { Name = "InspectSelectedSystem", Text = "Inspect system" };
-        inspect.Pressed += () => ShowWorkspace("System");
-        system.AddChild(inspect);
-        _manageSelected.Pressed += OpenColonies;
-        system.AddChild(_manageSelected);
-        fleetContext.AddChild(_selectionCard);
-        empireContext.AddChild(_outliner);
-        empireContext.AddChild(_guidance);
-        _guidance.DestinationRequested += RouteGuidance;
-        _selectionCard.StarSelected += star => _map.Select(star);
-        _selectionCard.InspectSystemRequested += star => { _map.Select(star); ShowWorkspace("System"); };
-        _selectionCard.VesselSelected += vessel =>
-        {
-            if (!View.Vessels.Any(v => v.Id == vessel)) { ShowMessage("That vessel is no longer available. Choose an owned vessel.", true); return; }
-            _selectedVessel = vessel; _requireVesselChoice = false;
-            SelectMapVessel(vessel);
-            Callable.From(Refresh).CallDeferred();
-        };
-        _selectionCard.OrdersRequested += vessel =>
-        {
-            if (!View.Vessels.Any(v => v.Id == vessel)) { ShowMessage("That vessel is no longer available. Choose an owned vessel.", true); return; }
-            _selectedVessel = vessel; _requireVesselChoice = false;
-            ShowWorkspace("Vessels"); Callable.From(Refresh).CallDeferred();
-        };
-        if (Rules.HasExpansion(View.RulesVersion))
-        {
-            var vessels = new Button { Text = "Vessels / travel", Name = "OpenVesselWorkspace" };
-            vessels.Pressed += () => ShowWorkspace("Vessels");
-            fleetContext.AddChild(vessels);
-        }
-        console.AddChild(_contextActionsDivider);
+        BuildSelectionConsole(console);
         _message.AutowrapMode = TextServer.AutowrapMode.WordSmart;
-        foreach (var badge in new[] { _colonyAttention, _combatBadge, _fleetBadge, _scoutBadge, _conflictBadge }) console.AddChild(badge);
-        console.AddChild(_combatResponse);
-        var conflictOrders = _conflictOrdersEntry = new Button { Name = "OpenConflictOrders", Text = "Conflict orders", TooltipText = "Empire conflict orders / revised force response", Visible = Rules.HasConflict(View.RulesVersion) };
-        conflictOrders.Pressed += () => OpenConflictOrders(null);
-        console.AddChild(conflictOrders);
-        var alerts = _colonyOverviewEntry = new Button { Name = "OpenColonyOverview", Text = "Colony overview / alerts", Visible = Rules.HasExpansion(View.RulesVersion) };
-        alerts.Pressed += () => ShowWorkspace("Colonies");
-        console.AddChild(alerts);
         foreach (var button in console.GetChildren().OfType<Button>())
         {
             button.ClipText = true;
@@ -334,7 +287,7 @@ public partial class GameScreen : VBoxContainer
         navigation.AddChild(_diplomacyEntry);
         if (Rules.HasRivals(View.RulesVersion)) AddNavigation(_workspaceTabs, "Contacts", "OpenContactsWorkspace", () => ShowWorkspace("Contacts"), "Contacts");
         if (Rules.HasShipDesigns(View.RulesVersion)) AddNavigation(navigation, "Designs", "OpenShipDesigns", () => _shipDesigns.ShowCatalogue(_session.Content, View));
-        _alertsEntry.Pressed += () => { bool open = _workspace == "Galaxy" && _fleetListStar is null && _contextTabs.CurrentTab == 1; _fleetListStar=null; ShowWorkspace("Galaxy"); _contextTabs.CurrentTab = open ? 0 : 1; _commandPage = null; Refresh(); };
+        _alertsEntry.Pressed += () => { if (_workspace == "Decisions") { _commandPage = null; ShowWorkspace("Galaxy"); } else { ShowWorkspace("Decisions"); _commandPage = "OpenAttentionConsole"; } };
         navigation.AddChild(_alertsEntry);
         _returnReportEntry.Pressed += ReturnToReport;
         navigation.AddChild(_returnReportEntry);
@@ -425,9 +378,8 @@ public partial class GameScreen : VBoxContainer
     {
         var owned = View.Vessels.Where(v => v.StationaryStarId == star).OrderBy(v => v.Id).ToArray();
         ClearMapFleetSelection(); _hoverDestination=null; _fleetListStar=star;
-        _map.Select(star);
-        FocusOwnedSelection(star);
-        _contextTabs.CurrentTab = 2;
+        _map.ClearSystemSelection();
+        Refresh();
         if (owned.Length == 0) ShowMessage("Those vessels are no longer available. Choose an owned vessel.", true);
     }
 
@@ -532,7 +484,7 @@ public partial class GameScreen : VBoxContainer
         _endTurn.Disabled=responses>0&&!view.Research.Ready;
         RefreshVisualConsole(view);
         _researchBar.ShowEmpire(_session.Content, view.Research);
-        RefreshMapOrders(view);
+        ReconcileMapFleetSelection(view);
         RefreshFleetList(view);
         _map.ShowFleetPresentation(view, _mapFleetSelection, _hoverDestination ?? _courseDestination);
         _map.ShowGalaxy(view.Galaxy);
@@ -547,7 +499,7 @@ public partial class GameScreen : VBoxContainer
         if(_diplomacy.Visible)_diplomacy.ShowEmpire(_session.Content,view);
         RefreshCrisisAttention(view.Crisis);
         _legacyNotice.Visible = view.RulesVersion == Rules.LegacyVersion;
-        if (_map.Selected is not { } selected) return;
+        if (_map.Selected is not { } selected) { RefreshSelectionConsole(view, null, null); ApplyTouchTargets(); return; }
         var star = view.Stars.Single(s => s.Chart.Id == selected);
         if (star.Planets is { } planets && !planets.Any(p => p.Id == _selectedPlanet))
         {
@@ -570,17 +522,13 @@ public partial class GameScreen : VBoxContainer
         if (_selectedColony is null) _colonyChoice.Select(-1);
         _colonyChoice.Disabled = view.Colonies.Length == 0;
         _noColony.Visible = colony is null;
-        _manageSelected.Disabled = colony is null;
-        if (FindChild("InspectSelectedSystem",true,false) is Button inspect) inspect.Disabled=false;
-        _selectionTitle.Text = star.Chart.Name;
-        _selectionSummary.Text = star.Planets is null ? "Not surveyed" : $"{(star.Current ? "Current observation" : "Last seen turn " + star.LastObservedTurn)}\n{star.Planets.Value.Length} " + (star.Planets.Value.Length == 1 ? "planet" : "planets");
+        RefreshSelectionConsole(view, star, colony);
         _colonyAttention.Text = string.Join("\n", _colonies.GetChildren().OfType<Label>().Where(l => l.ThemeTypeVariation == "WarningLabel").Select(l => l.Text));
         _colonyAttention.Visible = _colonyAttention.Text.Length > 0;
         var attention = new[] { _colonyAttention, _combatBadge, _fleetBadge, _scoutBadge, _conflictBadge }.Where(l => l.Visible && l.Text.Length > 0).Select(l => l.Text).ToArray();
         _alertsEntry.Visible = attention.Length > 0 || OpenAntares.Game.Presentation.TurnGuidance.Build(view).Count > 0;
         _alertsEntry.TooltipText = string.Join("\n", attention);
         if (colony is null) _colonyPanel.Clear(); else _colonyPanel.ShowColony(_session.Content, colony, view);
-        _selectionCard.ShowSelection(_session.Content, view, selected, _selectedVessel);
         _vessels.ShowVessels(_session.Content, view, _selectedVessel, _courseDestination, _selectedPlanet);
         ApplyTouchTargets();
         if (focusKey is not null) RestoreSemanticFocus(focusKey, focusId, _workspace);

@@ -42,7 +42,7 @@ public partial class EmpireConflictGraphicalValidation
             ConflictAction.Withdraw a=>own.Encounters.Single(e=>e.Id==a.Encounter).OwnMembers[0],
             ConflictAction.Respond a=>own.Encounters.Single(e=>e.Id==a.Encounter).OwnMembers[0],_=>null
         };
-        await Click(screen,"OpenConflictOrders");var dialog=Named<ConflictOrdersDialog>(screen,"ConflictOrdersDialog");var force=Named<OptionButton>(dialog,"ConflictOwnForce");var selected=own.Ships.Single(s=>s.Id==anchor);int index=Enumerable.Range(0,force.ItemCount).Single(i=>{var id=new VesselId(force.GetItemMetadata(i).AsInt32());var ship=own.Ships.Single(s=>s.Id==id);return id==anchor||selected.Fleet is {} fleet&&ship.Fleet==fleet;});await SetPicker(dialog,"ConflictOwnForce",index);
+        await Click(screen,"DecisionsConflictOrders");var dialog=Named<ConflictOrdersDialog>(screen,"ConflictOrdersDialog");var force=Named<OptionButton>(dialog,"ConflictOwnForce");var selected=own.Ships.Single(s=>s.Id==anchor);int index=Enumerable.Range(0,force.ItemCount).Single(i=>{var id=new VesselId(force.GetItemMetadata(i).AsInt32());var ship=own.Ships.Single(s=>s.Id==id);return id==anchor||selected.Fleet is {} fleet&&ship.Fleet==fleet;});await SetPicker(dialog,"ConflictOwnForce",index);
         var orders=expected.Action switch{ConflictAction.Attack a=>a.Orders,ConflictAction.ConfigureDefense a=>a.Orders,ConflictAction.ChangeOrders a=>a.Orders,_=>null};
         if(orders is not null)
         {

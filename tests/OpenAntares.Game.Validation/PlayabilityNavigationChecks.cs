@@ -152,8 +152,8 @@ internal static class PlayabilityNavigationChecks
         var map=Descendants<GalaxyMap>(screen).Single();
         var marker=map.OwnedMarkerBounds.OrderBy(p=>p.Key).First();
         map._GuiInput(new InputEventMouseButton{ButtonIndex=MouseButton.Left,Pressed=true,Position=marker.Value.GetCenter()});await Frames(host,5);
-        var review=Named<Button>(screen,"SelectionReviewOrders");
-        check(review.HasFocus()&&review.IsVisibleInTree(),"Actual owned marker reveals and focuses the existing order-review action");
+        var review=Named<Button>(screen,"OpenVesselWorkspace");
+        check(review.IsVisibleInTree()&&!review.Disabled,"Actual owned marker reveals the fleet card ship-order action");
         check(original==SaveGame.Serialize(game.Content,game.State),"Actual owned marker focus and inspection issue no order or PRNG change");
     }
 

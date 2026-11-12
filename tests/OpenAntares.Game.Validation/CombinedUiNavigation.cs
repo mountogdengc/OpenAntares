@@ -47,9 +47,10 @@ internal static class CombinedUiNavigation
         string? text=control is Button action ? action.Text : control is Label label ? label.Text : null;
         for(Node? node=control;node is not null;node=node.GetParent())
         {
-            if(node is ColonyPanel panel) {workspace="ManageSelectedColony";host=panel;}
+            if(node.Name=="DecisionsWorkspace") {workspace="OpenAttentionConsole";host=(Control)node;}
+            else if(node is ColonyPanel panel) {workspace="ManageSelectedColony";host=panel;}
             else if(node is ColonyList panelColonyList) {workspace="OpenColonyOverview";host=panelColonyList;}
-            else if(node is VesselPanel panelVesselPanel) {workspace="OpenVesselWorkspace";host=panelVesselPanel;}
+            else if(node is VesselPanel panelVesselPanel) {workspace="VesselInspector";host=panelVesselPanel;}
             else if(node is StarPanel panelStarPanel) {workspace="InspectSelectedSystem";host=panelStarPanel;}
             else if(node is ContactsPanel panelContactsPanel) {workspace="OpenContactsWorkspace";host=panelContactsPanel;}
             else if(node is ResearchBar panelResearchBar) {workspace="OpenResearch";host=panelResearchBar;}
@@ -63,9 +64,28 @@ internal static class CombinedUiNavigation
             if(button.Disabled || !button.IsVisibleInTree()) throw new InvalidOperationException("Workspace navigation unreachable: "+name);
             button.EmitSignal(Button.SignalName.Pressed);
         }
-        if(workspace is "OpenColonyOverview" or "OpenVesselWorkspace" or "InspectSelectedSystem" or "ManageSelectedColony") { Navigate("OpenGalaxyWorkspace");All<TabContainer>(screen).Single(c=>c.Name=="ContextConsole").CurrentTab=0; }
+        if(workspace=="OpenColonyOverview") Navigate("OpenAttentionConsole");
+        if(workspace is "InspectSelectedSystem" or "ManageSelectedColony")
+        {
+            Navigate("OpenGalaxyWorkspace");
+            var system=All<Button>(screen).SingleOrDefault(b=>b.Name=="FleetCardShowSystem");
+            if(system is not null&&system.IsVisibleInTree())system.EmitSignal(BaseButton.SignalName.Pressed);
+        }
+        if(workspace=="VesselInspector")
+        {
+            var picker=All<OptionButton>(host!).Single(p=>p.Name=="VesselPicker");
+            int? selected=picker.Selected>=0?picker.GetSelectedMetadata().AsInt32():null;
+            Navigate("OpenFleetCommand");
+            var list=All<FleetList>(screen).Single();
+            if(list.ItemCount==0)throw new InvalidOperationException("No owned vessel is available for inspection");
+            int index=selected is {} id?Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemMetadata(i).AsInt32()==id):0;
+            list.DeselectAll();list.Select(index);
+            var inspector=All<Button>(screen).Single(b=>b.Name=="FleetInspectShip");
+            if(inspector.Disabled||!inspector.IsVisibleInTree())throw new InvalidOperationException("Fleet inspector is unreachable");
+            inspector.EmitSignal(BaseButton.SignalName.Pressed);
+        }
         if(workspace=="OpenContactsWorkspace") Navigate("OpenDiplomacy");
-        Navigate(workspace);
+        if(workspace!="VesselInspector")Navigate(workspace);
         if(control.IsInsideTree() && control.IsVisibleInTree()) return control;
         // Workspace navigation may synchronously refresh a panel. Reacquire the
         // corresponding current control rather than dispatching to a detached one.

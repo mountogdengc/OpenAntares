@@ -14,8 +14,6 @@ public partial class GameScreen
 {
     private string? _commandPage;
     private readonly HashSet<VesselId> _mapFleetSelection = new();
-    private readonly VBoxContainer _mapOrders = new() { Name = "MapFleetOrders", Visible = false };
-    private readonly Label _mapRoute = new() { Name = "MapRouteSummary", AutowrapMode = TextServer.AutowrapMode.WordSmart, ThemeTypeVariation = "SubtleLabel" };
 
     private void ToggleCommandPage(string name, Action open)
     {
@@ -47,18 +45,9 @@ public partial class GameScreen
             var key = new Button { Text = text, Name = name, TooltipText = help, ThemeTypeVariation = "CompactCommandKey" };
             key.Pressed += action; toolbar.AddChild(key);
         }
-        Key("−", "MapZoomOut", "Zoom out. You can also use the mouse wheel.", () => _map.ZoomAt(_map.Size / 2, false));
-        Key("+", "MapZoomIn", "Zoom in. Drag with the middle mouse button to pan.", () => _map.ZoomAt(_map.Size / 2, true));
+        Key("−", "MapZoomOut", "Zoom out with numpad − or the mouse wheel.", () => _map.ZoomAt(_map.Size / 2, false));
+        Key("+", "MapZoomIn", "Zoom in with numpad + or the mouse wheel. Pan with numpad 8/2/4/6 or middle-button drag.", () => _map.ZoomAt(_map.Size / 2, true));
         Key("Fit", "MapZoomFit", "Fit the whole galaxy in view.", _map.ResetView);
-    }
-    private void BuildMapOrders(VBoxContainer console)
-    {
-        console.AddChild(_mapOrders);
-        _mapOrders.AddChild(new Label { Text = "FLEET COURSE", ThemeTypeVariation = "ConsoleHeading" });
-        _mapOrders.AddChild(_mapRoute);
-        var cancel = new Button { Name = "ClearMapFleetSelection", Text = "Deselect fleet", ThemeTypeVariation = "CompactCommandKey" };
-        cancel.Pressed += () => { ClearMapFleetSelection(); Refresh(); };
-        _mapOrders.AddChild(cancel);
     }
     private void ClearMapFleetSelection()
     {
@@ -71,32 +60,9 @@ public partial class GameScreen
             _mapFleetSelection.UnionWith(view.Fleets.Fleets.Single(f => f.Id == fleet).Members);
         else _mapFleetSelection.Add(id);
     }
-    private void RefreshMapOrders(EmpireView view)
+    private void ReconcileMapFleetSelection(EmpireView view)
     {
         _mapFleetSelection.RemoveWhere(id => !view.Vessels.Any(v => v.Id == id));
-        _mapOrders.Visible = _mapFleetSelection.Count > 0;
-        if (_mapFleetSelection.Count == 0) return;
-        string selection = _mapFleetSelection.Count == 1 ? "1 ship selected." : _mapFleetSelection.Count + " ships selected.";
-        var ships = view.Vessels.Where(v => _mapFleetSelection.Contains(v.Id)).OrderBy(v => v.Id).ToArray();
-        if (ships.Any(v => v.Transit is not null)) { _mapRoute.Text = selection + " Travel is underway; the course is committed until arrival."; return; }
-        if ((_hoverDestination ?? _courseDestination) is not { } target || ships.All(v => v.StationaryStarId == target))
-        { _mapRoute.Text = selection + " Click a system to set course."; return; }
-        string destination = view.Stars.Single(s => s.Chart.Id == target).Chart.Name;
-        if (view.Fleets is not null)
-        {
-            var preview = FleetQueries.PreviewAction(_session.Content, view, MapFleetOrders.Selection(view, _mapFleetSelection, target));
-            if (!preview.Allowed) { _mapRoute.Text = selection + " " + preview.Rejection; return; }
-            var times = preview.Routes.Select(r => r.Turns).ToArray();
-            string eta = times.Length == 0 ? "" : times.Min() == times.Max() ? $"{times.Min()} " + (times.Min() == 1 ? "turn" : "turns") : $"{times.Min()}–{times.Max()} turns";
-            bool queued = ships.All(v => v.PendingMove == target);
-            _mapRoute.Text = selection + $"\n{destination} · {eta}" + (queued ? "\nCourse queued for next turn." : "\nClick the system to set course.");
-        }
-        else
-        {
-            if (ships.Length != 1) { _mapRoute.Text = "Choose one ship below to set its course."; return; }
-            if (view.Scouting?.Habitats.Any(h => h.Star == target) == true) { _mapRoute.Text = "Known ameba habitat. Review the ship's approach in its orders."; return; }
-            _mapRoute.Text = selection + "\nDestination: " + destination + ". Travel begins next turn.";
-        }
     }
     private void SetMapCourse()
     {
@@ -112,4 +78,24 @@ public partial class GameScreen
         else if (_mapFleetSelection.Count == 1)
             Execute(new SetMoveOrderCommand(view.Viewer, view.Turn, _mapFleetSelection.Single(), target));
     }
+    public override void _Input(InputEvent input)
+    {
+        if(_workspace!="Galaxy"||!_map.IsVisibleInTree()||input is not InputEventKey{Pressed:true} key||key.CtrlPressed||key.AltPressed||key.MetaPressed)return;
+        for(Node? focus=GetViewport().GuiGetFocusOwner();focus is not null;focus=focus.GetParent())
+            if(focus is LineEdit or TextEdit or SpinBox)return;
+        if(GetViewport().GetEmbeddedSubwindows().Any(w=>w.Visible)||PresentationNodes<Window>(this).Any(w=>w.Visible))return;
+        Key code=key.PhysicalKeycode==Key.None?key.Keycode:key.PhysicalKeycode;
+        switch(code)
+        {
+            case Key.Kp8:_map.PanBy(Vector2.Up);break;
+            case Key.Kp2:_map.PanBy(Vector2.Down);break;
+            case Key.Kp4:_map.PanBy(Vector2.Left);break;
+            case Key.Kp6:_map.PanBy(Vector2.Right);break;
+            case Key.KpAdd:_map.ZoomAt(_map.Size/2,true);break;
+            case Key.KpSubtract:_map.ZoomAt(_map.Size/2,false);break;
+            default:return;
+        }
+        GetViewport().SetInputAsHandled();
+    }
+
 }

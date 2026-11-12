@@ -12,6 +12,11 @@ public partial class MapFleetRow : Button
     public Func<FleetId,FleetId,string?>? MergeRejection { get; set; }
     public event Action<Vector2>? ContextRequested;
     public event Action<FleetId,FleetId>? MergeRequested;
+    /// <summary>The one row layout for fleets and ships: role icon, name, then status.</summary>
+    public void Describe(string title,string status,Texture2D? icon,string help)
+    {
+        Text=title+"  ·  "+status;Icon=icon;ExpandIcon=icon is not null;TooltipText=Text+"\n"+help;
+    }
     public override void _GuiInput(InputEvent input)
     {
         if(input is InputEventMouseButton{ButtonIndex:MouseButton.Left} selection)AdditiveSelection=selection.ShiftPressed;
