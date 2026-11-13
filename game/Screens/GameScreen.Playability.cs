@@ -141,19 +141,6 @@ public partial class GameScreen
         if (scrollOffset is { } offset) _workspaceScroll.ScrollVertical = offset;
     }
 
-    private async void FocusOwnedSelection(StarId star)
-    {
-        ulong original = GetViewport().GuiGetFocusOwner()?.GetInstanceId() ?? 0;
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-        if (!IsInstanceValid(this) || !IsInsideTree() || _workspace != "Galaxy" || _map.Selected != star || PresentationNodes<Window>(this).Any(w => w.Visible)) return;
-        var focused = GetViewport().GuiGetFocusOwner();
-        if (focused is not null && focused.GetInstanceId() != original) return;
-        Control? target = PresentationNodes<OptionButton>(_selectionCard).FirstOrDefault(c => c.Name == "SelectionVesselChooser" && c.ItemCount > 1);
-        target ??= PresentationNodes<Button>(_selectionCard).FirstOrDefault(c => c.Name == "SelectionReviewOrders" && !c.Disabled);
-        target?.GrabFocus();
-    }
-
     private void WireReportReturns()
     {
         _report.NavigationStarting += BeginReportExcursion;
@@ -197,8 +184,12 @@ public partial class GameScreen
     public override void _UnhandledKeyInput(InputEvent input)
     {
         if (input is not InputEventKey { Pressed: true, Echo: false, Keycode: Key.Escape } || PresentationNodes<Window>(this).Any(w => w.Visible && w != _visualWindow)) return;
+        if (_systemViewOpen) { CloseSystemView(); GetViewport().SetInputAsHandled(); return; }
         if (_workspace == "Galaxy" && _mapFleetSelection.Count > 0)
         { ClearMapFleetSelection(); Refresh(); GetViewport().SetInputAsHandled(); return; }
+        // Escape clears whatever the console is showing: first the chosen ships, then the system or fleet card.
+        if (_workspace == "Galaxy" && !_returnToReport && !_report.Visible && (_fleetListStar is not null || _map.Selected is not null))
+        { _map.Deselect(); GetViewport().SetInputAsHandled(); return; }
         if (_workspace == "Galaxy" && !_returnToReport) return;
         CloseVisualWorkspace();
         ReturnFromWorkspace();

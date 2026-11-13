@@ -38,7 +38,7 @@ def verify_case(record,root,development=False,expected_paths=None):
  if result is not None:
   if result.get('case')!=record.get('case') or result.get('passed') is not True or result.get('error') is not None or not result.get('checks') or any(x.get('passed') is not True for x in result['checks']):errors.append('Native assertions incomplete or failed')
   frames=result.get('frames',[])
-  expected_sizes={(800,600),(1920,1080)} if record.get('case') in {'PlaytestFeedback','FleetPanel','MultiFleet'} else {(1920,1080)} if record.get('case')=='PopulationForecast' else SIZES
+  expected_sizes={(800,600),(1920,1080)} if record.get('case') in {'FleetRoster','SelectionConsole','PlaytestFeedback','FleetPanel','MultiFleet'} else {(1920,1080)} if record.get('case') in {'PopulationForecast','MapKeys'} else SIZES
   if {(x.get('width'),x.get('height')) for x in frames}!=expected_sizes:errors.append('Required selected-case frames incomplete')
   labels=[]
   for frame in frames:

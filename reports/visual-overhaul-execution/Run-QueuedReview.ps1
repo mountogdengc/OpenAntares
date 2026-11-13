@@ -1,7 +1,7 @@
 # Queue-owned foreground job. Invoke only through runner.py exec; no nested queue acquisition.
 param(
  [Parameter(Mandatory=$true)][ValidatePattern('^[A-Za-z0-9_-]+$')][string]$RunName,
- [ValidateSet('MultiFleet','FleetPanel','PlaytestFeedback','PopulationForecast','ReviewCorrections','PlayerFlow','Baseline','Theme','CommandBar','Status','Console','Fleets','Workspaces','Ledger','Map','Copy','Contrast','All')][string]$Case='All',
+ [ValidateSet('FleetRoster','SelectionConsole','MapKeys','MultiFleet','FleetPanel','PlaytestFeedback','PopulationForecast','ReviewCorrections','PlayerFlow','Baseline','Theme','CommandBar','Status','Console','Fleets','Workspaces','Ledger','Map','Copy','Contrast','All')][string]$Case='All',
  [switch]$Development
 )
 $ErrorActionPreference='Stop'
@@ -25,6 +25,14 @@ function Artifact([string]$file) {
 try {
  & ./tools/Check-NoStylingOverrides.ps1 -SourceRoot $root -ReportPath (Join-Path $control 'style-guard.json') *> (Join-Path $control 'style-guard.log')
  if($LASTEXITCODE -ne 0){throw 'Styling boundary failed before native build'}
+ if($Case -in @('FleetRoster','SelectionConsole')) {
+  # Compile directly affected shared/M13 adapters only; execute no legacy suite/campaign.
+  foreach($adapter in @('Validation','PlayabilityValidation')) {
+   $adapterTargets=Join-Path $root ('tests/OpenAntares.Game.Validation/'+$adapter+'.targets')
+   dotnet build OpenAntares.csproj --no-restore --nologo --disable-build-servers -t:Rebuild "-p:CustomAfterMicrosoftCommonTargets=$adapterTargets" *> (Join-Path $control ($adapter+'-compile.log'))
+   if($LASTEXITCODE -ne 0){throw "Changed $adapter adapters failed compilation"}
+  }
+ }
  dotnet build OpenAntares.csproj --no-restore --nologo --disable-build-servers -t:Rebuild "-p:CustomAfterMicrosoftCommonTargets=$targets" *> (Join-Path $control 'opt-in-build-queue.log')
  if($LASTEXITCODE -ne 0){throw 'Queued M14 opt-in build failed'}
  $compiled=(Get-FileHash -LiteralPath $assembly -Algorithm SHA256).Hash.ToLowerInvariant()

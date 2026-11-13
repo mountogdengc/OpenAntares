@@ -9,6 +9,8 @@ namespace OpenAntares.Game.Components;
 public partial class TurnGuidancePanel : VBoxContainer
 {
     private bool _considerExpanded;
+    /// <summary>When false, optional items are listed directly instead of behind a toggle.</summary>
+    public bool CollapseOptional { get; set; } = true;
     public event Action<string>? DestinationRequested;
     public void ShowGuidance(EmpireView view)
     {
@@ -20,6 +22,7 @@ public partial class TurnGuidancePanel : VBoxContainer
         foreach(var item in items.Where(i=>i.Severity==GuidanceSeverity.Required))AddItem(this,item);
         var optional=items.Where(i=>i.Severity==GuidanceSeverity.Consider).ToArray();
         if(optional.Length==0)return;
+        if(!CollapseOptional){AddChild(new Label{Text="To consider (optional)",ThemeTypeVariation="ConsoleHeading"});foreach(var item in optional)AddItem(this,item);return;}
         var toggle=new Button{Name="ToggleOptionalGuidance",Text=OptionalLabel()};AddChild(toggle);
         var body=new VBoxContainer{Name="OptionalGuidanceBody",Visible=_considerExpanded};AddChild(body);
         foreach(var item in optional)AddItem(body,item);

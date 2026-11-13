@@ -369,7 +369,7 @@ public partial class CrisisGraphicalValidation:Node
                 }
                 else if(founder.Transit is null&&founder.PendingMove is null&&founder.StationaryStarId==destination)
                 {
-                    var planet=view.Stars.Single(s=>s.Chart.Id==destination).Planets!.Value.Single(p=>p.Id==targetPlanet);One<GalaxyMap>(screen).Select(destination!.Value);await Frames();Press(Descendants<Button>(One<StarPanel>(screen)).Single(b=>b.Text=="Select planet "+planet.Orbit));await Frames();
+                    var planet=view.Stars.Single(s=>s.Chart.Id==destination).Planets!.Value.Single(p=>p.Id==targetPlanet);One<GalaxyMap>(screen).Select(destination!.Value);await Frames();Press(UiNavigation.OrbitPlanet(screen,planet.Orbit));await Frames();
                     var found=Descendants<Button>(One<VesselPanel>(screen)).Single(b=>b.Text=="Found colony");Check(!found.Disabled,"Generated infected founder has legal surveyed destination");Press(found);await Frames();
                 }
             }

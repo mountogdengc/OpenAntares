@@ -36,6 +36,13 @@ theme/custom="res://game/theme/openantares_theme.tres"
 
 3d/physics_engine="Jolt Physics"
 
+[shader_globals]
+
+planet_clock_turn={
+"type": "float",
+"value": 0.0
+}
+
 [rendering]
 
 gl_compatibility/driver.windows="opengl3_angle"

@@ -35,7 +35,7 @@ public partial class ShipDesignGraphicalValidation
     private Task Click(Node root,string name)=>Click(Named<Button>(root,name));
     private async Task Pick(OptionButton picker,int i){picker=UiNavigation.Reveal(picker);picker.Select(i);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)i);await Frames(this);}
     private Task PickId(OptionButton picker,int id)=>Pick(picker,Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id));
-    private async Task Select(FleetList list,int index,bool clear=true){list.Select(index,clear);list.NotifySelectionChanged();await Frames(this);}
+    private async Task Select(FleetRowList list,int index,bool clear=true){list.Select(index,clear);list.NotifySelectionChanged();await Frames(this);}
     private async Task Select(ItemList list,int index){list.DeselectAll();list.Select(index);if(list.SelectMode==ItemList.SelectModeEnum.Multi)list.EmitSignal(ItemList.SignalName.MultiSelected,(long)index,true);else list.EmitSignal(ItemList.SignalName.ItemSelected,(long)index);await Frames(this);}
     private async Task Tab(Node root,int index){Named<TabContainer>(root,"FleetTabs").CurrentTab=index;await Frames(this);}
     private async Task Close(AcceptDialog dialog){if(dialog.Visible)await Click(dialog.GetOkButton());}
@@ -50,7 +50,7 @@ public partial class ShipDesignGraphicalValidation
     }
     private async Task<AcceptDialog> Combat(GameScreen screen)
     {
-        await Click(screen,"OpenFleetCommand");var fleet=Descendants<FleetCommandDialog>(screen).Single();await Tab(fleet,1);await Select(Named<ItemList>(fleet,"FleetGroupList"),0);await Click(fleet,"FleetCombatOrders");return Named<AcceptDialog>(screen,"CombatOrdersDialog");
+        await Click(screen,"OpenFleetCommand");var fleet=Descendants<FleetCommandDialog>(screen).Single();await Tab(fleet,1);await Select(Named<FleetRowList>(fleet,"FleetGroupList"),0);await Click(fleet,"FleetCombatOrders");return Named<AcceptDialog>(screen,"CombatOrdersDialog");
     }
     // Fleet child dialogs return to their invoking Fleet menu. Close it through
     // its visible button before dispatching a background Main action.
@@ -105,7 +105,7 @@ public partial class ShipDesignGraphicalValidation
         }
         else
         {
-            await Tab(fleet,1);await Select(Named<ItemList>(fleet,"FleetGroupList"),0);
+            await Tab(fleet,1);await Select(Named<FleetRowList>(fleet,"FleetGroupList"),0);
             if(action is FleetAction.MoveSelection move)await PickId(Named<OptionButton>(fleet,"FleetGroupDestination"),move.Destination!.Value.Value);
         }
         configure?.Invoke(fleet);var session=Live(screen);var before=session.State;var preview=FleetQueries.PreviewAction(session.Content,session.View(before.Empires[0].Id),action);Check(preview.Allowed,"Generated fleet action preview is legal");var command=new FleetCommand(before.Empires[0].Id,before.Turn,action){Fingerprint=preview.Fingerprint};await Click(fleet,button);await Click(Named<ConfirmationDialog>(fleet,"FleetActionConfirmation").GetOkButton());RecordUi(screen,before,command,"Fleet "+action.GetType().Name);await Close(fleet);

@@ -30,8 +30,8 @@ public partial class VisualOverhaulValidation
             Press(Route(route));await Frames();Expect(All<GalaxyMap>(screen).Single().IsVisibleInTree(),"Repeated command key closes "+route+" to Galaxy");
         }
         Press(Route("OpenGalaxyWorkspace"));await Frames();
-        Press(Route("OpenAttentionConsole"));await Frames();Expect(Named<TabContainer>("ContextConsole").CurrentTab==1,"Decisions key opens the Empire context");
-        Press(Route("OpenAttentionConsole"));await Frames();Expect(Named<TabContainer>("ContextConsole").CurrentTab==0,"Repeated Decisions key closes its context");
+        Press(Route("OpenAttentionConsole"));await Frames();Expect(Named<Control>("DecisionsWorkspace").IsVisibleInTree(),"Decisions key opens its own workspace");
+        Press(Route("OpenAttentionConsole"));await Frames();Expect(!Named<Control>("DecisionsWorkspace").Visible&&All<GalaxyMap>(screen).Single().IsVisibleInTree(),"Repeated Decisions key returns to the map");
         var map=All<GalaxyMap>(screen).Single();var view=session.View(session.State.Empires.First(e=>e.Controller==OpenAntares.Simulation.State.ControllerKind.Human).Id);
         var home=view.Colonies[0].StarId;var destination=view.Stars.First(s=>s.Chart.Id!=home&&!view.Scouting!.Habitats.Any(h=>h.Star==s.Chart.Id)).Chart.Id;
         Vector2 Position(StarId id)

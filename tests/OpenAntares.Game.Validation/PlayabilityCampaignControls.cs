@@ -46,23 +46,32 @@ internal sealed partial class PlayabilityCampaignControls
     });
     public Task SelectColony(ColonyId colony)=>_observer.Navigate("Select exact owned colony",async()=>
     {
-        await Click(Screen,"OpenGalaxyWorkspace");await Click(Screen,"OpenColonyOverview");
+        await Click(Screen,"OpenGalaxyWorkspace");await Click(Screen,"OpenAttentionConsole");await Click(Screen,"OpenColonyOverview");
         var list=All<ColonyList>(Screen).Single();await PickId(All<OptionButton>(list).Single(),colony.Value);
     });
     public Task SelectVessel(VesselId vessel)=>_observer.Navigate("Select exact owned vessel",async()=>
     {
-        await Click(Screen,"OpenGalaxyWorkspace");await Click(Screen,"OpenVesselWorkspace");await PickId(Named<OptionButton>(Screen,"VesselPicker"),vessel.Value);
+        await Click(Screen,"OpenFleetCommand");
+        var ships=Named<FleetList>(Screen,"FleetShipList");ships.DeselectAll();
+        int index=Enumerable.Range(0,ships.ItemCount).Single(i=>ships.GetItemMetadata(i).AsInt32()==vessel.Value);ships.Select(index);
+        await Click(Screen,"FleetInspectShip");await PickId(Named<OptionButton>(Screen,"VesselPicker"),vessel.Value);
     });
     private Task SelectStar(StarId star)=>_observer.Navigate("Select known system",async()=>
     {
-        await Click(Screen,"OpenGalaxyWorkspace");await PickId(Named<OptionButton>(Screen,"KnownSystemPicker"),star.Value);
+        await Click(Screen,"OpenGalaxyWorkspace");
+        var map=All<GalaxyMap>(Screen).Single();
+        map.Deselect();await _observer.Frames();
+        map.Select(star);await _observer.Frames();
     });
-    private Task SelectPlanet(PlanetId planet)=>_observer.Navigate("Inspect exact known founding world",async()=>
+    private Task SelectPlanet(PlanetId planet,VesselId vessel)=>_observer.Navigate("Inspect exact known founding world",async()=>
     {
         var star=View.Stars.Single(s=>s.Planets?.Any(p=>p.Id==planet)==true);var world=star.Planets!.Value.Single(p=>p.Id==planet);
         await SelectStar(star.Chart.Id);await Click(Screen,"InspectSelectedSystem");
-        await Click(All<Button>(All<StarPanel>(Screen).Single()).Single(b=>b.Text=="Select planet "+world.Orbit));
-        await Click(Screen,"OpenGalaxyWorkspace");await Click(Screen,"OpenVesselWorkspace");
+        await Click(All<Button>(All<StarPanel>(Screen).Single()).Single(b=>b.Name=="OrbitPlanet_"+world.Orbit));
+        await Click(Screen,"OpenGalaxyWorkspace");
+        var map=All<GalaxyMap>(Screen).Single();
+        map._GuiInput(new InputEventMouseButton{Pressed=true,ButtonIndex=MouseButton.Left,Position=map.OwnedMarkerBounds[star.Chart.Id].GetCenter()});await _observer.Frames();
+        await Click(Screen,"OpenVesselWorkspace");await PickId(Named<OptionButton>(Screen,"VesselPicker"),vessel.Value);
     });
     public async Task Workforce(ColonyId colony,Workforce target)
     {
@@ -94,7 +103,7 @@ internal sealed partial class PlayabilityCampaignControls
     }
     public async Task Found(VesselId vessel,PlanetId planet)
     {
-        await CloseWindows();await SelectVessel(vessel);await SelectPlanet(planet);
+        await CloseWindows();await SelectVessel(vessel);await SelectPlanet(planet,vessel);
         await _observer.ExecuteUi("Found exact selected world",()=>Click(All<Button>(All<VesselPanel>(Screen).Single()).Single(b=>b.Text=="Found colony")));
     }
     public async Task Ready()
@@ -109,7 +118,7 @@ internal sealed partial class PlayabilityCampaignControls
     }
     private async Task Groups(FleetCommandDialog dialog,ImmutableArray<FleetId> ids)
     {
-        Named<TabContainer>(dialog,"FleetTabs").CurrentTab=1;await _observer.Frames();var list=Named<ItemList>(dialog,"FleetGroupList");list.DeselectAll();var rows=View.Fleets!.Fleets.OrderBy(f=>f.Id).ToArray();
+        Named<TabContainer>(dialog,"FleetTabs").CurrentTab=1;await _observer.Frames();var list=Named<FleetRowList>(dialog,"FleetGroupList");list.DeselectAll();var rows=View.Fleets!.Fleets.OrderBy(f=>f.Id).ToArray();
         foreach(var id in ids){int index=Array.FindIndex(rows,f=>f.Id==id);if(index<0)throw new InvalidOperationException("Missing owned fleet row.");list.Select(index,false);}
         if(list.ItemCount>0)list.EmitSignal(ItemList.SignalName.MultiSelected,0L,true);await _observer.Frames();
     }
@@ -130,7 +139,7 @@ internal sealed partial class PlayabilityCampaignControls
                 case FleetAction.SetOrder order:await Groups(dialog,order.Fleets);await Pick(Named<OptionButton>(dialog,"FleetStandingOrder"),(int)order.Order.Kind);if(order.Order.Destination is {} target)await PickId(Named<OptionButton>(dialog,"FleetGroupDestination"),target.Value);break;
                 case FleetAction.Split split:
                     await Groups(dialog,ImmutableArray.Create(split.Source));Named<LineEdit>(dialog,"FleetGroupName").Text=split.Name;
-                    var members=Named<ItemList>(dialog,"FleetMemberList");members.DeselectAll();var rows=View.Fleets!.Fleets.Single(f=>f.Id==split.Source).Members.OrderBy(id=>id).ToArray();
+                    var members=Named<FleetRowList>(dialog,"FleetMemberList");members.DeselectAll();var rows=View.Fleets!.Fleets.Single(f=>f.Id==split.Source).Members.OrderBy(id=>id).ToArray();
                     foreach(var id in split.Members){int index=Array.IndexOf(rows,id);if(index<0)throw new InvalidOperationException("Missing owned member row.");members.Select(index,false);}break;
                 default:throw new InvalidOperationException("Unsupported ordinary fleet UI action: "+action.GetType().Name);
             }

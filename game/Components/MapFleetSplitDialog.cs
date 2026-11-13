@@ -29,7 +29,7 @@ public partial class MapFleetSplitDialog : ConfirmationDialog
         _content=content;_view=view;_fleet=fleet;_members.Clear();_name.Text="Split fleet";
         foreach(var id in view.Fleets!.Fleets.Single(f=>f.Id==fleet).Members.OrderBy(id=>id))
         {
-            var ship=view.Vessels.Single(v=>v.Id==id);_members.AddItem(content.Vessels[ship.RoleId].Name+" #"+id.Value);_members.SetItemMetadata(_members.ItemCount-1,id.Value);
+            var ship=view.Vessels.Single(v=>v.Id==id);_members.AddItem(OpenAntares.Game.Presentation.FleetNaming.Ship(content,view,ship));_members.SetItemMetadata(_members.ItemCount-1,id.Value);
         }
         Preview();PopupCenteredClamped(new Vector2I(_name.GetThemeConstant("fleet_split_width","ConsoleMetrics"),_name.GetThemeConstant("fleet_split_height","ConsoleMetrics")));
     }

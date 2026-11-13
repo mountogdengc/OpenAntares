@@ -37,7 +37,10 @@ public partial class VisualOverhaulValidation : Node
             Check(DisplayServer.GetName()!="headless","Actual graphical display required");
             Input.ParseInputEvent(new InputEventMouseMotion{Position=new Vector2(-32,-32)});
             _main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(_main);await Frames();
-            if(_case=="MultiFleet")await MultiFleetSelection();
+            if(_case=="FleetRoster"){await UnifiedFleetRoster();RemoveChild(_main!);_main!.QueueFree();_main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(_main);await Frames();await SelectionConsole();}
+            else if(_case=="SelectionConsole")await SelectionConsole();
+            else if(_case=="MapKeys")await MapKeyboardFeedback();
+            else if(_case=="MultiFleet")await MultiFleetSelection();
             else if(_case=="FleetPanel")await FleetPanelFeedback();
             else if(_case=="PlaytestFeedback")await PlaytestFeedback();
             else if(_case=="Baseline")await Baseline();
@@ -82,9 +85,12 @@ public partial class VisualOverhaulValidation : Node
         var screen=await Start();var session=Live(screen);string before=Snapshot(session);
         foreach(var size in Sizes)await Capture("Introduction",size);
         var dismiss=All<Button>(_main!).SingleOrDefault(b=>b.Name=="DismissFirstTurnHint");if(dismiss is not null)Press(dismiss);await Frames();
-        foreach(var route in new[]{("Galaxy","OpenGalaxyWorkspace"),("System","InspectSelectedSystem"),("Colony","OpenColonyWorkspace"),("Colonies","OpenColonyOverview"),("Vessels","OpenVesselWorkspace"),("Research","OpenResearch"),("Fleets","OpenFleetCommand"),("Scouts","OpenScoutOverview"),("Designs","OpenShipDesigns"),("Diplomacy","OpenDiplomacy"),("Contacts","OpenContactsWorkspace"),("ColonyPlans","OpenColonyTools"),("Conflict","OpenConflictOrders")})
+        foreach(var route in new[]{("Galaxy","OpenGalaxyWorkspace"),("System","InspectSelectedSystem"),("Colony","OpenColonyWorkspace"),("Colonies","OpenColonyOverview"),("Vessels","OpenVesselWorkspace"),("Research","OpenResearch"),("Fleets","OpenFleetCommand"),("Scouts","OpenScoutOverview"),("Designs","OpenShipDesigns"),("Diplomacy","OpenDiplomacy"),("Contacts","OpenContactsWorkspace"),("ColonyPlans","OpenColonyTools"),("Conflict","DecisionsConflictOrders")})
         {
-            await CloseWindows();Press(Named<Button>("OpenGalaxyWorkspace"));await Frames();if(route.Item1=="ColonyPlans"){Press(Named<Button>("OpenColonyWorkspace"));await Frames();}var choices=All<Button>(_main!).Where(b=>b.Name==route.Item2&&b.IsVisibleInTree()&&b.GetWindow().Visible).ToArray();Check(choices.Length==1,"Exactly one reachable production route: "+route.Item2);var button=choices.SingleOrDefault();
+            await CloseWindows();Press(Named<Button>("OpenGalaxyWorkspace"));await Frames();if(route.Item1=="ColonyPlans"){Press(Named<Button>("OpenColonyWorkspace"));await Frames();}
+            if(route.Item1 is "Colonies" or "Conflict"){Press(Route("OpenAttentionConsole"));await Frames();}
+            if(route.Item1=="Vessels"){var map=All<GalaxyMap>(screen).Single();var home=session.View(session.State.Empires.First(e=>e.Controller==OpenAntares.Simulation.State.ControllerKind.Human).Id).Colonies[0].StarId;map._GuiInput(new InputEventMouseButton{Pressed=true,ButtonIndex=MouseButton.Left,Position=map.OwnedMarkerBounds[home].GetCenter()});await Frames();}
+            var choices=All<Button>(_main!).Where(b=>b.Name==route.Item2&&b.IsVisibleInTree()&&b.GetWindow().Visible).ToArray();Check(choices.Length==1,"Exactly one reachable production route: "+route.Item2);var button=choices.SingleOrDefault();
             Check(button is not null,"Baseline route remains discoverable: "+route.Item2);
             button=CombinedUiNavigation.Reveal(button!);Press(button);await Frames();foreach(var size in Sizes)await Capture(route.Item1,size);Check(before==Snapshot(session),route.Item1+": inspection preserves campaign and PRNG");
         }

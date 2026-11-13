@@ -12,10 +12,8 @@ namespace OpenAntares.Game.Screens;
 public partial class GameScreen
 {
     private readonly EmpireStatusStrip _statusStrip = new();
-    private readonly TabContainer _contextTabs = new() { Name = "ContextConsole", SizeFlagsHorizontal = SizeFlags.ExpandFill };
     private readonly ColonyLedger _ledger = new() { Name = "ColonyLedger" };
     private readonly VBoxContainer _systemCard = new() { Name = "SystemCard" };
-    private readonly VBoxContainer _outliner = new() { Name = "EmpireOutliner" };
     private readonly HFlowContainer _workspaceTabs = new() { Name = "WorkspaceTabs" };
     private readonly WorkspaceFrame _windowFrame = new();
     private readonly Dictionary<Window, string> _visualWindows = new();
@@ -23,7 +21,7 @@ public partial class GameScreen
     private bool _changingVisualWorkspace;
     private PlanetStyleCatalog? _contextPlanetStyles;
     private ShaderMaterial? _screenMaterial;
-    private bool _screenEffects = true, _reducedEffects;
+    private bool _screenEffects = true, _reducedEffects, _planetAnimation = true;
     public string PresentationPreferencesPath { get; set; } = "user://presentation.cfg";
 
     private void WireVisualWorkspaces()
@@ -72,6 +70,7 @@ public partial class GameScreen
             _visualWindow = window;
             RecordWorkspaceChange(key);
             _workspace = key;
+            UpdateGlobePresentation();
             _map.Hide(); _mainArea.GetNode<Control>("MapOverlays").Hide(); _workspaceScroll.Hide(); _consolePanel.Hide();
             _workspaceHeader.Show(); _workspaceTitle.Text = key;
             _windowFrame.Show();
@@ -105,7 +104,7 @@ public partial class GameScreen
         foreach (var button in PresentationNodes<Button>(this))
         {
             int target = button is WorkerFigure ? GetThemeConstant(compact ? "compact_worker_size" : "worker_size", "ConsoleMetrics") : size;
-            button.CustomMinimumSize = new Vector2(button is WorkerFigure ? target : Math.Max(button.CustomMinimumSize.X, target), target);
+            button.CustomMinimumSize = new Vector2(button is WorkerFigure ? target : Math.Max(button.CustomMinimumSize.X, target), button.ThemeTypeVariation == "SystemPlanetKey" ? Math.Max(button.CustomMinimumSize.Y, target) : target);
         }
     }
     private void UpdateVisualTabs(string workspace)
@@ -125,32 +124,6 @@ public partial class GameScreen
     }
     private void RefreshVisualConsole(EmpireView view)
     {
-        foreach (Node child in _systemCard.GetChildren()) { _systemCard.RemoveChild(child); child.QueueFree(); }
-        foreach (Node child in _outliner.GetChildren()) { _outliner.RemoveChild(child); child.QueueFree(); }
-        foreach (var colony in view.Colonies.OrderBy(c => c.Id))
-        {
-            var key = new Button { Text = view.Research.ColonyNames.GetValueOrDefault(colony.Id.ToString(), "Colony " + colony.Id.Value), ThemeTypeVariation = "CompactCommandKey", ClipText = true };
-            key.Pressed += () => SelectColony(colony.Id); _outliner.AddChild(key);
-        }
-        if (_map.Selected is { } selected && view.Stars.FirstOrDefault(s => s.Chart.Id == selected) is { } star && star.Planets is { } planets)
-            foreach (var planet in planets.OrderBy(p => p.Orbit))
-            {
-                var card = new PanelContainer { ThemeTypeVariation = "ScreenInset" }; _systemCard.AddChild(card);
-                var layout = new HBoxContainer(); card.AddChild(layout);
-                if (planet.Appearance is { } appearance && _contextPlanetStyles is { } styles)
-                {
-                    var portrait = new TextureRect { Texture = _portraitCache.Get(appearance, styles.Resolve(planet.PlanetTypeId, planet.EnvironmentId, appearance.Variant), new Vector2I(96,96)), ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize, StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered };
-                    int portraitSize = GetThemeConstant("card_portrait_size", "ConsoleMetrics");
-                    portrait.CustomMinimumSize = new Vector2(portraitSize, portraitSize); layout.AddChild(portrait);
-                }
-                var rows = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill }; layout.AddChild(rows);
-                string owner = planet.OwnerId is null ? "Unclaimed" : planet.OwnerId == view.Viewer ? "Your colony" : view.Contacts.FirstOrDefault(c => c.OtherEmpireId == planet.OwnerId)?.CultureName ?? "Observed colony";
-                rows.AddChild(new Label { Text = $"{planet.Orbit:D2}  {_session.Content.PlanetTypes[planet.PlanetTypeId].Name}", AutowrapMode = TextServer.AutowrapMode.WordSmart, ThemeTypeVariation = "ConsoleHeading" });
-                rows.AddChild(new Label { Text = owner + "  ·  " + (planet.Colonizable ? "Habitable" : "Hostile habitat"), ThemeTypeVariation = "SubtleLabel", AutowrapMode = TextServer.AutowrapMode.WordSmart });
-                var action = new Button { Text = planet.OwnerId == view.Viewer ? "Manage colony" : "Inspect world", ThemeTypeVariation = "CompactCommandKey" };
-                action.Pressed += () => { _selectedPlanet = planet.Id; if (view.Colonies.FirstOrDefault(c => c.PlanetId == planet.Id) is { } owned) SelectColony(owned.Id); else ShowWorkspace("System"); };
-                rows.AddChild(action);
-            }
         var pending = TurnGuidance.Build(view);
         int required = pending.Count(i => i.Severity == GuidanceSeverity.Required);
         _alertsEntry.Text = pending.Count > 0 ? "Decisions " + pending.Count : "Alerts";
@@ -170,6 +143,7 @@ public partial class GameScreen
         {
             _screenEffects = settings.GetValue("display", "screen_effects", true).AsBool();
             _reducedEffects = settings.GetValue("display", "reduced_effects", false).AsBool();
+            _planetAnimation = settings.GetValue("display", "planet_animation", true).AsBool();
         }
         _screenMaterial = new ShaderMaterial { Shader = GD.Load<Shader>("res://game/theme/console_screen.gdshader") };
         _screenMaterial.SetShaderParameter("tint", GetThemeColor("ink", "ConsolePalette"));
@@ -183,13 +157,19 @@ public partial class GameScreen
         menu.GetPopup().SetItemChecked(menu.GetPopup().GetItemIndex(3), _screenEffects);
         menu.GetPopup().SetItemChecked(menu.GetPopup().GetItemIndex(4), _reducedEffects);
         _screenMaterial?.SetShaderParameter("enabled", _screenEffects && !_reducedEffects);
+        menu.GetPopup().SetItemChecked(menu.GetPopup().GetItemIndex(6), _planetAnimation);
+        _planetClock?.SetStatic(_reducedEffects || !_planetAnimation);
+        UpdateGlobePresentation();
     }
     private void ToggleEffects(MenuButton menu, long id)
     {
         if (id == 3) _screenEffects = !_screenEffects;
         if (id == 4) _reducedEffects = !_reducedEffects;
+        if (id == 6) _planetAnimation = !_planetAnimation;
         ApplyEffects(menu);
-        var settings = new ConfigFile(); settings.SetValue("display", "screen_effects", _screenEffects); settings.SetValue("display", "reduced_effects", _reducedEffects);
+        var settings = new ConfigFile(); settings.Load(PresentationPreferencesPath);
+        settings.SetValue("display", "screen_effects", _screenEffects); settings.SetValue("display", "reduced_effects", _reducedEffects);
+        settings.SetValue("display", "planet_animation", _planetAnimation);
         if (settings.Save(PresentationPreferencesPath) != Error.Ok) ShowMessage("Display preference could not be saved. It remains active for this session.", true);
     }
 }

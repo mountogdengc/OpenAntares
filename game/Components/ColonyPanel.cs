@@ -17,6 +17,30 @@ namespace OpenAntares.Game.Components;
 /// </summary>
 public partial class ColonyPanel : VBoxContainer
 {
+    private readonly CenterContainer _globeHost = new() { Name = "ColonyGlobeHost", Visible = false, MouseFilter = MouseFilterEnum.Ignore };
+    private readonly VBoxContainer _body = new() { Name = "ColonyBody", SizeFlagsHorizontal = SizeFlags.ExpandFill };
+    private OpenAntares.Game.Presentation.PlanetVisualBuilder? _globeBuilder;
+    private OpenAntares.Game.Presentation.PlanetVisual? _globeVisual;
+    private PlanetGlobe3D? _globe;
+    private bool _globePageActive, _globeStatic;
+    public ColonyPanel() { AddChild(_globeHost); AddChild(_body); }
+    public void ConfigureGlobes(OpenAntares.Game.Presentation.PlanetVisualCatalog catalog) => _globeBuilder = new(catalog);
+    public void SetGlobePresentation(bool pageActive, bool isStatic) {
+        _globePageActive = pageActive; _globeStatic = isStatic; UpdateGlobe();
+    }
+    private void UpdateGlobe() {
+        bool active = _globePageActive && IsVisibleInTree() && _globeVisual is not null;
+        if (active && _globe is null) {
+            int side = GetThemeConstant("colony_size", "PlanetGlobeMetrics");
+            _globe = new PlanetGlobe3D { Name = "ColonyGlobe", CustomMinimumSize = new(side,side) };
+            _globeHost.AddChild(_globe);
+        }
+        _globeHost.Visible = active;
+        if (_globe is null) return;
+        _globe.Visible = active;
+        if (_globeVisual is not null) _globe.SetVisual(_globeVisual);
+        _globe.SetStatic(_globeStatic); _globe.SetActive(active);
+    }
     private OptionButton? _projectPicker;
     private GridContainer? _columns;
     private OpenAntares.Game.Presentation.PlanetStyleCatalog? _styles;
@@ -28,7 +52,7 @@ public partial class ColonyPanel : VBoxContainer
     public event Action<VesselId>? RefitRequested;
     public event Action? ShipDesignsRequested;
 
-    public override void _Ready() => Resized += UpdateColumns;
+    public override void _Ready() { Resized += UpdateColumns; VisibilityChanged += UpdateGlobe; }
 
     private void UpdateColumns()
     {
@@ -42,20 +66,24 @@ public partial class ColonyPanel : VBoxContainer
         string name = (view is not null && view.Research.ColonyNames.TryGetValue(colony.Id.ToString(), out var colonyName) ? colonyName : null) ?? colony.Id.ToString();
         var summary = Wrapped($"{name} — {colony.Population} {colony.PopulationUnitLabel} / {economy.Growth.Capacity} capacity\nSupport {Format.Points(economy.SupportProduced.Total)} / {Format.Points(economy.SupportRequired.Total)} required · Production {Format.Points(economy.NetProduction.Total)} · Research {Format.Points(economy.NetResearch.Total)} per turn\n{(economy.Production.TargetId is null ? "No project: production is saved." : BreakdownText.Progress(economy.Production) + "; " + BreakdownText.Estimate(economy.Production.Estimate))}", "SubtleLabel");
         summary.Name = "ColonyDecisionSummary";
-        AddChild(summary);
-        if(view?.Conflict is not null){var pressure=new ConflictBlockadePanel{Name="ColonyBlockadePressure"};AddChild(pressure);pressure.SetView(view,colony.StarId);}
+        _body.AddChild(summary);
+        if(view?.Conflict is not null){var pressure=new ConflictBlockadePanel{Name="ColonyBlockadePressure"};_body.AddChild(pressure);pressure.SetView(view,colony.StarId);}
 
-        AddChild(new HSeparator());
-        AddChild(new Label { Text = "Colony", ThemeTypeVariation = "HeaderLabel" });
+        _body.AddChild(new HSeparator());
+        _body.AddChild(new Label { Text = "Colony", ThemeTypeVariation = "HeaderLabel" });
 
         _columns = new GridContainer { Name = "ColonyWorkColumns", Columns = Size.X >= 900 ? 2 : 1 };
-        AddChild(_columns);
+        _body.AddChild(_columns);
         var overview = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         var construction = new VBoxContainer { SizeFlagsHorizontal = SizeFlags.ExpandFill };
         _columns.AddChild(overview);
         _columns.AddChild(construction);
 
-        if (view is not null && Rules.HasDevelopment(view.RulesVersion)) { var known=view.Stars.FirstOrDefault(s=>s.Chart.Id==colony.StarId)?.Planets?.FirstOrDefault(p=>p.Id==colony.PlanetId);var portrait=new PlanetPortrait();overview.AddChild(portrait);if(_styles is not null&&_cache is not null)portrait.Configure(_styles,_cache);portrait.ShowPlanet(known); }
+        if (_globeBuilder is not null && view?.Stars.FirstOrDefault(s=>s.Chart.Id==colony.StarId) is {} observed) {
+            var known = observed.Planets?.FirstOrDefault(p=>p.Id==colony.PlanetId);
+            _globeVisual = _globeBuilder.Build(observed, known, known is null ? null : colony);
+        }
+        UpdateGlobe();
 
         // Population and growth.
         string unit = colony.PopulationUnitLabel;
@@ -157,7 +185,7 @@ public partial class ColonyPanel : VBoxContainer
         {
             construction.AddChild(Wrapped("Built: " + string.Join(", ", BreakdownText.Names(colony.CompletedBuildingIds, content)), "SubtleLabel"));
         }
-        if (view is not null) { var orders = new ColonyOrdersPanel(); AddChild(orders); orders.CommandIssued += c => CommandIssued?.Invoke(c); orders.RefitRequested+=v=>RefitRequested?.Invoke(v); orders.ShowColony(content, view, colony); }
+        if (view is not null) { var orders = new ColonyOrdersPanel(); _body.AddChild(orders); orders.CommandIssued += c => CommandIssued?.Invoke(c); orders.RefitRequested+=v=>RefitRequested?.Invoke(v); orders.ShowColony(content, view, colony); }
     }
 
     /// <summary>Opens the construction list, e.g. after a building completes.</summary>
@@ -183,9 +211,11 @@ public partial class ColonyPanel : VBoxContainer
     {
         _projectPicker = null;
         _columns = null;
-        foreach (Node child in GetChildren())
+        _globeVisual = null;
+        UpdateGlobe();
+        foreach (Node child in _body.GetChildren())
         {
-            RemoveChild(child);
+            _body.RemoveChild(child);
             child.QueueFree();
         }
     }

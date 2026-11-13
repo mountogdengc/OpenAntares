@@ -37,3 +37,9 @@ Please tell me:
 Human acceptance remains pending until you have played. Automated rendering and interaction checks do not answer whether this interface works for you.
 
 After you report back, I will use your findings to decide whether the interface is ready or needs a further UI change. Your playthrough is the remaining acceptance step; this does not automatically merge or release the work.
+
+## Owner playtest observations — 2026-11-09
+
+Owner confirmed fleet selection/split/merge, colony production/worker readability, worker drag with immediate projected-output update, construction choice, research choice and repeated-key closing, End Turn report readability and close placement, save/Main menu/Resume/load restoration, three further understandable turns, and wheel zoom with easy system/flag hits. These are the owner’s reports for the journeys played, not a claim of complete campaign, combat/crisis, accessibility or platform acceptance.
+
+Follow-up: fleet flags must not highlight/select their system. Numpad8/2/4/6 pans the galaxy map; numpad+ and− zoom around map center. Number-row keys are unchanged; typing, open popups and other workspaces suppress these controls. Restart the current Godot run with F5 after saving the campaign. Check the flag independently, then the numpad controls; report which action differs from the expected behavior.

@@ -68,10 +68,10 @@ public partial class VisualOverhaulValidation
         var clone=own with{Id=second,Crisis=own.Crisis is {} health?health with{Id=second}:null};
         var projection=view with{Vessels=view.Vessels.Add(clone),Fleets=view.Fleets with{Ships=view.Fleets.Ships.Add(ship with{Id=second})},Combat=view.Combat with{Ships=view.Combat.Ships.Add(combat with{Id=second})}};
         fleet.ShowEmpire(session.Content,projection);await Frames();var list=All<FleetList>(fleet).Single();
-        Review(list.ItemCount==2&&list.GetRoot().GetChildCount()==1,"R3: equivalent modern ships form one counted group with two exact leaves");
+        Review(list.ItemCount==2&&list.GroupCount==1,"R3: equivalent modern ships form one counted group with two exact leaves");
         list.Select(0);list.Select(1,false);list.NotifySelectionChanged();Review(list.GetSelectedItems().Length==2&&list.GetItemMetadata(0).AsInt32()!=list.GetItemMetadata(1).AsInt32(),"R3: stack leaves retain distinct vessel IDs");
         var reserved=projection with{Fleets=projection.Fleets! with{Ships=projection.Fleets.Ships.Select(s=>s.Id==second?s with{Request=new RequestId(20000)}:s).ToImmutableArray()}};
-        fleet.ShowEmpire(session.Content,reserved);await Frames();Review(list.GetRoot().GetChildCount()==2,"R3: a different request commitment keeps ships separate");
+        fleet.ShowEmpire(session.Content,reserved);await Frames();Review(list.GroupCount==2,"R3: a different request commitment keeps ships separate");
         fleet.ShowEmpire(session.Content,view);await Frames();fleet.GrabFocus();list.GrabFocus();await Frames();
         Review(fleet.HasFocus()&&list.HasFocus(),"R2: engine keyboard focus is inside the embedded workspace");
         Input.ParseInputEvent(new InputEventKey{Pressed=true,Keycode=Key.C,PhysicalKeycode=Key.C,Unicode=99});await Frames(5);

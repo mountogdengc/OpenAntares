@@ -20,7 +20,7 @@ internal static class PlayabilityMenuChecks
         var view = game.View(owner);
         string before = SaveGame.Serialize(game.Content,game.State);
         int issued = 0;
-        check(Descendants<Button>(screen).Single(b=>b.Name=="OpenConflictOrders").TooltipText.Contains("revised force response",StringComparison.Ordinal),"Clipped conflict entry retains its full force-response explanation in the tooltip");
+        check(Descendants<Button>(screen).Single(b=>b.Name=="DecisionsConflictOrders").TooltipText.Contains("revised force response",StringComparison.Ordinal),"Clipped conflict entry retains its full force-response explanation in the tooltip");
         var research = Descendants<ResearchBar>(screen).Single();
         var detail = Descendants<Label>(research).SingleOrDefault(n=>n.Name=="ResearchChoiceDetails");
         check(detail is not null, "ResearchAndProductionDetailsMatchExistingChoices: visible research choice explanation exists");

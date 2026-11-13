@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using Godot;
 using OpenAntares.Game.Components;
+using OpenAntares.Game.Presentation;
 using OpenAntares.Simulation;
 using OpenAntares.Simulation.Fleets;
 using OpenAntares.Simulation.Knowledge;
@@ -12,13 +13,12 @@ namespace OpenAntares.Game.Screens;
 public partial class GameScreen
 {
     private StarId? _fleetListStar,_hoverDestination;
+    private readonly System.Collections.Generic.HashSet<string> _expandedFleetStacks=new(StringComparer.Ordinal);
     private readonly VBoxContainer _mapFleetList=new(){Name="MapFleetList",Visible=false};
     private readonly PopupMenu _mapFleetContext=new(){Name="MapFleetContext"};
     private readonly MapFleetSplitDialog _mapSplit=new();
     private readonly Control _reportDock=new(){Name="TurnReportDock",Visible=false,SizeFlagsVertical=SizeFlags.ExpandFill};
     private Control? _normalConsole;
-    private readonly HSeparator _contextDivider=new(),_contextActionsDivider=new();
-    private Button _conflictOrdersEntry=null!,_colonyOverviewEntry=null!;
     private FleetId? _contextFleet;private VesselId? _contextShip;
 
     private void WireFleetPanel(VBoxContainer console)
@@ -44,7 +44,7 @@ public partial class GameScreen
         _map.HoverStarChanged+=star=>
         {
             _hoverDestination=star;var view=View;
-            RefreshMapOrders(view);_map.ShowFleetPresentation(view,_mapFleetSelection,star??_courseDestination);
+            ReconcileMapFleetSelection(view);_map.ShowFleetPresentation(view,_mapFleetSelection,star??_courseDestination);
         };
         _report.DockTo(_reportDock);
         _report.VisibilityChanged+=()=>
@@ -57,35 +57,32 @@ public partial class GameScreen
     private void RefreshFleetList(EmpireView view)
     {
         foreach(Node child in _mapFleetList.GetChildren()){_mapFleetList.RemoveChild(child);child.QueueFree();}
-        bool fleetListOpen=_fleetListStar is not null;
-        _mapFleetList.Visible=fleetListOpen;
-        _contextTabs.Visible=!fleetListOpen;
-        _contextDivider.Visible=!fleetListOpen;
-        _contextActionsDivider.Visible=!fleetListOpen;
-        _conflictOrdersEntry.Visible=!fleetListOpen&&Rules.HasConflict(view.RulesVersion);
-        _colonyOverviewEntry.Visible=!fleetListOpen&&Rules.HasExpansion(view.RulesVersion);
-        _selectionCard.Visible=_fleetListStar is null;
+        _mapFleetList.Visible=_fleetListStar is not null;
         if(_fleetListStar is not {} star)return;
-        _mapFleetList.AddChild(new Label{Text="FLEETS AT "+view.Stars.Single(s=>s.Chart.Id==star).Chart.Name,ThemeTypeVariation="ConsoleHeading"});
+        string starName=view.Stars.Single(s=>s.Chart.Id==star).Chart.Name;
+        _mapFleetList.AddChild(new Label{Text="FLEETS AT "+starName.ToUpperInvariant(),ThemeTypeVariation="ConsoleHeading",AutowrapMode=TextServer.AutowrapMode.WordSmart});
         var ships=view.Vessels.Where(v=>v.StationaryStarId==star).OrderBy(v=>v.Id).ToArray();
         if(view.Fleets is {} fleets)
             foreach(var fleet in fleets.Fleets.Where(f=>f.Members.Any(id=>ships.Any(v=>v.Id==id))).OrderBy(f=>f.Id))
             {
-                var row=new MapFleetRow{Fleet=fleet.Id,SystemId=star.Value,Name="MapFleetRow_"+fleet.Id.Value,Text=fleet.Name+" · "+fleet.Members.Length+(fleet.Members.Length==1?" ship":" ships"),ThemeTypeVariation="CommandKey",ToggleMode=true,ClipText=true,SizeFlagsHorizontal=SizeFlags.ExpandFill,TooltipText="Click to select. Shift-click to add or remove. Right-click to split. Drag onto another fleet to merge."};
+                var members=ships.Where(v=>fleet.Members.Contains(v.Id)).ToArray();
+                var row=new MapFleetRow{Fleet=fleet.Id,SystemId=star.Value,Name="MapFleetRow_"+fleet.Id.Value,ThemeTypeVariation="CommandKey",ToggleMode=true,ClipText=true,SizeFlagsHorizontal=SizeFlags.ExpandFill};
+                row.Describe(FleetNaming.Fleet(fleet),FleetNaming.Status(view,members,fleet),RoleIcon((members.FirstOrDefault(v=>v.Id==fleet.Flagship)??members[0]).RoleId),"Click to select. Shift-click to add or remove. Right-click to split. Drag onto another fleet to merge.");
                 row.SetPressedNoSignal(fleet.Members.All(_mapFleetSelection.Contains));row.Pressed+=()=>SelectFleetRow(fleet.Id,row.AdditiveSelection);
                 row.ContextRequested+=position=>OpenFleetContext(fleet.Id,null,position);
                 row.MergeRejection=(source,target)=>FleetQueries.PreviewAction(_session.Content,View,new FleetAction.Merge(target,ImmutableArray.Create(source))).Rejection;
                 row.MergeRequested+=(source,target)=>{ApplyMapFleetAction(new FleetAction.Merge(target,ImmutableArray.Create(source)));SelectFleetRow(target);};
                 _mapFleetList.AddChild(row);
             }
-        foreach(var ship in ships.Where(v=>view.Fleets?.Ships.Single(s=>s.Id==v.Id).Fleet is null))
+        foreach(var group in ships.Where(v=>view.Fleets?.Ships.Single(s=>s.Id==v.Id).Fleet is null).GroupBy(v=>FleetRoster.Key(view,v)))
         {
-            var row=new MapFleetRow{SystemId=star.Value,Name="MapShipRow_"+ship.Id.Value,Text=_session.Content.Vessels[ship.RoleId].Name+" · independent",ThemeTypeVariation="CommandKey",ToggleMode=true,ClipText=true,SizeFlagsHorizontal=SizeFlags.ExpandFill,TooltipText="Click to select. Shift-click to add or remove. Right-click to form a named fleet."};
-            row.SetPressedNoSignal(_mapFleetSelection.Contains(ship.Id));
-            row.Pressed+=()=>SelectMapShips(ImmutableArray.Create(ship.Id),row.AdditiveSelection);
-            row.ContextRequested+=position=>OpenFleetContext(null,ship.Id,position);_mapFleetList.AddChild(row);
+            var stack=new FleetShipStack();_mapFleetList.AddChild(stack);
+            stack.Bind(_session.Content,view,group.ToArray(),_mapFleetSelection,"MapShipRow_",_expandedFleetStacks.Contains(group.Key));
+            stack.SelectionRequested+=SelectMapShips;stack.ContextRequested+=(ship,position)=>OpenFleetContext(null,ship,position);
+            stack.ExpandedChanged+=expanded=>{if(expanded)_expandedFleetStacks.Add(group.Key);else _expandedFleetStacks.Remove(group.Key);};
         }
         if(ships.Length==0)_mapFleetList.AddChild(new Label{Text="No fleets remain here.",ThemeTypeVariation="SubtleLabel"});
+        AddFleetCardDetails(view,star,starName,ships);
     }
     private void SelectFleetRow(FleetId fleet,bool additive=false)
     {
@@ -117,9 +114,7 @@ public partial class GameScreen
     private void ClearGalaxySelection()
     {
         ClearMapFleetSelection();_fleetListStar=null;_hoverDestination=null;_selectedVessel=null;_selectedPlanet=null;_selectedColony=null;_requireVesselChoice=true;_requireColonyChoice=true;
-        _selectionTitle.Text="No system selected";_selectionSummary.Text="Click a system or fleet flag.";_manageSelected.Disabled=true;
-        if(FindChild("InspectSelectedSystem",true,false) is Button inspect)inspect.Disabled=true;
-        foreach(Node child in _starPanel.GetChildren()){_starPanel.RemoveChild(child);child.QueueFree();}
-        _selectionCard.ShowSelection(_session.Content,View,null,null);Refresh();
+        CloseSystemView();_starPanel.Clear();
+        Refresh();
     }
 }

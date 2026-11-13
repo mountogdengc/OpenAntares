@@ -29,6 +29,13 @@ public partial class GalaxyMap : Control
     private Vector2? _cameraCenter;
     public float ZoomLevel => _zoom;
     public void ResetView() { _zoom = 1; _cameraCenter = null; QueueRedraw(); }
+    public void ClearSystemSelection() { _selected=null;TooltipText="";QueueRedraw(); }
+    public void PanBy(Vector2 direction)
+    {
+        var transform=BuildTransform();
+        _cameraCenter=(_cameraCenter??new Vector2((_minX+_maxX)/2f,(_minY+_maxY)/2f))+direction*GetThemeConstant("keyboard_pan_step",ThemeType)/transform.Scale;
+        QueueRedraw();
+    }
     public void CenterOn(StarId id)
     {
         var star = _stars.FirstOrDefault(s => s.Id == id);

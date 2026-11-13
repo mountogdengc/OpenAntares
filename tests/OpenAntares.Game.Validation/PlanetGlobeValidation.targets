@@ -1,0 +1,9 @@
+<Project>
+  <Import Project="$(MSBuildThisFileDirectory)Validation.targets" />
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'OpenAntares'">
+    <Compile Include="$(MSBuildThisFileDirectory)PlanetGlobeValidation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlanetGlobeChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlanetGlobeIntegrationChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlanetGlobeFinishChecks.cs" />
+  </ItemGroup>
+</Project>

@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=72 format=3]
+[gd_resource type="Theme" load_steps=73 format=3]
 
 [ext_resource type="FontFile" path="res://art/fonts/barlow/Barlow-Regular.ttf" id="font_body"]
 [ext_resource type="FontFile" path="res://art/fonts/barlow/Barlow-SemiBold.ttf" id="font_button"]
@@ -429,6 +429,8 @@ content_margin_bottom = 4.0
 corner_radius_top_left = 5
 corner_radius_bottom_right = 5
 corner_detail = 1
+
+[sub_resource type="StyleBoxEmpty" id="orbit_planet_empty"]
 
 [resource]
 default_font_size = 18
@@ -902,6 +904,8 @@ GalaxyMap/colors/threat = Color(1, 0.5, 0.43, 1)
 GalaxyMap/colors/range = Color(0.65, 0.95, 0.82, 1)
 
 ConsoleMetrics/constants/fleet_list_height = 220
+ConsoleMetrics/constants/fleet_group_list_height = 120
+ConsoleMetrics/constants/fleet_member_list_height = 100
 
 GalaxyMap/colors/star_glow = Color(0.45, 0.87, 0.9, 0.07)
 GalaxyMap/colors/owner_0 = Color(0.45, 0.87, 0.9, 0.55)
@@ -935,3 +939,53 @@ ConsoleMetrics/constants/turn_report_min_height = 240
 ConsoleMetrics/constants/fleet_split_width = 640
 ConsoleMetrics/constants/fleet_split_height = 500
 GalaxyMap/colors/route_rejected = Color(1, 0.5, 0.43, 1)
+
+GalaxyMap/constants/keyboard_pan_step = 64
+
+SystemPlanetKey/base_type = &"Button"
+SystemPlanetKey/styles/normal = SubResource("panel")
+SystemPlanetKey/styles/hover = SubResource("raised")
+SystemPlanetKey/styles/pressed = SubResource("selected")
+SystemPlanetKey/styles/disabled = SubResource("disabled")
+SystemPlanetKey/styles/focus = SubResource("focus")
+SystemPlanetKey/font_sizes/font_size = 14
+SystemPlanetKey/fonts/font = ExtResource("font_button")
+PlanetGlobeMetrics/constants/sidebar_size = 40
+PlanetGlobeMetrics/constants/key_gap = 8
+PlanetGlobeMetrics/constants/key_height = 44
+PlanetGlobeMetrics/constants/colony_size = 256
+PlanetGlobeMetrics/constants/colony_resolution = 256
+SystemView/base_type = &"PanelContainer"
+SystemView/styles/panel = SubResource("nine_workspace_frame")
+SystemViewMetrics/constants/max_width = 820
+SystemViewMetrics/constants/max_height = 660
+SystemViewMetrics/constants/map_margin = 24
+SystemViewMetrics/constants/detail_min_height = 72
+SystemOrbitView/colors/background = Color(0.016, 0.035, 0.06, 1)
+SystemOrbitView/colors/speck = Color(0.45, 0.6, 0.7, 0.55)
+SystemOrbitView/colors/ring = Color(0.24, 0.35, 0.42, 0.85)
+SystemOrbitView/colors/ring_selected = Color(0.45, 0.87, 0.9, 0.9)
+SystemOrbitView/colors/star_core = Color(1, 0.86, 0.6, 1)
+SystemOrbitView/colors/star_heart = Color(1, 0.98, 0.92, 1)
+SystemOrbitView/colors/star_glow = Color(0.93, 0.66, 0.36, 0.14)
+SystemOrbitView/colors/selection = Color(0.45, 0.87, 0.9, 1)
+SystemOrbitView/colors/own_colony = Color(0.93, 0.66, 0.36, 1)
+SystemOrbitView/colors/other_colony = Color(1, 0.5, 0.43, 1)
+SystemOrbitView/constants/margin = 28
+SystemOrbitView/constants/ring_tilt_percent = 45
+SystemOrbitView/constants/ring_width = 2
+SystemOrbitView/constants/star_radius = 16
+SystemOrbitView/constants/max_planet_size = 56
+SystemOrbitView/constants/min_planet_size = 14
+SystemOrbitView/constants/specks = 70
+SystemOrbitLabel/base_type = &"Label"
+SystemOrbitLabel/font_sizes/font_size = 12
+SystemOrbitLabel/fonts/font = ExtResource("font_button")
+SystemOrbitLabel/colors/font_color = Color(0.66, 0.75, 0.79, 1)
+OrbitPlanetKey/base_type = &"Button"
+OrbitPlanetKey/styles/normal = SubResource("orbit_planet_empty")
+OrbitPlanetKey/styles/hover = SubResource("orbit_planet_empty")
+OrbitPlanetKey/styles/pressed = SubResource("orbit_planet_empty")
+OrbitPlanetKey/styles/hover_pressed = SubResource("orbit_planet_empty")
+OrbitPlanetKey/styles/disabled = SubResource("orbit_planet_empty")
+OrbitPlanetKey/styles/focus = SubResource("focus")

@@ -11,6 +11,8 @@
     <Compile Remove="tests/**" />
     <!-- Standalone evidence tools (and their generated obj files) are never game code. -->
     <Compile Remove="tools/**" />
+    <!-- Preserved source and validation evidence are never game code. -->
+    <Compile Remove="reports/**" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="src/OpenAntares.Simulation/OpenAntares.Simulation.csproj" />

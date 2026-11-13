@@ -1,0 +1,6 @@
+<Project>
+  <!-- Opt-in only: compiles the focused system-view checks into a validation build. -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'OpenAntares'">
+    <Compile Include="$(MSBuildThisFileDirectory)SystemViewValidation.cs" />
+  </ItemGroup>
+</Project>
