@@ -47,7 +47,7 @@ public partial class GameScreen
         var actions = new HFlowContainer { Name = "SelectionActions" };
         _systemContext.AddChild(actions);
         _manageSelected.Pressed += OpenColonies;
-        _inspectSystem.Pressed += () => ShowWorkspace("System");
+        _inspectSystem.Pressed += OpenSystemView;
         foreach (var key in new[] { _manageSelected, _inspectSystem })
         {
             key.SizeFlagsHorizontal = SizeFlags.ExpandFill;
@@ -133,21 +133,32 @@ public partial class GameScreen
             var key = new Button
             {
                 Name = "SystemPlanet_" + planet.Id.Value, Text = planet.Orbit.ToString("D2", CultureInfo.InvariantCulture),
-                ToggleMode = true, ThemeTypeVariation = "CompactCommandKey", ClipText = false, ExpandIcon = true,
+                ToggleMode = true, ThemeTypeVariation = "SystemPlanetKey", ClipText = false, Alignment = HorizontalAlignment.Right,
                 SizeFlagsHorizontal = SizeFlags.ExpandFill,
                 TooltipText = content.PlanetTypes[planet.PlanetTypeId].Name + " · " + PlanetOwner(view, planet)
             };
-            if (planet.Appearance is { } appearance && _contextPlanetStyles is { } styles)
-                key.Icon = _portraitCache.Get(appearance, styles.Resolve(planet.PlanetTypeId, planet.EnvironmentId, appearance.Variant), new Vector2I(96, 96));
+            PlanetGlobe2D? globe = null;
+            if (_globeBuilder is not null) {
+                globe = new PlanetGlobe2D { Name = "PlanetGlobe" };
+                key.AddChild(globe);
+                globe.SetVisual(_globeBuilder.Build(star, planet, view.Colonies.FirstOrDefault(c => c.PlanetId == planet.Id)));
+                void LayoutGlobe() {
+                    float side = key.GetThemeConstant("sidebar_size", "PlanetGlobeMetrics");
+                    globe.Size = new(side, side);
+                    globe.Position = new(key.GetThemeStylebox("normal").GetContentMargin(Side.Left), (key.Size.Y-side)/2);
+                }
+                key.Resized += LayoutGlobe;
+            }
             key.SetPressedNoSignal(planet.Id == _selectedPlanet);
             key.Pressed += () => { _selectedPlanet = planet.Id; _requireColonyChoice = false; Callable.From(Refresh).CallDeferred(); };
             grid.AddChild(key);
-            // Expanded icons contribute no minimum width; reserve the themed icon size alongside the orbit number.
+            // Child globes are outside the Button's minimum-size calculation; reserve their actual square.
             var style = key.GetThemeStylebox("normal");
             float width = key.GetThemeFont("font").GetStringSize(key.Text, fontSize: key.GetThemeFontSize("font_size")).X
                 + style.GetContentMargin(Side.Left) + style.GetContentMargin(Side.Right);
-            if (key.Icon is not null) width += key.GetThemeConstant("icon_max_width") + key.GetThemeConstant("h_separation");
-            key.CustomMinimumSize = new Vector2(width, 0);
+            float side = globe is not null ? key.GetThemeConstant("sidebar_size", "PlanetGlobeMetrics") : 0;
+            if (globe is not null) width += side + key.GetThemeConstant("key_gap", "PlanetGlobeMetrics");
+            key.CustomMinimumSize = new Vector2(width, Math.Max(key.GetThemeConstant("key_height", "PlanetGlobeMetrics"), side + style.GetContentMargin(Side.Top) + style.GetContentMargin(Side.Bottom)));
         }
         if (planets.FirstOrDefault(p => p.Id == _selectedPlanet) is not { } chosen) return;
         var card = new PanelContainer { Name = "PlanetCard", ThemeTypeVariation = "ScreenInset" };

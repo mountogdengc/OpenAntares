@@ -184,6 +184,7 @@ public partial class GameScreen
     public override void _UnhandledKeyInput(InputEvent input)
     {
         if (input is not InputEventKey { Pressed: true, Echo: false, Keycode: Key.Escape } || PresentationNodes<Window>(this).Any(w => w.Visible && w != _visualWindow)) return;
+        if (_systemViewOpen) { CloseSystemView(); GetViewport().SetInputAsHandled(); return; }
         if (_workspace == "Galaxy" && _mapFleetSelection.Count > 0)
         { ClearMapFleetSelection(); Refresh(); GetViewport().SetInputAsHandled(); return; }
         // Escape clears whatever the console is showing: first the chosen ships, then the system or fleet card.

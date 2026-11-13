@@ -25,11 +25,14 @@ public partial class Main : Control
 {
     private ContentSet? _content;
     private Control? _screen;
+    private readonly OpenAntares.Game.Presentation.PlanetAnimationClock _planetClock = new() { Name = "PlanetAnimationClock" };
+    public string PresentationPreferencesPath { get; set; } = "user://presentation.cfg";
     private readonly LoadGameDialog _loadDialog = new();
 
     public override void _Ready()
     {
         SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
+        AddChild(_planetClock);
 
         var background = new Panel { ThemeTypeVariation = "ConsoleBackdrop" };
         background.SetAnchorsAndOffsetsPreset(LayoutPreset.FullRect);
@@ -76,7 +79,7 @@ public partial class Main : Control
     private void ShowGame(GameSession session)
     {
         EmpireId viewer = session.State.Empires.First(e => e.Controller == ControllerKind.Human).Id;
-        var screen = new GameScreen(session, viewer);
+        var screen = new GameScreen(session, viewer, _planetClock) { PresentationPreferencesPath = PresentationPreferencesPath };
         screen.LoadRequested += _loadDialog.Open;
         screen.MainMenuRequested += () => ShowMainMenu(session);
         SetScreen(screen);

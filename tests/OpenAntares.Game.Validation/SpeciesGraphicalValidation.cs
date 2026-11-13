@@ -79,7 +79,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         var projects=Descendants<OptionButton>(One<ColonyPanel>(screen)).Single();
         Check(Enumerable.Range(0,projects.ItemCount).Any(i=>projects.GetItemText(i).StartsWith("Harbor Ark",StringComparison.Ordinal) && projects.GetItemTooltip(i).Contains("population 5",StringComparison.Ordinal)),"Role picker uses edited names and requirements");
         Check(Descendants<Label>(One<ColonyPanel>(screen)).Any(l=>l.Text=="Support workers for cargo: 2 / 3."),"Blocked conditions use edited cargo and actual support workers");
-        SelectNumber(Descendants<OptionButton>(One<VesselPanel>(screen)).Single(p=>p.Name=="VesselPicker"),ship.Id.Value);await Frames();One<GalaxyMap>(screen).Select(target.StarId);await Frames();Press(Button(One<StarPanel>(screen),$"Select planet {target.Orbit}"));await Frames();
+        SelectNumber(Descendants<OptionButton>(One<VesselPanel>(screen)).Single(p=>p.Name=="VesselPicker"),ship.Id.Value);await Frames();One<GalaxyMap>(screen).Select(target.StarId);await Frames();Press(UiNavigation.OrbitPlanet(screen,target.Orbit));await Frames();
         Check(Descendants<Label>(One<VesselPanel>(screen)).Any(l=>l.Text.Contains("3 population",StringComparison.Ordinal)),"Founding description uses edited carried population");
         Check(!Button(One<VesselPanel>(screen),"Found colony").Disabled,"Prepared expedition eligibility comes from its shared permitted preview");
         await Capture("alternative-content-harbor");RemoveChild(screen);screen.QueueFree();await Frames();
@@ -171,7 +171,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         int travel=TravelCalculator.Duration(home.Chart.X,home.Chart.Y,target.Chart.X,target.Chart.Y,session.Content.Vessels[role].Speed);
         for(int t=0;t<travel;t++){await EndTurn(screen);One<TurnReportDialog>(screen).Hide();}
         Check(session.State.FindVessel(founder.Id)!.StationaryStarId==target.Chart.Id && session.State.Colonies.Count==1,label+": exact travel arrives without automatic founding");
-        One<GalaxyMap>(screen).Select(target.Chart.Id);await Frames();var world=Button(One<StarPanel>(screen),$"Select planet {planet.Orbit}");world=await Reach(world);Press(world);await Frames();
+        One<GalaxyMap>(screen).Select(target.Chart.Id);await Frames();var world=UiNavigation.OrbitPlanet(screen,planet.Orbit);world=await Reach(world);Press(world);await Frames();
         var found=Button(One<VesselPanel>(screen),"Found colony");Check(!found.Disabled,label+": shared permitted eligibility enables founding");found=await Reach(found);Press(found);await Frames();
         string intent=await SaveThroughDialog(screen,label+"-founding");screen=await LoadThroughDialog(main,intent);session=Session(screen);
         Check(session.State.FindVessel(founder.Id)!.PendingFounding==planet.Id,label+": explicit founding intent survives reload");
@@ -249,16 +249,16 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
             string label="sulan-contrasting-"+(reversed?"b":"a");var loaded=await LoadFixture(HabitatFixture(reversed),label);var screen=loaded.Screen;var session=Session(screen);
             int shelf=reversed?8:9,dry=reversed?9:8;
             SelectNumber(Descendants<OptionButton>(One<VesselPanel>(screen)).Single(p=>p.Name=="VesselPicker"),10);await Frames();
-            Press(Button(One<StarPanel>(screen),$"Select planet {session.State.FindPlanet(new(dry))!.Orbit}"));await Frames();
+            Press(UiNavigation.OrbitPlanet(screen,session.State.FindPlanet(new(dry))!.Orbit));await Frames();
             Check(Button(One<VesselPanel>(screen),"Found colony").Disabled,label+": native expedition cannot found on dry ground");
             await Reach(Button(One<VesselPanel>(screen),"Found colony"));await Capture(label+"-native-blocked");
-            Press(Button(One<StarPanel>(screen),$"Select planet {session.State.FindPlanet(new(shelf))!.Orbit}"));await Frames();
+            Press(UiNavigation.OrbitPlanet(screen,session.State.FindPlanet(new(shelf))!.Orbit));await Frames();
             Check(!Button(One<VesselPanel>(screen),"Found colony").Disabled,label+": native expedition can choose the shelf world");
             Press(Button(One<VesselPanel>(screen),"Found colony"));await Frames();await EndTurn(screen);One<TurnReportDialog>(screen).Hide();
             var native=session.State.Colonies.Single(c=>c.PlanetId==new PlanetId(shelf));
             Check(native.HabitatMode=="native" && session.Forecast().Colony(native.Id).Growth.Capacity==12 && native.GrowthProgress==0,label+": native daughter has capacity12 and waits for next snapshot");_sulanModes.Add("native");
             SelectNumber(Descendants<OptionButton>(One<VesselPanel>(screen)).Single(p=>p.Name=="VesselPicker"),11);await Frames();
-            Press(Button(One<StarPanel>(screen),$"Select planet {session.State.FindPlanet(new(dry))!.Orbit}"));await Frames();
+            Press(UiNavigation.OrbitPlanet(screen,session.State.FindPlanet(new(dry))!.Orbit));await Frames();
             Check(!Button(One<VesselPanel>(screen),"Found colony").Disabled,label+": harbor expedition can choose the dry world");
             Press(Button(One<VesselPanel>(screen),"Found colony"));await Frames();await EndTurn(screen);One<TurnReportDialog>(screen).Hide();
             var sealedColony=session.State.Colonies.Single(c=>c.PlanetId==new PlanetId(dry));
@@ -301,7 +301,7 @@ public partial class SpeciesGraphicalValidation : GraphicalValidation
         var seed=session.State.Vessels.Single(v=>v.RoleId=="daughter_seed");
         Check(session.State.Colonies[0].Population==5 && seed.CarriedPopulation==3,"Extended Wenth conserves eight as parent5 plus seed3");
         SelectNumber(Descendants<OptionButton>(One<VesselPanel>(screen)).Single(p=>p.Name=="VesselPicker"),seed.Id.Value);await Frames();
-        Press(Button(One<StarPanel>(screen),"Select planet 2"));await Frames();Check(!Button(One<VesselPanel>(screen),"Found colony").Disabled,"Extended Wenth seed can found on the surveyed dry world");
+        Press(UiNavigation.OrbitPlanet(screen,2));await Frames();Check(!Button(One<VesselPanel>(screen),"Found colony").Disabled,"Extended Wenth seed can found on the surveyed dry world");
         Press(Button(One<VesselPanel>(screen),"Found colony"));await Frames();await EndTurn(screen);One<TurnReportDialog>(screen).Hide();
         var child=session.State.Colonies.Single(c=>c.PlanetId==new PlanetId(8));
         Check(child.Population==3 && child.Workforce==new Workforce(3,0,0) && child.CompletedBuildingIds.Count==0 && child.GrowthProgress==0,"Extended Wenth daughter starts with three all-support lobes and no inherited building or economy");

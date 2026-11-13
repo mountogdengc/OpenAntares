@@ -253,7 +253,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
                 if(target.Star.Chart.Id!=at.Chart.Id)await Course(screen,target.Star.Chart.Id);
                 else
                 {
-                    Press(Button(One<StarPanel>(screen),$"Select planet {target.Planet.Orbit}"));await Frames();var button=Button(One<VesselPanel>(screen),"Found colony");
+                    Press(UiNavigation.OrbitPlanet(screen,target.Planet.Orbit));await Frames();var button=Button(One<VesselPanel>(screen),"Found colony");
                     if(!button.Disabled){await Reach(button);Press(button);await Frames();if(!savedFounding){string name=await SaveThroughDialog(screen,label+"-founding");screen=await LoadThroughDialog(main,name);session=Session(screen);savedFounding=true;}}
                 }
             }
@@ -261,7 +261,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
             {string name=await SaveThroughDialog(screen,label+"-pending");screen=await LoadThroughDialog(main,name);session=Session(screen);savedPending=true;}
             if(!development && session.View(humanId).Vessels.Any(v=>v.CarriedPopulation>0))
             {
-                One<GalaxyMap>(screen).Select(home.StarId);await Frames();Press(Button(One<StarPanel>(screen),$"Select planet {session.State.FindPlanet(home.PlanetId)!.Orbit}"));await Frames();
+                One<GalaxyMap>(screen).Select(home.StarId);await Frames();Press(UiNavigation.OrbitPlanet(screen,session.State.FindPlanet(home.PlanetId)!.Orbit));await Frames();
                 Select(Descendants<OptionButton>(One<ColonyPanel>(screen)).Single(p=>p.Name=="ColonyProjectPicker"),"cultivation_hub");await Frames();development=true;
             }
             var reference=new GameSession(session.Content,session.State.Clone());Check(reference.Execute(new SetReadyCommand(humanId,reference.State.Turn,true)).Accepted,label+": uninterrupted turn is valid");

@@ -67,7 +67,7 @@ internal sealed partial class PlayabilityCampaignControls
     {
         var star=View.Stars.Single(s=>s.Planets?.Any(p=>p.Id==planet)==true);var world=star.Planets!.Value.Single(p=>p.Id==planet);
         await SelectStar(star.Chart.Id);await Click(Screen,"InspectSelectedSystem");
-        await Click(All<Button>(All<StarPanel>(Screen).Single()).Single(b=>b.Text=="Select planet "+world.Orbit));
+        await Click(All<Button>(All<StarPanel>(Screen).Single()).Single(b=>b.Name=="OrbitPlanet_"+world.Orbit));
         await Click(Screen,"OpenGalaxyWorkspace");
         var map=All<GalaxyMap>(Screen).Single();
         map._GuiInput(new InputEventMouseButton{Pressed=true,ButtonIndex=MouseButton.Left,Position=map.OwnedMarkerBounds[star.Chart.Id].GetCenter()});await _observer.Frames();

@@ -114,7 +114,7 @@ public partial class GameScreen
     private void ClearGalaxySelection()
     {
         ClearMapFleetSelection();_fleetListStar=null;_hoverDestination=null;_selectedVessel=null;_selectedPlanet=null;_selectedColony=null;_requireVesselChoice=true;_requireColonyChoice=true;
-        foreach(Node child in _starPanel.GetChildren()){_starPanel.RemoveChild(child);child.QueueFree();}
+        CloseSystemView();_starPanel.Clear();
         Refresh();
     }
 }

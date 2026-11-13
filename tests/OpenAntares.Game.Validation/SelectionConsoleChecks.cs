@@ -28,6 +28,7 @@ public partial class VisualOverhaulValidation
             var style=key.GetThemeStylebox("normal");
             float required=key.GetThemeFont("font").GetStringSize(key.Text,fontSize:key.GetThemeFontSize("font_size")).X+style.GetContentMargin(Side.Left)+style.GetContentMargin(Side.Right);
             if(key.Icon is not null)required+=key.GetThemeConstant("icon_max_width")+key.GetThemeConstant("h_separation");
+            if(All<PlanetGlobe2D>(key).FirstOrDefault() is {} globe)required+=globe.Size.X+key.GetThemeConstant("key_gap","PlanetGlobeMetrics");
             bool fits=required<=key.Size.X+1;
             _checks.Add(new{passed=fits,name=context+": full action/planet text fits "+key.Name});if(!fits)sizingFailures.Add(context+": clipped "+key.Name);
         }

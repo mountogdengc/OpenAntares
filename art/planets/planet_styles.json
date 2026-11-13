@@ -68,5 +68,27 @@
       "ocean_threshold": 0.0,
       "cloud_coverage": 0.0
     }
+  },
+  "globes": {
+    "format": "OpenAntaresPlanetGlobes",
+    "version": 1,
+    "population_reference": 20,
+    "city_color": "fff2c2",
+    "city_threshold_sparse": 0.87,
+    "city_threshold_dense": 0.57,
+    "sampling_grid": 192,
+    "types": {
+      "neutral": { "mode": "barren", "lowland": "626a72", "highland": "a4adb5", "polar": "c7cdd2", "atmosphere": "000000", "ice_cap": 0, "atmosphere_density": 0 },
+      "verdant_world": { "mode": "terrestrial", "lowland": "46714c", "highland": "b4a070", "polar": "dbe6e3", "atmosphere": "719ed0", "ice_cap": 0.17, "atmosphere_density": 0.38 },
+      "forge_world": { "mode": "terrestrial", "lowland": "805346", "highland": "c9a16b", "polar": "dad2bb", "atmosphere": "d9a26f", "ice_cap": 0.04, "atmosphere_density": 0.24 },
+      "crystal_world": { "mode": "terrestrial", "lowland": "4b637d", "highland": "b4a7d4", "polar": "e1dfed", "atmosphere": "a49bdb", "ice_cap": 0.23, "atmosphere_density": 0.32 },
+      "barren_rock": { "mode": "barren", "lowland": "585252", "highland": "b4a58c", "polar": "b4a58c", "atmosphere": "000000", "ice_cap": 0, "atmosphere_density": 0 }
+    },
+    "environments": {
+      "neutral": { "deep_water": "303944", "shallow_water": "4c5c68", "cloud": "e5e7e7", "water_enabled": false, "sea_threshold": 0, "cloud_cover": 0 },
+      "dry": { "deep_water": "193a51", "shallow_water": "477e89", "cloud": "ddd6c8", "water_enabled": false, "sea_threshold": 0, "cloud_cover": 0.12 },
+      "shelf_sea": { "deep_water": "133348", "shallow_water": "438890", "cloud": "dce8eb", "water_enabled": true, "sea_threshold": 0.48, "cloud_cover": 0.40 },
+      "open_ocean": { "deep_water": "132c47", "shallow_water": "367a90", "cloud": "e1e8eb", "water_enabled": true, "sea_threshold": 0.57, "cloud_cover": 0.48 }
+    }
   }
 }

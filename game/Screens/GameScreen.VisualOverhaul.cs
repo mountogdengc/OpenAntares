@@ -21,7 +21,7 @@ public partial class GameScreen
     private bool _changingVisualWorkspace;
     private PlanetStyleCatalog? _contextPlanetStyles;
     private ShaderMaterial? _screenMaterial;
-    private bool _screenEffects = true, _reducedEffects;
+    private bool _screenEffects = true, _reducedEffects, _planetAnimation = true;
     public string PresentationPreferencesPath { get; set; } = "user://presentation.cfg";
 
     private void WireVisualWorkspaces()
@@ -70,6 +70,7 @@ public partial class GameScreen
             _visualWindow = window;
             RecordWorkspaceChange(key);
             _workspace = key;
+            UpdateGlobePresentation();
             _map.Hide(); _mainArea.GetNode<Control>("MapOverlays").Hide(); _workspaceScroll.Hide(); _consolePanel.Hide();
             _workspaceHeader.Show(); _workspaceTitle.Text = key;
             _windowFrame.Show();
@@ -103,7 +104,7 @@ public partial class GameScreen
         foreach (var button in PresentationNodes<Button>(this))
         {
             int target = button is WorkerFigure ? GetThemeConstant(compact ? "compact_worker_size" : "worker_size", "ConsoleMetrics") : size;
-            button.CustomMinimumSize = new Vector2(button is WorkerFigure ? target : Math.Max(button.CustomMinimumSize.X, target), target);
+            button.CustomMinimumSize = new Vector2(button is WorkerFigure ? target : Math.Max(button.CustomMinimumSize.X, target), button.ThemeTypeVariation == "SystemPlanetKey" ? Math.Max(button.CustomMinimumSize.Y, target) : target);
         }
     }
     private void UpdateVisualTabs(string workspace)
@@ -142,6 +143,7 @@ public partial class GameScreen
         {
             _screenEffects = settings.GetValue("display", "screen_effects", true).AsBool();
             _reducedEffects = settings.GetValue("display", "reduced_effects", false).AsBool();
+            _planetAnimation = settings.GetValue("display", "planet_animation", true).AsBool();
         }
         _screenMaterial = new ShaderMaterial { Shader = GD.Load<Shader>("res://game/theme/console_screen.gdshader") };
         _screenMaterial.SetShaderParameter("tint", GetThemeColor("ink", "ConsolePalette"));
@@ -155,13 +157,19 @@ public partial class GameScreen
         menu.GetPopup().SetItemChecked(menu.GetPopup().GetItemIndex(3), _screenEffects);
         menu.GetPopup().SetItemChecked(menu.GetPopup().GetItemIndex(4), _reducedEffects);
         _screenMaterial?.SetShaderParameter("enabled", _screenEffects && !_reducedEffects);
+        menu.GetPopup().SetItemChecked(menu.GetPopup().GetItemIndex(6), _planetAnimation);
+        _planetClock?.SetStatic(_reducedEffects || !_planetAnimation);
+        UpdateGlobePresentation();
     }
     private void ToggleEffects(MenuButton menu, long id)
     {
         if (id == 3) _screenEffects = !_screenEffects;
         if (id == 4) _reducedEffects = !_reducedEffects;
+        if (id == 6) _planetAnimation = !_planetAnimation;
         ApplyEffects(menu);
-        var settings = new ConfigFile(); settings.SetValue("display", "screen_effects", _screenEffects); settings.SetValue("display", "reduced_effects", _reducedEffects);
+        var settings = new ConfigFile(); settings.Load(PresentationPreferencesPath);
+        settings.SetValue("display", "screen_effects", _screenEffects); settings.SetValue("display", "reduced_effects", _reducedEffects);
+        settings.SetValue("display", "planet_animation", _planetAnimation);
         if (settings.Save(PresentationPreferencesPath) != Error.Ok) ShowMessage("Display preference could not be saved. It remains active for this session.", true);
     }
 }

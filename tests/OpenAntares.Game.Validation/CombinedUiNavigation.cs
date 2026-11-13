@@ -27,6 +27,21 @@ internal static class CombinedUiNavigation
         toggle.EmitSignal(Button.SignalName.Pressed);
         if(!options.Visible)throw new InvalidOperationException("Advanced setup did not expand");
     }
+    /// <summary>Opens the system view for the selected star through its real button and returns one planet on the orbit diagram.</summary>
+    internal static Button OrbitPlanet(Node root, int orbit)
+    {
+        var screen=root as GameScreen ?? All<GameScreen>(root).Single();
+        var panel=All<StarPanel>(screen).Single();
+        if(!panel.IsVisibleInTree())
+        {
+            var inspect=All<Button>(screen).Single(b=>b.Name=="InspectSelectedSystem"&&b.GetWindow()==screen.GetWindow());
+            if(inspect.Disabled)throw new InvalidOperationException("System view is unreachable: no star selected");
+            inspect.EmitSignal(BaseButton.SignalName.Pressed);
+        }
+        var planet=All<Button>(panel).Single(b=>b.Name=="OrbitPlanet_"+orbit);
+        if(!planet.IsVisibleInTree())throw new InvalidOperationException("Orbit planet is unreachable: "+orbit);
+        return planet;
+    }
     internal static T Reveal<T>(T control) where T:Control
     {
         for(Node? parent=control;parent is not null;parent=parent.GetParent())
