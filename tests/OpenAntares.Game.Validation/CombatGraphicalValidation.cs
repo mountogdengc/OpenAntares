@@ -67,9 +67,10 @@ public partial class CombatGraphicalValidation:Node
         screen.CombatPreferencesPath=Path.Combine(_output,label+"-combat-prefs.json");screen.FleetPreferencesPath=Path.Combine(_output,label+"-fleet-prefs.json");screen.ScoutPreferencesPath=Path.Combine(_output,label+"-scout-prefs.json");screen.CrisisPreferencesPath=Path.Combine(_output,label+"-crisis-prefs.json");screen.NotificationPreferencesPath=Path.Combine(_output,label+"-colony-prefs.json");
     }
     private static GameSession Live(GameScreen screen)=>(GameSession)typeof(GameScreen).GetField("_session",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!.GetValue(screen)!;
+    private static string HiddenAt(Control c){for(Node? n=c;n is not null;n=n.GetParent())if(n is CanvasItem i&&!i.Visible||n is Window w&&!w.Visible)return n.Name+":"+n.GetType().Name;return "window "+c.GetWindow().Name;}
     private async Task Click(Control control)
-    {control=UiNavigation.Reveal(control);
-        Check(control.IsVisibleInTree()&&control.GetWindow().Visible,"Reachable "+control.Name);for(Node? p=control.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(control);control.GrabFocus();await Frames(this);if(control is Button b)Press(b);else throw new InvalidOperationException("Expected button");await Frames(this);
+    {if(UiNavigation.AlreadyOpen(control))return;var liveRoot=control.GetTree().Root;control=UiNavigation.Reveal(control);string liveName=control.Name;string? liveText=(control as Button)?.Text;
+        Check(control.IsVisibleInTree()&&control.GetWindow().Visible,"Reachable "+control.Name+(control.IsVisibleInTree()&&control.GetWindow().Visible?"":" (hidden at "+HiddenAt(control)+")"));for(Node? p=control.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(control);control.GrabFocus();await Frames(this);control=UiNavigation.Current(control,liveRoot,liveName,liveText);if(control is Button b)Press(b);else throw new InvalidOperationException("Expected button");await Frames(this);
     }
     private Task Click(Node root,string name)=>Click(Named<Button>(root,name));
     private async Task Pick(OptionButton picker,int i){picker=UiNavigation.Reveal(picker);picker.Select(i);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)i);await Frames(this);}
@@ -187,7 +188,7 @@ public partial class CombatGraphicalValidation:Node
         await Click(screen,"OpenFleetCommand");var fleet=Descendants<FleetCommandDialog>(screen).Single();
         if(action is FleetAction.Create create)
         {
-            await Tab(fleet,0);var list=Named<FleetList>(fleet,"FleetShipList");list.DeselectAll();foreach(var id in create.Members){int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemMetadata(i).AsInt32()==id.Value);list.Select(index,false);}list.EmitSignal(ItemList.SignalName.MultiSelected,0L,true);Named<LineEdit>(fleet,"FleetName").Text=create.Name;await Frames(this);
+            await Tab(fleet,0);var list=Named<FleetList>(fleet,"FleetShipList");list.DeselectAll();foreach(var id in create.Members){int index=Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemMetadata(i).AsInt32()==id.Value);list.Select(index,false);}list.NotifySelectionChanged();Named<LineEdit>(fleet,"FleetName").Text=create.Name;await Frames(this);
         }
         else
         {

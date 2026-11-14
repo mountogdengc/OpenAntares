@@ -29,8 +29,8 @@ public partial class ShipDesignGraphicalValidation
     }
     private static GameSession Live(GameScreen screen)=>(GameSession)typeof(GameScreen).GetField("_session",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance)!.GetValue(screen)!;
     private async Task Click(Control control)
-    {control=UiNavigation.Reveal(control);
-        Check(control.IsVisibleInTree()&&control.GetWindow().Visible,"Reachable "+control.Name);for(Node? p=control.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(control);control.GrabFocus();await Frames(this);if(control is Button b)Press(b);else throw new InvalidOperationException("Expected button");await Frames(this);
+    {if(UiNavigation.AlreadyOpen(control))return;var liveRoot=control.GetTree().Root;control=UiNavigation.Reveal(control);string liveName=control.Name;string? liveText=(control as Button)?.Text;
+        Check(control.IsVisibleInTree()&&control.GetWindow().Visible,"Reachable "+control.Name);for(Node? p=control.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(control);control.GrabFocus();await Frames(this);control=UiNavigation.Current(control,liveRoot,liveName,liveText);if(control is Button b)Press(b);else throw new InvalidOperationException("Expected button");await Frames(this);
     }
     private Task Click(Node root,string name)=>Click(Named<Button>(root,name));
     private async Task Pick(OptionButton picker,int i){picker=UiNavigation.Reveal(picker);picker.Select(i);picker.EmitSignal(OptionButton.SignalName.ItemSelected,(long)i);await Frames(this);}

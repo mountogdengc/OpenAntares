@@ -13,14 +13,15 @@ namespace OpenAntares.Game.Screens;
 public partial class GameScreen
 {
     private string? _commandPage;
+    private string? _commandPageWorkspace; // workspace showing when _commandPage opened; leaving it by another route ends the toggle
     private readonly HashSet<VesselId> _mapFleetSelection = new();
 
     private void ToggleCommandPage(string name, Action open)
     {
         if (name == "OpenGalaxyWorkspace") { _commandPage = null; open(); return; }
-        if (_commandPage == name && _workspace != "Galaxy")
+        if (_commandPage == name && _workspace != "Galaxy" && _workspace == _commandPageWorkspace && (_visualWindow is not null || !_visualWindows.ContainsValue(_workspace)))
         { _commandPage = null; ShowWorkspace("Galaxy"); return; }
-        open(); _commandPage = name;
+        open(); _commandPage = name; _commandPageWorkspace = _workspace;
     }
     private void OpenGalaxyPage()
     {

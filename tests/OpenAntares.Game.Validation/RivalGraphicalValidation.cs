@@ -202,10 +202,11 @@ public partial class RivalGraphicalValidation : GraphicalValidation
             Check(Snapshot(Session(screen))==Snapshot(expected),$"{species}/rivals{rivals}: UI save/load preserves future continuation");One<TurnReportDialog>(screen).Hide();await Drop(main);
         }
     }
-    private async Task Reach(Control control)
+    private async Task<Control> Reach(Control control)
     {control=UiNavigation.Reveal(control);
-        control.GrabFocus();await Frames();Node? ancestor=control.GetParent();while(ancestor is not null && ancestor is not ScrollContainer)ancestor=ancestor.GetParent();
+        control.GrabFocus();await Frames();if(!GodotObject.IsInstanceValid(control))return control;Node? ancestor=control.GetParent();while(ancestor is not null && ancestor is not ScrollContainer)ancestor=ancestor.GetParent();
         if(ancestor is ScrollContainer scroll){scroll.EnsureControlVisible(control);await Frames();Check(scroll.GetGlobalRect().Intersects(control.GetGlobalRect()),"Rival loop focus/scroll reaches "+control.GetType().Name);}
+        return control;
     }
     private static void SelectNumber(OptionButton picker,int id)
     {picker=UiNavigation.Reveal(picker);
@@ -254,7 +255,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
                 else
                 {
                     Press(UiNavigation.OrbitPlanet(screen,target.Planet.Orbit));await Frames();var button=Button(One<VesselPanel>(screen),"Found colony");
-                    if(!button.Disabled){await Reach(button);Press(button);await Frames();if(!savedFounding){string name=await SaveThroughDialog(screen,label+"-founding");screen=await LoadThroughDialog(main,name);session=Session(screen);savedFounding=true;}}
+                    if(!button.Disabled){if(!GodotObject.IsInstanceValid(await Reach(button)))button=Button(One<VesselPanel>(screen),"Found colony"); /* refreshed while revealing */Press(button);await Frames();if(!savedFounding){string name=await SaveThroughDialog(screen,label+"-founding");screen=await LoadThroughDialog(main,name);session=Session(screen);savedFounding=true;}}
                 }
             }
             if(!savedPending && session.View(humanId).Vessels.Any(v=>v.PendingMove.HasValue))
@@ -288,7 +289,7 @@ public partial class RivalGraphicalValidation : GraphicalValidation
         screen=await LoadThroughDialog(main,completed);for(int i=0;i<3;i++){await EndTurn(screen);One<TurnReportDialog>(screen).Hide();}
         Check(Snapshot(Session(screen))==Snapshot(future),label+": three future turns after UI reload match uninterrupted campaign");
         foreach(var dimensions in new[]{new Vector2I(800,600),new(1152,648),new(1280,720),new(1600,900),new(1920,1080)})
-        {GetTree().Root.Size=dimensions;await Frames();var picker=Picker(One<VesselPanel>(screen),"VesselPicker");await Reach(picker);Check(VisibleInWindow(Button(screen,"End Turn")) && VisibleInWindow(picker),label+": game controls fit "+dimensions);if(size=="small" && dimensions.X is 800 or 1920)await Capture(label+"-observed-"+dimensions.X);}
+        {GetTree().Root.Size=dimensions;await Frames();var picker=(OptionButton)UiNavigation.Current<Control>(await Reach(Picker(One<VesselPanel>(screen),"VesselPicker")),screen,"VesselPicker");Check(VisibleInWindow(Descendants<Button>(screen).Single(b=>b.Name=="EndTurn")) && VisibleInWindow(picker),label+": game controls fit "+dimensions);if(size=="small" && dimensions.X is 800 or 1920)await Capture(label+"-observed-"+dimensions.X);}
         await Drop(main);
     }
     private async Task<(Control Main,GameScreen Screen)> LoadLabelled(ContentSet content,GameState state,string label)

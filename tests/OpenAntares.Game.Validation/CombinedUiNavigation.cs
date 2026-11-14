@@ -42,6 +42,25 @@ internal static class CombinedUiNavigation
         if(!planet.IsVisibleInTree())throw new InvalidOperationException("Orbit planet is unreachable: "+orbit);
         return planet;
     }
+    /// <summary>Command-bar pages toggle closed when pressed while showing; true when this entry's window is already open.</summary>
+    /// <summary>Returns the live control when a refresh replaced <paramref name="stale"/> while awaiting frames.</summary>
+    internal static T Current<T>(T stale,Node root,string name,string? text=null) where T:Control
+    {
+        if(GodotObject.IsInstanceValid(stale))return stale;
+        var live=All<T>(root).Where(c=>c.IsVisibleInTree()&&(name.StartsWith("@",StringComparison.Ordinal)
+            // Unnamed controls get a fresh generated name on every rebuild; match those by their button text.
+            ? text is not null&&c is Button b&&b.Text==text : c.Name==name)).ToArray();
+        return live.Length==1?live[0]:throw new InvalidOperationException("Refreshed control could not be reacquired: "+name+(text is null?"":$" \"{text}\""));
+    }
+    /// <summary>Names the first hidden ancestor (or window) for failure messages.</summary>
+    internal static string HiddenAt(Control c){for(Node? n=c;n is not null;n=n.GetParent())if(n is CanvasItem i&&!i.Visible||n is Window w&&!w.Visible)return n.Name+":"+n.GetType().Name;return c.IsVisibleInTree()?"visible":"window "+c.GetWindow().Name;}
+    internal static bool AlreadyOpen(Control control)
+    {
+        if(control.Name!="OpenFleetCommand"&&control.Name!="OpenDiplomacy")return false;
+        GameScreen? screen=null;for(Node? n=control;n is not null;n=n.GetParent())if(n is GameScreen found){screen=found;break;}
+        if(screen is null)return false;
+        return control.Name=="OpenFleetCommand"?All<FleetCommandDialog>(screen).Any(w=>w.Visible):All<DiplomacyDialog>(screen).Any(w=>w.Visible);
+    }
     internal static T Reveal<T>(T control) where T:Control
     {
         for(Node? parent=control;parent is not null;parent=parent.GetParent())
@@ -92,24 +111,37 @@ internal static class CombinedUiNavigation
         {
             var picker=All<OptionButton>(host!).Single(p=>p.Name=="VesselPicker");
             int? selected=picker.Selected>=0?picker.GetSelectedMetadata().AsInt32():null;
+            // Inspecting from Fleets clears the course choice; carry a destination already picked on the hidden panel.
+            var course=All<OptionButton>(host!).SingleOrDefault(p=>p.Name=="DestinationPicker");
+            int? destination=course is not null&&course.Selected>=0?course.GetSelectedMetadata().AsInt32():null;
             Navigate("OpenFleetCommand");
             var list=All<FleetList>(screen).Single();
+            // Pre-fleet rules route Fleets straight to the ship page; there is no roster to pick from.
+            if(!list.IsVisibleInTree()&&host!.IsVisibleInTree())goto shown;
             if(list.ItemCount==0)throw new InvalidOperationException("No owned vessel is available for inspection");
             int index=selected is {} id?Enumerable.Range(0,list.ItemCount).Single(i=>list.GetItemMetadata(i).AsInt32()==id):0;
             list.DeselectAll();list.Select(index);
             var inspector=All<Button>(screen).Single(b=>b.Name=="FleetInspectShip");
             if(inspector.Disabled||!inspector.IsVisibleInTree())throw new InvalidOperationException("Fleet inspector is unreachable");
             inspector.EmitSignal(BaseButton.SignalName.Pressed);
+            // The game defers this refresh one frame; run it now so the ship page shows the reached controls.
+            typeof(GameScreen).GetMethod("Refresh",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance,Type.EmptyTypes)!.Invoke(screen,null);
+            // Only for a course press: re-picking a destination moves the map and resets the planet choice.
+            if(destination is {} star&&(originalName=="SetVesselCourse"||text=="Set course")&&All<OptionButton>(host!).SingleOrDefault(p=>p.Name=="DestinationPicker") is {} live)
+                for(int i=0;i<live.ItemCount;i++)if(live.GetItemMetadata(i).AsInt32()==star){live.Select(i);live.EmitSignal(OptionButton.SignalName.ItemSelected,(long)i);break;}
+            shown:;
         }
         if(workspace=="OpenContactsWorkspace") Navigate("OpenDiplomacy");
         if(workspace!="VesselInspector")Navigate(workspace);
         if(control.IsInsideTree() && control.IsVisibleInTree()) return control;
         // Workspace navigation may synchronously refresh a panel. Reacquire the
         // corresponding current control rather than dispatching to a detached one.
-        var candidates=All<T>(host ?? screen).Where(c=>c.IsVisibleInTree() && c.GetType()==control.GetType());
+        var candidates=All<T>(host is not null&&GodotObject.IsInstanceValid(host)&&host.IsInsideTree()?host:screen).Where(c=>c.IsVisibleInTree() && c.GetType()==control.GetType());
         T? replacement = originalName.StartsWith("@",StringComparison.Ordinal)
-            ? candidates.SingleOrDefault(c=>c.TooltipText==tooltip && (c is Button b ? b.Text : c is Label l ? l.Text : null)==text)
+            ? (candidates.Where(c=>(c is Button b ? b.Text : c is Label l ? l.Text : null)==text).ToArray() is var same && same.Length==1 ? same[0]
+                // Tooltips change with enabled state (reason vs. hint), so only use them to tell same-text controls apart.
+                : same.SingleOrDefault(c=>c.TooltipText==tooltip))
             : candidates.SingleOrDefault(c=>c.Name==originalName);
-        return replacement ?? throw new InvalidOperationException("Workspace did not reveal control: "+originalName);
+        return replacement ?? throw new InvalidOperationException($"Workspace did not reveal control: {originalName} \"{text}\" via {workspace} ({candidates.Count()} visible {typeof(T).Name} candidates: {string.Join(", ",candidates.Select(c=>c.Name+"="+((c as Button)?.Text??"")))}; host {(host is not null && GodotObject.IsInstanceValid(host) ? HiddenAt(host) : "disposed")})");
     }
 }
