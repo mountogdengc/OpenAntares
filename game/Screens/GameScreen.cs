@@ -297,7 +297,7 @@ public partial class GameScreen : VBoxContainer
         navigation.AddChild(_diplomacyEntry);
         if (Rules.HasRivals(View.RulesVersion)) AddNavigation(_workspaceTabs, "Contacts", "OpenContactsWorkspace", () => ShowWorkspace("Contacts"), "Contacts");
         if (Rules.HasShipDesigns(View.RulesVersion)) AddNavigation(navigation, "Designs", "OpenShipDesigns", () => _shipDesigns.ShowCatalogue(_session.Content, View));
-        _alertsEntry.Pressed += () => { if (_workspace == "Decisions") { _commandPage = null; ShowWorkspace("Galaxy"); } else { ShowWorkspace("Decisions"); _commandPage = "OpenAttentionConsole"; } };
+        _alertsEntry.Pressed += () => { if (_workspace == "Decisions") { _commandPage = null; ShowWorkspace("Galaxy"); } else { ShowWorkspace("Decisions"); _commandPage = "OpenAttentionConsole"; _commandPageWorkspace = _workspace; } };
         navigation.AddChild(_alertsEntry);
         _returnReportEntry.Pressed += ReturnToReport;
         navigation.AddChild(_returnReportEntry);

@@ -438,7 +438,7 @@ public partial class CrisisGraphicalValidation:Node
     private async Task Reach(Control c){c=UiNavigation.Reveal(c);c.GrabFocus();await Frames();for(Node? p=c.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(c);await Frames();Check(c.IsVisibleInTree(),"Reach control "+c.Name);}
     private void Check(bool yes,string name){_results.Add(new{name,passed=yes});if(!yes)throw new InvalidOperationException(name);}
     private static IEnumerable<T> Descendants<T>(Node n)where T:Node{foreach(Node c in n.GetChildren()){if(c is T t)yield return t;foreach(var d in Descendants<T>(c))yield return d;}}
-    private static void Press(Button b){b=UiNavigation.Reveal(b);if(b.Disabled)throw new InvalidOperationException("Disabled: "+b.Text);b.EmitSignal(BaseButton.SignalName.Pressed);}
+    private static void Press(Button b){b=UiNavigation.Reveal(b);if(b.Disabled)throw new InvalidOperationException("Disabled: "+b.Text+" ("+b.TooltipText+")");b.EmitSignal(BaseButton.SignalName.Pressed);}
     private async Task Frames(){await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);}
     private async Task Capture(string name){await Frames();await Frames();await ToSignal(RenderingServer.Singleton,RenderingServer.SignalName.FramePostDraw);GetViewport().GetTexture().GetImage().SavePng(Path.Combine(_output,name+".png"));}
     private static T One<T>(Node n)where T:Node=>Descendants<T>(n).Single();
