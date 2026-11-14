@@ -50,7 +50,7 @@ public partial class GameScreen
                     _visualWindow = null;
                     _windowFrame.Close();
                     // Existing report/overview return handlers get first opportunity to restore their context.
-                    Callable.From(() => { if (_visualWindow is null && _workspace == entry.Key) ReturnFromWorkspace(); }).CallDeferred();
+                    Callable.From(() => { if (IsInsideTree() && _visualWindow is null && _workspace == entry.Key) ReturnFromWorkspace(); }).CallDeferred();
                 }
             };
         }

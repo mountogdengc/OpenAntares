@@ -365,7 +365,8 @@ public partial class GraphicalValidation : Node
     protected static T One<T>(Node node) where T : Node => Descendants<T>(node).Single();
     protected static Button Button(Node node, string text)
     {
-        var candidates=Descendants<Button>(node).Where(b=>b.Text==text).ToArray();
+        // Some keys add a status line under their label (e.g. "End Turn\n3 to consider"); match the label line.
+        var candidates=Descendants<Button>(node).Where(b=>b.Text==text||b.Text.Split('\n')[0]==text).ToArray();
         var button=candidates.SingleOrDefault(b=>b.IsVisibleInTree()&&b.GetWindow().Visible)??candidates.Single();
         button=UiNavigation.Reveal(button);
         if(!button.IsVisibleInTree()||!button.GetWindow().Visible)throw new InvalidOperationException("Unreachable action: "+text);
