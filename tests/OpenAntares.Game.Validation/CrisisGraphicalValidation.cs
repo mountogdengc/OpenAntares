@@ -69,7 +69,7 @@ public partial class CrisisGraphicalValidation:Node
         var session=new GameSession(content,state);var screen=Screen(session,owner);AddChild(screen);await Frames();
         Check(!One<CrisisOverviewDialog>(screen).Visible,"Digest does not interrupt for initial urgent facts");
         Check(Descendants<Label>(screen).Any(l=>l.Name=="CrisisCriticalBadge"&&l.Visible&&l.Text.Contains("1 endangered",StringComparison.Ordinal)),"Digest retains persistent Critical badge and endangered count");
-        string initial=Snapshot(session);Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();Check(session.State.Turn==22&&Snapshot(session)==initial,"Unacknowledged emergency blocks next turn before any preparation");
+        string initial=Snapshot(session);Press(Descendants<Button>(screen).Single(b=>b.Name=="EndTurn"));await Frames();Check(session.State.Turn==22&&Snapshot(session)==initial,"Unacknowledged emergency blocks next turn before any preparation");
         Press(Named<Button>(screen,"OpenCrisisNotifications"));await Frames();var notification=One<CrisisNotificationDialog>(screen);
         Check(Named<OptionButton>(notification,"CrisisDisplayLevel").Selected==2&&Named<OptionButton>(notification,"CrisisRoutineLevel").Selected==2&&Named<CheckBox>(notification,"CrisisRequireAcknowledgement").ButtonPressed,"Local Digest/Off and saved requirement appear as separate settings");
         foreach(int level in new[]{1,0,2})
@@ -100,7 +100,7 @@ public partial class CrisisGraphicalValidation:Node
         string fixtureName=$"qa-{_runId}-attention-thirty-pending",fixturePath=SaveFiles.PathFor(fixtureName);SaveGame.WriteFile(fixturePath,content,state);_savePaths.Add(fixturePath);
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();Press(Descendants<Button>(One<NewGameScreen>(main)).Single(b=>b.Text=="Start"));await Frames();
         var screen=await LoadThroughDialog(main,fixtureName);var session=Session(screen);Check(session.View(owner).Crisis!.PendingReceipts.Length==30,"Actual UI load retains all30 pending revisions");
-        One<CrisisOverviewDialog>(screen).Hide();string before=Snapshot(session);Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();
+        One<CrisisOverviewDialog>(screen).Hide();string before=Snapshot(session);Press(Descendants<Button>(screen).Single(b=>b.Name=="EndTurn"));await Frames();
         Check(Snapshot(session)==before&&session.State.Empires.Single(e=>e.Id!=owner).Ready,"Blocked Ready preserves prior other-human Ready and all planning");
         string pendingName=await SaveThroughDialog(screen,"attention-thirty-still-pending");screen=await LoadThroughDialog(main,pendingName);session=Session(screen);
         Check(Snapshot(session)==before&&session.View(owner).Crisis!.PendingReceipts.Length==30,"Actual Save/Load never implicitly acknowledges thirty cases");
@@ -123,7 +123,7 @@ public partial class CrisisGraphicalValidation:Node
         string name=$"qa-{_runId}-resolved-old-receipt",path=SaveFiles.PathFor(name);SaveGame.WriteFile(path,content,state);_savePaths.Add(path);
         var main=GD.Load<PackedScene>("res://game/Main.tscn").Instantiate<Control>();AddChild(main);await Frames();Press(Descendants<Button>(One<NewGameScreen>(main)).Single(b=>b.Text=="Start"));await Frames();var screen=await LoadThroughDialog(main,name);var session=Session(screen);
         Check(session.View(owner).Crisis!.History.IsEmpty&&session.View(owner).Crisis!.PendingReceipts.Length==1,"Actual UI load retains resolved receipt beyond ten-turn history");
-        One<CrisisOverviewDialog>(screen).Hide();string before=Snapshot(session);Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();Check(Snapshot(session)==before&&session.State.Turn==40,"Resolved old receipt still blocks Ready after UI reload");
+        One<CrisisOverviewDialog>(screen).Hide();string before=Snapshot(session);Press(Descendants<Button>(screen).Single(b=>b.Name=="EndTurn"));await Frames();Check(Snapshot(session)==before&&session.State.Turn==40,"Resolved old receipt still blocks Ready after UI reload");
         Press(Named<Button>(screen,"OpenCrisisOverview"));await Frames();var overview=One<CrisisOverviewDialog>(screen);Check(Named<ItemList>(overview,"CrisisAttentionList").ItemCount==1,"Resolved lost-history receipt remains available for deliberate acknowledgement");
         Press(Named<Button>(overview,"CrisisSelectAllAttention"));Press(Named<Button>(overview,"CrisisAcknowledgeSelected"));await Frames();Check(session.View(owner).Crisis!.PendingReceipts.IsEmpty,"Explicit acknowledgement clears the old resolved receipt");
         RemoveChild(main);main.QueueFree();await Frames();
@@ -134,7 +134,7 @@ public partial class CrisisGraphicalValidation:Node
         Check(GameStateValidator.Validate(content,state).Count==0,"Labelled threshold-crossing crisis validates before session");
         OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults.Save(Path.Combine(_output,"crisis-prefs.json"));
         var session=new GameSession(content,state);var screen=Screen(session,owner);AddChild(screen);await Frames();Check(!One<CrisisOverviewDialog>(screen).Visible,"Initial screen restores saved facts without treating them as a new popup");
-        Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();var report=One<TurnReportDialog>(screen);Check(session.State.Turn==23&&report.Visible&&session.View(owner).Crisis!.PendingReceipts.Length==1,"Actual turn creates a new critical revision alongside one turn report");
+        Press(Descendants<Button>(screen).Single(b=>b.Name=="EndTurn"));await Frames();var report=One<TurnReportDialog>(screen);Check(session.State.Turn==23&&report.Visible&&session.View(owner).Crisis!.PendingReceipts.Length==1,"Actual turn creates a new critical revision alongside one turn report");
         Press(report.GetOkButton());report.Hide();await Frames();var overview=One<CrisisOverviewDialog>(screen);Check(overview.Visible,"Interrupt opens one crisis overview after the report closes");
         overview.Hide();await Frames();UiNavigation.GameMenu(screen,2);await Frames();report=One<TurnReportDialog>(screen);report.Hide();await Frames();Check(!overview.Visible,"Reopening and closing a report does not repeat an already-shown interruption");
         RemoveChild(screen);screen.QueueFree();await Frames();
@@ -147,7 +147,7 @@ public partial class CrisisGraphicalValidation:Node
         OpenAntares.Game.Presentation.CrisisNotificationPreferences.Defaults.Save(Path.Combine(_output,"crisis-prefs.json"));
         var session=new GameSession(content,state);var screen=Screen(session,owner);AddChild(screen);await Frames();
         Check(!One<CrisisOverviewDialog>(screen).Visible,"Waived initial threat does not interrupt on load");
-        Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();var report=One<TurnReportDialog>(screen);
+        Press(Descendants<Button>(screen).Single(b=>b.Name=="EndTurn"));await Frames();var report=One<TurnReportDialog>(screen);
         Check(report.Visible&&session.View(owner).Crisis!.PendingReceipts.IsEmpty,"New escalation is waived without a Ready blocker");
         report.Hide();await Frames();Check(One<CrisisOverviewDialog>(screen).Visible,"New waived material still honors local Interrupt preference");
         RemoveChild(screen);screen.QueueFree();await Frames();
@@ -286,7 +286,7 @@ public partial class CrisisGraphicalValidation:Node
     }
     private async Task EndGeneratedTurn(GameScreen screen,EmpireId owner)
     {
-        int before=Session(screen).State.Turn;One<CrisisOverviewDialog>(screen).Hide();await Frames();Press(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));await Frames();
+        int before=Session(screen).State.Turn;One<CrisisOverviewDialog>(screen).Hide();await Frames();Press(Descendants<Button>(screen).Single(b=>b.Name=="EndTurn"));await Frames();
         Check(Session(screen).State.Turn==before+1,"Generated campaign resolves one ordinary turn through End Turn");var report=One<TurnReportDialog>(screen);if(report.Visible)
         {
             var lines=Descendants<Label>(report).Select(l=>l.Text).ToArray();

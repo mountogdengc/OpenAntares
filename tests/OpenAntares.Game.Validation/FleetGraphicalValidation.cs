@@ -55,7 +55,7 @@ public partial class FleetGraphicalValidation:Node
         var fleet=Descendants<FleetCommandDialog>(screen).SingleOrDefault();
         if(fleet is {Visible:true}){await Close(fleet);Check(!fleet.Visible,"Restored Fleet closes before background Main action");}
     }
-    private async Task End(GameScreen screen,GameSession session){await LeaveFleet(screen);int turn=session.State.Turn;await Click(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));Check(session.State.Turn==turn+1,"Actual End Turn resolves once");await Close(Descendants<TurnReportDialog>(screen).Single());}
+    private async Task End(GameScreen screen,GameSession session){await LeaveFleet(screen);int turn=session.State.Turn;await Click(Descendants<Button>(screen).Single(b=>b.Name=="EndTurn"));Check(session.State.Turn==turn+1,"Actual End Turn resolves once");await Close(Descendants<TurnReportDialog>(screen).Single());}
     private async Task Shot(Window window,string name){await Capture(this,window,Path.Combine(_output,name+".png"));Check(window.Size.X<=GetTree().Root.Size.X&&window.Size.Y<=GetTree().Root.Size.Y,"Clamped window "+name);}
     private async Task Primary(Vector2I size)
     {

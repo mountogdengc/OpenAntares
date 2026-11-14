@@ -79,7 +79,9 @@ internal static class CombinedUiNavigation
             if(button.Disabled || !button.IsVisibleInTree()) throw new InvalidOperationException("Workspace navigation unreachable: "+name);
             button.EmitSignal(Button.SignalName.Pressed);
         }
-        if(workspace=="OpenColonyOverview") Navigate("OpenAttentionConsole");
+        // Decisions hides when nothing needs attention; Colonies -> Plans is the always-present route to the colony tools.
+        // Command keys toggle their page closed when pressed twice, so start from the map.
+        if(workspace=="OpenColonyOverview") { Navigate("OpenGalaxyWorkspace"); Navigate("OpenColonyWorkspace"); workspace="OpenColonyPlans"; }
         if(workspace is "InspectSelectedSystem" or "ManageSelectedColony")
         {
             Navigate("OpenGalaxyWorkspace");

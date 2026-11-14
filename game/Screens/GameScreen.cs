@@ -148,7 +148,7 @@ public partial class GameScreen : VBoxContainer
         _fleetCommand.RequestRequested+=request=>OpenOverviewChild("Fleet","Assembly",()=>_assemblyRequest.ShowEditor(_session.Content,View,request));
         _fleetCommand.OfficersRequested+=()=>OpenOverviewChild("Fleet","Officers",()=>_officerDetails.ShowOfficers(_session.Content,View));
         _fleetCommand.StarRequested+=star=>{_fleetCommand.Hide();_map.Select(star);ShowWorkspace("Galaxy");};
-        _fleetCommand.InspectRequested+=id=>{_selectedVessel=id;_selectedPlanet=null;_courseDestination=null;var ship=View.Vessels.Single(v=>v.Id==id);_map.Select(ship.StationaryStarId??ship.Transit!.Destination);ShowWorkspace("Vessels");Callable.From(Refresh).CallDeferred();};
+        _fleetCommand.InspectRequested+=id=>{_selectedVessel=id;_courseDestination=null;var ship=View.Vessels.Single(v=>v.Id==id);if(!ship.FoundingPreviews.Any(p=>p.Target==_selectedPlanet))_selectedPlanet=null; /* keep a founding target already picked in the system view */_map.Select(ship.StationaryStarId??ship.Transit!.Destination);ShowWorkspace("Vessels");Callable.From(Refresh).CallDeferred();};
         _assemblyRequest.ColonyRequested+=SelectColony;
         AddChild(_scoutOverview);_scoutOverview.CommandIssued+=Execute;_scoutOverview.StarRequested+=star=>{_scoutOverview.Hide();_map.Select(star);ShowWorkspace("Galaxy");};_scoutOverview.DisplayApplied+=_=>Callable.From(Refresh).CallDeferred();
 

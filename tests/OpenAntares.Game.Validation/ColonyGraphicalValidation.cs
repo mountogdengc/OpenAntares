@@ -249,8 +249,8 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
     }
     private static OptionButton Picker(Node node,string name)=>Descendants<OptionButton>(node).Single(p=>p.Name==name);
     private static void Toggle(Node node,string name,bool value){var b=Descendants<CheckBox>(node).Single(b=>b.Name==name);if(b.Disabled)throw new InvalidOperationException("Disabled toggle "+name);b.SetPressedNoSignal(value);b.EmitSignal(BaseButton.SignalName.Toggled,value);}
-    private async Task<T> Reach<T>(T control) where T:Control{control=UiNavigation.Reveal(control);if(control.FocusMode!=Control.FocusModeEnum.None)control.GrabFocus();await Frames();for(Node? p=control.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(control);await Frames();return control;}
-    private async Task Click(Node node,string text){var b=Button(node,text);b=await Reach(b);Press(b);await Frames();}
+    private async Task<T> Reach<T>(T control) where T:Control{control=UiNavigation.Reveal(control);if(control.FocusMode!=Control.FocusModeEnum.None)control.GrabFocus();await Frames();if(!GodotObject.IsInstanceValid(control))return control;for(Node? p=control.GetParent();p is not null;p=p.GetParent())if(p is ScrollContainer scroll)scroll.EnsureControlVisible(control);await Frames();return control;}
+    private async Task Click(Node node,string text){var b=Button(node,text);b=await Reach(b);if(!GodotObject.IsInstanceValid(b))b=await Reach(Button(node,text));Press(b);await Frames();}
     private static bool Visible(Control c)=>c.IsVisibleInTree()&&c.GetViewport().GetVisibleRect().Encloses(c.GetGlobalRect());
     private async Task BlockedCargoControls() {
         var content=DevelopmentContent();var generated=GalaxyGenerator.CreateNewGame(content,new("small",42,5,"wenth"));Check(generated.Succeeded,"Labelled Wenth initial campaign generates normally");string name=$"qa-{_runId}-colony-wenth-initial";string path=SaveFiles.PathFor(name);SaveGame.WriteFile(path,content,generated.State!);_savePaths.Add(path);
@@ -335,7 +335,7 @@ public partial class ColonyGraphicalValidation:GraphicalValidation
     }
 
     private async Task EndPlanningWithoutResolution(GameScreen screen) {
-        var session=Session(screen);int turn=session.State.Turn;var button=Descendants<Button>(screen).Single(b=>b.Text=="End Turn"||b.Text=="Waiting for others (cancel)");Press(button);await Frames();Check(session.State.Turn==turn,"Labelled nonfinal Ready/withdraw does not resolve the two-human turn");
+        var session=Session(screen);int turn=session.State.Turn;var button=Descendants<Button>(screen).Single(b=>b.Name=="EndTurn");Press(button);await Frames();Check(session.State.Turn==turn,"Labelled nonfinal Ready/withdraw does not resolve the two-human turn");
     }
     private static void SelectNumber(OptionButton picker,int id){picker=UiNavigation.Reveal(picker);int index=Enumerable.Range(0,picker.ItemCount).Single(i=>picker.GetItemMetadata(i).AsInt32()==id);picker.Select(index);picker.EmitSignal(OptionButton.SignalName.ItemSelected,index);}
     private async Task OwnColony(GameScreen screen,OpenAntares.Simulation.ColonyId colony){SelectNumber(Descendants<OptionButton>(One<ColonyList>(screen)).Single(),colony.Value);await Frames();}

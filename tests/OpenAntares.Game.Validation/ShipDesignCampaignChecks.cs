@@ -62,7 +62,7 @@ public partial class ShipDesignGraphicalValidation
     private async Task End(GameScreen screen)
     {
         await LeaveFleet(screen);
-        var session=Live(screen);int before=session.State.Turn;var prior=session.State;await Click(Descendants<Button>(screen).Single(b=>b.Text=="End Turn"));RecordUi(screen,prior,new SetReadyCommand(prior.Empires.First(e=>e.Controller==ControllerKind.Human).Id,before,true),"End Turn");Check(session.State.Turn==before+1,"Actual End Turn resolves one automatic boundary");Check(Descendants<TurnReportDialog>(screen).Single().Visible,"Actual combat turn report is visible");
+        var session=Live(screen);int before=session.State.Turn;var prior=session.State;await Click(Descendants<Button>(screen).Single(b=>b.Name=="EndTurn"));RecordUi(screen,prior,new SetReadyCommand(prior.Empires.First(e=>e.Controller==ControllerKind.Human).Id,before,true),"End Turn");Check(session.State.Turn==before+1,"Actual End Turn resolves one automatic boundary");Check(Descendants<TurnReportDialog>(screen).Single().Visible,"Actual combat turn report is visible");
     }
     private static string Hash(string text)=>Convert.ToHexString(System.Security.Cryptography.SHA256.HashData(System.Text.Encoding.UTF8.GetBytes(text))).ToLowerInvariant();
     private void RecordUi(GameScreen screen,GameState before,Command command,string intent)
