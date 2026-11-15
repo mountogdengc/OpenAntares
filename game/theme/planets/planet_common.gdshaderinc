@@ -162,13 +162,14 @@ float planet_land(float height) {
     return step(sea_threshold, height);
 }
 float planet_sites(vec3 p, float height, float level) {
+    // Screen-space derivatives stay ahead of every early return so they sit in uniform control flow.
+    float fine = planet_detail(230.0, planet_footprint(p));
     if (level <= 0.0 || surface_mode == 2 || (!all_water && planet_land(height) < 0.5)) return 0.0;
     float district = smoothstep(0.48,0.66,planet_noise(p * 17.0, city_seed));
     float threshold = mix(city_threshold_sparse,city_threshold_dense,level);
     float candidate = planet_noise(p * 92.0, city_seed);
     float sites = district * smoothstep(threshold, min(1.0,threshold + 0.06),candidate);
     // On large globes each site breaks into individual lights; small globes keep the plain site value.
-    float fine = planet_detail(230.0, planet_footprint(p));
     return sites * mix(1.0, 1.7 * smoothstep(0.42, 0.78, planet_noise(p * 230.0, city_seed + ivec2(2, 5))), fine);
 }
 float planet_day(vec3 normal) { return dot(normal, PLANET_LIGHT); }
@@ -185,9 +186,10 @@ float planet_cloud_field(vec3 p, float footprint) {
     return max(body, 0.35 * smoothstep(threshold - 0.06, threshold + 0.02, field));
 }
 float planet_cloud_mask(vec3 local_point) {
-    if (cloud_cover <= 0.0 || diagnostic) return 0.0;
     vec3 p = planet_sample_point(local_point);
-    return planet_cloud_field(p, planet_footprint(p)) * 0.82;
+    float footprint = planet_footprint(p);
+    if (cloud_cover <= 0.0 || diagnostic) return 0.0;
+    return planet_cloud_field(p, footprint) * 0.82;
 }
 vec3 planet_banded(vec3 p, float footprint) {
     float sway = planet_fbm(p * vec3(1.6,5.0,1.6) + vec3(2.0,0.0,7.0), terrain_seed, 3, 5.0, footprint);
@@ -205,6 +207,13 @@ vec3 planet_banded(vec3 p, float footprint) {
 }
 vec3 planet_surface(vec3 local_point, vec3 normal) {
     vec3 p = planet_sample_point(local_point);
+    // Height, craters and every screen-space derivative are taken first, ahead of any branch.
+    float footprint = planet_footprint(p);
+    float height = planet_height(p, footprint);
+    float crater = surface_mode == 1 ? planet_craters(p, 5.0, footprint) + planet_craters(p + vec3(4.1), 13.0, footprint) * 0.6 : 0.0;
+    float shaped = height + crater * 0.16;
+    vec3 dpx = dFdx(p); vec3 dpy = dFdy(p);
+    float dhx = dFdx(shaped); float dhy = dFdy(shaped);
     if (diagnostic) {
         vec3 result = vec3(0.1);
         if (p.y > 0.65) result = vec3(0.0,1.0,0.0);
@@ -213,8 +222,6 @@ vec3 planet_surface(vec3 local_point, vec3 normal) {
         if (dot(p,normalize(vec3(0.1,-0.65,1.0))) > 0.985) result = vec3(1.0,1.0,0.0);
         return result;
     }
-    float footprint = planet_footprint(p);
-    float height = planet_height(p, footprint);
     float day = planet_day(normal);
     vec3 color;
     float relief = 1.0;
@@ -228,7 +235,6 @@ vec3 planet_surface(vec3 local_point, vec3 normal) {
         float coast = max(0.0035, footprint * 0.35);
         float land = !sea ? 1.0 : all_water ? 0.0 : smoothstep(sea_threshold - coast, sea_threshold + coast, height);
         float land_height = sea ? clamp((height-sea_threshold)/max(0.1,1.0-sea_threshold),0.0,1.0) : height;
-        float crater = airless ? planet_craters(p, 5.0, footprint) + planet_craters(p + vec3(4.1), 13.0, footprint) * 0.6 : 0.0;
         // Tone variation that is independent of height: moisture on living worlds, dark plains on airless ones.
         float tone = 0.5 + planet_fbm(p * 2.2 + vec3(31.0,17.0,5.0), terrain_seed, 3, 2.2, footprint);
         float grain = planet_fbm(p * 21.0, terrain_seed, 2, 21.0, footprint);
@@ -249,24 +255,16 @@ vec3 planet_surface(vec3 local_point, vec3 normal) {
             ground = mix(ground, mix(high, vec3(1.0), 0.25), sea ? (1.0 - smoothstep(0.0, 0.035, land_height)) * 0.45 : 0.0);
         }
         ground *= 1.0 + grain * 0.22;
-        if (land > 0.0) {
-            // Relief: tilt the local normal by the height gradient and compare against the smooth sphere.
-            vec3 east = abs(p.y) > 0.995 ? vec3(1.0,0.0,0.0) : normalize(cross(vec3(0.0,1.0,0.0), p));
-            vec3 north = cross(p, east);
-            float step_size = max(0.006, footprint * 1.5);
-            vec3 pe = normalize(p + east * step_size); vec3 pn = normalize(p + north * step_size);
-            float he = planet_height(pe, footprint); float hn = planet_height(pn, footprint);
-            float h0 = height;
-            if (airless) {
-                h0 += crater * 0.16;
-                he += (planet_craters(pe, 5.0, footprint) + planet_craters(pe + vec3(4.1), 13.0, footprint) * 0.6) * 0.16;
-                hn += (planet_craters(pn, 5.0, footprint) + planet_craters(pn + vec3(4.1), 13.0, footprint) * 0.6) * 0.16;
-            }
-            float strength = airless ? 0.17 : 0.20 * smoothstep(0.0, 0.10, land_height);
-            vec3 bumped = normalize(p - (east * (he - h0) + north * (hn - h0)) * (strength / step_size));
-            vec3 light = planet_local(PLANET_LIGHT, spin_cycles);
-            relief = clamp(1.0 + 1.5 * (dot(bumped, light) - dot(p, light)), 0.50, 1.45);
-        }
+        // Relief: the height gradient on the sphere comes from the screen-space derivatives above, so it costs
+        // no extra terrain samples. It tilts the local normal, which is compared against the smooth sphere.
+        vec3 r1 = cross(dpy, p); vec3 r2 = cross(p, dpx);
+        float det = dot(dpx, r1);
+        vec3 gradient = (dhx * r1 + dhy * r2) / (abs(det) > 0.000000001 ? det : 0.000000001);
+        gradient /= max(1.0, length(gradient) / 8.0);
+        float strength = airless ? 0.17 : 0.20 * smoothstep(0.0, 0.10, land_height);
+        vec3 light = planet_local(PLANET_LIGHT, spin_cycles);
+        vec3 bumped = normalize(p - gradient * strength);
+        relief = clamp(1.0 + 1.5 * (dot(bumped, light) - dot(p, light)), 0.50, 1.45);
         float depth = sea_threshold - height;
         vec3 water = mix(planet_color(shallow_water), planet_color(deep_water), smoothstep(0.0, 0.20, depth));
         water = mix(water, planet_color(shallow_water) * 1.25, (1.0 - smoothstep(0.0, 0.03, depth)) * 0.45);

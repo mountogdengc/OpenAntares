@@ -47,3 +47,19 @@ All five shaders compile and render with no shader errors. Images are in this fo
   (181 ms against 38 ms). Real GPU cost was not measured.
 - Windows ANGLE/D3D shader compilation, which the game uses, was not exercised.
 - Saved planet appearance is seeded as before, but coastlines differ from v1, so existing planets look different.
+
+## Follow-up, same day: load lag
+
+Owner ran the branch in the game: the look is accepted, but starting a new game and opening the colony view
+each paused noticeably. The likely cause is first-use compilation of the larger shader (canvas shader at new
+game, the three spatial shaders at the colony view); this was not confirmed on the PC.
+
+Change: relief shading now takes the height gradient from screen-space derivatives instead of two extra terrain
+samples, and craters are evaluated once instead of three times. The surface shader's inlined size drops to
+roughly a third for terrain and craters. Every derivative now sits ahead of any early return or branch, and the
+canvas cloud mask is evaluated unconditionally for the same reason. The look is unchanged apart from slightly
+crisper relief on large globes.
+
+Measured on software rendering only (Mesa llvmpipe, two 512 pixel globes): v1 59 ms per frame, first v2
+200 ms, this version 132 ms. First-frame times were too noisy to rank reliably. The Windows ANGLE/D3D compile
+time, which is what the owner experienced, was not measured.

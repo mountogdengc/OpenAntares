@@ -11,7 +11,8 @@ void fragment() {
     vec3 glow = planet_glow(normal);
     // Same order as the spatial layers: each layer is encoded on its own, then clouds blend over the surface.
     vec3 color = planet_encode(planet_surface(planet_local(normal,spin_cycles),normal) + glow);
-    float cloud = show_clouds ? planet_cloud_mask(planet_local(normal,cloud_cycles)) : 0.0;
+    // Evaluated unconditionally: the mask takes screen-space derivatives, which must not sit in a branch.
+    float cloud = planet_cloud_mask(planet_local(normal,cloud_cycles)) * (show_clouds ? 1.0 : 0.0);
     color = mix(color,planet_encode(planet_illumination(planet_color(cloud_color),normal) + glow),cloud);
     float disc = 1.0-smoothstep(1.0-edge,1.0+edge,radius);
     float halo = planet_halo(radius);
