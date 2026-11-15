@@ -2,7 +2,6 @@ shader_type canvas_item;
 render_mode unshaded;
 #define PLANET_CANVAS_SRGB
 #include "res://game/theme/planets/planet_common.gdshaderinc"
-uniform bool show_clouds = true;
 void fragment() {
     vec2 xy = (UV * 2.0 - 1.0) / 0.85;
     xy.y = -xy.y;
