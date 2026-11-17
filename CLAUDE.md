@@ -1,3 +1,9 @@
+# Current engineering scope — 2026-11-16
+
+OpenAntares has its own original identity. The [current guide](docs/DESIGN_GUIDE.md), [ADR-030](docs/DECISIONS/ADR-030-original-identity-and-design-reconciliation.md) and [status](PROJECT_STATUS.md) govern present design framing and next work. Supply/migration defaults are Proposed. Dated approval/integration checkpoints below retain their original authority and source scopes; their old next actions/uncommitted descriptions are historical, not new work orders. All architecture, licensing and owner testing/preservation constraints remain applicable.
+
+---
+
 **UI follow-up local commit, 2026-11-11:** Owner requested committing the pending map-key, selection-console, Decisions and fleet roster/stacking work, including the redundant Fleet course block removal. This commit records those source files, directly affected validation adapters and handoff notes. A fresh normal game-only build of the staged UI snapshot passes with 0 warnings/errors through shared queue job df4bc136781e41adbbb907546b1dbcb1. Retained 191-check fleet evidence keeps its original source scope; interaction suites were not rerun. Focused MapKeys runtime verification and owner physical/readability acceptance remain Pending. Separate procedural planet-globe work and generated evidence remain local and excluded. No push, release or cleanup. See reports/M14_UI_COMMIT_2026-11-11.md. Earlier no-commit paragraphs are historical for this authorized scope.
 
 **Fleet-card cleanup, 2026-11-10:** Owner screenshot follow-up removes the redundant Fleet course heading, instructional readout and Deselect fleet button. Ship orders/System card, click-to-course, map route preview and ESC/right-click deselection remain. Normal queued game-only build b8930861852e40cb9b823d732897d148 passes with 0 warnings/errors; ordinary validation namespace is empty. No interaction suite or full tests were rerun for this UI removal; earlier native evidence retains its prior-source scope. Existing running playtest was left open and needs a restart to show this build. See reports/M14_FLEET_COURSE_CLEANUP_2026-11-10.md. No commit.
@@ -111,13 +117,13 @@ The same state, commands, and seed must produce the same result on every machine
 ### Test the game logic
 
 - Core simulation systems need xUnit tests in `tests/OpenAntares.Simulation.Tests/`: resource calculations, population growth, production, research progression, movement, combat math, and tech prerequisites.
-- Add or update tests with every simulation change, and run `dotnet test` before committing. Determinism makes exact-result tests possible, so use them.
+- Add or update tests for changed simulation behavior. Follow the current owner rule in AGENTS.md: smallest directly affected native checks through the shared queue, no Docker and no full suite without explicit owner request. Determinism supports exact-result tests; unchanged historical results retain their original scope.
 - Include determinism tests: running the same seed and commands twice must produce identical state.
 
 ## Scope discipline
 
-- The current target is the **First Playable Milestone** in the charter: new game, galaxy generation, galaxy map, star and planet inspection, one colony, workforce allocation, production, research, end turn, save/load. It does not include AI, diplomacy, or combat.
-- Don't build ahead of the milestone. Leave room for later systems (the command path, IDs, data-driven content), but don't implement them early.
+- First Playable is the historical foundation. Strategic systems through empire conflict and M13/M14 presentation are implemented; use [DESIGN_GUIDE.md](docs/DESIGN_GUIDE.md) and [PROJECT_STATUS.md](PROJECT_STATUS.md) for current scope and source. Supply/migration is a proposal for gameplay review, not implementation authority.
+- Implement only the currently approved concrete scope. Do not repeat completed historical plan tasks or infer new gameplay/commit/integration authority from this documentation reconciliation.
 - The strategic game comes before tactical combat and graphical polish.
 
 ## Content and licensing

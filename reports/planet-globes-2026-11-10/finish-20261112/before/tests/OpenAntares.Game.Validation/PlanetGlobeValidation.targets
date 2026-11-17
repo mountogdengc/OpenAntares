@@ -1,0 +1,6 @@
+<Project>
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'OpenAntares'">
+    <Compile Include="$(MSBuildThisFileDirectory)PlanetGlobeValidation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlanetGlobeChecks.cs" />
+  </ItemGroup>
+</Project>

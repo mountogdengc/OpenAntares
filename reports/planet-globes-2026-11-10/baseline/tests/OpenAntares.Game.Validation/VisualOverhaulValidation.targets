@@ -1,0 +1,11 @@
+<Project>
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'OpenAntares'">
+    <Compile Include="$(MSBuildThisFileDirectory)VisualOverhaulValidation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlaytestFeedbackChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FleetPanelFeedbackChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)VisualOverhaulReviewChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CombinedUiNavigation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SelectionConsoleChecks.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FleetRosterChecks.cs" />
+  </ItemGroup>
+</Project>

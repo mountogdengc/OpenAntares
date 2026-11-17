@@ -1,203 +1,85 @@
 # OpenAntares Design Guide
 
-**Status: Living design guide. The first playable loop is implemented; playtest review and later-system decisions remain open.**
+Reconciled 2026-11-16. **Current design overview.** OpenAntares is an original turn-based space 4X game about distinct civilizations, understandable strategic tradeoffs and an empire that remains manageable as it grows. Its identity, mechanics and appearance stand on their own. The [charter](CHARTER.md) governs product intent; [engineering rules](../CLAUDE.md) govern implementation.
 
-This guide translates the [project charter](CHARTER.md) and the research in [docs/research](research/) into practical guidance for designing OpenAntares. It is for contributors deciding how a system should behave, what the player should see, and how to judge whether a feature improves the game.
+## How to read the design record
 
-The immediate goal is a playable colony loop: inspect the galaxy, allocate workforce, choose construction and research, advance a turn, understand the results, and resume from a save. The broader game should grow from that loop through exploration, expansion, distinct civilizations, rival empires, and strategic conflict.
+This guide is the starting point, not a second copy of every formula. Detailed subsystem specifications define exact behavior for their applicable rules versions. [Specifications](SPECIFICATIONS.md) index contracts; [acceptance criteria](ACCEPTANCE_CRITERIA.md) separate required evidence from actual results; [project status](../PROJECT_STATUS.md) identifies the inspected checkout and next action. [Decision records](DECISIONS/README.md) preserve why choices were made.
 
-## Authority and decision status
+Use three distinctions consistently:
 
-The charter remains the source of truth for identity, scope, and design intent. [CLAUDE.md](../CLAUDE.md) supplies the project's implementation constraints. This guide explains how to apply them; it does not expand the current milestone.
+- **Established:** approved direction or implemented contract, with its applicable version and recorded evidence scope.
+- **Proposed:** a concrete recommendation awaiting gameplay review. Writing a specification does not approve it.
+- **Open or deferred:** a decision or feature still requiring design, observation or a later scope selection.
 
-Three labels distinguish established direction from new choices:
+Dated reports, plans and old checkpoint paragraphs retain their original source and acceptance scope. A prior test count is not fresh verification of today's checkout. Historical research and third-party reference provenance remain research; they prescribe neither product identity nor a feature checklist. [ADR-030](DECISIONS/ADR-030-original-identity-and-design-reconciliation.md) records the current identity clarification.
 
-- **Established:** a charter or project constraint, already applicable to new work.
-- **Proposed:** a recommended behavior introduced by this guide, requiring review before its implementation spec is settled.
-- **Open:** a consequential choice that needs a focused system design or playtest.
+## Player experience and design pillars
 
-Examples illustrate intent and do not establish content names, numerical balance, or implemented features. System specs should record formulas, timing, limits, edge cases, and accepted deviations from this guide. Research notes preserve evidence; they do not independently authorize features.
+The strategic loop is **Explore → Expand → Develop → Research → Negotiate → Build → Compete → Adapt**. Each system should create a decision with more than one defensible answer. State the opportunity cost, the circumstances that change the answer and the information that lets the player recognize them.
 
-## Classic space-opera creative brief
+The pillars are meaningful decisions, depth without busywork, distinct empires, strategic transparency, emergent stories, strong information design and moddability. Automation should handle routine execution within visible player policies; it must remain possible to inspect why it acted, override it and understand a blocked order.
 
-**Established by owner clarification, 2026-10-23:** OpenAntares is intended as a love letter to Master of Orion II and classic space 4X. Its aliens may be colorful, larger-than-life space-opera archetypes: humanoid animals, Earth-monster-like beings and other fanciful designs are welcome. Memorable appearance, personality and enjoyable play may take priority over biological or evolutionary plausibility. Respect real peoples, cultures, religions and ethnic groups; avoid demeaning real-world caricatures. This creative brief does not require a contemporary representational checklist or a scientific explanation for every alien trait.
+OpenAntares uses an original space-opera setting. Colorful aliens, humanoid animals, monsters and fanciful biology are welcome. Memorable personality and enjoyable play may take priority over evolutionary plausibility. Treat real peoples, cultures, religions and ethnic groups respectfully. Species design does not require an external game's archetypes or rules.
 
-Use precise mechanics and clear explanations while allowing playful fiction. Familiar alien silhouettes and broad archetypes can carry a species; neither detailed biology nor an elaborate cultural justification is a prerequisite.
+## Current implemented strategic game
 
-## The experience we are designing
+The First Playable established the colony loop; it is a historical foundation rather than today's feature ceiling. Rules 12 / writer 13 are current in inspected source. Earlier saves retain their embedded rules and content. These systems exist; this table does not assert complete human, balance, platform or release acceptance.
 
-**Established:** players should have several defensible choices, understand their consequences, and develop an empire with its own character. Complexity should arise from interacting systems. Routine maintenance should remain manageable as the empire grows.
-
-For each proposed mechanic, describe the decision it creates. State what the player gives up, what changes their preferred answer, and how they can recognize those conditions. A mechanic that merely adds another mandatory improvement or recurring click needs revision.
-
-For example, a development project might make the starting colony more productive while delaying an immediate research goal. A productive planet might require more support than a smaller, easier settlement. These choices should be legible from the information the player actually has.
-
-The first playable milestone can demonstrate allocation and investment choices without opponents. Strategic pressure from rivals belongs to later milestones. Do not compensate for their absence by building diplomacy or combat early.
-
-## What the research contributes
-
-| Research observation | Proposed application | Scope |
+| System | Current design contract | Detailed authority |
 | --- | --- | --- |
-| MOO2 patch users gained saved build lists and bulk queue actions. | Preserve manual control while designing production commands that can later support batch use. | Single-colony controls now; bulk UI later. |
-| The patch exposed missing values and corrected misleading displays. | Obtain displayed totals and explanations from the same calculations used for resolution. | First playable. |
-| Research loss and economy interactions required fixes or alternate rules. | Define progress conservation and test combinations of rule settings. | First playable foundations; broader combinations as settings are added. |
-| Alternate rulesets use configurable content and rules. | Keep base content distinct from overrides and identify the rules used by a save. | Core data now; mod selection later. |
-| OpenOrion2 validates cross-entity relationships before reconstructing fleets. | Validate a loaded world before building derived indices or exposing it to play. | First playable. |
-| Its planet filters and ownership caches reveal visibility concerns. | Apply empire knowledge to lists, filters, counts, and previews as well as map rendering. | Inspection now; richer exploration later. |
-| Inspection screens coexist with an unimplemented end-turn action. | Measure milestone progress through a complete gameplay loop. | Every milestone. |
+| Galaxy and exploration | Seeded galaxy, empire knowledge, survey/travel and settlement decisions; visibility governs map, lists and previews | [Galaxy](superpowers/specs/2026-10-05-spiral-galaxy-design.md), [expansion](superpowers/specs/2026-10-22-exploration-and-colonization-design.md) |
+| Species | Peldra, Harl, Sulan and Wenth have different support, growth, labor and founding constraints | [Species](superpowers/specs/2026-10-23-species-mechanics-design.md) |
+| Rival expansion | A rival uses paid ordinary actions and permitted knowledge; Solo remains available | [Rivals](superpowers/specs/2026-10-24-rival-expansion-design.md) |
+| Colony development | Paid development, specialists, finite queues and optional governors with manual authority | [Development](superpowers/specs/2026-10-24-colony-development-design.md) |
+| Crises | Plague progression, responses and population-bearing transport restrictions | [Crises](superpowers/specs/2026-10-24-colony-crises-plague-design.md) |
+| Scouting | Survival, encounter avoidance and ameba behavior preserve useful noncombat exploration | [Scouting](superpowers/specs/2026-10-25-scout-survival-and-encounter-avoidance-design.md) |
+| Fleet command | Named fleets, construction requests, officers, doctrine and cultural recovery rules | [Fleets](superpowers/specs/2026-10-27-fleet-command-and-admirals-design.md) |
+| Strategic combat | Sentry exchanges, persistent hull/cohesion, standing orders, withdrawal and paid port repair | [Combat](superpowers/specs/2026-10-28-fleet-combat-damage-and-withdrawal-design.md) |
+| Ship design | Immutable exact designs, research unlocks, paid production and same-frame refits | [Ship design](superpowers/specs/2026-10-29-ship-design-and-refitting-design.md) |
+| Diplomacy | Contact, visible attitudes, settlement accords and paid production trade | [Diplomacy](superpowers/specs/2026-10-30-diplomacy-design.md) |
+| Empire conflict | War/peace, protected civilians, armed encounters, withdrawal, nonstacking production blockades and fair military AI | [Conflict](superpowers/specs/2026-10-31-empire-conflict-design.md) |
 
-Sources: [MOO2 1.50 patch review](research/moo2-150-patch-review.md) and [OpenOrion2 technical survey](research/OPENORION2_SURVEY.md). These are qualitative references, not evidence that their balance values or exact mechanics are suitable for OpenAntares. The OpenOrion2 survey was source inspection rather than a playtest.
+## Economy, population and timing
 
-## First playable scope
+Local population support, industrial production and scientific research are distinct quantities. Current support is calculated separately per colony; it is not a physical intercolony food network. Existing shortage rules reduce production/research and pause ordinary growth. Expose support produced, required, surplus and deficit with the same calculations used by resolution.
 
-**Established:** the milestone includes new game setup, galaxy generation, a galaxy map, star and planet inspection, one controlled starting colony, workforce allocation, production, research, turn advancement, and save/load. AI, diplomacy, combat, and graphical polish are outside it.
+Stored production and research are progress, not a shared treasury. Preserve their exact switching/completion/remainder rules. Queue, request, trade and refit reservations must not spend the same bank twice. Forecasts must explain workforce, species, environment, building, health, blockade and agreement effects in their applicable order.
 
-Use a small set of original content sufficient to exercise the loop. The number of buildings, technologies, or planet types is not a progress measure. Every displayed choice should either work or explain why it is unavailable.
+Population units and growth progress are different. Wenth population denotes lobes of a single colony body; it must not become generic passenger cargo. Settlement/habitat restrictions remain species-aware. The [original economy contract](FIRST_PLAYABLE_ECONOMY.md) defines the foundation; later specifications explicitly extend it rather than silently redefining historical saves.
 
-**Proposed acceptance scenario:** start a seeded game, find the home colony, change workforce allocation, inspect the resulting outputs, select a project and a research target, and advance enough turns to observe growth and both forms of progress. Complete at least one project and one research target, inspect their effects, save, reload, and continue. Repeat from the same state and orders to verify identical outcomes.
+Resolution uses snapshots, ordered deterministic phases and one atomic candidate-state publication. The current [turn resolver](../src/OpenAntares.Simulation/Turns/TurnResolver.cs) incorporates diplomacy, economy, health, combat, movement/founding and aftermath. The old five-phase economy-only description is not the entire current turn. Define the exact integration point of every new system before implementation; new arrivals, workers or completions cannot retroactively earn output.
 
-This scenario checks behavior. A separate playtest asks whether the allocation and project choices remain interesting and whether the player can explain the results.
+## Information, commands and persistence
 
-## Galaxy and inspection
+Every state-changing action, including AI action, uses the same empire-tagged command validation. Rejection preserves state. AI may neither inspect hidden information nor obtain free resources or special command authority.
 
-**Established:** entities have stable IDs. **Proposed:** model planets, settlements, and ownership separately, with validated references. A physical planet should not disappear merely because its colony changes owner or ceases to exist.
+Obtain display values and forecasts from simulation calculations. Important values need a readable total, a short source breakdown and detailed timing/rounding where needed. Unknown is different from zero; stale knowledge is different from current observation. Hidden facts must not change visible counts, sorting, enabled controls or preview tokens.
 
-**Proposed:** map selection and inspector selection share one selected entity. Selecting a star shows its known planets; selecting a planet exposes its environment, available economic potential, and settlement information where known. In the first playable, economic potential is the planet type's per-worker output, the same values the economy uses. Returning to the map preserves useful context.
+Use plain serializable state, stable IDs, integer/fixed-point rule calculations, the saved project PRNG and stable iteration. Save/load validates content and relationships before replacing a session; a failure preserves the current session. Explicit rules/schema compatibility retains old campaign behavior. Presentation settings and caches stay outside authoritative saves.
 
-Describe suitability through contributing factors rather than a single unexplained score. Later comparisons should show why a world is useful to this civilization: environmental support, productive potential, location, and known risks. Avoid presenting one universal planet ranking as an optimal answer.
+## Current interface and visual direction
 
-**Established:** inspection is specific to an empire. **Proposed:** distinguish an unknown value from a known zero, and label stale observations when the exploration model begins retaining them. A world without known threats is not necessarily a world confirmed safe.
+M13 campaign polish and M14 presentation are integrated. The current interface uses a map-centered console, selection cards, shared fleet rows/stacks, explicit multi-selection, click-to-course, Decisions and a compact Turn Report. System inspection opens an orbital window over the map. Colony controls and population/growth labels should describe player decisions, not diagnostic implementation details.
 
-The first milestone does not need moving scouts. **Current prototype policy:** the map shows every generated star and permits inspection of every planet. An empire-specific knowledge and visibility model remains open for the exploration design; it must govern lists, previews, and inspection as well as map rendering.
+UI controls are built in C# and styled in `game/theme/openantares_theme.tres`. Preserve owner theme edits. Original UI assets, fonts and their provenance remain in [art/ui/README.md](../art/ui/README.md) and [LICENSING.md](../LICENSING.md). Shader-based screen effects and procedural planet materials are documented presentation exceptions; this does not authorize moving ordinary UI styling into code.
 
-## Colony economy and workforce
+Procedural planets share saved appearance inputs across sidebar, colony and orbital views. They use only published permitted information; current owned population may drive city lights, while unknown or stale foreign population must not. Reduced effects and Animate planets are presentation preferences outside campaign saves.
 
-**Established:** colonies support population, industrial development, and scientific research. Important values need understandable explanations.
+The November 15 feature branch changes planets to a stylized modern look, accepted visually by the owner in its [report](../reports/planet-globes-v2-2026-11-15/PLANET_GLOBES_V2_2026-11-15.md). This supersedes the original proposed retro globe style. The subsequent shader-size optimization addresses observed first-use pauses, but Windows ANGLE compile timing, current parity/city checks and rendering budgets remain unverified for that revision. The original 699-check result and prior timings apply to the November 12 implementation, not automatically to v2. Acceptance of that appearance does not close overall M14 comprehension/input acceptance.
 
-**Proposed:** begin with workforce assignments for population support, production, and research. Reassigning workforce should immediately update a forecast of the coming turn, including support balance, net production, research contribution, and growth. Resolution uses the same rule calculations as the forecast. Forecasts should state assumptions whenever later systems make an outcome uncertain.
+## Next gameplay design: supply and migration
 
-Show gross output, costs, and net output separately. Population support available, population support required, and the resulting surplus or deficit should be visible together. Stored progress and recurring output are different quantities and should have distinct labels and units.
+The owner-selected direction includes civilian/colony and fleet supply, natural migration and deliberate bulk transfers. The [supply and migration proposal](superpowers/specs/2026-11-16-supply-and-migration-design.md) supplies concrete assistant defaults for resources, physical transport, policies, reservations, population identity, health and timing. It proposes civilian logistics/migration first, fleet endurance next and a separate interception/blockade-running design later. The owner has approved the summarized civilian behavior in [ADR-031](DECISIONS/ADR-031-approved-civilian-logistics-direction.md). The [civilian plan](superpowers/plans/2026-11-16-civilian-logistics-and-migration.md) covers provisions/transports/migration first and awaits concrete-plan review; numerical/integration choices are explicit there. Development goods, fleet endurance and interception remain later deliveries; no gameplay implementation is authorized yet.
 
-Use integer or fixed-point arithmetic with explicit rounding rules. Keep fractional progress in state where the design requires it; rounding a display must not silently erase earned progress.
+Tactical direction remains recorded in the [November 12 note](design-notes/2026-11-12-tactical-combat-and-supply-management.md): larger location-dependent battlefields, scouts that can escape, speed/size/maneuvering defenses, equipment roles, blockade runners and competent automation. Ordinary current shots do not use an accuracy/evasion roll. A tactical battlefield is not implemented by recording that intent. Tactical scope must not prevent completion of the strategic game.
 
-**Proposed in the [economy specification](FIRST_PLAYABLE_ECONOMY.md):** local support without storage, shortages that pause growth and reduce output, and explicit growth and capacity rules. These choices remain subject to review and playtesting. Transport and population loss are outside this prototype.
+Victory/defeat completion, broader events/content, balance, custom civilizations and the [deferred peaceful-mode request](FEATURE_REQUESTS.md#fr-001-peaceful-mode) still need their applicable design and acceptance. Solo setup alone is not acceptance of a complete peaceful progression mode.
 
-## Production and development
+## Review and acceptance
 
-**Proposed:** one colony has one active construction project in the first playable milestone. Show its cost, stored progress, expected contribution next turn, and estimated completion time. If the reserve already covers the cost, show completion at the next resolution even when current output is zero. Otherwise, an estimate with no positive production should say it is stalled rather than inventing a turn count.
+For each design explain its meaningful choice, information requirements, timing, edge cases, conservation, large-empire workload and persistence. Include zero output/capacity, cancellation, blocked routes, partial failure and conflicting commitments where applicable. Compare alternative approaches against the pillars, rather than treating a reference game's behavior as a target.
 
-Allow a choice to be changed before resolution. Define switching and cancellation costs explicitly; do not silently delete progress. Prefer preserving earned production in a colony reserve, subject to a documented capacity or conversion rule if later balance requires one.
+Automated verification establishes only its recorded scope and source. Human observation establishes whether players can understand and comfortably use the system. Preserve open physical-input, comprehension, accessibility, balance, platform and release limits. Use the [M14 journeys](playtests/m14-player-acceptance-2026-11-08.md) and feature-specific handoffs where relevant, without asking players to inspect source inventories or diagnostic logs.
 
-On completion, account for the full input: applied progress, completed project, and any remainder. **Proposed in the [economy specification](FIRST_PLAYABLE_ECONOMY.md):** bank the remainder, clear the completed project, and complete at most one building per colony per turn. A queue and multiple completions per turn are later decisions, not milestone requirements.
-
-Buildings should create a useful capability or tradeoff. For each, specify its beneficiaries, costs, prerequisites, and how its effects appear in the economy breakdown. Avoid an infrastructure chain that every colony must follow in the same order.
-
-Later queue templates and batch actions should use the ordinary command path. A batch operation should report which colonies accepted it and why others did not. Automation should have a visible policy and allow manual override.
-
-## Research
-
-**Established:** research advances through data-defined technologies and prerequisites. **Proposed:** the empire selects one active target and receives the contributions of its colonies. The research view shows available choices, prerequisites, costs, progress, and the capabilities each choice enables.
-
-A player should be able to distinguish available now, available after prerequisites, already known, and unavailable under the current rules. Browsing future options must not be mistaken for selecting them.
-
-**Proposed:** unused research, including research earned with no selected target, is preserved in an explicit empire reserve. Completion consumes the stated cost and accounts for the remainder. The [economy specification](FIRST_PLAYABLE_ECONOMY.md) proposes unlimited reserves, switching without loss, and at most one technology completion per empire per turn. If a capacity or loss rule is introduced for balance later, explain it before resolution.
-
-Completion should expose what changed and where it matters. Prefer technologies that enable different plans. Exact research topology, exclusive choices, pacing, and numeric costs need a separate design; the legacy tree is not the default.
-
-## Orders and turn resolution
-
-**Established:** every state-changing action is a command issued by an empire and checked by the simulation. Presentation, AI, and future remote clients use the same validation path. Turn processing is deterministic and follows explicit phases.
-
-**Proposed:** ending the turn is also a command. Each empire marks itself ready, and the turn resolves when every human-controlled empire is ready. Every new turn starts unready. Changing a planning choice clears that empire's readiness; repeating an unchanged choice preserves it. The triggering readiness command and resolution succeed or fail together. With one human empire this behaves like an ordinary end-turn button, without placing a single-player assumption outside the command path.
-
-**Proposed first playable timing:** workforce and target-selection commands update the planning state after validation. Replacing such a choice before ending the turn recalculates forecasts but earns or spends no turn output. These edits do not promise a general undo system for all future commands.
-
-The following phase order is a proposal for the economy spec:
-
-1. Validate the planning state and capture the inputs for the turn.
-2. Calculate support, production, research contributions, and growth inputs from that snapshot.
-3. Resolve support and population changes using the chosen shortage and growth rules.
-4. Apply the previously calculated production and research, resolve completions, and account for remainders.
-5. Validate the resulting state, advance the turn number, and publish a structured report.
-
-Under this proposal, new population, buildings, and technologies affect economic output on the following turn. Calculated output is not recomputed midway through resolution. This avoids accidental differences caused by colony processing order.
-
-Later movement, diplomacy, combat, and events require an explicit extension of this order. Their timing must be specified before implementation rather than attached to whichever callback happens to run first.
-
-**Proposed:** warn about outcomes that cost the player something, such as support deficits, with direct links to the affected choices. Show idle production or unselected research as a status rather than a warning when the rules preserve that output; it becomes a warning only if a rule makes waiting costly. Allow intentional waiting under valid rules. Block invalid state or an invalid command, not every strategically questionable choice.
-
-## Information design and feedback
-
-**Established:** the interface uses clear summaries, drill-down detail, comparisons, and alerts. It adapts to desktop resolutions using containers and anchors; styling comes from one theme.
-
-**Proposed:** an important number has three levels of explanation: a readable total, a short breakdown, and detailed rule information where needed. Breakdown entries identify their source, units, contribution, and rounding or caps, and their integer contributions sum exactly to the total. Fractional rounding losses use explanatory integer division metadata rather than unrepresentable fractional contributions. The [economy specification](FIRST_PLAYABLE_ECONOMY.md) defines a common breakdown line shape for later systems to reuse. Presentation formats the result; it does not reconstruct a second version of the formula.
-
-For example, a production forecast might show workforce contribution, building contribution, environmental modifiers, operating costs, and the final amount added to construction. Its components must reconcile with the total actually applied during resolution.
-
-Turn reports should emphasize decisions that now need attention: completed projects, research unlocks, shortages, and interrupted plans. Routine progress remains available without requiring a modal dismissal for every colony. Selecting a report item should navigate to its relevant entity.
-
-Filters and sorting use permitted knowledge. Hidden facts must not change visible result counts, order, button states, or tooltips. Changing the viewed empire affects the information view, not authoritative simulation facts.
-
-## State and persistence
-
-**Established:** simulation state is plain serializable data, independent of Godot. Simulation calculations use whole numbers or fixed point, a stable seeded PRNG with saved state, and defined iteration order. Localized strings and presentation caches are outside authoritative state.
-
-**Proposed:** saves record schema version, turn, entity IDs and relationships, population and progress, current orders, empire knowledge, PRNG state, and enough ruleset information to reproduce calculations. A display name for a mod is insufficient to establish identical rules. **Proposed in the [economy specification](FIRST_PLAYABLE_ECONOMY.md):** embed the effective content definitions and rule parameters in the save, and version the rules implementation separately.
-
-Loading should parse, validate content compatibility and world invariants, then rebuild derived indices. On failure, keep the current session intact and explain the affected file, entity, or rule. Do not repair corrupted state silently.
-
-Milestone invariants include unique entity IDs, valid ownership and parent references, legal workforce totals, valid targets, legal population and capacity values, and accounted-for resource progress. Later systems add their own invariants; do not copy constraints such as symmetric diplomacy merely because a reference project used them.
-
-## Content and alternate rules
-
-**Established:** technologies, buildings, planet types, species traits, and other ordinary content live in JSON, referenced by string IDs. Content validation reports file, entry, and field. Generic logic belongs in code when data alone cannot express a rule.
-
-**Proposed:** separate core definitions from selected overrides and report missing references or incompatible combinations before starting play. New content should use existing mechanics where possible. A change to rule timing or resource semantics deserves explicit ruleset treatment rather than being disguised as a numeric adjustment.
-
-Test interactions as options are introduced. A production mode that works by itself can still duplicate income when paired with another mode. Include extreme valid values and boundary states, especially where rounding, capacity, and progress conversion interact.
-
-## Direction for later systems
-
-These are charter-aligned design criteria, not authorization to implement ahead of the milestone.
-
-| System | Direction | Evidence needed before committing to a mechanic |
-| --- | --- | --- |
-| Exploration and expansion | Discoveries should change settlement priorities; travel and support should make location matter. | Different map situations produce different defensible expansion plans. |
-| Civilizations | Abilities and constraints should alter decisions and combinations of viable strategies. | Several builds play differently without one dominating ordinary situations. |
-| AI empires | Use permitted information and ordinary commands; pursue understandable strategic goals. | Coherent pressure without illegal knowledge or command shortcuts. |
-| Diplomacy | Agreements and attitudes should reflect visible interests and consequences. | Negotiation can be useful in situations where coercion also has a cost. |
-| Fleet design and strategic warfare | Design choices should serve roles, costs, and counters. | Several compositions remain useful; strategic results have explainable causes. |
-| Tactical combat | Preserve separation from campaign state and support reproducible scenarios if developed. | Its scope does not prevent completion of the strategic game. |
-| Events and victory | Events should create responses; victory conditions should reward distinct long-term plans. | Players can recognize progress and respond before outcomes become inevitable. |
-
-## Review and playtest criteria
-
-Before accepting a system design, answer:
-
-- What meaningful choice does it create, and when does the preferred answer change?
-- What information lets the player judge it, and what remains legitimately unknown?
-- How does it behave at zero output, at capacity, after cancellation, and on completion?
-- When do its effects apply, and do forecasts match that timing?
-- How much repeated work does it require across a large empire?
-- Can it be reproduced from the same state, commands, rules, and seed?
-- Which data defines it, which state persists it, and which invariants validate it?
-- Does it belong in the current milestone?
-
-Verify the first playable with calculation and boundary tests, command rejection without partial mutation, deterministic repeat runs, save/load continuation, and agreement between forecasts, breakdowns, and applied results. Include visibility checks when inspection restrictions are introduced.
-
-Playtests should ask players to explain an allocation choice and a turn result without reading source code. Observe unnecessary screen switching, repeated clicks, unclear shortages, and whether project choices converge on one routine sequence. Record those findings before adding content to mask a weak loop.
-
-## Next validation and design decisions
-
-The [first playable economy and turn specification](FIRST_PLAYABLE_ECONOMY.md) and [spiral galaxy design](superpowers/specs/2026-10-05-spiral-galaxy-design.md) have implementations. Playtest the complete loop, including allocation forecasts, turn reports, galaxy readability, and save/load continuation. Record where choices or results are unclear before changing balance or adding content.
-
-The next focused design decision is exploration and expansion: empire-specific knowledge, travel, and founding another colony. The current all-visible inspection policy is a prototype; new visibility rules must preserve the command, determinism, and save boundaries already in place. Broader systems remain directional until the colony loop demonstrates understandable results and worthwhile choices in play.
-# M14 console presentation
-
-The presentation theme remains `game/theme/openantares_theme.tres`: fonts, palette, metrics, frames and control states live there. Original frame and icon provenance is in `art/ui/README.md`; bundled font licenses are recorded in `LICENSING.md`.
-
-The one shader exception is `game/theme/console_screen.gdshader`. It adds static scanlines and a light vignette to the galaxy viewing surface only, never game data. Its tint and strength come from the shared theme. Game → Screen effects and Reduced effects control it; preferences are stored outside campaign saves in `user://presentation.cfg`, only when explicitly changed. There is no animation or new randomness.
-
-Use short instrument labels and concrete actions: Colonies, Research, Set course, Back. Keep optional planning advice separate from decisions that require a response. Explain rules in tooltips and detail views without presenting implementation vocabulary to players. Display fixed-point resources as points, and population as population; projected growth points are not population gains. Production totals describe local reserves rather than implying a shared treasury.
-
-Player acceptance is a playthrough about comprehension and control. Use the journeys in `docs/playtests/m14-player-acceptance-2026-11-08.md`; do not ask players to inspect source identity, control inventories or diagnostic logs.
+Run the smallest checks necessary for changed behavior through the [native shared queue](TEST_RUNNER.md); no Docker and no full suite by default. Documentation reconciliation runs document/link/preservation checks, not gameplay tests. The immediate next action is owner review of the concrete civilian logistics/migration implementation plan. Native inline execution is retained after approval; later resource and tactical deliveries remain separate.

@@ -8,7 +8,7 @@
 
 **Tech Stack:** Existing C#, net8.0, Godot.NET.Sdk 4.7.2 / GL Compatibility, JSON and xUnit. No new dependencies, product scenes or asset pipeline.
 
-**Spec:** [Owner-approved species design](../specs/2026-10-23-species-mechanics-design.md), approved 2026-10-23 in [ADR-008](../../DECISIONS/ADR-008-approved-species-mechanics.md), including the classic Master of Orion II direction. The charter's original setting/licenses and respect for real peoples/cultures/religions remain in force.
+**Spec:** [Owner-approved species design](../specs/2026-10-23-species-mechanics-design.md), approved 2026-10-23 in [ADR-008](../../DECISIONS/ADR-008-approved-species-mechanics.md), including the colorful space-opera creative direction, now framed as OpenAntares's own identity in [ADR-030](../../DECISIONS/ADR-030-original-identity-and-design-reconciliation.md). The charter's original setting/licenses and respect for real peoples/cultures/religions remain in force.
 
 **Status:** Owner-approved Native execution complete,2026-10-23. All ten tasks and independent review/corrections are complete; see retained validation and final review reports. Source inventory anchor: main at `5958c25177e064d4aafb9a102fe6bc390dc59bd3` before this planning commit; only the two owner prose files were dirty.
 

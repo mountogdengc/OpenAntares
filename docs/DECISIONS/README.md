@@ -1,3 +1,11 @@
+# Current decision index note — 2026-11-16
+
+[ADR-031: Approve civilian logistics behavior and prepare its plan](ADR-031-approved-civilian-logistics-direction.md) records bounded civilian behavior approval. The concrete14-task plan awaits review; later development goods/fleet/interception details and implementation remain separate.
+
+[ADR-030: Original identity and current design record](ADR-030-original-identity-and-design-reconciliation.md) governs current product framing. [DESIGN_GUIDE.md](../DESIGN_GUIDE.md) and [PROJECT_STATUS.md](../../PROJECT_STATUS.md) supply current implementation/acceptance dispositions. The dated index descriptions below are historical approval checkpoints, not current instructions to repeat work; original quotations/reference provenance remain intact.
+
+---
+
 **M13 approval, 2026-11-06:** [ADR-027](ADR-027-approved-playability-and-campaign-polish.md) records owner approval of the exact scope and ten-task plan. Implementation is authorized on an isolated branch; functional/human acceptance and commit/integration authority remain separate.
 
 # Established decision index

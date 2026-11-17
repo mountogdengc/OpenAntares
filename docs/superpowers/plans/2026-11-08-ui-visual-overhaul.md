@@ -1,3 +1,5 @@
+**Current disposition,2026-11-16:** M14 is implemented and integrated, with later owner UI follow-ups recorded in [current status](../../../PROJECT_STATUS.md). Overall human acceptance remains pending. [ADR-030](../../DECISIONS/ADR-030-original-identity-and-design-reconciliation.md) supersedes the predecessor-based identity framing. The quoted original source title and old approval/task status below are retained historical provenance, not current branding or instructions to replay the plan.
+
 # M14 UI Visual Overhaul Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans for Native inline execution after approval. No per-task implementation agents; one fresh final M14 implementation reviewer. Steps use checkbox (`- [ ]`) syntax for tracking. This is a provisional review plan, not execution authorization.

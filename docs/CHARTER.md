@@ -2,11 +2,11 @@
 
 ## Project Identity
 
-**OpenAntares** is an open-source, turn-based space 4X strategy game inspired by the depth, pacing, and player agency of classic 1990s strategy games while using an entirely original setting, codebase, interface, artwork, audio, and game systems.
+**OpenAntares** is an original, open-source, turn-based space 4X strategy game about exploring an unknown galaxy, shaping a distinct civilization and making consequential economic, technological, diplomatic and military choices. Its setting, codebase, interface, artwork, audio and game systems establish its own identity.
 
-The goal is not to recreate a specific legacy title feature-for-feature. The goal is to build a modern, extensible 4X game that captures the appeal of exploration, empire management, technological development, fleet design, diplomacy, and tactical decision-making without inheriting unnecessary technical or design limitations from older games.
+Build an extensible strategic game with meaningful choices, understandable consequences and manageable empires. Evaluate mechanics and presentation against OpenAntares's own design pillars. Historical references inform research; they do not define the feature set or visual target.
 
-**Creative brief, clarified by the owner 2026-10-23:** OpenAntares is intended as a love letter to Master of Orion II and classic space 4X. Its aliens may be colorful, larger-than-life space-opera archetypes: humanoid animals, Earth-monster-like beings and other fanciful designs are welcome. Memorable appearance, personality and enjoyable play may take priority over biological or evolutionary plausibility. Respect real peoples, cultures, religions and ethnic groups; avoid demeaning real-world caricatures. This creative brief does not require a contemporary representational checklist or a scientific explanation for every alien trait.
+**Current creative brief, reconciled 2026-11-16:** OpenAntares has its own space-opera identity. The owner's earlier clarification of 2026-10-23 continues to support fanciful alien design. Its aliens may be colorful, larger-than-life space-opera archetypes: humanoid animals, Earth-monster-like beings and other fanciful designs are welcome. Memorable appearance, personality and enjoyable play may take priority over biological or evolutionary plausibility. Respect real peoples, cultures, religions and ethnic groups; avoid demeaning real-world caricatures. This creative brief does not require a contemporary representational checklist or a scientific explanation for every alien trait.
 
 ## Core Player Fantasy
 
@@ -240,6 +240,8 @@ Tactical ship combat may be included in version 1.0 only if it does not prevent 
 
 ## First Playable Milestone
 
+**Historical foundation:** These eleven actions established the initial loop. Exploration, species, rivals, development, crises, fleets, ship design, diplomacy and strategic conflict have since been implemented. The [current design guide](DESIGN_GUIDE.md) and [project status](../PROJECT_STATUS.md) identify current scope; this section does not prohibit those later approved systems.
+
 The first milestone should prove the game's fundamental loop.
 
 The player should be able to:
@@ -322,5 +324,5 @@ OpenAntares succeeds if:
 - large empires remain manageable
 - AI opponents behave coherently enough to create strategic pressure
 - adding new game content does not require rewriting core systems
-- the game remains enjoyable without nostalgia for any particular predecessor
+- the game is enjoyable and distinctive on its own terms
 - the project can grow without requiring a fundamental architectural rewrite

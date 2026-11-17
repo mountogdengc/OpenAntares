@@ -1,3 +1,5 @@
+**Current framing,2026-11-16:** [ADR-030](../../DECISIONS/ADR-030-original-identity-and-design-reconciliation.md) updates creative identity only. Approved species mechanics remain unchanged; integration is recorded in [current status](../../../PROJECT_STATUS.md). Earlier branch/pending-integration descriptions retain their original checkpoint scope.
+
 # Playable species: economy, habitats and founding
 
 **Status: Owner-approved design and implementation plan, 2026-10-23; implemented and locally verified; independent review/corrections complete, integration separate.**
@@ -8,7 +10,7 @@ Sources: [charter](../../CHARTER.md), [engineering constraints](../../../CLAUDE.
 
 ## 1. Intent and scope
 
-The owner's creative brief is a love letter to Master of Orion II and classic space 4X: colorful humanoid animals, monsters and broad alien archetypes are welcome even with fanciful biology. Prioritize memorable personality and enjoyable play while respecting real peoples, cultures, religions and ethnic groups. Scientific plausibility and a contemporary representational checklist are not creative requirements.
+OpenAntares uses its own original space-opera identity: colorful humanoid animals, monsters and broad alien archetypes are welcome even with fanciful biology. Prioritize memorable personality and enjoyable play while respecting real peoples, cultures, religions and ethnic groups. Scientific plausibility and a contemporary representational checklist are not creative requirements.
 
 Make species choice change labor allocation, home development and preparation of the next settlement. Each species must have a viable opening and a visible opportunity cost. Use the existing scout/discovery/production/travel/founding/two-colony/save loop.
 
