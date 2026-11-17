@@ -1,3 +1,5 @@
+**Current disposition,2026-11-16:** Implemented in November12 and committed with orbital inspection on November13. The November15 feature-branch shader revision supersedes original style assumptions; the [current guide](../../DESIGN_GUIDE.md) separates v1 evidence, v2 appearance acceptance and pending v2 verification. Original prototype/build-step language below is retained source history, not a current instruction to restart implementation.
+
 OpenAntares: Procedural Planet Globes Spec
 Nov 10, 2026 · @David Morris
 Goal and scope
@@ -8,7 +10,7 @@ Two renderers share one planet definition:
 • Colony globe: one large globe on the colony page. Drawn as real 3D in a SubViewport. Only one exists at a time.
 In scope: rotating surface, atmosphere glow, day and night sides, and city lights that spread as the colony grows.
 Out of scope for this pass: rings, moons, terraforming transitions, orbital structures, settlement anchors with true outward expansion, race-based light colors, and any change to the galaxy map.
-Proposed style: a restrained retro look, with limited rendering resolution and controlled shading, to fit the Master of Orion 2 direction. The globe math stays independent of that choice. David to confirm before antialiasing and glow are tuned.
+Original November10 style proposal: restrained retro rendering. Superseded November15 by the owner-accepted stylized modern appearance in the [v2 report](../../../reports/planet-globes-v2-2026-11-15/PLANET_GLOBES_V2_2026-11-15.md). Globe math remains independent of style; Windows performance and affected parity checks remain pending for that revision.
 Next step is a small rendering prototype (build steps 0 to 2), not full UI integration.
 Planet visual data
 Both renderers read the same PlanetVisual, so the sidebar globe and the colony globe are recognizably the same world.

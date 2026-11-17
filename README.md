@@ -1,34 +1,32 @@
 # OpenAntares
 
-OpenAntares is an original, open-source, turn-based space 4X game built with Godot .NET and C#. See the [project charter](docs/CHARTER.md) for its scope and design pillars.
+OpenAntares is an original, open-source, turn-based space 4X game built with Godot .NET and C#. Explore an unknown galaxy, develop a distinct civilization and make economic, technological, diplomatic and fleet decisions with understandable consequences. See the [charter](docs/CHARTER.md) and [current design guide](docs/DESIGN_GUIDE.md).
 
-New games on local main use rules6/writer7: four selectable species, one fair expansion rival by default (Solo retained), exploration/founding, colony development and plague crises with Standard/Off selection. Paid foundations/specialists, editable opt-in governors, finite queues, scalable management/reports and original planet portraits are connected. Old rules1/2/3/4 campaigns retain their embedded content and behavior across sixteen historical compatibility pairs; writer7 has twenty-two explicit pairs.
+Implemented systems include exploration/founding, four playable species, rival empires, colony development/crises, scout survival, fleet command, strategic combat, ship design/refitting, diplomacy and empire conflict. M13/M14 campaign polish and presentation are integrated, followed by shared fleet controls, orbital inspection and procedural planets. Current simulation rules are12 and save writer13; historical campaigns retain their embedded behavior.
 
-All twelve approved Native colony tasks and the three authorized presentation corrections are verified and locally integrated. M5-I and all COL child criteria are Verified for local automated/design scope. Read [PROJECT_STATUS.md](PROJECT_STATUS.md), [correction/review](reports/COLONY_POLISH_2026-10-24.md) and [fresh integration evidence](reports/COLONY_POLISH_INTEGRATION_2026-10-24.md). Human understanding/readability/physical input, aesthetics/balance, other platforms and delivery/release remain open; ADR-005 retains the uncoached-session deferral.
+The inspected November16 checkout is feature/planet-globes-modern at e90b6b2; local main is d994d34. Modern planet appearance is accepted in its dated report, while Windows shader timing/affected v2 checks remain pending. Overall player comprehension/input, balance, other-platform and release acceptance remain separate. See [PROJECT_STATUS.md](PROJECT_STATUS.md) for evidence scopes and current next work.
 
-The approved [plague-first design](docs/superpowers/specs/2026-10-24-colony-crises-plague-design.md) and [14-task implementation plan](docs/superpowers/plans/2026-10-25-colony-crises-plague.md) are integrated into local `main` after independent review and corrections. M6-I and CRI-AC-001..011 are Verified for local automated scope. See [validation](reports/CRISIS_VALIDATION_2026-10-25.md), [review corrections](reports/CRISIS_REVIEW_CORRECTIONS_2026-10-25.md), and [fresh main integration](reports/CRISIS_INTEGRATION_2026-10-25.md). Human, platform and delivery acceptance remain open.
-
-Historical evidence remains in the [adoption audit](reports/ADOPTION_AUDIT.md), [First Playable continuation](reports/FIRST_PLAYABLE_VALIDATION_2026-10-22.md), [expansion integration](reports/EXPANSION_INTEGRATION_2026-10-23.md), [species integration](reports/SPECIES_INTEGRATION_2026-10-24.md), [rival integration](reports/RIVAL_INTEGRATION_2026-10-24.md), and [rival correction integration](reports/RIVAL_POLISH_INTEGRATION_2026-10-24.md). Their older versions/counts describe those checkpoints.
+Civilian [supply and migration behavior](docs/superpowers/specs/2026-11-16-supply-and-migration-design.md) is approved in its recorded scope; the [concrete implementation plan](docs/superpowers/plans/2026-11-16-civilian-logistics-and-migration.md) is ready for review, with later resource/fleet/interception deliveries separate. No tactical battlefield, generalized shipping network or migration system is claimed implemented.
 
 ## Build and run
 
-Use Godot **4.7.2 .NET**, the version referenced by `OpenAntares.csproj`. The projects target .NET 8; the adoption baseline used .NET SDK 10.0.113 and runtime 8.0.32 on Windows x64. A clean-machine install and other platforms have not been verified.
+Use Godot **4.7.2 .NET** and the installed .NET SDK compatible with the project's .NET8 targets. Open project.godot and run the project with F5. Clean-machine installation and target platforms other than the recorded Windows environment are not established by these instructions.
+
+Use the [native shared test queue](docs/TEST_RUNNER.md) for necessary noninteractive builds/tests; do not start Docker. From the active checkout, a solution build is:
 
 ```powershell
-dotnet restore OpenAntares.sln
-dotnet build OpenAntares.sln --no-restore --nologo --disable-build-servers
-dotnet test tests/OpenAntares.Simulation.Tests/OpenAntares.Simulation.Tests.csproj --no-restore --no-build --nologo
+.\tools\Test-Queued.ps1 -Suite build
 ```
 
-Open `project.godot` in the Godot .NET editor and run `game/Main.tscn`. With the Godot console executable on PATH, a startup check is:
+For a linked worktree, pass its actual source root to the primary wrapper:
 
 ```powershell
-godot --headless --path . --quit-after 60 -- --new-game=small:42
+& 'F:/Projects-PCGames/OpenAntares/tools/Test-Queued.ps1' -SourceRoot 'C:/path/to/active/worktree' -Suite build
 ```
 
-`--new-game=SIZE:SEED` is a development launch option after `--`; supported sizes are `small`, `medium`, and `large`. Saves use Godot's `user://saves` directory. Preserve existing saves and use distinct `qa-...` names for tests.
+Run only checks needed for the changes. The wrapper's default test invocation runs the full simulation project and requires the owner's explicit request. Other necessary noninteractive heavy commands use runner.py exec --project openantares; see TEST_RUNNER.md for source/evidence requirements and focused workers.
 
-For retained Godot control/layout/save regressions, see [the opt-in graphical validation runner](tests/OpenAntares.Game.Validation/README.md). For the remaining human understanding check, use [the observer sheet](docs/playtests/first-playable-observer-sheet.md).
+Development launch supports --new-game=SIZE:SEED after --, with small/medium/large sizes. Saves use Godot user://saves. Preserve existing saves and use distinct QA names when testing. For player observation use the [M14 journeys](docs/playtests/m14-player-acceptance-2026-11-08.md) and feature-specific handoffs; dated results remain tied to their tested source.
 
 ## Repository
 
@@ -44,14 +42,10 @@ For retained Godot control/layout/save regressions, see [the opt-in graphical va
 ## Documentation
 
 - [Agent instructions](AGENTS.md) and [existing engineering rules](CLAUDE.md)
+- [Current design guide](docs/DESIGN_GUIDE.md) and [supply/migration proposal](docs/superpowers/specs/2026-11-16-supply-and-migration-design.md)
 - [Project concept](docs/PROJECT_CONCEPT.md), [architecture](docs/ARCHITECTURE.md), and [decision records](docs/DECISIONS/README.md)
 - [Specifications](docs/SPECIFICATIONS.md) and [acceptance criteria](docs/ACCEPTANCE_CRITERIA.md)
 - [Implementation plan](docs/IMPLEMENTATION_PLAN.md) and [validation report](reports/VALIDATION_REPORT.md)
 - [Project workflow](docs/PROJECT_WORKFLOW.md), [adoption prompt](docs/MASTER_PROJECT_ADOPTION_PROMPT.md), and [implementation prompt](docs/MASTER_IMPLEMENTATION_PROMPT.md)
 
 Code and content JSON are MIT; original assets are CC0; documentation is CC BY 4.0. See [LICENSING.md](LICENSING.md).
-
-[Current colony correction report](reports/COLONY_POLISH_2026-10-24.md): truthful historical counts, scrollable template-reference diagnostics and distinct routine Attention are implemented; latest economic turn reports are explicitly session-local while governor history remains saved. Final gate/review/integration pending.
-
-
-Historical M5 correction closure (2026-10-24): all three authorized presentation fixes and the fresh review duplicate-vessel correction are verified and locally integrated. Functional source4a2e430 passes988 simulation tests; Colony665 assertions+4 provenance; Rival1146+12 provenance; Species1194; Expansion275; Legacy466+27 geometry. Fresh main Suite/Colony/normal rebuild/five harness exclusions pass separately. All twelve COL child criteria and M5-I are Verified for local automated/design scope. Parent REQ-017 and17-row totals remain12 Verified/3 Implemented, Unverified/1 In Progress/1 Deferred. See PROJECT_STATUS.md and reports/COLONY_POLISH_INTEGRATION_2026-10-24.md. Human/platform/delivery/release limits remain open. Next is bounded milestone selection/specification; no automatic implementation or cleanup.

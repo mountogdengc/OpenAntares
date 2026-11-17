@@ -1,3 +1,23 @@
+# Current requirement index — 2026-11-16
+
+The [design guide](DESIGN_GUIDE.md) is the current overview; versioned subsystem specifications retain exact contracts. Rules12/writer13 are implemented. The dated checkpoint register below is retained history, including superseded proposed/Not Started child tables. The following current disposition takes precedence for those slices, without broadening the source scope of their evidence.
+
+| Contract group | Current disposition | Authority |
+| --- | --- | --- |
+| Expansion/species/rivals/development/crises/scouting | Implemented, with recorded local automated acceptance and prior corrections/integration | [Guide's subsystem index](DESIGN_GUIDE.md#current-implemented-strategic-game) and linked specifications/reports |
+| FLT / CBT / SHP / DIP / ECF | Implemented and integrated; recorded local automated acceptance, not fresh current-checkout tests | [Guide](DESIGN_GUIDE.md), [combined conflict/UI integration](../reports/EMPIRE_CONFLICT_UI_INTEGRATION_2026-11-04.md) |
+| M13 | Implemented; recorded final automated acceptance, human observations pending | [Final report](../reports/M13_IMPLEMENTATION_2026-11-07.md), [integration](../reports/M13_M14_INTEGRATION_2026-11-09.md) |
+| M14 and later UI/globes | Implemented; overall human acceptance remains open; v2 Windows checks/performance pending | [Current status](../PROJECT_STATUS.md), [v2 report](../reports/planet-globes-v2-2026-11-15/PLANET_GLOBES_V2_2026-11-15.md) |
+| LOG-001..010 | Civilian behavior approved within ADR-031 scope; concrete civilian plan under review; implementation Not Started, later details proposed | [Design](superpowers/specs/2026-11-16-supply-and-migration-design.md), [civilian plan](superpowers/plans/2026-11-16-civilian-logistics-and-migration.md), [ADR-031](DECISIONS/ADR-031-approved-civilian-logistics-direction.md) |
+
+Parent REQ-001..017 statuses/totals remain12 Verified /3 Implemented, Unverified /1 In Progress /1 Deferred. In particular REQ-017 remains In Progress; implemented subsystems do not establish completion of the strategic game. LOG is a proposed child scope, not a new parent row. Current limits/next actions are in PROJECT_STATUS.md.
+
+## Historical requirement/checkpoint register
+
+Original definitions and stable IDs below remain available. Their dated checkpoint statuses do not override the current disposition above. Numerical rules in approved subsystem specifications remain versioned contracts.
+
+---
+
 **Current M12 acceptance, 2026-11-03:** M12-P/M12-I and ECF-AC-001..012 Verified for approved local automated/design scope on retained `codex/empire-conflict`, product `8cfe8a3`. Default12/writer13/79 pairs active; genuine old rules unchanged. Windows2402/2402 and all12 native scenarios pass with zero diagnostics; four actual Main campaigns retain7 stages/3 futures and expiry. Final evidence gate passes. Owner authorized local rendered execution without VM and explicitly accepted the documented loss of3 historical diagnostic logs;8,219 other original QA files, all saves/screenshots/owner prose/stashes/ref names/11 worktrees and121 frozen rules11 files preserved. Exactly one implementation review; no second review. [Acceptance report](../reports/EMPIRE_CONFLICT_ACCEPTANCE_2026-11-03.md). Human/platform/balance/security/delivery/release gates remain separate;17 parent rows/totals and prior bodies below retain their historical scopes. No integration/push/release/cleanup.
 
 **M12 implementation checkpoint,2026-10-31 — required native gates pending:** The approved plan is implemented through the conflict engine, persistence, AI and UI on isolated `codex/empire-conflict`; the corrected Windows simulation suite passes2400/2400, with one independent whole-implementation review and a regression-first correction pass. Four paid engine rehearsals have all7 saved phases/3 futures and expiry proof; they are not native/Main acceptance. Expanded native control and earned Main harnesses compile, but their runtime, the complete12-scenario matrix, Task20 default activation and Task22 final closure remain required and unverified. Default New Game stays rules11; explicit12/writer13/79 support is present. No merge/push/release/cleanup. See the [source-scoped execution report](../reports/EMPIRE_CONFLICT_VALIDATION_2026-10-31.md) and its consolidated VM/physical checklist. Prior checkpoints below retain their historical source and status scopes;17 parent rows/totals and existing peaceful prose are unchanged.
@@ -44,7 +64,7 @@ Status vocabulary: Not Started / In Progress / Implemented, Unverified / Verifie
 | REQ-014 | Understandable, meaningful First Playable choices | Essential / First Playable acceptance | Deferred | AC-014 |
 | REQ-015 | Exploration, travel, and a second colony | Implemented expansion / local automated acceptance | Verified | AC-015 |
 | REQ-016 | Distinct playable species | Species slice / local automated acceptance | Verified | AC-016 |
-| REQ-017 | Remaining complete strategic game | M4-I Verified locally; M5-P review; rest later | In Progress | AC-017 |
+| REQ-017 | Remaining complete strategic game | Strategic subsystems through conflict implemented; further completion/acceptance open | In Progress | AC-017 |
 
 ## Functional contracts
 

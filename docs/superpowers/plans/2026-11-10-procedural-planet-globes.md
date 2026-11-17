@@ -1,3 +1,5 @@
+**Current disposition,2026-11-16:** The planned feature was implemented and subsequently committed. See [current status](../../../PROJECT_STATUS.md) and [v2 report](../../../reports/planet-globes-v2-2026-11-15/PLANET_GLOBES_V2_2026-11-15.md) for the later shader revision and remaining Windows checks. The November12 counts/timings below retain their original source scope; old uncommitted/prototype/task statements are historical. Do not replay completed tasks or apply v1 acceptance to v2 shader cost.
+
 # Procedural Planet Globes Implementation Plan
 
 > **For agentic workers:** Use `superpowers:executing-plans` to implement this plan task by task, inline. The project's retained execution preference is native inline work without per-task agents. Checkboxes track implementation, not approval or acceptance.

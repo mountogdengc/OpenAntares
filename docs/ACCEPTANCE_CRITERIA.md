@@ -1,3 +1,26 @@
+# Current acceptance index — 2026-11-16
+
+Required evidence is distinct from evidence that actually ran. The [current design guide](DESIGN_GUIDE.md) and [project status](../PROJECT_STATUS.md) supersede older checkpoint next actions below; dated validation reports retain their exact source, scope and limitations.
+
+| Scope | Current acceptance position |
+| --- | --- |
+| Existing strategic subsystems through ECF | Recorded local automated/design acceptance and integration; no fresh current-source gameplay run in this reconciliation |
+| M13 | Final automated acceptance recorded in [M13 report](../reports/M13_IMPLEMENTATION_2026-11-07.md); overall human observations remain pending |
+| M14/UI follow-ups | Implemented/integrated with focused evidence; overall physical-input/comprehension acceptance remains pending |
+| November12 globe implementation | Historical699 focused checks and bounded rendering measurements in [original report](../reports/PLANET_GLOBES_IMPLEMENTATION_2026-11-10.md); these do not validate November15 shader cost/parity |
+| November15 globe v2 | Owner accepted appearance in [v2 report](../reports/planet-globes-v2-2026-11-15/PLANET_GLOBES_V2_2026-11-15.md); Windows ANGLE compilation/performance and affected feature checks remain pending |
+| Supply/migration | Civilian behavior approval Verified only for [ADR-031 scope](DECISIONS/ADR-031-approved-civilian-logistics-direction.md); full broader LOG-AC-011 still In Progress. LOG-AC-001..010 Not Started. The [civilian plan](superpowers/plans/2026-11-16-civilian-logistics-and-migration.md) awaits review; [proposed functional criteria](superpowers/specs/2026-11-16-supply-and-migration-design.md#proposed-acceptance-criteria) remain future evidence obligations |
+
+Parent17-row totals/statuses are unchanged:12 Verified /3 Implemented, Unverified /1 In Progress /1 Deferred. Open physical/comprehension/accessibility, balance, platform, security and delivery/release scopes remain open. No milestone is closed by document edits or by isolated appearance approval.
+
+Verification follows the owner rule: smallest directly affected checks, native shared queue, actual active source root, no Docker and no full suite without an explicit owner request. This edit runs only document/link/preservation checks; no gameplay acceptance is rerun.
+
+## Historical criteria and execution checkpoints
+
+Retain stable criteria/procedures and source-scoped results below. Later current summaries supersede their earlier planning/Not Started language, not the underlying acceptance obligations.
+
+---
+
 **Current M12 acceptance, 2026-11-03:** M12-P/M12-I and ECF-AC-001..012 Verified for approved local automated/design scope on retained `codex/empire-conflict`, product `8cfe8a3`. Default12/writer13/79 pairs active; genuine old rules unchanged. Windows2402/2402 and all12 native scenarios pass with zero diagnostics; four actual Main campaigns retain7 stages/3 futures and expiry. Final evidence gate passes. Owner authorized local rendered execution without VM and explicitly accepted the documented loss of3 historical diagnostic logs;8,219 other original QA files, all saves/screenshots/owner prose/stashes/ref names/11 worktrees and121 frozen rules11 files preserved. Exactly one implementation review; no second review. [Acceptance report](../reports/EMPIRE_CONFLICT_ACCEPTANCE_2026-11-03.md). Human/platform/balance/security/delivery/release gates remain separate;17 parent rows/totals and prior bodies below retain their historical scopes. No integration/push/release/cleanup.
 
 **M12 implementation checkpoint,2026-10-31 — required native gates pending:** The approved plan is implemented through the conflict engine, persistence, AI and UI on isolated `codex/empire-conflict`; the corrected Windows simulation suite passes2400/2400, with one independent whole-implementation review and a regression-first correction pass. Four paid engine rehearsals have all7 saved phases/3 futures and expiry proof; they are not native/Main acceptance. Expanded native control and earned Main harnesses compile, but their runtime, the complete12-scenario matrix, Task20 default activation and Task22 final closure remain required and unverified. Default New Game stays rules11; explicit12/writer13/79 support is present. No merge/push/release/cleanup. See the [source-scoped execution report](../reports/EMPIRE_CONFLICT_VALIDATION_2026-10-31.md) and its consolidated VM/physical checklist. Prior checkpoints below retain their historical source and status scopes;17 parent rows/totals and existing peaceful prose are unchanged.

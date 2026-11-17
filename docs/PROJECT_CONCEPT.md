@@ -1,38 +1,38 @@
 # OpenAntares project concept
 
-Current continuation (2026-10-24): the owner subsequently approved the rival plan with continue. All ten Native plan tasks/review are complete on isolated codex/rival-expansion (rules4/writer5), source ce6c29c. Final gates pass; one Important correction is verified and two Minor acceptance deviations remain Deferred. [PROJECT_STATUS](../PROJECT_STATUS.md) governs the next action. Earlier planning-only statements below are historical. The owner subsequently chose option1: local main integration is complete at70e91d9 and combined verification passes; see current project status. Push/release/cleanup remain separate owner actions.
-
-
-Reconciled 2026-10-22 from [CHARTER.md](CHARTER.md). This is an adoption summary of the existing project, not a new product proposal.
+Reconciled 2026-11-16 from the [charter](CHARTER.md), implemented subsystem specifications and inspected local Git history. This is the current product summary; exact formulas and evidence remain in their versioned sources.
 
 ## Identity and outcomes
 
-- **Name:** OpenAntares (the repository's established spelling).
-- **Type:** Existing application; original open-source turn-based space 4X game.
-- **Opportunity:** Provide meaningful strategic decisions, understandable consequences, distinct civilizations, and extensible content without mandatory busywork or a dependency on nostalgia.
-- **Users:** Desktop strategy players; later content creators and contributors. No narrower audience or commercial plan is established.
-- **Platforms:** Windows, Linux, macOS. Web is excluded by existing project guidance.
+- **Name:** OpenAntares.
+- **Type:** Original open-source, turn-based space 4X strategy game.
+- **Experience:** Meaningful choices, understandable consequences, distinct civilizations and manageable empires, with an original setting and visual identity.
+- **Users:** Desktop strategy players; later content creators and contributors.
+- **Platforms:** Windows, Linux and macOS are targets; Windows is the recorded native development environment. Web is excluded. Targeting a platform is not release verification.
 - **Loop:** Explore, expand, develop, research, negotiate, build, compete, adapt.
-- **Creative tone:** A love letter to Master of Orion II and classic space opera. Colorful humanoid animals/monsters and fanciful biology are welcome; designs respect real peoples, cultures and religions.
+- **Creative tone:** Colorful original space opera; humanoid animals, monsters and fanciful biology are welcome. Respect real peoples, cultures and religions.
 
-The supplied OpenJRPG workflow is a reusable process reference. Its RPG systems, authoring tools, package policies, and ADR-014/015 are not OpenAntares decisions. No engine rename, rewrite, or new framework is needed for this adoption.
+## Current scope
 
-## Scope
-
-| Classification | Established scope |
+| Classification | Current position |
 | --- | --- |
-| Essential now | The charter's eleven First Playable actions: new game, galaxy generation/map, star/planet inspection, one colony, workforce, production, research, end turn, visible advancement, save/reload |
-| Active milestone | M5-P colony-development plan review: full design approved in ADR-012; twelve-task plan written/self-reviewed, owner plan review pending. M4-I locally verified/integrated; M5 implementation Not Started |
-| Later version 1.0 | Multiple civilizations, AI, fleets/ships/design, strategic warfare, diplomacy, events, setup options, victory/defeat, broader technology and development |
+| Implemented foundation | New game, seeded galaxy, inspection, workforce/economy, research, deterministic turns and save/load |
+| Implemented strategic extensions | Exploration/founding, four species, rival expansion, colony development, crises, scout survival, fleets/officers, strategic combat, ship design/refits, diplomacy and empire conflict |
+| Implemented presentation | M13/M14 UI and campaign polish, shared fleet/selection controls, orbital system inspection and procedural planets |
+| Current branch follow-up | November 15 modern planet shaders on feature/planet-globes-modern, beyond local main d994d34; appearance accepted in its report, Windows performance/affected checks pending |
+| Current gameplay design | Proposed civilian/fleet supply and migration; concrete assistant defaults await owner review, implementation Not Started |
+| Further design/acceptance | Victory/defeat completion, broader events/content, balance, custom civilizations and deferred peaceful mode |
 | Optional | Tactical combat only if it does not impede completing the strategic game |
-| Excluded initially | Real-time strategy, MMO/persistent online world, proprietary backend dependence, mandatory online single-player, copied commercial assets or interfaces |
+| Excluded initially | Real-time strategy, persistent MMO, proprietary-backend dependence, mandatory online single-player and copied commercial assets/interfaces |
 
-[SPECIES_ROSTER.md](SPECIES_ROSTER.md) records the original Peldra, Harl, Sulan and Wenth creative starting point; current owner edits remain preserved. The owner permitted creative changes under ADR-007 and subsequently approved the full [species mechanics](superpowers/specs/2026-10-23-species-mechanics-design.md) in [ADR-008](DECISIONS/ADR-008-approved-species-mechanics.md). That rules3 amendment governs implemented mechanics without rewriting historical roster text. The owner approved the [implementation plan](superpowers/plans/2026-10-23-species-mechanics.md); [execution evidence](../reports/SPECIES_VALIDATION_2026-10-23.md) and the final review report describe actual local acceptance. New games visibly default to Harl; old campaigns retain their original rules/content.
+[DESIGN_GUIDE.md](DESIGN_GUIDE.md) is the readable current overview. The [supply/migration proposal](superpowers/specs/2026-11-16-supply-and-migration-design.md) develops the [November 12 directions](design-notes/2026-11-12-tactical-combat-and-supply-management.md). Recording it does not authorize gameplay changes or assign a new numbered milestone.
 
-## Constraints and success
+## Constraints and acceptance
 
-Use the existing C#/Godot .NET architecture, headless deterministic simulation, commands, stable IDs, data-defined content, and theme-based UI. See [ARCHITECTURE.md](ARCHITECTURE.md) and [CLAUDE.md](../CLAUDE.md). Code/content are MIT; original assets CC0; docs CC BY 4.0.
+Retain C#/Godot .NET presentation, a headless deterministic simulation, ordinary empire commands, stable IDs, JSON content and shared-theme UI. Current source uses rules 12 and writer 13; previous saves retain their embedded behavior. No rules or schema version changes are part of this documentation work.
 
-First Playable succeeds when all eleven actions work, saved games continue consistently, consequences are understandable, and workforce/project choices are meaningful in play. Technical tests alone do not establish enjoyment or comprehension. [Acceptance criteria](ACCEPTANCE_CRITERIA.md) provide measurable checks without changing the existing rules.
+The four species are Peldra, Harl, Sulan and Wenth. Their [mechanical specification](superpowers/specs/2026-10-23-species-mechanics-design.md) governs implemented behavior; the [roster](SPECIES_ROSTER.md) retains creative background. Wenth colonies are individual bodies, a material constraint for future migration.
 
-Budget, schedule, hardware minimums, packaging/update policy, performance budgets, localization coverage, and accessibility targets are not established in the inspected documents. Record them as later decisions where relevant; do not invent delivery commitments.
+Acceptance remains source- and scope-specific. M13 has recorded automated acceptance, and M13/M14 integration is recorded; overall human comprehension/input acceptance remains open. Later visual acceptance and tests cover only their reported feature/source. See [acceptance criteria](ACCEPTANCE_CRITERIA.md) and [current status](../PROJECT_STATUS.md). No fresh game tests ran for this reconciliation.
+
+Code/content are MIT, original assets CC0 and docs CC BY 4.0; third-party licenses/provenance remain intact. Budget, schedule, minimum hardware, delivery/update policy, localization and accessibility targets have not been established here. The adopted project workflow does not import another project's product requirements.

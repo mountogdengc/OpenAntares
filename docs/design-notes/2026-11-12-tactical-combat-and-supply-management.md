@@ -1,3 +1,5 @@
+**Continuation,2026-11-16:** The [supply/migration proposal](../superpowers/specs/2026-11-16-supply-and-migration-design.md) now supplies concrete assistant defaults for review. This note remains the source for owner-selected directions; neither the new numbers nor tactical/interception implementation is approved by recording it.
+
 # Tactical combat and supply management directions
 
 2026-11-12. **Status: Recorded owner direction.** The owner requested adding the combat ideas discussed together and a supply management layer. The direction is accepted for design work; the exact rules, resource scope, defaults and implementation sequence still need a bounded specification. This note extends the earlier [fleet intent](2026-10-24-delegation-crises-and-fleet-intent.md) and [combat retreat](2026-10-27-combat-retreat-morale-and-damaged-ships.md) notes.
